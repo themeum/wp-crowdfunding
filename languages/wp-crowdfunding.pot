@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WP Crowdfunding\n"
-"POT-Creation-Date: 2019-04-25 10:48+0600\n"
-"PO-Revision-Date: 2019-04-25 10:48+0600\n"
+"POT-Creation-Date: 2019-04-25 15:25+0600\n"
+"PO-Revision-Date: 2019-04-25 15:25+0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2128,15 +2128,19 @@ msgstr ""
 msgid "Campaign already completed."
 msgstr ""
 
-#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:118
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:119
 msgid "Reward is not valid."
 msgstr ""
 
-#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:129
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:121
+msgid "Campaign is not started."
+msgstr ""
+
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:133
 msgid "backers"
 msgstr ""
 
-#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:135
+#: wpneotemplate/woocommerce/basic/include/tabs/rewards-sidebar-form.php:139
 msgid " rewards left"
 msgstr ""
 

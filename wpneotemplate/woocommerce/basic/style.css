@@ -622,6 +622,10 @@ h2.wpneo-campaign-title{
     font-weight: bold;
     margin: 0;
 }
+.wpcrowd-admin-meta-info .funding-amount{
+    display: inline-block;
+    margin-bottom: 0;
+}
 .campaign-funding-info ul li span.info-text{
     font-size: 12px;
 }

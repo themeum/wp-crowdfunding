@@ -115,7 +115,11 @@ if (is_array($campaign_rewards_a)) {
 										<?php if( WPNEOCF()->is_reach_target_goal() ){ ?>
 											<?php _e('Campaign already completed.', 'wp-crowdfunding'); ?>
 										<?php }else{ ?>
-											<?php _e('Reward is not valid.', 'wp-crowdfunding'); ?>
+											<?php if (WPNEOCF()->is_campaign_started()){ ?>
+												<?php _e('Reward is not valid.', 'wp-crowdfunding'); ?>
+											<?php }else{ ?>
+												<?php _e('Campaign is not started.', 'wp-crowdfunding'); ?>
+											<?php } ?>
 										<?php } ?>
 									</span>
                                 </div>
