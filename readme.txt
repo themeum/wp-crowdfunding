@@ -16,7 +16,7 @@ WP Crowdfunding is a WooCommerce based plugin that empowers anyone to create a c
 [youtube https://www.youtube.com/watch?v=jHJBV2MbgBw]
 
 Please read the documentation.
-[Documentation](https://www.themeum.com/docs/installing-wp-crowdfunding/)
+[Documentation](https://www.themeum.com/docs/wp-crowdfunding-introduction/)
 
 > Try WP Crowdfunding
 > [http://try.themeum.com/plugins/wp-crowdfunding/](http://try.themeum.com/plugins/wp-crowdfunding/)
