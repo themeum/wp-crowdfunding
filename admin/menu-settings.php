@@ -29,7 +29,7 @@ function wpneo_crowdfunding_settings_generate_field( $arr ){
                             $output .= '<option value="'.$key.'" '.( $key == $campaign_status ? "selected":"" ).'>'.$val.'</option>';
                         }
                     }
-                    $output .= ' </select>';
+                    $output .= '</select>';
                     if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
                     $output .= '</td>';
                     $output .= '</tr>';
@@ -267,8 +267,11 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
 
             $wpneo_default_campaign_status = sanitize_text_field(wpneo_post('wpneo_default_campaign_status'));
             wpneo_crowdfunding_update_option_text('wpneo_default_campaign_status', $wpneo_default_campaign_status);
+            
+	        $wpneo_campaign_edit_status = sanitize_text_field(wpneo_post('wpneo_campaign_edit_status'));
+	        wpneo_crowdfunding_update_option_text('wpneo_campaign_edit_status', $wpneo_campaign_edit_status);
 
-            $wpneo_show_min_price = sanitize_text_field(wpneo_post('wpneo_show_min_price'));
+	        $wpneo_show_min_price = sanitize_text_field(wpneo_post('wpneo_show_min_price'));
             wpneo_crowdfunding_update_option_checkbox('wpneo_show_min_price', $wpneo_show_min_price);
 
             $wpneo_show_max_price = sanitize_text_field(wpneo_post('wpneo_show_max_price'));
@@ -492,7 +495,6 @@ function neo_crowdfunding_go_premium(){
     $html .= '</ul>';
 
 
-
     $html .= '<a target="_blank" href="https://www.themeum.com/product/wp-crowdfunding-plugin/" class="wpneo-buynow">Buy WP Crowdfunding Premium Now >></a>';
     $html .= '</div>';
 
@@ -532,6 +534,7 @@ function wpneo_custom_css(){
                         .wpneo_login_form_div #wp-submit,
                         .wpneo-submit-campaign,
                         input[type="button"].wpneo-image-upload,
+                        input[type="button"]#search-submit,
                         #addreward,input[type="submit"].wpneo-submit-campaign,
                         .dashboard-btn-link,.label-primary,
                         .btn-style1,#wpneo-tab-reviews .submit,.dashboard-head-date input[type="submit"],
@@ -566,7 +569,7 @@ function wpneo_custom_css(){
                         .wpneo-links li a:hover, .wpneo-links li.active a,#neo-progressbar > div {
                             background-color: '.$color_scheme.';
                         }
-                        .wpneo-dashboard-summery ul li.active {
+                        .wpneo-dashboard-summary ul li.active {
                             background: '.$color_scheme.';
                         }
                         .wpneo-tabs-menu li.wpneo-current {
@@ -576,7 +579,7 @@ function wpneo_custom_css(){
                         .wpneo-pagination ul li span.current {
                             border: 2px solid '.$color_scheme.';
                         }
-                        .wpneo-dashboard-summery ul li.active:after {
+                        .wpneo-dashboard-summary ul li.active:after {
                             border-color: '.$color_scheme.' rgba(0, 128, 0, 0) rgba(255, 255, 0, 0) rgba(0, 0, 0, 0);
                         }
                         .wpneo-fields input[type="email"]:focus,
@@ -608,9 +611,7 @@ function wpneo_custom_css(){
                         }';
 
             list($r, $g, $b) = sscanf( $color_scheme, "#%02x%02x%02x" );
-            $style .=  '.tab-rewards-wrapper .overlay {
-                            background: rgba('.$r.','.$g.','.$b.',.95);
-                        }';
+            $style .=  '.tab-rewards-wrapper .overlay { background: rgba('.$r.','.$g.','.$b.',.95); }';
         }
 
         if( $custom_css ){ $style .= $custom_css; }

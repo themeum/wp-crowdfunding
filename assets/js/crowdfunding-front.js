@@ -109,17 +109,22 @@ jQuery(document).ready(function($){
         return false;
     }
 
+
+    $( document ).on('click', '.wpcf-print-button', function (e) {
+        window.print();
+    });
+
     // Common Modal Function
-    function wpneo_crowdfunding_modal(data){
+    function wpneo_crowdfunding_modal( data, print = false ){
         var data = JSON.parse(data);
         var html = '<div class="wpneo-modal-wrapper"> ' +
             ' <div class="wpneo-modal-content"> ' +
             '<div class="wpneo-modal-wrapper-head">' +
-            '<h4 id="wpneo_crowdfunding_modal_title">Message</h4><a href="javascript:;" class="wpneo-modal-close">&times;</a>' +
-            '</div>' +
-            '<div class="wpneo-modal-content-inner"><div id="wpneo_crowdfunding_modal_message"></div></div>' +
-            '</div>' +
-            '</div>';
+            '<h4 id="wpneo_crowdfunding_modal_title">Message</h4><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
+            if( print ){
+                html += '</div><span class="wpcf-print-button button">print</span>';
+            }
+            html += '<div class="wpneo-modal-content-inner"><div id="wpneo_crowdfunding_modal_message"></div></div></div></div>';
         if ($('.wpneo-modal-wrapper').length == 0){
             $('body').append(html);
             if (data.redirect){
@@ -435,13 +440,13 @@ jQuery(document).ready(function($){
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error'})
+                wpneo_crowdfunding_modal({'success':0, 'message':'Error'});
             }
         });
     });
     
     var image = $('input[name=wpneo-form-image-url]').val();
-    if(image!='' && image>0){
+    if( image!='' ){
         $('#wpneo-image-show').html('<img width="150" src="'+image+'" />');
     }
     $(document).on('click','.media-button-insert',function(e){
@@ -513,7 +518,7 @@ jQuery(document).ready(function($){
             url: wpcf_ajax_object.ajax_url,
             data: { 'action': 'wpcf_order_action', 'orderid': orderid },
             success:function(data){
-                wpneo_crowdfunding_modal(data);
+                wpneo_crowdfunding_modal( data, true );
             },
             error: function(jqXHR, textStatus, errorThrown){
                 wpneo_crowdfunding_modal({'success':0, 'message':'Error'})

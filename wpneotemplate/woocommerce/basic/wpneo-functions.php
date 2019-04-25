@@ -121,8 +121,8 @@ function wpneo_bio_campaign_action(){
 		if ( ! empty($user_info['profile_twitter'][0])){
 			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_twitter"][0].'"><i class="wpneo-icon wpneo-icon-twitter"></i></a>';
 		}
-		if ( ! empty($user_info['profile_plus'][0])){
-			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_plus"][0].'"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
+		if ( ! empty($user_info['profile_vk'][0])){
+			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_vk"][0].'"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
 		}
 		if ( ! empty($user_info['profile_linkedin'][0])){
 			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_linkedin"][0].'"><i class="wpneo-icon wpneo-icon-linkedin"></i></a>';

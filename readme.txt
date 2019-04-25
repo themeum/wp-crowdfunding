@@ -3,8 +3,8 @@ Contributors: themeum,kawshar, mhshohel, jakirhasan, anik4e, fahimmurshed
 Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online sell, e-commerce, paypal, shop, indiegogo, invest, fund collecting, crowd, marketplace, crowd funding, crowdfund, charity, donate, fundraising plugin, paypal donation, stripe donation, wordpress crowdfunding plugin, adaptive payment, split payment, paypal adaptive, stripe split, stripe connect
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
-Tested up to: 5.0
-Stable tag: 1.8.6
+Tested up to: 5.1
+Stable tag: 1.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,155 +124,37 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
-= 1.0 =
-* Initial version released
+= 1.8.8 - 25 April, 2019 =
 
-= 1.1 =
-* PHP 5.2.17 compatibility
-* Minor bug fix
+* Updated: WPML support added
+* Updated: Day to go condition
+* Fixed: Translate mistake
+* Fixed: Spelling mistake
+* Fixed: Search shortcode bug
+* Fixed: Empty image problem in profile
+* Fixed: Non-crowdfunding product coupon problem
+* Fixed: User profile issue
+* Fixed: Days counter issue fixed
 
-= 1.2 =
-* Minor bug fix
+= 1.8.7 - 12 March, 2019 =
 
-= 1.3 =
-* Minor bug fix
+* Added campaign status change after edit/modify the campaign from dashboard based on settings
+* Fixed: Initial plugin activation error through
+* Fixed: Individual product show amount field after check sold product individually when wp-crowdfunding is activated
+* Fixed: WC()->session null issues
+* Fixed: Few known bugs
 
-= 1.4 =
-* Changed some template file structure, button color from backend, fixed some minor bug
+= 1.8.6 =
 
-= 1.5 =
-* Native wallet system has been added in the pro version.
-* Fixed initial campaign permission setup during plugin setup.
-* Fixed some bug, performance improved
+* Fixed an issue after update 1.8.5 (Recaptcha not found)
 
-= 1.6.0 =
-* Fixed front page listing pagination bug.
-* admin settings tab fixed. and other bug fixed
+= 1.8.5 =
 
-= 1.6.1 =
-* Supported WooCommerce native single page for the campaign details.
-* Fixed Some Bug
-
-= 1.6.2 =
-* Fix $this variable issue in the campaign edit page
-
-= 1.6.3 =
-* Fixed a bug in getting user roles. We placed $roles  = get_editable_roles(); in the tab-general.php
-
-= 1.6.4 =
-* WooCommerce 3.0 compatibility issue fixed, as well backword version of WooCommerce support added.
-
-= 1.6.5 =
-* Remove Deprecated Method,
-* Removed Unused Reward from Session During Cart/Donation,
-* Permalink Plain Text Bug Fix,
-* Translation Bug Fix,
-* Reward Quantity Bug Fix,
-* Checkout Only Crowdfunding Cart Bug Fix
-
-= 1.6.6 =
-* Added a filter woocommerce_product_cf_meta_data in
-/plugins/wp-crowdfunding/includes/woocommerce/class-wpneo-frontend-hook.php, Removed all tfoot, Fixed a issue in
-PayPal Live payment issue, change ajax_object to wpcf_ajax_object,
-* added a prefix to /plugins/wp-crowdfunding/includes/woocommerce/class-wpneo-frontend-hook.php.
-
-= 1.6.7 =
-* Updated some minor broken link
-
-= 1.6.8 =
-* Updated wpcf_ajax_object in the crowdfunding-front.js files,
-* Fixed some bug.
-
-= 1.6.9 =
-* Iframe export / Embed Option Add
-* HTML Reward Support
-* Reward Unicode Supported
-* Billing Name Issue Fixed
-* Campaign Update Unicode Supported
-* Anonymous Checkout Problem
-* Remove Link From Promotional Page
-* Person Image Error Issue Fixed
-* Reward Responsive Issue Fixed
-* Date Support Arabic Date Transform
-* Currency Switcher Supports
-* Fraction Value Supports For Payments
-* Fixed some bug.
-
-= 1.7.0 =
-* Fixed a Social Share bug.
-* Performance Improved
-
-= 1.7.1 =
-* Wallet issue fixed
-* Profile image issue fixed
-* Translation Problem fixed
-* Dashboard completely redesigned
-* CSS issue fixed
-* Project status chart added
-
-= 1.7.2 =
-* Added Logout Link
-* Fixed some known bugs
-* Removed Unused Code
-
-= 1.7.3 =
-* Fixed a bug in dashboard reports
-* Performance Improved
-
-= 1.7.4 =
-* Fixed an error (Fatal error: Uncaught Error: Call to a member function get_type() on boolean) /wp-content/plugins/wp-crowdfunding/includes/woocommerce/class-wpneo-crowdfunding.php:726 new line if( ! $product_id ) return;
-
-= 1.7.5 =
-* Fixed an issue in user registration form redirect.
-
-= 1.7.6 =
-* Added email notification in WooCommerce way in pro version.
-
-= 1.7.7 =
-* Fix a bug in reward selecting where Backed campaign located
-
-= 1.8.0 =
-* Added: Predefined Donation Amount Placed in single campaign page
-* Added: Live update with license system in the Pro Version
-* Added: WooCommerce Email templating for send notification to backers, campaign owner, admin
-* Added: Single product shortcode, now campaign single page can placed to any posts, pages or any others places
-* Added: Campaign preview box shortcake
-* Added: Add-on to pay campaign owner 100%, (Using PayPal standard)
-* Added: Dynamic Redirect Url after registration success
-* Fixed: Spelling mistake in crowdfunding dashboard
-* Fixed: HTML Tag bug on single page
-* Fixed: Withdraw button at wallet add-on
-* Fixed: Accessing some static id to method, example => Replaced $order->id with $order->get_id()
-* Fixed: Bug at Stripe Connect API
-* Fixed: http issue in https website
-* Fixed: Some spacing
-* Fixed: Dashboard Bug
-
-= 1.8.1 =
-* Fixed: an issue with email class in add-on email
-
-= 1.8.2 =
-* Fixed: reCaptcha Addon
-
-= 1.8.3 =
-
-* Added: Admin can now review backers profile
-* Added: Single File Templating Overwriting in Theme (wpneotemplate)
-* Added: Crowdfunding own category
-* Added: License Expire Date
-* Fixed: Placing predefined donate amount after comma separator
-* Fixed: Spelling Plages to Pledges
-* Fixed: User can't modify submitted campaign
-* Fixed: Short-code does not work in campaign single page
-* Fixed: Few translate issue in wpneotemplate
-* Fixed: The HTML issue Reward sidebar
-* Fixed: Frontpage My Profile profile picture button hide the Upload button when user is not in edit mode
-* Fixed: Image upload bug, `$user_signon = wp_signon( $info, false );` to `$user_signon = wp_signon( $info, true );`
-* Fixed: submit-form.php, $meta_count = $reward_data_array; replaced with $meta_count = is_array($reward_data_array) ?
-count($reward_data_array) : 0; (PHP 7.0 compatible)
-* Fixed: Embed code does not work in campaign single page
-* Fixed: Change License Page Form Field Name
-* Renamed: Two Button Name in report export button
+* Contributor’s name as Anonymous issue
+* 2checkout payment Vendor.js issue
+* Displaying selected Rewards on the checkout page issue
+* Campaign owner count issue
+* Showing campaign end method on the campaign single page issue
 
 = 1.8.4 =
 
@@ -296,17 +178,157 @@ it's moved to template
 * Fixed: Properly used campaign start date and end date
 * Improved: Performance and functionalities
 
-= 1.8.5 =
+= 1.8.3 =
 
-* Contributor’s name as Anonymous issue
-* 2checkout payment Vendor.js issue
-* Displaying selected Rewards on the checkout page issue
-* Campaign owner count issue
-* Showing campaign end method on the campaign single page issue
+* Added: Admin can now review backers profile
+* Added: Single File Templating Overwriting in Theme (wpneotemplate)
+* Added: Crowdfunding own category
+* Added: License Expire Date
+* Fixed: Placing predefined donate amount after comma separator
+* Fixed: Spelling Plages to Pledges
+* Fixed: User can't modify submitted campaign
+* Fixed: Short-code does not work in campaign single page
+* Fixed: Few translate issue in wpneotemplate
+* Fixed: The HTML issue Reward sidebar
+* Fixed: Frontpage My Profile profile picture button hide the Upload button when user is not in edit mode
+* Fixed: Image upload bug, `$user_signon = wp_signon( $info, false );` to `$user_signon = wp_signon( $info, true );`
+* Fixed: submit-form.php, $meta_count = $reward_data_array; replaced with $meta_count = is_array($reward_data_array) ?
+count($reward_data_array) : 0; (PHP 7.0 compatible)
+* Fixed: Embed code does not work in campaign single page
+* Fixed: Change License Page Form Field Name
+* Renamed: Two Button Name in report export button
 
-= 1.8.6 =
+= 1.8.2 =
+* Fixed: reCaptcha Addon
 
-* Fixed an issue after update 1.8.5 (Recaptcha not found)
+= 1.8.1 =
+* Fixed: an issue with email class in add-on email
+
+= 1.8.0 =
+* Added: Predefined Donation Amount Placed in single campaign page
+* Added: Live update with license system in the Pro Version
+* Added: WooCommerce Email templating for send notification to backers, campaign owner, admin
+* Added: Single product shortcode, now campaign single page can placed to any posts, pages or any others places
+* Added: Campaign preview box shortcake
+* Added: Add-on to pay campaign owner 100%, (Using PayPal standard)
+* Added: Dynamic Redirect Url after registration success
+* Fixed: Spelling mistake in crowdfunding dashboard
+* Fixed: HTML Tag bug on single page
+* Fixed: Withdraw button at wallet add-on
+* Fixed: Accessing some static id to method, example => Replaced $order->id with $order->get_id()
+* Fixed: Bug at Stripe Connect API
+* Fixed: http issue in https website
+* Fixed: Some spacing
+* Fixed: Dashboard Bug
+
+= 1.7.7 =
+* Fix a bug in reward selecting where Backed campaign located
+
+= 1.7.6 =
+* Added email notification in WooCommerce way in pro version.
+
+= 1.7.5 =
+* Fixed an issue in user registration form redirect.
+
+= 1.7.4 =
+* Fixed an error (Fatal error: Uncaught Error: Call to a member function get_type() on boolean) /wp-content/plugins/wp-crowdfunding/includes/woocommerce/class-wpneo-crowdfunding.php:726 new line if( ! $product_id ) return;
+
+= 1.7.3 =
+* Fixed a bug in dashboard reports
+* Performance Improved
+
+= 1.7.2 =
+* Added Logout Link
+* Fixed some known bugs
+* Removed Unused Code
+
+= 1.7.1 =
+* Wallet issue fixed
+* Profile image issue fixed
+* Translation Problem fixed
+* Dashboard completely redesigned
+* CSS issue fixed
+* Project status chart added
+
+= 1.7.0 =
+* Fixed a Social Share bug.
+* Performance Improved
+
+= 1.6.9 =
+* Iframe export / Embed Option Add
+* HTML Reward Support
+* Reward Unicode Supported
+* Billing Name Issue Fixed
+* Campaign Update Unicode Supported
+* Anonymous Checkout Problem
+* Remove Link From Promotional Page
+* Person Image Error Issue Fixed
+* Reward Responsive Issue Fixed
+* Date Support Arabic Date Transform
+* Currency Switcher Supports
+* Fraction Value Supports For Payments
+* Fixed some bug.
+
+= 1.6.8 =
+* Updated wpcf_ajax_object in the crowdfunding-front.js files,
+* Fixed some bug.
+
+= 1.6.7 =
+* Updated some minor broken link
+
+= 1.6.6 =
+* Added a filter woocommerce_product_cf_meta_data in
+/plugins/wp-crowdfunding/includes/woocommerce/class-wpneo-frontend-hook.php, Removed all tfoot, Fixed a issue in
+PayPal Live payment issue, change ajax_object to wpcf_ajax_object,
+* added a prefix to /plugins/wp-crowdfunding/includes/woocommerce/class-wpneo-frontend-hook.php.
+
+= 1.6.5 =
+* Remove Deprecated Method,
+* Removed Unused Reward from Session During Cart/Donation,
+* Permalink Plain Text Bug Fix,
+* Translation Bug Fix,
+* Reward Quantity Bug Fix,
+* Checkout Only Crowdfunding Cart Bug Fix
+
+= 1.6.4 =
+* WooCommerce 3.0 compatibility issue fixed, as well backword version of WooCommerce support added.
+
+= 1.6.3 =
+* Fixed a bug in getting user roles. We placed $roles  = get_editable_roles(); in the tab-general.php
+
+= 1.6.2 =
+* Fix $this variable issue in the campaign edit page
+
+= 1.6.1 =
+* Supported WooCommerce native single page for the campaign details.
+* Fixed Some Bug
+
+= 1.6.0 =
+* Fixed front page listing pagination bug.
+* admin settings tab fixed. and other bug fixed
+
+= 1.5 =
+* Native wallet system has been added in the pro version.
+* Fixed initial campaign permission setup during plugin setup.
+* Fixed some bug, performance improved
+
+= 1.4 =
+* Changed some template file structure, button color from backend, fixed some minor bug
+
+= 1.3 =
+* Minor bug fix
+
+= 1.2 =
+* Minor bug fix
+
+= 1.1 =
+* PHP 5.2.17 compatibility
+* Minor bug fix
+
+= 1.0 =
+* Initial version released
+
+
 
 == Upgrade Notice ==
 Nothing here

@@ -59,7 +59,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			if ( ! WPNEOCF()->is_campaign_started()){
 				WPNEOCF()->campaign_start_countdown();
 			}else{
-				_e('This campaign has been invalid or not started yet.','wp-crowdfunding');
+				if( WPNEOCF()->is_reach_target_goal() ){
+					_e('The campaign is successful.','wp-crowdfunding');
+				}else{
+					_e('This campaign has been invalid or not started yet.','wp-crowdfunding');
+				}
 			}
 		}
 	}

@@ -111,7 +111,11 @@ if (! class_exists('WPNEO_Frontend_Campaign_Submit_Form')) {
                 //Prevent if unauthorised access
                 $wp_query_users_product_id = $this->logged_in_user_campaign_ids();
                 $my_post['ID'] = $_POST['edit_post_id'];
-                if ( ! in_array($my_post['ID'], $wp_query_users_product_id)) {
+
+                $campaign_status = get_option('wpneo_campaign_edit_status', 'pending');
+	            $my_post['post_status'] = $campaign_status;
+
+	            if ( ! in_array($my_post['ID'], $wp_query_users_product_id)) {
                     header('Content-Type: application/json');
                     echo json_encode(array('success' => 0, 'msg' => 'Unauthorized action'));
                     exit;

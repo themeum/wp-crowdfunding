@@ -1,6 +1,6 @@
 <table class="widefat striped our-products">
     <tr>
-        <td> <?php _e('By'); ?> : </td>
+        <td> <?php _e( 'By','wp-crowdfunding' ); ?> : </td>
         <td>
             <span class="label-default">
             <?php

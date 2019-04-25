@@ -53,6 +53,19 @@ $arr =  array(
         'desc'      => __('Default status of a campaign added by a user','wp-crowdfunding'),
     ),
 
+    //Update by campaign owner
+	array(
+		'id'        => 'wpneo_campaign_edit_status',
+		'type'      => 'dropdown',
+		'option'    => array(
+			'publish'    => __('Campaign remain publish','wp-crowdfunding'),
+			'pending'    => __('Required Review (Pending)','wp-crowdfunding'),
+			'draft'      => __('Required Review (Draft)','wp-crowdfunding'),
+		),
+		'label'     => __('Campaign Edit Status','wp-crowdfunding'),
+		'desc'      => __('What will be campaign status when a campaign owner edit/update his own campaign','wp-crowdfunding'),
+	),
+
     // #Enable Minimum Price
     array(
         'id'        => 'wpneo_show_min_price',
@@ -141,7 +154,7 @@ $arr =  array(
         'multiple'  => 'true',
         'option'    => $campaign_creator,
         'label'     => __('Campaign Creator','wp-crowdfunding'),
-        'desc'      => __('Select roles that can enable front end campaign submission form','wp-crowdfunding'),
+        'desc'      => __('Select roles that can enable frontend campaign submission form.','wp-crowdfunding'),
     ),
 
     // #Save Function
@@ -157,7 +170,6 @@ $arr =  array(
 		'type'      => 'text',
 		'value'     => esc_url( home_url( '/' ) ),
 		'label'     => __('Redirect URL for User Registration Success','wp-crowdfunding'),
-		'desc'      => __('','wp-crowdfunding'),
 	),
 );
 echo wpneo_crowdfunding_settings_generate_field( $arr );

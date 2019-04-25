@@ -257,6 +257,9 @@
     font-size: 16px;
     margin-top: 9px;
 }
+#wpcf-campaign-countdown{
+    font-weight: bold;
+}
 .wpneo-campaign-summary-buttons a {
     color: #414548;
     font-size: 16px;
@@ -401,6 +404,7 @@ a.wpneo-single-main-image{
     text-decoration: none;
     letter-spacing: normal;
     text-transform: capitalize;
+    display: inline-block;
 }
 .wpneo-listings .wpneo-listing-content p.wpneo-author{
     color: #737373;
@@ -515,6 +519,7 @@ p.wpneo-short-description{
 .wpneo-raised-percent .wpneo-meta-name,
 .wpneo-raised-percent .wpneo-meta-desc{
     display: inline-block;
+    padding-left: 20px;
 }
 .wpneo-raised-percent .wpneo-meta-desc{
     font-weight: bold;

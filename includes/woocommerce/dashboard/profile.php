@@ -38,62 +38,60 @@ $html .= '<div class="wpneo-content">';
 
                         $html .= '<span id="wpneo-image-show"></span>';
                         $html .= '<input type="hidden" name="profile_image_id" class="wpneo-form-image-id" value="'.$image_id.'">';
-                        $html .= '<input type="hidden" name="wpneo-form-image-url" class="wpneo-form-image-url" value="'.$image_id.'">';
-                        $html .= '<button name="wpneo-upload" id="cc-image-upload-file-button" class="wpneo-image-upload float-right" style="display: none;">
-'.__( "Upload" , "wp-crowdfunding" ).'</button>';
+                        $html .= '<input type="hidden" name="wpneo-form-image-url" class="wpneo-form-image-url" value="">';
+                        $html .= '<button name="wpneo-upload" id="cc-image-upload-file-button" class="wpneo-image-upload float-right" style="display: none;">'.__( "Upload" , "wp-crowdfunding" ).'</button>';
                     $html .= '</div>';
                 $html .= '</div>';//wpneo-shadow
             $html .= '</div>';//wpneo-col6
 
             $html .= '<div class="wpneo-col6">';
+                
+                // Basic info
                 $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
                     $html .= '<h4>'.__("Basic Info","wp-crowdfunding").'</h4>';
-
-
-				$html .= '<div class="wpneo-name">';
-					$html .= '<p>'.__( "Display Name:" , "wp-crowdfunding" ).'</p>';
+				    $html .= '<div class="wpneo-name">';
+					$html .= '<p>'.__( "Name:" , "wp-crowdfunding" ).'</p>';
 					$html .= '</div>';
 					$html .= '<div class="wpneo-fields float-right">';
-					$html .= "<p>{$user->display_name}</p>";
-					$html .= '</div>';
+					$html .= "<p>".wpneo_crowdfunding_get_author_name()."</p>";
+                    $html .= '</div>';
 
 					$html .= '<div class="wpneo-single">';
-					$html .= '<div class="wpneo-name">';
-					$html .= '<p>'.__( "First Name:" , "wp-crowdfunding" ).'</p>';
+                    $html .= '<div class="wpneo-name">';
+                    $html .= '<p>'.__( "First Name:" , "wp-crowdfunding" ).'</p>';
+                    $html .= '</div>';
+                    $html .= '<div class="wpneo-fields float-right">';
+                    $html .= '<input type="text" name="first_name" value="'.$user->first_name.'" disabled>';
 					$html .= '</div>';
-					$html .= '<div class="wpneo-fields float-right">';
-					$html .= '<input type="text" name="first_name" value="'.$user->first_name.'" disabled>';
-					$html .= '</div>';
-
+                    
 					$html .= '<div class="wpneo-name">';
 					$html .= '<p>'.__( "Last Name:" , "wp-crowdfunding" ).'</p>';
 					$html .= '</div>';
 					$html .= '<div class="wpneo-fields float-right">';
 					$html .= '<input type="text" name="last_name" value="'.$user->last_name.'" disabled>';
 					$html .= '</div>';
-
 				$html .= '</div>';
 
+                // About Us
+                $html .= '<div class="wpneo-name">';
+                    $html .= '<p>'.__( "About Us:" , "wp-crowdfunding" ).'</p>';
+                $html .= '</div>';
+                $html .= '<div class="wpneo-fields float-right">';
+                    $value = ''; if(isset($data['profile_about'][0])){ $value = esc_textarea($data['profile_about'][0]); }
+                    $html .= '<textarea name="profile_about" rows="3" disabled>'.$value.'</textarea>';
+                $html .= '</div>';
 
-
-$html .= '<div class="wpneo-name">';
-                        $html .= '<p>'.__( "About Us:" , "wp-crowdfunding" ).'</p>';
+                // Profile Information
+                $html .= '<div class="wpneo-single">';
+                    $html .= '<div class="wpneo-name">';
+                        $html .= '<p>'.__( "Profile Info:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                        $value = ''; if(isset($data['profile_about'][0])){ $value = esc_textarea($data['profile_about'][0]); }
-                        $html .= '<textarea name="profile_about" rows="3" disabled>'.$value.'</textarea>';
+                        $value = ''; if(isset($data['profile_portfolio'][0])){ $value = esc_textarea($data['profile_portfolio'][0]); }
+                        $html .= '<textarea name="profile_portfolio" rows="3" disabled>'.$value.'</textarea>';
                     $html .= '</div>';
+                $html .= '</div>';
 
-                    // Profile Information
-                    $html .= '<div class="wpneo-single">';
-                        $html .= '<div class="wpneo-name">';
-                            $html .= '<p>'.__( "Profile Info:" , "wp-crowdfunding" ).'</p>';
-                        $html .= '</div>';
-                        $html .= '<div class="wpneo-fields float-right">';
-                            $value = ''; if(isset($data['profile_portfolio'][0])){ $value = esc_textarea($data['profile_portfolio'][0]); }
-                            $html .= '<textarea name="profile_portfolio" rows="3" disabled>'.$value.'</textarea>';
-                        $html .= '</div>';
-                    $html .= '</div>';
                 $html .= '</div>';//wpneo-shadow
             $html .= '</div>';//wpneo-col6
 
@@ -179,14 +177,14 @@ $html .= '<div class="wpneo-name">';
                         $html .= '</div>';
                     $html .= '</div>';
 
-                    // Google Plus
+                    // VK
                     $html .= '<div class="wpneo-single">';
                         $html .= '<div class="wpneo-name">';
-                            $html .= '<p>'.__( "Google Plus:" , "wp-crowdfunding" ).'</p>';
+                            $html .= '<p>'.__( "VK:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields float-right">';
-                            $value = ''; if(isset($data['profile_plus'][0])){ $value = esc_textarea($data['profile_plus'][0]); }
-                            $html .= '<input type="text" name="profile_plus" value="'.$value.'" disabled>';
+                            $value = ''; if(isset($data['profile_vk'][0])){ $value = esc_textarea($data['profile_vk'][0]); }
+                            $html .= '<input type="text" name="profile_vk" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';
 

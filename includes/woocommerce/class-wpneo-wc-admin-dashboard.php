@@ -151,7 +151,7 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
          * Register meta box(es).
          */
         function wpneo_crowdfunding_register_meta_boxes() {
-            add_meta_box( 'meta-box-id', __( 'Campaign Summery', 'wp-crowdfunding' ), array($this, 'wpneo_crowdfunding_metabox_display_callback'), 'product', 'side', 'high' );
+            add_meta_box( 'meta-box-id', __( 'Campaign Summary', 'wp-crowdfunding' ), array($this, 'wpneo_crowdfunding_metabox_display_callback'), 'product', 'side', 'high' );
         }
 
         /**

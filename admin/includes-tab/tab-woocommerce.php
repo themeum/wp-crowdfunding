@@ -72,7 +72,7 @@ $arr =  array(
 	array(
 		'type'      => 'seperator',
 		'label'     => __('Categories Settings','wp-crowdfunding'),
-		'desc'      => __('Excludes or include WooCommerce product categories.','wp-crowdfunding'),
+		'desc'      => __('Exclude or include WooCommerce product categories.','wp-crowdfunding'),
 		'top_line'  => 'true',
 	),
 
@@ -97,7 +97,7 @@ $arr =  array(
         'id'        => 'wpneo_requirement_title',
         'type'      => 'text',
         'label'     => __('Submit Form Requirement Title','wp-crowdfunding'),
-        'desc'      => __('Additional title for Submit Form Requirement Form goes here.','wp-crowdfunding'),
+        'desc'      => __('Additional title for Submit Form Requirement Title goes here.','wp-crowdfunding'),
         'value'     => ''
     ),
 
@@ -107,7 +107,7 @@ $arr =  array(
         'type'      => 'textarea',
         'value'     => '',
         'label'     => __('Submit Form Requirement Text','wp-crowdfunding'),
-        'desc'      => __('Additional Text for Submit Form Requirement Form goes here.','wp-crowdfunding'),
+        'desc'      => __('Additional text for Submit Form Requirement goes here.','wp-crowdfunding'),
     ),
 
     // #Campaign Submit Form Requirement Agree Title

@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     'id'        => 'wpneo_custom_css',
                     'type'      => 'textarea',
                     'label'     => __('Custom CSS','wp-crowdfunding'),
-                    'desc'      => __('Put here custom CSS.','wp-crowdfunding'),  
+                    'desc'      => __('Put custom CSS here.','wp-crowdfunding'),  
                     'value'     => '',
                     ),
                 

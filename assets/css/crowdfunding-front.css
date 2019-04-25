@@ -357,6 +357,7 @@
 }
 .select_rewards_button:hover {
     background: #000 !important;
+    color: #f2f2f2;
 }
 
 .wpneo-wrapper .wpneo-col6 h4,
@@ -451,12 +452,12 @@
     visibility: hidden;
 }
 
-.wpneo-dashboard-summery ul {
+.wpneo-dashboard-summary ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.wpneo-dashboard-summery ul li {
+.wpneo-dashboard-summary ul li {
     display: inline-block;
     margin-right: 20px;
     width: 230px;
@@ -465,24 +466,24 @@
     position: relative;
     border-radius: 4px;
 }
-.wpneo-dashboard-summery ul li span.wpneo-value-info {
+.wpneo-dashboard-summary ul li span.wpneo-value-info {
     display: block;
 }
-.wpneo-dashboard-summery ul li .wpneo-value {
+.wpneo-dashboard-summary ul li .wpneo-value {
     color: #686C8B;
     font-size: 25px;
 }
-.wpneo-dashboard-summery ul li .wpneo-value-info {
+.wpneo-dashboard-summary ul li .wpneo-value-info {
     font-size: 12px;
 }
-.wpneo-dashboard-summery ul li.active{
+.wpneo-dashboard-summary ul li.active{
     color: #fff;
 }
-.wpneo-dashboard-summery ul li.active .wpneo-value,
-.wpneo-dashboard-summery ul li.active .wpneo-value-info {
+.wpneo-dashboard-summary ul li.active .wpneo-value,
+.wpneo-dashboard-summary ul li.active .wpneo-value-info {
     color: #fff;
 }
-.wpneo-dashboard-summery ul li.active:after {
+.wpneo-dashboard-summary ul li.active:after {
     position: absolute;
     content: "";
     left: 20px;
@@ -498,7 +499,7 @@
     padding: 0 20px 0 0;
     margin: 0px 0 20px;
 }
-.wpneo-dashboard-summery {
+.wpneo-dashboard-summary {
     margin-top: 22px;
     margin-bottom: 15px;
 }
@@ -1053,6 +1054,34 @@ input[type="button"].removeCampaignRewards:hover{
 .wpcf-order-view:hover{
     cursor: pointer;
 }
+.wpcf-print-button{
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+@media print {
+    #wpneo_crowdfunding_modal_message{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #fff;
+        overflow: hidden;
+    }
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
 
 .wpneo-modal-wrapper{
     background: rgba(0, 0, 0, 0.3);
@@ -1471,7 +1500,7 @@ ul.wpneo-crowdfunding-update li:hover span.round-circle,
 .wpneo-links li a:hover, .wpneo-links li.active a,#neo-progressbar > div {
     background-color: #1adc68;
 }
-.wpneo-dashboard-summery ul li.active {
+.wpneo-dashboard-summary ul li.active {
     background: #1adc68;
 }
 .wpneo-tabs-menu li.wpneo-current {
@@ -1481,7 +1510,7 @@ ul.wpneo-crowdfunding-update li:hover span.round-circle,
 .wpneo-pagination ul li span.current {
     border: 2px solid #1adc68;
 }
-.wpneo-dashboard-summery ul li.active:after {
+.wpneo-dashboard-summary ul li.active:after {
     border-color: #1adc68 rgba(0, 128, 0, 0) rgba(255, 255, 0, 0) rgba(0, 0, 0, 0);
 }
 .wpneo-fields input[type="email"]:focus,
@@ -1560,7 +1589,7 @@ ul.wpcf_predefined_pledge_amount li a{
         flex: 0 0 100%;
         max-width: 100%;
     }
-    .wpneo-dashboard-summery canvas {
+    .wpneo-dashboard-summary canvas {
         width: 100%;
     }
     .wpneo-links .wpneo-links-list a {
@@ -1656,7 +1685,7 @@ ul.wpcf_predefined_pledge_amount li a{
     #wpneofrontenddata input[type="button"] {
         margin-top: 10px;
     }
-    .wpneo-dashboard-summery ul li {
+    .wpneo-dashboard-summary ul li {
         width: 100%;
         margin-bottom: 10px;
     }

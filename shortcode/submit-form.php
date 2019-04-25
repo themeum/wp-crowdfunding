@@ -3,20 +3,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_shortcode( 'wpneo_crowdfunding_form','wpneo_shortcode_croudfunding_form' ); // Shortcode for Campaign Submit Form
+add_shortcode( 'wpneo_crowdfunding_form','wpneo_shortcode_crowdfunding_form' ); // Shortcode for Campaign Submit Form
 
 // Shortcode for Forntend Submission Form
-function wpneo_shortcode_croudfunding_form( $atts ){
+function wpneo_shortcode_crowdfunding_form( $atts ){
 
     global $post, $wpdb;
 
     $html = '';
-    $title = $description = $short_description = $category = $tag = $image_url = $image_id = $video = $start_date = $end_date = $minimum_price = $maximum_price = $recomended_price = $wpcf_predefined_pledge_amount = $funding_goal = $campaign_end_method = $type = $contributor_show = $paypal = $country =
+    $title = $description = $short_description = $category = $tag = $image_url = $image_id = $video = $start_date = $end_date = $minimum_price = $maximum_price = $recommended_price = $wpcf_predefined_pledge_amount = $funding_goal = $campaign_end_method = $type = $contributor_show = $paypal = $country =
     $location = $edit_form = $edit_id = $checked = $checked2 = '';
 
     $reward = '';
-    if(isset($_GET['action'])){
-        if($_GET['action']=='edit'){
+    if( isset($_GET['action']) ){
+        if( $_GET['action'] == 'edit' ){
             $post_id = (int) sanitize_text_field($_GET['postid']);
 
             //Prevent if unauthorised access
@@ -60,7 +60,7 @@ function wpneo_shortcode_croudfunding_form( $atts ){
                         $end_date           = get_post_meta( get_the_ID(), '_nf_duration_end', true );
                         $minimum_price      = get_post_meta( get_the_ID(), 'wpneo_funding_minimum_price', true );
                         $maximum_price      = get_post_meta( get_the_ID(), 'wpneo_funding_maximum_price', true );
-                        $recomended_price   = get_post_meta( get_the_ID(), 'wpneo_funding_recommended_price', true );
+                        $recommended_price   = get_post_meta( get_the_ID(), 'wpneo_funding_recommended_price', true );
 	                    $wpcf_predefined_pledge_amount   = get_post_meta( get_the_ID(), 'wpcf_predefined_pledge_amount', true );
                         $funding_goal       = get_post_meta( get_the_ID(), '_nf_funding_goal', true );
                         $campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
@@ -245,18 +245,18 @@ function wpneo_shortcode_croudfunding_form( $atts ){
     }
 
 
-    //Recomended Amount
+    //Recommended Amount
     if (get_option('wpneo_show_recommended_price') == 'true') {
         $html .= '<div class="wpneo-single">';
-        $html .= '<div class="wpneo-name">'.__( "Recomended Amount" , "wp-crowdfunding" ).'</div>';
+        $html .= '<div class="wpneo-name">'.__( "Recommended Amount" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        $html .= '<input type="number" name="wpneo-form-recommended-price" value="'.$recomended_price.'">';
-        $html .= '<small>'.__("Recomended campaign funding amount","wp-crowdfunding").'</small>';
+        $html .= '<input type="number" name="wpneo-form-recommended-price" value="'.$recommended_price.'">';
+        $html .= '<small>'.__("Recommended campaign funding amount","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
     }
 
-	//Recomended Amount
+	//Recommended Amount
 	$html .= '<div class="wpneo-single">';
 	$html .= '<div class="wpneo-name">'.__( "Predefined Pledge Amount" , "wp-crowdfunding" ).'</div>';
 	$html .= '<div class="wpneo-fields">';
@@ -359,11 +359,8 @@ function wpneo_shortcode_croudfunding_form( $atts ){
     $html .= '</div>';
     $html .= '</div>';
 
-    /* ************************************ */
-    /* *********** Clone Field ************ */
-    /* ************************************ */
-
-
+    
+    // Clone Field
     $reward = stripslashes($reward);
     $reward_data_array = json_decode($reward, true);
     $meta_count = is_array($reward_data_array) ? count($reward_data_array) : 0;
@@ -445,7 +442,7 @@ function wpneo_shortcode_croudfunding_form( $atts ){
                 $html .= '<div class="wpneo-fields">';
                 $html .= '<select style="" class="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">';
                 $html .= '<option value=""> '.__('- Select -', 'wp-crowdfunding').' </option>';
-                for ($i=2016; $i<=2021; $i++){
+                for ($i=2018; $i<=2025; $i++){
                     $selected = ($v['wpneo_rewards_endyear'] == $i)? 'selected':'';
                     $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                 }
@@ -525,12 +522,14 @@ function wpneo_shortcode_croudfunding_form( $atts ){
         $html .= '<div class="wpneo-fields">';
         $html .= '<select style="" class="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">';
         $html .= '<option selected="selected" value="">'.__('- Select -', 'wp-crowdfunding').'</option>';
-        $html .= '<option value="2016">2016</option>';
-        $html .= '<option value="2017">2017</option>';
         $html .= '<option value="2018">2018</option>';
         $html .= '<option value="2019">2019</option>';
         $html .= '<option value="2020">2020</option>';
         $html .= '<option value="2021">2021</option>';
+        $html .= '<option value="2022">2022</option>';
+        $html .= '<option value="2023">2023</option>';
+        $html .= '<option value="2024">2024</option>';
+        $html .= '<option value="2025">2025</option>';
         $html .= '</select>';
         $html .= '<small>'.__("Estimated Delivery Year of the Reward","wp-crowdfunding").'</small>';
         $html .= '</div>';
@@ -567,10 +566,8 @@ function wpneo_shortcode_croudfunding_form( $atts ){
     }
 
     $html .= '</div>';
-    /* ************************************ */
-    /* *********** Clone Field ************ */
-    /* ************************************ */
-
+    
+    // Clone Field
     $html .= $edit_form;
     $html .= $edit_id;
 

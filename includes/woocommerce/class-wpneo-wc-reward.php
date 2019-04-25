@@ -118,12 +118,14 @@ if (! class_exists('WPNEO_WC_Reward')) {
                     'value'         => '',
                     'options'       => array(
                         ''     => __('- Select -', 'wp-crowdfunding'),
-                        '2016' => __('2016', 'wp-crowdfunding'),
-                        '2017' => __('2017', 'wp-crowdfunding'),
                         '2018' => __('2018', 'wp-crowdfunding'),
                         '2019' => __('2019', 'wp-crowdfunding'),
                         '2020' => __('2020', 'wp-crowdfunding'),
                         '2021' => __('2021', 'wp-crowdfunding'),
+                        '2022' => __('2022', 'wp-crowdfunding'),
+                        '2023' => __('2023', 'wp-crowdfunding'),
+                        '2024' => __('2024', 'wp-crowdfunding'),
+                        '2025' => __('2025', 'wp-crowdfunding'),
                     ),
                     'field_type'    => 'selectfield',
                 ),
@@ -304,7 +306,7 @@ if (! class_exists('WPNEO_WC_Reward')) {
                     $html .= "<div>{$r['wpneo_rewards_description']}</div>";
                 }
                 if ( ! empty($r['wpneo_rewards_pladge_amount'])){
-                    $html .= "<div><abbr>".sprintf('Amount : %s, Delivery : %s', wc_price($r['wpneo_rewards_pladge_amount']), $r['wpneo_rewards_endmonth'].', '.$r['wpneo_rewards_endyear'] ) ."</abbr></div>";
+                    $html .= "<div><abbr>".__('Amount','wp-crowdfunding').' : '.wc_price($r['wpneo_rewards_pladge_amount']).', '.__('Delivery','wp-crowdfunding').' : '.$r['wpneo_rewards_endmonth'].', '.$r['wpneo_rewards_endyear'];
                 }
         
             }
@@ -321,8 +323,9 @@ if (! class_exists('WPNEO_WC_Reward')) {
                         <h4><?php _e('Selected Reward','wp-crowdfunding'); ?> </h4>
 					    <?php
 					    if ( isset($reward_data['wpneo_rewards_description'])){
-						    echo "<div>{$reward_data['wpneo_rewards_description']}</div>";
-						    echo sprintf('Amount : %s, Delivery : %s', '<strong>'.wc_price($reward_data['wpneo_rewards_pladge_amount']).'</strong>', $reward_data['wpneo_rewards_endmonth'].', '.$reward_data['wpneo_rewards_endyear'] );
+                            echo "<div>{$reward_data['wpneo_rewards_description']}</div>";
+                            echo __('Amount','wp-crowdfunding').' : <strong>'.wc_price($reward_data['wpneo_rewards_pladge_amount']).'</strong>';
+                            echo __('Delivery','wp-crowdfunding').' : '.$reward_data['wpneo_rewards_endmonth'].', '.$reward_data['wpneo_rewards_endyear'];
 					    }
 					    ?>
                     </td>

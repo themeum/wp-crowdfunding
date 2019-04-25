@@ -75,9 +75,9 @@ if ( $the_query->have_posts() ) :
                             $operation_btn .= '<span><a href="'.$permalink_update.'">'.__("Update", "wp-crowdfunding").'</a></span>';
                             $operation_btn .= '<span><a href="' . $permalink_edit . '" class="wp-crowd-btn wp-crowd-btn-primary">' . __("Edit", "wp-crowdfunding") . '</a></span>';
                         }
-
+                        
                     if (get_post_status() == 'draft'){
-	                    $operation_btn .='<span class="wp-crowd-btn wpneo-campaign-status">[Draft]</span>';
+	                    $operation_btn .='<span class="wp-crowd-btn wpneo-campaign-status">['.__("Draft", "wp-crowdfunding").']</span>';
                     }
 
                     //}
@@ -125,8 +125,13 @@ if ( $the_query->have_posts() ) :
 
                     if ($wpneo_campaign_end_method != 'never_end'){ ?>
                         <div class="crowdfound-time-remaining">
-                            <div class="wpneo-meta-desc"><?php echo $days_remaining; ?></div>
-                            <div class="wpneo-meta-name"><?php _e('Days to go', 'wp-crowdfunding'); ?></div>
+                            <?php if (WPNEOCF()->is_campaign_started()){ ?>
+                                <div class="wpneo-meta-desc"><?php echo WPNEOCF()->dateRemaining(); ?></div>
+                                <div class="wpneo-meta-name"><?php _e( 'Days to go','wp-crowdfunding' ); ?></div>
+                            <?php } else { ?>
+                                <div class="wpneo-meta-desc"><?php echo WPNEOCF()->days_until_launch(); ?></div>
+                                <div class="wpneo-meta-name"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
+                            <?php } ?>
                         </div>
                     <?php } ?>
                 </div><!-- wpneo-percent-rund-wrap -->

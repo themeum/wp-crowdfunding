@@ -3,7 +3,7 @@
  * Plugin Name:       WP Crowdfunding
  * Plugin URI:        https://www.themeum.com/product/wp-crowdfunding-plugin/
  * Description:       WP crowdfunding (Free) for collect fund and investment
- * Version:           1.8.6
+ * Version:           1.8.8
  * Author:            Themeum
  * Author URI:        https://themeum.com
  * Text Domain:       wp-crowdfunding
@@ -31,7 +31,7 @@ function wpneo_crowdfunding_language_load(){
  * Define wpneo_crowdfunding version
  */
 
-define('WPNEO_CROWDFUNDING_VERSION', '1.8.6');
+define('WPNEO_CROWDFUNDING_VERSION', '1.8.8');
 
 /**
  * Type of WPNEO CrowdFunding type

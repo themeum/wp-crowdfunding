@@ -17,10 +17,20 @@ if( ! function_exists('wpneo_crowdfunding_search_shortcode_filter')) {
 							'terms' => 'crowdfunding',
 						)
 					);
+					if( wpneo_wc_version_check() ){ // Check this
+						$taxquery['relation'] = 'AND';
+						$taxquery[] = array(
+							'taxonomy' => 'product_visibility',
+							'field'    => 'name',
+							'terms'    => 'exclude-from-search',
+							'operator' => 'NOT IN',
+						);
+					}
 					$query->set('tax_query', $taxquery);
 				}
 			}
 		}
+		// print_r( $query );
 		return $query;
 	}
 }
@@ -37,7 +47,6 @@ if ( ! function_exists('wpneo_crowdfunding_get_author_name')){
 		return $author_name;
 	}
 }
-
 
 
 if ( ! function_exists('wpneo_crowdfunding_get_author_name_by_login')){
@@ -87,6 +96,18 @@ if ( ! function_exists('wpneo_crowdfunding_get_total_fund_raised_by_campaign')) 
 		if ($campaign_id == 0)
 			$campaign_id = $post->ID;
 
+		// WPML compatibility.
+		if ( apply_filters( 'wpml_setting', false, 'setup_complete' ) ) {
+			$type = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
+			$trid = apply_filters( 'wpml_element_trid', null, $campaign_id, $type );
+			$translations = apply_filters( 'wpml_get_element_translations', null, $trid, $type );
+			$campaign_ids = wp_list_pluck( $translations, 'element_id' );
+		} else {
+				$campaign_ids = array( $campaign_id );
+		}
+		$placeholders = implode( ',', array_fill( 0, count( $campaign_ids ), '%d' ) );
+		
+
 		$query = "SELECT
                     SUM(ltoim.meta_value) as total_sales_amount
                 FROM
@@ -98,9 +119,9 @@ if ( ! function_exists('wpneo_crowdfunding_get_total_fund_raised_by_campaign')) 
 			    LEFT JOIN
                     {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
 			    WHERE
-                    woim.meta_key = '_product_id' AND woim.meta_value = %d AND wpposts.post_status = 'wc-completed';";
+                    woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
 
-		$wp_sql = $wpdb->get_row($wpdb->prepare($query, $campaign_id));
+		$wp_sql = $wpdb->get_row($wpdb->prepare($query, $campaign_ids));
 
 		return $wp_sql->total_sales_amount;
 	}

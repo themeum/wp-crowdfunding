@@ -105,7 +105,8 @@
                                     label: 'Column',
                                     value: '4'
                                 },
-                                {type: 'listbox',
+                                { 
+                                    type: 'listbox',
                                     name: 'order',
                                     label: 'Order :',
                                     onselect: function(e) {

@@ -50,15 +50,20 @@ if ( $the_query->have_posts() ) :
                                 }
                                 $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
                                 if ($wpneo_campaign_end_method != 'never_end'){ ?>
-                                    <span class="wpneo-meta-name"><?php _e('Days to go ', 'wp-crowdfunding'); ?></span>
-                                    <?php echo $days_remaining; ?>
+                                    <?php if (WPNEOCF()->is_campaign_started()){ ?>
+                                        <p class="funding-amount"><?php echo WPNEOCF()->dateRemaining(); ?></p>
+                                        <span class="info-text"><?php _e( 'Days to go','wp-crowdfunding' ); ?></span>
+                                    <?php } else { ?>
+                                        <p class="funding-amount"><?php echo WPNEOCF()->days_until_launch(); ?></p>
+                                        <span class="info-text"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
+                                    <?php } ?>
                                 <?php } ?>
                             </span>
                             <!-- author -->
                             <?php $author_name = wpneo_crowdfunding_get_author_name(); ?>
                             <span class="wpneo-meta-wrap">
                                 <span class="wpneo-meta-name"><?php _e('by','wp-crowdfunding'); ?> </span>
-                                    <a href="<?php echo wpneo_crowdfunding_campaign_listing_by_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo $author_name; ?></a>
+                                <a href="<?php echo wpneo_crowdfunding_campaign_listing_by_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo $author_name; ?></a>
                             </span>
 
                             <!-- fund-raised -->

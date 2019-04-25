@@ -101,7 +101,7 @@ if (! class_exists('Wpneo_Crowdfunding_Frontend_Dashboard')) {
             $profile_address      = ( $_POST['profile_address'] ) ? sanitize_text_field($_POST['profile_address']) : "";
             $profile_facebook     = ( $_POST['profile_facebook'] ) ? sanitize_text_field($_POST['profile_facebook']) : "";
             $profile_twitter      = ( $_POST['profile_twitter'] ) ? sanitize_text_field($_POST['profile_twitter']) : "";
-            $profile_plus         = ( $_POST['profile_plus'] ) ? sanitize_text_field($_POST['profile_plus']) : "";
+            $profile_vk         = ( $_POST['profile_vk'] ) ? sanitize_text_field($_POST['profile_vk']) : "";
             $profile_linkedin     = ( $_POST['profile_linkedin'] ) ? sanitize_text_field($_POST['profile_linkedin']) : "";
             $profile_pinterest    = ( $_POST['profile_pinterest'] ) ? sanitize_text_field($_POST['profile_pinterest']) : "";
             $profile_image_id     = ( $_POST['profile_image_id'] ) ? sanitize_text_field($_POST['profile_image_id']) : "";
@@ -118,7 +118,7 @@ if (! class_exists('Wpneo_Crowdfunding_Frontend_Dashboard')) {
             update_user_meta( $user_id,'profile_address',   $profile_address );
             update_user_meta( $user_id,'profile_facebook',  $profile_facebook );
             update_user_meta( $user_id,'profile_twitter',   $profile_twitter );
-            update_user_meta( $user_id,'profile_plus',      $profile_plus );
+            update_user_meta( $user_id,'profile_vk',        $profile_vk );
             update_user_meta( $user_id,'profile_linkedin',  $profile_linkedin );
             update_user_meta( $user_id,'profile_pinterest', $profile_pinterest );
             update_user_meta( $user_id,'profile_image_id',  intval($profile_image_id) );

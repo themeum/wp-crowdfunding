@@ -20,7 +20,7 @@ $arr =  array(
                 'type'      => 'checkbox',
                 'value'     => 'true',
                 'label'     => __('Enable Social Share','wp-crowdfunding'),
-                'desc'      => __('Enable Social Share for crowdfunding Plugin.','wp-crowdfunding'),
+                'desc'      => __('Enable Social Share for crowdfunding.','wp-crowdfunding'),
                 ),
 
             // #Enable Twitter
@@ -73,8 +73,8 @@ $arr =  array(
                 'id'        => 'wpneo_linkedin_social_share',
                 'type'      => 'checkbox',
                 'value'     => 'true',
-                'label'     => __('Enable Linkedin','wp-crowdfunding'),
-                'desc'      => __('Enable Linkedin for crowdfunding plugin.','wp-crowdfunding'),
+                'label'     => __('Enable LinkedIn','wp-crowdfunding'),
+                'desc'      => __('Enable LinkedIn for crowdfunding plugin.','wp-crowdfunding'),
                 ),
 
             // #Linkedin Via
@@ -82,8 +82,8 @@ $arr =  array(
                 'id'        => 'wpneo_linkedin_via',
                 'type'      => 'text',
                 'value'     => '',
-                'label'     => __('Linkedin Via','wp-crowdfunding'),
-                'desc'      => __('Put your Linkedin via key here.','wp-crowdfunding'),
+                'label'     => __('LinkedIn Via','wp-crowdfunding'),
+                'desc'      => __('Put your LinkedIn via key here.','wp-crowdfunding'),
                 ),
             
             // #Enable Embed Option

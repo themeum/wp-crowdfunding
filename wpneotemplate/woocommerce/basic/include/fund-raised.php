@@ -17,35 +17,31 @@ $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_met
         <?php if ($wpneo_campaign_end_method != 'never_end'){
             ?>
             <li>
-
-                <?php
-                if (WPNEOCF()->is_campaign_started()){
-                    ?>
+                <?php if (WPNEOCF()->is_campaign_started()){ ?>
                     <p class="funding-amount"><?php echo WPNEOCF()->dateRemaining(); ?></p>
                     <span class="info-text"><?php _e( 'Days to go','wp-crowdfunding' ); ?></span>
-                    <?php
-                }else{
-                    ?>
+                <?php } else { ?>
                     <p class="funding-amount"><?php echo WPNEOCF()->days_until_launch(); ?></p>
                     <span class="info-text"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
-
-                <?php
-                }
-
-                ?>
-
-
+                <?php } ?>
             </li>
         <?php } ?>
 
-
-
         <li>
-		    <?php $method =  (($wpneo_campaign_end_method == 'target_goal') ? 'Target Goal' : (($wpneo_campaign_end_method == 'target_date') ? 'Target Date' : (($wpneo_campaign_end_method == 'target_goal_and_date') ? 'Goal and Date' : 'Campaign Never Ends'))); ?>
-            <p class="funding-amount"><?php echo $method; ?></p>
+            <p class="funding-amount">
+                <?php
+                    if( $wpneo_campaign_end_method == 'target_goal' ){
+                        _e('Target Goal', 'wp-crowdfunding');
+                    }else if( $wpneo_campaign_end_method == 'target_date' ){
+                        _e('Target Date', 'wp-crowdfunding');
+                    }else if( $wpneo_campaign_end_method == 'target_goal_and_date' ){
+                        _e('Goal and Date', 'wp-crowdfunding');
+                    }else{
+                        _e('Campaign Never Ends', 'wp-crowdfunding');
+                    }
+                ?>
+            </p>
             <span class="info-text"><?php _e('Campaign End Method', 'wp-crowdfunding') ?></span>
-
         </li>
-
     </ul>
 </div>

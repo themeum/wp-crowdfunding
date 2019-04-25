@@ -182,7 +182,7 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
                                             <div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
                                         </div>
         
-                                        <div class="wpneo-raised-bar sjkdhfjdshf">
+                                        <div class="wpneo-raised-bar">
                                             <div id="neo-progressbar">
                                                 <?php $css_width = WPNEOCF()->getFundRaisedPercent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
                                                 <div style="width: <?php echo $css_width; ?>%"></div>
@@ -204,12 +204,17 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
                                                 $days_remaining = apply_filters('date_remaining_msg', __(WPNEOCF()->dateRemaining(), 'wp-crowdfunding'));
                                             }
                                             if ($wpneo_campaign_end_method != 'never_end'){ ?>
-                                                <div class="wpneo-time-remaining">
-                                                    <div class="wpneo-meta-desc"><?php echo $days_remaining; ?></div>
-                                                    <div class="wpneo-meta-name float-left"><?php _e('Days to go', 'wp-crowdfunding'); ?></div>
-                                                </div>
+                                                <?php if (WPNEOCF()->is_campaign_started()){ ?>
+                                                    <div class="wpneo-meta-desc"><?php echo WPNEOCF()->dateRemaining(); ?></div>
+                                                    <div class="wpneo-meta-name float-left"><?php _e( 'Days to go','wp-crowdfunding' ); ?></div>
+                                                <?php } else { ?>
+                                                    <div class="wpneo-meta-desc"><?php echo WPNEOCF()->days_until_launch(); ?></div>
+                                                    <div class="iwpneo-meta-name float-left"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
+                                                <?php } ?>
                                             <?php } ?>
+
                                             
+
                                             <?php
                                             $raised = 0;
                                             $total_raised = WPNEOCF()->totalFundRaisedByCampaign();

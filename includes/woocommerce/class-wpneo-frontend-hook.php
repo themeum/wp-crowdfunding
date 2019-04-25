@@ -194,6 +194,18 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
                 $campaign_id = $post->ID;
             }
 
+            // WPML compatibility.
+            if ( apply_filters( 'wpml_setting', false, 'setup_complete' ) ) {
+                $type = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
+                $trid = apply_filters( 'wpml_element_trid', null, $campaign_id, $type );
+                $translations = apply_filters( 'wpml_get_element_translations', null, $trid, $type );
+                $campaign_ids = wp_list_pluck( $translations, 'element_id' );
+            } else {
+                    $campaign_ids = array( $campaign_id );
+            }
+            $placeholders = implode( ',', array_fill( 0, count( $campaign_ids ), '%d' ) );
+
+
             $query ="SELECT 
                         SUM(ltoim.meta_value) as total_sales_amount 
                     FROM 
@@ -205,9 +217,9 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
 			        LEFT JOIN 
                         {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total' 
 			        WHERE 
-                        woim.meta_key = '_product_id' AND woim.meta_value = %d AND wpposts.post_status = 'wc-completed';";
+                        woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
 
-            $wp_sql = $wpdb->get_row($wpdb->prepare( $query, $campaign_id ));
+            $wp_sql = $wpdb->get_row($wpdb->prepare( $query, $campaign_ids ));
 
             return $wp_sql->total_sales_amount;
         }
@@ -251,6 +263,7 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
             if ($product->get_type() == 'crowdfunding'){
                 return true;
             }
+            return $return;
         }
 
         /**
@@ -266,7 +279,7 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
             if($product->get_type() =='crowdfunding'){
                 // Adds the new tab
                 $tabs['backed_user'] = array(
-                    'title'     => __( 'Backed User', 'neo-croudfunding' ),
+                    'title'     => __( 'Backed User', 'wp-crowdfunding' ),
                     'priority'  => 51,
                     'callback'  => array($this, 'product_backed_user_tab_content')
                 );
@@ -505,33 +518,29 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
 	        $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
 
 	        ?>
-            <p class="wpcf-start-campaign-countdown"> <?php _e('Campaign will be started within') ?> </p>
-            <div id="wpcf-campaign-countdown"></div>
-
+            <p class="wpcf-start-campaign-countdown"><?php _e('Campaign will be started within') ?> <span id="wpcf-campaign-countdown"></span></p>
+            
             <script type="text/javascript">
                 // Set the date we're counting down to
-                var wpcfCountDownDate = new Date("<?php echo $_nf_duration_start; ?>").getTime();
+                let wpcfCountDownDate = "<?php echo $_nf_duration_start; ?>".split("-");
+                wpcfCountDownDate = new Date( wpcfCountDownDate[1]+"/"+wpcfCountDownDate[0]+"/"+wpcfCountDownDate[2] ).getTime();
+
                 // Update the count down every 1 second
-                var wpcfIntervalE = setInterval(function() {
+                let wpcfIntervalE = setInterval(function() {
                     // Get towpcfDays date and time
-                    var now = new Date().getTime();
+                    const dateDiff = wpcfCountDownDate - new Date().getTime();
 
-                    // Find the wpcfDistance between now an the count down date
-                    var wpcfDistance = wpcfCountDownDate - now;
-
-                    // Time calculations for wpcfDays, wpcfHours, wpcfMinutes and wpcfSeconds
-                    var wpcfDays = Math.floor(wpcfDistance / (1000 * 60 * 60 * 24));
-                    var wpcfHours = Math.floor((wpcfDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var wpcfMinutes = Math.floor((wpcfDistance % (1000 * 60 * 60)) / (1000 * 60));
-                    var wpcfSeconds = Math.floor((wpcfDistance % (1000 * 60)) / 1000);
+                    // Time calculations
+                    let wpcfDays = Math.floor(dateDiff / 86400000 );
+                    let wpcfHours = Math.floor((dateDiff % 86400000 ) / 3600000 );
+                    let wpcfMinutes = Math.floor((dateDiff % 3600000 ) / 60000 );
+                    let wpcfSeconds = Math.floor((dateDiff % 60000 ) / 1000 );
 
                     // Display the result in the element with id="wpcf-campaign-countdown"
-                    document.getElementById("wpcf-campaign-countdown").innerHTML = '<span>'+wpcfDays+'</span>' + "d " +
-                        "<span>" + wpcfHours +
-                        "h </span> <span> " + wpcfMinutes + "m </span> <span> " + wpcfSeconds + "s </span> ";
+                    document.getElementById("wpcf-campaign-countdown").innerHTML = '<span>'+wpcfDays+'</span>' + "d " + "<span>" + wpcfHours + "h </span> <span> " + wpcfMinutes + "m </span> <span> " + wpcfSeconds + "s </span> ";
 
                     // If the count down is finished, write some text
-                    if (wpcfDistance < 0) {
+                    if ( dateDiff < 0 ) {
                         clearInterval(wpcfIntervalE);
                         document.getElementById("wpcf-campaign-countdown").innerHTML = "";
                     }

@@ -111,7 +111,13 @@ if (is_array($campaign_rewards_a)) {
                         <div class="overlay until-date">
                             <div>
                                 <div>
-                                    <span class="info-text"><?php _e( 'Reward is not valid','wp-crowdfunding' ); ?></span>
+                                    <span class="info-text">
+										<?php if( WPNEOCF()->is_reach_target_goal() ){ ?>
+											<?php _e('Campaign already completed.', 'wp-crowdfunding'); ?>
+										<?php }else{ ?>
+											<?php _e('Reward is not valid.', 'wp-crowdfunding'); ?>
+										<?php } ?>
+									</span>
                                 </div>
                             </div>
                         </div>

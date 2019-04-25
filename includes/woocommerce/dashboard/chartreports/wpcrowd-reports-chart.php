@@ -16,34 +16,34 @@ if ( ! empty($_GET['date_range'])){
     $date_range = sanitize_text_field($_GET['date_range']);
     switch ($date_range){
         case 'last_7_days':
-            $chart_bottom_title = "1W";
+            $chart_bottom_title = __('1W','wp-crowdfunding');
             $query_range        = 'day_wise';
             break;
         case 'last_14_days':
             $to_date            = date('Y-m-d 23:59:59');
             $from_date          = date('Y-m-01 00:00:00');
-            $chart_bottom_title = "2W";
+            $chart_bottom_title = __('2W','wp-crowdfunding');
             $query_range        = 'day_wise';
             break;
 
         case 'this_month':
             $to_date            = date('Y-m-d 23:59:59');
             $from_date          = date('Y-m-01 00:00:00');
-            $chart_bottom_title = "1M";
+            $chart_bottom_title = __('1M','wp-crowdfunding');
             $query_range        = 'day_wise';
             break;
 
         case 'last_3_months':
             $to_date            = date('Y-m-t 23:59:59', strtotime('-1 month'));
             $from_date          = date('Y-m-01 00:00:00', strtotime('-3 month'));
-            $chart_bottom_title = "3M";
+            $chart_bottom_title = __('3M','wp-crowdfunding');
             $query_range        = 'month_wise';
             break;
 
         case 'last_6_months':
             $to_date            = date('Y-m-t 23:59:59', strtotime('-1 month'));
             $from_date          = date('Y-m-01 00:00:00', strtotime('-6 month'));
-            $chart_bottom_title = "6M";
+            $chart_bottom_title = __('6M','wp-crowdfunding');
             $query_range        = 'month_wise';
             break;
 
@@ -51,7 +51,7 @@ if ( ! empty($_GET['date_range'])){
             $to_date            = date('Y-m-d 23:59:59');
             $from_date          = date('Y-01-01 00:00:00');
             $chart_bottom_title = "This Year (".date('Y').")";
-            $query_range        = '1Y';
+            $query_range        = __('1Y','wp-crowdfunding');
             break;
     }
 }
@@ -163,15 +163,7 @@ $query_args = array(
     'post_status' => 'wc-completed',
     'numberposts' => -1,
     'author'      => $user_id,
-    // 'meta_key'    => '_customer_user',
-    // 'meta_value'  => $user_id,
     'meta_query' => array(
-        // 'relation' => 'AND',
-        // array(
-        //     'meta_key'    => '_customer_user',
-        //     'meta_value'  => $user_id,
-        //     'compare' => '='
-        // ),
         array(
             'meta_key'    => 'is_crowdfunding_order',
             'meta_value'  => 1,
@@ -205,18 +197,12 @@ $pladges_received = get_date_range_pladges_received($from_date, $to_date);
         <div class="wpneo-dashboard-head-left">
             <span><?php _e( "Summary" , "wp-crowdfunding" );?></span>
             <ul>
-                <li class="<?php echo ($date_range === 'last_7_days') ? 'active':''; ?>"><a href="<?php echo
-                    add_query_arg(array
-                    ('date_range' => 'last_7_days'),
-                    get_permalink()
-                    ); ?>">1W</a></li>
-                <li class="<?php echo ($date_range === 'last_14_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>">2W</a></li>
-                <li class="<?php echo ($date_range === 'this_month') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_month'), get_permalink()); ?>">1M</a></li>
-                <li class="<?php echo ($date_range === 'last_3_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_3_months'), get_permalink());
-                ?>">3M</a></li>
-                <li class="<?php echo ($date_range === 'last_6_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_6_months'), get_permalink());
-                ?>">6M</a></li>
-                <li class="<?php echo ($date_range === 'this_year') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_year'), get_permalink()); ?>">1Y</a></li>
+                <li class="<?php echo ($date_range === 'last_7_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_7_days'),get_permalink()); ?>"><?php echo __('1W','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_14_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>"><?php echo __('2W','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'this_month') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_month'), get_permalink()); ?>"><?php echo __('1M','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_3_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_3_months'), get_permalink()); ?>"><?php echo __('3M','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_6_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_6_months'), get_permalink()); ?>"><?php echo __('6M','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'this_year') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_year'), get_permalink()); ?>"><?php echo __('1Y','wp-crowdfunding'); ?></a></li>
             </ul>
         </div><!--dashboard-head-left-->
         <div class="dashboard-head-right">
@@ -225,20 +211,18 @@ $pladges_received = get_date_range_pladges_received($from_date, $to_date);
                 <input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($from_date)); ?>" placeholder="From" />
                 <span><?php _e( "to" , "wp-crowdfunding" ); ?></span>
                 <input type="text" name="date_range_to" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($to_date)); ?>" placeholder="To" />
-                <input type="submit" value="Search" class="button" id="search-submit">
+                <button type="submit" class="wp-crowd-btn wp-crowd-btn-primary" id="search-submit"><?php _e('Search', 'wp-crowdfunding') ?></button>
             </form>
         </div><!--dashboard-head-right-->
     </div><!--wpneo-dashboard-head-->
 
-    <div class="wpneo-dashboard-summery wpneo-clearfix">
+    <div class="wpneo-dashboard-summary wpneo-clearfix">
         <ul>
             <li class="active"><span class="wpneo-value"> <?php echo wc_price(array_sum($total_backers_amount_ever)); ?></span><span class="wpneo-value-info"><?php _e( "Fund Raised" , "wp-crowdfunding" ); ?></span></li>
             <li><span class="wpneo-value"><?php echo array_sum($sales_count_ever); ?></span><span class="wpneo-value-info"><?php _e( "Total Backed" , "wp-crowdfunding" ); ?></span></li>
             <li><span class="wpneo-value"><?php echo count($pladges_received); ?></span><span class="wpneo-value-info"><?php _e( "Pledge Received" , "wp-crowdfunding" ); ?></span></li>
-
-
         </ul>
-    </div><!--wpneo-dashboard-summery-->
+    </div><!--wpneo-dashboard-summary-->
     <canvas id="WPcrowdFundChart" width="400" height="60"></canvas>
 </div><!--"wpneo-dashboard-chart-->
 

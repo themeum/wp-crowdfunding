@@ -30,12 +30,13 @@ if (! class_exists('Wpneo_Crowdfunding_Initial_Setup')) {
         public static function initial_plugin_setup(){
             //Check is plugin used before or not
             if (get_option('wpneo_crowdfunding_is_used'))
-                return false;
+            	return false;
 
             update_option( 'wpneo_crowdfunding_is_used'         , WPNEO_CROWDFUNDING_VERSION); //Insert plugin version name into Option
             update_option( 'wpneo_cf_selected_theme',           'basic'); //Select a basic theme
             update_option( 'vendor_type',                       'woocommerce'); //Select default payment type to WooCommerce
-            update_option( 'wpneo_default_campaign_status',      'draft'); //Select default campaign status
+            update_option( 'wpneo_default_campaign_status',     'draft'); //Select default campaign status
+            update_option( 'wpneo_campaign_edit_status',        'pending'); //Select default campaign status
             update_option( 'wpneo_enable_color_styling',        'true'); //Set check true at Enable color styling option for custom color layout.
             update_option( 'wpneo_show_min_price',              'true'); //Set check true at min price show during campaign add
             update_option( 'wpneo_show_max_price',              'true'); //Set check true at max price show during campaign add
@@ -113,8 +114,10 @@ if (! class_exists('Wpneo_Crowdfunding_Initial_Setup')) {
                 if( !empty( $role_list ) ){
                     foreach( $role_list as $val ){
                         $role = get_role( $val );
-                        $role->add_cap( 'campaign_form_submit' );
-                        $role->add_cap( 'upload_files' );
+                        if ($role){
+	                        $role->add_cap( 'campaign_form_submit' );
+	                        $role->add_cap( 'upload_files' );
+                        }
                     }
                 }
             }
