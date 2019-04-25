@@ -83,7 +83,7 @@ if ( ! class_exists('Wpneo_Crowdfunding_Reports_Query')) {
                         $get_key = "order_items.{$key}";
                         break;
                     default :
-                        continue;
+                        break;
                 }
 
                 if ( $value['function'] ) {

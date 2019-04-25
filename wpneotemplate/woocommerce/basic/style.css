@@ -426,6 +426,9 @@ a.wpneo-single-main-image{
     color: #ffcc00;
     padding: 20px 20px 8px;
 }
+.wpneo-listings .wpneo-listing-content .woocommerce:empty {
+    display: none;
+}
 .wpneo-campaign-summary-inner .woocommerce{
     float: left;
     color: #ffcc00;
