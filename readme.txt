@@ -4,14 +4,15 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 1.8.8
+Stable tag: 1.9.0
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WP Crowdfunding is a WordPress plugin for fundraising/backer sites. This WooCommerce based plugin lets you launch a site like Kickstarter easily.
 
 == Description ==
-WP Crowdfunding is a WooCommerce based plugin that empowers anyone to create a crowdfunding site using WordPress content management system. Itâ€™s very user-friendly and convenient to manage. Most of the basic WP Crowdfunding features are offered in this free version. Advanced features like centralised Native Wallet System, PayPal Adaptive payments, Stripe Connect, analytical reports, email notifications, unlimited rewards and so on are available in paid versions.
+WP Crowdfunding is a WooCommerce based plugin that empowers anyone to create a crowdfunding site using WordPress content management system. It’s very user-friendly and convenient to manage. Most of the basic WP Crowdfunding features are offered in this free version. Advanced features like centralised Native Wallet System, Stripe Connect, analytical reports, email notifications, unlimited rewards and so on are available in paid versions.
 
 [youtube https://www.youtube.com/watch?v=jHJBV2MbgBw]
 
@@ -59,12 +60,11 @@ Here are the most notable features of WP Crowdfunding plugin. If you need any fu
 
 = Exclusive Features in the Paid Version =
   * Unlimited rewards with estimated delivery date
-  * Native Wallet System to track, calculate, record and distribute all funds (an alternative system of PayPal Adaptive / Stripe Connect)
+  * Native Wallet System to track, calculate, record and distribute all funds (an alternative system of Stripe Connect)
   * Google reCAPTCHA
   * Email notifications
   * Analytical reports
   * Social share
-  * PayPal Adaptive payment
   * Stripe Connect
   * 1 Year plugin update
   * 1 Year Support
@@ -87,9 +87,12 @@ To use these shortcodes, just place the required shortcode(s) on your desired lo
 = Pro Version =
 
 > [Pro Plugin + One Free Theme](https://www.themeum.com/product/wp-crowdfunding-plugin/)
-> [Pro Plugins + Pro Themes](https://www.themeum.com/product/backer/)
 
+= Crowdfunding Themes =
 
+> [Backer Crowdfunding Theme](https://www.themeum.com/product/backer/)
+> [BackNow Crowdfunding Theme](https://themeforest.net/item/backnow-crowdfunding-and-fundraising-wordpress-theme/)
+> [Patrios Crowdfunding Theme](https://www.themeum.com/product/patrios/)
 
 = Author =
 Developed by [Themeum](https://www.themeum.com)
@@ -124,6 +127,15 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
+= 1.9.0 - 03 May, 2019 =
+
+* Fixed: We revert the previous version for an mistake update
+
+
+= 1.8.9 - 03 May, 2019 =
+
+* Fixed: priority for template loading for wp crowdfunding overwriting ability template
+
 = 1.8.8 - 25 April, 2019 =
 
 * Updated: WPML support added
@@ -150,7 +162,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 = 1.8.5 =
 
-* Contributorâ€™s name as Anonymous issue
+* Contributor’s name as Anonymous issue
 * 2checkout payment Vendor.js issue
 * Displaying selected Rewards on the checkout page issue
 * Campaign owner count issue
