@@ -7,6 +7,8 @@
  * Author:            Themeum
  * Author URI:        https://themeum.com
  * Text Domain:       wp-crowdfunding
+ * Requires at least: 4.5
+ * Tested up to: 5.1
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
@@ -16,80 +18,65 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+/**
+ * Support for Multi Network Site
+ */
 if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 }
 
-// language
-add_action( 'init', 'wpneo_crowdfunding_language_load' );
-function wpneo_crowdfunding_language_load(){
+ /**
+  * @Type
+  * @Version
+  * @Directory URL
+  * @Directory Path
+  * @Plugin Base Name
+  */
+  define('WPCF_TYPE', 'free');
+  define('WPCF_VERSION', '1.8.8');
+  define('WPCF_DIR_URL', plugin_dir_url(__FILE__));
+  define('WPCF_DIR_PATH', plugin_dir_path(__FILE__));
+  define('WPCF_BASENAME', plugin_basename(__FILE__));  
+
+/**
+ * Load Text Domain Language
+ */
+add_action( 'init', 'wpcf_language_load' );
+function wpcf_language_load(){
 	$plugin_dir = basename(dirname(__FILE__))."/languages/";
 	load_plugin_textdomain( 'wp-crowdfunding', false, $plugin_dir );
 }
 
-/**
- * Define wpneo_crowdfunding version
- */
 
-define('WPNEO_CROWDFUNDING_VERSION', '1.8.8');
+require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
 
 /**
- * Type of WPNEO CrowdFunding type
+ * Insert Settings Data in In Plugin Activaton Hook
  */
+register_activation_hook( __FILE__, array( 'WPCF_Initial_Setup', 'initial_plugin_setup' ) );
 
-define('WPNEO_CROWDFUNDING_TYPE', 'free');
 
-/**
- * Define wpneo_crowdfunding plugin's url path
- */
-define('WPNEO_CROWDFUNDING_DIR_URL', plugin_dir_url(__FILE__));
-
-/**
- * Define wpneo_crowdfunding plugin's physical path
- */
-define('WPNEO_CROWDFUNDING_DIR_PATH', plugin_dir_path(__FILE__));
-
-/**
- * Define WPNEO_CROWDFUNDING_PLUGIN_BASENAME
- */
-
-define('WPNEO_CROWDFUNDING_PLUGIN_BASENAME', plugin_basename(__FILE__));
-
-/**
- * Define Crowdfunding Slug
- */
-
-require_once WPNEO_CROWDFUNDING_DIR_PATH . 'includes/class-wpneo-crowdfunding-initial-setup.php';
-
-/**
- * Some task during plugin activation
- */
-register_activation_hook( __FILE__, array( 'Wpneo_Crowdfunding_Initial_Setup', 'initial_plugin_setup' ) );
 
 /**
  * Include Require File
  */
+include_once WPCF_DIR_PATH . 'includes/wpneo-crowdfunding-general-functions.php';
+include_once WPCF_DIR_PATH . 'admin/menu-settings.php';
 
-$is_valid_plugin = apply_filters('is_wp_crowdfunding_valid', true);
 
-if ($is_valid_plugin) {
-	include_once WPNEO_CROWDFUNDING_DIR_PATH . 'includes/wpneo-crowdfunding-general-functions.php';
-	include_once WPNEO_CROWDFUNDING_DIR_PATH . 'admin/menu-settings.php';
-
-	/**
-	 * Checking vendor
-	 */
-	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
-		if ( wpneo_wc_version_check() ) {
-			require_once WPNEO_CROWDFUNDING_DIR_PATH . 'includes/class-wpneo-crowdfunding-base.php';
-			require_once WPNEO_CROWDFUNDING_DIR_PATH . 'includes/woocommerce/class-wpneo-crowdfunding.php';
-			require_once WPNEO_CROWDFUNDING_DIR_PATH . 'includes/class-wpneo-crowdfunding-frontend-dashboard.php';
-			Wpneo_Crowdfunding();
-		} else {
-			add_action( 'admin_notices', array( 'Wpneo_Crowdfunding_Initial_Setup', 'wc_low_version' ) );
-			deactivate_plugins( plugin_basename( __FILE__ ) );
-		}
+/**
+ * Checking vendor
+ */
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
+	if ( wpneo_wc_version_check() ) {
+		require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-base.php';
+		require_once WPCF_DIR_PATH . 'includes/woocommerce/class-wpneo-crowdfunding.php';
+		require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-frontend-dashboard.php';
+		Wpneo_Crowdfunding();
 	} else {
-		add_action( 'admin_notices', array( 'Wpneo_Crowdfunding_Initial_Setup', 'no_vendor_notice' ) );
+		add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
+		deactivate_plugins( plugin_basename( __FILE__ ) );
 	}
+} else {
+	add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'no_vendor_notice' ) );
 }

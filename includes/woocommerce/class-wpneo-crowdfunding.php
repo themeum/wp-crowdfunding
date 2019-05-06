@@ -944,10 +944,10 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
  * @Wpneo_Crowdfunding() for initialize Main class
  */
 function Wpneo_Crowdfunding(){
-    require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/class-wpneo-wc-admin-dashboard.php';
-    require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/class-wpneo-frontend-hook.php';
-    require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php';
-    require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/class-wpneo-wc-account-dashboard.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-wc-admin-dashboard.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-frontend-hook.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-wc-account-dashboard.php';
     return Wpneo_Crowdfunding::instance();
 }
 

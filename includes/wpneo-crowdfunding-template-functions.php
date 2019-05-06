@@ -589,11 +589,11 @@ if ( ! function_exists('wp_crowdfunding_generator_tag')){
 	function wp_crowdfunding_generator_tag( $gen, $type ) {
 		switch ( $type ) {
 			case 'html':
-				$gen .= "\n" . '<meta name="generator" content="WP Crowdfunding ' . esc_attr( WPNEO_CROWDFUNDING_VERSION
+				$gen .= "\n" . '<meta name="generator" content="WP Crowdfunding ' . esc_attr( WPCF_VERSION
 					) . '">';
 				break;
 			case 'xhtml':
-				$gen .= "\n" . '<meta name="generator" content="WP Crowdfunding ' . esc_attr( WPNEO_CROWDFUNDING_VERSION ) . '" />';
+				$gen .= "\n" . '<meta name="generator" content="WP Crowdfunding ' . esc_attr( WPCF_VERSION ) . '" />';
 				break;
 		}
 		return $gen;

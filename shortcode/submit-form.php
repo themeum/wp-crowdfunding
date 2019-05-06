@@ -553,7 +553,7 @@ function wpneo_shortcode_crowdfunding_form( $atts ){
         $html .= '</div>';
     }
 
-    if (WPNEO_CROWDFUNDING_TYPE == 'free') {
+    if (WPCF_TYPE == 'free') {
         $html .= '<div style="clear: both;"></div>';
 
         $html .= '<p> <i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a> </i></p>';

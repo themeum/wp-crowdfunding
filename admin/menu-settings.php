@@ -194,17 +194,17 @@ function neo_crowdfunding_menu_page(){
             'general' 	=>
                 array(
                     'tab_name' => __('General Settings','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'admin/includes-tab/tab-general.php'
+                    'load_form_file' => WPCF_DIR_PATH.'admin/includes-tab/tab-general.php'
                 ),
             'woocommerce' 	=>
                 array(
                     'tab_name' => __('WooCommerce Settings','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'admin/includes-tab/tab-woocommerce.php'
+                    'load_form_file' => WPCF_DIR_PATH.'admin/includes-tab/tab-woocommerce.php'
                 ),
             'style'   =>
                 array(
                     'tab_name' => __('Style','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'admin/includes-tab/tab-style.php'
+                    'load_form_file' => WPCF_DIR_PATH.'admin/includes-tab/tab-style.php'
                 ),
         )
     );
@@ -227,7 +227,7 @@ function neo_crowdfunding_menu_page(){
         <?php
         //Load tab file
         $request_file = $tabs[$current_page]['load_form_file'];
-        $default_file = WPNEO_CROWDFUNDING_DIR_PATH.'admin/includes-tab/tab-general.php';
+        $default_file = WPCF_DIR_PATH.'admin/includes-tab/tab-general.php';
 
         if (array_key_exists(trim(esc_attr($current_page)), $tabs)){
             if (file_exists($default_file)){
@@ -635,8 +635,8 @@ function neo_crowdfunding_register_menu_page(){
 		'neo_crowdfunding_menu_page'
 	);
 
-    $adaptive = WPNEO_CROWDFUNDING_DIR_PATH.'addons/paypal-adaptive/classes/class-wpneo-adaptive-payment-initiate.php';
-    if (WPNEO_CROWDFUNDING_TYPE == 'free'){
+    $adaptive = WPCF_DIR_PATH.'addons/paypal-adaptive/classes/class-wpneo-adaptive-payment-initiate.php';
+    if (WPCF_TYPE == 'free'){
         add_submenu_page( 'wpneo-crowdfunding', __( 'Go Premium', 'wp-crowdfunding' ), __( 'Go Premium <span class="dashicons dashicons-star-filled"></span>', 'wp-crowdfunding' ), 'manage_options', 'wp-crowdfunding', 'neo_crowdfunding_go_premium' );
     }
 }

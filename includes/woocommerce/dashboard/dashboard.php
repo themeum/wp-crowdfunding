@@ -9,7 +9,7 @@ $current_user = wp_get_current_user();
 <?php
 
 ob_start();
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php';
+include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php';
 $html .= ob_get_clean();
 ?>
 
@@ -19,7 +19,7 @@ $html .= '<div class="wpneo-row">';
     $html .= '<div class="wpneo-col6">';
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
         $html .= '<h4>'.__( "My Campaigns" , "wp-crowdfunding" ).'</h4>';
-        include_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
+        include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
     $html .= '</div>';//wpneo-shadow 
     $html .= '</div>';//wpneo-col6 
     $html .= '<div class="wpneo-col6">';

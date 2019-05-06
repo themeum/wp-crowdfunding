@@ -160,7 +160,7 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
          * @param WP_Post $post Current post object.
          */
         function wpneo_crowdfunding_metabox_display_callback( $post ) {
-            include WPNEO_CROWDFUNDING_DIR_PATH.'admin/view/product_metabox_campaign_info.php';
+            include WPCF_DIR_PATH.'admin/view/product_metabox_campaign_info.php';
         }
 
         /**
@@ -177,7 +177,7 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
         }
 
         function wpneo_crowdfunding_selected_reward_meta_box_display_callback(){
-            include WPNEO_CROWDFUNDING_DIR_PATH.'admin/view/order_selected_reward_meta_box.php';
+            include WPCF_DIR_PATH.'admin/view/order_selected_reward_meta_box.php';
         }
 
 

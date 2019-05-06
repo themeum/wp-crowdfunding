@@ -29,10 +29,10 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
         }
 
         public function wpneo_crowdfunding_wallet_settings($tabs){
-            if (WPNEO_CROWDFUNDING_TYPE === 'enterprise'){
-                $load_tab = WPNEO_CROWDFUNDING_DIR_PATH.'addons/wallet/pages/tab-wallet.php';
+            if (WPCF_TYPE === 'enterprise'){
+                $load_tab = WPCF_DIR_PATH.'addons/wallet/pages/tab-wallet.php';
             }else{
-                $load_tab = WPNEO_CROWDFUNDING_DIR_PATH.'addons/wallet/pages/tab-wallet-demo.php';
+                $load_tab = WPCF_DIR_PATH.'addons/wallet/pages/tab-wallet-demo.php';
             }
 
             $tabs['wallet'] = array(

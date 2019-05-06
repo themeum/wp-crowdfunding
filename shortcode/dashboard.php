@@ -30,55 +30,55 @@ function wpneo_shortcode_crowdfunding_dashboard( $attr ){
                 array(
                     'tab'             => 'dashboard',
                     'tab_name'        => __('Dashboard','wp-crowdfunding'),
-                    'load_form_file'  => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php'
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php'
                 ),
             'profile' =>
                 array(
                     'tab'             => 'account',
                     'tab_name'        => __('Profile','wp-crowdfunding'),
-                    'load_form_file'  => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/profile.php'
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php'
                 ),
             'contact' =>
                 array(
                     'tab'             => 'account',
                     'tab_name'        => __('Contact','wp-crowdfunding'),
-                    'load_form_file'  => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/contact.php'
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/contact.php'
                 ),
             'campaign' =>
                 array(
                     'tab'             => 'campaign',
                     'tab_name'        => __('My Campaigns','wp-crowdfunding'),
-                    'load_form_file'  => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/campaign.php'
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php'
                 ),
             'backed_campaigns' =>
                 array(
                     'tab'             => 'campaign',
                     'tab_name'        => __('My Invested Campaigns','wp-crowdfunding'),
-                    'load_form_file'  => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/investment.php'
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php'
                 ),
             'pledges_received' =>
                 array(
                     'tab'            => 'campaign',
                     'tab_name'       => __('Pledges Received','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/order.php'
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php'
                 ),
             'bookmark' =>
                 array(
                     'tab'            => 'campaign',
                     'tab_name'       => __('Bookmarks','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php'
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php'
                 ),
             'password' =>
                 array(
                     'tab'            => 'account',
                     'tab_name'       => __('Password','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/password.php'
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/password.php'
                 ),
             'rewards' =>
                 array(
                     'tab'            => 'account',
                     'tab_name'       => __('Rewards','wp-crowdfunding'),
-                    'load_form_file' => WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
                 ),
         ));
         
@@ -135,7 +135,7 @@ function wpneo_shortcode_crowdfunding_dashboard( $attr ){
     
             ob_start();
             if( $var == 'update' ){
-                require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/update.php';
+                require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/update.php';
             }else{
                 if ( ! empty($dashboard_menus[$get_id]['load_form_file']) ) {
                     if (file_exists($dashboard_menus[$get_id]['load_form_file'])) {

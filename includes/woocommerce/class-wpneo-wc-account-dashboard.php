@@ -68,42 +68,42 @@ if (! class_exists('WPNEO_WC_Account_Dashboard')) {
         // Crowdfunding Dashboard
         public function wpneo_dashboard_endpoint_content() {
            $html = '';
-           require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php';
+           require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php';
            echo $html;
         }
 
         // Profile
         public function wpneo_profile_endpoint_content() {
            $html = '';
-           require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/profile.php';
+           require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php';
            echo $html;
         }
 
         // My Profile
         public function wpneo_my_campaigns_endpoint_content() {
            $html = '';
-           require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/campaign.php';
+           require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php';
            echo $html;
         }
 
         // Backed Campaigns
         public function wpneo_backed_campaigns_endpoint_content() {
            $html = '';
-           require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/investment.php';
+           require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php';
            echo $html;
         }
 
         // Pledges Received
         public function wpneo_pledges_received_endpoint_content() {
            $html = '';
-           require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/order.php';
+           require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php';
            echo $html;
         }
 
         // Bookmarks
         public function wpneo_bookmarks_endpoint_content() {
            $html = '';
-           require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php';
+           require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php';
            echo $html;
         }
     }

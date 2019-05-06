@@ -34,7 +34,7 @@ if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
             add_action('init', array($this, 'csv_export'));
             add_action('admin_menu', array($this, 'wpneo_crowdfunding_add_reports_page'));
             // Add CSS & JS for this Addons
-            if (WPNEO_CROWDFUNDING_TYPE !== 'free') {
+            if (WPCF_TYPE !== 'free') {
                 add_action('admin_enqueue_scripts', array($this, 'wpneo_crowdfunding_add_report_assets'));
             }
             //Check is current page is crowdfunding report page or not
@@ -65,16 +65,16 @@ if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
         public function wpneo_crowdfunding_reports(){
 
             //Defining page location into variable
-            $load_report_page = WPNEO_CROWDFUNDING_DIR_PATH.'addons/reports/pages/reports-demo.php';
-            $default_file = WPNEO_CROWDFUNDING_DIR_PATH.'addons/reports/pages/reports-area-chart.php';
-            if (WPNEO_CROWDFUNDING_TYPE === 'free'){
+            $load_report_page = WPCF_DIR_PATH.'addons/reports/pages/reports-demo.php';
+            $default_file = WPCF_DIR_PATH.'addons/reports/pages/reports-area-chart.php';
+            if (WPCF_TYPE === 'free'){
                 $sales_report_page = $load_report_page;
                 $top_campaigns_page = $load_report_page;
                 //Default file
                 $default_file = $load_report_page;
             }else{
-                $sales_report_page = WPNEO_CROWDFUNDING_DIR_PATH.'addons/reports/pages/reports-area-chart.php';
-                $top_campaigns_page = WPNEO_CROWDFUNDING_DIR_PATH.'addons/reports/pages/reports-by-campaign.php';
+                $sales_report_page = WPCF_DIR_PATH.'addons/reports/pages/reports-area-chart.php';
+                $top_campaigns_page = WPCF_DIR_PATH.'addons/reports/pages/reports-by-campaign.php';
             }
 
 

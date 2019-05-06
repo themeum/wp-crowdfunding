@@ -233,7 +233,7 @@ if ( ! function_exists('wp_crowdfunding_license_info')){
 			'msg'  => 'A valid license is required to unlock available features',
 		);
 
-		$saved_license_info = maybe_unserialize(get_option(WPNEO_CROWDFUNDING_PLUGIN_BASENAME.'_license_info'));
+		$saved_license_info = maybe_unserialize(get_option(WPCF_BASENAME.'_license_info'));
 
 		if ($saved_license_info && is_array($saved_license_info)){
 			return (object) array_merge($blank_license_info, $saved_license_info);

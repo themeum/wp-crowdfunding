@@ -119,7 +119,7 @@ jQuery(document).ready(function($){
 		$.ajax({
 			type : 'POST',
 			url : ajaxurl,
-			data : { action : 'wpneo_crowdfunding_reset'},
+			data : { action : 'wpcf_settings_reset'},
 			success : function(data){
 				window.location.reload(true);
 			}

@@ -42,7 +42,7 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
 
         public function wpneo_social_share_enqueue_frontend_script(){
             if ( get_option('wpneo_enable_social_share') == 'true') {
-                wp_enqueue_script('wp-neo-jquery-social-share-front', WPNEO_CROWDFUNDING_DIR_URL .'addons/social-share/jquery.prettySocial.min.js', array('jquery'), WPNEO_CROWDFUNDING_VERSION, true);
+                wp_enqueue_script('wp-neo-jquery-social-share-front', WPCF_DIR_URL .'addons/social-share/jquery.prettySocial.min.js', array('jquery'), WPCF_VERSION, true);
             }
         }
 

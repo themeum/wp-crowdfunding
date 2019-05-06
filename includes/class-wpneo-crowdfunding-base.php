@@ -38,18 +38,18 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
             add_action( 'init',                     array($this, 'wpneo_crowdfunding_get_user_own_media_after_load_pluggable'));
             add_action( 'admin_init',               array($this, 'wpneo_crowdfunding_network_disable_notice'));
             add_action( 'admin_head',               array($this, 'wpneo_crowdfunding_add_mce_button'));
-            add_filter( 'plugin_action_links_' . WPNEO_CROWDFUNDING_PLUGIN_BASENAME, array($this, 'wpneo_crowdfunding_settings_link'), 10, 5);
+            add_filter( 'plugin_action_links_' . WPCF_BASENAME, array($this, 'wpneo_crowdfunding_settings_link'), 10, 5);
 
             //Ajax action
-            add_action( 'wp_ajax_wpneo_crowdfunding_reset',  array($this, 'wpneo_crowdfunding_reset'));
+            add_action( 'wp_ajax_wpcf_settings_reset',  array($this, 'wpcf_settings_reset'));
 
 
             //Disable plugin update notification
-            if (WPNEO_CROWDFUNDING_TYPE != 'free'){
+            if (WPCF_TYPE != 'free'){
                 //add_filter( 'site_transient_update_plugins', array($this,'wpnew_crowdfunding_disable_plugin_updates') );
             }
 
-            if (WPNEO_CROWDFUNDING_TYPE == 'free'){
+            if (WPCF_TYPE == 'free'){
                 //Footer text, asking rating.
                 add_filter('admin_footer_text', array($this, 'wpneo_crowdfunding_admin_footer_text'), 2);
                 add_action('wp_ajax_wpcf_rated', array($this, 'wpcf_admin_footer_text_rated'));
@@ -58,11 +58,11 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
         }
 
         public function load_wpneo_crowdfunding_functions(){
-            require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/wpneo-crowdfunding-template-functions.php';
+            require_once WPCF_DIR_PATH.'includes/wpneo-crowdfunding-template-functions.php';
         }
 
         public function wpneo_template_hook(){
-            require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/wpneo-crowdfunding-template-hook.php';
+            require_once WPCF_DIR_PATH.'includes/wpneo-crowdfunding-template-hook.php';
         }
 
         /**
@@ -71,8 +71,8 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
          */
         public function wpneo_enqueue_admin_script(){
             wp_enqueue_style( 'wp-color-picker' );
-            wp_enqueue_script( 'wp-neo-jquery-scripts', WPNEO_CROWDFUNDING_DIR_URL .'assets/js/crowdfunding.js', array('jquery','wp-color-picker'), WPNEO_CROWDFUNDING_VERSION, true);
-            wp_register_style( 'neo-crowdfunding-css', WPNEO_CROWDFUNDING_DIR_URL .'assets/css/crowdfunding.css', false, WPNEO_CROWDFUNDING_VERSION );
+            wp_enqueue_script( 'wp-neo-jquery-scripts', WPCF_DIR_URL .'assets/js/crowdfunding.js', array('jquery','wp-color-picker'), WPCF_VERSION, true);
+            wp_register_style( 'neo-crowdfunding-css', WPCF_DIR_URL .'assets/css/crowdfunding.css', false, WPCF_VERSION );
             wp_enqueue_style( 'neo-crowdfunding-css' );
         }
 
@@ -85,11 +85,11 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
             wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
             wp_register_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
             wp_enqueue_style( 'jquery-ui' );
-            //wp_enqueue_script( 'wp-neo-Chart.bundle', WPNEO_CROWDFUNDING_DIR_URL .'assets/js/Chart.bundle.min.js', array('jquery'), WPNEO_CROWDFUNDING_VERSION, true);            
-            wp_enqueue_script( 'jquery.easypiechart', WPNEO_CROWDFUNDING_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPNEO_CROWDFUNDING_VERSION, true);
-            wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPNEO_CROWDFUNDING_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPNEO_CROWDFUNDING_VERSION, true);
+            //wp_enqueue_script( 'wp-neo-Chart.bundle', WPCF_DIR_URL .'assets/js/Chart.bundle.min.js', array('jquery'), WPCF_VERSION, true);            
+            wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
+            wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
             wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
-            wp_register_style( 'neo-crowdfunding-css-front', WPNEO_CROWDFUNDING_DIR_URL .'assets/css/crowdfunding-front.css', false, WPNEO_CROWDFUNDING_VERSION );
+            wp_register_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/crowdfunding-front.css', false, WPCF_VERSION );
             wp_enqueue_style( 'neo-crowdfunding-css-front' );
             wp_enqueue_media();
         }
@@ -139,7 +139,7 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
         }
         // Declare script for new button
         function wpneo_crowdfunding_add_tinymce_js( $plugin_array ) {
-            $plugin_array['crowdfunding_button'] = WPNEO_CROWDFUNDING_DIR_URL .'assets/js/mce-button.js';
+            $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.js';
             return $plugin_array;
         }
         // Register new button in the editor
@@ -187,7 +187,7 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
          */
 
         public function wpneo_crowdfunding_network_disable_notice(){
-            if (is_plugin_active_for_network(WPNEO_CROWDFUNDING_PLUGIN_BASENAME)){
+            if (is_plugin_active_for_network(WPCF_BASENAME)){
                 add_action('admin_notices', array($this, 'disable_from_network_notice'));
             }
         }
@@ -207,9 +207,9 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
          * Reset method
          */
 
-        public function wpneo_crowdfunding_reset(){
+        public function wpcf_settings_reset(){
             $initial_setup = new Wpneo_Crowdfunding_Initial_Setup();
-            $initial_setup->wpneo_crowdfunding_reset();
+            $initial_setup->wpcf_settings_reset();
         }
 
 
@@ -228,25 +228,25 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
 }
 Wpneo_Crowdfunding_Base::instance(); //Call base class
 
-require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/class-wpneo-crowdfunding-templating.php';
-require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/class-wpneo-crowdfunding-user-registration.php';
-require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/class-wpneo-crowdfunding-product-search.php';
-require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/class-wpneo-crowdfunding-common.php';
-require_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/class-wp-crowdfunding-shortcode.php';
+require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-templating.php';
+require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-user-registration.php';
+require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-product-search.php';
+require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-common.php';
+require_once WPCF_DIR_PATH.'includes/class-wp-crowdfunding-shortcode.php';
 
 // Shortcode Add to the plugins
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'shortcode/dashboard.php';
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'shortcode/project-listing.php';
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'shortcode/registration.php';
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'shortcode/search.php';
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'shortcode/submit-form.php';
+include_once WPCF_DIR_PATH.'shortcode/dashboard.php';
+include_once WPCF_DIR_PATH.'shortcode/project-listing.php';
+include_once WPCF_DIR_PATH.'shortcode/registration.php';
+include_once WPCF_DIR_PATH.'shortcode/search.php';
+include_once WPCF_DIR_PATH.'shortcode/submit-form.php';
 
 // Include Addons directory and there main file
-$addons_dir = array_filter(glob(WPNEO_CROWDFUNDING_DIR_PATH.'addons/*'), 'is_dir');
+$addons_dir = array_filter(glob(WPCF_DIR_PATH.'addons/*'), 'is_dir');
 if (count($addons_dir) > 0) {
     foreach ($addons_dir as $key => $value) {
         $addon_dir_name = str_replace(dirname($value).'/', '', $value);
-        $file_name = WPNEO_CROWDFUNDING_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
+        $file_name = WPCF_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
         if ( file_exists($file_name) ){
             include_once $file_name;
         }

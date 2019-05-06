@@ -242,7 +242,7 @@ if (! class_exists('WPNEO_WC_Reward')) {
                     }
                 }
 
-                if (WPNEO_CROWDFUNDING_TYPE == 'free'){
+                if (WPCF_TYPE == 'free'){
                     ?>
                     <p class="description"><?php _e('pro version is required to add more than 1 reward', 'wp-crowdfunding') ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank"> <?php _e('click here to get pro version', 'wp-crowdfunding') ?></a></p>
                     <?php

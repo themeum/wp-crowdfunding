@@ -5,9 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Include necessary version
  */
-if (WPNEO_CROWDFUNDING_TYPE === 'enterprise'){
-    $load_tab = WPNEO_CROWDFUNDING_DIR_PATH.'addons/wallet/wpneo-crowdfunding-wallet.php';
+if (WPCF_TYPE === 'enterprise'){
+    $load_tab = WPCF_DIR_PATH.'addons/wallet/wpneo-crowdfunding-wallet.php';
 }else{
-    $load_tab = WPNEO_CROWDFUNDING_DIR_PATH.'addons/wallet/wpneo-crowdfunding-wallet-demo.php';
+    $load_tab = WPCF_DIR_PATH.'addons/wallet/wpneo-crowdfunding-wallet-demo.php';
 }
 include_once $load_tab;
