@@ -23,13 +23,13 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
         }
 
         public function __construct(){
-            add_action( 'init',                                     array($this, 'wpneo_embed_data') );
-            add_action( 'wp_enqueue_scripts',                       array($this, 'wpneo_social_share_enqueue_frontend_script') ); //Add social share js in footer
-            add_filter('wpneo_crowdfunding_settings_panel_tabs',    array($this, 'add_social_share_tab_to_wpneo_crowdfunding_settings')); //Hook to add social share field with user registration form
+            add_action( 'init',                             array($this, 'wpneo_embed_data') );
+            add_action( 'wp_enqueue_scripts',               array($this, 'wpneo_social_share_enqueue_frontend_script') ); //Add social share js in footer
+            add_filter('wpcf_settings_tabs',                array($this, 'add_social_share_tab_to_wpneo_crowdfunding_settings')); //Hook to add social share field with user registration form
 
-            add_action( 'init',                                     array($this, 'wpneo_social_share_save_settings') ); // Social Share Settings
-            add_action( 'wp_ajax_wpcf_embed_action',                array($this, 'wpneo_embed_campaign_action') );
-            add_action( 'wp_ajax_nopriv_wpcf_embed_action',  array($this, 'wpneo_embed_campaign_action') );
+            add_action( 'init',                             array($this, 'wpneo_social_share_save_settings') ); // Social Share Settings
+            add_action( 'wp_ajax_wpcf_embed_action',        array($this, 'wpneo_embed_campaign_action') );
+            add_action( 'wp_ajax_nopriv_wpcf_embed_action', array($this, 'wpneo_embed_campaign_action') );
         }
 
         public function add_social_share_tab_to_wpneo_crowdfunding_settings($tabs){
@@ -53,35 +53,35 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
             if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpneo_varify_social_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
                 // Checkbox
                 $wpneo_enable_social_share = sanitize_text_field(wpneo_post('wpneo_enable_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_enable_social_share', $wpneo_enable_social_share);
+                wpcf_update_checkbox('wpneo_enable_social_share', $wpneo_enable_social_share);
 
                 $wpneo_twitter_social_share = sanitize_text_field(wpneo_post('wpneo_twitter_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_twitter_social_share', $wpneo_twitter_social_share);
+                wpcf_update_checkbox('wpneo_twitter_social_share', $wpneo_twitter_social_share);
 
                 $wpneo_facebook_social_share = sanitize_text_field(wpneo_post('wpneo_facebook_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
+                wpcf_update_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
 
                 $wpneo_facebook_social_share = sanitize_text_field(wpneo_post('wpneo_facebook_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
+                wpcf_update_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
 
                 $wpneo_googleplus_social_share = sanitize_text_field(wpneo_post('wpneo_googleplus_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_googleplus_social_share', $wpneo_googleplus_social_share);
+                wpcf_update_checkbox('wpneo_googleplus_social_share', $wpneo_googleplus_social_share);
 
                 $wpneo_pinterest_social_share = sanitize_text_field(wpneo_post('wpneo_pinterest_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_pinterest_social_share', $wpneo_pinterest_social_share);
+                wpcf_update_checkbox('wpneo_pinterest_social_share', $wpneo_pinterest_social_share);
 
                 $wpneo_linkedin_social_share = sanitize_text_field(wpneo_post('wpneo_linkedin_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_linkedin_social_share', $wpneo_linkedin_social_share);
+                wpcf_update_checkbox('wpneo_linkedin_social_share', $wpneo_linkedin_social_share);
 
                 //Text Field
                 $wpneo_twitter_via = sanitize_text_field(wpneo_post('wpneo_twitter_via'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_twitter_via', $wpneo_twitter_via);
+                wpcf_update_checkbox('wpneo_twitter_via', $wpneo_twitter_via);
 
                 $wpneo_linkedin_via = sanitize_text_field(wpneo_post('wpneo_linkedin_via'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_linkedin_via', $wpneo_linkedin_via);
+                wpcf_update_checkbox('wpneo_linkedin_via', $wpneo_linkedin_via);
 
                 $wpneo_embed_social_share = sanitize_text_field(wpneo_post('wpneo_embed_social_share'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_embed_social_share', $wpneo_embed_social_share);
+                wpcf_update_checkbox('wpneo_embed_social_share', $wpneo_embed_social_share);
             }
         }
 

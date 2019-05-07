@@ -77,12 +77,12 @@ Please let us know your feedback, if you think something can be more awesome thi
 = Shortcode List =
 To use these shortcodes, just place the required shortcode(s) on your desired location.
 
-  * Crowdfunding Product Listing Shortcode [wpneo_crowdfunding_listing]
-  * Crowdfunding Product Listing Shortcode with specific category [wpneo_crowdfunding_listing cat="cat_name"]
-  * Crowdfunding Product Submission Form Shortcode [wpneo_crowdfunding_form]
-  * Crowdfunding Product Search Shortcode [wpneo_search_shortcode]
-  * Crowdfunding User Dashboard Shortcode [wpneo_crowdfunding_dashboard]
-  * Crowdfunding User Registration Shortcode [wpneo_registration]
+  * Crowdfunding Product Listing Shortcode [wpcf_listing]
+  * Crowdfunding Product Listing Shortcode with specific category [wpcf_listing cat="cat_name"]
+  * Crowdfunding Product Submission Form Shortcode [wpcf_form]
+  * Crowdfunding Product Search Shortcode [wpcf_search]
+  * Crowdfunding User Dashboard Shortcode [wpcf_dashboard]
+  * Crowdfunding User Registration Shortcode [wpcf_registration]
 
 = Pro Version =
 

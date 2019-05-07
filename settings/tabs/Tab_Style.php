@@ -82,6 +82,4 @@ if ( ! defined( 'ABSPATH' ) ) {
                     'value'     => 'tab_style',
                     ),
     );
-    echo wpneo_crowdfunding_settings_generate_field( $arr );
-
-?>
+    wpcf_settings_generator( $arr );

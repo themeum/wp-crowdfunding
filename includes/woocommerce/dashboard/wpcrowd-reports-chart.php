@@ -187,7 +187,7 @@ $get_crowdfunding_campaigns = new WP_Query($query_args);
 //print_r($get_crowdfunding_campaigns);
 
 
-$pladges_received = get_date_range_pladges_received($from_date, $to_date);
+$pladges_received = wpcf_get_date_range_pladges_received($from_date, $to_date);
 
 ?>
 

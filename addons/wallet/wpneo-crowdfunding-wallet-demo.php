@@ -25,10 +25,10 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
          * WPNeo_Crowdfunding_Wallet constructor.
          */
         public function __construct(){
-            add_filter('wpneo_crowdfunding_settings_panel_tabs', array($this, 'wpneo_crowdfunding_wallet_settings')); //Hook to add social share field
+            add_filter('wpcf_settings_tabs', array($this, 'wpcf_wallet_settings')); //Hook to add social share field
         }
 
-        public function wpneo_crowdfunding_wallet_settings($tabs){
+        public function wpcf_wallet_settings($tabs){
             if (WPCF_TYPE === 'enterprise'){
                 $load_tab = WPCF_DIR_PATH.'addons/wallet/pages/tab-wallet.php';
             }else{

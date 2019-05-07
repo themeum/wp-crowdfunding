@@ -3,9 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_shortcode( 'wpneo_crowdfunding_dashboard','wpneo_shortcode_crowdfunding_dashboard' );
+add_shortcode( 'wpneo_crowdfunding_dashboard','wpcf_dashboard_callback' ); //@comparability
+add_shortcode( 'wpcf_dashboard','wpcf_dashboard_callback' );
 
-function wpneo_shortcode_crowdfunding_dashboard( $attr ){
+function wpcf_dashboard_callback( $attr ){
 
         function dashboard_page_type($typename){
             $type = '';

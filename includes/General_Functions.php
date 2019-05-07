@@ -12,16 +12,16 @@ if (! function_exists('wpneo_post')){
     }
 }
 
-if (! function_exists('wpneo_crowdfunding_update_option_text')){
-    function wpneo_crowdfunding_update_option_text($option_name = '', $option_value = null){
+if (! function_exists('wpcf_update_text')){
+    function wpcf_update_text($option_name = '', $option_value = null){
         if (!empty($option_value)) {
             update_option($option_name, $option_value);
         }
     }
 }
 
-if (! function_exists('wpneo_crowdfunding_update_option_checkbox')){
-    function wpneo_crowdfunding_update_option_checkbox($option_name = '', $option_value = null, $checked_default_value = 'false'){
+if (! function_exists('wpcf_update_checkbox')){
+    function wpcf_update_checkbox($option_name = '', $option_value = null, $checked_default_value = 'false'){
         if (!empty($option_value)) {
             update_option($option_name, $option_value);
         } else{
@@ -30,16 +30,14 @@ if (! function_exists('wpneo_crowdfunding_update_option_checkbox')){
     }
 }
 
-if (! function_exists('wpneo_crowdfunding_update_post_meta_text')){
-    function wpneo_crowdfunding_update_post_meta_text($post_id, $meta_name = '', $meta_value = null){
-        //if (!empty($meta_value)) {
-            update_post_meta( $post_id, $meta_name, $meta_value);
-        //}
+if (! function_exists('wpcf_update_meta')){
+    function wpcf_update_meta($post_id, $meta_name = '', $meta_value = null){
+        update_post_meta( $post_id, $meta_name, $meta_value);
     }
 }
 
-if (! function_exists('wpneo_crowdfunding_update_post_meta_checkbox')){
-    function wpneo_crowdfunding_update_post_meta_checkbox($post_id, $meta_name = '', $meta_value = null, $checked_default_value = 'false'){
+if (! function_exists('wpcf_update_meta_checkbox')){
+    function wpcf_update_meta_checkbox($post_id, $meta_name = '', $meta_value = null, $checked_default_value = 'false'){
         if (!empty($meta_value)) {
             update_post_meta( $post_id, $meta_name, $meta_value);
         }else{
@@ -48,9 +46,8 @@ if (! function_exists('wpneo_crowdfunding_update_post_meta_checkbox')){
     }
 }
 
-if (! function_exists('wpneo_get_published_pages')) {
-    function wpneo_get_published_pages(){
-
+if (! function_exists('wpcf_get_published_pages')) {
+    function wpcf_get_published_pages(){
         $args = array(
             'sort_order' => 'asc',
             'sort_column' => 'post_title',
@@ -70,7 +67,7 @@ if (! function_exists('wpneo_get_published_pages')) {
  * @param string $version
  * @return bool
  */
-function wpneo_wc_version_check( $version = '3.0' ) {
+function wpcf_wc_version_check( $version = '3.0' ) {
     if ( class_exists( 'WooCommerce' ) ) {
         global $woocommerce;
         if ( version_compare( $woocommerce->version, $version, ">=" ) ) {
@@ -79,6 +76,20 @@ function wpneo_wc_version_check( $version = '3.0' ) {
     }
     return false;
 }
+
+
+function wpcf_vendor(){
+    return get_option( 'vendor_type', 'woocommerce' );
+}
+
+function wpcf_is_woocommerce(){
+    if( wpcf_vendor() == 'woocommerce' ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
 /**
  * @return mixed|void
@@ -103,13 +114,13 @@ if ( ! function_exists('wpcf_screen_id')){
  * @param $to_date
  * @return array
  */
-if ( ! function_exists('get_date_range_pladges_received')){
-    function get_date_range_pladges_received($from_date = null, $to_date = null){
+if ( ! function_exists('wpcf_get_date_range_pladges_received')){
+    function wpcf_get_date_range_pladges_received($from_date = null, $to_date = null){
 
         if ( ! $from_date){
             $from_date = date('Y-m-d 00:00:00', strtotime('-6 days'));
         }
-        if ( ! $to_date){
+        if ( ! $to_date ){
             $to_date = date('Y-m-d 23:59:59');
         }
 

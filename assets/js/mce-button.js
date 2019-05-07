@@ -11,22 +11,22 @@
 				{
 					text: 'Registration Shortcode',
 					onclick: function() {
-						editor.insertContent('[wpneo_registration]');
+						editor.insertContent('[wpcf_registration]');
 					}
 				},{
 					text: 'Dashboard Shortcode',
 					onclick: function() {
-						editor.insertContent('[wpneo_crowdfunding_dashboard]');
+						editor.insertContent('[wpcf_dashboard]');
 					}
 				},{
 					text: 'Search Shortcode',
 					onclick: function() {
-						editor.insertContent('[wpneo_search_shortcode]');
+						editor.insertContent('[wpcf_search]');
 					}
 				},{
 					text: 'Form Shortcode',
 					onclick: function() {
-						editor.insertContent('[wpneo_crowdfunding_form]');
+						editor.insertContent('[wpcf_form]');
 					}
 				},{
 					text: 'Listing Shortcode',
@@ -48,7 +48,7 @@
 								}
 							],
 							onsubmit: function( e ) {
-								editor.insertContent( '[wpneo_crowdfunding_listing number="' + e.data.number + '" cat="' + e.data.cat + '" ]');
+								editor.insertContent( '[wpcf_listing number="' + e.data.number + '" cat="' + e.data.cat + '" ]');
 							}
 						});
 					}

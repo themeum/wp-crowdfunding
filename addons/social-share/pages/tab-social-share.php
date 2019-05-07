@@ -102,4 +102,4 @@ $arr =  array(
                 'value'     => 'true',
                 ),
 );
-echo wpneo_crowdfunding_settings_generate_field( $arr );
+wpcf_settings_generator( $arr );

@@ -9,7 +9,7 @@ $current_user = wp_get_current_user();
 <?php
 
 ob_start();
-include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php';
+include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/wpcrowd-reports-chart.php';
 $html .= ob_get_clean();
 ?>
 

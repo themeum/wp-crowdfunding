@@ -17,7 +17,7 @@ if( ! function_exists('wpneo_crowdfunding_search_shortcode_filter')) {
 							'terms' => 'crowdfunding',
 						)
 					);
-					if( wpneo_wc_version_check() ){ // Check this
+					if( wpcf_wc_version_check() ){ // Check this
 						$taxquery['relation'] = 'AND';
 						$taxquery[] = array(
 							'taxonomy' => 'product_visibility',

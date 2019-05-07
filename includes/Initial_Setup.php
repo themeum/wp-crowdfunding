@@ -27,7 +27,7 @@ if (! class_exists('WPCF_Initial_Setup')) {
         /**
          * Insert settings option data
          */
-        public static function initial_plugin_setup( $initial = true ){
+        public static function initial_plugin_activation( $initial = true ){
 
             if (get_option('wpneo_crowdfunding_is_used')){ // Check is plugin used before or not
                 return false;
@@ -82,25 +82,25 @@ if (! class_exists('WPCF_Initial_Setup')) {
                 // Create page object
                 $dashboard = array(
                     'post_title'    => 'CF Dashboard',
-                    'post_content'  => '[wpneo_crowdfunding_dashboard]',
+                    'post_content'  => '[wpcf_dashboard]',
                     'post_type'     => 'page',
                     'post_status'   => 'publish',
                 );
                 $form = array(
                     'post_title'    => 'CF campaign form',
-                    'post_content'  => '[wpneo_crowdfunding_form]',
+                    'post_content'  => '[wpcf_form]',
                     'post_type'     => 'page',
                     'post_status'   => 'publish',
                 );
                 $listing = array(
                     'post_title'    => 'CF Listing Page',
-                    'post_content'  => '[wpneo_crowdfunding_listing]',
+                    'post_content'  => '[wpcf_listing]',
                     'post_type'     => 'page',
                     'post_status'   => 'publish',
                 );
                 $registration = array(
                     'post_title'    => 'CF User Registration',
-                    'post_content'  => '[wpneo_registration]',
+                    'post_content'  => '[wpcf_registration]',
                     'post_type'     => 'page',
                     'post_status'   => 'publish',
                 );
@@ -127,7 +127,14 @@ if (! class_exists('WPCF_Initial_Setup')) {
          * Reset method, the ajax will call that method for Reset Settings
          */
         public function wpcf_settings_reset(){
-            $this->initial_plugin_setup( false );
+            $this->initial_plugin_activation( false );
+        }
+
+        /**
+         * Deactivation Hook For Crowdfunding
+         */
+        public function initial_plugin_deactivation(){
+
         }
 
 

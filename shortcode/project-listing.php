@@ -3,9 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_shortcode( 'wpneo_crowdfunding_listing', 'wpneo_crowdfunding_listing_shortcode');
+add_shortcode( 'wpneo_crowdfunding_listing', 'wpcf_listing_callback'); //@comparability
+add_shortcode( 'wpcf_listing', 'wpcf_listing_callback');
 
-function wpneo_crowdfunding_listing_shortcode($atts = array()){
+function wpcf_listing_callback($atts = array()){
     if( function_exists('WPNEOCF') ){
 
         $a = shortcode_atts(array(
@@ -63,9 +64,8 @@ function wpneo_crowdfunding_listing_shortcode($atts = array()){
                 'terms'     => $cat_array,
             );
         }
-
         query_posts($query_args);
-        //ob_start();
+
         ob_start();
         wpneo_crowdfunding_load_template('wpneo-listing');
         $html = ob_get_clean();

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 global $wp_roles;
-$pages = wpneo_get_published_pages();
+$pages = wpcf_get_published_pages();
 $page_array = array();
 if (count($pages)>0) {
     foreach ($pages as $page) {
@@ -172,5 +172,4 @@ $arr =  array(
 		'label'     => __('Redirect URL for User Registration Success','wp-crowdfunding'),
 	),
 );
-echo wpneo_crowdfunding_settings_generate_field( $arr );
-?>
+wpcf_settings_generator( $arr );

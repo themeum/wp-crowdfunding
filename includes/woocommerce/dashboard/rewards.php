@@ -74,7 +74,7 @@ $rewards_query = new WP_Query($args);
 								}
 								echo '<div><strong>'.__('Backer info', 'wp-crowdfunding').'</strong> <br />';
 
-								if (wpneo_wc_version_check()){
+								if (wpcf_wc_version_check()){
                                     echo $order->get_billing_first_name().' '.$order->get_billing_last_name().'<br />';
                                     echo $order->get_billing_email().'<br />';
                                     echo $order->get_billing_phone().'<br />';

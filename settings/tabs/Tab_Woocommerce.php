@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
-$pages = wpneo_get_published_pages();
+$pages = wpcf_get_published_pages();
 $page_array = array();
 if (count($pages)>0) {
     foreach ($pages as $page) {
@@ -216,6 +216,4 @@ $arr =  array(
         'value'     => 'tab_woocommerce',
     ),
 );
-echo wpneo_crowdfunding_settings_generate_field( apply_filters('wp_crowdfunding_wc_settings', $arr) );
-
-do_action('wpneo_cf_select_theme');
+wpcf_settings_generator( apply_filters('wp_crowdfunding_wc_settings', $arr) );

@@ -467,59 +467,59 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
 
             // _nf_location
             $_nf_location = sanitize_text_field( $_POST['_nf_location'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, '_nf_location', $_nf_location);
+            wpcf_update_meta($post_id, '_nf_location', $_nf_location);
 
             // wpneo_funding_video
             $wpneo_funding_video = sanitize_text_field( $_POST['wpneo_funding_video'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_funding_video', $wpneo_funding_video);
+            wpcf_update_meta($post_id, 'wpneo_funding_video', $wpneo_funding_video);
 
             // _nf_duration_start
             $_nf_duration_start = sanitize_text_field( $_POST['_nf_duration_start'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, '_nf_duration_start', $_nf_duration_start);
+            wpcf_update_meta($post_id, '_nf_duration_start', $_nf_duration_start);
 
             // _nf_duration_end
             $_nf_duration_end = sanitize_text_field( $_POST['_nf_duration_end'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, '_nf_duration_end', $_nf_duration_end);
+            wpcf_update_meta($post_id, '_nf_duration_end', $_nf_duration_end);
 
             // _nf_funding_goal
             $_nf_funding_goal = sanitize_text_field($_POST['_nf_funding_goal']);
-            wpneo_crowdfunding_update_post_meta_text($post_id, '_nf_funding_goal', $_nf_funding_goal);
+            wpcf_update_meta($post_id, '_nf_funding_goal', $_nf_funding_goal);
 
             // wpneo_funding_minimum_price
             $wpneo_funding_minimum_price = sanitize_text_field($_POST['wpneo_funding_minimum_price']);
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_funding_minimum_price', $wpneo_funding_minimum_price);
+            wpcf_update_meta($post_id, 'wpneo_funding_minimum_price', $wpneo_funding_minimum_price);
 
             // wpneo_funding_maximum_price
             $wpneo_funding_maximum_price = sanitize_text_field($_POST['wpneo_funding_maximum_price']);
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_funding_maximum_price', $wpneo_funding_maximum_price);
+            wpcf_update_meta($post_id, 'wpneo_funding_maximum_price', $wpneo_funding_maximum_price);
 
             // wpneo_funding_recommended_price
             $wpneo_funding_recommended_price = sanitize_text_field($_POST['wpneo_funding_recommended_price']);
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_funding_recommended_price', $wpneo_funding_recommended_price);
+            wpcf_update_meta($post_id, 'wpneo_funding_recommended_price', $wpneo_funding_recommended_price);
 
             //wpcf_predefined_pledge_amount
 	        $wpcf_predefined_pledge_amount = sanitize_text_field($_POST['wpcf_predefined_pledge_amount']);
-	        wpneo_crowdfunding_update_post_meta_text($post_id, 'wpcf_predefined_pledge_amount', $wpcf_predefined_pledge_amount);
+	        wpcf_update_meta($post_id, 'wpcf_predefined_pledge_amount', $wpcf_predefined_pledge_amount);
 
 	        // wpneo_campaign_end_method
             $wpneo_campaign_end_method = sanitize_text_field( $_POST['wpneo_campaign_end_method'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_campaign_end_method', $wpneo_campaign_end_method);
+            wpcf_update_meta($post_id, 'wpneo_campaign_end_method', $wpneo_campaign_end_method);
 
             // wpneo_show_contributor_table
             $wpneo_show_contributor_table = sanitize_text_field( $_POST['wpneo_show_contributor_table'] );
-            wpneo_crowdfunding_update_post_meta_checkbox($post_id, 'wpneo_show_contributor_table', $wpneo_show_contributor_table);
+            wpcf_update_meta_checkbox($post_id, 'wpneo_show_contributor_table', $wpneo_show_contributor_table);
 
             // wpneo_mark_contributors_as_anonymous
             $wpneo_mark_contributors_as_anonymous = sanitize_text_field( $_POST['wpneo_mark_contributors_as_anonymous'] );
-            wpneo_crowdfunding_update_post_meta_checkbox($post_id, 'wpneo_mark_contributors_as_anonymous', $wpneo_mark_contributors_as_anonymous);
+            wpcf_update_meta_checkbox($post_id, 'wpneo_mark_contributors_as_anonymous', $wpneo_mark_contributors_as_anonymous);
 
             // wpneo_campaigner_paypal_id
             $wpneo_campaigner_paypal_id = sanitize_text_field( $_POST['wpneo_campaigner_paypal_id'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_campaigner_paypal_id', $wpneo_campaigner_paypal_id);
+            wpcf_update_meta($post_id, 'wpneo_campaigner_paypal_id', $wpneo_campaigner_paypal_id);
 
             // wpneo_country
             $wpneo_country = sanitize_text_field( $_POST['wpneo_country'] );
-            wpneo_crowdfunding_update_post_meta_text($post_id, 'wpneo_country', $wpneo_country);
+            wpcf_update_meta($post_id, 'wpneo_country', $wpneo_country);
         }
 
 

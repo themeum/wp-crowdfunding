@@ -58,11 +58,11 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
         }
 
         public function load_wpneo_crowdfunding_functions(){
-            require_once WPCF_DIR_PATH.'includes/wpneo-crowdfunding-template-functions.php';
+            require_once WPCF_DIR_PATH.'includes/woocommerce/wpneo-crowdfunding-template-functions.php';
         }
 
         public function wpneo_template_hook(){
-            require_once WPCF_DIR_PATH.'includes/wpneo-crowdfunding-template-hook.php';
+            require_once WPCF_DIR_PATH.'includes/woocommerce/wpneo-crowdfunding-template-hook.php';
         }
 
         /**

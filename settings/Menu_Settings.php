@@ -6,170 +6,170 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( ABSPATH.'wp-includes/pluggable.php' );
 
 // Settings Option Generator
-function wpneo_crowdfunding_settings_generate_field( $arr ){
+function wpcf_settings_generator( $arr ){
 
-    $output = '';
-    $output .= '<table class="form-table">';
-    $output .= '<tbody>';
+    $html = '';
+    $html .= '<table class="form-table">';
+    $html .= '<tbody>';
 
     foreach ($arr as $value) {
         if(isset( $value['type'] )){
             switch ( $value['type'] ) {
 
                 case 'dropdown':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value["label"].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value["label"].'</label></th>';
+                    $html .= '<td>';
                     $multiple = '';
                     if(isset($value['multiple'])){ $multiple = 'multiple'; }
-                    $output .= '<select id="'.$value['id'].'" name="'.$value['id'].'" '.$multiple.'>';
+                    $html .= '<select id="'.$value['id'].'" name="'.$value['id'].'" '.$multiple.'>';
                     $campaign_status = get_option( $value['id'] );
                     if(!empty($value['option'])){
                         foreach ( $value['option'] as $key => $val ){
-                            $output .= '<option value="'.$key.'" '.( $key == $campaign_status ? "selected":"" ).'>'.$val.'</option>';
+                            $html .= '<option value="'.$key.'" '.( $key == $campaign_status ? "selected":"" ).'>'.$val.'</option>';
                         }
                     }
-                    $output .= '</select>';
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '</select>';
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'multiple':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value["label"].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value["label"].'</label></th>';
+                    $html .= '<td>';
                     $multiple = '';
                     if(isset($value['multiple'])){ $multiple = 'multiple'; }
-                    $output .= '<select style="height:190px;" id="'.$value['id'].'" name="'.$value['id'].'[]" '.$multiple.'>';
+                    $html .= '<select style="height:190px;" id="'.$value['id'].'" name="'.$value['id'].'[]" '.$multiple.'>';
                     $campaign_status = get_option( $value['id'] );
                     if(!empty($value['option'])){
                         foreach ( $value['option'] as $val ){
                             if( !empty($campaign_status) && is_array($campaign_status) ){
                                 if( in_array( $val , $campaign_status ) ){
-                                    $output .= '<option value="'.$val.'" selected>'.$val.'</option>';
+                                    $html .= '<option value="'.$val.'" selected>'.$val.'</option>';
                                 }else{
-                                    $output .= '<option value="'.$val.'">'.$val.'</option>';
+                                    $html .= '<option value="'.$val.'">'.$val.'</option>';
                                 }
                             }else{
-                                $output .= '<option value="'.$val.'">'.$val.'</option>';
+                                $html .= '<option value="'.$val.'">'.$val.'</option>';
                             }
                         }
                     }
-                    $output .= ' </select>';
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= ' </select>';
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'text':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
+                    $html .= '<td>';
                     $var = get_option( $value['id'] );
                     $default_value = ( isset($value["value"])) ? $value["value"] : '';
-                    $output .= '<input type="text" id="'.$value['id'].'" value="'.( $var ? $var : $default_value ).'" name="'.$value['id'].'">';
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '<input type="text" id="'.$value['id'].'" value="'.( $var ? $var : $default_value ).'" name="'.$value['id'].'">';
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'password':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
+                    $html .= '<td>';
                     $var = get_option( $value['id'] );
-                    $output .= '<input type="password" id="'.$value['id'].'" value="'.( $var ? $var : $value["value"] ).'" name="'.$value['id'].'">';
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '<input type="password" id="'.$value['id'].'" value="'.( $var ? $var : $value["value"] ).'" name="'.$value['id'].'">';
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'textarea':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
+                    $html .= '<td>';
                     $var = get_option( $value['id'] );
-                    $output .= '<textarea name="'.$value['id'].'" id="'.$value['id'].'">'.( $var ? $var : $value["value"] ).'</textarea>';
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '<textarea name="'.$value['id'].'" id="'.$value['id'].'">'.( $var ? $var : $value["value"] ).'</textarea>';
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'number':
-                    $output .= '<tr>';
-                    $output .= '<th scope="row"><label for="'.$value["id"].'">'.$value["label"].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th scope="row"><label for="'.$value["id"].'">'.$value["label"].'</label></th>';
+                    $html .= '<td>';
                     $data = '';
                     $var = get_option( $value["id"] );
                     if( isset($value["min"]) != "" ){ $data .= 'min="'.$value["min"].'"'; }
                     if( isset($value["max"]) != "" ){ $data .= ' max="'.$value["max"].'"'; }
-                    $output .= '<input type="number" value="'.( $var ? $var : $value["value"]).'" '.$data.' name="'.$value["id"].'" />';
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '<input type="number" value="'.( $var ? $var : $value["value"]).'" '.$data.' name="'.$value["id"].'" />';
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'radio':
-                    $output .= '<tr>';
-                    $output .= '<th scope="row"><label for="'.$value["id"].'">'.$value["label"].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th scope="row"><label for="'.$value["id"].'">'.$value["label"].'</label></th>';
+                    $html .= '<td>';
                     $data = '';
                     $var = get_option( $value["id"] );
                     if( ! $var ){ $var =  ! empty($value["value"]) ? $value["value"] : ''  ; }
                     if(!empty($value['option'])){
                         foreach( $value['option'] as $key => $val ){
                             $cehcked = ($key == $var) ? ' checked="checked" ' : '';
-                            $output .= '<label> <input type="radio" name="'.$value['id'].'" value="'.$key.'" '.$cehcked.' > '.$val.' </label> <br>';
+                            $html .= '<label> <input type="radio" name="'.$value['id'].'" value="'.$key.'" '.$cehcked.' > '.$val.' </label> <br>';
                         }
                     }
 
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
 
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'checkbox':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
+                    $html .= '<td>';
                     $var = get_option( $value['id'] );
-                    $output .= '<label><input type="checkbox" name="'.$value['id'].'" id="'.$value['id'].'" value="true" '.($var=="true"?"checked='checked'":"").'/>';
-                    if(isset($value['desc'])){ $output .= $value['desc']; }
-                    $output .= '</label>';
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '<label><input type="checkbox" name="'.$value['id'].'" id="'.$value['id'].'" value="true" '.($var=="true"?"checked='checked'":"").'/>';
+                    if(isset($value['desc'])){ $html .= $value['desc']; }
+                    $html .= '</label>';
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'seperator':
-                    $output .= '<tr>';
-                    $output .= '<th colspan="2">';
-                    if( isset($value['label']) ){ $output .= '<h2>'.$value["label"].'</h2>'; }
-                    if( isset($value['desc']) ){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    if( isset($value['top_line']) != '' ){ $output .= '<hr>'; }
-                    $output .= '</th>';
-                    $output .= '</tr>';
+                    $html .= '<tr>';
+                    $html .= '<th colspan="2">';
+                    if( isset($value['label']) ){ $html .= '<h2>'.$value["label"].'</h2>'; }
+                    if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    if( isset($value['top_line']) != '' ){ $html .= '<hr>'; }
+                    $html .= '</th>';
+                    $html .= '</tr>';
                     break;
 
                 case 'color':
-                    $output .= '<tr>';
-                    $output .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
-                    $output .= '<td>';
+                    $html .= '<tr>';
+                    $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
+                    $html .= '<td>';
                     $var = get_option( $value['id'] );
                     if(!$var){ $var = $value['value']; }
-                    $output .= '<input type="text" name="'.$value['id'].'" value="'.$var.'" id="'.$value['id'].'" class="wpneo-color-field" >';
-                    if(isset($value['desc'])){ $output .= '<p>'.$value['desc'].'</p>'; }
-                    $output .= '</td>';
-                    $output .= '</tr>';
+                    $html .= '<input type="text" name="'.$value['id'].'" value="'.$var.'" id="'.$value['id'].'" class="wpneo-color-field" >';
+                    if(isset($value['desc'])){ $html .= '<p>'.$value['desc'].'</p>'; }
+                    $html .= '</td>';
+                    $html .= '</tr>';
                     break;
 
                 case 'hidden':
-                    $output .= '<tr>';
-                    $output .= '<th colspan="2">';
-                    $output .= '<input type="hidden" value="'.$value["value"].'" name="'.$value['id'].'">';
-                    $output .= '</th>';
-                    $output .= '</tr>';
+                    $html .= '<tr>';
+                    $html .= '<th colspan="2">';
+                    $html .= '<input type="hidden" value="'.$value["value"].'" name="'.$value['id'].'">';
+                    $html .= '</th>';
+                    $html .= '</tr>';
                     break;
 
                 default:
@@ -178,33 +178,33 @@ function wpneo_crowdfunding_settings_generate_field( $arr ){
             }
         }
     }
-    $output .= '</tbody>';
-    $output .= '</table>';
+    $html .= '</tbody>';
+    $html .= '</table>';
 
-    return $output;
+    echo $html;
 }
 
 
 /**
  * Display a custom menu page
  */
-function neo_crowdfunding_menu_page(){
+function wpcf_menu_page(){
     // Settings Tab With slug and Display name
-    $tabs = apply_filters('wpneo_crowdfunding_settings_panel_tabs', array(
+    $tabs = apply_filters('wpcf_settings_tabs', array(
             'general' 	=>
                 array(
                     'tab_name' => __('General Settings','wp-crowdfunding'),
-                    'load_form_file' => WPCF_DIR_PATH.'admin/includes-tab/tab-general.php'
+                    'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_General.php'
                 ),
             'woocommerce' 	=>
                 array(
                     'tab_name' => __('WooCommerce Settings','wp-crowdfunding'),
-                    'load_form_file' => WPCF_DIR_PATH.'admin/includes-tab/tab-woocommerce.php'
+                    'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Woocommerce.php'
                 ),
             'style'   =>
                 array(
                     'tab_name' => __('Style','wp-crowdfunding'),
-                    'load_form_file' => WPCF_DIR_PATH.'admin/includes-tab/tab-style.php'
+                    'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
                 ),
         )
     );
@@ -226,21 +226,20 @@ function neo_crowdfunding_menu_page(){
     <form id="neo-crowdfunding" role="form" method="post" action="">
         <?php
         //Load tab file
-        $request_file = $tabs[$current_page]['load_form_file'];
-        $default_file = WPCF_DIR_PATH.'admin/includes-tab/tab-general.php';
+        $default_file = WPCF_DIR_PATH.'settings/tabs/Tab_General.php';
 
-        if (array_key_exists(trim(esc_attr($current_page)), $tabs)){
-            if (file_exists($default_file)){
-                include_once $request_file;
+        if( array_key_exists(trim(esc_attr($current_page)), $tabs) ){
+            if( file_exists($default_file) ){
+                include_once $tabs[$current_page]['load_form_file'];
             }else{
                 include_once $default_file;
             }
-        }else {
+        }else{
             include_once $default_file;
         }
 
-        wp_nonce_field('wpneo_settings_page_action', 'wpneo_settings_page_nonce_field');
-        submit_button(null,'primary','wpneo_admin_settings_submit_btn');
+        wp_nonce_field( 'wpneo_settings_page_action', 'wpneo_settings_page_nonce_field' );
+        submit_button( null, 'primary', 'wpneo_admin_settings_submit_btn' );
         ?>
 
         <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> <i class="dashicons dashicons-image-rotate"></i> <?php _e('Reset Settings', 'wp-crowdfunding'); ?></a>
@@ -253,47 +252,46 @@ function neo_crowdfunding_menu_page(){
  */
 if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_text_field(wpneo_post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
 
-    $wpneo_crowdfunding_admin_tab = sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab'));
-    if ( ! empty($wpneo_crowdfunding_admin_tab)) {
+    $current_tab = sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab'));
+    if( ! empty($current_tab) ){
 
         /**
          * General Settings
          */
-
-        if (sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab')) == 'tab_general'){
+        if ( $current_tab == 'tab_general' ){
 
             $vendor_type = sanitize_text_field(wpneo_post('vendor_type'));
-            wpneo_crowdfunding_update_option_text('vendor_type', $vendor_type);
+            wpcf_update_text('vendor_type', $vendor_type);
 
             $wpneo_default_campaign_status = sanitize_text_field(wpneo_post('wpneo_default_campaign_status'));
-            wpneo_crowdfunding_update_option_text('wpneo_default_campaign_status', $wpneo_default_campaign_status);
+            wpcf_update_text('wpneo_default_campaign_status', $wpneo_default_campaign_status);
             
 	        $wpneo_campaign_edit_status = sanitize_text_field(wpneo_post('wpneo_campaign_edit_status'));
-	        wpneo_crowdfunding_update_option_text('wpneo_campaign_edit_status', $wpneo_campaign_edit_status);
+	        wpcf_update_text('wpneo_campaign_edit_status', $wpneo_campaign_edit_status);
 
 	        $wpneo_show_min_price = sanitize_text_field(wpneo_post('wpneo_show_min_price'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_min_price', $wpneo_show_min_price);
+            wpcf_update_checkbox('wpneo_show_min_price', $wpneo_show_min_price);
 
             $wpneo_show_max_price = sanitize_text_field(wpneo_post('wpneo_show_max_price'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_max_price', $wpneo_show_max_price);
+            wpcf_update_checkbox('wpneo_show_max_price', $wpneo_show_max_price);
 
             $wpneo_show_recommended_price = sanitize_text_field(wpneo_post('wpneo_show_recommended_price'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_recommended_price', $wpneo_show_recommended_price);
+            wpcf_update_checkbox('wpneo_show_recommended_price', $wpneo_show_recommended_price);
 
             $wpneo_show_target_goal = sanitize_text_field(wpneo_post('wpneo_show_target_goal'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_target_goal', $wpneo_show_target_goal);
+            wpcf_update_checkbox('wpneo_show_target_goal', $wpneo_show_target_goal);
 
             $wpneo_show_target_date = sanitize_text_field(wpneo_post('wpneo_show_target_date'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_target_date', $wpneo_show_target_date);
+            wpcf_update_checkbox('wpneo_show_target_date', $wpneo_show_target_date);
 
             $wpneo_show_target_goal_and_date = sanitize_text_field(wpneo_post('wpneo_show_target_goal_and_date'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_target_goal_and_date', $wpneo_show_target_goal_and_date);
+            wpcf_update_checkbox('wpneo_show_target_goal_and_date', $wpneo_show_target_goal_and_date);
 
             $wpneo_show_campaign_never_end = sanitize_text_field(wpneo_post('wpneo_show_campaign_never_end'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_campaign_never_end', $wpneo_show_campaign_never_end);
+            wpcf_update_checkbox('wpneo_show_campaign_never_end', $wpneo_show_campaign_never_end);
 
             $wpneo_enable_paypal_per_campaign_email = sanitize_text_field(wpneo_post('wpneo_enable_paypal_per_campaign_email'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_enable_paypal_per_campaign_email', $wpneo_enable_paypal_per_campaign_email);
+            wpcf_update_checkbox('wpneo_enable_paypal_per_campaign_email', $wpneo_enable_paypal_per_campaign_email);
 
             $wpneo_user_role_selector = wpneo_post('wpneo_user_role_selector');
             update_option( 'wpneo_user_role_selector', $wpneo_user_role_selector );
@@ -341,138 +339,131 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
                 $page_id = $wpneo_crowdfunding_dashboard_page_id;
                 update_option('wpneo_crowdfunding_dashboard_page_id', $page_id);
 
-                //Update That Page with new crowdFunding [wpneo_crowdfunding_dashboard]
-                $previous_content = str_replace('[wpneo_crowdfunding_dashboard]', '', get_post_field('post_content', $page_id));
-                $new_content = $previous_content . '[wpneo_crowdfunding_dashboard]';
+                //Update That Page with new crowdFunding [wpcf_dashboard]
+                $previous_content = str_replace('[wpcf_dashboard]', '', get_post_field('post_content', $page_id));
+                $new_content = $previous_content . '[wpcf_dashboard]';
                 //Update Post
                 $wpdb->update($wpdb->posts, array('post_content' => $new_content), array('ID'=> $page_id));
             }
 
 	        $wpcf_user_reg_success_redirect_uri = sanitize_text_field(wpneo_post('wpcf_user_reg_success_redirect_uri'));
 	        update_option('wpcf_user_reg_success_redirect_uri', $wpcf_user_reg_success_redirect_uri);
-
         }
 
-        /**
-         * Listing Page Settings
-         */
-        if (sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab')) == 'tab_listing_page'){
-            $number_of_collumn_in_row = intval(wpneo_post('number_of_collumn_in_row'));
-            wpneo_crowdfunding_update_option_text('number_of_collumn_in_row', $number_of_collumn_in_row);
+
+        // Listing Page Settings
+        if ( $current_tab == 'tab_listing_page' ){
+            $columns  = intval(wpneo_post('number_of_collumn_in_row'));
+            wpcf_update_text('number_of_collumn_in_row', $columns );
+
+            $description_limits = intval(wpneo_post('number_of_words_show_in_listing_description'));
+            wpcf_update_text('number_of_words_show_in_listing_description', $description_limits );
+
+            $show_rating = sanitize_text_field(wpneo_post('wpneo_show_rating'));
+            wpcf_update_checkbox('wpneo_show_rating', $show_rating);
+        }
+
+
+        // Single Page Settings
+        if ( $current_tab == 'tab_single_page' ){
+            $reward_design = intval(wpneo_post('wpneo_single_page_reward_design'));
+            wpcf_update_text('wpneo_single_page_reward_design', $reward_design);
+
+            $fixed_price = sanitize_text_field(wpneo_post('wpneo_reward_fixed_price'));
+            wpcf_update_checkbox('wpneo_reward_fixed_price', $fixed_price);
+        }
+
+
+        // WooCommerce Settings
+        if ( $current_tab == 'tab_woocommerce' ){
+            $hide_shop_page = sanitize_text_field(wpneo_post('hide_cf_campaign_from_shop_page'));
+            wpcf_update_checkbox('hide_cf_campaign_from_shop_page', $hide_shop_page );
+
+            $single = sanitize_text_field(wpneo_post('wpneo_single_page_id'));
+            wpcf_update_checkbox('wpneo_single_page_id', $single );
+
+            $from_checkout = sanitize_text_field(wpneo_post('hide_cf_address_from_checkout'));
+            wpcf_update_checkbox('hide_cf_address_from_checkout', $from_checkout );
+
+            $listing = intval(sanitize_text_field(wpneo_post('wpneo_listing_page_id')));
+            wpcf_update_text('wpneo_listing_page_id', $listing );
+
+            $form_page = intval(sanitize_text_field(wpneo_post('wpneo_form_page_id')));
+            wpcf_update_text('wpneo_form_page_id', $form_page );
+
+            $registration = intval(sanitize_text_field(wpneo_post('wpneo_registration_page_id')));
+            wpcf_update_text('wpneo_registration_page_id', $registration );
+
+	        $categories = sanitize_text_field(wpneo_post('seperate_crowdfunding_categories'));
+	        wpcf_update_checkbox('seperate_crowdfunding_categories', $categories );
+
+	        $selected_theme = sanitize_text_field(wpneo_post('wpneo_cf_selected_theme'));
+            wpcf_update_text('wpneo_cf_selected_theme', $selected_theme );
+
+            $requirement_title = sanitize_text_field(wpneo_post('wpneo_requirement_title'));
+            wpcf_update_text('wpneo_requirement_title', $requirement_title);
+
+            $requirement = sanitize_text_field(wpneo_post('wpneo_requirement_text'));
+            wpcf_update_text('wpneo_requirement_text', $requirement );
+
+            $agree_title = sanitize_text_field(wpneo_post('wpneo_requirement_agree_title'));
+            wpcf_update_text('wpneo_requirement_agree_title', $agree_title);
+
+            $cart_redirect = sanitize_text_field(wpneo_post('wpneo_crowdfunding_add_to_cart_redirect'));
+            wpcf_update_text('wpneo_crowdfunding_add_to_cart_redirect', $cart_redirect);
+
+            $collumns  = intval(wpneo_post('number_of_collumn_in_row'));
+            wpcf_update_text('number_of_collumn_in_row', $collumns );
 
             $number_of_words_show_in_listing_description = intval(wpneo_post('number_of_words_show_in_listing_description'));
-            wpneo_crowdfunding_update_option_text('number_of_words_show_in_listing_description', $number_of_words_show_in_listing_description);
+            wpcf_update_text('number_of_words_show_in_listing_description', $number_of_words_show_in_listing_description);
 
-            $wpneo_show_rating = sanitize_text_field(wpneo_post('wpneo_show_rating'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_rating', $wpneo_show_rating);
-        }
-
-        /**
-         * Single Page Settings
-         */
-        if (sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab')) == 'tab_single_page'){
-            $wpneo_single_page_reward_design = intval(wpneo_post('wpneo_single_page_reward_design'));
-            wpneo_crowdfunding_update_option_text('wpneo_single_page_reward_design', $wpneo_single_page_reward_design);
-
-            $reward_fixed_price = sanitize_text_field(wpneo_post('wpneo_reward_fixed_price'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_reward_fixed_price', $reward_fixed_price);
-        }
-
-
-        /**
-         * WooCommerce Settings
-         */
-        if (sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab')) == 'tab_woocommerce') {
-            $hide_cf_campaign_from_shop_page = sanitize_text_field(wpneo_post('hide_cf_campaign_from_shop_page'));
-            wpneo_crowdfunding_update_option_checkbox('hide_cf_campaign_from_shop_page', $hide_cf_campaign_from_shop_page);
-
-            $wpneo_single_page_id = sanitize_text_field(wpneo_post('wpneo_single_page_id'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_single_page_id', $wpneo_single_page_id);
-
-            $hide_cf_address_from_checkout = sanitize_text_field(wpneo_post('hide_cf_address_from_checkout'));
-            wpneo_crowdfunding_update_option_checkbox('hide_cf_address_from_checkout', $hide_cf_address_from_checkout);
-
-            $wpneo_listing_page_id = intval(sanitize_text_field(wpneo_post('wpneo_listing_page_id')));
-            wpneo_crowdfunding_update_option_text('wpneo_listing_page_id', $wpneo_listing_page_id);
-
-            $wpneo_form_page_id = intval(sanitize_text_field(wpneo_post('wpneo_form_page_id')));
-            wpneo_crowdfunding_update_option_text('wpneo_form_page_id', $wpneo_form_page_id);
-
-            $wpneo_registration_page_id = intval(sanitize_text_field(wpneo_post('wpneo_registration_page_id')));
-            wpneo_crowdfunding_update_option_text('wpneo_registration_page_id', $wpneo_registration_page_id);
-
-	        $seperate_crowdfunding_categories = sanitize_text_field(wpneo_post('seperate_crowdfunding_categories'));
-	        wpneo_crowdfunding_update_option_checkbox('seperate_crowdfunding_categories', $seperate_crowdfunding_categories);
-
-	        $wpneo_cf_selected_theme = sanitize_text_field(wpneo_post('wpneo_cf_selected_theme'));
-            wpneo_crowdfunding_update_option_text('wpneo_cf_selected_theme', $wpneo_cf_selected_theme);
-
-            $wpneo_requirement_title = sanitize_text_field(wpneo_post('wpneo_requirement_title'));
-            wpneo_crowdfunding_update_option_text('wpneo_requirement_title', $wpneo_requirement_title);
-
-            $wpneo_requirement_text = sanitize_text_field(wpneo_post('wpneo_requirement_text'));
-            wpneo_crowdfunding_update_option_text('wpneo_requirement_text', $wpneo_requirement_text);
-
-            $wpneo_requirement_agree_title = sanitize_text_field(wpneo_post('wpneo_requirement_agree_title'));
-            wpneo_crowdfunding_update_option_text('wpneo_requirement_agree_title', $wpneo_requirement_agree_title);
-
-            $wpneo_crowdfunding_add_to_cart_redirect = sanitize_text_field(wpneo_post('wpneo_crowdfunding_add_to_cart_redirect'));
-            wpneo_crowdfunding_update_option_text('wpneo_crowdfunding_add_to_cart_redirect', $wpneo_crowdfunding_add_to_cart_redirect);
-
-            $number_of_collumn_in_row = intval(wpneo_post('number_of_collumn_in_row'));
-            wpneo_crowdfunding_update_option_text('number_of_collumn_in_row', $number_of_collumn_in_row);
-
-            $number_of_words_show_in_listing_description = intval(wpneo_post('number_of_words_show_in_listing_description'));
-            wpneo_crowdfunding_update_option_text('number_of_words_show_in_listing_description', $number_of_words_show_in_listing_description);
-
-            $wpneo_show_rating = sanitize_text_field(wpneo_post('wpneo_show_rating'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_show_rating', $wpneo_show_rating);
+            $show_rating = sanitize_text_field(wpneo_post('wpneo_show_rating'));
+            wpcf_update_checkbox('wpneo_show_rating', $show_rating);
 
             //Load single campaign to WooCommerce or not
-            $wpneo_single_page_template = sanitize_text_field(wpneo_post('wpneo_single_page_template'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_single_page_template', $wpneo_single_page_template);
+            $page_template = sanitize_text_field(wpneo_post('wpneo_single_page_template'));
+            wpcf_update_checkbox('wpneo_single_page_template', $page_template);
 
-            $wpneo_single_page_reward_design = intval(wpneo_post('wpneo_single_page_reward_design'));
-            wpneo_crowdfunding_update_option_text('wpneo_single_page_reward_design', $wpneo_single_page_reward_design);
+            $reward_design = intval(wpneo_post('wpneo_single_page_reward_design'));
+            wpcf_update_text('wpneo_single_page_reward_design', $reward_design);
 
-            $reward_fixed_price = sanitize_text_field(wpneo_post('wpneo_reward_fixed_price'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_reward_fixed_price', $reward_fixed_price);
+            $fixed_price = sanitize_text_field(wpneo_post('wpneo_reward_fixed_price'));
+            wpcf_update_checkbox('wpneo_reward_fixed_price', $fixed_price);
 
-	        $wpcf_enable_tax = sanitize_text_field(wpneo_post('wpcf_enable_tax'));
-	        wpneo_crowdfunding_update_option_checkbox('wpcf_enable_tax', $wpcf_enable_tax);
+	        $enable_tax = sanitize_text_field(wpneo_post('wpcf_enable_tax'));
+	        wpcf_update_checkbox('wpcf_enable_tax', $enable_tax);
         }
 
-        /**
-         * Style Settings
-         */
-        if ( sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab')) == 'tab_style' ){
+        // Style Settings
+        if ( $current_tab == 'tab_style' ){
 
-            $wpneo_enable_color_styling = sanitize_text_field(wpneo_post('wpneo_enable_color_styling'));
-            wpneo_crowdfunding_update_option_checkbox('wpneo_enable_color_styling', $wpneo_enable_color_styling);
+            $styling = sanitize_text_field(wpneo_post('wpneo_enable_color_styling'));
+            wpcf_update_checkbox( 'wpneo_enable_color_styling', $styling);
 
-            $wpneo_color_scheme = sanitize_text_field(wpneo_post('wpneo_color_scheme'));
-            wpneo_crowdfunding_update_option_text('wpneo_color_scheme', $wpneo_color_scheme);
+            $scheme = sanitize_text_field(wpneo_post('wpneo_color_scheme'));
+            wpcf_update_text('wpneo_color_scheme', $scheme);
 
-            $wpneo_button_bg_color = sanitize_text_field(wpneo_post('wpneo_button_bg_color'));
-            wpneo_crowdfunding_update_option_text('wpneo_button_bg_color', $wpneo_button_bg_color);
+            $button_bg_color = sanitize_text_field(wpneo_post('wpneo_button_bg_color'));
+            wpcf_update_text('wpneo_button_bg_color', $button_bg_color);
 
-            $wpneo_button_bg_hover_color = sanitize_text_field(wpneo_post('wpneo_button_bg_hover_color'));
-            wpneo_crowdfunding_update_option_text('wpneo_button_bg_hover_color', $wpneo_button_bg_hover_color);
+            $button_bg_hover_color = sanitize_text_field(wpneo_post('wpneo_button_bg_hover_color'));
+            wpcf_update_text('wpneo_button_bg_hover_color', $button_bg_hover_color);
 
-            $wpneo_button_text_color = sanitize_text_field(wpneo_post('wpneo_button_text_color'));
-            wpneo_crowdfunding_update_option_text('wpneo_button_text_color', $wpneo_button_text_color);
+            $button_text_color = sanitize_text_field(wpneo_post('wpneo_button_text_color'));
+            wpcf_update_text('wpneo_button_text_color', $button_text_color);
 
-            $wpneo_button_text_hover_color = sanitize_text_field(wpneo_post('wpneo_button_text_hover_color'));
-            wpneo_crowdfunding_update_option_text('wpneo_button_text_hover_color', $wpneo_button_text_hover_color);
+            $button_text_hover_color = sanitize_text_field(wpneo_post('wpneo_button_text_hover_color'));
+            wpcf_update_text('wpneo_button_text_hover_color', $button_text_hover_color);
 
-            $wpneo_custom_css = wpneo_post( 'wpneo_custom_css' );
-            wpneo_crowdfunding_update_option_text( 'wpneo_custom_css', $wpneo_custom_css );
+            $custom_css = wpneo_post( 'wpneo_custom_css' );
+            wpcf_update_text( 'wpneo_custom_css', $custom_css );
         }
     }
 }
 
 
-function neo_crowdfunding_go_premium(){
+function wpcf_go_premium_html(){
     $html = '';
     $html .= '<div class="wpneo-premium">';
     $html .= '<h2><span class="wpneo-highlight">WP Crowdfunding</span> <br>Take your crowdfunding <br>site to next level!</h2>';
@@ -480,7 +471,6 @@ function neo_crowdfunding_go_premium(){
     $html .= '<p>Try before you buy, here is the try <a href="http://try.themeum.com/plugins/wp-crowdfunding/" target="_blank">demo</a>. WP Crowdfunding premium feature list.</p>';
     $html .= '<ul>';
     $html .= '<li class="dashicons-before dashicons-yes"><span>Unlimited Rewards</span> - You can add unlimited rewards in campaigns.</li>';
-    $html .= '<li class="dashicons-before dashicons-yes"><span>PayPal Adaptive Payment</span> - PayPal Split Payment (chained and parallel) for crowdfunding campaigns.</li>';
     $html .= '<li class="dashicons-before dashicons-yes"><span>Native Wallet</span> - Crowdfunding Enterprise comes with the native wallet system.</li>';
     $html .= '<li class="dashicons-before dashicons-yes"><span>Authorize.net (AIM) Support</span> - Crowdfunding Enterprise comes with the Authorize.net addons.</li>';
     $html .= '<li class="dashicons-before dashicons-yes"><span>Stripe Connect</span> -  Stripe Split Payment for crowdfunding campaigns.</li>';
@@ -622,22 +612,37 @@ function wpneo_custom_css(){
 }
 
 /**
- * Neo Crowdfunding option page menu
+ * Crowdfunding Menu Option Page
  */
-function neo_crowdfunding_register_menu_page(){
-	add_menu_page( 'Crowdfunding','Crowdfunding','manage_options','wpneo-crowdfunding','','dashicons-admin-multisite', null );
+function wpcf_register_menu_page(){
+	add_menu_page( 
+        'Crowdfunding',
+        'Crowdfunding',
+        'manage_options',
+        'wpcf-crowdfunding',
+        '',
+        'dashicons-admin-multisite', 
+        null 
+    );
+
 	add_submenu_page(
-		'wpneo-crowdfunding',
+		'wpcf-crowdfunding',
 		__('Settings', 'wp-crowdfunding'),
 		__('Settings', 'wp-crowdfunding'),
 		'manage_options',
-		'wpneo-crowdfunding',
-		'neo_crowdfunding_menu_page'
+		'wpcf-crowdfunding',
+		'wpcf_menu_page'
 	);
 
-    $adaptive = WPCF_DIR_PATH.'addons/paypal-adaptive/classes/class-wpneo-adaptive-payment-initiate.php';
-    if (WPCF_TYPE == 'free'){
-        add_submenu_page( 'wpneo-crowdfunding', __( 'Go Premium', 'wp-crowdfunding' ), __( 'Go Premium <span class="dashicons dashicons-star-filled"></span>', 'wp-crowdfunding' ), 'manage_options', 'wp-crowdfunding', 'neo_crowdfunding_go_premium' );
+    if ( WPCF_TYPE == 'free' ){
+        add_submenu_page( 
+            'wpcf-crowdfunding', 
+            __( 'Go Premium', 'wp-crowdfunding' ), 
+            __( 'Go Premium <span class="dashicons dashicons-star-filled"></span>', 'wp-crowdfunding' ), 
+            'manage_options', 
+            'wp-crowdfunding', 
+            'wpcf_go_premium_html'
+        );
     }
 }
-add_action( 'admin_menu', 'neo_crowdfunding_register_menu_page' );
+add_action( 'admin_menu', 'wpcf_register_menu_page' );

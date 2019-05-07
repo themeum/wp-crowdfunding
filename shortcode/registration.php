@@ -3,21 +3,22 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_shortcode( 'wpneo_registration', 'wpneo_registration_shortcode' );
+add_shortcode( 'wpneo_registration', 'wpcf_registration_callback' ); //@comparability
+add_shortcode( 'wpcf_registration', 'wpcf_registration_callback' );
 
-function wpneo_registration_shortcode() {
+function wpcf_registration_callback() {
 
     if ( is_user_logged_in() ) { ?>
         <h3 class="wpneo-center"><?php _e("You are already logged in.","wp-crowdfunding"); ?></h3>
     <?php } else {
       global $reg_errors,$reg_success;
-      $nonce = wp_create_nonce( 'wpneo-nonce-registration' );
+      $nonce = wp_create_nonce( 'wpcf-nonce-registration' );
       ?>
         <div class="wpneo-user-registration-wrap">
             <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" id="wpneo-registration" method="post">
                 <input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>">
                 <?php
-                $wpneo_user_regisration_meta_array = array(
+                $regisration_data = array(
                     array(
                         'id'            => 'fname',
                         'label'         => __( "First Name" , "wp-crowdfunding" ),
@@ -99,31 +100,31 @@ function wpneo_registration_shortcode() {
                     )
                 );
 
-                $wpneo_user_regisration_meta = apply_filters('wpneo_user_registration_fields',$wpneo_user_regisration_meta_array);
+                $regisration_meta = apply_filters('wpcf_registration_fields', $regisration_data );
 
-                foreach($wpneo_user_regisration_meta as $item){ ?>
+                foreach( $regisration_meta as $item ){ ?>
                     <div class="wpneo-single <?php echo (isset($item['warpclass'])? $item['warpclass'] : "" ); ?>">
-                    <div class="wpneo-name"><?php echo (isset($item['label'])? $item['label'] : "" ); ?></div>
-                    <div class="wpneo-fields">
-                    <?php
-                    switch ($item['type']){
-                        case 'text':
-                          echo '<input type="text" id="'.$item['id'].'" autocomplete="'.$item['autocomplete'].'" class="'.$item['class'].'" name="'.$item['id'].'" placeholder="'.$item['placeholder'].'">';
-                            break;
-                        case 'password':
-                          echo '<input type="password" id="'.$item['id'].'" autocomplete="'.$item['autocomplete'].'" class="'.$item['class'].'" name="'.$item['id'].'" placeholder="'.$item['placeholder'].'">';
-                            break;
-                        case 'textarea':
-                          echo '<textarea id="'.$item['id'].'" autocomplete="'.$item['autocomplete'].'" class="'.$item['class'].'" name="'.$item['id'].'" ></textarea>';
-                            break;
-                        case 'submit':
-                          echo '<input type="submit" id="'.$item['id'].'"  class="'.$item['class'].'" name="'.$item['id'].'" />';
-                            break;
-                        case 'shortcode':
-                          echo do_shortcode($item['shortcode']);
-                            break;
-                    } ?>
-                    </div>
+                        <div class="wpneo-name"><?php echo (isset($item['label'])? $item['label'] : "" ); ?></div>
+                        <div class="wpneo-fields">
+                            <?php
+                            switch ($item['type']){
+                                case 'text':
+                                echo '<input type="text" id="'.$item['id'].'" autocomplete="'.$item['autocomplete'].'" class="'.$item['class'].'" name="'.$item['id'].'" placeholder="'.$item['placeholder'].'">';
+                                    break;
+                                case 'password':
+                                echo '<input type="password" id="'.$item['id'].'" autocomplete="'.$item['autocomplete'].'" class="'.$item['class'].'" name="'.$item['id'].'" placeholder="'.$item['placeholder'].'">';
+                                    break;
+                                case 'textarea':
+                                echo '<textarea id="'.$item['id'].'" autocomplete="'.$item['autocomplete'].'" class="'.$item['class'].'" name="'.$item['id'].'" ></textarea>';
+                                    break;
+                                case 'submit':
+                                echo '<input type="submit" id="'.$item['id'].'"  class="'.$item['class'].'" name="'.$item['id'].'" />';
+                                    break;
+                                case 'shortcode':
+                                echo do_shortcode($item['shortcode']);
+                                    break;
+                            } ?>
+                        </div>
                     </div>
                 <?php } ?>
 

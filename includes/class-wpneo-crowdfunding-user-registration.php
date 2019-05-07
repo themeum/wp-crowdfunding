@@ -37,10 +37,10 @@ if (! class_exists('Wpneo_Crowdfunding_User_Registration')) {
         // register a new user
         function wpneo_registration_function() {
 
-            if( wp_verify_nonce(wpneo_post('_wpnonce'),'wpneo-nonce-registration') ){
+            if( wp_verify_nonce(wpneo_post('_wpnonce'),'wpcf-nonce-registration') ){
 
                 //Add some option
-                do_action('wpneo_before_user_registration_action');
+                do_action( 'wpcf_before_registration' );
 
                 $username = $password = $email = $website = $first_name = $last_name = $nickname = $bio = '';
                 // sanitize user form input
@@ -53,17 +53,8 @@ if (! class_exists('Wpneo_Crowdfunding_User_Registration')) {
                 $nickname   =   sanitize_text_field($_POST['nickname']);
                 $bio        =   implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['bio'])));
 
-                $this->wpneo_registration_validation(
-                    $username ,
-                    $password ,
-                    $email ,
-                    $website ,
-                    $first_name ,
-                    $last_name ,
-                    $nickname ,
-                    $bio
-                );
-                $this->wpneo_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
+                $this->wpcf_registration_validation( $username , $password , $email , $website , $first_name , $last_name , $nickname , $bio );
+                $this->wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
             }else{
                 global $reg_errors;
                 $reg_errors = new WP_Error;
@@ -71,7 +62,7 @@ if (! class_exists('Wpneo_Crowdfunding_User_Registration')) {
             }
         }
 
-        function wpneo_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+        function wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
             global $reg_errors;
             if ( count($reg_errors->get_error_messages()) < 1 ) {
                 $userdata = array(
@@ -89,7 +80,7 @@ if (! class_exists('Wpneo_Crowdfunding_User_Registration')) {
                 //On success
                 if ( ! is_wp_error( $user_id ) ) {
 	                WC()->mailer(); // load email classes
-                    do_action( 'wpneo_crowdfunding_after_user_registration', $user_id );
+                    do_action( 'wpcf_after_registration', $user_id );
 
                     $saved_redirect_uri = get_option('wpcf_user_reg_success_redirect_uri');
                     $redirect = $saved_redirect_uri ? $saved_redirect_uri : esc_url( home_url( '/' ) );
@@ -114,7 +105,7 @@ if (! class_exists('Wpneo_Crowdfunding_User_Registration')) {
             }
         }
 
-        function wpneo_registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio )  {
+        function wpcf_registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio )  {
             global $reg_errors;
             $reg_errors = new WP_Error;
 
