@@ -1,19 +1,25 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
+add_shortcode( 'wpneo_crowdfunding_listing', 'wpcf_listing_callback_old'); //@comparability
+add_shortcode( 'wpcf_listing', 'wpcf_listing_callback_new');
+
+function wpcf_listing_callback_old( $attr ){
+    wpcf_listing_callback( $attr, 'wpneo_crowdfunding_listing' );
 }
 
-add_shortcode( 'wpneo_crowdfunding_listing', 'wpcf_listing_callback'); //@comparability
-add_shortcode( 'wpcf_listing', 'wpcf_listing_callback');
+function wpcf_listing_callback_new( $attr ){
+    wpcf_listing_callback( $attr, 'wpcf_listing' );
+}
 
-function wpcf_listing_callback($atts = array()){
+function wpcf_listing_callback( $atts, $shortcode ){
     if( function_exists('WPNEOCF') ){
 
         $a = shortcode_atts(array(
             'cat'         => null,
             'number'      => -1,
             'pagination'  => false
-        ), $atts );
+        ), $atts, $shortcode );
 
         $paged = 1;
         if (get_query_var('paged')){

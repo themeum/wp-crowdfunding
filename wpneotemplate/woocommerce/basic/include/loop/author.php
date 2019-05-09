@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 $author_name = wpneo_crowdfunding_get_author_name();
 ?>
 <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 

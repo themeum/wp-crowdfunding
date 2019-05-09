@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 add_shortcode( 'wpneo_crowdfunding_dashboard','wpcf_dashboard_callback' ); //@comparability
 add_shortcode( 'wpcf_dashboard','wpcf_dashboard_callback' );

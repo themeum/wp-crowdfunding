@@ -1,8 +1,6 @@
 <?php
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 $current_user = wp_get_current_user();
 ?>

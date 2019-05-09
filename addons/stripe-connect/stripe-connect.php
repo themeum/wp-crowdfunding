@@ -6,9 +6,7 @@
  */
 
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Check is plugin.php file loaded

@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 global $post;
 $saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);
 $saved_campaign_update_a = json_decode($saved_campaign_update, true);

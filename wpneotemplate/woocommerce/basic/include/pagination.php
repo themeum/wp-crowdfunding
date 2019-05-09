@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 global $wp_query;
 $big = 999999;
 $page_numb = max( 1, get_query_var('paged') );

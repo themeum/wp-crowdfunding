@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 $pages = wpcf_get_published_pages();
 $page_array = array();
 if (count($pages)>0) {

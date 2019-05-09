@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 global $post;
 $campaign_rewards = get_post_meta($post->ID, 'wpneo_reward', true);

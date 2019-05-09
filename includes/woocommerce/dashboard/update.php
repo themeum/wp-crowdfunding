@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 $post_id = (int) $_GET['postid'];
 $saved_campaign_update = get_post_meta($post_id, 'wpneo_campaign_updates', true);
@@ -14,9 +12,7 @@ if(isset($_GET["postid"])){
     }
 }
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 
 $data = get_user_meta(get_current_user_id());

@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
     class WPNeo_Crowdfunding_Wallet {

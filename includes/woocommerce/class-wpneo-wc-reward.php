@@ -2,9 +2,7 @@
 /*
 * WooCommerce Reward Section Backend
 */
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 if (! class_exists('WPNEO_WC_Reward')) {
 

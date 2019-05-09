@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 $col_num = get_option('number_of_collumn_in_row', 3);
 $number = array( "2"=>"two","3"=>"three","4"=>"four" );
 ?>

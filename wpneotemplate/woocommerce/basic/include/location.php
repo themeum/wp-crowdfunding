@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 ?>
 <?php if (wpneo_crowdfunding_get_campaigns_location()){ ?>
     <div class="wpneo-location-wrapper">

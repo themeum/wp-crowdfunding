@@ -14,15 +14,13 @@
  * Domain Path:       /languages
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Support for Multi Network Site
  */
-if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
-	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+if( !function_exists('is_plugin_active_for_network') ){
+    require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 }
 
  /**
@@ -36,23 +34,26 @@ if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
   define('WPCF_VERSION', '1.8.8');
   define('WPCF_DIR_URL', plugin_dir_url(__FILE__));
   define('WPCF_DIR_PATH', plugin_dir_path(__FILE__));
-  define('WPCF_BASENAME', plugin_basename(__FILE__));  
+  define('WPCF_BASENAME', plugin_basename(__FILE__));
 
 /**
  * Load Text Domain Language
  */
-add_action( 'init', 'wpcf_language_load' );
+add_action('init', 'wpcf_language_load');
 function wpcf_language_load(){
-	$plugin_dir = basename(dirname(__FILE__))."/languages/";
-	load_plugin_textdomain( 'wp-crowdfunding', false, $plugin_dir );
+    $plugin_dir = basename(dirname(__FILE__))."/languages/";
+    load_plugin_textdomain('wp-crowdfunding', false, $plugin_dir);
 }
 
-require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
-
-function wpcf_plugins(){
-	return \WPCF\Crowdfunding::instance();
+if( !class_exists( 'Crowdfunding' ) ){
+    require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
+    new \WPCF\Crowdfunding();
 }
-$GLOBALS['crowdfunding'] = wpcf_plugins();
+
+// function wpcf_plugins(){
+// 	return \WPCF\Crowdfunding::instance();
+// }
+// $GLOBALS['crowdfunding'] = wpcf_plugins();
 
 /**
  * Include Require File

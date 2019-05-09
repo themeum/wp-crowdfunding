@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 $days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
 if (WPNEOCF()->dateRemaining()){
     $days_remaining = apply_filters('date_remaining_msg', __(WPNEOCF()->dateRemaining(), 'wp-crowdfunding'));

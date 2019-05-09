@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 global $post;
 $funding_goal = get_post_meta($post->ID, '_nf_funding_goal', true);
 ?>

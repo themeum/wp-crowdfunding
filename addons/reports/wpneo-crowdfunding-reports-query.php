@@ -6,9 +6,7 @@
  * return various type of reports
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists('Wpneo_Crowdfunding_Reports_Query')) {
     class Wpneo_Crowdfunding_Reports_Query

@@ -1,8 +1,7 @@
 <?php
 namespace WPCF;
 
-if ( ! defined( 'ABSPATH' ) )
-	exit;
+defined( 'ABSPATH' ) || exit;
 
 final class Crowdfunding{
 
@@ -19,7 +18,11 @@ final class Crowdfunding{
 
 		$this->initial_activation();
 
-		$this->includes();
+		$this->includes_core();
+
+		$this->include_shortcode();
+
+		$this->include_addons();
 
 		do_action('wpcf_before_load');
 
@@ -47,12 +50,13 @@ final class Crowdfunding{
 		// $this->edd = new TutorEDD();
 		// $this->withdraw = new Withdraw();
 
+		$this->run();
 
 		do_action('wpcf_after_load');
 	}
 
 	// Checking Vendor
-	public function vendor(){
+	public function run(){
 
 		if( wpcf_is_woocommerce() ){
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
@@ -61,6 +65,10 @@ final class Crowdfunding{
 					require_once WPCF_DIR_PATH . 'includes/woocommerce/class-wpneo-crowdfunding.php';
 					require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-frontend-dashboard.php';
 					Wpneo_Crowdfunding();
+
+					
+					//Wpneo_Crowdfunding_Product_Search::instance();
+					
 				} else {
 					add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -68,17 +76,53 @@ final class Crowdfunding{
 			} else {
 				add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'no_vendor_notice' ) );
 			}
+		}else{
+			// Local Code
 		}
 	}
 
 
-	// Initial Include
-	public function includes(){
+	// Include Core
+	public function includes_core(){
 		require_once WPCF_DIR_PATH . 'includes/General_Functions.php';
 		require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH . 'settings/Menu_Settings.php';
+		require_once WPCF_DIR_PATH . 'includes/Widget.php';
 	}
 
+	// Include Shortcode
+	public function include_shortcode(){
+		include_once WPCF_DIR_PATH.'shortcode/Dashboard.php';
+		include_once WPCF_DIR_PATH.'shortcode/Project_Listing.php';
+		include_once WPCF_DIR_PATH.'shortcode/Registration.php';
+		include_once WPCF_DIR_PATH.'shortcode/Search.php';
+		include_once WPCF_DIR_PATH.'shortcode/Submit_Form.php';
+		include_once WPCF_DIR_PATH.'shortcode/Campaign_Box.php';
+		include_once WPCF_DIR_PATH.'shortcode/Single_Campaign.php';
+		include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
+		include_once WPCF_DIR_PATH.'shortcode/Donate.php';
+
+		// new \WPCF\shortcode\Campaign_Box();
+
+		new \WPCF\shortcode\Search();
+		new \WPCF\shortcode\Form();
+
+//		\WPCF\Crowdfunding();
+	}
+
+	// Include Addons directory
+	public function include_addons(){
+		$addons_dir = array_filter(glob(WPCF_DIR_PATH.'addons/*'), 'is_dir');
+		if (count($addons_dir) > 0) {
+			foreach( $addons_dir as $key => $value ){
+				$addon_dir_name = str_replace(dirname($value).'/', '', $value);
+				$file_name = WPCF_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
+				if ( file_exists($file_name) ){
+					include_once $file_name;
+				}
+			}
+		}
+	}
 
 	// Activation & Deactivation Hook
 	public function initial_activation(){

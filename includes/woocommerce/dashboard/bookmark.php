@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 $page_numb = max( 1, get_query_var('paged') );
 $html .= '<div class="wpneo-content">';

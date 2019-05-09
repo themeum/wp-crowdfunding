@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 if( ! function_exists('wpneo_crowdfunding_search_shortcode_filter')) {
 	function wpneo_crowdfunding_search_shortcode_filter($query){

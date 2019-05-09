@@ -1,8 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
+defined( 'ABSPATH' ) || exit;
 
 do_action( 'wpneo_before_crowdfunding_single_campaign' );
 

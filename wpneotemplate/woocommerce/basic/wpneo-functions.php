@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 add_action('wpneo_campaign_listing_before_loop', 'campaign_listing_by_author_before_loop');
 function campaign_listing_by_author_before_loop(){

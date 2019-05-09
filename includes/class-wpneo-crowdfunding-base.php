@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 if (! class_exists('Wpneo_Crowdfunding_Base')) {
 
@@ -229,26 +227,32 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
 Wpneo_Crowdfunding_Base::instance(); //Call base class
 
 require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-templating.php';
-require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-user-registration.php';
-require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-product-search.php';
+// require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-user-registration.php';
+// require_once WPCF_DIR_PATH.'includes/woocommerce/Widget.php';
 require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-common.php';
-require_once WPCF_DIR_PATH.'includes/class-wp-crowdfunding-shortcode.php';
 
 // Shortcode Add to the plugins
-include_once WPCF_DIR_PATH.'shortcode/dashboard.php';
-include_once WPCF_DIR_PATH.'shortcode/project-listing.php';
-include_once WPCF_DIR_PATH.'shortcode/registration.php';
-include_once WPCF_DIR_PATH.'shortcode/search.php';
-include_once WPCF_DIR_PATH.'shortcode/submit-form.php';
+// include_once WPCF_DIR_PATH.'shortcode/Dashboard.php';
+// include_once WPCF_DIR_PATH.'shortcode/Project_Listing.php';
+// include_once WPCF_DIR_PATH.'shortcode/Registration.php';
+// include_once WPCF_DIR_PATH.'shortcode/Search.php';
+// include_once WPCF_DIR_PATH.'shortcode/Submit_Form.php';
 
-// Include Addons directory and there main file
-$addons_dir = array_filter(glob(WPCF_DIR_PATH.'addons/*'), 'is_dir');
-if (count($addons_dir) > 0) {
-    foreach ($addons_dir as $key => $value) {
-        $addon_dir_name = str_replace(dirname($value).'/', '', $value);
-        $file_name = WPCF_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
-        if ( file_exists($file_name) ){
-            include_once $file_name;
-        }
-    }
-}
+// // New Added
+// include_once WPCF_DIR_PATH.'shortcode/Campaign_Box.php';
+// include_once WPCF_DIR_PATH.'shortcode/Single_Campaign.php';
+// include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
+// include_once WPCF_DIR_PATH.'shortcode/Donate.php';
+
+
+// // Include Addons directory and there main file
+// $addons_dir = array_filter(glob(WPCF_DIR_PATH.'addons/*'), 'is_dir');
+// if (count($addons_dir) > 0) {
+//     foreach ($addons_dir as $key => $value) {
+//         $addon_dir_name = str_replace(dirname($value).'/', '', $value);
+//         $file_name = WPCF_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
+//         if ( file_exists($file_name) ){
+//             include_once $file_name;
+//         }
+//     }
+// }

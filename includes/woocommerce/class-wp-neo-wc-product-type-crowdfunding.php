@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 if (! class_exists('WC_Product_Crowdfunding')) {
 
     class WC_Product_Crowdfunding extends WC_Product
