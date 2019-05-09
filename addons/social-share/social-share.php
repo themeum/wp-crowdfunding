@@ -1,6 +1,42 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Defined the tutor main file
+ */
+define('WPCF_SOCIAL_SHARE_FILE', __FILE__);
+
+/**
+ * Showing config for addons central lists
+ */
+add_filter('wpcf_addons_lists_config', 'wpcf_social_share_config');
+function wpcf_social_share_config($config){
+	$newConfig = array(
+		'name'          => __( 'Social Share', 'wp-crowdfunding' ),
+		'description'   => __( 'WP Crowdfunding Social Share', 'wp-crowdfunding' ),
+	);
+
+	$basicConfig = (array) WPCF_SOCIAL_SHARE();
+	$newConfig = array_merge($newConfig, $basicConfig);
+
+	$config[plugin_basename( WPCF_SOCIAL_SHARE_FILE )] = $newConfig;
+	return $config;
+}
+
+if ( ! function_exists('WPCF_SOCIAL_SHARE')) {
+	function WPCF_SOCIAL_SHARE() {
+		$info = array(
+			'path'              => plugin_dir_path( WPCF_SOCIAL_SHARE_FILE ),
+			'url'               => plugin_dir_url( WPCF_SOCIAL_SHARE_FILE ),
+			'basename'          => plugin_basename( WPCF_SOCIAL_SHARE_FILE ),
+			'nonce_action'      => 'wpcf_nonce_action',
+			'nonce'             => '_wpnonce',
+		);
+		return (object) $info;
+	}
+}
+
+
 if ( ! class_exists('Neo_Social_Share_Init')) {
     class Neo_Social_Share_Init{
         /**
