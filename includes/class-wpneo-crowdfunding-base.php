@@ -93,7 +93,7 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
         }
 
         public function wpneo_crowdfunding_settings_link($links){
-            $new_link = array('settings' => '<a href="'.admin_url('admin.php?page=wpneo-crowdfunding').'">Settings</a>');
+            $new_link = array('settings' => '<a href="'.admin_url('admin.php?page=wpcf-crowdfunding').'">Settings</a>');
             return array_merge($new_link, $links);
         }
 

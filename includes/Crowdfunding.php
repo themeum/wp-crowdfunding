@@ -106,6 +106,7 @@ final class Crowdfunding{
 
 		new \WPCF\shortcode\Search();
 		new \WPCF\shortcode\Form();
+		new \WPCF\shortcode\Registration();
 
 //		\WPCF\Crowdfunding();
 	}

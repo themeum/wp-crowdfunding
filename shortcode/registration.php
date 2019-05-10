@@ -8,7 +8,7 @@ class Registration{
     public function __construct(){
         add_shortcode( 'wpneo_registration', array( $this, 'wpcf_registration_callback' ) ); //@comparability
         add_shortcode( 'wpcf_registration', array( $this, 'wpcf_registration_callback' ) );
-        add_action( 'wp_ajax_wpneo_crowdfunding_registration_action', array( $this, 'wpcf_registration_save' ) );
+        add_action( 'wp_ajax_wpcf_registration_action', array( $this, 'wpcf_registration_save' ) );
     }
     
     public function wpcf_registration_callback(){
@@ -135,7 +135,7 @@ class Registration{
     
                     <div class="wpneo-single wpneo-register">
                         <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign"><?php _e("Cancel","wp-crowdfunding"); ?></a>
-                        <input type="hidden" name="action" value="wpneo_crowdfunding_registration_action" />
+                        <input type="hidden" name="action" value="wpcf_registration_action" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
                         <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
                     </div>
@@ -150,7 +150,11 @@ class Registration{
     
     
     // register a new user
-    function wpcf_registration_save() {
+    public function wpcf_registration_save() {
+
+        update_option( 'default_wpcf_status', 'closed' );
+
+        die(json_encode(array('success'=> 0, 'message' => 'Anik Biswas' )));
     
         if( wp_verify_nonce(wpneo_post('_wpnonce'),'wpcf-nonce-registration') ){
     
@@ -177,7 +181,7 @@ class Registration{
         }
     }
     
-    function wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    public function wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
         if ( count($reg_errors->get_error_messages()) < 1 ) {
             $userdata = array(
@@ -220,7 +224,7 @@ class Registration{
         }
     }
     
-    function wpcf_registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    public function wpcf_registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
         $reg_errors = new WP_Error;
     

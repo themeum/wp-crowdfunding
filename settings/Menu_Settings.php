@@ -216,7 +216,7 @@ function wpcf_menu_page(){
     echo '<h2 class="nav-tab-wrapper">';
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-        echo "<a class='nav-tab$class' href='?page=wpneo-crowdfunding&tab=$tab'>{$name['tab_name']}</a>";
+        echo "<a class='nav-tab$class' href='?page=wpcf-crowdfunding&tab=$tab'>{$name['tab_name']}</a>";
     }
     echo '</h2>';
     ?>

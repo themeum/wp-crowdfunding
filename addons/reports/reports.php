@@ -37,7 +37,7 @@ if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
             }
             //Check is current page is crowdfunding report page or not
             if ( ! empty($_GET['page'])){
-                if($_GET['page'] === 'wpneo-crowdfunding-reports'){
+                if($_GET['page'] === 'wpcf-crowdfunding-reports'){
                     //Logic goes here...
                     include_once 'wpneo-crowdfunding-reports-query.php';
                 }
@@ -45,11 +45,11 @@ if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
         }
 
         public function wpneo_crowdfunding_add_reports_page(){
-            add_submenu_page('wpneo-crowdfunding', __('Reports', 'wp-crowdfunding'),__('Reports', 'wp-crowdfunding'),'manage_options', 'wpneo-crowdfunding-reports', array($this, 'wpneo_crowdfunding_reports'));
+            add_submenu_page('wpcf-crowdfunding', __('Reports', 'wp-crowdfunding'),__('Reports', 'wp-crowdfunding'),'manage_options', 'wpcf-crowdfunding-reports', array($this, 'wpneo_crowdfunding_reports'));
         }
 
         public function wpneo_crowdfunding_add_report_assets($hook){
-            if( 'crowdfunding_page_wpneo-crowdfunding-reports' !== $hook )
+            if( 'crowdfunding_page_wpcf-crowdfunding-reports' !== $hook )
                 return;
 
             wp_enqueue_script( 'field-date-js', plugins_url( '/assets/js_reports.js', __FILE__ ), array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), time(),true );
@@ -101,7 +101,7 @@ if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
             echo '<h2 class="nav-tab-wrapper">';
             foreach( $tabs as $tab => $name ){
                 $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-                echo "<a class='nav-tab$class' href='?page=wpneo-crowdfunding-reports&tab=$tab'>{$name['tab_name']}</a>";
+                echo "<a class='nav-tab$class' href='?page=wpcf-crowdfunding-reports&tab=$tab'>{$name['tab_name']}</a>";
             }
             echo '</h2>';
 
