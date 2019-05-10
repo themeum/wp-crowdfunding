@@ -8,6 +8,42 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Defined the tutor main file
+ */
+define('WPCF_REPORTS_FILE', __FILE__);
+
+/**
+ * Showing config for addons central lists
+ */
+add_filter('wpcf_addons_lists_config', 'wpcf_reports_config');
+function wpcf_reports_config($config){
+	$newConfig = array(
+		'name'          => __( 'Reports', 'wp-crowdfunding' ),
+		'description'   => __( 'WP Crowdfunding reports', 'wp-crowdfunding' ),
+	);
+
+	$basicConfig = (array) WPCF_REPORTS();
+	$newConfig = array_merge($newConfig, $basicConfig);
+
+	$config[plugin_basename( WPCF_REPORTS_FILE )] = $newConfig;
+	return $config;
+}
+
+if ( ! function_exists('WPCF_REPORTS')) {
+	function WPCF_REPORTS() {
+		$info = array(
+			'path'              => plugin_dir_path( WPCF_REPORTS_FILE ),
+			'url'               => plugin_dir_url( WPCF_REPORTS_FILE ),
+			'basename'          => plugin_basename( WPCF_REPORTS_FILE ),
+			'nonce_action'      => 'wpcf_nonce_action',
+			'nonce'             => '_wpnonce',
+		);
+		return (object) $info;
+	}
+}
+
+
 if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
     class Wpneo_Crowdfunding_Reports
     {

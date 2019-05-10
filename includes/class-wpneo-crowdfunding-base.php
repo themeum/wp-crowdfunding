@@ -40,7 +40,7 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
 
             //Ajax action
             add_action( 'wp_ajax_wpcf_settings_reset',  array($this, 'wpcf_settings_reset'));
-
+            add_action( 'wp_ajax_wpcf_addon_enable_disable',  array($this, 'wpcf_addon_enable_disable'));
 
             //Disable plugin update notification
             if (WPCF_TYPE != 'free'){
@@ -210,6 +210,17 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
             $initial_setup->wpcf_settings_reset();
         }
 
+        /**
+         * Method for enable / disable addons
+         */
+        public function wpcf_addon_enable_disable(){
+            $addonsConfig = maybe_unserialize(get_option('wpcf_addons_config'));
+            $isEnable = (bool) sanitize_text_field( wpcf_avalue_dot('isEnable', $_POST) );
+            $addonFieldName = sanitize_text_field( wpcf_avalue_dot('addonFieldName', $_POST) );
+            $addonsConfig[$addonFieldName]['is_enable'] = ($isEnable) ? 1 : 0;
+            update_option('wpcf_addons_config', $addonsConfig);
+            wp_send_json_success();
+        }
 
         /**
          * @param $value

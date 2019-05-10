@@ -522,3 +522,53 @@ function wpcf_countries($author_id = 0, $author_nicename = ''){
         'ZW' => __( 'Zimbabwe', 'woocommerce' ),
     );
 }
+
+
+/**
+ * @param null $addon_field
+ *
+ * @return bool
+ *
+ * Get Addon config
+ *
+ * @since v.1.0.0
+ */
+function get_wpcf_addon_config($addon_field = null){
+    if ( ! $addon_field){
+        return false;
+    }
+    $addonsConfig = maybe_unserialize(get_option('wpcf_addons_config'));
+    if (isset($addonsConfig[$addon_field])){
+        return $addonsConfig[$addon_field];
+    }
+    return false;
+}
+
+/**
+ * @param null $key
+ * @param array $array
+ *
+ * @return array|bool|mixed
+ *
+ * get array value by dot notation
+ *
+ * @since v.1.0.0
+ *
+ */
+
+function wpcf_avalue_dot($key = null, $array = array()){
+    $array = (array) $array;
+    if ( ! $key || ! count($array) ){
+        return false;
+    }
+    $option_key_array = explode('.', $key);
+    $value = $array;
+    foreach ($option_key_array as $dotKey){
+        if (isset($value[$dotKey])){
+            $value = $value[$dotKey];
+        }else{
+            return false;
+        }
+    }
+    return $value;
+}

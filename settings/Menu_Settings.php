@@ -245,6 +245,7 @@ function wpcf_menu_page(){
     <?php
 }
 
+
 /**
  * Add settings option
  */
@@ -460,6 +461,9 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
     }
 }
 
+function wpcf_manage_addons() {
+    include WPCF_DIR_PATH.'settings/view/addons.php';
+}
 
 function wpcf_go_premium_html(){
     $html = '';
@@ -630,7 +634,16 @@ function wpcf_register_menu_page(){
 		'manage_options',
 		'wpcf-crowdfunding',
 		'wpcf_menu_page'
-	);
+    );
+    
+    add_submenu_page(
+        'wpcf-crowdfunding',
+        __( 'Add-ons', 'wp-crowdfunding' ),
+        __( 'Add-ons', 'wp-crowdfunding' ),
+        'manage_options',
+        'wpcf-addons',
+        'wpcf_manage_addons'
+    );
 
     if ( WPCF_TYPE == 'free' ){
         add_submenu_page( 
