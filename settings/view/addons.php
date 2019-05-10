@@ -5,8 +5,8 @@
 		<?php
         $addons = apply_filters('wpcf_addons_lists_config', array());
 
-        echo "<pre>";
-        print_r(maybe_unserialize(get_option('wpcf_addons_config')));
+        /* echo "<pre>";
+        print_r(maybe_unserialize(get_option('wpcf_addons_config'))); */
 
 		if (is_array($addons) && count($addons)){
 			?>
