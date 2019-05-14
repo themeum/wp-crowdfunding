@@ -334,7 +334,6 @@ if (! class_exists('Wpneo_Crowdfunding_Templating')) {
 
         /**
          * Template Redirect
-         * @Anik
          */
 
         public function wpneo_crowdfunding_theme_redirect() {
