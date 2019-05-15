@@ -87,7 +87,6 @@ final class Crowdfunding{
 		require_once WPCF_DIR_PATH . 'includes/General_Functions.php';
 		require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH . 'settings/Menu_Settings.php';
-		require_once WPCF_DIR_PATH . 'includes/Widget.php';
 	}
 
 	// Include Shortcode

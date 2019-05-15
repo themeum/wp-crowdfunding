@@ -30,7 +30,7 @@ function wpcf_reports_config($config){
 	return $config;
 }
 
-if ( ! function_exists('WPCF_REPORTS')) {
+if( ! function_exists('WPCF_REPORTS') ){
 	function WPCF_REPORTS() {
 		$info = array(
 			'path'              => plugin_dir_path( WPCF_REPORTS_FILE ),
@@ -44,7 +44,7 @@ if ( ! function_exists('WPCF_REPORTS')) {
 }
 
 
-if ( ! class_exists('Wpneo_Crowdfunding_Reports')) {
+if( ! class_exists('Wpneo_Crowdfunding_Reports') ){
     class Wpneo_Crowdfunding_Reports
     {
         /**

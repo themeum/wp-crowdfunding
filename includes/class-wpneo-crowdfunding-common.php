@@ -31,8 +31,8 @@ if (! class_exists('Wpneo_Crowdfunding_Common')) {
             add_action( 'wp_ajax_nopriv_love_campaign_action',   array($this, 'love_this_campaign_action') );
 
             //Author Campaigns
-	        add_filter( 'query_vars', array($this, 'campaigns_add_author_query_vars'));
-	        add_action('init', array($this, 'add_author_campaigns_endpoint'));
+	        add_filter( 'query_vars', array($this, 'campaigns_add_author_query_vars') );
+	        add_action( 'init', array($this, 'add_author_campaigns_endpoint') );
 	        add_filter( 'author_template', array($this, 'author_campaigns_template') );
         }
 

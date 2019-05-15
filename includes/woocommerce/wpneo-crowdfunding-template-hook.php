@@ -25,7 +25,6 @@ add_action( 'wpneo_crowdfunding_single_campaign_summary' , 'wpneo_crowdfunding_c
 add_action( 'wp', 'wpneo_crowdfunding_singlepage_custom' );
 
 function wpneo_crowdfunding_singlepage_custom(){
-
     if (is_product()){
         global $post;
         $product = wc_get_product($post->ID);
@@ -41,7 +40,6 @@ function wpneo_crowdfunding_singlepage_custom(){
             add_filter('woocommerce_single_product_image_html', 'wpneo_crowdfunding_overwrite_product_feature_image', 20);
         }
     }
-
 }
 
 /**
