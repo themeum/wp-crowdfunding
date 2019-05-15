@@ -3,7 +3,7 @@ namespace WPCF\shortcode;
 
 defined( 'ABSPATH' ) || exit;
 
-class Search{
+class Search {
     public function __construct(){
         add_shortcode( 'wpneo_search_shortcode', array( $this, 'wpcf_search_callback' ) ); //@comparability
         add_shortcode( 'wpcf_search', array( $this, 'wpcf_search_callback' ) );

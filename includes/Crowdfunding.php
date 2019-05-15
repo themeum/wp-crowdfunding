@@ -102,11 +102,15 @@ final class Crowdfunding{
 		include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
 		include_once WPCF_DIR_PATH.'shortcode/Donate.php';
 
-		// new \WPCF\shortcode\Campaign_Box();
-
-		new \WPCF\shortcode\Search();
-		new \WPCF\shortcode\Form();
+		new \WPCF\shortcode\Dashboard();
+		new \WPCF\shortcode\Project_Listing();
 		new \WPCF\shortcode\Registration();
+		new \WPCF\shortcode\Search();
+		new \WPCF\shortcode\Submit_Form();
+		new \WPCF\shortcode\Campaign_Box();
+		new \WPCF\shortcode\Single_Campaign();
+		new \WPCF\shortcode\Popular_Campaigns();
+		new \WPCF\shortcode\Donate();
 
 //		\WPCF\Crowdfunding();
 	}
