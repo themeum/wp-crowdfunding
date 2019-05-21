@@ -1,10 +1,12 @@
 <?php
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Defined the tutor main file
  */
 define('WPCF_WALLET_FILE', __FILE__);
+define('WPCF_WALLET_BASE_NAME', plugin_basename( WPCF_WALLET_FILE ) );
 
 /**
  * Showing config for addons central lists
@@ -19,7 +21,7 @@ function wpcf_wallet_config($config){
 	$basicConfig = (array) WPCF_WALLET();
 	$newConfig = array_merge($newConfig, $basicConfig);
 
-	$config[plugin_basename( WPCF_WALLET_FILE )] = $newConfig;
+	$config[ WPCF_WALLET_BASE_NAME ] = $newConfig;
 	return $config;
 }
 
@@ -28,7 +30,7 @@ if ( ! function_exists('WPCF_WALLET')) {
 		$info = array(
 			'path'              => plugin_dir_path( WPCF_WALLET_FILE ),
 			'url'               => plugin_dir_url( WPCF_WALLET_FILE ),
-			'basename'          => plugin_basename( WPCF_WALLET_FILE ),
+			'basename'          => WPCF_WALLET_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',
 			'nonce'             => '_wpnonce',
 		);
@@ -36,13 +38,8 @@ if ( ! function_exists('WPCF_WALLET')) {
 	}
 }
 
-
-/**
- * Include necessary version
- */
-if (WPCF_TYPE === 'enterprise'){
-    $load_tab = WPCF_DIR_PATH.'addons/wallet/wpneo-crowdfunding-wallet.php';
-}else{
-    $load_tab = WPCF_DIR_PATH.'addons/wallet/wpneo-crowdfunding-wallet-demo.php';
+$addonConfig = get_wpcf_addon_config( WPCF_WALLET_BASE_NAME );
+$isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
+if ( $isEnable ) {
+	include 'classes/init.php';
 }
-include_once $load_tab;

@@ -1,0 +1,148 @@
+.withdraw-request-wrap{
+    margin-right: 30px;
+    margin-top: 40px;
+}
+
+button.label-default{ border: none; }
+button:hover{ cursor: pointer; }
+.withdraw-request-wrap #tid{ width: 40px; }
+
+
+.wpneo-message-overlay {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+div.wpneo-modal-wrapper-head h3 {
+    border-bottom: 1px solid #e7e7e7;
+    font-size: 18px;
+    padding: 5px 0px 10px 0px;
+}
+
+.wpneo-message-content .withdraw-button-close {
+    right: 0px;
+    bottom: 15px;
+}
+
+.wpneo_wallet_withdraw .wpneo_wallet_withdraw_message {
+    border: 1px solid #eee;
+}
+
+.wpneo_wallet_withdraw .wpneo_withdraw_button {
+    margin-top: 0;
+}
+
+.wpneo_wallet_withdraw .wpneo-single,
+.wpneo_wallet_withdraw .wpneo-fields{
+    margin-bottom: 0;
+}
+
+.wpneo_wallet_withdraw .wpneo-name {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.wpneo-message-content {
+    display: none;
+    position: fixed;
+    top: 100px;
+    left: 25%;
+    width: 50%;
+    height: 380px;
+    padding: 16px;
+    border: 1px solid #333;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+    font-size: 14px;
+    border-radius: 5px;
+}
+.wpneo-message-close{
+    position: absolute;
+    right: 12px;
+    bottom: 11px;
+    background-color: #d9534f;
+    padding: 6px 10px 6px;
+    line-height: 14px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.wpneo-wallet-box{
+    padding: 20px 0px;
+    text-align: center;
+    width: 20%;
+    display: inline-block;
+    color: #ffffff;
+    float: left;
+    margin: 0%;
+    border-radius: 0;
+    margin-bottom: 30px;
+}
+
+.box-purple{
+    background: #ad6ea1;
+}
+.box-info{
+    background: #04b0db;
+}
+.box-blue{
+    background: #005D93;
+}
+.box-green{
+    background: #649316;
+}
+.box-natural{
+    background: #bf9878;
+}
+.wpneo-wallet-box .wpneo-box-text {
+    margin: 0;
+    padding: 0;
+}
+.wpneo-wallet-box .wpneo-box-amount {
+    font-size: 16px;
+    margin: 0;
+}
+.wpneo-wallet-box .wpneo-box-text {
+    font-size: 20px;
+    line-height: 28px;
+}
+.withdraw_lists_frontend{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.wallet-alert-info{
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #f2fcff;
+    clear: both;
+}
+.wallet-alert-info > p {
+    margin: 0;
+}
+.wpneo-message{
+    padding: 15px 20px;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .wpneo-message-content {
+        top: 100px;
+        left: 5%;
+        width: 90%;
+    }
+}

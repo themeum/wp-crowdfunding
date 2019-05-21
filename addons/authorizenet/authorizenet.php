@@ -1,13 +1,12 @@
 <?php
 
-
-if ( ! defined( 'ABSPATH' ) )
-	exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Defined the tutor main file
+ * Defined the WPCF main file
  */
 define('WPCF_AUTHORIZENET_FILE', __FILE__);
+define('WPCF_AUTHORIZENET_BASE_NAME', plugin_basename( WPCF_AUTHORIZENET_FILE ) );
 
 /**
  * Showing config for addons central lists
@@ -22,7 +21,7 @@ function wpcf_authorizenet_config($config){
 	$basicConfig = (array) WPCF_AUTHORIZENET();
 	$newConfig = array_merge($newConfig, $basicConfig);
 
-	$config[plugin_basename( WPCF_AUTHORIZENET_FILE )] = $newConfig;
+	$config[ WPCF_AUTHORIZENET_BASE_NAME ] = $newConfig;
 	return $config;
 }
 
@@ -31,7 +30,7 @@ if ( ! function_exists('WPCF_AUTHORIZENET')) {
 		$info = array(
 			'path'              => plugin_dir_path( WPCF_AUTHORIZENET_FILE ),
 			'url'               => plugin_dir_url( WPCF_AUTHORIZENET_FILE ),
-			'basename'          => plugin_basename( WPCF_AUTHORIZENET_FILE ),
+			'basename'          => WPCF_AUTHORIZENET_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',
 			'nonce'             => '_wpnonce',
 		);
@@ -39,9 +38,8 @@ if ( ! function_exists('WPCF_AUTHORIZENET')) {
 	}
 }
 
-
-if (WPCF_TYPE === 'enterprise'){
-    include_once 'authorizenet-base.php';
-}else{
-    include_once 'authorizenet-demo.php';
+$addonConfig = get_wpcf_addon_config( WPCF_AUTHORIZENET_BASE_NAME );
+$isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
+if ( $isEnable ) {
+	include 'classes/base.php';
 }

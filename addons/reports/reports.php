@@ -1,41 +1,36 @@
 <?php
 
-/**
- * @class Wpneo_Crowdfunding_Reports
- *
- * return various type of reports
- */
-
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Defined the tutor main file
+ * Defined the WPCF main file
  */
 define('WPCF_REPORTS_FILE', __FILE__);
+define('WPCF_REPORTS_BASE_NAME', plugin_basename( WPCF_REPORTS_FILE ) );
 
 /**
  * Showing config for addons central lists
  */
 add_filter('wpcf_addons_lists_config', 'wpcf_reports_config');
-function wpcf_reports_config($config){
+function wpcf_reports_config($config) {
 	$newConfig = array(
 		'name'          => __( 'Reports', 'wp-crowdfunding' ),
-		'description'   => __( 'WP Crowdfunding reports', 'wp-crowdfunding' ),
+		'description'   => __( 'Email addon is available in the %s Enterprise version %s', 'wp-crowdfunding' ),
 	);
 
-	$basicConfig = (array) WPCF_REPORTS();
+	$basicConfig = (array) WPCF_EMAIL();
 	$newConfig = array_merge($newConfig, $basicConfig);
 
-	$config[plugin_basename( WPCF_REPORTS_FILE )] = $newConfig;
+	$config[ WPCF_REPORTS_BASE_NAME ] = $newConfig;
 	return $config;
 }
 
-if( ! function_exists('WPCF_REPORTS') ){
-	function WPCF_REPORTS() {
+if ( ! function_exists('WPCF_EMAIL')) {
+	function WPCF_EMAIL() {
 		$info = array(
 			'path'              => plugin_dir_path( WPCF_REPORTS_FILE ),
 			'url'               => plugin_dir_url( WPCF_REPORTS_FILE ),
-			'basename'          => plugin_basename( WPCF_REPORTS_FILE ),
+			'basename'          => WPCF_REPORTS_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',
 			'nonce'             => '_wpnonce',
 		);
@@ -43,150 +38,8 @@ if( ! function_exists('WPCF_REPORTS') ){
 	}
 }
 
-
-if( ! class_exists('Wpneo_Crowdfunding_Reports') ){
-    class Wpneo_Crowdfunding_Reports
-    {
-        /**
-         * @var null
-         *
-         * Instance of this class
-         */
-        protected static $_instance = null;
-
-        /**
-         * @return null|Wpneo_Crowdfunding
-         */
-        public static function instance() {
-            if ( is_null( self::$_instance ) ) {
-                self::$_instance = new self();
-            }
-            return self::$_instance;
-        }
-
-        public function __construct(){
-            add_action('init', array($this, 'csv_export'));
-            add_action('admin_menu', array($this, 'wpneo_crowdfunding_add_reports_page'));
-            // Add CSS & JS for this Addons
-            if (WPCF_TYPE !== 'free') {
-                add_action('admin_enqueue_scripts', array($this, 'wpneo_crowdfunding_add_report_assets'));
-            }
-            //Check is current page is crowdfunding report page or not
-            if ( ! empty($_GET['page'])){
-                if($_GET['page'] === 'wpcf-crowdfunding-reports'){
-                    //Logic goes here...
-                    include_once 'wpneo-crowdfunding-reports-query.php';
-                }
-            }
-        }
-
-        public function wpneo_crowdfunding_add_reports_page(){
-            add_submenu_page('wpcf-crowdfunding', __('Reports', 'wp-crowdfunding'),__('Reports', 'wp-crowdfunding'),'manage_options', 'wpcf-crowdfunding-reports', array($this, 'wpneo_crowdfunding_reports'));
-        }
-
-        public function wpneo_crowdfunding_add_report_assets($hook){
-            if( 'crowdfunding_page_wpcf-crowdfunding-reports' !== $hook )
-                return;
-
-            wp_enqueue_script( 'field-date-js', plugins_url( '/assets/js_reports.js', __FILE__ ), array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'), time(),true );
-            wp_register_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
-            wp_enqueue_style( 'jquery-ui' );
-        }
-
-        /**
-         *
-         */
-        public function wpneo_crowdfunding_reports(){
-
-            //Defining page location into variable
-            $load_report_page = WPCF_DIR_PATH.'addons/reports/pages/reports-demo.php';
-            $default_file = WPCF_DIR_PATH.'addons/reports/pages/reports-area-chart.php';
-            if (WPCF_TYPE === 'free'){
-                $sales_report_page = $load_report_page;
-                $top_campaigns_page = $load_report_page;
-                //Default file
-                $default_file = $load_report_page;
-            }else{
-                $sales_report_page = WPCF_DIR_PATH.'addons/reports/pages/reports-area-chart.php';
-                $top_campaigns_page = WPCF_DIR_PATH.'addons/reports/pages/reports-by-campaign.php';
-            }
-
-
-            // Settings Tab With slug and Display name
-            $tabs = apply_filters('wpneo_crowdfunding_reports_page_panel_tabs', array(
-                    'sales_report' 	=>
-                        array(
-                            'tab_name' => __('Sales Report','wp-crowdfunding'),
-                            'load_form_file' => $sales_report_page
-                        ),
-                    'top_campaigns' 	=>
-                        array(
-                            'tab_name' => __('Top Campaigns','wp-crowdfunding'),
-                            'load_form_file' => $top_campaigns_page
-                        )
-                )
-            );
-
-            $current_page = 'sales_report';
-            if( ! empty($_GET['tab']) ){
-                $current_page = sanitize_text_field($_GET['tab']);
-            }
-
-            // Print the Tab Title
-            echo '<h1 class="top-reports">'.__( "Crowdfunding Sales Reports" , "wp-crowdfunding" ).'</h1>';
-            echo '<h2 class="nav-tab-wrapper">';
-            foreach( $tabs as $tab => $name ){
-                $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-                echo "<a class='nav-tab$class' href='?page=wpcf-crowdfunding-reports&tab=$tab'>{$name['tab_name']}</a>";
-            }
-            echo '</h2>';
-
-            //Load tab file
-            $request_file = $tabs[$current_page]['load_form_file'];
-
-            if (array_key_exists(trim(esc_attr($current_page)), $tabs)){
-                if (file_exists($default_file)){
-                    include_once $request_file;
-                }else{
-                    include_once $default_file;
-                }
-            } else {
-                include_once $default_file;
-            }
-        }
-
-
-        public function csv_export(){
-            if (!empty($_GET['export_csv'])) {
-                $file_name = 'csv-report-'.date('d-m-Y-h:i:s');
-                if (! empty($_GET['file_name']))
-                    $file_name = $_GET['file_name'];
-
-
-                $file_name = strtolower(str_replace(' ', '-',trim($file_name)));
-
-                // output headers so that the file is downloaded rather than displayed
-                header('Content-Type: text/csv; charset=utf-8');
-                header('Content-Disposition: attachment; filename='.$file_name.'.csv');
-
-                $output = fopen('php://output', 'w');
-                $csv = $_GET['export_csv'];
-                $csv =  unserialize(str_replace('--', '"', $csv));
-
-                foreach ($csv as $c) {
-                    foreach ($c as $k => $v){
-                        if (is_array($v)){
-                            $c[$k] = implode($v);
-                        }
-                    }
-
-                    fputcsv($output, $c);
-                }
-                exit;
-            }
-        }
-
-
-    }
+$addonConfig = get_wpcf_addon_config( WPCF_REPORTS_BASE_NAME );
+$isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
+if ( $isEnable ) {
+	include 'classes/init.php';
 }
-Wpneo_Crowdfunding_Reports::instance();

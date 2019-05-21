@@ -58,11 +58,11 @@
                     if( WPCF_TYPE == 'free' ) {
                         $proAddons = array(
                             'email' => array(
-                                'name'          => __( 'Email', 'wp-crowdfunding' ),
+                                'name'          => __( 'Addon 1', 'wp-crowdfunding' ),
                                 'description'   => __( 'Student will able to download certificate of completed course', 'wp-crowdfunding' ),
                             ),
                             'recaptcha' => array(
-                                'name'          => __( 'reCAPTCHA', 'wp-crowdfunding' ),
+                                'name'          => __( 'Addon 2', 'wp-crowdfunding' ),
                                 'description'   => __( 'Stay away from all spam comments and unauthorized login attempts by reCAPTCHA', 'wp-crowdfunding' ),
                             ),
                         );

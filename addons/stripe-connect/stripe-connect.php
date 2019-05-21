@@ -1,21 +1,14 @@
 <?php
 
-/**
- *
- * Paypal Addon for woocommerce
- */
-
-
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Defined the tutor main file
  */
 define('WPCF_STRIPTE_CONNECT_FILE', __FILE__);
+define('WPCF_STRIPTE_CONNECT_BASE_NAME', plugin_basename( WPCF_REPORTS_FILE ) );
 
-/**
- * Check is plugin.php file loaded
- */
+
 if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
     require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 }
@@ -30,13 +23,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     function wpcf_stripe_connect_config($config){
         $newConfig = array(
             'name'          => __( 'Stripe connect', 'wp-crowdfunding' ),
-            'description'   => __( sprintf('WPNeo Stripe Connect gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+            'description'   => __( 'WPNeo Stripe Connect gateway is available', 'wp-crowdfunding' ),
         );
 
         $basicConfig = (array) WPCF_STRIPTE_CONNECT();
         $newConfig = array_merge($newConfig, $basicConfig);
 
-        $config[plugin_basename( WPCF_STRIPTE_CONNECT_FILE )] = $newConfig;
+        $config[ WPCF_STRIPTE_CONNECT_BASE_NAME ] = $newConfig;
         return $config;
     }
 
@@ -45,7 +38,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
             $info = array(
                 'path'              => plugin_dir_path( WPCF_STRIPTE_CONNECT_FILE ),
                 'url'               => plugin_dir_url( WPCF_STRIPTE_CONNECT_FILE ),
-                'basename'          => plugin_basename( WPCF_STRIPTE_CONNECT_FILE ),
+                'basename'          => WPCF_STRIPTE_CONNECT_BASE_NAME,
                 'nonce_action'      => 'wpcf_nonce_action',
                 'nonce'             => '_wpnonce',
             );
@@ -53,10 +46,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
         }
     }
 
-    if (WPCF_TYPE === 'enterprise'){
+    $addonConfig = get_wpcf_addon_config( WPCF_STRIPTE_CONNECT_BASE_NAME );
+    $isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
+    if ( $isEnable ) {
         include_once 'classes/class-wpneo-stripe-connect.php';
         include_once 'classes/class-wpneo-stripe-connect-init.php';
-    }else{
-        include_once 'classes/class-wpneo-stripe-connect-demo.php';
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-
-if ( ! defined( 'ABSPATH' ) )
-	exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Defined the tutor main file
+ * Defined the WPCF main file
  */
 define('WPCF_2CHECKOUT_FILE', __FILE__);
+define('WPCF_2CHECKOUT_BASE_NAME', plugin_basename( WPCF_2CHECKOUT_FILE ) );
 
 /**
  * Showing config for addons central lists
@@ -18,11 +17,9 @@ function wpcf_2checkout_config($config){
 		'name'          => __( '2Checkout', 'wp-crowdfunding' ),
 		'description'   => __( sprintf('2Checkout Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>'), 'wp-crowdfunding' ),
 	);
-
 	$basicConfig = (array) WPCF_2CHECKOUT();
 	$newConfig = array_merge($newConfig, $basicConfig);
-
-	$config[plugin_basename( WPCF_2CHECKOUT_FILE )] = $newConfig;
+	$config[ WPCF_2CHECKOUT_BASE_NAME ] = $newConfig;
 	return $config;
 }
 
@@ -31,7 +28,7 @@ if ( ! function_exists('WPCF_2CHECKOUT')) {
 		$info = array(
 			'path'              => plugin_dir_path( WPCF_2CHECKOUT_FILE ),
 			'url'               => plugin_dir_url( WPCF_2CHECKOUT_FILE ),
-			'basename'          => plugin_basename( WPCF_2CHECKOUT_FILE ),
+			'basename'          => WPCF_2CHECKOUT_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',
 			'nonce'             => '_wpnonce',
 		);
@@ -39,9 +36,8 @@ if ( ! function_exists('WPCF_2CHECKOUT')) {
 	}
 }
 
-
-if (WPCF_TYPE === 'enterprise'){
-    include_once '2checkout-init.php';
-}else{
-    include_once '2checkout-demo.php';
+$addonConfig = get_wpcf_addon_config( WPCF_2CHECKOUT_BASE_NAME );
+$isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
+if ( $isEnable ) {
+	include 'classes/init.php';
 }
