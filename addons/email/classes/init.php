@@ -40,6 +40,7 @@ if ( ! class_exists('WPCF_Email')) {
 			/* general actions */
             add_filter( 'woocommerce_locate_core_template', array( $this, 'filter_woocommerce_template' ), 10, 3 );
             add_filter( 'woocommerce_locate_template', array( $this, 'filter_woocommerce_template' ), 10, 3 );
+			add_filter( 'wpcf_settings_panel_tabs', array($this, 'add_email_tab_to_wpcf_settings'));
 		}
 		
 
@@ -91,6 +92,14 @@ if ( ! class_exists('WPCF_Email')) {
             } else{
                 return $core_file;
             }
+		}
+		
+		public function add_email_tab_to_wpcf_settings($tabs){
+            $tabs['email'] = array(
+                'tab_name' => __('Email','wp-crowdfunding'),
+                'load_form_file' => WPCF_EMAIL_DIR_PATH.'pages/tab-email.php'
+            );
+            return $tabs;
         }
 
     }
