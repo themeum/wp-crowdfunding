@@ -146,26 +146,26 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
             if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpneo_varify_wallet_settings']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
                 // Checkbox
                 $wpneo_enable_wallet = sanitize_text_field(wpneo_post('wpneo_enable_wallet'));
-                wpneo_crowdfunding_update_option_checkbox('wpneo_enable_wallet', $wpneo_enable_wallet);
+                wpcf_update_checkbox('wpneo_enable_wallet', $wpneo_enable_wallet);
 
                 $wpneo_wallet_withdraw_type = sanitize_text_field(wpneo_post('wpneo_wallet_withdraw_type'));
-                wpneo_crowdfunding_update_option_text('wpneo_wallet_withdraw_type', $wpneo_wallet_withdraw_type);
+                wpcf_update_text('wpneo_wallet_withdraw_type', $wpneo_wallet_withdraw_type);
 
                 $wpneo_wallet_withdraw_period = sanitize_text_field(wpneo_post('wpneo_wallet_withdraw_period'));
-                wpneo_crowdfunding_update_option_text('wpneo_wallet_withdraw_period', $wpneo_wallet_withdraw_period);
+                wpcf_update_text('wpneo_wallet_withdraw_period', $wpneo_wallet_withdraw_period);
 
                 $wallet_receiver_percent = sanitize_text_field(wpneo_post('wallet_receiver_percent'));
-                wpneo_crowdfunding_update_option_text('wallet_receiver_percent', $wallet_receiver_percent);
+                wpcf_update_text('wallet_receiver_percent', $wallet_receiver_percent);
 
                 $walleet_min_withdraw_amount = sanitize_text_field(wpneo_post('walleet_min_withdraw_amount'));
-                wpneo_crowdfunding_update_option_text('walleet_min_withdraw_amount', $walleet_min_withdraw_amount);
+                wpcf_update_text('walleet_min_withdraw_amount', $walleet_min_withdraw_amount);
 
 	            $wpneo_enable_wallet_deposit = sanitize_text_field(wpneo_post('wpneo_enable_wallet_deposit'));
-	            wpneo_crowdfunding_update_option_checkbox('wpneo_enable_wallet_deposit', $wpneo_enable_wallet_deposit);
+	            wpcf_update_checkbox('wpneo_enable_wallet_deposit', $wpneo_enable_wallet_deposit);
 
 	            $wpneo_deposit_product_id = sanitize_text_field(wpneo_post('wpneo_deposit_product_id'));
 	            if ($wpneo_deposit_product_id){
-		            wpneo_crowdfunding_update_option_text('wpneo_deposit_product_id', $wpneo_deposit_product_id);
+		            wpcf_update_text('wpneo_deposit_product_id', $wpneo_deposit_product_id);
 	            }
 
             }
