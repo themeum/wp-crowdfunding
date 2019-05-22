@@ -101,8 +101,8 @@ if (! class_exists('WPNEO_Frontend_Campaign_Submit_Form')) {
                 'post_author'   => $user_id,
             );
 
-            //added wpneo_crowdfunding_before_campaign_submit_action action hook
-            do_action('wpneo_crowdfunding_before_campaign_submit_action');
+            //added wpcf_crowdfunding_before_campaign_submit_action action hook
+            do_action('wpcf_crowdfunding_before_campaign_submit_action');
 
             //global $post;
             if(isset($_POST['edit_form'])){

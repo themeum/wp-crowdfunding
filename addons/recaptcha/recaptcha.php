@@ -30,7 +30,7 @@ function wpcf_recaptcha_config($config) {
 if ( ! function_exists('WPCF_RECAPTCHA')) {
 	function WPCF_RECAPTCHA() {
 		$info = array(
-			'path'              => plugin_dir_path( WPCF_RECAPTCHA_FILE ),
+			'path'              => WPCF_RECAPTCHA_DIR_PATH,
 			'url'               => plugin_dir_url( WPCF_RECAPTCHA_FILE ),
 			'basename'          => WPCF_RECAPTCHA_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',

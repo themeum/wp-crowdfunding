@@ -23,7 +23,7 @@ if ( ! class_exists('WPCF_Social_Share')) {
         public function __construct(){
             add_action( 'init',                             array($this, 'wpcf_embed_data') );
             add_action( 'wp_enqueue_scripts',               array($this, 'wpcf_social_share_enqueue_frontend_script') ); //Add social share js in footer
-            add_filter( 'wpcf_settings_tabs',               array($this, 'add_social_share_tab_to_wpcf_settings')); //Hook to add social share field with user registration form
+            add_filter( 'wpcf_settings_panel_tabs',         array($this, 'add_social_share_tab_to_wpcf_settings')); //Hook to add social share field with user registration form
 
             add_action( 'init',                             array($this, 'wpcf_social_share_save_settings') ); // Social Share Settings
             add_action( 'wp_ajax_wpcf_embed_action',        array($this, 'wpcf_embed_campaign_action') );
@@ -33,7 +33,7 @@ if ( ! class_exists('WPCF_Social_Share')) {
         public function add_social_share_tab_to_wpcf_settings($tabs){
             $tabs['social-share'] = array(
                 'tab_name' => __('Social Share','wp-crowdfunding'),
-                'load_form_file' => plugin_dir_path(__FILE__).'pages/tab-social-share.php'
+                'load_form_file' => WPCF_SOCIAL_SHARE_DIR_PATH.'pages/tab-social-share.php'
             );
             return $tabs;
         }

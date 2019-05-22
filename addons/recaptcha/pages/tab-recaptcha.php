@@ -65,4 +65,4 @@ $arr =  array(
                 'value'     => 'true',
                 ),
 );
-echo wpcf_settings_generator( $arr );
+wpcf_settings_generator( $arr );

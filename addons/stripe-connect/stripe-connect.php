@@ -5,8 +5,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Defined the tutor main file
  */
-define('WPCF_STRIPTE_CONNECT_FILE', __FILE__);
-define('WPCF_STRIPTE_CONNECT_BASE_NAME', plugin_basename( WPCF_REPORTS_FILE ) );
+define('WPCF_STRIPE_CONNECT_FILE', __FILE__);
+define('WPCF_STRIPE_CONNECT_BASE_NAME', plugin_basename( WPCF_REPORTS_FILE ) );
 
 
 if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
@@ -26,19 +26,19 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
             'description'   => __( 'WPNeo Stripe Connect gateway is available', 'wp-crowdfunding' ),
         );
 
-        $basicConfig = (array) WPCF_STRIPTE_CONNECT();
+        $basicConfig = (array) WPCF_STRIPE_CONNECT();
         $newConfig = array_merge($newConfig, $basicConfig);
 
-        $config[ WPCF_STRIPTE_CONNECT_BASE_NAME ] = $newConfig;
+        $config[ WPCF_STRIPE_CONNECT_BASE_NAME ] = $newConfig;
         return $config;
     }
 
-    if ( ! function_exists('WPCF_STRIPTE_CONNECT')) {
-        function WPCF_STRIPTE_CONNECT() {
+    if ( ! function_exists('WPCF_STRIPE_CONNECT')) {
+        function WPCF_STRIPE_CONNECT() {
             $info = array(
-                'path'              => plugin_dir_path( WPCF_STRIPTE_CONNECT_FILE ),
-                'url'               => plugin_dir_url( WPCF_STRIPTE_CONNECT_FILE ),
-                'basename'          => WPCF_STRIPTE_CONNECT_BASE_NAME,
+                'path'              => plugin_dir_path( WPCF_STRIPE_CONNECT_FILE ),
+                'url'               => plugin_dir_url( WPCF_STRIPE_CONNECT_FILE ),
+                'basename'          => WPCF_STRIPE_CONNECT_BASE_NAME,
                 'nonce_action'      => 'wpcf_nonce_action',
                 'nonce'             => '_wpnonce',
             );
@@ -46,7 +46,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
         }
     }
 
-    $addonConfig = get_wpcf_addon_config( WPCF_STRIPTE_CONNECT_BASE_NAME );
+    $addonConfig = get_wpcf_addon_config( WPCF_STRIPE_CONNECT_BASE_NAME );
     $isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
     if ( $isEnable ) {
         include_once 'classes/class-wpneo-stripe-connect.php';

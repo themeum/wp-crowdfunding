@@ -54,13 +54,13 @@ if ( ! class_exists('WPCF_Email')) {
 	     */
         public function add_email_classes($email_classes){
 	        // include our custom email class
-	        require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-new-user.php' );
-			require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-new-backed.php' );
-			require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-campaign-submit.php' );
-			require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-campaign-accept.php' );
-			require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-campaign-update.php' );
-	        require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-target-reached.php' );
-	        require_once( WPCF_DIR_PATH.'addons/email/classes/wpcf-withdraw-request.php' );
+	        require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-new-user.php' );
+			require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-new-backed.php' );
+			require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-campaign-submit.php' );
+			require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-campaign-accept.php' );
+			require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-campaign-update.php' );
+	        require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-target-reached.php' );
+	        require_once( WPCF_EMAIL_DIR_PATH.'classes/wpcf-withdraw-request.php' );
 	        
 	        // add the email class to the list of email classes that WooCommerce loads
 	        $email_classes['WPCF_New_User'] = new WPCF_New_User();
@@ -127,7 +127,7 @@ if ( !function_exists( 'wpcf_locate_template' ) ) {
 
 		$template_woocommerce_path = $woocommerce_base . $path;
 		$template_path             = '/' . $path;
-		$plugin_path               = WPCF_DIR_PATH . 'addons/email/templates/' . $path;
+		$plugin_path               = WPCF_EMAIL_DIR_PATH . 'templates/' . $path;
 
 		$located = locate_template( array(
 			$template_woocommerce_path, // Search in <theme>/woocommerce/

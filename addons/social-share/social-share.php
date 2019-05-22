@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Defined the tutor main file
  */
 define('WPCF_SOCIAL_SHARE_FILE', __FILE__);
+define('WPCF_SOCIAL_SHARE_DIR_PATH', plugin_dir_path( WPCF_SOCIAL_SHARE_FILE ) );
 define('WPCF_SOCIAL_SHARE_BASE_NAME', plugin_basename( WPCF_SOCIAL_SHARE_FILE ) );
 
 /**
@@ -28,7 +29,7 @@ function wpcf_social_share_config($config){
 if ( ! function_exists('WPCF_SOCIAL_SHARE')) {
 	function WPCF_SOCIAL_SHARE() {
 		$info = array(
-			'path'              => plugin_dir_path( WPCF_SOCIAL_SHARE_FILE ),
+			'path'              => WPCF_SOCIAL_SHARE_DIR_PATH,
 			'url'               => plugin_dir_url( WPCF_SOCIAL_SHARE_FILE ),
 			'basename'          => WPCF_SOCIAL_SHARE_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',

@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Defined the WPCF main file
  */
 define('WPCF_EMAIL_FILE', __FILE__);
+define('WPCF_EMAIL_DIR_PATH', plugin_dir_path( WPCF_EMAIL_FILE ) );
 define('WPCF_EMAIL_BASE_NAME', plugin_basename( WPCF_EMAIL_FILE ) );
 
 /**
@@ -28,7 +29,7 @@ function wpcf_email_config($config) {
 if ( ! function_exists('WPCF_EMAIL')) {
 	function WPCF_EMAIL() {
 		$info = array(
-			'path'              => plugin_dir_path( WPCF_EMAIL_FILE ),
+			'path'              => WPCF_EMAIL_DIR_PATH,
 			'url'               => plugin_dir_url( WPCF_EMAIL_FILE ),
 			'basename'          => WPCF_EMAIL_BASE_NAME,
 			'nonce_action'      => 'wpcf_nonce_action',

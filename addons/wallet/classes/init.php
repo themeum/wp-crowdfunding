@@ -38,8 +38,8 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
             add_action('admin_enqueue_scripts', array($this, 'wpneo_crowdfunding_wallet_assets'));
             add_action('wp_enqueue_scripts', array($this, 'wpneo_crowdfunding_wallet_assets_frontend'));
 
-            add_filter('wpneo_crowdfunding_settings_panel_tabs', array($this, 'wpneo_crowdfunding_wallet_settings')); //Hook to add social share field with user registration form
-            add_action( 'init', array($this, 'wpneo_wallet_save_settings') ); // Social Share Settings
+            add_filter('wpcf_settings_panel_tabs', array($this, 'wpcf_wallet_settings')); //Hook to add social share field with user registration form
+            add_action('init', array($this, 'wpneo_wallet_save_settings') ); // Social Share Settings
 
             //After order complete
             //add_action('woocommerce_order_status_completed', array($this, 'wpneo_crowdfunding_after_order_complete'));
@@ -95,7 +95,7 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
             $menus['payments'] = array(
                 'tab' => 'campaign',
                 'tab_name' => __('Payments','wp-crowdfunding'),
-                'load_form_file' => WPCF_DIR_PATH.'addons/wallet/pages/payments.php'
+                'load_form_file' => WPCF_WALLET_DIR_PATH.'pages/payments.php'
             );
             return $menus;
         }
@@ -108,7 +108,7 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
          * Table interface for wallet withdraw
          */
         public function wpneo_crowdfunding_withdraw_callback(){
-            include WPCF_DIR_PATH.'addons/wallet/wpcf_withdraw_request_table.php';
+            include WPCF_WALLET_DIR_PATH.'wpcf_withdraw_request_table.php';
 
             echo '<div class="withdraw-request-wrap">';
             echo '<div id="wpneo-fade" class="wpneo-message-overlay"></div>';
@@ -131,17 +131,10 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
             }
         }
 
-        public function wpneo_crowdfunding_wallet_settings($tabs){
-
-            if (WPNEO_CROWDFUNDING_TYPE === 'free'){
-                $load_tab = WPCF_DIR_PATH.'addons/wallet/pages/tab-wallet-demo.php';
-            }else{
-                $load_tab = WPCF_DIR_PATH.'addons/wallet/pages/tab-wallet.php';
-            }
-
+        public function wpcf_wallet_settings($tabs){
             $tabs['wallet'] = array(
                 'tab_name' => __('Wallet','wp-crowdfunding'),
-                'load_form_file' => $load_tab
+                'load_form_file' => WPCF_WALLET_DIR_PATH.'pages/tab-wallet.php'
             );
             return $tabs;
         }
@@ -606,12 +599,12 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
 		    $menus['deposits'] = array(
 			    'tab' => 'campaign',
 			    'tab_name' => __('Deposits','wp-crowdfunding'),
-			    'load_form_file' => WPCF_DIR_PATH.'addons/wallet/pages/deposits.php'
+			    'load_form_file' => WPCF_WALLET_DIR_PATH.'pages/deposits.php'
 		    );
 		    $menus['backed_campaign'] = array(
 			    'tab' => 'campaign',
 			    'tab_name' => __('Backed Campaign','wp-crowdfunding'),
-			    'load_form_file' => WPCF_DIR_PATH.'addons/wallet/pages/backed_campaign.php'
+			    'load_form_file' => WPCF_WALLET_DIR_PATH.'pages/backed_campaign.php'
 		    );
 
 		    return $menus;
@@ -623,4 +616,4 @@ if ( ! class_exists('WPNeo_Crowdfunding_Wallet')) {
 $wpcf_wallet = new WPCF_Wallet();
 
 
-include_once  WPCF_DIR_PATH.'addons/wallet/wpcf_gateway_wallet.php';
+include_once  WPCF_WALLET_DIR_PATH.'wpcf_gateway_wallet.php';

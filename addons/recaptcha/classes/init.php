@@ -37,12 +37,12 @@ if ( ! class_exists('WPCF_Recaptcha')) {
          */
         public static function initial_plugin_setup(){
             //Check is plugin used before or not
-            if (get_option('wpcf_recaptcha_is_used')){ return false; }
+            if (get_option('wpneo_recaptcha_is_used')){ return false; }
 
-            update_option( 'wpcf_recaptcha_is_used', WPCF_RECAPTCHA_VERSION );
-            update_option( 'wpcf_enable_recaptcha', 'false' );
-            update_option( 'wpcf_enable_recaptcha_in_user_registration', 'false' );
-            update_option( 'wpcf_enable_recaptcha_campaign_submit_page', 'false' );
+            update_option( 'wpneo_recaptcha_is_used', WPCF_RECAPTCHA_VERSION );
+            update_option( 'wpneo_enable_recaptcha', 'false');
+            update_option( 'wpneo_enable_recaptcha_in_user_registration', 'false');
+            update_option( 'wpneo_enable_recaptcha_campaign_submit_page', 'false');
         }
 
         public function wpcf_recaptcha_shortcode_generator(){
@@ -78,17 +78,9 @@ if ( ! class_exists('WPCF_Recaptcha')) {
         }
 
         public function add_recaptcha_tab_to_wpcf_settings($tabs){
-            //Defining page location into variable
-            $load_recaptcha_page = WPCF_RECAPTCHA_DIR_PATH.'pages/tab-recaptcha-demo.php';
-            if (wpcf_TYPE === 'free'){
-                $recaptcha_page = $load_recaptcha_page;
-            }else{
-                $recaptcha_page = WPCF_RECAPTCHA_DIR_PATH.'pages/tab-recaptcha.php';
-            }
-
             $tabs['recaptcha'] = array(
                 'tab_name' => __('reCAPTCHA','wp-crowdfunding'),
-                'load_form_file' => $recaptcha_page
+                'load_form_file' => WPCF_RECAPTCHA_DIR_PATH.'pages/tab-recaptcha.php'
             );
             return $tabs;
         }
@@ -96,29 +88,29 @@ if ( ! class_exists('WPCF_Recaptcha')) {
         /**
          * All settings will be save in this method
          */
-        public function wpcf_recaptcha_save_settings(){
-            if (isset($_POST['wpcf_admin_settings_submit_btn']) && isset($_POST['wpcf_recaptcha_activation']) && wp_verify_nonce( $_POST['wpcf_settings_page_nonce_field'], 'wpcf_settings_page_action' ) ){
+        public function wpcf_recaptcha_save_settings() {
+            if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpneo_recaptcha_activation']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
                 //Checkbox
-                update_option( 'wpcf_enable_recaptcha', 'false');
-                update_option( 'wpcf_enable_recaptcha_in_user_registration', 'false');
-                update_option( 'wpcf_enable_recaptcha_campaign_submit_page', 'false');
+                update_option( 'wpneo_enable_recaptcha', 'false');
+                update_option( 'wpneo_enable_recaptcha_in_user_registration', 'false');
+                update_option( 'wpneo_enable_recaptcha_campaign_submit_page', 'false');
 
-                if (!empty($_POST['wpcf_enable_recaptcha'])) {
-                    update_option('wpcf_enable_recaptcha', $_POST['wpcf_enable_recaptcha']);
+                if (!empty($_POST['wpneo_enable_recaptcha'])) {
+                    update_option('wpneo_enable_recaptcha', $_POST['wpneo_enable_recaptcha']);
                 }
-                if (!empty($_POST['wpcf_enable_recaptcha_in_user_registration'])) {
-                    update_option('wpcf_enable_recaptcha_in_user_registration', $_POST['wpcf_enable_recaptcha_in_user_registration']);
+                if (!empty($_POST['wpneo_enable_recaptcha_in_user_registration'])) {
+                    update_option('wpneo_enable_recaptcha_in_user_registration', $_POST['wpneo_enable_recaptcha_in_user_registration']);
                 }
-                if (!empty($_POST['wpcf_enable_recaptcha_campaign_submit_page'])) {
-                    update_option('wpcf_enable_recaptcha_campaign_submit_page', $_POST['wpcf_enable_recaptcha_campaign_submit_page']);
+                if (!empty($_POST['wpneo_enable_recaptcha_campaign_submit_page'])) {
+                    update_option('wpneo_enable_recaptcha_campaign_submit_page', $_POST['wpneo_enable_recaptcha_campaign_submit_page']);
                 }
 
                 //Text Field
-                if (!empty($_POST['wpcf_recaptcha_site_key'])) {
-                    update_option('wpcf_recaptcha_site_key', $_POST['wpcf_recaptcha_site_key']);
+                if (!empty($_POST['wpneo_recaptcha_site_key'])) {
+                    update_option('wpneo_recaptcha_site_key', $_POST['wpneo_recaptcha_site_key']);
                 }
-                if (!empty($_POST['wpcf_recaptcha_secret_key'])) {
-                    update_option('wpcf_recaptcha_secret_key', $_POST['wpcf_recaptcha_secret_key']);
+                if (!empty($_POST['wpneo_recaptcha_secret_key'])) {
+                    update_option('wpneo_recaptcha_secret_key', $_POST['wpneo_recaptcha_secret_key']);
                 }
             }
         }

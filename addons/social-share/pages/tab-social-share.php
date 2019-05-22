@@ -1,5 +1,7 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
 
 // #Social Share Settings (Tab Settings)

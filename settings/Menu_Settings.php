@@ -188,7 +188,7 @@ function wpcf_settings_generator( $arr ){
  */
 function wpcf_menu_page(){
     // Settings Tab With slug and Display name
-    $tabs = apply_filters('wpcf_settings_tabs', array(
+    $tabs = apply_filters('wpcf_settings_panel_tabs', array(
             'general' 	=>
                 array(
                     'tab_name' => __('General Settings','wp-crowdfunding'),
