@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 WP Crowdfunding is a WordPress plugin for fundraising/backer sites. This WooCommerce based plugin lets you launch a site like Kickstarter easily.
 
 == Description ==
-WP Crowdfunding is a WooCommerce based plugin that empowers anyone to create a crowdfunding site using WordPress content management system. It’s very user-friendly and convenient to manage. Most of the basic WP Crowdfunding features are offered in this free version. Advanced features like centralised Native Wallet System, Stripe Connect, analytical reports, email notifications, unlimited rewards and so on are available in paid versions.
+WP Crowdfunding is a WooCommerce based plugin that empowers anyone to create a crowdfunding site using WordPress content management system. Itâ€™s very user-friendly and convenient to manage. Most of the basic WP Crowdfunding features are offered in this free version. Advanced features like centralised Native Wallet System, Stripe Connect, analytical reports, email notifications, unlimited rewards and so on are available in paid versions.
 
 [youtube https://www.youtube.com/watch?v=jHJBV2MbgBw]
 
@@ -162,7 +162,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 = 1.8.5 =
 
-* Contributor’s name as Anonymous issue
+* Contributorâ€™s name as Anonymous issue
 * 2checkout payment Vendor.js issue
 * Displaying selected Rewards on the checkout page issue
 * Campaign owner count issue
