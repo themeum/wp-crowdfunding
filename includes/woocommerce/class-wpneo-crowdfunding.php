@@ -679,14 +679,18 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
          * Disabled coupon system from system
          */
         function wpneo_wc_coupon_disable( $coupons_enabled ) {
-            global $woocommerce;
-            $items = $woocommerce->cart->get_cart();
             $type = true;
-            if( $items ){
-                foreach($items as $item => $values) {
-                    $product = wc_get_product( $values['product_id'] );
-                    if( $product->get_type() == 'crowdfunding' ){
-                        $type = false;
+            global $woocommerce;
+            if (isset($woocommerce)) {
+                if (isset($woocommerce->cart)) {
+                    $items = $woocommerce->cart->get_cart();
+                    if( $items ){
+                        foreach($items as $item => $values) {
+                            $product = wc_get_product( $values['product_id'] );
+                            if( $product->get_type() == 'crowdfunding' ){
+                                $type = false;
+                            }
+                        }
                     }
                 }
             }
