@@ -76,7 +76,7 @@ if (! class_exists('WPCF_Initial_Setup')) {
                 }
             }
 
-            if( $initial ){
+            if( $initial ) {
                 // Create page object
                 $dashboard = array(
                     'post_title'    => 'CF Dashboard',
@@ -103,7 +103,6 @@ if (! class_exists('WPCF_Initial_Setup')) {
                     'post_status'   => 'publish',
                 );
             
-                
                 /**
                  * Insert the page into the database
                  * @Dashbord, @Form, @Listing and @Registration Pages Object
@@ -124,7 +123,7 @@ if (! class_exists('WPCF_Initial_Setup')) {
         /**
          * Reset method, the ajax will call that method for Reset Settings
          */
-        public function wpcf_settings_reset(){
+        public function wpcf_settings_reset() {
             $this->initial_plugin_activation( false );
         }
 
