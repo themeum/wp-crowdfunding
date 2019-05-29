@@ -265,5 +265,5 @@ if ( ! function_exists( 'wpneo_crowdfunding_campaign_single_social_share' ) ) {
     }
 }
 if(get_option('wpneo_enable_social_share') == 'true') {
-    add_action('wpneo_crowdfunding_single_campaign_summery', 'wpneo_crowdfunding_campaign_single_social_share', 11);
+    add_action('wpneo_crowdfunding_single_campaign_summary', 'wpneo_crowdfunding_campaign_single_social_share', 11);
 }

@@ -327,6 +327,7 @@ a.wpneo-single-main-image{
 }
 .wpneo-listings.first{
     clear: both;
+    position: relative;
 }
 .wpneo-listings:hover .overlay {
     opacity: 1;
@@ -387,6 +388,17 @@ a.wpneo-single-main-image{
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
     margin-bottom: 30px;
+}
+span.wpcf-successful {
+    top: 20px;
+    overflow: hidden;
+    background-color: #379409;
+    color: #fff;
+    font-size: 14px;
+    padding: 9px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: absolute;
 }
 .wpneo-listings .wpneo-listing-content:hover{
     box-shadow: 0 5px 17px 0 rgba(0, 0, 0, 0.07);
@@ -603,9 +615,6 @@ h2.wpneo-campaign-title{
 .wpneo-author-info, .wpneo-author-info a{
     color: #737373;
     font-size: 18px;
-}
-.wpneo-link-style1{
-    color: #8cc641 !important;
 }
 
 .campaign-funding-info{

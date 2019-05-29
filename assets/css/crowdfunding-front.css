@@ -1527,7 +1527,7 @@ ul.wpneo-crowdfunding-update li .wpneo-crowdfunding-update-title,
 .wpcf-order-view,#wpneo_crowdfunding_modal_message td a,
 .dashboard-price-number,.wpcrowd-listing-content .wpcrowd-admin-title h3 a,
 .campaign-listing-page .stripe-table a,.stripe-table  a.label-default:hover,
-a.wpneo-fund-modal-btn.wpneo-link-style1,.wpneo-tabs-menu li.wpneo-current a,
+.wpneo-tabs-menu li.wpneo-current a,
 .wpneo-links div a:hover, .wpneo-links div.active a{
     color: #1adc68;
 }

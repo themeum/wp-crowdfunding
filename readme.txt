@@ -4,7 +4,7 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -126,6 +126,13 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+
+= 1.9.1 - 28 May, 2019 =
+* Added: Status bar on the backend
+* Added: Campaign invoice print function
+* Update: CSS improvement
+* Fixed: Campaign never ends date time issue
+* Fixed: Coupon disable issue
 
 = 1.9.0 - 03 May, 2019 =
 

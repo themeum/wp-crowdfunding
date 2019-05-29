@@ -116,6 +116,7 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
             $date = $columns['date'];
             unset($columns['date']);
             $columns['campaign_owner'] = __('Owner', 'wp-crowdfunding');
+            $columns['campaign_status'] = __('Status', 'wp-crowdfunding');
             $columns['date'] = $date;
             return $columns;
         }
@@ -126,6 +127,7 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
          */
 
         function wpneo_woocommerce_show_campaign_data_in_product_column( $column, $post_id ) {
+
             switch ( $column ) {
                 case 'campaign_owner':
 	                $post =  get_post($post_id);
@@ -144,6 +146,20 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
                 		echo $user->display_name;
 	                }
                     break;
+                case 'campaign_status':
+                    $product = wc_get_product($post_id);
+                    if( $product->get_type() === 'crowdfunding' ){
+                        if( WPNEOCF()->is_campaign_started() ){
+                            if( WPNEOCF()->campaignValid() ){
+                                echo '<span class="wpcf-reached">'.__('Reached','wp-crowdfunding').'</span>';
+                            }else{
+                                echo '<span class="wpcf-not-reached">'.__('Not reached','wp-crowdfunding').'</span>';
+                            }
+                        }else{
+                        echo '<span class="wpcf-not-started">'.__('Not Started','wp-crowdfunding').'</span>';
+                        }
+                    }
+                break;
             }
         }
 

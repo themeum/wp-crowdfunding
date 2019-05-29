@@ -15,7 +15,7 @@ function wpneo_shortcode_crowdfunding_form( $atts ){
     $location = $edit_form = $edit_id = $checked = $checked2 = '';
 
     $reward = '';
-    if( isset($_GET['action']) ){
+    if( isset($_GET['action']) && isset($_GET['postid']) ){
         if( $_GET['action'] == 'edit' ){
             $post_id = (int) sanitize_text_field($_GET['postid']);
 
@@ -130,6 +130,36 @@ function wpneo_shortcode_crowdfunding_form( $atts ){
     wp_editor( $short_description, 'wpneo-form-short-description', array('editor_height'=>200) );
     $html .= ob_get_clean();
     $html .= '<small>'.__("Put Here Product Short Description","wp-crowdfunding").'</small>';
+    $html .= '</div>';
+    $html .= '</div>';
+
+
+    //Campaign End Method
+    $html .= '<div class="wpneo-single">';
+    $html .= '<div class="wpneo-name">'.__("End Method" , "wp-crowdfunding" ).'</div>';
+    $html .= '<div class="wpneo-fields">';
+    $html .= '<select name="wpneo-form-type">';
+    if (get_option('wpneo_show_target_goal') == 'true') {
+        $selected = $campaign_end_method == 'target_goal' ? 'selected="selected"' : '';
+        $html .= '<option value="target_goal" '.$selected.'>' . __("Target Goal", "wp-crowdfunding") . '</option>';
+    }
+
+    if (get_option('wpneo_show_target_date') == 'true') {
+        $selected = $campaign_end_method == 'target_date' ? 'selected="selected"' : '';
+        $html .= '<option value="target_date" '.$selected.'>' . __("Target Date", "wp-crowdfunding") . '</option>';
+    }
+
+    if (get_option('wpneo_show_target_goal_and_date') == 'true') {
+        $selected = $campaign_end_method == 'target_goal_and_date' ? 'selected="selected"' : '';
+        $html .= '<option value="target_goal_and_date" '.$selected.'>' . __("Target Goal & Date", "wp-crowdfunding") . '</option>';
+    }
+
+    if (get_option('wpneo_show_campaign_never_end') == 'true') {
+        $selected = $campaign_end_method == 'never_end' ? 'selected="selected"' : '';
+        $html .= '<option value="never_end" '.$selected.'>' . __("Campaign Never Ends", "wp-crowdfunding") . '</option>';
+    }
+    $html .= '</select>';
+    $html .= '<small>'.__("Choose the stage when campaign will end","wp-crowdfunding").'</small>';
     $html .= '</div>';
     $html .= '</div>';
 
@@ -273,39 +303,6 @@ function wpneo_shortcode_crowdfunding_form( $atts ){
     $html .= '<small>'.__("Campaign funding goal","wp-crowdfunding").'</small>';
     $html .= '</div>';
     $html .= '</div>';
-
-
-    //Campaign End Method
-    $html .= '<div class="wpneo-single">';
-    $html .= '<div class="wpneo-name">'.__("End Method" , "wp-crowdfunding" ).'</div>';
-    $html .= '<div class="wpneo-fields">';
-    $html .= '<select name="wpneo-form-type">';
-
-    if (get_option('wpneo_show_target_goal') == 'true') {
-        $selected = $campaign_end_method == 'target_goal' ? 'selected="selected"' : '';
-        $html .= '<option value="target_goal" '.$selected.'>' . __("Target Goal", "wp-crowdfunding") . '</option>';
-    }
-
-    if (get_option('wpneo_show_target_date') == 'true') {
-        $selected = $campaign_end_method == 'target_date' ? 'selected="selected"' : '';
-        $html .= '<option value="target_date" '.$selected.'>' . __("Target Date", "wp-crowdfunding") . '</option>';
-    }
-
-    if (get_option('wpneo_show_target_goal_and_date') == 'true') {
-        $selected = $campaign_end_method == 'target_goal_and_date' ? 'selected="selected"' : '';
-        $html .= '<option value="target_goal_and_date" '.$selected.'>' . __("Target Goal & Date", "wp-crowdfunding") . '</option>';
-    }
-
-    if (get_option('wpneo_show_campaign_never_end') == 'true') {
-        $selected = $campaign_end_method == 'never_end' ? 'selected="selected"' : '';
-        $html .= '<option value="never_end" '.$selected.'>' . __("Campaign Never Ends", "wp-crowdfunding") . '</option>';
-    }
-
-    $html .= '</select>';
-    $html .= '<small>'.__("Choose the stage when campaign will end","wp-crowdfunding").'</small>';
-    $html .= '</div>';
-    $html .= '</div>';
-
 
 
     //Show Contributor Table

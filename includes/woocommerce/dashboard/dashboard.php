@@ -92,7 +92,9 @@ $html .= '<div class="wpneo-row">';
                     $html .= '</div>';
                 $html .= '</div>';
 
-            $html .= '<h4>'.__('Payment Info', 'wp-crowdfunding').'</h4>';
+            if (WPNEO_CROWDFUNDING_TYPE != 'free'){
+                $html .= '<h4>'.__('Payment Info', 'wp-crowdfunding').'</h4>';
+            }
             ob_start();
             do_action('wpneo_crowdfunding_dashboard_after_dashboard_form');
             $html .= ob_get_clean();

@@ -13,3 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+<?php
+if( WPNEOCF()->is_reach_target_goal() ){
+	echo '<span class="wpcf-successful">';
+		_e('Successful','wp-crowdfunding');
+	echo '</span>';
+}
+?>
