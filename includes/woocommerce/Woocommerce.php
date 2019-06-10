@@ -14,10 +14,11 @@ if (! class_exists('Wpneo_Crowdfunding')) {
         }
 
         public function __construct(){
-            include_once plugin_dir_path(__FILE__).'class-wpneo-wc-reward.php'; 
+            include_once WPCF_DIR_PATH .'includes/woocommerce/Reward.php'; 
+            new \WPCF\woocommerce\Reward();
+
             add_action( 'plugins_loaded',                                   array($this, 'includes')); //Include all of resource to the plugin 
             add_filter( 'product_type_selector',                            array($this, 'wpneo_product_type_selector')); //Added one more product type in woocommerce product
-            add_action( 'init',                                             array($this, 'wpneo_register_product_type') ); //Initialized the product type class
             add_action( 'woocommerce_product_options_general_product_data', array($this,'wpneo_add_meta_info')); //Additional Meta form for crowdfunding campaign
             add_action( 'add_meta_boxes',                                   array( $this, 'add_campaign_update' ), 30 );
             add_action( 'woocommerce_process_product_meta',                 array($this, 'wpneo_update_status_save')  ); //Save update status for this campaign with product
@@ -58,16 +59,8 @@ if (! class_exists('Wpneo_Crowdfunding')) {
          * Include if necessary resources
          */
         public function includes(){
-            //include_once plugin_dir_path(__FILE__).'/class-wp-neo-crowdfunding.php';
+            //include_once WPCF_DIR_PATH . '/class-wp-neo-crowdfunding.php';
         }
-
-        /**
-         * Registering Crowdfunding product type in product post woocommerce
-         */
-        public function wpneo_register_product_type(){
-            include_once plugin_dir_path(__FILE__).'class-wp-neo-wc-product-type-crowdfunding.php';
-        }
-
 
         /**
          * Remove billing address from the checkout page
@@ -942,10 +935,15 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
  * @Wpneo_Crowdfunding() for initialize Main class
  */
 function Wpneo_Crowdfunding(){
-    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-wc-admin-dashboard.php';
-    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-frontend-hook.php';
-    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-frontend-campaign-submit-form.php';
-    require_once WPCF_DIR_PATH.'includes/woocommerce/class-wpneo-wc-account-dashboard.php';
-    return Wpneo_Crowdfunding::instance();
-}
+    require_once WPCF_DIR_PATH.'includes/woocommerce/Dashboard.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/Frontend_Hook.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/Submit_Form.php';
+    require_once WPCF_DIR_PATH.'includes/woocommerce/Account_Dashboard.php';
 
+    new \WPCF\woocommerce\Account_Dashboard();
+    new \WPCF\woocommerce\Submit_Form();
+
+    return Wpneo_Crowdfunding::instance();
+
+   
+}

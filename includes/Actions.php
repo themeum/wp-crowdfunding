@@ -99,7 +99,7 @@ if (! class_exists('Wpneo_Crowdfunding_Frontend_Dashboard')) {
             $profile_address      = ( $_POST['profile_address'] ) ? sanitize_text_field($_POST['profile_address']) : "";
             $profile_facebook     = ( $_POST['profile_facebook'] ) ? sanitize_text_field($_POST['profile_facebook']) : "";
             $profile_twitter      = ( $_POST['profile_twitter'] ) ? sanitize_text_field($_POST['profile_twitter']) : "";
-            $profile_vk         = ( $_POST['profile_vk'] ) ? sanitize_text_field($_POST['profile_vk']) : "";
+            $profile_vk           = ( $_POST['profile_vk'] ) ? sanitize_text_field($_POST['profile_vk']) : "";
             $profile_linkedin     = ( $_POST['profile_linkedin'] ) ? sanitize_text_field($_POST['profile_linkedin']) : "";
             $profile_pinterest    = ( $_POST['profile_pinterest'] ) ? sanitize_text_field($_POST['profile_pinterest']) : "";
             $profile_image_id     = ( $_POST['profile_image_id'] ) ? sanitize_text_field($_POST['profile_image_id']) : "";

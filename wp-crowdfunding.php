@@ -24,7 +24,7 @@ if( !function_exists('is_plugin_active_for_network') ){
 }
 
  /**
-  * @Type`
+  * @Type
   * @Version
   * @Directory URL
   * @Directory Path
@@ -49,32 +49,3 @@ if( !class_exists( 'Crowdfunding' ) ){
     require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
     new \WPCF\Crowdfunding();
 }
-
-// function wpcf_plugins(){
-// 	return \WPCF\Crowdfunding::instance();
-// }
-// $GLOBALS['crowdfunding'] = wpcf_plugins();
-
-/**
- * Include Require File
- */
-// include_once WPCF_DIR_PATH . 'includes/wpneo-crowdfunding-general-functions.php';
-// include_once WPCF_DIR_PATH . 'admin/menu-settings.php';
-
-
-/**
- * Checking vendor
- */
-// if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
-// 	if ( wpcf_wc_version_check() ) {
-// 		require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-base.php';
-// 		require_once WPCF_DIR_PATH . 'includes/woocommerce/class-wpneo-crowdfunding.php';
-// 		require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-frontend-dashboard.php';
-// 		Wpneo_Crowdfunding();
-// 	} else {
-// 		add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
-// 		deactivate_plugins( plugin_basename( __FILE__ ) );
-// 	}
-// } else {
-// 	add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'no_vendor_notice' ) );
-// }

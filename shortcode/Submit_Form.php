@@ -25,17 +25,15 @@ class Form{
                 $post_id = (int) sanitize_text_field($_GET['postid']);
     
                 //Prevent if unauthorised access
-                $campaign_users = new WPNEO_Frontend_Campaign_Submit_Form();
+                $campaign_users = new \WPCF\woocommerce\Submit_Form();
                 $wp_query_users_product_id = $campaign_users->logged_in_user_campaign_ids();
                 if ( ! in_array($post_id, $wp_query_users_product_id)){
-    
                     $html.= '<header class="wpneo-page-header">';
                     $html.= '<h1 class="wpneo-page-title">'. __( 'Not Found', 'wp-crowdfunding' ) .'</h1>';
                     $html .= '</header>';
                     $html .= '<h2 class="wpneo-subtitle">'. __( 'This is somewhat embarrassing, isn’t it?', 'wp-crowdfunding' ) .'</h2>';
                     $html .= '<p>'. __( 'It looks like nothing was found at this location. Maybe try a search?', 'wp-crowdfunding' ) .'</p>';
                     $html .= get_search_form( false );
-    
                     return $html;
                 }
     

@@ -165,8 +165,8 @@ if ( ! function_exists('wpneo_crowdfunding_template')){
 }
 
 // Pagination
-if ( ! function_exists('wpneo_crowdfunding_pagination')) {
-	function wpneo_crowdfunding_pagination($page_numb, $max_page){
+if ( ! function_exists('wpcf_pagination')) {
+	function wpcf_pagination($page_numb, $max_page){
 		$html = '';
 		$big = 999999999; // need an unlikely integer
 		$html .= '<div class="wpneo-pagination">';

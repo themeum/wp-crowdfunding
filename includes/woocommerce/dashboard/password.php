@@ -1,5 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
+
 $html .= '<div class="wpneo-content">';
     $html .= '<form id="wpneo-dashboard-form" action="" method="post" class="wpneo-form">';
 

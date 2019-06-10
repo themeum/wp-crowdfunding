@@ -98,5 +98,5 @@ else :
     $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
 endif;
 $html .= '</div>';
-$html .= wpneo_crowdfunding_pagination( $page_numb , $the_query->max_num_pages );
+$html .= wpcf_pagination( $page_numb , $the_query->max_num_pages );
 

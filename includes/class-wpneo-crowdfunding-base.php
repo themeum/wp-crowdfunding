@@ -122,11 +122,11 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
 
 
         public function load_wpneo_crowdfunding_functions(){
-            require_once WPCF_DIR_PATH.'includes/woocommerce/wpneo-crowdfunding-template-functions.php';
+            require_once WPCF_DIR_PATH.'includes/woocommerce/Template_Functions.php';
         }
 
         public function wpneo_template_hook(){
-            require_once WPCF_DIR_PATH.'includes/woocommerce/wpneo-crowdfunding-template-hook.php';
+            require_once WPCF_DIR_PATH.'includes/woocommerce/Template_Hook.php';
         }
 
         public function wpcf_admin_script(){
@@ -228,33 +228,5 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
 }
 Wpneo_Crowdfunding_Base::instance(); //Call base class
 
-require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-templating.php';
-// require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-user-registration.php';
-// require_once WPCF_DIR_PATH.'includes/woocommerce/Widget.php';
+
 require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-common.php';
-
-// Shortcode Add to the plugins
-// include_once WPCF_DIR_PATH.'shortcode/Dashboard.php';
-// include_once WPCF_DIR_PATH.'shortcode/Project_Listing.php';
-// include_once WPCF_DIR_PATH.'shortcode/Registration.php';
-// include_once WPCF_DIR_PATH.'shortcode/Search.php';
-// include_once WPCF_DIR_PATH.'shortcode/Submit_Form.php';
-
-// // New Added
-// include_once WPCF_DIR_PATH.'shortcode/Campaign_Box.php';
-// include_once WPCF_DIR_PATH.'shortcode/Single_Campaign.php';
-// include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
-// include_once WPCF_DIR_PATH.'shortcode/Donate.php';
-
-
-// // Include Addons directory and there main file
-// $addons_dir = array_filter(glob(WPCF_DIR_PATH.'addons/*'), 'is_dir');
-// if (count($addons_dir) > 0) {
-//     foreach ($addons_dir as $key => $value) {
-//         $addon_dir_name = str_replace(dirname($value).'/', '', $value);
-//         $file_name = WPCF_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
-//         if ( file_exists($file_name) ){
-//             include_once $file_name;
-//         }
-//     }
-// }

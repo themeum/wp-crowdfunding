@@ -12,9 +12,6 @@ if(isset($_GET["postid"])){
     }
 }
 
-defined( 'ABSPATH' ) || exit;
-
-
 $data = get_user_meta(get_current_user_id());
 
 $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';

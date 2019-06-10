@@ -158,7 +158,50 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
          * @param WP_Post $post Current post object.
          */
         function wpneo_crowdfunding_metabox_display_callback( $post ) {
-            include WPCF_DIR_PATH.'admin/view/product_metabox_campaign_info.php';
+            $html = '';
+            $html .='<table class="widefat striped our-products">';
+                $html .='<tr>';
+                    $html .='<td>'.__( "By","wp-crowdfunding" ).'</td>';
+                    $html .='<td>';
+                        $html .='<span class="label-default">';
+                            $user = get_userdata($post->post_author);
+                            $html .= $user->display_name;
+                        $html .='</span>';
+                    $html .='</td>';
+                $html .='</tr>';
+
+                $html .='<tr>';
+                    $html .='<td>'.__("Start Date", "wp-crowdfunding").'</td>';
+                    $html .='<td><span class="label-primary">'.get_post_meta($post->ID, "_nf_duration_start", true).'</span></td>';
+                $html .='</tr>';
+
+                $html .='<tr>';
+                    $html .='<td>'.__("End Date", "wp-crowdfunding").'</td>';
+                    $html .='<td><span class="label-success">'.get_post_meta($post->ID, "_nf_duration_end", true).'</span></td>';
+                $html .='</tr>';
+
+                $html .='<tr>';
+                    $html .='<td>'.__("Goal", "wp-crowdfunding").'</td>';
+                    $html .='<td><span class="label-info">'.wc_price(get_post_meta($post->ID, "_nf_funding_goal", true)).'</span></td>';
+                $html .='</tr>';
+
+                $html .='<tr>';
+                    $html .='<td>'.__("Raised", "wp-crowdfunding").'</td>';
+                    $html .='<td>';
+                        $html .='<span class="label-warning">';
+                            $raised_total = wpneo_crowdfunding_get_total_fund_raised_by_campaign();
+                            $html .= $raised_total ? wc_price($raised_total) : wc_price(0);
+                        $html .='</span>';
+                    $html .='</td>';
+                $html .='</tr>';
+
+                $html .='<tr>';
+                    $html .='<td>'.__("Raised Percent", "wp-crowdfunding").'</td>';
+                    $html .='<td><span class="label-danger">'.WPNEOCF()->getFundRaisedPercentFormat().'</span></td>';
+                $html .='</tr>';
+
+            $html .='</table>';
+            echo $html;
         }
 
         /**
@@ -175,7 +218,7 @@ if (! class_exists('WPNEO_WC_Admin_Dashboard')) {
         }
 
         function wpneo_crowdfunding_selected_reward_meta_box_display_callback(){
-            include WPCF_DIR_PATH.'admin/view/order_selected_reward_meta_box.php';
+            include WPCF_DIR_PATH.'settings/view/Reward_Meta.php';
         }
 
 

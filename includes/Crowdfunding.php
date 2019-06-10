@@ -22,33 +22,9 @@ final class Crowdfunding{
 
 		$this->include_shortcode();
 
-		$this->include_addons();
+		// $this->include_addons();
 
 		do_action('wpcf_before_load');
-
-		// $this->addons = new Addons();
-		// $this->post_types = new Post_types();
-		// $this->assets = new Assets();
-		// $this->admin = new Admin();
-		// $this->ajax = new Ajax();
-		// $this->options = new Options();
-		// $this->shortcode = new Shortcode();
-		// $this->course = new Course();
-		// $this->lesson = new Lesson();
-		// $this->rewrite_rules = new Rewrite_Rules();
-		// $this->template = new Template();
-		// $this->instructor = new  Instructor();
-		// $this->student = new Student();
-		// $this->q_and_a = new Q_and_A();
-		// $this->quiz = new Quiz();
-		// $this->question = new Question();
-		// $this->tools = new Tools();
-		// $this->user = new User();
-		// $this->theme_compatibility = new Theme_Compatibility();
-		// $this->gutenberg = new Gutenberg();
-		// $this->woocommerce = new WooCommerce();
-		// $this->edd = new TutorEDD();
-		// $this->withdraw = new Withdraw();
 
 		$this->run();
 
@@ -62,8 +38,9 @@ final class Crowdfunding{
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
 				if ( wpcf_wc_version_check() ) {
 					require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-base.php';
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/class-wpneo-crowdfunding.php';
-					require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-frontend-dashboard.php';
+					require_once WPCF_DIR_PATH . 'includes/woocommerce/Templating.php';
+					require_once WPCF_DIR_PATH . 'includes/woocommerce/Woocommerce.php';
+					require_once WPCF_DIR_PATH . 'includes/Actions.php';
 					Wpneo_Crowdfunding();
 
 					
@@ -107,7 +84,7 @@ final class Crowdfunding{
 		new \WPCF\shortcode\Form();
 		new \WPCF\shortcode\Registration();
 
-//		\WPCF\Crowdfunding();
+		// \WPCF\Crowdfunding();
 	}
 
 	// Include Addons directory

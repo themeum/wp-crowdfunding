@@ -194,12 +194,12 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
 
             // WPML compatibility.
             if ( apply_filters( 'wpml_setting', false, 'setup_complete' ) ) {
-                $type = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
-                $trid = apply_filters( 'wpml_element_trid', null, $campaign_id, $type );
-                $translations = apply_filters( 'wpml_get_element_translations', null, $trid, $type );
-                $campaign_ids = wp_list_pluck( $translations, 'element_id' );
+                $type           = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
+                $trid           = apply_filters( 'wpml_element_trid', null, $campaign_id, $type );
+                $translations   = apply_filters( 'wpml_get_element_translations', null, $trid, $type );
+                $campaign_ids   = wp_list_pluck( $translations, 'element_id' );
             } else {
-                    $campaign_ids = array( $campaign_id );
+                $campaign_ids   = array( $campaign_id );
             }
             $placeholders = implode( ',', array_fill( 0, count( $campaign_ids ), '%d' ) );
 
@@ -449,7 +449,7 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
                 array(
                     'taxonomy' => 'product_type',
                     'field'    => 'slug',
-                    'terms' => array(
+                    'terms'    => array(
                         'crowdfunding'
                     ),
                     'operator' => 'NOT IN'

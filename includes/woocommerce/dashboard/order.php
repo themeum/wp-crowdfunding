@@ -1,5 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
+
 $html .= '<div class="wpneo-content">';
 $html .= '<div class="wpneo-form">';
 
@@ -173,7 +174,7 @@ if(!empty($customer_order_all)){
     $max_page = ceil( count($customer_order_all)/10 );
 }
 // Pagination
-$html .= wpneo_crowdfunding_pagination( $page_numb , $max_page );
+$html .= wpcf_pagination( $page_numb , $max_page );
 
 
 $html .='</div>';

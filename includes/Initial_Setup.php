@@ -6,23 +6,6 @@ if (! class_exists('WPCF_Initial_Setup')) {
     class WPCF_Initial_Setup{
 
         /**
-         * @var null
-         *
-         * Instance of this class
-         */
-        protected static $_instance = null;
-
-        /**
-         * @return null|Wpneo_Crowdfunding
-         */
-        public static function instance() {
-            if ( is_null( self::$_instance ) ) {
-                self::$_instance = new self();
-            }
-            return self::$_instance;
-        }
-
-        /**
          * Insert settings option data
          */
         public static function initial_plugin_activation( $initial = true ){
@@ -140,7 +123,7 @@ if (! class_exists('WPCF_Initial_Setup')) {
          * Show notice if there is no woocommerce
          */
         public static function no_vendor_notice(){
-            printf( 
+            printf(
                 '<div class="notice notice-error is-dismissible"><p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p></div>', 
                 __('Please install & activate','wp-crowdfunding'), 
                 'https://wordpress.org/plugins/woocommerce/', 

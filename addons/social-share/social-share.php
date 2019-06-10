@@ -69,7 +69,7 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
         public function add_social_share_tab_to_wpneo_crowdfunding_settings($tabs){
             $tabs['social-share'] = array(
                 'tab_name' => __('Social Share','wp-crowdfunding'),
-                'load_form_file' => plugin_dir_path(__FILE__).'pages/tab-social-share.php'
+                'load_form_file' => WPCF_DIR_PATH . 'pages/tab-social-share.php'
             );
             return $tabs;
         }
