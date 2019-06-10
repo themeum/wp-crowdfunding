@@ -3,7 +3,7 @@ namespace WPCF\shortcode;
 
 defined( 'ABSPATH' ) || exit;
 
-class Registration{
+class Registration {
 
     public function __construct(){
         add_shortcode( 'wpneo_registration', array( $this, 'wpcf_registration_callback' ) ); //@comparability

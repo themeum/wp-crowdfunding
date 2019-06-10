@@ -4,7 +4,7 @@ namespace WPCF\shortcode;
 defined( 'ABSPATH' ) || exit;
 
 
-class Form{
+class Submit_Form {
     public function __construct(){
         add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'wpcf_form_callback' ) ); //@comparability
         add_shortcode( 'wpcf_form', array( $this, 'wpcf_form_callback' ) );        

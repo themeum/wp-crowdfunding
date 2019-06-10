@@ -3,23 +3,15 @@ namespace WPCF\shortcode;
 
 defined( 'ABSPATH' ) || exit;
 
-class Campaign_Box{
+class Campaign_Box {
 
-    function __construct(){
+    function __construct() {
         // add_action( 'init', array($this, 'wpneo_embed_data') );
-        add_shortcode( 'wp_crowdfunding_campaign_box', array( $this, 'wpcf_campaign_box_callback_old' ) ); //@comparability
-        add_shortcode( 'wpcf_campaign_box', array( $this, 'wpcf_campaign_box_callback_new' ) );
+        add_shortcode( 'wp_crowdfunding_campaign_box', array( $this, 'wpcf_campaign_box_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_campaign_box', array( $this, 'wpcf_campaign_box_callback' ) );
     }
 
-    private function wpcf_campaign_box_callback_old( $atts ){
-        $this->wpcf_campaign_box_callback( $atts, 'wp_crowdfunding_campaign_box' );
-    }
-
-    private function wpcf_campaign_box_callback_new( $atts ){
-        $this->wpcf_campaign_box_callback( $atts, 'wpcf_campaign_box' );
-    }
-
-    function wpcf_campaign_box_callback( $atts, $shortcode ){
+    function wpcf_campaign_box_callback( $atts, $shortcode ) {
 
         $atts = shortcode_atts( array(
             'campaign_id' => 0,
@@ -41,12 +33,10 @@ class Campaign_Box{
             $args['p'] = absint( $atts['campaign_id'] );
         }
 
-        $single_product = new WP_Query( $args );
+        $single_product = new \WP_Query( $args );
 
         // For "is_single" to always make load comments_template() for reviews.
         $single_product->is_single = true;
-
-        ob_start();
 
         global $wp_query;
 
@@ -54,25 +44,27 @@ class Campaign_Box{
         $previous_wp_query = $wp_query;
         $wp_query          = $single_product;
 
+        ob_start();
         while ( $single_product->have_posts() ) {
             $single_product->the_post();
             ?>
 
-            <div class="wpneo-listings three ">
+            <div class="wpneo-listings three">
                 <?php do_action('wpneo_campaign_loop_item_before_content'); ?>
                 <div class="wpneo-listing-content">
                     <?php do_action('wpneo_campaign_loop_item_content'); ?>
                 </div>
                 <?php do_action('wpneo_campaign_loop_item_after_content'); ?>
             </div>
+            
             <?php
         }
         // restore $previous_wp_query and reset post data.
         $wp_query = $previous_wp_query;
+        $output_string = ob_get_clean();
         wp_reset_postdata();
-        $final_content = ob_get_clean();
 
-        return $final_content;
+        return $output_string;
     }
 
 }

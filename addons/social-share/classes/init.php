@@ -1,47 +1,8 @@
 <?php
 
-defined( 'ABSPATH' ) || exit;
+if ( ! class_exists('WPCF_Social_Share')) {
 
-/**
- * Defined the tutor main file
- */
-define('WPCF_SOCIAL_SHARE_FILE', __FILE__);
-define('WPCF_SOCIAL_SHARE_DIR_PATH', plugin_dir_path( WPCF_SOCIAL_SHARE_FILE ) );
-define('WPCF_SOCIAL_SHARE_BASE_NAME', plugin_basename( WPCF_SOCIAL_SHARE_FILE ) );
-
-/**
- * Showing config for addons central lists
- */
-add_filter('wpcf_addons_lists_config', 'wpcf_social_share_config');
-function wpcf_social_share_config($config){
-	$newConfig = array(
-		'name'          => __( 'Social Share', 'wp-crowdfunding' ),
-		'description'   => __( 'WP Crowdfunding Social Share', 'wp-crowdfunding' ),
-	);
-
-	$basicConfig = (array) WPCF_SOCIAL_SHARE();
-	$newConfig = array_merge($newConfig, $basicConfig);
-
-	$config[ WPCF_SOCIAL_SHARE_BASE_NAME ] = $newConfig;
-	return $config;
-}
-
-if ( ! function_exists('WPCF_SOCIAL_SHARE')) {
-	function WPCF_SOCIAL_SHARE() {
-		$info = array(
-			'path'              => WPCF_SOCIAL_SHARE_DIR_PATH,
-			'url'               => plugin_dir_url( WPCF_SOCIAL_SHARE_FILE ),
-			'basename'          => WPCF_SOCIAL_SHARE_BASE_NAME,
-			'nonce_action'      => 'wpcf_nonce_action',
-			'nonce'             => '_wpnonce',
-		);
-		return (object) $info;
-	}
-}
-
-
-if ( ! class_exists('Neo_Social_Share_Init')) {
-    class Neo_Social_Share_Init{
+    class WPCF_Social_Share {
         /**
          * @var null
          *
@@ -50,7 +11,7 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
         protected static $_instance = null;
 
         /**
-         * @return null|Wpneo_Crowdfunding
+         * @return null|WPCF
          */
         public static function instance() {
             if ( is_null( self::$_instance ) ) {
@@ -60,33 +21,33 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
         }
 
         public function __construct(){
-            add_action( 'init',                             array($this, 'wpneo_embed_data') );
-            add_action( 'wp_enqueue_scripts',               array($this, 'wpneo_social_share_enqueue_frontend_script') ); //Add social share js in footer
-            add_filter('wpcf_settings_tabs',                array($this, 'add_social_share_tab_to_wpneo_crowdfunding_settings')); //Hook to add social share field with user registration form
+            add_action( 'init',                             array($this, 'wpcf_embed_data') );
+            add_action( 'wp_enqueue_scripts',               array($this, 'wpcf_social_share_enqueue_frontend_script') ); //Add social share js in footer
+            add_filter( 'wpcf_settings_panel_tabs',         array($this, 'add_social_share_tab_to_wpcf_settings')); //Hook to add social share field with user registration form
 
-            add_action( 'init',                             array($this, 'wpneo_social_share_save_settings') ); // Social Share Settings
-            add_action( 'wp_ajax_wpcf_embed_action',        array($this, 'wpneo_embed_campaign_action') );
-            add_action( 'wp_ajax_nopriv_wpcf_embed_action', array($this, 'wpneo_embed_campaign_action') );
+            add_action( 'init',                             array($this, 'wpcf_social_share_save_settings') ); // Social Share Settings
+            add_action( 'wp_ajax_wpcf_embed_action',        array($this, 'wpcf_embed_campaign_action') );
+            add_action( 'wp_ajax_nopriv_wpcf_embed_action', array($this, 'wpcf_embed_campaign_action') );
         }
 
-        public function add_social_share_tab_to_wpneo_crowdfunding_settings($tabs){
+        public function add_social_share_tab_to_wpcf_settings($tabs){
             $tabs['social-share'] = array(
                 'tab_name' => __('Social Share','wp-crowdfunding'),
-                'load_form_file' => WPCF_DIR_PATH . 'pages/tab-social-share.php'
+                'load_form_file' => WPCF_SOCIAL_SHARE_DIR_PATH.'pages/tab-social-share.php'
             );
             return $tabs;
         }
 
-        public function wpneo_social_share_enqueue_frontend_script(){
+        public function wpcf_social_share_enqueue_frontend_script(){
             if ( get_option('wpneo_enable_social_share') == 'true') {
-                wp_enqueue_script('wp-neo-jquery-social-share-front', WPCF_DIR_URL .'addons/social-share/jquery.prettySocial.min.js', array('jquery'), WPCF_VERSION, true);
+                wp_enqueue_script('wp-neo-jquery-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/jquery.prettySocial.min.js', array('jquery'), WPCF_VERSION, true);
             }
         }
 
           /**
          * All settings will be save in this method
          */
-        public function wpneo_social_share_save_settings(){
+        public function wpcf_social_share_save_settings(){
             if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpneo_varify_social_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
                 // Checkbox
                 $wpneo_enable_social_share = sanitize_text_field(wpneo_post('wpneo_enable_social_share'));
@@ -124,7 +85,7 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
 
 
         // Data Post Embed Code
-        public function wpneo_embed_data(){
+        public function wpcf_embed_data(){
             $url = $_SERVER["REQUEST_URI"];
             $embed = strpos($url, 'themeumembed');
             if ($embed!==false){
@@ -276,7 +237,7 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
 
 
         // Odrer Data View 
-        public function wpneo_embed_campaign_action(){
+        public function wpcf_embed_campaign_action(){
             
             $html = '';
             $title = __("Embed Code","wp-crowdfunding");
@@ -291,16 +252,16 @@ if ( ! class_exists('Neo_Social_Share_Init')) {
         }
     }
 }
-Neo_Social_Share_Init::instance();
+WPCF_Social_Share::instance();
 
 /**
  * Add to hook share option.
  */
-if ( ! function_exists( 'wpneo_crowdfunding_campaign_single_social_share' ) ) {
-    function wpneo_crowdfunding_campaign_single_social_share() {
+if ( ! function_exists( 'wpcf_campaign_single_social_share' ) ) {
+    function wpcf_campaign_single_social_share() {
         wpneo_crowdfunding_load_template('include/social-share');
     }
 }
 if(get_option('wpneo_enable_social_share') == 'true') {
-    add_action('wpneo_crowdfunding_single_campaign_summery', 'wpneo_crowdfunding_campaign_single_social_share', 11);
+    add_action('wpneo_crowdfunding_single_campaign_summery', 'wpcf_campaign_single_social_share', 11);
 }

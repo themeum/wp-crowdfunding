@@ -57,14 +57,30 @@
                     //PRO ADDONS LIST FOR DISPLAY
                     if( WPCF_TYPE == 'free' ) {
                         $proAddons = array(
+                            'authorizenet' => array(
+                                'name'          => __( 'Authorize.Net', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('Authorize.Net Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                            ),
                             'email' => array(
                                 'name'          => __( 'Email', 'wp-crowdfunding' ),
-                                'description'   => __( 'Student will able to download certificate of completed course', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('Email addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
                             ),
                             'recaptcha' => array(
                                 'name'          => __( 'reCAPTCHA', 'wp-crowdfunding' ),
-                                'description'   => __( 'Stay away from all spam comments and unauthorized login attempts by reCAPTCHA', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('reCAPTCHA addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
                             ),
+                            'reports' => array(
+                                'name'          => __( 'Reports', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('Reports addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                            ),
+                            'stripe-connect' => array(
+                                'name'          => __( 'Stripe connect', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('Stripe Connect gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                            ),
+                            'wallet' => array(
+                                'name'          => __( 'Wallet', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('Wallet addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                            )
                         );
 
                         foreach ( $proAddons as $basName => $addon ) {
