@@ -31,17 +31,18 @@ if( !function_exists('is_plugin_active_for_network') ){
   * @Plugin Base Name
   */
   define('WPCF_TYPE', 'free');
+  define('WPCF_FILE', __FILE__);
   define('WPCF_VERSION', '1.8.8');
-  define('WPCF_DIR_URL', plugin_dir_url(__FILE__));
-  define('WPCF_DIR_PATH', plugin_dir_path(__FILE__));
-  define('WPCF_BASENAME', plugin_basename(__FILE__));
+  define('WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ));
+  define('WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ));
+  define('WPCF_BASENAME', plugin_basename( WPCF_FILE ));
 
 /**
  * Load Text Domain Language
  */
 add_action('init', 'wpcf_language_load');
 function wpcf_language_load(){
-    $plugin_dir = basename(dirname(__FILE__))."/languages/";
+    $plugin_dir = basename(dirname( WPCF_FILE ))."/languages/";
     load_plugin_textdomain('wp-crowdfunding', false, $plugin_dir);
 }
 

@@ -3,7 +3,7 @@ namespace WPCF;
 
 defined( 'ABSPATH' ) || exit;
 
-final class Crowdfunding{
+final class Crowdfunding {
 
 	protected static $_instance = null;
 
@@ -16,25 +16,18 @@ final class Crowdfunding{
 
 	function __construct() {
 
-		$this->initial_activation();
-
 		$this->includes_core();
-
 		$this->include_shortcode();
-
-		// $this->include_addons();
-
+		$this->include_addons();
+		$this->initial_activation();
 		do_action('wpcf_before_load');
-
 		$this->run();
-
 		do_action('wpcf_after_load');
 	}
 
-	// Checking Vendor
-	public function run(){
-
-		if( wpcf_is_woocommerce() ){
+	//Checking Vendor
+	public function run() {
+		if( wpcf_is_woocommerce() ) {
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
 				if ( wpcf_wc_version_check() ) {
 					require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-base.php';
@@ -42,10 +35,7 @@ final class Crowdfunding{
 					require_once WPCF_DIR_PATH . 'includes/woocommerce/Woocommerce.php';
 					require_once WPCF_DIR_PATH . 'includes/Actions.php';
 					Wpneo_Crowdfunding();
-
-					
 					//Wpneo_Crowdfunding_Product_Search::instance();
-					
 				} else {
 					add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -60,14 +50,14 @@ final class Crowdfunding{
 
 
 	// Include Core
-	public function includes_core(){
+	public function includes_core() {
 		require_once WPCF_DIR_PATH . 'includes/General_Functions.php';
 		require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH . 'settings/Menu_Settings.php';
 	}
 
 	// Include Shortcode
-	public function include_shortcode(){
+	public function include_shortcode() {
 		include_once WPCF_DIR_PATH.'shortcode/Dashboard.php';
 		include_once WPCF_DIR_PATH.'shortcode/Project_Listing.php';
 		include_once WPCF_DIR_PATH.'shortcode/Registration.php';
@@ -92,13 +82,13 @@ final class Crowdfunding{
 	}
 
 	// Include Addons directory
-	public function include_addons(){
+	public function include_addons() {
 		$addons_dir = array_filter(glob(WPCF_DIR_PATH.'addons/*'), 'is_dir');
 		if (count($addons_dir) > 0) {
-			foreach( $addons_dir as $key => $value ){
+			foreach( $addons_dir as $key => $value ) {
 				$addon_dir_name = str_replace(dirname($value).'/', '', $value);
 				$file_name = WPCF_DIR_PATH . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
-				if ( file_exists($file_name) ){
+				if ( file_exists($file_name) ) {
 					include_once $file_name;
 				}
 			}
@@ -106,9 +96,9 @@ final class Crowdfunding{
 	}
 
 	// Activation & Deactivation Hook
-	public function initial_activation(){
-		register_activation_hook( __FILE__, array( 'WPCF_Initial_Setup', 'initial_plugin_activation' ) );
-		register_deactivation_hook( __FILE__ , array( 'WPCF_Initial_Setup', 'initial_plugin_deactivation') );
+	public function initial_activation() {
+		register_activation_hook( WPCF_FILE, array( 'WPCF_Initial_Setup', 'initial_plugin_activation' ) );
+		register_deactivation_hook( WPCF_FILE , array( 'WPCF_Initial_Setup', 'initial_plugin_deactivation') );
 	}
 
 }

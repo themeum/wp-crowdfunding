@@ -3,17 +3,23 @@ defined( 'ABSPATH' ) || exit;
 
 if (! class_exists('WPCF_Initial_Setup')) {
 
-    class WPCF_Initial_Setup{
+    class WPCF_Initial_Setup {
+
+        /**
+         * Do some task during plugin activation
+         */
+        public function initial_plugin_activation() {
+            if (get_option('wpneo_crowdfunding_is_used')) { // Check is plugin used before or not
+                return false;
+            }
+            self::wpcf_update_option();
+            self::wpcf_insert_page();
+        }
 
         /**
          * Insert settings option data
          */
-        public static function initial_plugin_activation( $initial = true ){
-
-            if (get_option('wpneo_crowdfunding_is_used')){ // Check is plugin used before or not
-                return false;
-            }
-                
+        public function wpcf_update_option() {
             $init_setup_data = array(
                 'wpneo_crowdfunding_is_used' => WPCF_VERSION,
                 'wpneo_cf_selected_theme' => 'basic',
@@ -58,56 +64,60 @@ if (! class_exists('WPCF_Initial_Setup')) {
                     }
                 }
             }
-
-            if( $initial ) {
-                // Create page object
-                $dashboard = array(
-                    'post_title'    => 'CF Dashboard',
-                    'post_content'  => '[wpcf_dashboard]',
-                    'post_type'     => 'page',
-                    'post_status'   => 'publish',
-                );
-                $form = array(
-                    'post_title'    => 'CF campaign form',
-                    'post_content'  => '[wpcf_form]',
-                    'post_type'     => 'page',
-                    'post_status'   => 'publish',
-                );
-                $listing = array(
-                    'post_title'    => 'CF Listing Page',
-                    'post_content'  => '[wpcf_listing]',
-                    'post_type'     => 'page',
-                    'post_status'   => 'publish',
-                );
-                $registration = array(
-                    'post_title'    => 'CF User Registration',
-                    'post_content'  => '[wpcf_registration]',
-                    'post_type'     => 'page',
-                    'post_status'   => 'publish',
-                );
-            
-                /**
-                 * Insert the page into the database
-                 * @Dashbord, @Form, @Listing and @Registration Pages Object
-                 */
-                $dashboard_page = wp_insert_post( $dashboard );
-                if ( !is_wp_error( $dashboard_page ) ){
-                    update_option( 'wpneo_crowdfunding_dashboard_page_id', $dashboard_page );
-                }
-                $form_page = wp_insert_post( $form );
-                if( !is_wp_error( $form_page ) ){
-                    update_option( 'wpneo_form_page_id', $form_page );
-                }
-                wp_insert_post( $listing );
-                wp_insert_post( $registration );
-            }
         }
+
+        /**
+         * Insert menu page
+         */
+        public function wpcf_insert_page() {
+            // Create page object
+            $dashboard = array(
+                'post_title'    => 'CF Dashboard',
+                'post_content'  => '[wpcf_dashboard]',
+                'post_type'     => 'page',
+                'post_status'   => 'publish',
+            );
+            $form = array(
+                'post_title'    => 'CF campaign form',
+                'post_content'  => '[wpcf_form]',
+                'post_type'     => 'page',
+                'post_status'   => 'publish',
+            );
+            $listing = array(
+                'post_title'    => 'CF Listing Page',
+                'post_content'  => '[wpcf_listing]',
+                'post_type'     => 'page',
+                'post_status'   => 'publish',
+            );
+            $registration = array(
+                'post_title'    => 'CF User Registration',
+                'post_content'  => '[wpcf_registration]',
+                'post_type'     => 'page',
+                'post_status'   => 'publish',
+            );
+        
+            /**
+             * Insert the page into the database
+             * @Dashbord, @Form, @Listing and @Registration Pages Object
+             */
+            $dashboard_page = wp_insert_post( $dashboard );
+            if ( !is_wp_error( $dashboard_page ) ) {
+                update_option( 'wpneo_crowdfunding_dashboard_page_id', $dashboard_page );
+            }
+            $form_page = wp_insert_post( $form );
+            if( !is_wp_error( $form_page ) ){
+                update_option( 'wpneo_form_page_id', $form_page );
+            }
+            wp_insert_post( $listing );
+            wp_insert_post( $registration );
+        }
+
 
         /**
          * Reset method, the ajax will call that method for Reset Settings
          */
         public function wpcf_settings_reset() {
-            $this->initial_plugin_activation( false );
+            self::wpcf_update_option();
         }
 
         /**

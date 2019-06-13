@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 if (! class_exists('Wpneo_Crowdfunding_Base')) {
 
-    class Wpneo_Crowdfunding_Base{
+    class Wpneo_Crowdfunding_Base {
 
         /**
          * @var null

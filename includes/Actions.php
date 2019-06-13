@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 if (! class_exists('Wpneo_Crowdfunding_Frontend_Dashboard')) {
 
-    class Wpneo_Crowdfunding_Frontend_Dashboard{
+    class Wpneo_Crowdfunding_Frontend_Dashboard {
 
         /**
          * @var null
