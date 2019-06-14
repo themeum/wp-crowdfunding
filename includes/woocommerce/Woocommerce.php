@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 if (! class_exists('Wpneo_Crowdfunding')) {
 
-    class Wpneo_Crowdfunding{
+    class Wpneo_Crowdfunding {
 
         protected static $_instance = null;
         public static function instance() {
@@ -19,8 +19,8 @@ if (! class_exists('Wpneo_Crowdfunding')) {
 
             add_action( 'plugins_loaded',                                   array($this, 'includes')); //Include all of resource to the plugin 
             add_filter( 'product_type_selector',                            array($this, 'wpneo_product_type_selector')); //Added one more product type in woocommerce product
-            add_action( 'woocommerce_product_options_general_product_data', array($this,'wpneo_add_meta_info')); //Additional Meta form for crowdfunding campaign
-            add_action( 'add_meta_boxes',                                   array( $this, 'add_campaign_update' ), 30 );
+            add_action( 'woocommerce_product_options_general_product_data', array($this, 'wpneo_add_meta_info')); //Additional Meta form for crowdfunding campaign
+            add_action( 'add_meta_boxes',                                   array($this, 'add_campaign_update' ), 30 );
             add_action( 'woocommerce_process_product_meta',                 array($this, 'wpneo_update_status_save')  ); //Save update status for this campaign with product
             add_action( 'woocommerce_process_product_meta',                 array($this, 'wpneo_funding_custom_field_save')); //Additional meta action, save right this way
             add_filter( 'woocommerce_add_cart_item',                        array($this, 'wpneo_save_user_donation_to_cookie'), 10, 3 ); //Filter cart item and save donation amount into cookir if product type crowdfunding
