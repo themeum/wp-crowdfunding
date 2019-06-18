@@ -115,7 +115,7 @@ if (! class_exists('Wpneo_Crowdfunding')) {
          * Registering Crowdfunding product type in product post woocommerce
          */
         public function wpneo_register_product_type() {
-            require_once WPCF_DIR_PATH.'includes/woocommerce/WC_Product_Crowdfunding.php';
+            require_once WPCF_DIR_PATH.'includes/woocommerce/WC_Product_Type.php';
         }
 
         /**

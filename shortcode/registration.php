@@ -154,7 +154,7 @@ class Registration {
 
         update_option( 'default_wpcf_status', 'closed' );
 
-        die(json_encode(array('success'=> 0, 'message' => 'Anik Biswas' )));
+        //die(json_encode(array('success'=> 0, 'message' => 'Anik Biswas' )));
     
         if( wp_verify_nonce(wpneo_post('_wpnonce'),'wpcf-nonce-registration') ){
     

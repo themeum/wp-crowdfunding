@@ -30,7 +30,7 @@ final class Crowdfunding {
 		if( wpcf_is_woocommerce() ) {
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
 				if ( wpcf_wc_version_check() ) {
-					require_once WPCF_DIR_PATH . 'includes/class-wpneo-crowdfunding-base.php';
+					require_once WPCF_DIR_PATH . 'includes/Base.php';
 					require_once WPCF_DIR_PATH . 'includes/woocommerce/Templating.php';
 					require_once WPCF_DIR_PATH . 'includes/woocommerce/Woocommerce.php';
 					require_once WPCF_DIR_PATH . 'includes/Actions.php';

@@ -29,24 +29,22 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
          */
         public function __construct() {
 
-            add_action( 'admin_enqueue_scripts',    array($this, 'wpcf_admin_script') ); //Add Additional backend js and css
-            add_action( 'wp_enqueue_scripts',       array($this, 'wpcf_frontend_script') ); //Add frontend js and css
-            add_action( 'init',                     array($this, 'load_wpneo_crowdfunding_functions')); //Load all wpneo crowdfunding functions to init
-            add_action( 'init',                     array($this, 'wpneo_template_hook'));
+            add_action( 'admin_enqueue_scripts', array($this, 'wpcf_admin_script') ); //Add Additional backend js and css
+            add_action( 'wp_enqueue_scripts', array($this, 'wpcf_frontend_script') ); //Add frontend js and css
+            add_action( 'init', array($this, 'load_wpneo_crowdfunding_functions') ); //Load all wpneo crowdfunding functions to init
+            add_action( 'init', array($this, 'wpneo_template_hook') );
 
-
-            add_action( 'init',                     array($this, 'wpcf_media_pluggable') ); //EE
+            add_action( 'init', array($this, 'wpcf_media_pluggable') ); //EE
             add_filter( 'plugin_action_links_'.WPCF_BASENAME, array( $this, 'wpneo_crowdfunding_settings_link' ), 10, 5 );
-            add_action( 'admin_init',               array( $this, 'wpcf_network_disable_notice' ) );
-            add_filter('admin_footer_text', array($this, 'wpneo_crowdfunding_admin_footer_text'), 2); // Footer Text, Asking Rating
-            add_action('wp_ajax_wpcf_rated', array($this, 'wpcf_admin_footer_text_rated'));
+            add_action( 'admin_init', array( $this, 'wpcf_network_disable_notice' ) );
+            add_filter( 'admin_footer_text', array($this, 'wpneo_crowdfunding_admin_footer_text'), 2 ); // Footer Text, Asking Rating
+            add_action( 'wp_ajax_wpcf_rated', array($this, 'wpcf_admin_footer_text_rated') );
 
-
-            add_action( 'admin_head',               array($this, 'wpneo_crowdfunding_add_mce_button'));
+            add_action( 'admin_head', array($this, 'wpneo_crowdfunding_add_mce_button') );
 
             //Ajax action
-            add_action( 'wp_ajax_wpcf_settings_reset',  array($this, 'wpcf_settings_reset'));
-            add_action( 'wp_ajax_wpcf_addon_enable_disable',  array($this, 'wpcf_addon_enable_disable'));
+            add_action( 'wp_ajax_wpcf_settings_reset', array($this, 'wpcf_settings_reset') );
+            add_action( 'wp_ajax_wpcf_addon_enable_disable', array($this, 'wpcf_addon_enable_disable') );
 
         }
 
@@ -229,4 +227,4 @@ if (! class_exists('Wpneo_Crowdfunding_Base')) {
 Wpneo_Crowdfunding_Base::instance(); //Call base class
 
 
-require_once WPCF_DIR_PATH.'includes/class-wpneo-crowdfunding-common.php';
+require_once WPCF_DIR_PATH.'includes/Common.php';
