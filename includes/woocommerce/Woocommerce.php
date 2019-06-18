@@ -19,6 +19,7 @@ if (! class_exists('Wpneo_Crowdfunding')) {
 
             add_action( 'plugins_loaded',                                   array($this, 'includes')); //Include all of resource to the plugin 
             add_filter( 'product_type_selector',                            array($this, 'wpneo_product_type_selector')); //Added one more product type in woocommerce product
+            add_action( 'init',                                             array($this, 'wpneo_register_product_type') ); //Initialized the product type class
             add_action( 'woocommerce_product_options_general_product_data', array($this, 'wpneo_add_meta_info')); //Additional Meta form for crowdfunding campaign
             add_action( 'add_meta_boxes',                                   array($this, 'add_campaign_update' ), 30 );
             add_action( 'woocommerce_process_product_meta',                 array($this, 'wpneo_update_status_save')  ); //Save update status for this campaign with product
@@ -111,9 +112,15 @@ if (! class_exists('Wpneo_Crowdfunding')) {
         }
 
         /**
+         * Registering Crowdfunding product type in product post woocommerce
+         */
+        public function wpneo_register_product_type() {
+            require_once WPCF_DIR_PATH.'includes/woocommerce/WC_Product_Crowdfunding.php';
+        }
+
+        /**
          * Additional Meta form for Crowdfunding plugin
          */
-
         public static function wpneo_check_settings($arg){
             $var = get_option($arg,true);
             if( $var == '' || $var == 'false' ){
@@ -934,7 +941,7 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
  * @return null|Wpneo_Crowdfunding
  * @Wpneo_Crowdfunding() for initialize Main class
  */
-function Wpneo_Crowdfunding(){
+function Wpneo_Crowdfunding() {
     require_once WPCF_DIR_PATH.'includes/woocommerce/Dashboard.php';
     require_once WPCF_DIR_PATH.'includes/woocommerce/Frontend_Hook.php';
     require_once WPCF_DIR_PATH.'includes/woocommerce/Submit_Form.php';
