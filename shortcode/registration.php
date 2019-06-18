@@ -5,9 +5,11 @@ defined( 'ABSPATH' ) || exit;
 
 class Registration {
 
-    public function __construct(){
+    public function __construct() {
         add_shortcode( 'wpneo_registration', array( $this, 'wpcf_registration_callback' ) ); //@comparability
         add_shortcode( 'wpcf_registration', array( $this, 'wpcf_registration_callback' ) );
+        
+        add_action( 'init', array($this, 'wpcf_registration_save') );
         add_action( 'wp_ajax_wpcf_registration_action', array( $this, 'wpcf_registration_save' ) );
     }
     
@@ -152,7 +154,7 @@ class Registration {
     // register a new user
     public function wpcf_registration_save() {
 
-        update_option( 'default_wpcf_status', 'closed' );
+        //update_option( 'default_wpcf_status', 'closed' );
 
         //die(json_encode(array('success'=> 0, 'message' => 'Anik Biswas' )));
     
@@ -176,7 +178,7 @@ class Registration {
             $this->wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
         }else{
             global $reg_errors;
-            $reg_errors = new WP_Error;
+            $reg_errors = new \WP_Error;
             $reg_errors->add('security', __('Security Error','wp-crowdfunding'));
         }
     }
@@ -226,7 +228,7 @@ class Registration {
     
     public function wpcf_registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
-        $reg_errors = new WP_Error;
+        $reg_errors = new \WP_Error;
     
         if ( empty( $username ) || empty( $password ) || empty( $email ) ) {
             $reg_errors->add('field', __('Required form field is missing','wp-crowdfunding'));
