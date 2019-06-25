@@ -76,7 +76,7 @@ function wpcf_settings_generator( $arr ){
                     $html .= '<tr>';
                     $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
                     $html .= '<td>';
-                    $var = get_option( $value['id'] );
+                    $var = (isset($value['encrypt'])) ? base64_decode( get_option($value['id']) ) : get_option( $value['id'] );
                     $html .= '<input type="password" id="'.$value['id'].'" value="'.( $var ? $var : $value["value"] ).'" name="'.$value['id'].'">';
                     if( isset($value['desc']) ){ $html .= '<p>'.$value['desc'].'</p>'; }
                     $html .= '</td>';
