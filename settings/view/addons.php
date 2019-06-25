@@ -6,7 +6,7 @@
         $addons = apply_filters('wpcf_addons_lists_config', array());
 
         /* echo "<pre>";
-        print_r(maybe_unserialize(get_option('wpcf_addons_config'))); */
+        print_r($addons); */
 
 		if (is_array($addons) && count($addons)){
 			?>
@@ -57,6 +57,10 @@
                     //PRO ADDONS LIST FOR DISPLAY
                     if( WPCF_TYPE == 'free' ) {
                         $proAddons = array(
+                            '2checkout' => array(
+                                'name'          => __( '2Checkout', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('2Checkout Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>'), 'wp-crowdfunding' ),
+                            ),
                             'authorizenet' => array(
                                 'name'          => __( 'Authorize.Net', 'wp-crowdfunding' ),
                                 'description'   => __( sprintf('Authorize.Net Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
@@ -72,10 +76,6 @@
                             'reports' => array(
                                 'name'          => __( 'Reports', 'wp-crowdfunding' ),
                                 'description'   => __( sprintf('Reports addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
-                            ),
-                            '2checkout' => array(
-                                'name'          => __( '2Checkout', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('2Checkout Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>'), 'wp-crowdfunding' ),
                             ),
                             'stripe-connect' => array(
                                 'name'          => __( 'Stripe connect', 'wp-crowdfunding' ),

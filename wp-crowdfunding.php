@@ -46,7 +46,7 @@ function wpcf_language_load(){
     load_plugin_textdomain('wp-crowdfunding', false, $plugin_dir);
 }
 
-if( !class_exists( 'Crowdfunding' ) ){
+if( !class_exists( 'Crowdfunding' ) ) {
     require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
     new \WPCF\Crowdfunding();
 }
