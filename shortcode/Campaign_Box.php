@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 class Campaign_Box {
 
     function __construct() {
-        // add_action( 'init', array($this, 'wpneo_embed_data') );
+        //add_action( 'init', array($this, 'wpneo_embed_data') );
         add_shortcode( 'wp_crowdfunding_campaign_box', array( $this, 'wpcf_campaign_box_callback' ) ); //@comparability
         add_shortcode( 'wpcf_campaign_box', array( $this, 'wpcf_campaign_box_callback' ) );
     }
