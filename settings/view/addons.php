@@ -73,6 +73,10 @@
                                 'name'          => __( 'Reports', 'wp-crowdfunding' ),
                                 'description'   => __( sprintf('Reports addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
                             ),
+                            '2checkout' => array(
+                                'name'          => __( '2Checkout', 'wp-crowdfunding' ),
+                                'description'   => __( sprintf('2Checkout Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>'), 'wp-crowdfunding' ),
+                            ),
                             'stripe-connect' => array(
                                 'name'          => __( 'Stripe connect', 'wp-crowdfunding' ),
                                 'description'   => __( sprintf('Stripe Connect gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
