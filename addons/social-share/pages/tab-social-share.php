@@ -13,16 +13,7 @@ $arr =  array(
                 'desc'      => __('You may enable social share to share post.','wp-crowdfunding'),
                 'top_line'  => 'true',
                 ),
-
-            // #Enable Social Share
-            array(
-                'id'        => 'wpneo_enable_social_share',
-                'type'      => 'checkbox',
-                'value'     => 'true',
-                'label'     => __('Enable Social Share','wp-crowdfunding'),
-                'desc'      => __('Enable Social Share for crowdfunding.','wp-crowdfunding'),
-                ),
-
+                
             // #Enable Twitter
             array(
                 'id'        => 'wpneo_twitter_social_share',

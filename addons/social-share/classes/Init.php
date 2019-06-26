@@ -20,7 +20,7 @@ if ( ! class_exists('Init')) {
             return self::$_instance;
         }
 
-        public function __construct(){
+        public function __construct() {
             add_action( 'init',                             array($this, 'wpcf_embed_data') );
             add_action( 'wp_enqueue_scripts',               array($this, 'wpcf_social_share_enqueue_frontend_script') ); //Add social share js in footer
             add_filter( 'wpcf_settings_panel_tabs',         array($this, 'add_social_share_tab_to_wpcf_settings')); //Hook to add social share field with user registration form
