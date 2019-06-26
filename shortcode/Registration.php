@@ -161,7 +161,7 @@ class Registration {
         if( wp_verify_nonce(wpneo_post('_wpnonce'),'wpcf-nonce-registration') ){
     
             //Add some option
-            do_action( 'wpcf_before_registration' );
+            do_action( 'wpneo_before_user_registration_action' );
     
             $username = $password = $email = $website = $first_name = $last_name = $nickname = $bio = '';
             // sanitize user form input
