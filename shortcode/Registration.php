@@ -107,7 +107,7 @@ class Registration {
                         )
                     );
     
-                    $regisration_meta = apply_filters('wpcf_registration_fields', $regisration_data );
+                    $regisration_meta = apply_filters('wpcf_user_registration_fields', $regisration_data );
     
                     foreach( $regisration_meta as $item ){ ?>
                         <div class="wpneo-single <?php echo (isset($item['warpclass'])? $item['warpclass'] : "" ); ?>">

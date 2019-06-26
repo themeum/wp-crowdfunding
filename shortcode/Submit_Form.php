@@ -4,7 +4,7 @@ namespace WPCF\shortcode;
 defined( 'ABSPATH' ) || exit;
 
 
-class Submit_Form {
+class Campaign_Submit_Form {
     public function __construct(){
         add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'wpcf_form_callback' ) ); //@comparability
         add_shortcode( 'wpcf_form', array( $this, 'wpcf_form_callback' ) );        
@@ -42,7 +42,7 @@ class Submit_Form {
                     'post_type'     => 'product',
                     'post_status'   => array('publish', 'pending', 'draft', 'auto-draft')
                 );
-                $the_query = new WP_Query( $args );
+                $the_query = new \WP_Query( $args );
                 if ( $the_query->have_posts() ) {
                     while ( $the_query->have_posts() ) {
                         $the_query->the_post();
@@ -544,7 +544,7 @@ class Submit_Form {
         $html .= $edit_form;
         $html .= $edit_id;
     
-        $html .= apply_filters('wpneo_before_closing_crowdfunding_campaign_form', '' );
+        $html .= apply_filters('wpcf_before_closing_crowdfunding_campaign_form', '' );
     
         $requirement_title = get_option( 'wpneo_requirement_title', '' );
         $requirement_text = get_option( 'wpneo_requirement_text', '' );

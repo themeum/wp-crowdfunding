@@ -71,8 +71,8 @@ final class Crowdfunding {
 		new \WPCF\shortcode\Dashboard();
 		new \WPCF\shortcode\Project_Listing();
 		new \WPCF\shortcode\Registration();
+		new \WPCF\shortcode\Campaign_Submit_Form();
 		new \WPCF\shortcode\Search();
-		new \WPCF\shortcode\Submit_Form();
 		new \WPCF\shortcode\Campaign_Box();
 		new \WPCF\shortcode\Single_Campaign();
 		new \WPCF\shortcode\Popular_Campaigns();
