@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists('WPCF_Social_Share')) {
+if ( ! class_exists('Init')) {
 
-    class WPCF_Social_Share {
+    class Init {
         /**
          * @var null
          *
@@ -252,7 +252,7 @@ if ( ! class_exists('WPCF_Social_Share')) {
         }
     }
 }
-WPCF_Social_Share::instance();
+Init::instance();
 
 /**
  * Add to hook share option.
@@ -262,6 +262,5 @@ if ( ! function_exists( 'wpcf_campaign_single_social_share' ) ) {
         wpneo_crowdfunding_load_template('include/social-share');
     }
 }
-if(get_option('wpneo_enable_social_share') == 'true') {
-    add_action('wpneo_crowdfunding_single_campaign_summery', 'wpcf_campaign_single_social_share', 11);
-}
+
+add_action('wpneo_crowdfunding_single_campaign_summery', 'wpcf_campaign_single_social_share', 11);
