@@ -352,11 +352,11 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
             echo $html;
         }
 
-        public function ordersIDlistPerCampaign(){
+        public function ordersIDlistPerCampaign( $post_id = Null ) {
 
             global $wpdb, $post;
             $prefix = $wpdb->prefix;
-            $post_id = $post->ID;
+            $post_id = ( $post_id ) ? $post_id : $post->ID;
 
             $query ="SELECT 
                         order_id 
@@ -398,8 +398,8 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
             return false;
         }
 
-        function getCustomersByProduct(){
-            $order_ids = $this->ordersIDlistPerCampaign();
+        function getCustomersByProduct($post_id = Null) {
+            $order_ids = $this->ordersIDlistPerCampaign( $post_id );
             return $order_ids;
         }
 
