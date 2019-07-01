@@ -12,31 +12,33 @@ class Campaign_Submit_Form {
     
     // Shortcode for Forntend Submission Form
     public function wpcf_form_callback( $atts ){
-    
+        
         global $post, $wpdb;
-    
+
         $html = '';
-        $title = $description = $short_description = $category = $tag = $image_url = $image_id = $video = $start_date = $end_date = $minimum_price = $maximum_price = $recommended_price = $pledge_amount = $funding_goal = $campaign_end_method = $type = $contributor_show = $paypal = $country =
+        $title = $description = $short_description = $category = $tag = $image_url = $image_id = $video = $start_date = $end_date = $minimum_price = $maximum_price = $recommended_price = $wpcf_predefined_pledge_amount = $funding_goal = $campaign_end_method = $type = $contributor_show = $paypal = $country =
         $location = $edit_form = $edit_id = $checked = $checked2 = '';
-    
+
         $reward = '';
-        if( isset($_GET['action']) ){
+        if( isset($_GET['action']) && isset($_GET['postid']) ){
             if( $_GET['action'] == 'edit' ){
                 $post_id = (int) sanitize_text_field($_GET['postid']);
-    
+
                 //Prevent if unauthorised access
                 $campaign_users = new \WPCF\woocommerce\Submit_Form();
                 $wp_query_users_product_id = $campaign_users->logged_in_user_campaign_ids();
                 if ( ! in_array($post_id, $wp_query_users_product_id)){
+
                     $html.= '<header class="wpneo-page-header">';
                     $html.= '<h1 class="wpneo-page-title">'. __( 'Not Found', 'wp-crowdfunding' ) .'</h1>';
                     $html .= '</header>';
                     $html .= '<h2 class="wpneo-subtitle">'. __( 'This is somewhat embarrassing, isn’t it?', 'wp-crowdfunding' ) .'</h2>';
                     $html .= '<p>'. __( 'It looks like nothing was found at this location. Maybe try a search?', 'wp-crowdfunding' ) .'</p>';
                     $html .= get_search_form( false );
+
                     return $html;
                 }
-    
+
                 $args = array(
                     'p'             => $post_id,
                     'post_type'     => 'product',
@@ -47,40 +49,42 @@ class Campaign_Submit_Form {
                     while ( $the_query->have_posts() ) {
                         $the_query->the_post();
                         if( $post->post_author == get_current_user_id() ){
+
                             $title              = get_the_title();
                             $short_description  = get_the_excerpt();
                             $description        = get_the_content();
-                            $category           = strip_tags(get_the_term_list( $post->ID, 'product_cat', '', ','));
-                            $tag                = strip_tags( get_the_term_list( $post->ID, "product_tag","",", ") );
-                            $video              = get_post_meta( $post->ID, 'wpneo_funding_video', true );
-                            $start_date         = get_post_meta( $post->ID, '_nf_duration_start', true );
-                            $end_date           = get_post_meta( $post->ID, '_nf_duration_end', true );
-                            $minimum_price      = get_post_meta( $post->ID, 'wpneo_funding_minimum_price', true );
-                            $maximum_price      = get_post_meta( $post->ID, 'wpneo_funding_maximum_price', true );
-                            $recommended_price  = get_post_meta( $post->ID, 'wpneo_funding_recommended_price', true );
-                            $pledge_amount      = get_post_meta( $post->ID, 'wpcf_predefined_pledge_amount', true );
-                            $funding_goal       = get_post_meta( $post->ID, '_nf_funding_goal', true );
-                            $campaign_end_method= get_post_meta($post->ID, 'wpneo_campaign_end_method', true);
-                            $type               = get_post_meta( $post->ID, 'wpneo_show_contributor_table', true );
-                            $contributor_show   = get_post_meta( $post->ID, 'wpneo_mark_contributors_as_anonymous', true );
-                            $paypal             = get_post_meta( $post->ID, 'wpneo_campaigner_paypal_id', true );
-                            $country            = get_post_meta( $post->ID, 'wpneo_country', true );
-                            $location           = get_post_meta( $post->ID, '_nf_location', true );
-                            $reward             = get_post_meta( $post->ID, 'wpneo_reward', true );
+                            $category           = strip_tags(get_the_term_list( get_the_ID(), 'product_cat', '', ','));
+                            $tag                = strip_tags( get_the_term_list( get_the_ID(), "product_tag","",", ") );
+                            if ( has_post_thumbnail() ) {
+                                $image_url          = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
+                                $image_url          = $image_url[0];
+                                $image_id           = get_post_thumbnail_id( get_the_ID() );
+                            }
+                            $video              = get_post_meta( get_the_ID(), 'wpneo_funding_video', true );
+                            $start_date         = get_post_meta( get_the_ID(), '_nf_duration_start', true );
+                            $end_date           = get_post_meta( get_the_ID(), '_nf_duration_end', true );
+                            $minimum_price      = get_post_meta( get_the_ID(), 'wpneo_funding_minimum_price', true );
+                            $maximum_price      = get_post_meta( get_the_ID(), 'wpneo_funding_maximum_price', true );
+                            $recommended_price   = get_post_meta( get_the_ID(), 'wpneo_funding_recommended_price', true );
+                            $wpcf_predefined_pledge_amount   = get_post_meta( get_the_ID(), 'wpcf_predefined_pledge_amount', true );
+                            $funding_goal       = get_post_meta( get_the_ID(), '_nf_funding_goal', true );
+                            $campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                            $type               = get_post_meta( get_the_ID(), 'wpneo_show_contributor_table', true );
+                            $contributor_show   = get_post_meta( get_the_ID(), 'wpneo_mark_contributors_as_anonymous', true );
+                            $paypal             = get_post_meta( get_the_ID(), 'wpneo_campaigner_paypal_id', true );
+                            $country            = get_post_meta( get_the_ID(), 'wpneo_country', true );
+                            $location           = get_post_meta( get_the_ID(), '_nf_location', true );
+                            $reward             = get_post_meta( get_the_ID(), 'wpneo_reward', true );
                             $edit_form          = '<input type="hidden" name="edit_form" value="editform"/>';
                             $edit_id            = '<input type="hidden" name="edit_post_id" value="'.$_GET["postid"].'"/>';
-                            if ( has_post_thumbnail() ) {
-                                $image_url      = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-                                $image_url      = $image_url[0];
-                                $image_id       = get_post_thumbnail_id( $post->ID );
-                            }
+
                         }
                     }
                 }
                 wp_reset_postdata();
             }
         }
-    
+
         //Protect this page from Guest user
         if (!is_user_logged_in()){
             $html .= '<div class="woocommerce">';
@@ -89,17 +93,18 @@ class Campaign_Submit_Form {
             $html .= '</div>';
             return $html;
         }
-    
+
         if (is_user_logged_in()){
             if (!current_user_can('campaign_form_submit')) {
                 $html .= '<div class="woocommerce-info">'.__("You Do not have permission to submit form.","wp-crowdfunding").'</div>';
                 return $html;
             }
         }
-    
-    
+
+
         $html .= '<form type="post" action="" id="wpneofrontenddata">';
-    
+
+
         //Title
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Title" , "wp-crowdfunding" ).'</div>';
@@ -108,7 +113,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Put the campaign title here","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Product Description
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Description" , "wp-crowdfunding" ).'</div>';
@@ -119,7 +125,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Put the campaign description here","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Product Short Description
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Short Description" , "wp-crowdfunding" ).'</div>';
@@ -130,15 +137,51 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Put Here Product Short Description","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
+        //Campaign End Method
+        $html .= '<div class="wpneo-single">';
+        $html .= '<div class="wpneo-name">'.__("End Method" , "wp-crowdfunding" ).'</div>';
+        $html .= '<div class="wpneo-fields">';
+        $html .= '<select name="wpneo-form-type">';
+        if (get_option('wpneo_show_target_goal') == 'true') {
+            $selected = $campaign_end_method == 'target_goal' ? 'selected="selected"' : '';
+            $html .= '<option value="target_goal" '.$selected.'>' . __("Target Goal", "wp-crowdfunding") . '</option>';
+        }
+
+        if (get_option('wpneo_show_target_date') == 'true') {
+            $selected = $campaign_end_method == 'target_date' ? 'selected="selected"' : '';
+            $html .= '<option value="target_date" '.$selected.'>' . __("Target Date", "wp-crowdfunding") . '</option>';
+        }
+
+        if (get_option('wpneo_show_target_goal_and_date') == 'true') {
+            $selected = $campaign_end_method == 'target_goal_and_date' ? 'selected="selected"' : '';
+            $html .= '<option value="target_goal_and_date" '.$selected.'>' . __("Target Goal & Date", "wp-crowdfunding") . '</option>';
+        }
+
+        if (get_option('wpneo_show_campaign_never_end') == 'true') {
+            $selected = $campaign_end_method == 'never_end' ? 'selected="selected"' : '';
+            $html .= '<option value="never_end" '.$selected.'>' . __("Campaign Never Ends", "wp-crowdfunding") . '</option>';
+        }
+        $html .= '</select>';
+        $html .= '<small>'.__("Choose the stage when campaign will end","wp-crowdfunding").'</small>';
+        $html .= '</div>';
+        $html .= '</div>';
+
+
         //Category
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Category" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
         $html .= '<select name="wpneo-form-category">';
-    
+
+
+        $cat_args = array(
+            'taxonomy' => 'product_cat',
+            'hide_empty' => false,
+        );
+
         //Get is Crowdfunding Categories only
-        $cat_args = array( 'taxonomy' => 'product_cat', 'hide_empty' => false );
         $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
         if ('true' === $is_only_crowdfunding_categories){
             $cat_args['meta_query'] = array(
@@ -148,7 +191,9 @@ class Campaign_Submit_Form {
                 )
             );
         }
-        $all_cat = get_terms( $cat_args );
+
+        $all_cat = get_terms($cat_args );
+
         foreach ($all_cat as $value) {
             $selected = ($category == $value->name) ? 'selected':'';
             $html .= '<option '.$selected.' value="'.$value->slug.'">'.$value->name.'</option>';
@@ -157,7 +202,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Select your campaign category","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Tag
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Tag" , "wp-crowdfunding" ).'</div>';
@@ -166,7 +212,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Separate tags with commas eg: tag1,tag2","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Image
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Image" , "wp-crowdfunding" ).'</div>';
@@ -177,7 +224,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Upload a campaign feature image","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Video
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Video" , "wp-crowdfunding" ).'</div>';
@@ -186,7 +234,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Put the campaign video URL here","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Start Date
         $html .= '<div class="wpneo-single wpneo-first-half">';
         $html .= '<div class="wpneo-name">'.__( "Start Date" , "wp-crowdfunding" ).'</div>';
@@ -195,7 +244,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Campaign start date (dd-mm-yy)","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //End Date
         $html .= '<div class="wpneo-single wpneo-second-half">';
         $html .= '<div class="wpneo-name">'.__( "End Date" , "wp-crowdfunding" ).'</div>';
@@ -204,7 +254,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Campaign end date (dd-mm-yy)","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
+
         //Minimum Amount
         if (get_option('wpneo_show_min_price') == 'true') {
             $html .= '<div class="wpneo-single wpneo-first-half">';
@@ -215,7 +266,8 @@ class Campaign_Submit_Form {
             $html .= '</div>';
             $html .= '</div>';
         }
-    
+
+
         //Maximum Amount
         if (get_option('wpneo_show_max_price') == 'true') {
             $html .= '<div class="wpneo-single wpneo-second-half">';
@@ -226,7 +278,8 @@ class Campaign_Submit_Form {
             $html .= '</div>';
             $html .= '</div>';
         }
-    
+
+
         //Recommended Amount
         if (get_option('wpneo_show_recommended_price') == 'true') {
             $html .= '<div class="wpneo-single">';
@@ -237,16 +290,16 @@ class Campaign_Submit_Form {
             $html .= '</div>';
             $html .= '</div>';
         }
-    
+
         //Recommended Amount
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Predefined Pledge Amount" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        $html .= '<input type="text" name="wpcf_predefined_pledge_amount" value="'.$pledge_amount.'">';
+        $html .= '<input type="text" name="wpcf_predefined_pledge_amount" value="'.$wpcf_predefined_pledge_amount.'">';
         $html .= '<small>'.__("Predefined amount allow you to place the amount in donate box by click, price should separated by comma (,), example: <code>10,20,30,40</code>","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
         //Funding Goal
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Funding Goal" , "wp-crowdfunding" ).'</div>';
@@ -255,54 +308,29 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Campaign funding goal","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
-        //Campaign End Method
-        $html .= '<div class="wpneo-single">';
-        $html .= '<div class="wpneo-name">'.__("End Method" , "wp-crowdfunding" ).'</div>';
-        $html .= '<div class="wpneo-fields">';
-        $html .= '<select name="wpneo-form-type">';
-        if (get_option('wpneo_show_target_goal') == 'true') {
-            $selected = $campaign_end_method == 'target_goal' ? 'selected="selected"' : '';
-            $html .= '<option value="target_goal" '.$selected.'>' . __("Target Goal", "wp-crowdfunding") . '</option>';
-        }
-        if (get_option('wpneo_show_target_date') == 'true') {
-            $selected = $campaign_end_method == 'target_date' ? 'selected="selected"' : '';
-            $html .= '<option value="target_date" '.$selected.'>' . __("Target Date", "wp-crowdfunding") . '</option>';
-        }
-        if (get_option('wpneo_show_target_goal_and_date') == 'true') {
-            $selected = $campaign_end_method == 'target_goal_and_date' ? 'selected="selected"' : '';
-            $html .= '<option value="target_goal_and_date" '.$selected.'>' . __("Target Goal & Date", "wp-crowdfunding") . '</option>';
-        }
-        if (get_option('wpneo_show_campaign_never_end') == 'true') {
-            $selected = $campaign_end_method == 'never_end' ? 'selected="selected"' : '';
-            $html .= '<option value="never_end" '.$selected.'>' . __("Campaign Never Ends", "wp-crowdfunding") . '</option>';
-        }
-        $html .= '</select>';
-        $html .= '<small>'.__("Choose the stage when campaign will end","wp-crowdfunding").'</small>';
-        $html .= '</div>';
-        $html .= '</div>';
-    
-    
-    
+
+
         //Show Contributor Table
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Contributor Table" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        if( $type == '1' ){ $checked = 'checked="checked"'; }
+        if( $type == '1' )
+            $checked = 'checked="checked"';
         $html .= '<input type="checkbox" '.$checked.' name="wpneo-form-contributor-table" value="1" >'.__("Show contributor table on campaign single page","wp-crowdfunding" );
         $html .= '</div>';
         $html .= '</div>';
-    
-    
+
+
         //Mark Contributors as Anonymous
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Contributor Anonymity" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        if( $contributor_show == '1' ){ $checked2 = 'checked="checked"'; }
+        if( $contributor_show == '1' )
+            $checked2 = 'checked="checked"';
         $html .= '<input type="checkbox" '.$checked2.' name="wpneo-form-contributor-show" value="1" >'.__("Make contributors anonymous on the contributor table","wp-crowdfunding" );
         $html .= '</div>';
         $html .= '</div>';
-    
+
         //Country
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Country" , "wp-crowdfunding" ).'</div>';
@@ -321,8 +349,8 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Select your country","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
-    
+
+
         //Location
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Location" , "wp-crowdfunding" ).'</div>';
@@ -331,7 +359,7 @@ class Campaign_Submit_Form {
         $html .= '<small>'.__("Put the campaign location here","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';
-    
+
         
         // Clone Field
         $reward = stripslashes($reward);
@@ -339,7 +367,7 @@ class Campaign_Submit_Form {
         $meta_count = is_array($reward_data_array) ? count($reward_data_array) : 0;
         $html .= '<div class="wpneo-reward-option">'.__("Reward Option","wp-crowdfunding").'</div>';
         $html .= '<div class="panel" id="reward_options">';
-    
+
         $month_list = array(
             '1' => __( 'January' , 'wp-crowdfunding' ),
             '2' => __( 'February' , 'wp-crowdfunding' ),
@@ -359,7 +387,7 @@ class Campaign_Submit_Form {
                 foreach ($reward_data_array as $k => $v) {
                     $html .=  "<div class='reward_group'>";
                     $html .=  "<div class='campaign_rewards_field_copy'>";
-    
+
                     // Pledge Amount
                     $html .= '<div class="wpneo-single">';
                     $html .= '<div class="wpneo-name">'.__( "Pledge Amount" , "wp-crowdfunding" ).'</div>';
@@ -368,7 +396,7 @@ class Campaign_Submit_Form {
                     $html .= '<small>'.__("Put the pledge amount here","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                     $html .= '</div>';
-    
+
                     // Reward Image
                     $html .= '<div class="wpneo-single">';
                     $html .= '<div class="wpneo-name">'.__( "Reward Image" , "wp-crowdfunding" ).'</div>';
@@ -383,7 +411,7 @@ class Campaign_Submit_Form {
                     $html .= '<small>'.__("Upload a reward image","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                     $html .= '</div>';
-    
+
                     // Reward
                     $html .= '<div class="wpneo-single form-field wpneo_rewards_description[]_field">';
                     $html .= '<div class="wpneo-name">'.__( "Reward" , "wp-crowdfunding" ).'</div>';
@@ -392,7 +420,7 @@ class Campaign_Submit_Form {
                     $html .= '<small>'.__("Put the reward description here","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                     $html .= '</div>';
-    
+
                     // Estimated Delivery Month
                     $html .= '<div class="wpneo-single wpneo-first-half">';
                     $html .= '<div class="wpneo-name">'.__( "Estimated Delivery Month" , "wp-crowdfunding" ).'</div>';
@@ -408,7 +436,7 @@ class Campaign_Submit_Form {
                     $html .= '<small>'.__("Estimated Delivery Month of the Reward","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                     $html .= '</div>';
-    
+
                     // Estimated Delivery Year
                     $html .= '<div class="wpneo-single wpneo-second-half">';
                     $html .= '<div class="wpneo-name">'.__( "Estimated Delivery Year" , "wp-crowdfunding" ).'</div>';
@@ -423,7 +451,7 @@ class Campaign_Submit_Form {
                     $html .= '<small>'.__("Estimated Delivery Year of the Reward","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                     $html .= '</div>';
-    
+
                     // Quantity
                     $html .= '<div class="wpneo-single">';
                     $html .= '<div class="wpneo-name">'.__( "Quantity" , "wp-crowdfunding" ).'</div>';
@@ -432,11 +460,11 @@ class Campaign_Submit_Form {
                     $html .= '<small>'.__("Quantity of physical products","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                     $html .= '</div>';
-    
+
                     $html .= '<div class="wpneo-remove-button">';
                     $html .= '<input name="remove_rewards" type="button" class="button tagadd removeCampaignRewards text-right" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
                     $html .= '</div>';
-    
+
                     $html .=  "</div>";
                     $html .=  "</div>";
                 }
@@ -444,7 +472,7 @@ class Campaign_Submit_Form {
         } else {
             $html .= '<div class="reward_group" style="display: block;">';
             $html .= '<div class="campaign_rewards_field_copy">';
-    
+
             // Pledge Amount
             $html .= '<div class="wpneo-single">';
             $html .= '<div class="wpneo-name">'.__( "Pledge Amount" , "wp-crowdfunding" ).'</div>';
@@ -453,7 +481,7 @@ class Campaign_Submit_Form {
             $html .= '<small>'.__("Pledge Amount","wp-crowdfunding").'</small>';
             $html .= '</div>';
             $html .= '</div>';
-    
+
             // Reward Image
             $html .= '<div class="wpneo-single">';
             $html .= '<div class="wpneo-name">'.__( "Reward Image" , "wp-crowdfunding" ).'</div>';
@@ -464,7 +492,7 @@ class Campaign_Submit_Form {
             $html .= '<small>'.__("Upload a reward image","wp-crowdfunding").'</small>';
             $html .= '</div>';
             $html .= '</div>';
-    
+
             // Reward
             $html .= '<div class="wpneo-single form-field">';
             $html .= '<div class="wpneo-name">'.__( "Reward" , "wp-crowdfunding" ).'</div>';
@@ -473,8 +501,8 @@ class Campaign_Submit_Form {
             $html .= '<small>'.__("Reward Description","wp-crowdfunding").'</small>';
             $html .= '</div>';
             $html .= '</div>';
-    
-    
+
+
             // Estimated Delivery Month
             $html .= '<div class="wpneo-single wpneo-first-half">';
             $html .= '<div class="wpneo-name">'.__( "Estimated Delivery Month" , "wp-crowdfunding" ).'</div>';
@@ -488,7 +516,7 @@ class Campaign_Submit_Form {
             $html .= '<small>'.__("Estimated Delivery Month of the Reward","wp-crowdfunding").'</small>';
             $html .= '</div>';
             $html .= '</div>';
-    
+
             // Estimated Delivery Year
             $html .= '<div class="wpneo-single wpneo-second-half">';
             $html .= '<div class="wpneo-name">'.__( "Estimated Delivery Year" , "wp-crowdfunding" ).'</div>';
@@ -507,7 +535,7 @@ class Campaign_Submit_Form {
             $html .= '<small>'.__("Estimated Delivery Year of the Reward","wp-crowdfunding").'</small>';
             $html .= '</div>';
             $html .= '</div>';
-    
+
             // Quantity
             $html .= '<div class="wpneo-single">';
             $html .= '<div class="wpneo-name">'.__( "Quantity" , "wp-crowdfunding" ).'</div>';
@@ -516,45 +544,45 @@ class Campaign_Submit_Form {
             $html .= '<small>'.__("Quantity of physical products","wp-crowdfunding").'</small>';
             $html .= '</div>';
             $html .= '</div>';
-    
+
             $html .= '<div class="wpneo-remove-button">';
             $html .= '<input type="button" value="'.__("- Remove","wp-crowdfunding").'" class="button tagadd removeCampaignRewards" name="remove_rewards" style="display: none;">';
             $html .= '</div>';
-    
+
             $html .= '</div>';
-    
+
             $html .= '</div>';
         }
-    
-        if( WPCF_TYPE == 'free' ){
+
+        if (WPCF_TYPE == 'free') {
             $html .= '<div style="clear: both;"></div>';
-    
+
             $html .= '<p> <i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a> </i></p>';
-        }else{
-    
+        }else {
+
             $html .= '<div id="rewards_addon_fields"></div>';
             $html .= '<div class="text-right">';
             $html .= '<input type="button" value="' . __("+ Add", "wp-crowdfunding") . '" id="addreward" class="button tagadd" name="save">';
             $html .= '</div>';
         }
-    
+
         $html .= '</div>';
         
         // Clone Field
         $html .= $edit_form;
         $html .= $edit_id;
-    
+
         $html .= apply_filters('wpcf_before_closing_crowdfunding_campaign_form', '' );
-    
+
         $requirement_title = get_option( 'wpneo_requirement_title', '' );
         $requirement_text = get_option( 'wpneo_requirement_text', '' );
         $requirement_agree_title = get_option( 'wpneo_requirement_agree_title', '' );
         $html .= '<div class="wpneo-title">'.$requirement_title.'</div>';
         $html .= '<div class="wpneo-text">'.$requirement_text.'</div>';
         $html .= '<div class="wpneo-requirement-title"><input type="checkbox" value="agree" name="wpneo_terms_agree"> '.$requirement_agree_title.'</div>';
-    
-    
-    
+
+
+
         $var = get_option( 'wpneo_crowdfunding_dashboard_page_id', '' );
         if( $var != '' ){
             $var = get_permalink( $var );
@@ -566,9 +594,9 @@ class Campaign_Submit_Form {
         $html .= '<input type="submit" class="wpneo-submit-campaign" value="'.__("Submit campaign","wp-crowdfunding").'">';
         $html .= '<a href="'.$var.'" class="wpneo-cancel-campaign">'.__("Cancel","wp-crowdfunding").'</a>';
         $html .= '</div>';
-    
+
         $html .= '</form>';
-    
+
         return $html;
     }
 }
