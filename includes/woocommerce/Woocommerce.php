@@ -456,7 +456,7 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
         function wpneo_funding_custom_field_save($post_id ){
 
             // _neo_crowdfunding_product_type
-            $_neo_crowdfunding_product_type = sanitize_text_field(wpneo_post('_neo_crowdfunding_product_type'));
+            $_neo_crowdfunding_product_type = sanitize_text_field(wpcf_post('_neo_crowdfunding_product_type'));
             if( !empty( $_neo_crowdfunding_product_type) ) {
                 update_post_meta($post_id, '_neo_crowdfunding_product_type', 'yes');
             } else {
@@ -592,7 +592,7 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
                     }
 
                     //setcookie("wpneo_user_donation", esc_attr($_POST['wpneo_donate_amount_field']), 0, "/");
-                    $donate_amount = sanitize_text_field(wpneo_post('wpneo_donate_amount_field'));
+                    $donate_amount = sanitize_text_field(wpcf_post('wpneo_donate_amount_field'));
                     WC()->session->set('wpneo_donate_amount', $donate_amount);
 
                     if ( isset($_POST['wpneo_rewards_index'])){
@@ -605,9 +605,9 @@ value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
 
                         $reward_index = (int) $_POST['wpneo_rewards_index'];
 
-                        $wpneo_rewards_index = (int) sanitize_text_field(wpneo_post('wpneo_rewards_index')) -1;
-                        $_cf_product_author_id = sanitize_text_field(wpneo_post('_cf_product_author_id'));
-                        $product_id = sanitize_text_field(wpneo_post('add-to-cart'));
+                        $wpneo_rewards_index = (int) sanitize_text_field(wpcf_post('wpneo_rewards_index')) -1;
+                        $_cf_product_author_id = sanitize_text_field(wpcf_post('_cf_product_author_id'));
+                        $product_id = sanitize_text_field(wpcf_post('add-to-cart'));
                         WC()->session->set('wpneo_rewards_data',
                             array(
                                 'wpneo_selected_rewards_checkout' => $selected_reward,

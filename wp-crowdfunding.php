@@ -42,8 +42,7 @@ if( !function_exists('is_plugin_active_for_network') ){
  */
 add_action('init', 'wpcf_language_load');
 function wpcf_language_load(){
-    $plugin_dir = basename(dirname( WPCF_FILE ))."/languages/";
-    load_plugin_textdomain('wp-crowdfunding', false, $plugin_dir);
+    load_plugin_textdomain('wp-crowdfunding', false, basename(dirname( WPCF_FILE )).'/languages/');
 }
 
 if( !class_exists( 'Crowdfunding' ) ) {

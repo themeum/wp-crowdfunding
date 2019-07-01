@@ -48,32 +48,32 @@ class Init {
         if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpneo_varify_social_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
             // Checkbox
 
-            $wpneo_twitter_social_share = sanitize_text_field(wpneo_post('wpneo_twitter_social_share'));
+            $wpneo_twitter_social_share = sanitize_text_field(wpcf_post('wpneo_twitter_social_share'));
             wpcf_update_checkbox('wpneo_twitter_social_share', $wpneo_twitter_social_share);
 
-            $wpneo_facebook_social_share = sanitize_text_field(wpneo_post('wpneo_facebook_social_share'));
+            $wpneo_facebook_social_share = sanitize_text_field(wpcf_post('wpneo_facebook_social_share'));
             wpcf_update_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
 
-            $wpneo_facebook_social_share = sanitize_text_field(wpneo_post('wpneo_facebook_social_share'));
+            $wpneo_facebook_social_share = sanitize_text_field(wpcf_post('wpneo_facebook_social_share'));
             wpcf_update_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
 
-            $wpneo_googleplus_social_share = sanitize_text_field(wpneo_post('wpneo_googleplus_social_share'));
+            $wpneo_googleplus_social_share = sanitize_text_field(wpcf_post('wpneo_googleplus_social_share'));
             wpcf_update_checkbox('wpneo_googleplus_social_share', $wpneo_googleplus_social_share);
 
-            $wpneo_pinterest_social_share = sanitize_text_field(wpneo_post('wpneo_pinterest_social_share'));
+            $wpneo_pinterest_social_share = sanitize_text_field(wpcf_post('wpneo_pinterest_social_share'));
             wpcf_update_checkbox('wpneo_pinterest_social_share', $wpneo_pinterest_social_share);
 
-            $wpneo_linkedin_social_share = sanitize_text_field(wpneo_post('wpneo_linkedin_social_share'));
+            $wpneo_linkedin_social_share = sanitize_text_field(wpcf_post('wpneo_linkedin_social_share'));
             wpcf_update_checkbox('wpneo_linkedin_social_share', $wpneo_linkedin_social_share);
 
             //Text Field
-            $wpneo_twitter_via = sanitize_text_field(wpneo_post('wpneo_twitter_via'));
+            $wpneo_twitter_via = sanitize_text_field(wpcf_post('wpneo_twitter_via'));
             wpcf_update_checkbox('wpneo_twitter_via', $wpneo_twitter_via);
 
-            $wpneo_linkedin_via = sanitize_text_field(wpneo_post('wpneo_linkedin_via'));
+            $wpneo_linkedin_via = sanitize_text_field(wpcf_post('wpneo_linkedin_via'));
             wpcf_update_checkbox('wpneo_linkedin_via', $wpneo_linkedin_via);
 
-            $wpneo_embed_social_share = sanitize_text_field(wpneo_post('wpneo_embed_social_share'));
+            $wpneo_embed_social_share = sanitize_text_field(wpcf_post('wpneo_embed_social_share'));
             wpcf_update_checkbox('wpneo_embed_social_share', $wpneo_embed_social_share);
         }
     }

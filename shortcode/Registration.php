@@ -158,7 +158,7 @@ class Registration {
 
         //die(json_encode(array('success'=> 0, 'message' => 'Anik Biswas' )));
     
-        if( wp_verify_nonce(wpneo_post('_wpnonce'),'wpcf-nonce-registration') ){
+        if( wp_verify_nonce(wpcf_post('_wpnonce'),'wpcf-nonce-registration') ){
     
             //Add some option
             do_action( 'wpneo_before_user_registration_action' );

@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-require_once( ABSPATH.'wp-includes/pluggable.php' );
+// require_once( ABSPATH.'wp-includes/pluggable.php' );
 
 // Settings Option Generator
 function wpcf_settings_generator( $arr ){
@@ -249,9 +249,9 @@ function wpcf_menu_page(){
 /**
  * Add settings option
  */
-if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_text_field(wpneo_post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
+if (wpcf_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_text_field(wpcf_post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
 
-    $current_tab = sanitize_text_field(wpneo_post('wpneo_crowdfunding_admin_tab'));
+    $current_tab = sanitize_text_field(wpcf_post('wpneo_crowdfunding_admin_tab'));
     if( ! empty($current_tab) ){
 
         /**
@@ -259,40 +259,40 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
          */
         if ( $current_tab == 'tab_general' ){
 
-            $vendor_type = sanitize_text_field(wpneo_post('vendor_type'));
+            $vendor_type = sanitize_text_field(wpcf_post('vendor_type'));
             wpcf_update_text('vendor_type', $vendor_type);
 
-            $wpneo_default_campaign_status = sanitize_text_field(wpneo_post('wpneo_default_campaign_status'));
+            $wpneo_default_campaign_status = sanitize_text_field(wpcf_post('wpneo_default_campaign_status'));
             wpcf_update_text('wpneo_default_campaign_status', $wpneo_default_campaign_status);
             
-	        $wpneo_campaign_edit_status = sanitize_text_field(wpneo_post('wpneo_campaign_edit_status'));
+	        $wpneo_campaign_edit_status = sanitize_text_field(wpcf_post('wpneo_campaign_edit_status'));
 	        wpcf_update_text('wpneo_campaign_edit_status', $wpneo_campaign_edit_status);
 
-	        $wpneo_show_min_price = sanitize_text_field(wpneo_post('wpneo_show_min_price'));
+	        $wpneo_show_min_price = sanitize_text_field(wpcf_post('wpneo_show_min_price'));
             wpcf_update_checkbox('wpneo_show_min_price', $wpneo_show_min_price);
 
-            $wpneo_show_max_price = sanitize_text_field(wpneo_post('wpneo_show_max_price'));
+            $wpneo_show_max_price = sanitize_text_field(wpcf_post('wpneo_show_max_price'));
             wpcf_update_checkbox('wpneo_show_max_price', $wpneo_show_max_price);
 
-            $wpneo_show_recommended_price = sanitize_text_field(wpneo_post('wpneo_show_recommended_price'));
+            $wpneo_show_recommended_price = sanitize_text_field(wpcf_post('wpneo_show_recommended_price'));
             wpcf_update_checkbox('wpneo_show_recommended_price', $wpneo_show_recommended_price);
 
-            $wpneo_show_target_goal = sanitize_text_field(wpneo_post('wpneo_show_target_goal'));
+            $wpneo_show_target_goal = sanitize_text_field(wpcf_post('wpneo_show_target_goal'));
             wpcf_update_checkbox('wpneo_show_target_goal', $wpneo_show_target_goal);
 
-            $wpneo_show_target_date = sanitize_text_field(wpneo_post('wpneo_show_target_date'));
+            $wpneo_show_target_date = sanitize_text_field(wpcf_post('wpneo_show_target_date'));
             wpcf_update_checkbox('wpneo_show_target_date', $wpneo_show_target_date);
 
-            $wpneo_show_target_goal_and_date = sanitize_text_field(wpneo_post('wpneo_show_target_goal_and_date'));
+            $wpneo_show_target_goal_and_date = sanitize_text_field(wpcf_post('wpneo_show_target_goal_and_date'));
             wpcf_update_checkbox('wpneo_show_target_goal_and_date', $wpneo_show_target_goal_and_date);
 
-            $wpneo_show_campaign_never_end = sanitize_text_field(wpneo_post('wpneo_show_campaign_never_end'));
+            $wpneo_show_campaign_never_end = sanitize_text_field(wpcf_post('wpneo_show_campaign_never_end'));
             wpcf_update_checkbox('wpneo_show_campaign_never_end', $wpneo_show_campaign_never_end);
 
-            $wpneo_enable_paypal_per_campaign_email = sanitize_text_field(wpneo_post('wpneo_enable_paypal_per_campaign_email'));
+            $wpneo_enable_paypal_per_campaign_email = sanitize_text_field(wpcf_post('wpneo_enable_paypal_per_campaign_email'));
             wpcf_update_checkbox('wpneo_enable_paypal_per_campaign_email', $wpneo_enable_paypal_per_campaign_email);
 
-            $wpneo_user_role_selector = wpneo_post('wpneo_user_role_selector');
+            $wpneo_user_role_selector = wpcf_post('wpneo_user_role_selector');
             update_option( 'wpneo_user_role_selector', $wpneo_user_role_selector );
             function wpneo_crowdfunding_add_theme_caps() {
                 $role_list = maybe_unserialize(get_option( 'wpneo_user_role_selector' ));
@@ -319,7 +319,7 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
             }
             add_action( 'admin_init', 'wpneo_crowdfunding_add_theme_caps');
 
-            $wpneo_form_page_id = intval(wpneo_post('wpneo_form_page_id'));
+            $wpneo_form_page_id = intval(wpcf_post('wpneo_form_page_id'));
 
             if (!empty($wpneo_form_page_id)) {
                 global $wpdb;
@@ -333,7 +333,7 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
                 $wpdb->update($wpdb->posts, array('post_content' => $new_content), array('ID'=> $page_id));
             }
 
-            $wpneo_crowdfunding_dashboard_page_id = intval(wpneo_post('wpneo_crowdfunding_dashboard_page_id'));
+            $wpneo_crowdfunding_dashboard_page_id = intval(wpcf_post('wpneo_crowdfunding_dashboard_page_id'));
             if (!empty($wpneo_crowdfunding_dashboard_page_id)) {
                 $page_id = $wpneo_crowdfunding_dashboard_page_id;
                 update_option('wpneo_crowdfunding_dashboard_page_id', $page_id);
@@ -345,117 +345,117 @@ if (wpneo_post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_t
                 $wpdb->update($wpdb->posts, array('post_content' => $new_content), array('ID'=> $page_id));
             }
 
-	        $wpcf_user_reg_success_redirect_uri = sanitize_text_field(wpneo_post('wpcf_user_reg_success_redirect_uri'));
+	        $wpcf_user_reg_success_redirect_uri = sanitize_text_field(wpcf_post('wpcf_user_reg_success_redirect_uri'));
 	        update_option('wpcf_user_reg_success_redirect_uri', $wpcf_user_reg_success_redirect_uri);
         }
 
 
         // Listing Page Settings
         if ( $current_tab == 'tab_listing_page' ){
-            $columns  = intval(wpneo_post('number_of_collumn_in_row'));
+            $columns  = intval(wpcf_post('number_of_collumn_in_row'));
             wpcf_update_text('number_of_collumn_in_row', $columns );
 
-            $description_limits = intval(wpneo_post('number_of_words_show_in_listing_description'));
+            $description_limits = intval(wpcf_post('number_of_words_show_in_listing_description'));
             wpcf_update_text('number_of_words_show_in_listing_description', $description_limits );
 
-            $show_rating = sanitize_text_field(wpneo_post('wpneo_show_rating'));
+            $show_rating = sanitize_text_field(wpcf_post('wpneo_show_rating'));
             wpcf_update_checkbox('wpneo_show_rating', $show_rating);
         }
 
 
         // Single Page Settings
         if ( $current_tab == 'tab_single_page' ){
-            $reward_design = intval(wpneo_post('wpneo_single_page_reward_design'));
+            $reward_design = intval(wpcf_post('wpneo_single_page_reward_design'));
             wpcf_update_text('wpneo_single_page_reward_design', $reward_design);
 
-            $fixed_price = sanitize_text_field(wpneo_post('wpneo_reward_fixed_price'));
+            $fixed_price = sanitize_text_field(wpcf_post('wpneo_reward_fixed_price'));
             wpcf_update_checkbox('wpneo_reward_fixed_price', $fixed_price);
         }
 
 
         // WooCommerce Settings
         if ( $current_tab == 'tab_woocommerce' ){
-            $hide_shop_page = sanitize_text_field(wpneo_post('hide_cf_campaign_from_shop_page'));
+            $hide_shop_page = sanitize_text_field(wpcf_post('hide_cf_campaign_from_shop_page'));
             wpcf_update_checkbox('hide_cf_campaign_from_shop_page', $hide_shop_page );
 
-            $single = sanitize_text_field(wpneo_post('wpneo_single_page_id'));
+            $single = sanitize_text_field(wpcf_post('wpneo_single_page_id'));
             wpcf_update_checkbox('wpneo_single_page_id', $single );
 
-            $from_checkout = sanitize_text_field(wpneo_post('hide_cf_address_from_checkout'));
+            $from_checkout = sanitize_text_field(wpcf_post('hide_cf_address_from_checkout'));
             wpcf_update_checkbox('hide_cf_address_from_checkout', $from_checkout );
 
-            $listing = intval(sanitize_text_field(wpneo_post('wpneo_listing_page_id')));
+            $listing = intval(sanitize_text_field(wpcf_post('wpneo_listing_page_id')));
             wpcf_update_text('wpneo_listing_page_id', $listing );
 
-            $form_page = intval(sanitize_text_field(wpneo_post('wpneo_form_page_id')));
+            $form_page = intval(sanitize_text_field(wpcf_post('wpneo_form_page_id')));
             wpcf_update_text('wpneo_form_page_id', $form_page );
 
-            $registration = intval(sanitize_text_field(wpneo_post('wpneo_registration_page_id')));
+            $registration = intval(sanitize_text_field(wpcf_post('wpneo_registration_page_id')));
             wpcf_update_text('wpneo_registration_page_id', $registration );
 
-	        $categories = sanitize_text_field(wpneo_post('seperate_crowdfunding_categories'));
+	        $categories = sanitize_text_field(wpcf_post('seperate_crowdfunding_categories'));
 	        wpcf_update_checkbox('seperate_crowdfunding_categories', $categories );
 
-	        $selected_theme = sanitize_text_field(wpneo_post('wpneo_cf_selected_theme'));
+	        $selected_theme = sanitize_text_field(wpcf_post('wpneo_cf_selected_theme'));
             wpcf_update_text('wpneo_cf_selected_theme', $selected_theme );
 
-            $requirement_title = sanitize_text_field(wpneo_post('wpneo_requirement_title'));
+            $requirement_title = sanitize_text_field(wpcf_post('wpneo_requirement_title'));
             wpcf_update_text('wpneo_requirement_title', $requirement_title);
 
-            $requirement = sanitize_text_field(wpneo_post('wpneo_requirement_text'));
+            $requirement = sanitize_text_field(wpcf_post('wpneo_requirement_text'));
             wpcf_update_text('wpneo_requirement_text', $requirement );
 
-            $agree_title = sanitize_text_field(wpneo_post('wpneo_requirement_agree_title'));
+            $agree_title = sanitize_text_field(wpcf_post('wpneo_requirement_agree_title'));
             wpcf_update_text('wpneo_requirement_agree_title', $agree_title);
 
-            $cart_redirect = sanitize_text_field(wpneo_post('wpneo_crowdfunding_add_to_cart_redirect'));
+            $cart_redirect = sanitize_text_field(wpcf_post('wpneo_crowdfunding_add_to_cart_redirect'));
             wpcf_update_text('wpneo_crowdfunding_add_to_cart_redirect', $cart_redirect);
 
-            $collumns  = intval(wpneo_post('number_of_collumn_in_row'));
+            $collumns  = intval(wpcf_post('number_of_collumn_in_row'));
             wpcf_update_text('number_of_collumn_in_row', $collumns );
 
-            $number_of_words_show_in_listing_description = intval(wpneo_post('number_of_words_show_in_listing_description'));
+            $number_of_words_show_in_listing_description = intval(wpcf_post('number_of_words_show_in_listing_description'));
             wpcf_update_text('number_of_words_show_in_listing_description', $number_of_words_show_in_listing_description);
 
-            $show_rating = sanitize_text_field(wpneo_post('wpneo_show_rating'));
+            $show_rating = sanitize_text_field(wpcf_post('wpneo_show_rating'));
             wpcf_update_checkbox('wpneo_show_rating', $show_rating);
 
             //Load single campaign to WooCommerce or not
-            $page_template = sanitize_text_field(wpneo_post('wpneo_single_page_template'));
+            $page_template = sanitize_text_field(wpcf_post('wpneo_single_page_template'));
             wpcf_update_checkbox('wpneo_single_page_template', $page_template);
 
-            $reward_design = intval(wpneo_post('wpneo_single_page_reward_design'));
+            $reward_design = intval(wpcf_post('wpneo_single_page_reward_design'));
             wpcf_update_text('wpneo_single_page_reward_design', $reward_design);
 
-            $fixed_price = sanitize_text_field(wpneo_post('wpneo_reward_fixed_price'));
+            $fixed_price = sanitize_text_field(wpcf_post('wpneo_reward_fixed_price'));
             wpcf_update_checkbox('wpneo_reward_fixed_price', $fixed_price);
 
-	        $enable_tax = sanitize_text_field(wpneo_post('wpcf_enable_tax'));
+	        $enable_tax = sanitize_text_field(wpcf_post('wpcf_enable_tax'));
 	        wpcf_update_checkbox('wpcf_enable_tax', $enable_tax);
         }
 
         // Style Settings
         if ( $current_tab == 'tab_style' ){
 
-            $styling = sanitize_text_field(wpneo_post('wpneo_enable_color_styling'));
+            $styling = sanitize_text_field(wpcf_post('wpneo_enable_color_styling'));
             wpcf_update_checkbox( 'wpneo_enable_color_styling', $styling);
 
-            $scheme = sanitize_text_field(wpneo_post('wpneo_color_scheme'));
+            $scheme = sanitize_text_field(wpcf_post('wpneo_color_scheme'));
             wpcf_update_text('wpneo_color_scheme', $scheme);
 
-            $button_bg_color = sanitize_text_field(wpneo_post('wpneo_button_bg_color'));
+            $button_bg_color = sanitize_text_field(wpcf_post('wpneo_button_bg_color'));
             wpcf_update_text('wpneo_button_bg_color', $button_bg_color);
 
-            $button_bg_hover_color = sanitize_text_field(wpneo_post('wpneo_button_bg_hover_color'));
+            $button_bg_hover_color = sanitize_text_field(wpcf_post('wpneo_button_bg_hover_color'));
             wpcf_update_text('wpneo_button_bg_hover_color', $button_bg_hover_color);
 
-            $button_text_color = sanitize_text_field(wpneo_post('wpneo_button_text_color'));
+            $button_text_color = sanitize_text_field(wpcf_post('wpneo_button_text_color'));
             wpcf_update_text('wpneo_button_text_color', $button_text_color);
 
-            $button_text_hover_color = sanitize_text_field(wpneo_post('wpneo_button_text_hover_color'));
+            $button_text_hover_color = sanitize_text_field(wpcf_post('wpneo_button_text_hover_color'));
             wpcf_update_text('wpneo_button_text_hover_color', $button_text_hover_color);
 
-            $custom_css = wpneo_post( 'wpneo_custom_css' );
+            $custom_css = wpcf_post( 'wpneo_custom_css' );
             wpcf_update_text( 'wpneo_custom_css', $custom_css );
         }
     }

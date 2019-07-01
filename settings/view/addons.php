@@ -1,6 +1,6 @@
 <div class="wrap">
-    <div class="tutor-addons-list">
-        <h3 class="addon-list-heading"><?php _e('Addons List', 'wpcf'); ?></h3>
+    <div class="wp-crowdfunding-addons-list">
+        <h3 class="addon-list-heading"><?php _e('Addons List', 'wp-crowdfunding'); ?></h3>
         <br class="clear">
 		<?php
         $addons = apply_filters('wpcf_addons_lists_config', array());
@@ -47,8 +47,6 @@
                                 </div>
                                 <div class="desc column-description">
                                     <p><?php echo $addon['description']; ?></p>
-
-                                    <p class="authors"><cite>By <a href="https://www.themeum.com" target="_blank">Themeum</a></cite></p>
                                 </div>
                             </div>
                         </div>
@@ -59,31 +57,31 @@
                         $proAddons = array(
                             '2checkout' => array(
                                 'name'          => __( '2Checkout', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('2Checkout Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>'), 'wp-crowdfunding' ),
+                                'description'   => __( 'Offer 2Checkout.com payment gateway option for all transactions.', 'wp-crowdfunding'),
                             ),
                             'authorizenet' => array(
                                 'name'          => __( 'Authorize.Net', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('Authorize.Net Payment gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                                'description'   => __( 'Provide Authorize.net payment gateway option for users.', 'wp-crowdfunding' ),
                             ),
                             'email' => array(
                                 'name'          => __( 'Email', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('Email addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                                'description'   => __( 'Connect with users through customizable email templates using Email addon.', 'wp-crowdfunding' ),
                             ),
                             'recaptcha' => array(
                                 'name'          => __( 'reCAPTCHA', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('reCAPTCHA addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                                'description'   => __( 'Secure your site from bots and other identity threats with reCAPTCHA.', 'wp-crowdfunding' ),
                             ),
                             'reports' => array(
                                 'name'          => __( 'Reports', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('Reports addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                                'description'   => __( 'Get detailed analytics & stats using advanced filters with powerful reports.', 'wp-crowdfunding' ),
                             ),
                             'stripe-connect' => array(
                                 'name'          => __( 'Stripe connect', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('Stripe Connect gateway is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                                'description'   => __( 'Enable Stripe Connect payment gateways to boost donations of your campaigns.', 'wp-crowdfunding' ),
                             ),
                             'wallet' => array(
                                 'name'          => __( 'Wallet', 'wp-crowdfunding' ),
-                                'description'   => __( sprintf('Wallet addon is available in the %s Enterprise version %s', '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">', '</a>' ), 'wp-crowdfunding' ),
+                                'description'   => __( 'Support native payment system for all donations using the native wallet addon.', 'wp-crowdfunding' ),
                             )
                         );
 
@@ -122,7 +120,6 @@
                                     </div>
                                     <div class="desc column-description">
                                         <p><?php echo $addon['description']; ?></p>
-                                        <p class="authors"><cite>By <a href="https://www.themeum.com/?utm_source=tutor&utm_medium=addons_lists&utm_campaign=wpcf_addons_lists" target="_blank">Themeum</a></cite></p>
                                     </div>
                                 </div>
                             </div>

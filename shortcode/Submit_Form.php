@@ -148,7 +148,7 @@ class Campaign_Submit_Form {
                 )
             );
         }
-        $all_cat = get_terms($cat_args );
+        $all_cat = get_terms( $cat_args );
         foreach ($all_cat as $value) {
             $selected = ($category == $value->name) ? 'selected':'';
             $html .= '<option '.$selected.' value="'.$value->slug.'">'.$value->name.'</option>';
