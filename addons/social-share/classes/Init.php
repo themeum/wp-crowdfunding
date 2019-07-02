@@ -38,46 +38,23 @@ class Init {
     }
 
     public function wpcf_social_share_enqueue_frontend_script() {
-        wp_enqueue_script('wp-neo-jquery-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/jquery.prettySocial.min.js', array('jquery'), WPCF_VERSION, true);
+        wp_enqueue_script('wpcf-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/SocialShare.min.js', array('jquery'), WPCF_VERSION, true);
     }
 
-        /**
+    /**
      * All settings will be save in this method
      */
     public function wpcf_social_share_save_settings(){
-        if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpneo_varify_social_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
+        if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpcf_varify_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
             // Checkbox
+            $embed_share = sanitize_text_field(wpcf_post('wpcf_embed_share'));
+            wpcf_update_checkbox('wpcf_embed_share', $embed_share);
 
-            $wpneo_twitter_social_share = sanitize_text_field(wpcf_post('wpneo_twitter_social_share'));
-            wpcf_update_checkbox('wpneo_twitter_social_share', $wpneo_twitter_social_share);
+            $social_share = wpcf_post('wpcf_social_share');
+            wpcf_update_checkbox('wpcf_social_share', $social_share);
 
-            $wpneo_facebook_social_share = sanitize_text_field(wpcf_post('wpneo_facebook_social_share'));
-            wpcf_update_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
-
-            $wpneo_facebook_social_share = sanitize_text_field(wpcf_post('wpneo_facebook_social_share'));
-            wpcf_update_checkbox('wpneo_facebook_social_share', $wpneo_facebook_social_share);
-
-            $wpneo_googleplus_social_share = sanitize_text_field(wpcf_post('wpneo_googleplus_social_share'));
-            wpcf_update_checkbox('wpneo_googleplus_social_share', $wpneo_googleplus_social_share);
-
-            $wpneo_pinterest_social_share = sanitize_text_field(wpcf_post('wpneo_pinterest_social_share'));
-            wpcf_update_checkbox('wpneo_pinterest_social_share', $wpneo_pinterest_social_share);
-
-            $wpneo_linkedin_social_share = sanitize_text_field(wpcf_post('wpneo_linkedin_social_share'));
-            wpcf_update_checkbox('wpneo_linkedin_social_share', $wpneo_linkedin_social_share);
-
-            //Text Field
-            $wpneo_twitter_via = sanitize_text_field(wpcf_post('wpneo_twitter_via'));
-            wpcf_update_checkbox('wpneo_twitter_via', $wpneo_twitter_via);
-
-            $wpneo_linkedin_via = sanitize_text_field(wpcf_post('wpneo_linkedin_via'));
-            wpcf_update_checkbox('wpneo_linkedin_via', $wpneo_linkedin_via);
-
-            $wpneo_embed_social_share = sanitize_text_field(wpcf_post('wpneo_embed_social_share'));
-            wpcf_update_checkbox('wpneo_embed_social_share', $wpneo_embed_social_share);
         }
     }
-
 
     // Data Post Embed Code
     public function wpcf_embed_data(){
@@ -175,7 +152,7 @@ class Init {
                                         <div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
                                     </div>
     
-                                    <div class="wpneo-raised-bar">
+                                    <div class="wpneo-raised-bar sjkdhfjdshf">
                                         <div id="neo-progressbar">
                                             <?php $css_width = WPNEOCF()->getFundRaisedPercent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
                                             <div style="width: <?php echo $css_width; ?>%"></div>
@@ -197,17 +174,12 @@ class Init {
                                             $days_remaining = apply_filters('date_remaining_msg', __(WPNEOCF()->dateRemaining(), 'wp-crowdfunding'));
                                         }
                                         if ($wpneo_campaign_end_method != 'never_end'){ ?>
-                                            <?php if (WPNEOCF()->is_campaign_started()){ ?>
-                                                <div class="wpneo-meta-desc"><?php echo WPNEOCF()->dateRemaining(); ?></div>
-                                                <div class="wpneo-meta-name float-left"><?php _e( 'Days to go','wp-crowdfunding' ); ?></div>
-                                            <?php } else { ?>
-                                                <div class="wpneo-meta-desc"><?php echo WPNEOCF()->days_until_launch(); ?></div>
-                                                <div class="iwpneo-meta-name float-left"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
-                                            <?php } ?>
+                                            <div class="wpneo-time-remaining">
+                                                <div class="wpneo-meta-desc"><?php echo $days_remaining; ?></div>
+                                                <div class="wpneo-meta-name float-left"><?php _e('Days to go', 'wp-crowdfunding'); ?></div>
+                                            </div>
                                         <?php } ?>
-
                                         
-
                                         <?php
                                         $raised = 0;
                                         $total_raised = WPNEOCF()->totalFundRaisedByCampaign();

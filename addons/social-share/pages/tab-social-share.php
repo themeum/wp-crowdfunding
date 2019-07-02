@@ -10,87 +10,48 @@ $arr =  array(
             array(
                 'type'      => 'seperator',
                 'label'     => __('Social Share Settings','wp-crowdfunding'),
-                'desc'      => __('You may enable social share to share post.','wp-crowdfunding'),
+                'desc'      => __(''),
                 'top_line'  => 'true',
                 ),
                 
-            // #Enable Twitter
-            array(
-                'id'        => 'wpneo_twitter_social_share',
-                'type'      => 'checkbox',
-                'value'     => 'true',
-                'label'     => __('Enable Twitter','wp-crowdfunding'),
-                'desc'      => __('Enable Twitter for crowdfunding plugin.','wp-crowdfunding'),
-                ),
-
-            // #Twitter Via
-            array(
-                'id'        => 'wpneo_twitter_via',
-                'type'      => 'text',
-                'value'     => '',
-                'label'     => __('Twitter Via','wp-crowdfunding'),
-                'desc'      => __('Put your twitter via key here.','wp-crowdfunding'),
-                ),
-
-            // #Enable Facebook
-            array(
-                'id'        => 'wpneo_facebook_social_share',
-                'type'      => 'checkbox',
-                'value'     => 'true',
-                'label'     => __('Enable Facebook','wp-crowdfunding'),
-                'desc'      => __('Enable Facebook for crowdfunding plugin.','wp-crowdfunding'),
-                ),
-
-            // #Enable GooglePlus
-            array(
-                'id'        => 'wpneo_googleplus_social_share',
-                'type'      => 'checkbox',
-                'value'     => 'true',
-                'label'     => __('Enable GooglePlus','wp-crowdfunding'),
-                'desc'      => __('Enable GooglePlus for crowdfunding plugin.','wp-crowdfunding'),
-                ),
-
-            // #Enable Pinterest
-            array(
-                'id'        => 'wpneo_pinterest_social_share',
-                'type'      => 'checkbox',
-                'value'     => 'true',
-                'label'     => __('Enable Pinterest','wp-crowdfunding'),
-                'desc'      => __('Enable Pinterest for crowdfunding plugin.','wp-crowdfunding'),
-                ),
-
-            // #Enable Linkedin
-            array(
-                'id'        => 'wpneo_linkedin_social_share',
-                'type'      => 'checkbox',
-                'value'     => 'true',
-                'label'     => __('Enable LinkedIn','wp-crowdfunding'),
-                'desc'      => __('Enable LinkedIn for crowdfunding plugin.','wp-crowdfunding'),
-                ),
-
-            // #Linkedin Via
-            array(
-                'id'        => 'wpneo_linkedin_via',
-                'type'      => 'text',
-                'value'     => '',
-                'label'     => __('LinkedIn Via','wp-crowdfunding'),
-                'desc'      => __('Put your LinkedIn via key here.','wp-crowdfunding'),
-                ),
-            
             // #Enable Embed Option
             array(
-                'id'        => 'wpneo_embed_social_share',
+                'id'        => 'wpcf_embed_share',
                 'type'      => 'checkbox',
                 'value'     => 'true',
                 'label'     => __('Embed Option','wp-crowdfunding'),
                 'desc'      => __('Embed Option in Single Campaign.','wp-crowdfunding'),
-                ),
+            ),
+
+            // Social Share
+            array(
+                'id'        => 'wpcf_social_share',
+                'type'      => 'checkbox',
+                'multiple'  => 'true',
+                'option'    => array(
+                                    'twitter' => __( 'Twitter', 'wp-crowdfunding' ),
+                                    'facebook' => __( 'Facebook', 'wp-crowdfunding' ),
+                                    'pinterest' => __( 'Pinterest', 'wp-crowdfunding' ),
+                                    'linkedin' => __( 'Linkedin', 'wp-crowdfunding' ),
+                                    'tumblr' => __( 'Tumblr', 'wp-crowdfunding' ),
+                                    'blogger' => __( 'Blogger', 'wp-crowdfunding' ),
+                                    'delicious' => __( 'Delicious', 'wp-crowdfunding' ),
+                                    'digg' => __( 'Digg', 'wp-crowdfunding' ),
+                                    'reddit' => __( 'Reddit', 'wp-crowdfunding' ),
+                                    'stumbleupon' => __( 'Stumbleupon', 'wp-crowdfunding' ),
+                                    'pocket' => __( 'Pocket', 'wp-crowdfunding' ),
+                                    'wordpress' => __( 'WordPress', 'wp-crowdfunding' ),
+                                    'whatsapp' => __( 'Whatsapp', 'wp-crowdfunding' ),
+                                ),
+                'label'     => __('Multiple Checkbox','wp-crowdfunding'),
+                'desc'      => __('Select Multiple Checkbox form.','wp-crowdfunding'),
+            ),
 
             // #Save Function
             array(
-                'id'        => 'wpneo_varify_social_share',
+                'id'        => 'wpcf_varify_share',
                 'type'      => 'hidden',
                 'value'     => 'true',
-                ),
+            ),
 );
 wpcf_settings_generator( $arr );

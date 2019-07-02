@@ -553,4 +553,14 @@ jQuery(document).ready(function($){
     });
 
 
+    $('select[name="wpneo-form-type"]').on('change', function(){
+        if( $(this).val() == 'never_end' ){
+            $('#wpneo_form_start_date').parents('.wpneo-single').hide();
+            $('#wpneo_form_end_date').parents('.wpneo-single').hide();
+        }else{
+            $('#wpneo_form_start_date').parents('.wpneo-single').show();
+            $('#wpneo_form_end_date').parents('.wpneo-single').show();
+        }
+    });
+    
 });
