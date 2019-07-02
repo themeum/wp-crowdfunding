@@ -131,16 +131,16 @@ function wpcf_settings_generator( $arr ){
                     $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
                     $html .= '<td>';
                         $var = get_option( $value['id'] );
-                        if(isset($value['multiple']) ){
+                        if(isset($value['multiple'])) {
                             $save_value = ( is_array( $var ) ? $var : array() );
                             foreach( $value['option'] as $key => $val ){
                                 $html .= '<label><input type="checkbox" name="'.$value['id'].'[]" value="'.$key.'" '.( in_array( $key , $save_value )?"checked='checked'":"" ).'/>'.$val.'</label></br>';
                             }
-                        }else{
+                        } else {
                             $html .= '<input type="checkbox" name="'.$value['id'].'" id="'.$value['id'].'" value="true" '.($var=="true"?"checked='checked'":"").'/>';
                         }
-                        if(isset($value['desc'])){
-                            $html .= '<p>'.$value['desc'].'</p>'; 
+                        if(isset($value['desc'])) {
+                            $html .= '<label>'.$value['desc'].'</label>'; 
                         }
                     $html .= '</td>';
                     $html .= '</tr>';
