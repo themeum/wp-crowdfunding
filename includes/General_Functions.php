@@ -1,6 +1,18 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
+
+if (! function_exists('wpcf_is_free')){
+    function wpcf_is_free(){
+        if (is_plugin_active('wp-crowdfunding-pro/wp-crowdfunding-pro.php')) {
+            return false;
+        } else {
+            return true;
+        }
+        
+    }
+}
+
 if (! function_exists('wpcf_post')){
     function wpcf_post($post_item){
         if (!empty($_POST[$post_item])) {

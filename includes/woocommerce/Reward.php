@@ -228,7 +228,7 @@ class Reward{
                 }
             }
 
-            if (WPCF_TYPE == 'free'){
+            if (wpcf_is_free()) {
                 ?>
                 <p class="description"><?php _e('pro version is required to add more than 1 reward', 'wp-crowdfunding') ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank"> <?php _e('click here to get pro version', 'wp-crowdfunding') ?></a></p>
                 <?php

@@ -522,16 +522,13 @@ class Campaign_Submit_Form {
             $html .= '</div>';
     
             $html .= '</div>';
-    
             $html .= '</div>';
         }
     
-        if( WPCF_TYPE == 'free' ){
+        if( wpcf_is_free() ){
             $html .= '<div style="clear: both;"></div>';
-    
             $html .= '<p> <i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a> </i></p>';
         }else{
-    
             $html .= '<div id="rewards_addon_fields"></div>';
             $html .= '<div class="text-right">';
             $html .= '<input type="button" value="' . __("+ Add", "wp-crowdfunding") . '" id="addreward" class="button tagadd" name="save">';

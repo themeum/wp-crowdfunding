@@ -645,7 +645,7 @@ function wpcf_register_menu_page(){
         'wpcf_manage_addons'
     );
 
-    if ( WPCF_TYPE == 'free' ){
+    if (wpcf_is_free()){
         add_submenu_page( 
             'wpcf-crowdfunding', 
             __( 'Go Premium', 'wp-crowdfunding' ), 

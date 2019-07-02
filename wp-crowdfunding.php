@@ -30,7 +30,6 @@ if( !function_exists('is_plugin_active_for_network') ){
   * @Directory Path
   * @Plugin Base Name
   */
-  define('WPCF_TYPE', 'free');
   define('WPCF_FILE', __FILE__);
   define('WPCF_VERSION', '1.8.8');
   define('WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ));

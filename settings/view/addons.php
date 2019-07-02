@@ -1,6 +1,6 @@
 <div class="wrap">
     <div class="wp-crowdfunding-addons-list">
-        <h3 class="addon-list-heading"><?php _e('Addons List', 'wp-crowdfunding'); ?></h3>
+        <h1 class="addon-list-heading"><?php _e('Addons List', 'wp-crowdfunding'); ?></h1>
         <br class="clear">
 		<?php
         $addons = apply_filters('wpcf_addons_lists_config', array());
@@ -25,12 +25,12 @@
 						}
 
 						?>
-                        <div class="plugin-card plugin-card-akismet">
+                        <div class="plugin-card">
                             <div class="plugin-card-top">
                                 <div class="name column-name">
                                     <h3>
 										<?php
-										echo $addon['name'];
+                                        echo $addon['name']; 
 										echo "<img src='{$thumbnailURL}' class='plugin-icon' alt=''>";
 										?>
                                     </h3>
@@ -53,7 +53,7 @@
                     <?php }
 
                     //PRO ADDONS LIST FOR DISPLAY
-                    if( WPCF_TYPE == 'free' ) {
+                    if( wpcf_is_free() ) {
                         $proAddons = array(
                             '2checkout' => array(
                                 'name'          => __( '2Checkout', 'wp-crowdfunding' ),
@@ -100,7 +100,7 @@
                             }
     
                             ?>
-                            <div class="plugin-card plugin-card-akismet">
+                            <div class="plugin-card">
                                 <div class="plugin-card-top">
                                     <div class="name column-name">
                                         <h3>
@@ -125,7 +125,7 @@
                             </div>
                         <?php
                         }
-                    }?>
+                    } ?>
                 </div>
             </div>
 
