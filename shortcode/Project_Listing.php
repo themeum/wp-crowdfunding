@@ -6,11 +6,11 @@ defined( 'ABSPATH' ) || exit;
 class Project_Listing {
 
     function __construct() {
-        add_shortcode( 'wpneo_crowdfunding_listing', array( $this, 'wpcf_listing_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_listing', array( $this, 'wpcf_listing_callback' ) );
+        add_shortcode( 'wpneo_crowdfunding_listing', array( $this, 'listing_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_listing', array( $this, 'listing_callback' ) );
     }
 
-    function wpcf_listing_callback( $atts, $shortcode ){
+    function listing_callback( $atts, $shortcode ){
         if( function_exists('WPNEOCF') ){
 
             $a = shortcode_atts(array(

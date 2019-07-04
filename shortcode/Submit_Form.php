@@ -6,12 +6,12 @@ defined( 'ABSPATH' ) || exit;
 
 class Campaign_Submit_Form {
     public function __construct(){
-        add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'wpcf_form_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_form', array( $this, 'wpcf_form_callback' ) );        
+        add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'campaign_form_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_form', array( $this, 'campaign_form_callback' ) );        
     }
     
     // Shortcode for Forntend Submission Form
-    public function wpcf_form_callback( $atts ){
+    public function campaign_form_callback( $atts ){
         
         global $post, $wpdb;
 
