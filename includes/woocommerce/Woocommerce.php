@@ -281,7 +281,7 @@ class Woocommerce {
 
 
         //Get country select
-        $countries_obj      = new WC_Countries();
+        $countries_obj      = new \WC_Countries();
         $countries          = $countries_obj->__get('countries');
         array_unshift($countries, 'Select a country');
 

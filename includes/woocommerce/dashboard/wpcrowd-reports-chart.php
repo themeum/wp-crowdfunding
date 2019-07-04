@@ -72,8 +72,8 @@ $csv[]              = array("Date", "Pledge Amount ", "Sales");
 $format             = array();
 $label              = array();
 
-$product_ids = get_products_id_by_user();
-$getting_order_ids_by_products = wpcf_function()->get_order_ids_by_product_ids();($product_ids);
+$product_ids = wpcf_function()->get_products_id_by_user();
+$getting_order_ids_by_products = wpcf_function()->get_order_ids_by_product_ids($product_ids);
 
 if ($from_time < $to_time) {
     // $format .= "['Date', 'Pledge Amount (".get_woocommerce_currency().")', 'Sales'],";

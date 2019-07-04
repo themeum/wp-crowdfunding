@@ -3,7 +3,7 @@ namespace WPCF;
 
 defined( 'ABSPATH' ) || exit;
 
-class Functions{
+class Functions {
 
     public function generator( $arr ){
         require_once WPCF_DIR_PATH . 'settings/Generator.php';

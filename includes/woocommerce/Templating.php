@@ -3,7 +3,7 @@ namespace WPCF\woocommerce;
 
 defined( 'ABSPATH' ) || exit;
 
-class Templating{
+class Templating {
 
     /**
      * @var mixed|void

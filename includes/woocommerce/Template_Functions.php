@@ -140,7 +140,7 @@ if (!function_exists('wpneo_crowdfunding_price')){
 
 if ( ! function_exists('wpneo_crowdfunding_load_template')){
 	function wpneo_crowdfunding_load_template($template = '404'){
-		$template_class = new Wpneo_Crowdfunding_Templating();
+		$template_class = new WPCF\woocommerce\Templating;
 		$locate_file = $template_class->_theme_in_themes_path.$template.'.php';
 
 		if (file_exists($locate_file)){
@@ -154,7 +154,7 @@ if ( ! function_exists('wpneo_crowdfunding_load_template')){
 
 if ( ! function_exists('wpneo_crowdfunding_template')){
 	function wpneo_crowdfunding_template($template = '404'){
-		$template_class = new Wpneo_Crowdfunding_Templating();
+		$template_class = new WPCF\woocommerce\Templating;
 		$locate_file = $template_class->_theme_in_themes_path.$template.'.php';
 
 		if (file_exists($locate_file)){
