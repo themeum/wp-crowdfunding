@@ -335,7 +335,8 @@ class Campaign_Submit_Form {
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Country" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        $countries   = wpcf_function()->get_countries();
+        $countries_obj      = new \WC_Countries();
+        $countries          = $countries_obj->__get('countries');
         array_unshift($countries, __('Select a country', 'wp-crowdfunding') );
         $html .= '<select name="wpneo-form-country">';
         foreach ($countries as $key=>$value) {
