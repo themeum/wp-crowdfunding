@@ -6,11 +6,11 @@ defined( 'ABSPATH' ) || exit;
 class Single_Campaign {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_single_campaign', array( $this, 'wpcf_single_campaign_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_single_campaign', array( $this, 'wpcf_single_campaign_callback' ) );
+        add_shortcode( 'wp_crowdfunding_single_campaign', array( $this, 'single_campaign_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_single_campaign', array( $this, 'single_campaign_callback' ) );
     }
 
-    function wpcf_single_campaign_callback( $atts, $shortcode ){
+    function single_campaign_callback( $atts, $shortcode ){
         $atts = shortcode_atts( array(
             'campaign_id' => 0,
         ), $atts, $shortcode );

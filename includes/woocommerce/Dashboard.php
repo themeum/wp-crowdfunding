@@ -14,7 +14,7 @@ class Dashboard{
     }
 
     public function __construct(){
-        add_action( 'wp_dashboard_setup',                   array( $this, 'init' ) );
+        add_action( 'wp_dashboard_setup',                   array($this, 'init' ) );
         add_filter( 'manage_edit-product_columns',          array($this, 'order_custom_column'));
         add_action( 'manage_product_posts_custom_column' ,  array($this, 'show_campaign_data_in_product_column'), 10, 2 );
         add_action( 'add_meta_boxes',                       array($this, 'register_meta_boxes') );

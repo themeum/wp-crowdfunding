@@ -6,11 +6,11 @@ defined( 'ABSPATH' ) || exit;
 class Campaign_Box {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_campaign_box', array( $this, 'wpcf_campaign_box_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_campaign_box', array( $this, 'wpcf_campaign_box_callback' ) );
+        add_shortcode( 'wp_crowdfunding_campaign_box', array( $this, 'campaign_box_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_campaign_box', array( $this, 'campaign_box_callback' ) );
     }
 
-    function wpcf_campaign_box_callback( $atts, $shortcode ) {
+    function campaign_box_callback( $atts, $shortcode ) {
 
         $atts = shortcode_atts( array(
             'campaign_id' => 0,

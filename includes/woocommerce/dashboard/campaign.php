@@ -20,7 +20,6 @@ $args = array(
 
 $current_page = get_permalink();
 $the_query = new WP_Query( $args );
-ob_start();
 ?>
 
 <div class="wpneo-content">
@@ -28,8 +27,9 @@ ob_start();
 
 
 <?php if ( $the_query->have_posts() ) : global $post; $i = 1;
-    while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-        
+    while ( $the_query->have_posts() ) : $the_query->the_post();
+        ob_start();
+?>
         <div class="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
             
             <div class="wpneo-listing-img">

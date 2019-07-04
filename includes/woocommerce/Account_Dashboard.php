@@ -6,20 +6,20 @@ defined( 'ABSPATH' ) || exit;
 class Account_Dashboard {
 
     public function __construct(){            
-        add_action( 'init',                                                 array( $this, 'wpcf_endpoints') );
-        add_filter( 'query_vars',                                           array( $this, 'wpcf_query_vars'), 0 );
-        add_filter( 'woocommerce_account_menu_items',                       array( $this, 'wpcf_menu_items') );
+        add_action( 'init',                                                 array( $this, 'endpoints') );
+        add_filter( 'query_vars',                                           array( $this, 'query_vars'), 0 );
+        add_filter( 'woocommerce_account_menu_items',                       array( $this, 'menu_items') );
         add_action( 'woocommerce_account_crowdfunding-dashboard_endpoint',  array( $this, 'dashboard_callback' ) );
         add_action( 'woocommerce_account_profile_endpoint',                 array( $this, 'profile_callback') );
         add_action( 'woocommerce_account_my-campaigns_endpoint',            array( $this, 'campaigns_callback') );
         add_action( 'woocommerce_account_backed-campaigns_endpoint',        array( $this, 'backed_campaigns_callback') );
-        add_action( 'woocommerce_account_pledges-received_endpoint',        array( $this, 'pledges_received_coallback') );
+        add_action( 'woocommerce_account_pledges-received_endpoint',        array( $this, 'pledges_received_callback') );
         add_action( 'woocommerce_account_bookmarks_endpoint',               array( $this, 'bookmarks_callback') );
     }
 
 
     // Rewrite Rules For Woocommerce My Account Page
-    public function wpcf_endpoints() {
+    public function endpoints() {
         add_rewrite_endpoint( 'crowdfunding-dashboard', EP_ROOT | EP_PAGES );
         add_rewrite_endpoint( 'profile', EP_ROOT | EP_PAGES );
         add_rewrite_endpoint( 'my-campaigns', EP_ROOT | EP_PAGES );
@@ -29,7 +29,7 @@ class Account_Dashboard {
     }
 
     // Query Variable
-    public function wpcf_query_vars( $vars ) {
+    public function query_vars( $vars ) {
         $vars[] = 'crowdfunding-dashboard';
         $vars[] = 'profile';
         $vars[] = 'my-campaigns';
@@ -40,7 +40,7 @@ class Account_Dashboard {
     }
 
     // Woocommerce Menu Items
-    public function wpcf_menu_items( $items ) {
+    public function menu_items( $items ) {
         $new_items = array(
             'crowdfunding-dashboard'=> __( 'Crowdfunding Dashboard', 'wp-crowdfunding' ),
             'profile'               => __( 'Profile', 'wp-crowdfunding' ),

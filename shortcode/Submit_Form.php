@@ -6,12 +6,12 @@ defined( 'ABSPATH' ) || exit;
 
 class Campaign_Submit_Form {
     public function __construct(){
-        add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'wpcf_form_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_form', array( $this, 'wpcf_form_callback' ) );        
+        add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'campaign_form_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_form', array( $this, 'campaign_form_callback' ) );        
     }
     
     // Shortcode for Forntend Submission Form
-    public function wpcf_form_callback( $atts ){
+    public function campaign_form_callback( $atts ){
         
         global $post, $wpdb;
 
@@ -335,7 +335,8 @@ class Campaign_Submit_Form {
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Country" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        $countries   = wpcf_function()->get_countries();
+        $countries_obj      = new \WC_Countries();
+        $countries          = $countries_obj->__get('countries');
         array_unshift($countries, __('Select a country', 'wp-crowdfunding') );
         $html .= '<select name="wpneo-form-country">';
         foreach ($countries as $key=>$value) {

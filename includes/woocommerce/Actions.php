@@ -29,17 +29,17 @@ class Actions {
      */
 
     public function __construct() {
-        add_action( 'wp_ajax_wpneo_dashboard_form',      array($this, 'wpneo_dashboard_form_save'));
-        add_action( 'wp_ajax_wpneo_profile_form',        array($this, 'wpneo_profile_form_save'));
-        add_action( 'wp_ajax_wpneo_contact_form',        array($this, 'wpneo_contact_form_save'));
-        add_action( 'wp_ajax_wpneo_password_form',       array($this, 'wpneo_password_form_save'));
-        add_action( 'wp_ajax_wpneo_update_status_save',  array($this, 'wpneo_update_status_save'));
+        add_action( 'wp_ajax_wpneo_dashboard_form',      array($this, 'dashboard_form_save'));
+        add_action( 'wp_ajax_wpneo_profile_form',        array($this, 'profile_form_save'));
+        add_action( 'wp_ajax_wpneo_contact_form',        array($this, 'contact_form_save'));
+        add_action( 'wp_ajax_wpneo_password_form',       array($this, 'password_form_save'));
+        add_action( 'wp_ajax_wpneo_update_status_save',  array($this, 'update_status_save'));
     }
 
 
 
     // General Form Action for Dashboard
-    public function wpneo_dashboard_form_save() {
+    public function dashboard_form_save() {
 
         if (
             ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] )
@@ -75,7 +75,7 @@ class Actions {
     }
 
     // Profile Form Action for Dashboard
-    public function wpneo_profile_form_save(){
+    public function profile_form_save(){
         if (
             ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] )
             || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )
@@ -130,7 +130,7 @@ class Actions {
     }
 
     // Profile Form Action for Dashboard
-    public function wpneo_contact_form_save(){
+    public function contact_form_save(){
 
         if (
             ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] )
@@ -194,7 +194,7 @@ class Actions {
     }
 
     // Password Form Action for Dashboard
-    public function wpneo_password_form_save() {
+    public function password_form_save() {
 
         if ( ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] ) || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your nonce did not verify.', 'wp-crowdfunding'))));
@@ -220,7 +220,7 @@ class Actions {
         }
     }
 
-    public function wpneo_update_status_save(){
+    public function update_status_save(){
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
 
             $post_id                            = $_POST['postid'];

@@ -6,11 +6,11 @@ defined( 'ABSPATH' ) || exit;
 class Popular_Campaigns {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_popular_campaigns', array( $this, 'wpcf_popular_campaigns_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_popular_campaigns', array( $this, 'wpcf_popular_campaigns_callback' ) );
+        add_shortcode( 'wp_crowdfunding_popular_campaigns', array( $this, 'popular_campaigns_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_popular_campaigns', array( $this, 'popular_campaigns_callback' ) );
     }
 
-    function wpcf_popular_campaigns_callback( $atts, $shortcode ){
+    function popular_campaigns_callback( $atts, $shortcode ){
         $atts = shortcode_atts( array(
             'limit'     => 4,
             'column'    => 4,

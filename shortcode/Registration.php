@@ -5,15 +5,15 @@ defined( 'ABSPATH' ) || exit;
 
 class Registration {
 
-    public function __construct() {
-        add_shortcode( 'wpneo_registration', array( $this, 'wpcf_registration_callback' ) ); //@comparability
-        add_shortcode( 'wpcf_registration', array( $this, 'wpcf_registration_callback' ) );
+    function __construct() {
+        add_shortcode( 'wpneo_registration', array( $this, 'registration_callback' ) ); //@comparability
+        add_shortcode( 'wpcf_registration', array( $this, 'registration_callback' ) );
         
-        add_action( 'init', array($this, 'wpcf_registration_save') );
-        add_action( 'wp_ajax_wpcf_registration_action', array( $this, 'wpcf_registration_save' ) );
+        add_action( 'init', array($this, 'registration_save_action') );
+        add_action( 'wp_ajax_wpcf_registration_action', array( $this, 'registration_save_action' ) );
     }
     
-    public function wpcf_registration_callback(){
+    function registration_callback() {
         ob_start();
         if ( is_user_logged_in() ) { ?>
             <h3 class="wpneo-center"><?php _e("You are already logged in.","wp-crowdfunding"); ?></h3>
@@ -152,7 +152,7 @@ class Registration {
     
     
     // register a new user
-    public function wpcf_registration_save() {
+    function registration_save_action() {
 
         //update_option( 'default_wpcf_status', 'closed' );
 
@@ -174,8 +174,8 @@ class Registration {
             $nickname   =   sanitize_text_field($_POST['nickname']);
             $bio        =   implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['bio'])));
     
-            $this->wpcf_registration_validation( $username , $password , $email , $website , $first_name , $last_name , $nickname , $bio );
-            $this->wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
+            $this->registration_validation( $username , $password , $email , $website , $first_name , $last_name , $nickname , $bio );
+            $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
         }else{
             global $reg_errors;
             $reg_errors = new \WP_Error;
@@ -183,7 +183,7 @@ class Registration {
         }
     }
     
-    public function wpcf_complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    function complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
         if ( count($reg_errors->get_error_messages()) < 1 ) {
             $userdata = array(
@@ -199,7 +199,7 @@ class Registration {
             $user_id = wp_insert_user( $userdata );
     
             //On success
-            if ( ! is_wp_error( $user_id ) ) {
+            if ( !is_wp_error( $user_id ) ) {
                 WC()->mailer(); // load email classes
                 do_action( 'wpcf_after_registration', $user_id );
     
@@ -226,7 +226,7 @@ class Registration {
         }
     }
     
-    public function wpcf_registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
         $reg_errors = new \WP_Error;
     
