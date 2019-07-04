@@ -44,13 +44,14 @@ function wpcf_language_load(){
     load_plugin_textdomain('wp-crowdfunding', false, basename(dirname( WPCF_FILE )).'/languages/');
 }
 
-if( !class_exists( 'Crowdfunding' ) ) {
+if (!class_exists( 'Crowdfunding' )) {
     require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
     new \WPCF\Crowdfunding();
 }
 
-
-function wpcf_function(){
-    require_once WPCF_DIR_PATH . 'includes/Functions.php';
-	return new \WPCF\Functions();
+if (!function_exists('wpcf_function')) {
+    function wpcf_function() {
+        require_once WPCF_DIR_PATH . 'includes/Functions.php';
+        return new \WPCF\Functions();
+    }
 }

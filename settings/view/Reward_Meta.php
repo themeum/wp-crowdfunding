@@ -12,7 +12,6 @@ if ( ! empty($reward) && is_array($reward) ){
                 }
                 ?>
             </div>
-
             <?php if( ! empty($reward['wpneo_rewards_pladge_amount']) ){ ?>
                 <div class="meta">
                     <abbr>

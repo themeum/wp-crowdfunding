@@ -5,9 +5,6 @@
 		<?php
         $addons = apply_filters('wpcf_addons_lists_config', array());
 
-        /* echo "<pre>";
-        print_r($addons); */
-
 		if (is_array($addons) && count($addons)){
 			?>
             <div class="wp-list-table widefat plugin-install">
@@ -23,7 +20,6 @@
                         } elseif (file_exists($addon['path'].'assets/images/thumbnail.svg')){
 							$thumbnailURL = $addon['url'].'assets/images/thumbnail.svg';
 						}
-
 						?>
                         <div class="plugin-card">
                             <div class="plugin-card-top">

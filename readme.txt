@@ -185,14 +185,14 @@ it's moved to template
 = 1.8.3 =
 
 * Added: Admin can now review backers profile
-* Added: Single File Templating Overwriting in Theme (wpneotemplate)
+* Added: Single File Templating Overwriting in Theme
 * Added: Crowdfunding own category
 * Added: License Expire Date
 * Fixed: Placing predefined donate amount after comma separator
 * Fixed: Spelling Plages to Pledges
 * Fixed: User can't modify submitted campaign
 * Fixed: Short-code does not work in campaign single page
-* Fixed: Few translate issue in wpneotemplate
+* Fixed: Few translate issue in template
 * Fixed: The HTML issue Reward sidebar
 * Fixed: Frontpage My Profile profile picture button hide the Upload button when user is not in edit mode
 * Fixed: Image upload bug, `$user_signon = wp_signon( $info, false );` to `$user_signon = wp_signon( $info, true );`
