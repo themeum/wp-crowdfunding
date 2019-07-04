@@ -13,7 +13,7 @@ class Account_Dashboard {
         add_action( 'woocommerce_account_profile_endpoint',                 array( $this, 'profile_callback') );
         add_action( 'woocommerce_account_my-campaigns_endpoint',            array( $this, 'campaigns_callback') );
         add_action( 'woocommerce_account_backed-campaigns_endpoint',        array( $this, 'backed_campaigns_callback') );
-        add_action( 'woocommerce_account_pledges-received_endpoint',        array( $this, 'pledges_received_coallback') );
+        add_action( 'woocommerce_account_pledges-received_endpoint',        array( $this, 'pledges_received_callback') );
         add_action( 'woocommerce_account_bookmarks_endpoint',               array( $this, 'bookmarks_callback') );
     }
 
