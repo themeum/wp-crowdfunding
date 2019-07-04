@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 global $wp_roles;
-$pages = wpcf_get_published_pages();
+$pages = wpcf_function()->get_pages();
 $page_array = array();
 if (count($pages)>0) {
     foreach ($pages as $page) {
@@ -170,4 +170,4 @@ $arr =  array(
 		'label'     => __('Redirect URL for User Registration Success','wp-crowdfunding'),
 	),
 );
-wpcf_settings_generator( $arr );
+wpcf_function()->generator( $arr );

@@ -72,8 +72,8 @@ $csv[]              = array("Date", "Pledge Amount ", "Sales");
 $format             = array();
 $label              = array();
 
-$product_ids = get_products_ids_by_user();
-$getting_order_ids_by_products = get_orders_ids_by_product_ids($product_ids);
+$product_ids = get_products_id_by_user();
+$getting_order_ids_by_products = wpcf_function()->get_order_ids_by_product_ids();($product_ids);
 
 if ($from_time < $to_time) {
     // $format .= "['Date', 'Pledge Amount (".get_woocommerce_currency().")', 'Sales'],";
@@ -187,7 +187,7 @@ $get_crowdfunding_campaigns = new WP_Query($query_args);
 //print_r($get_crowdfunding_campaigns);
 
 
-$pladges_received = wpcf_get_date_range_pladges_received($from_date, $to_date);
+$pladges_received = wpcf_function()->range_pladges_received($from_date, $to_date);
 
 ?>
 

@@ -335,7 +335,7 @@ class Campaign_Submit_Form {
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Country" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        $countries   = wpcf_countries();
+        $countries   = wpcf_function()->get_countries();
         array_unshift($countries, __('Select a country', 'wp-crowdfunding') );
         $html .= '<select name="wpneo-form-country">';
         foreach ($countries as $key=>$value) {
@@ -554,11 +554,10 @@ class Campaign_Submit_Form {
             $html .= '</div>';
         }
 
-        if (wpcf_is_free()) {
+        if ( wpcf_function()->is_free() ) {
             $html .= '<div style="clear: both;"></div>';
             $html .= '<p> <i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a> </i></p>';
         }else {
-
             $html .= '<div id="rewards_addon_fields"></div>';
             $html .= '<div class="text-right">';
             $html .= '<input type="button" value="' . __("+ Add", "wp-crowdfunding") . '" id="addreward" class="button tagadd" name="save">';

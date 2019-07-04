@@ -40,8 +40,8 @@ if ( ! function_exists('WPCF_SOCIAL_SHARE')) {
 }
 
 
-$addonConfig = get_wpcf_addon_config( WPCF_SOCIAL_SHARE_BASE_NAME );
-$isEnable = (bool) wpcf_avalue_dot( 'is_enable', $addonConfig );
+$addonConfig = wpcf_function()->addon_config( WPCF_SOCIAL_SHARE_BASE_NAME );
+$isEnable = (bool)wpcf_function()->avalue_dot( 'is_enable', $addonConfig );
 if ( $isEnable ) {
 	include_once 'classes/Init.php';
 }

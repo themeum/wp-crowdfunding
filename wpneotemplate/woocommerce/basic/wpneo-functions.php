@@ -69,7 +69,7 @@ function wpneo_bio_campaign_action(){
 		}
 		$html .= '</div>';
 		$html .= '<div class="wpneo-profile">';
-		$html .= '<div class="wpneo-profile-name"><a href="'.get_wpcf_author_campaigns_url($creator->ID).'">'.wpneo_crowdfunding_get_author_name().'</a></div>';
+		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaigns_url($creator->ID).'">'.wpneo_crowdfunding_get_author_name().'</a></div>';
 		if (wpneo_crowdfunding_get_campaigns_location()){
 			$html .= '<div class="wpneo-profile-location">';
 			$html .= '<i class="wpneo-icon wpneo-icon-location"></i> <span>'.wpneo_crowdfunding_get_campaigns_location().'</span>';
@@ -114,19 +114,19 @@ function wpneo_bio_campaign_action(){
 		$html .= '<div class="wpneo-profile-about">';
 		$html .= '<h3>'.__("Social Link","wp-crowdfunding").'</h3>';
 		if ( ! empty($user_info['profile_facebook'][0])){
-			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_facebook"][0].'"><i class="wpneo-icon wpneo-icon-facebook"></i></a>';
+			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_facebook"][0].'"><i class="wpneo-icon wpneo-icon-facebook"></i></a>';
 		}
 		if ( ! empty($user_info['profile_twitter'][0])){
-			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_twitter"][0].'"><i class="wpneo-icon wpneo-icon-twitter"></i></a>';
+			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_twitter"][0].'"><i class="wpneo-icon wpneo-icon-twitter"></i></a>';
 		}
 		if ( ! empty($user_info['profile_vk'][0])){
-			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_vk"][0].'"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
+			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_vk"][0].'"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
 		}
 		if ( ! empty($user_info['profile_linkedin'][0])){
-			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_linkedin"][0].'"><i class="wpneo-icon wpneo-icon-linkedin"></i></a>';
+			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_linkedin"][0].'"><i class="wpneo-icon wpneo-icon-linkedin"></i></a>';
 		}
 		if ( ! empty($user_info['profile_pinterest'][0])){
-			$html .= '<a class="wpneo-social-link" href="'.$user_info["profile_pinterest"][0].'"><i class="wpneo-icon wpneo-icon-pinterest"></i></a>';
+			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_pinterest"][0].'"><i class="wpneo-icon wpneo-icon-pinterest"></i></a>';
 		}
 		$html .= '</div>';
 

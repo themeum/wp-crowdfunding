@@ -1,9 +1,9 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-if (! class_exists('WPNEO_Frontend_Hook')) {
+if (! class_exists('WPCF_Frontend_Hook')) {
 
-    class WPNEO_Frontend_Hook {
+    class WPCF_Frontend_Hook {
 
         protected static $_instance;
         public static function instance() {
@@ -570,8 +570,8 @@ if (! class_exists('WPNEO_Frontend_Hook')) {
 }
 
 //Run this class now
-WPNEO_Frontend_Hook::instance();
+WPCF_Frontend_Hook::instance();
 function WPNEOCF(){
-    return WPNEO_Frontend_Hook::instance();
+    return WPCF_Frontend_Hook::instance();
 }
 $GLOBALS['WPNEOCF'] = WPNEOCF();

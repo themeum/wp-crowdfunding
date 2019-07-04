@@ -228,7 +228,7 @@ class Reward{
                 }
             }
 
-            if (wpcf_is_free()) {
+            if ( wpcf_function()->is_free() ) {
                 ?>
                 <p class="description"><?php _e('pro version is required to add more than 1 reward', 'wp-crowdfunding') ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank"> <?php _e('click here to get pro version', 'wp-crowdfunding') ?></a></p>
                 <?php
@@ -272,7 +272,7 @@ class Reward{
                 }
             }
             $data_json = json_encode( $data,JSON_UNESCAPED_UNICODE );
-            update_post_meta($post_id, 'wpneo_reward', $data_json);
+            wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
         }
     }
 

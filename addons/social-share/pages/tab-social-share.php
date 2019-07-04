@@ -1,8 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
-
+defined( 'ABSPATH' ) || exit;
 
 // #Social Share Settings (Tab Settings)
 $arr =  array(
@@ -54,4 +51,4 @@ $arr =  array(
                 'value'     => 'true',
             ),
 );
-wpcf_settings_generator( $arr );
+wpcf_function()->generator( $arr );

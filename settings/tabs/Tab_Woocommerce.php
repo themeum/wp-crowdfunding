@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-$pages = wpcf_get_published_pages();
+$pages = wpcf_function()->get_pages();
 $page_array = array();
 if (count($pages)>0) {
     foreach ($pages as $page) {
@@ -214,4 +214,4 @@ $arr =  array(
         'value'     => 'tab_woocommerce',
     ),
 );
-wpcf_settings_generator( apply_filters('wp_crowdfunding_wc_settings', $arr) );
+wpcf_function()->generator( apply_filters('wp_crowdfunding_wc_settings', $arr) );

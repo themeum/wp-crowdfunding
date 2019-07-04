@@ -11,13 +11,11 @@ class Dashboard {
     }
 
     function wpcf_dashboard_callback( $attr ) {
-        
         $html = '';
         $get_id = '';
         if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
         if ( is_user_logged_in() ) {
             $pagelink = get_permalink( get_the_ID() );
-
             $dashboard_menus = apply_filters('wpneo_crowdfunding_frontend_dashboard_menus', array(
                 'dashboard' =>
                     array(

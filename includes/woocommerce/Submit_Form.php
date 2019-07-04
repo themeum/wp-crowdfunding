@@ -121,21 +121,21 @@ class Submit_Form {
             }
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type',true );
 
-            update_post_meta($post_id, '_thumbnail_id', esc_attr($image_id));
-            update_post_meta($post_id, 'wpneo_funding_video', esc_url($video));
-            update_post_meta($post_id, '_nf_duration_start', esc_attr($start_date));
-            update_post_meta($post_id, '_nf_duration_end', esc_attr($end_date));
-            update_post_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($min_price));
-            update_post_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($max_price));
-            update_post_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
-            update_post_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
-            update_post_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
-            update_post_meta($post_id, 'wpneo_campaign_end_method', esc_attr($type));
-            update_post_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
-            update_post_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($contributor_show));
-            update_post_meta($post_id, 'wpneo_campaigner_paypal_id', esc_attr($paypal));
-            update_post_meta($post_id, 'wpneo_country', esc_attr($country));
-            update_post_meta($post_id, '_nf_location', esc_html($location));
+            wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
+            wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($start_date));
+            wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($end_date));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($min_price));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($max_price));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
+            wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
+            wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
+            wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($type));
+            wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
+            wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($contributor_show));
+            wpcf_function()->update_meta($post_id, 'wpneo_campaigner_paypal_id', esc_attr($paypal));
+            wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($country));
+            wpcf_function()->update_meta($post_id, '_nf_location', esc_html($location));
 
             //Saved repeatable rewards
             if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
@@ -162,7 +162,7 @@ class Submit_Form {
                     }
                 }
                 $data_json = json_encode($data,JSON_UNESCAPED_UNICODE);
-                update_post_meta($post_id, 'wpneo_reward', $data_json);
+                wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
             }
         }
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';

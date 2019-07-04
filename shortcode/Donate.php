@@ -35,7 +35,6 @@ class Donate {
                 <?php
                 if ($atts['show_input_box'] == 'true') {
                     echo get_woocommerce_currency_symbol(); ?>
-
                     <input type="number" step="any" min="0" placeholder="<?php echo $atts['amount']; ?>"
                         name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text"
                         value="<?php echo $atts['amount']; ?>" data-min-price="<?php echo $atts['min_amount'] ?>"
@@ -45,12 +44,10 @@ class Donate {
                     echo '<input type="hidden" name="wpneo_donate_amount_field" value="'.$atts['amount'].'" />';
                 }
                 ?>
-
                 <input type="hidden" value="<?php echo esc_attr($atts['campaign_id']); ?>" name="add-to-cart">
                 <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'wpneo_donate_button'); ?>">
                     <?php
                     echo $atts['donate_button_text'];
-
                     if ($atts['show_input_box'] != 'true'){
                         echo ' ('.wc_price($atts['amount']).') ';
                     }

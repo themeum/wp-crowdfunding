@@ -80,4 +80,4 @@ defined( 'ABSPATH' ) || exit;
                     'value'     => 'tab_style',
                     ),
     );
-    wpcf_settings_generator( $arr );
+    wpcf_function()->generator( $arr );

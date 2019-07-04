@@ -14,8 +14,8 @@
                 <div id="the-list">
 					<?php
 					foreach ( $addons as $basName => $addon ) {
-						$addonConfig = get_wpcf_addon_config($basName);
-                        $isEnable = (bool) wpcf_avalue_dot('is_enable', $addonConfig);
+						$addonConfig = wpcf_function()->addon_config($basName);
+                        $isEnable = (bool)wpcf_function()->avalue_dot('is_enable', $addonConfig);
 
 						$thumbnailURL =  WPCF_DIR_URL.'assets/images/wpcf-plugin.png';
 						if (file_exists($addon['path'].'assets/images/thumbnail.png') ){
@@ -53,7 +53,7 @@
                     <?php }
 
                     //PRO ADDONS LIST FOR DISPLAY
-                    if( wpcf_is_free() ) {
+                    if( wpcf_function()->is_free() ) {
                         $proAddons = array(
                             '2checkout' => array(
                                 'name'          => __( '2Checkout', 'wp-crowdfunding' ),
@@ -86,7 +86,7 @@
                         );
 
                         foreach ( $proAddons as $basName => $addon ) {
-                            $addonConfig = get_wpcf_addon_config($basName);
+                            $addonConfig = wpcf_function()->addon_config($basName);
     
                             $addons_path = trailingslashit(WPCF_DIR_PATH."assets/addons/{$basName}");
                             $addons_url = trailingslashit(WPCF_DIR_URL."assets/addons/{$basName}");

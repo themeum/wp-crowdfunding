@@ -15,7 +15,6 @@ final class Crowdfunding {
 	}
 
 	function __construct() {
-
 		$this->includes_core();
 		$this->include_shortcode();
 		$this->include_addons();
@@ -25,17 +24,28 @@ final class Crowdfunding {
 		do_action('wpcf_after_load');
 	}
 
+	// Include Core
+	public function includes_core() {
+		require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
+		require_once WPCF_DIR_PATH . 'settings/Admin_Menu.php';
+		new settings\Admin_Menu();
+	}
+
 	//Checking Vendor
 	public function run() {
-		if( wpcf_is_woocommerce() ) {
+		if( wpcf_function()->is_woocommerce() ) {
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
-				if ( wpcf_wc_version_check() ) {
-					require_once WPCF_DIR_PATH . 'includes/Base.php';
+				if ( wpcf_function()->wc_version() ) {
+					require_once WPCF_DIR_PATH . 'includes/woocommerce/Base.php';
+					require_once WPCF_DIR_PATH . 'includes/woocommerce/Common.php';
 					require_once WPCF_DIR_PATH . 'includes/woocommerce/Templating.php';
 					require_once WPCF_DIR_PATH . 'includes/woocommerce/Woocommerce.php';
-					require_once WPCF_DIR_PATH . 'includes/Actions.php';
-					Wpneo_Crowdfunding();
-					//Wpneo_Crowdfunding_Product_Search::instance();
+					require_once WPCF_DIR_PATH . 'includes/woocommerce/Actions.php';
+					new \WPCF\woocommerce\Base();
+					new \WPCF\woocommerce\Common();
+					new \WPCF\woocommerce\Templating();
+					new \WPCF\woocommerce\Woocommerce();
+					new \WPCF\woocommerce\Actions();
 				} else {
 					add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -46,14 +56,6 @@ final class Crowdfunding {
 		}else{
 			// Local Code
 		}
-	}
-
-
-	// Include Core
-	public function includes_core() {
-		require_once WPCF_DIR_PATH . 'includes/General_Functions.php';
-		require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
-		require_once WPCF_DIR_PATH . 'settings/Menu_Settings.php';
 	}
 
 	// Include Shortcode

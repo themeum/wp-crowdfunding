@@ -12,10 +12,10 @@ class Popular_Campaigns {
 
     function wpcf_popular_campaigns_callback( $atts, $shortcode ){
         $atts = shortcode_atts( array(
-            'limit' => 4,
-            'column' => 4,
-            'order' => 'DESC',
-            'class' => '',
+            'limit'     => 4,
+            'column'    => 4,
+            'order'     => 'DESC',
+            'class'     => '',
         ), $atts, $shortcode );
 
         $args = array(

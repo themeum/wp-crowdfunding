@@ -47,11 +47,11 @@ class Init {
     public function wpcf_social_share_save_settings(){
         if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpcf_varify_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
             // Checkbox
-            $embed_share = sanitize_text_field(wpcf_post('wpcf_embed_share'));
-            wpcf_update_checkbox('wpcf_embed_share', $embed_share);
+            $embed_share = sanitize_text_field(wpcf_function()->post('wpcf_embed_share'));
+            wpcf_function()->update_checkbox('wpcf_embed_share', $embed_share);
 
-            $social_share = wpcf_post('wpcf_social_share');
-            wpcf_update_checkbox('wpcf_social_share', $social_share);
+            $social_share = wpcf_function()->post('wpcf_social_share');
+            wpcf_function()->update_checkbox('wpcf_social_share', $social_share);
 
         }
     }

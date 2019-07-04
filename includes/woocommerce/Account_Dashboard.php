@@ -9,12 +9,12 @@ class Account_Dashboard {
         add_action( 'init',                                                 array( $this, 'wpcf_endpoints') );
         add_filter( 'query_vars',                                           array( $this, 'wpcf_query_vars'), 0 );
         add_filter( 'woocommerce_account_menu_items',                       array( $this, 'wpcf_menu_items') );
-        add_action( 'woocommerce_account_crowdfunding-dashboard_endpoint',  array( $this, 'wpcf_dashboard_content' ) );
-        add_action( 'woocommerce_account_profile_endpoint',                 array( $this, 'wpcf_profile_content') );
-        add_action( 'woocommerce_account_my-campaigns_endpoint',            array( $this, 'wpcf_my_campaigns_content') );
-        add_action( 'woocommerce_account_backed-campaigns_endpoint',        array( $this, 'wpcf_backed_campaigns_content') );
-        add_action( 'woocommerce_account_pledges-received_endpoint',        array( $this, 'wpcf_pledges_received_content') );
-        add_action( 'woocommerce_account_bookmarks_endpoint',               array( $this, 'wpcf_bookmarks_content') );
+        add_action( 'woocommerce_account_crowdfunding-dashboard_endpoint',  array( $this, 'dashboard_callback' ) );
+        add_action( 'woocommerce_account_profile_endpoint',                 array( $this, 'profile_callback') );
+        add_action( 'woocommerce_account_my-campaigns_endpoint',            array( $this, 'campaigns_callback') );
+        add_action( 'woocommerce_account_backed-campaigns_endpoint',        array( $this, 'backed_campaigns_callback') );
+        add_action( 'woocommerce_account_pledges-received_endpoint',        array( $this, 'pledges_received_coallback') );
+        add_action( 'woocommerce_account_bookmarks_endpoint',               array( $this, 'bookmarks_callback') );
     }
 
 
@@ -55,42 +55,42 @@ class Account_Dashboard {
 
 
     // Crowdfunding Dashboard
-    public function wpcf_dashboard_content() {
+    public function dashboard_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php';
         echo $html;
     }
 
     // Profile
-    public function wpcf_profile_content() {
+    public function profile_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php';
         echo $html;
     }
 
     // My Profile
-    public function wpcf_my_campaigns_content() {
+    public function campaigns_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php';
         echo $html;
     }
 
     // Backed Campaigns
-    public function wpcf_backed_campaigns_content() {
+    public function backed_campaigns_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php';
         echo $html;
     }
 
     // Pledges Received
-    public function wpcf_pledges_received_content() {
+    public function pledges_received_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php';
         echo $html;
     }
 
     // Bookmarks
-    public function wpcf_bookmarks_content() {
+    public function bookmarks_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php';
         echo $html;

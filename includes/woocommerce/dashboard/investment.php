@@ -1,5 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
+
 $html .= '<div class="wpneo-content">';
 $html .= '<div class="wpneo-form campaign-listing-page">';
 
@@ -27,9 +28,9 @@ if( is_array( $id_array ) ){
         global $wpdb;
         $prefix = $wpdb->prefix;
         $query = "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi 
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim 
-						ON woim.order_item_id = oi.order_item_id 
-						WHERE woim.meta_key='_product_id' AND woim.meta_value IN ( {$id_array} )";
+                    LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim 
+                    ON woim.order_item_id = oi.order_item_id 
+                    WHERE woim.meta_key='_product_id' AND woim.meta_value IN ( {$id_array} )";
         $order_ids = $wpdb->get_col( $query );
     }
 }

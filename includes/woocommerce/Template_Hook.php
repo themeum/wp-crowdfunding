@@ -22,25 +22,25 @@ add_action( 'wpneo_crowdfunding_single_campaign_summary' , 'wpneo_crowdfunding_c
  * @v. 10.9
  */
 
-add_action( 'wp', 'wpneo_crowdfunding_singlepage_custom' );
+// add_action( 'wp', 'wpneo_crowdfunding_singlepage_custom' );
 
-function wpneo_crowdfunding_singlepage_custom(){
-    if (is_product()){
-        global $post;
-        $product = wc_get_product($post->ID);
-        if ($product->get_type() == 'crowdfunding'){
-            //add_action( 'woocommerce_single_product_summary' , 'wpneo_crowdfunding_template_campaign_author');
-            //add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_loop_item_rating_html', 20);
-            add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_single_fund_raised_html', 20);
-            add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_single_loop_item_fund_raised_percent', 20);
-            add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_single_fund_this_campaign_btn', 20);
-            add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_template_campaign_location', 20);
-            add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_creator_info', 20);
+// function wpneo_crowdfunding_singlepage_custom(){
+//     if (is_product()){
+//         global $post;
+//         $product = wc_get_product($post->ID);
+//         if ($product->get_type() == 'crowdfunding'){
+//             //add_action( 'woocommerce_single_product_summary' , 'wpneo_crowdfunding_template_campaign_author');
+//             //add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_loop_item_rating_html', 20);
+//             add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_single_fund_raised_html', 20);
+//             add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_single_loop_item_fund_raised_percent', 20);
+//             add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_single_fund_this_campaign_btn', 20);
+//             add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_template_campaign_location', 20);
+//             add_action('woocommerce_single_product_summary', 'wpneo_crowdfunding_campaign_creator_info', 20);
 
-            add_filter('woocommerce_single_product_image_html', 'wpneo_crowdfunding_overwrite_product_feature_image', 20);
-        }
-    }
-}
+//             add_filter('woocommerce_single_product_image_html', 'wpneo_crowdfunding_overwrite_product_feature_image', 20);
+//         }
+//     }
+// }
 
 /**
  * ##ENd Campaign Template hook

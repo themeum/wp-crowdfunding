@@ -1,17 +1,17 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$id 		= get_current_user_id();
+$id 		    = get_current_user_id();
 // Billing Data
-$f_name 	= get_user_meta( $id,'shipping_first_name',true );
-$l_name 	= get_user_meta( $id,'shipping_last_name',true );
-$company 	= get_user_meta( $id,'shipping_company',true );
-$address1 	= get_user_meta( $id,'shipping_address_1',true );
-$address2 	= get_user_meta( $id,'shipping_address_2',true );
-$city 		= get_user_meta( $id,'shipping_city',true );
-$postcode 	= get_user_meta( $id,'shipping_postcode',true );
-$country 	= get_user_meta( $id,'shipping_country',true );
-$state 		= get_user_meta( $id,'shipping_state',true );
+$f_name 	    = get_user_meta( $id,'shipping_first_name',true );
+$l_name 	    = get_user_meta( $id,'shipping_last_name',true );
+$company 	    = get_user_meta( $id,'shipping_company',true );
+$address1 	    = get_user_meta( $id,'shipping_address_1',true );
+$address2 	    = get_user_meta( $id,'shipping_address_2',true );
+$city 		    = get_user_meta( $id,'shipping_city',true );
+$postcode 	    = get_user_meta( $id,'shipping_postcode',true );
+$country 	    = get_user_meta( $id,'shipping_country',true );
+$state 		    = get_user_meta( $id,'shipping_state',true );
 // Shipping Data
 $b_f_name       = get_user_meta( $id,'billing_first_name',true );
 $b_l_name       = get_user_meta( $id,'billing_last_name',true );
@@ -286,9 +286,7 @@ ob_start();
 
         </div>
 
-
         <?php echo wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false ); ?>
-
 
 		<!-- //Save Button -->
         <div class="wpneo-buttons-group float-right">

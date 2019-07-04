@@ -21,7 +21,7 @@ global $post, $woocommerce, $product;
                 /**
                  * WooCommerce deprecated support since @var 3.0
                  */
-                if (wpcf_wc_version_check()) {
+                if (wpcf_function()->wc_version()) {
                     $attachment_count = $product->get_gallery_image_ids();
                 }else{
                     $attachment_count = count($product->get_gallery_attachment_ids());
