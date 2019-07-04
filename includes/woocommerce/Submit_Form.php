@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 class Submit_Form {
 
     public function __construct() {
-        add_action( 'wp_ajax_addfrontenddata', array($this, 'wpcf_frontend_data_save')); // Save data for frontend campaign submit form
+        add_action( 'wp_ajax_addfrontenddata', array($this, 'frontend_data_save')); // Save data for frontend campaign submit form
     }
 
     /**
@@ -26,12 +26,12 @@ class Submit_Form {
     }
 
     /**
-     * @wpcf_frontend_data_save()
+     * @frontend_data_save()
      *
      * Save
      */
 
-    function wpcf_frontend_data_save(){
+    function frontend_data_save(){
 
         global $wpdb;
         $title = $description = $category = $tag = $image_id = $video = $start_date = '';

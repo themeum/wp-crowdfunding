@@ -6,21 +6,21 @@ defined( 'ABSPATH' ) || exit;
 class Reward{
 
     public function __construct(){
-        add_filter('woocommerce_product_data_tabs',     array($this, 'wpcf_reward_tabs'));
-        add_action('woocommerce_product_data_panels',   array($this, 'wpcf_reward_content'));
-        add_action('woocommerce_process_product_meta',  array($this, 'wpcf_reward_action'));
+        add_filter('woocommerce_product_data_tabs',     array($this, 'reward_tabs'));
+        add_action('woocommerce_product_data_panels',   array($this, 'reward_content'));
+        add_action('woocommerce_process_product_meta',  array($this, 'reward_action'));
 
         //Show reward in woocommerce order details
-        add_action('woocommerce_order_details_after_order_table', array($this, 'wpcf_selected_reward_in_order_view'));
-        add_action('woocommerce_review_order_after_cart_contents', array($this, 'wpcf_selected_reward_in_order_review'));
-        //add_filter('the_content', array($this, 'wpcf_show_reward_in_general_tab'));
+        add_action('woocommerce_order_details_after_order_table', array($this, 'selected_reward_in_order_view'));
+        add_action('woocommerce_review_order_after_cart_contents', array($this, 'selected_reward_in_order_review'));
+        //add_filter('the_content', array($this, 'show_reward_in_general_tab'));
     }
 
     /*
     * Add Reward tab (Woocommerce).
     * Only show if type "Crowdfunding" Selected
     */
-    function wpcf_reward_tabs($tabs){
+    function reward_tabs($tabs){
         $tabs['reward'] = array(
             'label'     => __('Reward', 'wp-crowdfunding'),
             'target'    => 'reward_options',
@@ -33,7 +33,7 @@ class Reward{
     * Add Reward tab Content(Woocommerce).
     * Only show the fields under Reward Tab
     */
-    function wpcf_reward_content($post_id){
+    function reward_content($post_id){
         global $post;
 
         $var = get_post_meta($post->ID, 'wpneo_reward', true);
@@ -246,7 +246,7 @@ class Reward{
     * Save Reward tab Data(Woocommerce).
     * Update Post Meta for Reward Tab
     */
-    function wpcf_reward_action($post_id){
+    function reward_action($post_id){
         if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
 
             $wpneo_rewards_pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
@@ -281,7 +281,7 @@ class Reward{
      *
      * Show selected reward
      */
-    public function wpcf_selected_reward_view($order){
+    public function selected_reward_in_order_view($order){
         $order_id = $order->get_id();
         $html = '';
 
@@ -299,7 +299,7 @@ class Reward{
         echo $html;
     }
 
-    public function wpcf_selected_reward_in_order_review(){
+    public function selected_reward_in_order_review(){
         $rewards_data = WC()->session->get('wpneo_rewards_data');
         $reward_data = isset($rewards_data['wpneo_selected_rewards_checkout']) ? $rewards_data['wpneo_selected_rewards_checkout'] : array();
         if (is_array($reward_data) && count($reward_data) ) {
@@ -321,7 +321,7 @@ class Reward{
         }
     }
 
-    public function wpcf_show_reward_in_general_tab($content){
+    public function show_reward_in_general_tab($content){
         if (is_product()) {
             global $post;
             $product = wc_get_product($post->ID);

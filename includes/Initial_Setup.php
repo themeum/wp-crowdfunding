@@ -12,14 +12,14 @@ if (! class_exists('WPCF_Initial_Setup')) {
             if (get_option('wpneo_crowdfunding_is_used')) { // Check is plugin used before or not
                 return false;
             }
-            self::wpcf_update_option();
-            self::wpcf_insert_page();
+            self::update_option();
+            self::insert_page();
         }
 
         /**
          * Insert settings option data
          */
-        public function wpcf_update_option() {
+        public function update_option() {
             $init_setup_data = array(
                 'wpneo_crowdfunding_is_used' => WPCF_VERSION,
                 'wpneo_cf_selected_theme' => 'basic',
@@ -69,7 +69,7 @@ if (! class_exists('WPCF_Initial_Setup')) {
         /**
          * Insert menu page
          */
-        public function wpcf_insert_page() {
+        public function insert_page() {
             // Create page object
             $dashboard = array(
                 'post_title'    => 'CF Dashboard',
@@ -116,8 +116,8 @@ if (! class_exists('WPCF_Initial_Setup')) {
         /**
          * Reset method, the ajax will call that method for Reset Settings
          */
-        public function wpcf_settings_reset() {
-            self::wpcf_update_option();
+        public function settings_reset() {
+            self::update_option();
         }
 
         /**

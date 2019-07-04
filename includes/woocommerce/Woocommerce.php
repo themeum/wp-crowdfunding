@@ -18,22 +18,22 @@ class Woocommerce {
         $this->includes();
 
         add_action( 'plugins_loaded',                                   array($this, 'includes')); //Include all of resource to the plugin 
-        add_filter( 'product_type_selector',                            array($this, 'wpneo_product_type_selector')); //Added one more product type in woocommerce product
-        add_action( 'init',                                             array($this, 'wpneo_register_product_type') ); //Initialized the product type class
-        add_action( 'woocommerce_product_options_general_product_data', array($this, 'wpneo_add_meta_info')); //Additional Meta form for crowdfunding campaign
+        add_filter( 'product_type_selector',                            array($this, 'product_type_selector')); //Added one more product type in woocommerce product
+        add_action( 'init',                                             array($this, 'register_product_type') ); //Initialized the product type class
+        add_action( 'woocommerce_product_options_general_product_data', array($this, 'add_meta_info')); //Additional Meta form for crowdfunding campaign
         add_action( 'add_meta_boxes',                                   array($this, 'add_campaign_update' ), 30 );
-        add_action( 'woocommerce_process_product_meta',                 array($this, 'wpneo_update_status_save')  ); //Save update status for this campaign with product
-        add_action( 'woocommerce_process_product_meta',                 array($this, 'wpneo_funding_custom_field_save')); //Additional meta action, save right this way
-        add_filter( 'woocommerce_add_cart_item',                        array($this, 'wpneo_save_user_donation_to_cookie'), 10, 3 ); //Filter cart item and save donation amount into cookir if product type crowdfunding
-        add_action( 'woocommerce_before_calculate_totals',              array($this, 'wpneo_add_user_donation')); //Save user input as there preferable amount with cart
-        add_filter( 'woocommerce_add_to_cart_redirect',                 array($this, 'wpneo_redirect_to_checkout')); //Skip cart page after click Donate button, going directly on checkout page
-        add_filter( 'woocommerce_coupons_enabled',                      array($this, 'wpneo_wc_coupon_disable')); //Hide coupon form on checkout page
-        add_filter( 'woocommerce_get_price_html',                       array($this, 'wpneo_wc_price_remove'), 10, 2 ); //Hide default price details
+        add_action( 'woocommerce_process_product_meta',                 array($this, 'update_status_save')  ); //Save update status for this campaign with product
+        add_action( 'woocommerce_process_product_meta',                 array($this, 'custom_field_save')); //Additional meta action, save right this way
+        add_filter( 'woocommerce_add_cart_item',                        array($this, 'save_user_donation_to_cookie'), 10, 3 ); //Filter cart item and save donation amount into cookir if product type crowdfunding
+        add_action( 'woocommerce_before_calculate_totals',              array($this, 'add_user_donation')); //Save user input as there preferable amount with cart
+        add_filter( 'woocommerce_add_to_cart_redirect',                 array($this, 'redirect_to_checkout')); //Skip cart page after click Donate button, going directly on checkout page
+        add_filter( 'woocommerce_coupons_enabled',                      array($this, 'wc_coupon_disable')); //Hide coupon form on checkout page
+        add_filter( 'woocommerce_get_price_html',                       array($this, 'wc_price_remove'), 10, 2 ); //Hide default price details
         add_filter( 'woocommerce_is_purchasable',                       array($this, 'return_true_woocommerce_is_purchasable'), 10, 2 ); // Return true is purchasable
-        add_filter( 'woocommerce_paypal_args',                          array($this, 'wpneo_custom_override_paypal_email'), 100, 1); // Override paypal reciever email address with campaign creator email
-        add_action( 'woocommerce_add_to_cart_validation',               array($this, 'wpneo_remove_crowdfunding_item_from_cart'), 10, 5); // Remove crowdfunding item from cart
-        add_action( 'woocommerce_new_order',                            array($this, 'wpneo_crowdfunding_order_type')); // Track is this product crowdfunding.
-        add_filter( 'woocommerce_checkout_fields' ,                     array($this, 'wpneo_override_checkout_fields') ); // Remove billing address from the checkout page
+        add_filter( 'woocommerce_paypal_args',                          array($this, 'custom_override_paypal_email'), 100, 1); // Override paypal reciever email address with campaign creator email
+        add_action( 'woocommerce_add_to_cart_validation',               array($this, 'remove_crowdfunding_item_from_cart'), 10, 5); // Remove crowdfunding item from cart
+        add_action( 'woocommerce_new_order',                            array($this, 'crowdfunding_order_type')); // Track is this product crowdfunding.
+        add_filter( 'woocommerce_checkout_fields' ,                     array($this, 'override_checkout_fields') ); // Remove billing address from the checkout page
         add_action('woocommerce_review_order_before_payment',           array($this, 'check_anonymous_backer'));
         add_action('woocommerce_checkout_order_processed',              array($this, 'check_anonymous_backer_post'));
         add_action('woocommerce_new_order_item',                        array($this, 'crowdfunding_new_order_item'), 10, 3);
@@ -70,7 +70,7 @@ class Woocommerce {
     /**
      * Remove billing address from the checkout page
      */
-    function wpneo_override_checkout_fields( $fields ) {
+    function override_checkout_fields( $fields ) {
 
         global $woocommerce;
         $crowdfunding_found = '';
@@ -110,7 +110,7 @@ class Woocommerce {
      *
      * Added a product type in woocommerce
      */
-    function wpneo_product_type_selector($product_type){
+    function product_type_selector($product_type){
         $product_type['crowdfunding'] = __( 'Crowdfunding', 'wp-crowdfunding' );
         return $product_type;
     }
@@ -118,7 +118,7 @@ class Woocommerce {
     /**
      * Registering Crowdfunding product type in product post woocommerce
      */
-    public function wpneo_register_product_type() {
+    public function register_product_type() {
         require_once WPCF_DIR_PATH.'includes/woocommerce/WC_Product_Type.php';
     }
 
@@ -135,7 +135,7 @@ class Woocommerce {
     }
 
 
-    function wpneo_add_meta_info(){
+    function add_meta_info(){
 
         global $woocommerce;
 
@@ -423,7 +423,7 @@ class Woocommerce {
      *
      * Save Update at Meta Data
      */
-    public function wpneo_update_status_save($post_id){
+    public function update_status_save($post_id){
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
             
             $wpneo_prject_update_title_field = $_POST['wpneo_prject_update_title_field'];
@@ -452,7 +452,7 @@ class Woocommerce {
      * @param $post_id
      * Saving meta information over this method
      */
-    function wpneo_funding_custom_field_save($post_id ){
+    function custom_field_save($post_id ){
 
         // _neo_crowdfunding_product_type
         $_neo_crowdfunding_product_type = sanitize_text_field(wpcf_function()->post('_neo_crowdfunding_product_type'));
@@ -521,9 +521,9 @@ class Woocommerce {
 
 
     /**
-     * wpneo_donate_input_field();
+     * donate_input_field();
      */
-    function wpneo_donate_input_field()
+    function donate_input_field()
     {
         global $post, $woocommerce;
         $product = wc_get_product( $post->ID );
@@ -558,7 +558,7 @@ class Woocommerce {
     /**
      * Remove Crowdfunding item form cart
      */
-    public function wpneo_remove_crowdfunding_item_from_cart($passed, $product_id, $quantity, $variation_id = '', $variations= '') {
+    public function remove_crowdfunding_item_from_cart($passed, $product_id, $quantity, $variation_id = '', $variations= '') {
         global $woocommerce;
         $product = wc_get_product($product_id);
 
@@ -582,7 +582,7 @@ class Woocommerce {
      *
      * Save user input donation into cookie
      */
-    function wpneo_save_user_donation_to_cookie( $array, $int ) {
+    function save_user_donation_to_cookie( $array, $int ) {
         if ($array['data']->get_type() == 'crowdfunding'){
             if ( ! empty($_POST['wpneo_donate_amount_field'])){
                 if (is_user_logged_in()){
@@ -627,7 +627,7 @@ class Woocommerce {
      * Get donation amount from cookie. Add user input base donation amount to cart
      */
 
-    function wpneo_add_user_donation(){
+    function add_user_donation(){
         global $woocommerce;
         foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
             if ($cart_item['data']->get_type() == 'crowdfunding') {
@@ -645,7 +645,7 @@ class Woocommerce {
     /**
      * Redirect to checkout after cart
      */
-    function wpneo_redirect_to_checkout($url) {
+    function redirect_to_checkout($url) {
         global $woocommerce, $product;
 
         if (! empty($_REQUEST['add-to-cart'])){
@@ -675,7 +675,7 @@ class Woocommerce {
     /**
      * Disabled coupon system from system
      */
-    function wpneo_wc_coupon_disable( $coupons_enabled ) {
+    function wc_coupon_disable( $coupons_enabled ) {
         global $woocommerce;
         $items = $woocommerce->cart->get_cart();
         $type = true;
@@ -698,7 +698,7 @@ class Woocommerce {
      * reove price html for crowdfunding campaign
      */
 
-    function wpneo_wc_price_remove( $price, $product ) {
+    function wc_price_remove( $price, $product ) {
         $target_product_types = array( 'crowdfunding' );
         if ( in_array ( $product->get_type(), $target_product_types ) ) {
             // if variable product return and empty string
@@ -730,7 +730,7 @@ class Woocommerce {
      *
      * get PayPal email address from campaign
      */
-    public function wpneo_get_paypal_reciever_email_address() {
+    public function get_paypal_reciever_email_address() {
         global $woocommerce;
         foreach ($woocommerce->cart->cart_contents as $item) {
             $emailid = get_post_meta($item['product_id'], 'wpneo_campaigner_paypal_id', true);
@@ -750,9 +750,9 @@ class Woocommerce {
         }
     }
 
-    public function wpneo_custom_override_paypal_email($paypal_args) {
+    public function custom_override_paypal_email($paypal_args) {
         global $woocommerce;
-        $paypal_args['business'] = $this->wpneo_get_paypal_reciever_email_address();
+        $paypal_args['business'] = $this->get_paypal_reciever_email_address();
         return $paypal_args;
     }
 
@@ -761,7 +761,7 @@ class Woocommerce {
      * 
      * Save order reward if any with order meta
      */
-    public function wpneo_crowdfunding_order_type($order_id){
+    public function crowdfunding_order_type($order_id){
         global $woocommerce;
 
         if( WC()->session != null ) {
