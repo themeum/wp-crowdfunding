@@ -49,8 +49,7 @@ if( !class_exists( 'Crowdfunding' ) ) {
     new \WPCF\Crowdfunding();
 }
 
-
-function wpcf_function(){
+function wpcf_function() {
     require_once WPCF_DIR_PATH . 'includes/Functions.php';
 	return new \WPCF\Functions();
 }
