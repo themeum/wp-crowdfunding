@@ -9,7 +9,7 @@ function author_name_by_login($author_login){
     return wpcf_function()->author_name_by_login($author_login);
 }
 
-function wpneo_crowdfunding_get_campaign_location(){
+function wpneo_crowdfunding_get_campaigns_location(){
     return wpcf_function()->campaign_location();
 }
 
@@ -58,4 +58,12 @@ function wpneo_crowdfunding_load_template($template = '404'){
 
 function wpneo_crowdfunding_pagination($page_numb, $max_page) {
     return wpcf_function()->pagination($page_numb, $max_page);
+}
+
+function wpneo_wc_version_check($version = '3.0') {
+    return wpcf_function()->wc_version($version = '3.0');
+}
+
+function wpneo_crowdfunding_campaign_single_love_this() {
+    return wpcf_function()->campaign_single_love_this();
 }

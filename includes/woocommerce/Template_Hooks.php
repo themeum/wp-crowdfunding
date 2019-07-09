@@ -149,18 +149,6 @@ class Template_Hooks {
 		wpcf_function()->template('include/fund-campaign-btn');
 	}
 
-	public function wpneo_crowdfunding_campaign_single_love_this() {
-		global $post;
-		if (is_product()){
-			if( function_exists('get_product') ){
-				$product = wc_get_product( $post->ID );
-				if( $product->is_type( 'crowdfunding' ) ){
-					wpcf_function()->template('include/love_campaign');
-				}
-			}
-		}
-	}
-
 	public function single_campaign_tabs( $tabs = array() ) {
 		global $product, $post;
 

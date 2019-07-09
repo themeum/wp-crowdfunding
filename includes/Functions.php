@@ -70,10 +70,6 @@ class Functions {
     }
     
 
-    // wpcf_function()->wc_version();
-    public function wpcf_wc_version_check($version = '3.0'){ //@compatibility
-        $this->version_check( $version );
-    }
     public function wc_version($version = '3.0'){
         if (class_exists('WooCommerce')) {
             global $woocommerce;
@@ -301,8 +297,9 @@ class Functions {
 
 		if (file_exists($locate_file)){
 			include $locate_file;
-		}
-		include $template_class->_theme_in_plugin_path.$template.'.php';
+		} else { 
+            include $template_class->_theme_in_plugin_path.$template.'.php';
+        }
     }
 
 
@@ -474,6 +471,18 @@ class Functions {
 		));
 		$html .= '</div>';
 		return $html;
+    }
+    
+    public function campaign_single_love_this() {
+		global $post;
+		if (is_product()){
+			if( function_exists('get_product') ){
+				$product = wc_get_product( $post->ID );
+				if( $product->is_type( 'crowdfunding' ) ){
+					wpcf_function()->template('include/love_campaign');
+				}
+			}
+		}
 	}
 
     
