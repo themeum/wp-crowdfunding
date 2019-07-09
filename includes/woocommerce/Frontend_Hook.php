@@ -41,7 +41,7 @@ if (! class_exists('WPCF_Frontend_Hook')) {
             $enddate        = get_post_meta( $post->ID, '_nf_duration_end', true );
 
             //Get Country name from WooCommerce
-            $countries_obj  = new WC_Countries();
+            $countries_obj  = new \WC_Countries();
             $countries      = $countries_obj->__get('countries');
 
             $country_name = '';

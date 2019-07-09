@@ -55,3 +55,7 @@ function wpneo_crowdfunding_campaign_listing_by_author_url($user_login){
 function wpneo_crowdfunding_load_template($template = '404'){
     return wpcf_function()->template($template);
 }
+
+function wpneo_crowdfunding_pagination($page_numb, $max_page) {
+    return wpcf_function()->pagination($page_numb, $max_page);
+}

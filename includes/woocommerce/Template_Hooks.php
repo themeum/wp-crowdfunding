@@ -227,6 +227,16 @@ class Template_Hooks {
 		wpcf_function()->template('include/creator-info');
 	}
 
+	public function overwrite_product_feature_image($img_html) {
+		global $post;
+		$url = trim(get_post_meta($post->ID, 'wpneo_funding_video', true));
+		if ( !empty($url) ) {
+			wpneo_crowdfunding_embeded_video( $url );
+		} else {
+			return $img_html;
+		}
+	}
+
 
 	public function wpneo_crowdfunding_wc_toggle_login_form(){
 		$html = '';
