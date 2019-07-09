@@ -50,16 +50,14 @@ $the_query = new WP_Query( $args );
                     <h4><a href="<?php  echo get_permalink(); ?> "><?php echo get_the_title(); ?></a></h4>
                     
                     <!-- author -->
-                    <?php $author_name = wpneo_crowdfunding_get_author_name(); ?>
                     <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 
-                        <a href="<?php echo wpneo_crowdfunding_campaign_listing_by_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo $author_name; ?></a>
+                        <a href="<?php echo wpcf_function()->author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->author_name(); ?></a>
                     </p>
 
                     <!-- location -->
-                    <?php $location = wpneo_crowdfunding_get_campaigns_location(); ?>
                     <div class="wpneo-location">
                         <i class="wpneo-icon wpneo-icon-location fdffgdg"></i>
-                        <div class="wpneo-meta-desc"><?php echo $location; ?></div>
+                        <div class="wpneo-meta-desc"><?php echo wpcf_function()->campaign_location(); ?></div>
                     </div>
                 </div>
                 <div class="wpneo-admin-location float-right">
@@ -148,7 +146,7 @@ else :
     $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
 endif;
 
-$html .= wpcf_pagination( $page_numb , $the_query->max_num_pages );
+$html .= wpcf_function()->pagination( $page_numb , $the_query->max_num_pages );
 
 $html .= '<div style="clear: both;"></div>';
 $html .= '</div>';

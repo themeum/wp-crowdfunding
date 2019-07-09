@@ -44,7 +44,7 @@ class Single_Campaign {
 
         while ( $single_product->have_posts() ) {
             $single_product->the_post();
-            wpneo_crowdfunding_load_template('single-crowdfunding-content-only');
+            wpcf_function()->template('single-crowdfunding-content-only');
         }
 
         // restore $previous_wp_query and reset post data.

@@ -1,9 +1,9 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-?>
-<?php if (wpneo_crowdfunding_get_campaigns_location()){ ?>
+$location = wpcf_function()->campaign_location();
+if ($location){ ?>
     <div class="wpneo-location-wrapper">
         <i class="wpneo-icon wpneo-icon-location"></i>
-        <span><?php echo wpneo_crowdfunding_get_campaigns_location(); ?></span>
+        <span><?php echo $location; ?></span>
     </div>
 <?php } ?>

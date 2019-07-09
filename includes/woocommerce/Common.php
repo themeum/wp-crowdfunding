@@ -78,7 +78,7 @@ class Common {
 
             $json_update_campaign_ids = json_encode($loved_campaign_ids);
             update_user_meta($user_id, 'loved_campaign_ids', $json_update_campaign_ids);
-            die(json_encode(array('success'=> 1, 'message' => __('Campaign has been deleted', 'wp-crowdfunding'), 'return_html' => is_campaign_loved_html(false) )));
+            die(json_encode(array('success'=> 1, 'message' => __('Campaign has been deleted', 'wp-crowdfunding'), 'return_html' => wpcf_function()->campaign_loved(false) )));
         }
     }
 
@@ -112,7 +112,7 @@ class Common {
         if(!isset( $wp_query->query['campaigns'] ))
             return $templates;
 
-        $templates = wpneo_crowdfunding_template('author-campaigns');
+        $templates = wpcf_function()->template('author-campaigns');
 
         return $templates;
     }

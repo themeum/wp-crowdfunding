@@ -45,7 +45,7 @@ $baker_list = WPNEOCF()->getCustomersByProduct();
                 </td>
                 <td>
                     <?php
-                        echo wpneo_crowdfunding_price($order->get_total());
+                        echo wpcf_function()->price($order->get_total());
                     ?>
                 </td>
                 <td><?php echo date('F d, Y', strtotime($order->get_date_created())); ?></td>

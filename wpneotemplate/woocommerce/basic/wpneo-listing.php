@@ -29,13 +29,13 @@ $number = array( "2"=>"two","3"=>"three","4"=>"four" );
                 <?php $i++; endwhile; ?>
             <?php
             else:
-                wpneo_crowdfunding_load_template('include/loop/no-campaigns-found');
+                wpcf_function()->template('include/loop/no-campaigns-found');
             endif;
             ?>
         </div>
-        <?php do_action('wpneo_campaign_listing_after_loop'); ?>
-        <?php
-        wpneo_crowdfunding_load_template('include/pagination');
+        <?php 
+            do_action('wpneo_campaign_listing_after_loop');
+            wpcf_function()->template('include/pagination');
         ?>
     </div>
 </div>

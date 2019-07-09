@@ -47,7 +47,7 @@ ob_start(); ?>
                 <p><?php _e('Sorry, No bookmark found.', 'wp-crowdfunding'); ?></p>
             <?php endif; ?>
         </div>
-        <?php echo wpcf_pagination($page_numb, $the_query->max_num_pages); ?>
+        <?php echo wpcf_function()->pagination($page_numb, $the_query->max_num_pages); ?>
     </div>
 </div>
 

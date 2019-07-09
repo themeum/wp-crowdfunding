@@ -31,9 +31,6 @@ class Base {
 
         add_action('admin_enqueue_scripts',            array($this, 'admin_script')); //Add Additional backend js and css
         add_action('wp_enqueue_scripts',               array($this, 'frontend_script')); //Add frontend js and css
-        
-        add_action('init',                             array($this, 'load_functions')); //Load all wpneo crowdfunding functions to init
-        add_action('init',                             array($this, 'template_hook'));
 
         add_action('init',                             array($this, 'media_pluggable')); //EE
         add_action('admin_init',                       array($this, 'network_disable_notice' ));
@@ -107,15 +104,6 @@ class Base {
             add_filter( 'mce_external_plugins', array($this, 'add_tinymce_js') );
             add_filter( 'mce_buttons', array($this, 'register_mce_button') );
         }
-    }
-
-
-    public function load_functions(){
-        require_once WPCF_DIR_PATH.'includes/woocommerce/Template_Functions.php';
-    }
-
-    public function template_hook(){
-        require_once WPCF_DIR_PATH.'includes/woocommerce/Template_Hook.php';
     }
 
     public function admin_script(){

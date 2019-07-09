@@ -187,7 +187,7 @@ class Dashboard{
                 $html .='<td>'.__("Raised", "wp-crowdfunding").'</td>';
                 $html .='<td>';
                     $html .='<span class="label-warning">';
-                        $raised_total = wpneo_crowdfunding_get_total_fund_raised_by_campaign();
+                        $raised_total = wpcf_function()->fund_raised();
                         $html .= $raised_total ? wc_price($raised_total) : wc_price(0);
                     $html .='</span>';
                 $html .='</td>';

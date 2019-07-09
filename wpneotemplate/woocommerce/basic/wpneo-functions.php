@@ -4,11 +4,10 @@ defined( 'ABSPATH' ) || exit;
 add_action('wpneo_campaign_listing_before_loop', 'campaign_listing_by_author_before_loop');
 function campaign_listing_by_author_before_loop(){
 	if (! empty($_GET['author'])) {
-		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.wpneo_crowdfunding_get_author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
+		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
 	}
-
 }
-add_action('woocommerce_product_thumbnails', 'wpneo_crowdfunding_campaign_single_love_this');
+// add_action('woocommerce_product_thumbnails', 'wpneo_crowdfunding_campaign_single_love_this');
 
 function wpneo_campaign_order_number_data( $min_data, $max_data, $post_id ){
 	global $woocommerce, $wpdb;
@@ -69,13 +68,14 @@ function wpneo_bio_campaign_action(){
 		}
 		$html .= '</div>';
 		$html .= '<div class="wpneo-profile">';
-		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaigns_url($creator->ID).'">'.wpneo_crowdfunding_get_author_name().'</a></div>';
-		if (wpneo_crowdfunding_get_campaigns_location()){
+		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaigns_url($creator->ID).'">'.wpcf_function()->author_name().'</a></div>';
+		$location = wpcf_function()->campaigns_location();
+		if ($location){
 			$html .= '<div class="wpneo-profile-location">';
-			$html .= '<i class="wpneo-icon wpneo-icon-location"></i> <span>'.wpneo_crowdfunding_get_campaigns_location().'</span>';
+			$html .= '<i class="wpneo-icon wpneo-icon-location"></i> <span>'.$location.'</span>';
 			$html .= '</div>';
 		}
-		$html .= '<div class="wpneo-profile-campaigns">'.wpneo_crowdfunding_author_all_campaigns($author)->post_count.__( " Campaigns" , "wp-crowdfunding" ).' | '. wpneo_loved_campaign_count().__( " Loved campaigns" , "wp-crowdfunding" ).'</div>';
+		$html .= '<div class="wpneo-profile-campaigns">'.wpcf_function()->author_campaigns($author)->post_count.__( " Campaigns" , "wp-crowdfunding" ).' | '.wpcf_function()->loved_count().__( " Loved campaigns" , "wp-crowdfunding" ).'</div>';
 		$html .= '</div>';
 
 		if ( ! empty($user_info['profile_about'][0])){
@@ -104,7 +104,7 @@ function wpneo_bio_campaign_action(){
 			$html .= '<p>'.__("Fax: ","wp-crowdfunding").$user_info['profile_fax'][0].'</p>';
 		}
 		if ( ! empty($user_info['profile_website'][0])){
-			$html .= '<p>'.__("Website: ","wp-crowdfunding").' <a href="'.wpneo_crowdfunding_add_http($user_info['profile_website'][0]).'"> '.wpneo_crowdfunding_add_http($user_info['profile_website'][0]).' </a></p>';
+			$html .= '<p>'.__("Website: ","wp-crowdfunding").' <a href="'.wpcf_function()->url($user_info['profile_website'][0]).'"> '.wpcf_function()->url($user_info['profile_website'][0]).' </a></p>';
 		}
 		if ( ! empty($user_info['profile_email1'][0])){
 			$html .= '<a class="wpneo-profile-button" href="mailto:'.$user_info['profile_email1'][0].'" target="_top">'.__("Contact Me","wp-crowdfunding").'</a>';

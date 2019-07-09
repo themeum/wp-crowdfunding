@@ -58,10 +58,9 @@ if ( $the_query->have_posts() ) :
                                 <?php } ?>
                             </span>
                             <!-- author -->
-                            <?php $author_name = wpneo_crowdfunding_get_author_name(); ?>
                             <span class="wpneo-meta-wrap">
                                 <span class="wpneo-meta-name"><?php _e('by','wp-crowdfunding'); ?> </span>
-                                <a href="<?php echo wpneo_crowdfunding_campaign_listing_by_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo $author_name; ?></a>
+                                <a href="<?php echo wpcf_function()->author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->author_name(); ?></a>
                             </span>
 
                             <!-- fund-raised -->
@@ -98,5 +97,5 @@ else :
     $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
 endif;
 $html .= '</div>';
-$html .= wpcf_pagination( $page_numb , $the_query->max_num_pages );
+$html .= wpcf_function()->pagination( $page_numb , $the_query->max_num_pages );
 

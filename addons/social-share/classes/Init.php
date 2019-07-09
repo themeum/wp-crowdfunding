@@ -132,15 +132,16 @@ class Init {
                                 </div>
                                 <div class="wpneo-listing-content">
     
-                                    <?php $author_name = wpneo_crowdfunding_get_author_name(); ?>
                                     <h4><a target="_top" href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h4>
                                     <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 
-                                        <a target="_top" href="<?php echo wpneo_crowdfunding_campaign_listing_by_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo $author_name; ?></a>
+                                        <a target="_top" href="<?php echo wpcf_function()->author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->author_name(); ?></a>
                                     </p>
     
-                                    <?php if (wpneo_crowdfunding_get_campaigns_location()){ ?>
+                                    <?php
+                                        $location = wpcf_function()->campaign_location(); 
+                                        if ($location){ ?>
                                         <div class="wpneo-location-wrapper">
-                                            <span><?php echo wpneo_crowdfunding_get_campaigns_location(); ?></span>
+                                            <span><?php echo $location; ?></span>
                                         </div>
                                     <?php } ?>
     
@@ -219,7 +220,7 @@ class Init {
     }
 
     public function wpcf_campaign_single_social_share() {
-        wpneo_crowdfunding_load_template('include/social-share');
+        wpcf_function()->template('include/social-share');
     }
 }
 Init::instance();
