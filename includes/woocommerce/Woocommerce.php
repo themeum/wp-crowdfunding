@@ -34,16 +34,16 @@ class Woocommerce {
         add_action( 'woocommerce_add_to_cart_validation',               array($this, 'remove_crowdfunding_item_from_cart'), 10, 5); // Remove crowdfunding item from cart
         add_action( 'woocommerce_new_order',                            array($this, 'crowdfunding_order_type')); // Track is this product crowdfunding.
         add_filter( 'woocommerce_checkout_fields' ,                     array($this, 'override_checkout_fields') ); // Remove billing address from the checkout page
-        add_action('woocommerce_review_order_before_payment',           array($this, 'check_anonymous_backer'));
-        add_action('woocommerce_checkout_order_processed',              array($this, 'check_anonymous_backer_post'));
-        add_action('woocommerce_new_order_item',                        array($this, 'crowdfunding_new_order_item'), 10, 3);
-        add_filter('wc_tax_enabled',                                    array($this, 'is_tax_enable_for_crowdfunding_product'));
-        add_action('product_cat_edit_form_fields',                      array($this, 'edit_product_taxonomy_field'), 10, 1);
-        add_action('product_cat_add_form_fields',                       array($this, 'add_checked_crowdfunding_categories'), 10, 1);
-        add_action('create_product_cat',                                array($this, 'mark_category_as_crowdfunding'), 10, 2);
-        add_action('edit_product_cat',                                  array($this, 'edit_mark_category_as_crowdfunding'), 10, 2);
-        add_filter("manage_product_cat_custom_column",                  array($this, 'filter_description_col_product_taxomony'), 10, 3);
-        add_filter('manage_edit-product_cat_columns' ,                  array($this, 'product_taxonomy_is_crowdfunding_columns'), 10, 1);
+        add_action( 'woocommerce_review_order_before_payment',          array($this, 'check_anonymous_backer'));
+        add_action( 'woocommerce_checkout_order_processed',             array($this, 'check_anonymous_backer_post'));
+        add_action( 'woocommerce_new_order_item',                       array($this, 'crowdfunding_new_order_item'), 10, 3);
+        add_filter( 'wc_tax_enabled',                                   array($this, 'is_tax_enable_for_crowdfunding_product'));
+        add_action( 'product_cat_edit_form_fields',                     array($this, 'edit_product_taxonomy_field'), 10, 1);
+        add_action( 'product_cat_add_form_fields',                      array($this, 'add_checked_crowdfunding_categories'), 10, 1);
+        add_action( 'create_product_cat',                               array($this, 'mark_category_as_crowdfunding'), 10, 2);
+        add_action( 'edit_product_cat',                                 array($this, 'edit_mark_category_as_crowdfunding'), 10, 2);
+        add_filter( "manage_product_cat_custom_column",                 array($this, 'filter_description_col_product_taxomony'), 10, 3);
+        add_filter( 'manage_edit-product_cat_columns' ,                 array($this, 'product_taxonomy_is_crowdfunding_columns'), 10, 1);
     }
 
     /**

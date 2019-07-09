@@ -228,8 +228,8 @@ class Dashboard{
         
         $html = '';
         $order_id         = sanitize_text_field($_POST['orderid']);
-        if( $order_id ){
-            $order = new WC_Order( $order_id );
+        if( $order_id ) {
+            $order = new \WC_Order( $order_id );
             $html .= '<div>';
             $html .= '<div><span>'.__("Order ID","wp-crowdfunding").':</span> '.$order->get_ID().'</div>';
             $html .= '<div><span>'.__("Order Date","wp-crowdfunding").':</span> '.wc_format_datetime($order->get_date_created()).'</div>';

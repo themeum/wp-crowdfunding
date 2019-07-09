@@ -16,7 +16,7 @@ if (! class_exists('WPCF_Frontend_Hook')) {
         public function __construct() {
             add_action('woocommerce_after_shop_loop_item',      array($this, 'after_item_title_data')); // Woocommerce Backed User
             add_filter( 'woocommerce_product_tabs',             array($this, 'product_backed_user_tab') );
-            add_filter( 'woocommerce_is_sold_individually',     array($this, 'wpneo_wc_remove_crowdfunding_quantity_fields'), 10, 2 ); //Remove quantity and force item 1 cart per checkout if product is crowdfunding
+            add_filter( 'woocommerce_is_sold_individually',     array($this, 'remove_crowdfunding_quantity_fields'), 10, 2 ); //Remove quantity and force item 1 cart per checkout if product is crowdfunding
             if ( 'true' == get_option('hide_cf_campaign_from_shop_page')){
                 add_action('woocommerce_product_query',         array($this, 'limit_show_cf_campaign_in_shop')); //Filter product query
             }
@@ -257,7 +257,7 @@ if (! class_exists('WPCF_Frontend_Hook')) {
             return $this->getFundRaisedPercent().'%';
         }
 
-        public function wpneo_wc_remove_crowdfunding_quantity_fields( $return, $product ) {
+        public function remove_crowdfunding_quantity_fields( $return, $product ) {
             if ($product->get_type() == 'crowdfunding'){
                 return true;
             }
