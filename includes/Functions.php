@@ -419,7 +419,7 @@ class Functions {
 			),
 			'posts_per_page' => -1
 		);
-		$the_query = new WP_Query($args);
+		$the_query = new \WP_Query($args);
 
 		return $the_query;
 	}
