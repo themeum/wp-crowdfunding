@@ -94,7 +94,7 @@ class Templating {
 
         }
 
-        if ($this->wpneo_check_theme_standard($this->_selected_theme_path)){
+        if ($this->wpcf_check_theme_standard($this->_selected_theme_path)){
 
             if (file_exists($this->_theme_in_themes_path.'style.css')){
                 $this->_selected_theme_uri = get_stylesheet_directory_uri()."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
@@ -113,18 +113,18 @@ class Templating {
         //Determine where single campaign will be load, is it WooCommerce or Wp Crowdfunding
         $wpneo_single_page_template = get_option('wpneo_single_page_template');
 
-        if (empty($wpneo_single_page_template) || ($wpneo_single_page_template == 'in_wp_crowdfunding') ){
-            add_filter( 'template_include',         array( $this, 'wpneo_template_chooser' ), 99); //Get custom template for this
+        if( empty($wpneo_single_page_template) || ($wpneo_single_page_template == 'in_wp_crowdfunding' ) ){
+            add_filter( 'template_include',         array( $this, 'wpcf_template_chooser' ), 99); //Get custom template for this
         }
 
-        add_action( 'wpneo_cf_select_theme',    array( $this, 'wpneo_cf_select_theme') ); //Generate a dropdown for theme
-        add_action( 'admin_notices',            array( $this, 'wpneo_theme_noticed') );
-        add_action( 'init',                     array( $this, 'wpneo_load_cwordfunding_theme_resources') );
-        add_action( 'wp_enqueue_scripts',       array( $this, 'wpneo_load_cwordfunding_theme_css_resources' ) );
-        //add_action( 'template_redirect',        array( $this, 'wpneo_crowdfunding_theme_redirect') ); //Template Redirect
+        add_action( 'wpneo_cf_select_theme',    array( $this, 'wpcf_select_theme') ); //Generate a dropdown for theme
+        add_action( 'admin_notices',            array( $this, 'wpcf_theme_noticed') );
+        add_action( 'init',                     array( $this, 'wpcf_load_theme_resources') );
+        add_action( 'wp_enqueue_scripts',       array( $this, 'wpcf_load_theme_css_resources' ) );
+        //add_action( 'template_redirect',        array( $this, 'wpcf_theme_redirect') ); //Template Redirect
     }
 
-    public function wpneo_template_chooser($template){
+    public function wpcf_template_chooser($template){
         global $post, $woocommerce;
 
         $post_id = get_the_ID();
@@ -191,7 +191,7 @@ class Templating {
      * Theme standard
      * These file required for develop a wpneo crowdfunding theme
      */
-    public function wpneo_theme_standard(){
+    public function wpcf_theme_standard(){
         $theme_standard = array(
             'index.php',
             'style.css',
@@ -206,10 +206,10 @@ class Templating {
     /**
      * Show theme error notice in admin panel
      */
-    public function wpneo_theme_noticed(){
-        $theme_standard = $this->wpneo_theme_standard();
+    public function wpcf_theme_noticed(){
+        $theme_standard = $this->wpcf_theme_standard();
 
-        $themes_dir = $this->wpneo_cf_select_themes_dir();
+        $themes_dir = $this->wpcf_select_themes_dir();
         $html = "";
 
         if (count($themes_dir) > 0) {
@@ -241,8 +241,8 @@ class Templating {
      *
      * Check theme standard
      */
-    public function wpneo_check_theme_standard($directory = '', $theme_name =''){
-        $theme_standard = $this->wpneo_theme_standard();
+    public function wpcf_check_theme_standard($directory = '', $theme_name =''){
+        $theme_standard = $this->wpcf_theme_standard();
         $files = array_slice(scandir($directory), 2);
         $missing_files = array_diff($theme_standard, $files);
 
@@ -256,8 +256,8 @@ class Templating {
     /**
      * Generate select option html for theme
      */
-    public function wpneo_cf_select_theme(){
-        $themes_dir = $this->wpneo_cf_select_themes_dir();
+    public function wpcf_select_theme(){
+        $themes_dir = $this->wpcf_select_themes_dir();
         $html = '';
 
         $html .='<table class="form-table">';
@@ -271,7 +271,7 @@ class Templating {
                             foreach($themes_dir as $k => $v) {
                                 $selected   = ($this->_theme == $v) ? 'selected' : '';
                                 $theme_info = $this->get_theme_info($this->_vendor_path.$v.'/index.php');
-                                $is_theme   = $this->wpneo_check_theme_standard($this->_vendor_path.$v);
+                                $is_theme   = $this->wpcf_check_theme_standard($this->_vendor_path.$v);
                                 if ($is_theme){
                                     $html .= '<option value="' . $v . '" ' . $selected . '>' . $theme_info['theme_name'] . '</option>';
                                 }
@@ -292,7 +292,7 @@ class Templating {
      *
      * @return all theme directory from selected vendor
      */
-    public function wpneo_cf_select_themes_dir(){
+    public function wpcf_select_themes_dir(){
         $theme_dirs = array_filter(glob(WPCF_DIR_PATH.'wpneotemplate/woocommerce/*'), 'is_dir');
         $get_dir = array();
         if (count($theme_dirs) > 0) {
@@ -306,8 +306,8 @@ class Templating {
     /**
      * Include wpneo theme functions with wordpress core
      */
-    public function wpneo_load_cwordfunding_theme_resources(){
-        $is_valid_theme = $this->wpneo_check_theme_standard($this->_selected_theme_path);
+    public function wpcf_load_theme_resources(){
+        $is_valid_theme = $this->wpcf_check_theme_standard($this->_selected_theme_path);
         if ($is_valid_theme) {
             include_once $this->_selected_theme_path . 'wpneo-functions.php';
         }else{
@@ -318,16 +318,16 @@ class Templating {
     /**
      * Include wpneo theme CSS in frontend
      */
-    public function wpneo_load_cwordfunding_theme_css_resources(){
-        $is_valid_theme = $this->wpneo_check_theme_standard($this->_selected_theme_path);
+    public function wpcf_load_theme_css_resources(){
+        $is_valid_theme = $this->wpcf_check_theme_standard($this->_selected_theme_path);
         if ($is_valid_theme) {
             if (file_exists($this->_theme_in_themes_path.'style.css')){
-                wp_enqueue_style('wpneo_crowdfunding_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
+                wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
             }else{
-                wp_enqueue_style('wpneo_crowdfunding_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
+                wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
             }
         }else{
-            wp_enqueue_style('wpneo_crowdfunding_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
+            wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
         }
     }
 
@@ -336,7 +336,7 @@ class Templating {
      * Template Redirect
      */
 
-    public function wpneo_crowdfunding_theme_redirect() {
+    public function wpcf_theme_redirect() {
         $listing_id = get_option('wpneo_listing_page_id','');
         $form_id = get_option('wpneo_form_page_id','');
         $registration_id = get_option('wpneo_registration_page_id','');
@@ -345,19 +345,19 @@ class Templating {
         if( is_page() ){
             if( ($listing_id != '') && ($listing_id != '0') ){
                 $slug1 = get_post($listing_id)->post_name;
-                $this->wpneo_crowdfunding_template_load( $slug1 );
+                $this->wpcf_template_load( $slug1 );
             }
             if( ($form_id != '') && ($form_id != '0') ){
                 $slug2 = get_post($form_id)->post_name;
-                $this->wpneo_crowdfunding_template_load( $slug2 );
+                $this->wpcf_template_load( $slug2 );
             }
             if( ($registration_id != '') && ($registration_id != '0') ){
                 $slug3 = get_post($registration_id)->post_name;
-                $this->wpneo_crowdfunding_template_load( $slug3 );
+                $this->wpcf_template_load( $slug3 );
             }
             if( ($dashboard_id != '') && ($dashboard_id != '0') ){
                 $slug4 = get_post($dashboard_id)->post_name;
-                $this->wpneo_crowdfunding_template_load( $slug4 );
+                $this->wpcf_template_load( $slug4 );
             }
         }
 
@@ -378,17 +378,17 @@ class Templating {
         }
     }
 
-    public function wpneo_crowdfunding_template_load( $slug ){
+    public function wpcf_template_load( $slug ){
         global $wp;
         if (! empty($wp->query_vars["pagename"])) {
             if ($wp->query_vars["pagename"] == $slug) {
                 $return_template = dirname($this->_selected_theme) . '/page-fullwidth.php';
-                $this->wpneo_crowdfunding_do_theme_redirect($return_template);
+                $this->wpcf_do_theme_redirect($return_template);
             }
         }
     }
 
-    public function wpneo_crowdfunding_do_theme_redirect($url) {
+    public function wpcf_do_theme_redirect($url) {
         global $post, $wp_query;
         if (have_posts()) {
             include($url);
