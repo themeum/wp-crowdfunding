@@ -96,7 +96,7 @@ jQuery(document).ready(function($){
 
                 if ( ! parseData.success){
                     //Reset reCaptcha if failed
-                    if(typeof grecaptcha !== 'undefined'){
+                    if( (typeof grecaptcha !== 'undefined') && ($('.g-recaptcha').length !== 0) ) {
                         grecaptcha.reset();
                     }
                 }

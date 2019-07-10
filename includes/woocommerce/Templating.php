@@ -208,7 +208,7 @@ class Templating {
     public function theme_noticed_callback(){
         $theme_standard = $this->theme_standard_check();
 
-        $themes_dir = $this->wpneo_cf_select_themes_dir();
+        $themes_dir = $this->wpcf_select_themes_dir();
         $html = "";
 
         if (count($themes_dir) > 0) {
@@ -290,7 +290,7 @@ class Templating {
      *
      * @return all theme directory from selected vendor
      */
-    public function wpneo_cf_select_themes_dir(){
+    public function wpcf_select_themes_dir(){
         $theme_dirs = array_filter(glob(WPCF_DIR_PATH.'wpneotemplate/woocommerce/*'), 'is_dir');
         $get_dir = array();
         if (count($theme_dirs) > 0) {
@@ -320,12 +320,12 @@ class Templating {
         $is_valid_theme = $this->check_theme_standard($this->_selected_theme_path);
         if ($is_valid_theme) {
             if (file_exists($this->_theme_in_themes_path.'style.css')){
-                wp_enqueue_style('wpneo_crowdfunding_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
+                wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
             }else{
-                wp_enqueue_style('wpneo_crowdfunding_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
+                wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
             }
         }else{
-            wp_enqueue_style('wpneo_crowdfunding_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
+            wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
         }
     }
 

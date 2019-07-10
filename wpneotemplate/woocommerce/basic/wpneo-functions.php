@@ -7,7 +7,7 @@ function campaign_listing_by_author_before_loop(){
 		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
 	}
 }
-// add_action('woocommerce_product_thumbnails', 'wpneo_crowdfunding_campaign_single_love_this');
+//add_action('woocommerce_product_thumbnails', array('Template_Hooks', 'wpneo_crowdfunding_campaign_single_love_this'));
 
 function wpneo_campaign_order_number_data( $min_data, $max_data, $post_id ){
 	global $woocommerce, $wpdb;

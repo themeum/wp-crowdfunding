@@ -70,10 +70,6 @@ class Functions {
     }
     
 
-    // wpcf_function()->wc_version();
-    public function wpcf_wc_version_check($version = '3.0'){ //@compatibility
-        $this->version_check( $version );
-    }
     public function wc_version($version = '3.0'){
         if (class_exists('WooCommerce')) {
             global $woocommerce;
@@ -247,7 +243,10 @@ class Functions {
     ");
 		return $results;
     }
-    
+
+    function author_url($user_login) {
+        return esc_url(add_query_arg(array('author' => $user_login)));
+    }
 
     public function author_name(){
 		global $post;
@@ -278,7 +277,7 @@ class Functions {
 		$country_name = '';
 		if (class_exists('WC_Countries')) {
 			//Get Country name from WooCommerce
-			$countries_obj = new WC_Countries();
+			$countries_obj = new \WC_Countries();
 			$countries = $countries_obj->__get('countries');
 
 			if ($wpneo_country){
@@ -295,9 +294,10 @@ class Functions {
 		$locate_file = $template_class->_theme_in_themes_path.$template.'.php';
 
 		if (file_exists($locate_file)){
-			return $locate_file;
-		}
-		return $template_class->_theme_in_plugin_path.$template.'.php';
+			include $locate_file;
+		} else { 
+            include $template_class->_theme_in_plugin_path.$template.'.php';
+        }
     }
 
 
@@ -417,7 +417,7 @@ class Functions {
 			),
 			'posts_per_page' => -1
 		);
-		$the_query = new WP_Query($args);
+		$the_query = new \WP_Query($args);
 
 		return $the_query;
 	}
@@ -453,6 +453,36 @@ class Functions {
 			return false;
 		}
     }
+
+    // Pagination
+	function pagination($page_numb, $max_page) {
+		$html = '';
+		$big = 999999999; // need an unlikely integer
+		$html .= '<div class="wpneo-pagination">';
+		$html .= paginate_links(array(
+			'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+			'format' => '?paged=%#%',
+			'current' => $page_numb,
+			'total' => $max_page,
+			'type' => 'list',
+			'after_page_number' => '',
+		));
+		$html .= '</div>';
+		return $html;
+    }
+    
+    public function campaign_single_love_this() {
+		global $post;
+		if (is_product()){
+			if( function_exists('get_product') ){
+				$product = wc_get_product( $post->ID );
+				if( $product->is_type( 'crowdfunding' ) ){
+					wpcf_function()->template('include/love_campaign');
+				}
+			}
+		}
+	}
+
     
     public function total_goal($campaign_id){
 		return $funding_goal = get_post_meta($campaign_id, '_nf_funding_goal', true);

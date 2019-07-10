@@ -22,7 +22,7 @@ ob_start(); ?>
     <div class="wpneo-form campaign-listing-page">
         <div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
             <?php if ($the_query->have_posts()) : global $post; ?>
-                <div class="wpneo-responsive-table">';
+                <div class="wpneo-responsive-table">
                     <table class="stripe-table">
                         <thead>
                             <tr>
