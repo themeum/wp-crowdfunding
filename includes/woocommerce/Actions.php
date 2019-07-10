@@ -221,6 +221,12 @@ class Actions {
     }
 
     public function update_status_save(){
+
+        if ( ! isset( $_POST['wpcf_form_action'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action'], 'wpcf_form_action_field' ) ) {
+            die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
+            exit;
+        }
+        
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
 
             $post_id                            = $_POST['postid'];

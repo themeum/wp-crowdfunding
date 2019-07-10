@@ -273,10 +273,8 @@ class Functions {
 
 	public function campaign_location(){
 		global $post;
-
 		$wpneo_country = get_post_meta($post->ID, 'wpneo_country', true);
 		$location = get_post_meta($post->ID, '_nf_location', true);
-
 		$country_name = '';
 		if (class_exists('WC_Countries')) {
 			//Get Country name from WooCommerce
@@ -462,6 +460,11 @@ class Functions {
     
     public function price($price, $args = array()){
 		return wc_price( $price, $args = array() );
-	}
+    }
+    
+    public function user_meta($url){
+        $shipping_first_name     = ( $_POST['shipping_first_name'] ) ? sanitize_text_field($_POST['shipping_first_name']) : "";
+        update_user_meta($user_id,'shipping_first_name', $shipping_first_name);
+    }
 
 }

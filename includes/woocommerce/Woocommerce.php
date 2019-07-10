@@ -426,17 +426,17 @@ class Woocommerce {
     public function update_status_save($post_id){
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
             
-            $wpneo_prject_update_title_field = $_POST['wpneo_prject_update_title_field'];
-            $wpneo_prject_update_date_field = $_POST['wpneo_prject_update_date_field'];
-            $wpneo_prject_update_details_field = $_POST['wpneo_prject_update_details_field'];
+            $wpneo_prject_update_title_field = sanitize_text_field( $_POST['wpneo_prject_update_title_field'] );
+            $wpneo_prject_update_date_field = sanitize_text_field( $_POST['wpneo_prject_update_date_field'] );
+            $wpneo_prject_update_details_field = esc_html( $_POST['wpneo_prject_update_details_field'] );
             $total_update_field = count( $wpneo_prject_update_title_field );
 
             $data = array();
             for ($i=0; $i<$total_update_field; $i++){
                 if (! empty($wpneo_prject_update_title_field[$i])) {
                     $data[] = array(
-                        'date'      => sanitize_text_field($wpneo_prject_update_date_field[$i]),
-                        'title'     => sanitize_text_field($wpneo_prject_update_title_field[$i]),
+                        'date'      => $wpneo_prject_update_date_field[$i],
+                        'title'     => $wpneo_prject_update_title_field[$i],
                         'details'   => $wpneo_prject_update_details_field[$i]
                     );
                 }

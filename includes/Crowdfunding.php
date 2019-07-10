@@ -26,9 +26,9 @@ final class Crowdfunding {
 
 	// Include Core
 	public function includes_core() {
-		require_once WPCF_DIR_PATH . 'includes/Compatibility.php';
-		require_once WPCF_DIR_PATH . 'includes/Initial_Setup.php';
-		require_once WPCF_DIR_PATH . 'settings/Admin_Menu.php';
+		require_once WPCF_DIR_PATH.'includes/Compatibility.php';
+		require_once WPCF_DIR_PATH.'includes/Initial_Setup.php';
+		require_once WPCF_DIR_PATH.'settings/Admin_Menu.php';
 		new settings\Admin_Menu();
 	}
 
@@ -37,12 +37,12 @@ final class Crowdfunding {
 		if( wpcf_function()->is_woocommerce() ) {
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
 				if ( wpcf_function()->wc_version() ) {
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/Base.php';
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/Common.php';
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/Templating.php';
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/Woocommerce.php';
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/Actions.php';
-					require_once WPCF_DIR_PATH . 'includes/woocommerce/Template_Hooks.php';
+					require_once WPCF_DIR_PATH.'includes/woocommerce/Base.php';
+					require_once WPCF_DIR_PATH.'includes/woocommerce/Common.php';
+					require_once WPCF_DIR_PATH.'includes/woocommerce/Templating.php';
+					require_once WPCF_DIR_PATH.'includes/woocommerce/Woocommerce.php';
+					require_once WPCF_DIR_PATH.'includes/woocommerce/Actions.php';
+					require_once WPCF_DIR_PATH.'includes/woocommerce/Template_Hooks.php';
 					new \WPCF\woocommerce\Base();
 					new \WPCF\woocommerce\Common();
 					new \WPCF\woocommerce\Templating();
