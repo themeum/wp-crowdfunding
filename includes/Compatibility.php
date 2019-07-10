@@ -28,7 +28,7 @@ function wpneo_crowdfunding_price($price, $args = array()){
 function wpneo_loved_campaign_count($user_id = 0){
     return wpcf_function()->loved_count($user_id);
 }
-function is_campaign_loved_html(){
+function is_campaign_loved_html($user_id = 0){
     return wpcf_function()->campaign_loved($user_id);
 }
 
