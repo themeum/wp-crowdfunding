@@ -67,3 +67,7 @@ function wpneo_wc_version_check($version = '3.0') {
 function wpneo_crowdfunding_campaign_single_love_this() {
     return wpcf_function()->campaign_single_love_this();
 }
+
+function WPNEOCF() {
+    return wpcf_function();
+}
