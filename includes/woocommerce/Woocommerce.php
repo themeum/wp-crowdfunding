@@ -44,6 +44,14 @@ class Woocommerce {
         add_action( 'edit_product_cat',                                 array($this, 'edit_mark_category_as_crowdfunding'), 10, 2);
         add_filter( "manage_product_cat_custom_column",                 array($this, 'filter_description_col_product_taxomony'), 10, 3);
         add_filter( 'manage_edit-product_cat_columns' ,                 array($this, 'product_taxonomy_is_crowdfunding_columns'), 10, 1);
+    
+        //template hooks
+        add_action( 'woocommerce_after_shop_loop_item',                 array($this, 'after_item_title_data')); // Woocommerce Backed User
+        add_filter( 'woocommerce_product_tabs',                         array($this, 'product_backed_user_tab') );
+        add_filter( 'woocommerce_is_sold_individually',                 array($this, 'remove_crowdfunding_quantity_fields'), 10, 2 ); //Remove quantity and force item 1 cart per checkout if product is crowdfunding
+        if ( 'true' == get_option('hide_cf_campaign_from_shop_page' )) {
+            add_action('woocommerce_product_query',                     array($this, 'limit_show_cf_campaign_in_shop')); //Filter product query
+        }
     }
 
     /**
@@ -57,8 +65,6 @@ class Woocommerce {
 
         require_once WPCF_DIR_PATH.'includes/woocommerce/Dashboard.php';
         new \WPCF\woocommerce\Dashboard();
-
-        require_once WPCF_DIR_PATH.'includes/woocommerce/Frontend_Hook.php';
         
         require_once WPCF_DIR_PATH.'includes/woocommerce/Submit_Form.php';
         new \WPCF\woocommerce\Submit_Form();
@@ -922,6 +928,180 @@ class Woocommerce {
                 break;
         }
         return $content;
+    }
+
+    public function after_item_title_data() {
+        global $woocommerce,$post,$wpdb;
+        $product = wc_get_product($post->ID);
+
+        if($product->get_type() != 'crowdfunding'){
+            return '';
+        }
+
+        $funding_goal   = wpcf_function()->totalGoalByCampaign($post->ID);
+        $wpneo_country  = get_post_meta( $post->ID, 'wpneo_country', true);
+        $total_sales    = get_post_meta( $post->ID, 'total_sales', true );
+        $enddate        = get_post_meta( $post->ID, '_nf_duration_end', true );
+
+        //Get Country name from WooCommerce
+        $countries_obj  = new \WC_Countries();
+        $countries      = $countries_obj->__get('countries');
+
+        $country_name = '';
+        if ($wpneo_country){
+            $country_name = $countries[$wpneo_country];
+        }
+
+        $raised = 0;
+        $total_raised = wpcf_function()->totalFundRaisedByCampaign();
+        if ($total_raised){
+            $raised = $total_raised;
+        }
+
+        //Get order sales value by product
+        $sales_value_by_product = 0;
+
+        $days_remaining = apply_filters('date_expired_msg', __('Date expired', 'wp-crowdfunding'));
+        if ( wpcf_function()->dateRemaining() ) {
+            $days_remaining = apply_filters('date_remaining_msg', __( wpcf_function()->dateRemaining().' days remaining', 'wp-crowdfunding') );
+        }
+
+        $html = '';
+        $html .= '<div class="crowdfunding_wrapper">';
+
+        if ($country_name) {
+            $html .= '<div class="wpneo_location">';
+            $html .= '<p class="wpneo_thumb_text">'. __('Location: ', 'wp-crowdfunding') . $country_name.'</p>';
+            $html .= '</div>';
+        }
+
+        if ($funding_goal) {
+            $html .= '<div class="funding_goal">';
+            $html .= '<p class="wpneo_thumb_text">'.__('Funding Goal: ', 'wp-crowdfunding') . '<span class="price amount">'.wc_price($funding_goal).'</span>'. '</p>';
+            $html .= '</div>';
+        }
+
+        if ($total_sales) {
+            $html .= '<div class="total_raised">';
+            $html .= '<p class="wpneo_thumb_text">'.__('Raised: ', 'wp-crowdfunding') . '<span class="price amount">' . wc_price( $raised).'</span>'. '</p>';
+            $html .= '</div>';
+        }
+
+        if ($total_sales && $funding_goal) {
+            $percent = wpcf_function()->getFundRaisedPercent();
+            $html .= '<div class="percent_funded">';
+            $html .= '<p class="wpneo_thumb_text">'.__('Funded percent: ', 'wp-crowdfunding') . '<span class="price amount">' . $percent.' %</span>'. '</p>';
+            $html .= '</div>';
+        }
+
+        if ($total_sales) {
+            $html .= '<div class="days_remaining">';
+            $html .= '<p class="wpneo_thumb_text">'.$days_remaining. '</p>';
+            $html .= '</div>';
+        }
+
+        $html .= '</div>';
+        echo apply_filters('woocommerce_product_cf_meta_data',$html);
+    }
+
+    /**
+     * @param $tabs
+     * @return string
+     *
+     * Return Reward Tab Data
+     */
+    public function product_backed_user_tab( $tabs ) {
+        global $post;
+        $product = wc_get_product($post->ID);
+        if($product->get_type() =='crowdfunding'){
+            // Adds the new tab
+            $tabs['backed_user'] = array(
+                'title'     => __( 'Backed User', 'wp-crowdfunding' ),
+                'priority'  => 51,
+                'callback'  => array($this, 'product_backed_user_tab_content')
+            );
+        }
+        return $tabs;
+    }
+
+    public function product_backed_user_tab_content( $post_id ){
+
+        global $post, $wpdb;
+        $html       = '';
+        $prefix     = $wpdb->prefix;
+        $product_id = $post->ID;
+        $data_array = wpcf_function()->ordersIDlistPerCampaign();
+
+        $args = array(
+            'post_type'     => 'shop_order',
+            'post_status'   => array('wc-completed','wc-on-hold'),
+            'post__in'      => $data_array
+        );
+        $the_query = new \WP_Query( $args );
+
+        if ( $the_query->have_posts() ) :
+
+            $html .= '  <table class="shop_table backed_user_table">
+
+                <thead>
+                    <tr>
+                        <th>'.__('ID', 'wp-crowdfunding').'</th>
+                        <th>'.__('Name', 'wp-crowdfunding').'</th>
+                        <th>'.__('Email', 'wp-crowdfunding').'</th>
+                        <th>'.__('Amount', 'wp-crowdfunding').'</th>
+                    </tr>
+                </thead>';
+            ?>
+
+
+            <?php
+            while ( $the_query->have_posts() ) : $the_query->the_post();
+
+                $html .= '<tr>';
+                $html .= '<td>'.get_the_ID().'</td>';
+                $html .= '<td>'. get_post_meta( get_the_ID() , "_billing_first_name",true ).' '.get_post_meta( get_the_ID() , "_billing_last_name",true ).'</td>';
+                $html .= '<td>'. get_post_meta( get_the_ID() , "_billing_email",true ).'</td>';
+                $post_id = get_the_ID();
+                $price = $wpdb->get_results("SELECT order_meta.meta_value FROM `{$prefix}woocommerce_order_itemmeta` AS order_meta, `{$prefix}woocommerce_order_items` AS order_item WHERE order_meta.order_item_id IN (SELECT order_item.order_item_id FROM `{$prefix}woocommerce_order_items` as order_item WHERE order_item.order_id = {$post_id}) AND order_meta.order_item_id IN (SELECT meta.order_item_id FROM `{$prefix}woocommerce_order_itemmeta` AS meta WHERE meta.meta_key='_product_id' AND meta.meta_value={$product_id} ) AND order_meta.meta_key='_line_total' GROUP BY order_meta.meta_id");
+                $price = json_decode( json_encode($price), true );
+                if(isset($price[0]['meta_value'])){
+                    $html .= '<td>'. wc_price($price[0]['meta_value']).'</td>';
+                }
+                $html .= '</tr>';
+
+            endwhile;
+            wp_reset_postdata();
+
+            $html .= '</table>';
+            ?>
+            <?php
+        else :
+            $html .= __( 'Sorry, no posts matched your criteria.','wp-crowdfunding' );
+        endif;
+
+        echo $html;
+    }
+
+    public function remove_crowdfunding_quantity_fields( $return, $product ) {
+        if ($product->get_type() == 'crowdfunding'){
+            return true;
+        }
+        return $return;
+    }
+
+    function limit_show_cf_campaign_in_shop($wp_query){
+        $tax_query = array(
+            array(
+                'taxonomy' => 'product_type',
+                'field'    => 'slug',
+                'terms'    => array(
+                    'crowdfunding'
+                ),
+                'operator' => 'NOT IN'
+            )
+        );
+        $wp_query->set( 'tax_query', $tax_query );
+        return $wp_query;
     }
 
 

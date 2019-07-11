@@ -10,6 +10,7 @@ class Registration {
         add_shortcode( 'wpcf_registration', array( $this, 'registration_callback' ) );
         
         add_action( 'wp_ajax_wpcf_registration_action', array( $this, 'registration_save_action' ) );
+        add_action( 'wp_ajax_noprev_wpcf_registration_action', array( $this, 'registration_save_action' ) );
     }
     
     function registration_callback() {
