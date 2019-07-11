@@ -334,7 +334,7 @@ class Templating {
      * Template Redirect
      */
 
-    blic function theme_redirect_callback() {
+    public function theme_redirect_callback() {
         $listing_id = get_option('wpneo_listing_page_id','');
         $form_id = get_option('wpneo_form_page_id','');
         $registration_id = get_option('wpneo_registration_page_id','');
