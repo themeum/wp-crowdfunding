@@ -120,7 +120,7 @@ class Templating {
         add_action( 'admin_notices',            array( $this, 'theme_noticed_callback') );
         add_action( 'init',                     array( $this, 'require_theme_resources') );
         add_action( 'wp_enqueue_scripts',       array( $this, 'load_theme_css_callback' ) );
-        add_action( 'template_redirect',        array( $this, 'theme_redirect_callback') ); //Template Redirect
+        //add_action( 'template_redirect',        array( $this, 'theme_redirect_callback') ); //Template Redirect
     }
 
     public function template_chooser_callback($template){
