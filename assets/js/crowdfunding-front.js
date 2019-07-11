@@ -424,12 +424,16 @@ jQuery(document).ready(function($){
     $(document).on('click', '#user-registration-btn', function (e) {
         e.preventDefault();
         var registration_form_data = $(this).closest('form').serialize();
+
+        console.log( 'Anik->' );
+
         $.ajax({
             type:"POST",
             url: wpcf_ajax_object.ajax_url,
             data: registration_form_data,
             success:function(data){
                 wpneo_crowdfunding_modal(data);
+                // console.log('data->',data);
                 data = JSON.parse(data);
                 if (data.success){
                     location.href = data.redirect;
@@ -440,7 +444,8 @@ jQuery(document).ready(function($){
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error'});
+                //console.log('Happend');
+                //wpneo_crowdfunding_modal({'success':0, 'message':'Error'});
             }
         });
     });

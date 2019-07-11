@@ -32,8 +32,7 @@ class Submit_Form {
      */
 
     function frontend_data_save(){
-
-        if ( ! isset( $_POST['wpcf_form_action'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action'], 'wpcf_form_action_field' ) ) {
+        if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your data did not verify.', 'wp-crowdfunding'))));
             exit;
         }

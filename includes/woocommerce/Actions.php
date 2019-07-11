@@ -40,11 +40,7 @@ class Actions {
 
     // General Form Action for Dashboard
     public function dashboard_form_save() {
-
-        if (
-            ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] )
-            || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )
-        ) {
+        if ( ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] ) || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your nonce did not verify.', 'wp-crowdfunding'))));
         }
 
@@ -76,10 +72,7 @@ class Actions {
 
     // Profile Form Action for Dashboard
     public function profile_form_save(){
-        if (
-            ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] )
-            || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )
-        ) {
+        if ( ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] ) || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your nonce did not verify.', 'wp-crowdfunding'))));
         }
 
@@ -131,11 +124,7 @@ class Actions {
 
     // Profile Form Action for Dashboard
     public function contact_form_save(){
-
-        if (
-            ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] )
-            || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )
-        ) {
+        if ( ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] ) || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your nonce did not verify.', 'wp-crowdfunding'))));
         }
 
@@ -195,7 +184,6 @@ class Actions {
 
     // Password Form Action for Dashboard
     public function password_form_save() {
-
         if ( ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] ) || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your nonce did not verify.', 'wp-crowdfunding'))));
         }
@@ -203,12 +191,10 @@ class Actions {
         $id                 = get_current_user_id();
         $password           = sanitize_text_field($_POST['password']);
         $new_password       = sanitize_text_field($_POST['new-password']);
-
         $retype_password    = sanitize_text_field($_POST['retype-password']);
+        $redirect           = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=password';
 
-        $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=password';
         if( isset($_POST['password']) && isset($_POST['new-password']) && isset($_POST['retype-password']) ){
-
             if( ( $new_password == $retype_password ) && ( $retype_password != "" ) ){
                 $user = get_user_by( 'id', $id );
                 if ( $user && wp_check_password( $password, $user->data->user_pass, $user->ID) ){
@@ -222,7 +208,7 @@ class Actions {
 
     public function update_status_save(){
 
-        if ( ! isset( $_POST['wpcf_form_action'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action'], 'wpcf_form_action_field' ) ) {
+        if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
             exit;
         }

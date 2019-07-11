@@ -236,7 +236,7 @@ class Admin_Menu {
      */
     public function save_menu_settings() {
         
-        if (wpcf_function()->post('wpneo_admin_settings_submit_btn') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
+        if (wpcf_function()->post('wpneo_settings_page_nonce_field') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
 
             $current_tab = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_admin_tab'));
             if( ! empty($current_tab) ){

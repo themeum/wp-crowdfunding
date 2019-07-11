@@ -9,11 +9,11 @@ class Registration {
         add_shortcode( 'wpneo_registration', array( $this, 'registration_callback' ) ); //@comparability
         add_shortcode( 'wpcf_registration', array( $this, 'registration_callback' ) );
         
-        add_action( 'wp_ajax_wpcf_registration_action', array( $this, 'registration_save_action' ) );
-        add_action( 'wp_ajax_noprev_wpcf_registration_action', array( $this, 'registration_save_action' ) );
+        add_action( 'wp_ajax_wpcf_registration', array( $this, 'registration_save_action' ) );
+        add_action( 'wp_ajax_nopriv_wpcf_registration', array( $this, 'registration_save_action' ) );
     }
     
-    function registration_callback() {
+    public function registration_callback() {
         ob_start();
         if ( is_user_logged_in() ) { ?>
             <h3 class="wpneo-center"><?php _e("You are already logged in.","wp-crowdfunding"); ?></h3>
@@ -136,7 +136,7 @@ class Registration {
     
                     <div class="wpneo-single wpneo-register">
                         <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign"><?php _e("Cancel","wp-crowdfunding"); ?></a>
-                        <input type="hidden" name="action" value="wpcf_registration_action" />
+                        <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
                         <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
                     </div>
@@ -151,8 +151,8 @@ class Registration {
     
     
     // register a new user
-    function registration_save_action() {
-        if ( ! isset( $_POST['wpcf_form_action'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action'], 'wpcf_form_action_field' ) ) {
+    public function registration_save_action() {
+        if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
             exit;
         }
@@ -174,7 +174,7 @@ class Registration {
         $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
     }
     
-    function complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    public function complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
         if ( count($reg_errors->get_error_messages()) < 1 ) {
             $userdata = array(
@@ -217,7 +217,7 @@ class Registration {
         }
     }
     
-    function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    public function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
         global $reg_errors;
         $reg_errors = new \WP_Error;
     
