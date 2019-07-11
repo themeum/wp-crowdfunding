@@ -94,14 +94,13 @@ class Templating {
 
         }
 
-        if ($this->wpcf_check_theme_standard($this->_selected_theme_path)){
+        if ($this->check_theme_standard($this->_selected_theme_path)){
 
             if (file_exists($this->_theme_in_themes_path.'style.css')){
                 $this->_selected_theme_uri = get_stylesheet_directory_uri()."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
             }else{
                 $this->_selected_theme_uri = WPCF_DIR_URL."wpneotemplate/{$this->_vendor}/{$this->_theme}/";
             }
-
         }else{
             if (file_exists($this->_selected_theme_path.'style.css')){
                 $this->_selected_theme_uri = get_stylesheet_directory_uri()."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
@@ -113,18 +112,18 @@ class Templating {
         //Determine where single campaign will be load, is it WooCommerce or Wp Crowdfunding
         $wpneo_single_page_template = get_option('wpneo_single_page_template');
 
-        if( empty($wpneo_single_page_template) || ($wpneo_single_page_template == 'in_wp_crowdfunding' ) ){
-            add_filter( 'template_include',         array( $this, 'wpcf_template_chooser' ), 99); //Get custom template for this
+        if (empty($wpneo_single_page_template) || ($wpneo_single_page_template == 'in_wp_crowdfunding') ){
+            add_filter( 'template_include',         array( $this, 'template_chooser_callback' ), 99); //Get custom template for this
         }
 
-        add_action( 'wpneo_cf_select_theme',    array( $this, 'wpcf_select_theme') ); //Generate a dropdown for theme
-        add_action( 'admin_notices',            array( $this, 'wpcf_theme_noticed') );
-        add_action( 'init',                     array( $this, 'wpcf_load_theme_resources') );
-        add_action( 'wp_enqueue_scripts',       array( $this, 'wpcf_load_theme_css_resources' ) );
-        //add_action( 'template_redirect',        array( $this, 'wpcf_theme_redirect') ); //Template Redirect
+        add_action( 'wpneo_cf_select_theme',    array( $this, 'selected_theme_callback') ); //Generate a dropdown for theme
+        add_action( 'admin_notices',            array( $this, 'theme_noticed_callback') );
+        add_action( 'init',                     array( $this, 'require_theme_resources') );
+        add_action( 'wp_enqueue_scripts',       array( $this, 'load_theme_css_callback' ) );
+        add_action( 'template_redirect',        array( $this, 'theme_redirect_callback') ); //Template Redirect
     }
 
-    public function wpcf_template_chooser($template){
+    public function template_chooser_callback($template){
         global $post, $woocommerce;
 
         $post_id = get_the_ID();
@@ -191,7 +190,7 @@ class Templating {
      * Theme standard
      * These file required for develop a wpneo crowdfunding theme
      */
-    public function wpcf_theme_standard(){
+    public function theme_standard_check(){
         $theme_standard = array(
             'index.php',
             'style.css',
@@ -206,8 +205,8 @@ class Templating {
     /**
      * Show theme error notice in admin panel
      */
-    public function wpcf_theme_noticed(){
-        $theme_standard = $this->wpcf_theme_standard();
+    public function theme_noticed_callback(){
+        $theme_standard = $this->theme_standard_check();
 
         $themes_dir = $this->wpcf_select_themes_dir();
         $html = "";
@@ -230,7 +229,6 @@ class Templating {
                 }
             }
         }
-
         echo $html;
     }
 
@@ -241,8 +239,8 @@ class Templating {
      *
      * Check theme standard
      */
-    public function wpcf_check_theme_standard($directory = '', $theme_name =''){
-        $theme_standard = $this->wpcf_theme_standard();
+    public function check_theme_standard($directory = '', $theme_name =''){
+        $theme_standard = $this->theme_standard_check();
         $files = array_slice(scandir($directory), 2);
         $missing_files = array_diff($theme_standard, $files);
 
@@ -256,8 +254,8 @@ class Templating {
     /**
      * Generate select option html for theme
      */
-    public function wpcf_select_theme(){
-        $themes_dir = $this->wpcf_select_themes_dir();
+    public function selected_theme_callback(){
+        $themes_dir = $this->wpneo_cf_select_themes_dir();
         $html = '';
 
         $html .='<table class="form-table">';
@@ -271,7 +269,7 @@ class Templating {
                             foreach($themes_dir as $k => $v) {
                                 $selected   = ($this->_theme == $v) ? 'selected' : '';
                                 $theme_info = $this->get_theme_info($this->_vendor_path.$v.'/index.php');
-                                $is_theme   = $this->wpcf_check_theme_standard($this->_vendor_path.$v);
+                                $is_theme   = $this->check_theme_standard($this->_vendor_path.$v);
                                 if ($is_theme){
                                     $html .= '<option value="' . $v . '" ' . $selected . '>' . $theme_info['theme_name'] . '</option>';
                                 }
@@ -306,8 +304,8 @@ class Templating {
     /**
      * Include wpneo theme functions with wordpress core
      */
-    public function wpcf_load_theme_resources(){
-        $is_valid_theme = $this->wpcf_check_theme_standard($this->_selected_theme_path);
+    public function require_theme_resources(){
+        $is_valid_theme = $this->check_theme_standard($this->_selected_theme_path);
         if ($is_valid_theme) {
             include_once $this->_selected_theme_path . 'wpneo-functions.php';
         }else{
@@ -318,8 +316,8 @@ class Templating {
     /**
      * Include wpneo theme CSS in frontend
      */
-    public function wpcf_load_theme_css_resources(){
-        $is_valid_theme = $this->wpcf_check_theme_standard($this->_selected_theme_path);
+    public function load_theme_css_callback(){
+        $is_valid_theme = $this->check_theme_standard($this->_selected_theme_path);
         if ($is_valid_theme) {
             if (file_exists($this->_theme_in_themes_path.'style.css')){
                 wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
@@ -336,7 +334,7 @@ class Templating {
      * Template Redirect
      */
 
-    public function wpcf_theme_redirect() {
+    blic function theme_redirect_callback() {
         $listing_id = get_option('wpneo_listing_page_id','');
         $form_id = get_option('wpneo_form_page_id','');
         $registration_id = get_option('wpneo_registration_page_id','');
@@ -345,19 +343,19 @@ class Templating {
         if( is_page() ){
             if( ($listing_id != '') && ($listing_id != '0') ){
                 $slug1 = get_post($listing_id)->post_name;
-                $this->wpcf_template_load( $slug1 );
+                $this->template_load( $slug1 );
             }
             if( ($form_id != '') && ($form_id != '0') ){
                 $slug2 = get_post($form_id)->post_name;
-                $this->wpcf_template_load( $slug2 );
+                $this->template_load( $slug2 );
             }
             if( ($registration_id != '') && ($registration_id != '0') ){
                 $slug3 = get_post($registration_id)->post_name;
-                $this->wpcf_template_load( $slug3 );
+                $this->template_load( $slug3 );
             }
             if( ($dashboard_id != '') && ($dashboard_id != '0') ){
                 $slug4 = get_post($dashboard_id)->post_name;
-                $this->wpcf_template_load( $slug4 );
+                $this->template_load( $slug4 );
             }
         }
 
@@ -378,17 +376,17 @@ class Templating {
         }
     }
 
-    public function wpcf_template_load( $slug ){
+    public function template_load( $slug ){
         global $wp;
         if (! empty($wp->query_vars["pagename"])) {
             if ($wp->query_vars["pagename"] == $slug) {
                 $return_template = dirname($this->_selected_theme) . '/page-fullwidth.php';
-                $this->wpcf_do_theme_redirect($return_template);
+                $this->do_theme_redirect($return_template);
             }
         }
     }
 
-    public function wpcf_do_theme_redirect($url) {
+    public function do_theme_redirect($url) {
         global $post, $wp_query;
         if (have_posts()) {
             include($url);

@@ -71,12 +71,14 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
 
     $html .= '<input type="hidden"  value="wpneo_update_status_save" name="action" />';
     $html .= '<input type="hidden"  value="'. intval(esc_attr($post_id)) .'" name="postid" />';
-    $html .= '</div>';//wpneo-padding25        
+    $html .= '</div>';//wpneo-padding25
     //Save Button
     $html .= '<div class="wpneo-buttons-group float-right">';
     $html .= '<button id="wpneo-update-save" class="wpneo-save-btn" type="submit">'.__( "Save" , "wp-crowdfunding" ).'</button>';
     $html .= '</div>';
     $html .= '<div class="clear-float"></div>';
+
+    $html .= wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false );
 
     $html .= '</form>';
     $html .= '</div>';

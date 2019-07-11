@@ -19,11 +19,10 @@ class Registration {
             <h3 class="wpneo-center"><?php _e("You are already logged in.","wp-crowdfunding"); ?></h3>
         <?php } else {
           global $reg_errors,$reg_success;
-          $nonce = wp_create_nonce( 'wpcf-nonce-registration' );
           ?>
             <div class="wpneo-user-registration-wrap">
                 <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" id="wpneo-registration" method="post">
-                    <input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>">
+                <?php echo wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false ); ?>
                     <?php
                     $regisration_data = array(
                         array(
@@ -153,34 +152,26 @@ class Registration {
     
     // register a new user
     function registration_save_action() {
-
-        //update_option( 'default_wpcf_status', 'closed' );
-
-        //die(json_encode(array('success'=> 0, 'message' => 'Anik Biswas' )));
-    
-        if( wp_verify_nonce(wpcf_function()->post('_wpnonce'),'wpcf-nonce-registration') ){
-    
-            //Add some option
-            do_action( 'wpneo_before_user_registration_action' );
-    
-            $username = $password = $email = $website = $first_name = $last_name = $nickname = $bio = '';
-            // sanitize user form input
-            $username   =   sanitize_user($_POST['username']);
-            $password   =   sanitize_text_field($_POST['password']);
-            $email      =   sanitize_email($_POST['email']);
-            $website    =   esc_url_raw($_POST['website']);
-            $first_name =   sanitize_text_field($_POST['fname']);
-            $last_name  =   sanitize_text_field($_POST['lname']);
-            $nickname   =   sanitize_text_field($_POST['nickname']);
-            $bio        =   implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['bio'])));
-    
-            $this->registration_validation( $username , $password , $email , $website , $first_name , $last_name , $nickname , $bio );
-            $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
-        }else{
-            global $reg_errors;
-            $reg_errors = new \WP_Error;
-            $reg_errors->add('security', __('Security Error','wp-crowdfunding'));
+        if ( ! isset( $_POST['wpcf_form_action'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action'], 'wpcf_form_action_field' ) ) {
+            die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
+            exit;
         }
+    
+        //Add some option
+        do_action( 'wpneo_before_user_registration_action' );
+
+        $username = $password = $email = $website = $first_name = $last_name = $nickname = $bio = '';
+        // sanitize user form input
+        $username   =   sanitize_user($_POST['username']);
+        $password   =   sanitize_text_field($_POST['password']);
+        $email      =   sanitize_email($_POST['email']);
+        $website    =   esc_url_raw($_POST['website']);
+        $first_name =   sanitize_text_field($_POST['fname']);
+        $last_name  =   sanitize_text_field($_POST['lname']);
+        $nickname   =   sanitize_text_field($_POST['nickname']);
+        $bio        =   implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['bio'])));
+        $this->registration_validation( $username , $password , $email , $website , $first_name , $last_name , $nickname , $bio );
+        $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
     }
     
     function complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {

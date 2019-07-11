@@ -33,6 +33,11 @@ class Submit_Form {
 
     function frontend_data_save(){
 
+        if ( ! isset( $_POST['wpcf_form_action'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action'], 'wpcf_form_action_field' ) ) {
+            die(json_encode(array('success'=> 0, 'message' => __('Sorry, your data did not verify.', 'wp-crowdfunding'))));
+            exit;
+        }
+
         global $wpdb;
         $title = $description = $category = $tag = $image_id = $video = $start_date = '';
         $end_date = $min_price = $max_price = $recommended_price = $type = '';

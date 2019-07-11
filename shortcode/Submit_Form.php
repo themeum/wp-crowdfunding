@@ -594,6 +594,8 @@ class Campaign_Submit_Form {
         $html .= '<a href="'.$var.'" class="wpneo-cancel-campaign">'.__("Cancel","wp-crowdfunding").'</a>';
         $html .= '</div>';
 
+        $html .= wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false );
+
         $html .= '</form>';
 
         return $html;

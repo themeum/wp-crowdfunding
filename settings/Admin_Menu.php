@@ -222,11 +222,9 @@ class Admin_Menu {
             }else{
                 include_once $default_file;
             }
-
             wp_nonce_field( 'wpneo_settings_page_action', 'wpneo_settings_page_nonce_field' );
             submit_button( null, 'primary', 'wpneo_admin_settings_submit_btn' );
             ?>
-
             <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> <i class="dashicons dashicons-image-rotate"></i> <?php _e('Reset Settings', 'wp-crowdfunding'); ?></a>
         </form>
         <?php
