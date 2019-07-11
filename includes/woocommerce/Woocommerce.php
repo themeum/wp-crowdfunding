@@ -321,8 +321,10 @@ class Woocommerce {
         $saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);
         $saved_campaign_update_a = json_decode($saved_campaign_update, true);
 
+        $total_campaign_update = count($saved_campaign_update_a);
+
         $display ='block;';
-        if (is_array($saved_campaign_update_a) && count($saved_campaign_update_a) > 0) {
+        if (is_array($saved_campaign_update_a) && $total_campaign_update > 0) {
             $display ='none;';
         }
 
@@ -368,7 +370,7 @@ class Woocommerce {
         echo "</div>";
 
         echo "<div id='campaign_update_addon_field'>";
-            if (is_array($saved_campaign_update_a) && count($saved_campaign_update_a) > 0){
+            if (is_array($saved_campaign_update_a) && $total_campaign_update > 0){
                 foreach($saved_campaign_update_a as $key => $value) {
                     echo "<div class='campaign_update_field_copy'>";
                     woocommerce_wp_text_input(
@@ -392,16 +394,6 @@ class Woocommerce {
                             'value'     => stripslashes($value['title'])
                         )
                     );
-                    /* woocommerce_wp_textarea_input(
-                        array(
-                            'id'        => 'wpneo_prject_update_details_field[]',
-                            'label'     => __('Update Details', 'wp-crowdfunding'),
-                            'desc_tip'  => 'true',
-                            'type'      => 'text',
-                            'placeholder' => __('Update details', 'wp-crowdfunding'),
-                            'value'     => stripslashes($value['details'])
-                        )
-                    );*/
 
                     wp_editor(stripslashes($value['details']), 'wpneo_prject_update_details_field'.$key, array('textarea_name' => 'wpneo_prject_update_details_field[]'));
 
