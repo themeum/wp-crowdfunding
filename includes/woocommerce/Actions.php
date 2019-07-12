@@ -59,7 +59,7 @@ class Actions {
             'user_url'          => $website,
             'description'       => $description,
         );
-        do_action('wpneo_crowdfunding_after_save_dashboard');
+        do_action('wpcf_after_save_dashboard');
 
         $update = wp_update_user( $userdata );
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=dashboard';
@@ -117,7 +117,7 @@ class Actions {
         //Update User Info
         wp_update_user( array( 'ID' => $user_id, 'first_name' => $first_name, 'last_name' => $last_name ) );
 
-        do_action('wpneo_crowdfunding_after_save_profile');
+        do_action('wpcf_after_save_profile');
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=profile';
         die(json_encode(array('success'=> 1, 'message' => __('Successfully updated','wp-crowdfunding'),'redirect' => $redirect)));
     }

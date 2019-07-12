@@ -10,7 +10,7 @@ global $post;
     <?php the_content(); ?>
 </div>
 <div class="tab-rewards tab_col_3 tab-campaign-story-right">
-    <?php do_action('wpneo_campaign_story_right_sidebar'); ?>
+    <?php do_action('wpcf_campaign_story_right_sidebar'); ?>
 	<div style="clear: both"></div>
 </div>
 

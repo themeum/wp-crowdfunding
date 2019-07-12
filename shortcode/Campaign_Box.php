@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Campaign_Box {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_campaign_box', array( $this, 'campaign_box_callback' ) ); //@comparability
         add_shortcode( 'wpcf_campaign_box', array( $this, 'campaign_box_callback' ) );
     }
 
@@ -49,11 +48,11 @@ class Campaign_Box {
             ?>
 
             <div class="wpneo-listings three">
-                <?php do_action('wpneo_campaign_loop_item_before_content'); ?>
+                <?php do_action('wpcf_campaign_loop_item_before_content'); ?>
                 <div class="wpneo-listing-content">
-                    <?php do_action('wpneo_campaign_loop_item_content'); ?>
+                    <?php do_action('wpcf_campaign_loop_item_content'); ?>
                 </div>
-                <?php do_action('wpneo_campaign_loop_item_after_content'); ?>
+                <?php do_action('wpcf_campaign_loop_item_after_content'); ?>
             </div>
             
             <?php

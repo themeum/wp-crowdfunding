@@ -212,7 +212,7 @@ $html .= '<div class="wpneo-content">';
         $html .= '</div>';//wpneo-row
 
         ob_start();
-        do_action('wpneo_crowdfunding_dashboard_after_profile_form');
+        do_action('wpcf_dashboard_after_profile_form');
         $html .= ob_get_clean();
 
         $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );

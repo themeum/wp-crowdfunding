@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Dashboard {
 
     function __construct() {
-        add_shortcode( 'wpneo_crowdfunding_dashboard', array( $this, 'dashboard_callback' ) ); //@comparability
         add_shortcode( 'wpcf_dashboard', array( $this, 'dashboard_callback' ) );
     }
 

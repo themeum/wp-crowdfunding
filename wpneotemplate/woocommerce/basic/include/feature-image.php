@@ -41,5 +41,5 @@ global $post, $woocommerce, $product;
         ?>
     </div>
 
-    <?php do_action( 'wpneo_crowdfunding_after_feature_img' ); ?>
+    <?php do_action( 'wpcf_after_feature_img' ); ?>
 </div>

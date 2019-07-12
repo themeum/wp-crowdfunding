@@ -86,7 +86,7 @@ if ( $the_query->have_posts() ) :
                         </div><!--wpcrowd-admin-meta-info -->
                     </div><!-- wpcrowd-admin-metadata -->
             </div><!-- wpneo-listing-content -->
-            <?php do_action('wpneo_dashboard_campaign_loop_item_after_content'); ?>
+            <?php do_action('wpcf_dashboard_campaign_loop_item_after_content'); ?>
             <div style="clear: both"></div>
         </div>
         <?php $i++;

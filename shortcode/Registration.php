@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Registration {
 
     function __construct() {
-        add_shortcode( 'wpneo_registration', array( $this, 'registration_callback' ) ); //@comparability
         add_shortcode( 'wpcf_registration', array( $this, 'registration_callback' ) );
         
         add_action( 'wp_ajax_wpcf_registration', array( $this, 'registration_save_action' ) );
@@ -158,7 +157,7 @@ class Registration {
         }
     
         //Add some option
-        do_action( 'wpneo_before_user_registration_action' );
+        do_action( 'wpcf_before_user_registration_action' );
 
         $username = $password = $email = $website = $first_name = $last_name = $nickname = $bio = '';
         // sanitize user form input

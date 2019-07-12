@@ -6,44 +6,21 @@ defined( 'ABSPATH' ) || exit;
 class Template_Hooks {
 
     public function __construct(){
-        add_action('wpneo_before_crowdfunding_single_campaign_summary', array($this, 'campaign_single_feature_image'));
-        add_action('wpneo_crowdfunding_after_feature_img',              array($this, 'campaign_single_description'));
+		add_action('wpcf_before_crowdfunding_single_campaign_summary', 	array($this, 'campaign_single_feature_image'));
+		add_action('wpcf_crowdfunding_after_feature_img',               array($this, 'campaign_single_description'));
         
         // Single campaign Template hook
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'campaign_title'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'campaign_author'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'loop_item_rating'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'single_fund_raised'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'single_item_fund_raised_percent'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'single_fund_this_campaign_btn'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'campaign_location'));
-        add_action('wpneo_crowdfunding_single_campaign_summary',        array($this, 'creator_info'), 12);
-        add_filter('wpneo_crowdfunding_default_single_campaign_tabs',   array($this, 'single_campaign_tabs'), 10);
-        add_action('wpneo_after_crowdfunding_single_campaign_summary',  array($this, 'campaign_single_tab'));
+        add_action('wpcf_single_campaign_summary',        				array($this, 'single_campaign_summary'));
+        add_filter('wpcf_default_single_campaign_tabs',   				array($this, 'single_campaign_tabs'), 10);
+        add_action('wpcf_after_single_campaign_summary',  				array($this, 'campaign_single_tab'));
         //Campaign Story Right Sidebar
-        add_action('wpneo_campaign_story_right_sidebar',                array($this, 'story_right_sidebar'));
+        add_action('wpcf_campaign_story_right_sidebar',                	array($this, 'story_right_sidebar'));
         //Listing Loop
-        add_action('wpneo_campaign_loop_item_before_content',           array($this, 'loop_item_thumbnail'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_rating'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_title'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_author'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_location'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_short_description'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_fund_raised_percent'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_funding_goal'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_time_remaining'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_fund_raised'));
-        add_action('wpneo_campaign_loop_item_content',                  array($this, 'loop_item_button'));
+		add_action('wpcf_campaign_loop_item_before_content',           	array($this, 'loop_item_thumbnail'));
+		add_action('wpcf_campaign_loop_item_content',                  	array($this, 'campaign_loop_item_content'));
         //Dashboard Campaigns
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_title'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_author'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_location'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_fund_raised_percent'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_funding_goal'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_time_remaining'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_fund_raised'));
-        add_action('wpneo_dashboard_campaign_loop_item_content',        array($this, 'loop_item_button'));
-        add_action('wpneo_dashboard_campaign_loop_item_before_content', array($this, 'loop_item_thumbnail'));
+		add_action('wpcf_dashboard_campaign_loop_item_content',        	array($this, 'dashboard_campaign_loop_item_content'));
+        add_action('wpcf_dashboard_campaign_loop_item_before_content', 	array($this, 'loop_item_thumbnail'));
         // Filter Search for Crowdfunding campaign
         add_filter('pre_get_posts' ,                                    array($this, 'search_shortcode_filter'));
         add_action('get_the_generator_html',                            array($this, 'tag_generator'), 10, 2 ); // Single Page Html
@@ -97,13 +74,42 @@ class Template_Hooks {
 		return $query;
 	}
 
-	public function campaign_title() {
+	public function single_campaign_summary() {
 		wpcf_function()->template('include/campaign-title');
+		wpcf_function()->template('include/author');
+		wpcf_function()->template('include/loop/rating_html');
+		$this->loop_item_rating();
+		$this->single_fund_raised();
+		wpcf_function()->template('include/fund_raised_percent');
+		$this->single_fund_this_campaign_btn();
+		$this->campaign_location();
+		$this->creator_info();
 	}
 
-	public function campaign_author() {
-		wpcf_function()->template('include/author');
+	public function campaign_loop_item_content() {
+		$this->loop_item_rating();
+		$this->loop_item_title();
+		$this->loop_item_author();
+		$this->loop_item_location();
+		wpcf_function()->template('include/loop/description');
+		$this->loop_item_fund_raised_percent();
+		$this->loop_item_funding_goal();
+		$this->loop_item_time_remaining();
+		$this->loop_item_fund_raised();
+		$this->loop_item_button();
 	}
+
+	public function dashboard_campaign_loop_item_content() {
+		$this->loop_item_title();
+		$this->loop_item_author();
+		$this->loop_item_location();
+		$this->loop_item_fund_raised_percent();
+		$this->loop_item_funding_goal();
+		$this->loop_item_time_remaining();
+		$this->loop_item_fund_raised();
+		$this->loop_item_button();
+	}
+
 
 	public function campaign_location() {
 		wpcf_function()->template('include/location');
@@ -139,10 +145,6 @@ class Template_Hooks {
 
 	public function wpneo_crowdfunding_campaign_single_days_remaining() {
 		wpcf_function()->template('include/days-remaining');
-	}
-
-	public function single_item_fund_raised_percent() {
-		wpcf_function()->template('include/fund_raised_percent');
 	}
 
 	public function single_fund_this_campaign_btn() {
@@ -253,10 +255,6 @@ class Template_Hooks {
 
 	public function loop_item_rating() {
 		wpcf_function()->template('include/loop/rating_html');
-	}
-
-	public function loop_item_short_description(){
-		wpcf_function()->template('include/loop/description');
 	}
 
 	public function loop_item_location() {
