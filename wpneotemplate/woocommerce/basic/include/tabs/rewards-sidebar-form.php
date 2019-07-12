@@ -27,7 +27,7 @@ if (is_array($campaign_rewards_a)) {
 			$orders     = 0;
 			( ! empty($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount']))? ( $max_data = $campaign_rewards_a[$i]['wpneo_rewards_pladge_amount'] - 1 ) : ($max_data = 9000000000);
 			if( $min_data != '' ){
-				$orders = wpneo_campaign_order_number_data( $min_data,$max_data,$post_id );
+				$orders = wpcf_campaign_order_number_data( $min_data,$max_data,$post_id );
 			}
 			if( $value['wpneo_rewards_item_limit'] ){
 				$quantity = 0;
@@ -67,8 +67,8 @@ if (is_array($campaign_rewards_a)) {
 
 
                     <!-- Campaign Valid -->
-					<?php if (WPNEOCF()->campaignValid()) { ?>
-						<?php if (WPNEOCF()->is_campaign_started()) {
+					<?php if (wpcf_function()->is_campaign_valid()) { ?>
+						<?php if (wpcf_function()->is_campaign_started()) {
 							if (get_option('wpneo_single_page_reward_design') == 1) { ?>
                                 <div class="overlay">
                                     <div>
@@ -110,10 +110,10 @@ if (is_array($campaign_rewards_a)) {
                             <div>
                                 <div>
                                     <span class="info-text">
-										<?php if( WPNEOCF()->is_reach_target_goal() ){ ?>
+										<?php if( wpcf_function()->is_reach_target_goal() ){ ?>
 											<?php _e('Campaign already completed.', 'wp-crowdfunding'); ?>
 										<?php }else{ ?>
-											<?php if (WPNEOCF()->is_campaign_started()){ ?>
+											<?php if (wpcf_function()->is_campaign_started()){ ?>
 												<?php _e('Reward is not valid.', 'wp-crowdfunding'); ?>
 											<?php }else{ ?>
 												<?php _e('Campaign is not started.', 'wp-crowdfunding'); ?>

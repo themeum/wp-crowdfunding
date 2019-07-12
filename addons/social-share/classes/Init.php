@@ -134,7 +134,7 @@ class Init {
     
                                     <h4><a target="_top" href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h4>
                                     <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 
-                                        <a target="_top" href="<?php echo wpcf_function()->author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->author_name(); ?></a>
+                                        <a target="_top" href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
                                     </p>
     
                                     <?php
@@ -145,9 +145,9 @@ class Init {
                                         </div>
                                     <?php } ?>
     
-                                    <p class="wpneo-short-description"><?php echo WPNEOCF()->limit_word_text(strip_tags(get_the_content()), 130); ?></p>
+                                    <p class="wpneo-short-description"><?php echo wpcf_function()->limit_word_text(strip_tags(get_the_content()), 130); ?></p>
     
-                                    <?php $raised_percent = WPNEOCF()->getFundRaisedPercentFormat(); ?>
+                                    <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
                                     <div class="wpneo-raised-percent">
                                         <div class="wpneo-meta-name"><?php _e('Raised Percent', 'wp-crowdfunding'); ?> :</div>
                                         <div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
@@ -155,7 +155,7 @@ class Init {
     
                                     <div class="wpneo-raised-bar sjkdhfjdshf">
                                         <div id="neo-progressbar">
-                                            <?php $css_width = WPNEOCF()->getFundRaisedPercent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
+                                            <?php $css_width = wpcf_function()->get_raised_percent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
                                             <div style="width: <?php echo $css_width; ?>%"></div>
                                         </div>
                                     </div>
@@ -171,8 +171,8 @@ class Init {
                                         <?php
                                         $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
                                         $days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
-                                        if (WPNEOCF()->dateRemaining()){
-                                            $days_remaining = apply_filters('date_remaining_msg', __(WPNEOCF()->dateRemaining(), 'wp-crowdfunding'));
+                                        if (wpcf_function()->get_date_remaining()){
+                                            $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
                                         }
                                         if ($wpneo_campaign_end_method != 'never_end'){ ?>
                                             <div class="wpneo-time-remaining">
@@ -183,7 +183,7 @@ class Init {
                                         
                                         <?php
                                         $raised = 0;
-                                        $total_raised = WPNEOCF()->totalFundRaisedByCampaign();
+                                        $total_raised = wpcf_function()->get_total_fund();
                                         if ($total_raised){ $raised = $total_raised; }
                                         ?>
                                         <div class="wpneo-fund-raised">

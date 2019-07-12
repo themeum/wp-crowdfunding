@@ -25,7 +25,7 @@ function wpcf_social_share_config( $config ) {
 	return $config;
 }
 
-$addonConfig = wpcf_function()->addon_config( WPCF_SOCIAL_SHARE_BASE_NAME );
+$addonConfig = wpcf_function()->get_addon_config( WPCF_SOCIAL_SHARE_BASE_NAME );
 $isEnable = (bool) wpcf_function()->avalue_dot( 'is_enable', $addonConfig );
 if ( $isEnable ) {
 	include_once 'classes/Init.php';

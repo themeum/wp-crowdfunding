@@ -141,7 +141,7 @@ class Dashboard {
             $html .= '</div>'; //wpneo-wrapper
 
         }else{
-            $html .= wpneo_crowdfunding_wc_toggle_login_form();
+            $html .= wpcf_toggle_login_form();
         }
 
         return $html;

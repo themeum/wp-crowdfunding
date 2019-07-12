@@ -159,7 +159,7 @@ if(!empty($customer_order_all)){
     $max_page = ceil( count($customer_order_all)/10 );
 }
 // Pagination
-$html .= wpcf_function()->pagination( $page_numb , $max_page );
+$html .= wpcf_function()->get_pagination( $page_numb , $max_page );
 
 $html .='</div>';
 $html .='</div>';

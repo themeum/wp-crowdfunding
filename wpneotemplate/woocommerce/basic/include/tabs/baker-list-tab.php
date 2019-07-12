@@ -5,7 +5,7 @@ global $post;
 
 $campaign_id = $post->ID;
 
-$baker_list = WPNEOCF()->getCustomersByProduct();
+$baker_list = wpcf_function()->get_customers_product();
 ?>
 <table>
     <tr>

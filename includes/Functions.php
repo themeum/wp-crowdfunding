@@ -91,7 +91,7 @@ class Functions {
     }
     
     
-    public function screen_id(){
+    public function get_screen_id(){
         $screen_ids = array(
             'toplevel_page_wpneo-crowdfunding',
             'crowdfunding_page_wpneo-crowdfunding-reports',
@@ -101,7 +101,7 @@ class Functions {
     }
     
 
-    public function addon_config($addon_field = null){
+    public function get_addon_config($addon_field = null){
         if ( ! $addon_field){
             return false;
         }
@@ -155,7 +155,7 @@ class Functions {
 	}
 
 
-    public function range_pladges_received($from_date = null, $to_date = null){
+    public function get_pladge_received($from_date = null, $to_date = null){
         if ( ! $from_date){
             $from_date = date('Y-m-d 00:00:00', strtotime('-6 days'));
         }
@@ -229,59 +229,55 @@ class Functions {
 
 	public function get_order_ids_by_product_ids( $product_ids , $order_status = array( 'wc-completed' ) ){
 		global $wpdb;
-
 		$results = $wpdb->get_col("
-        SELECT order_items.order_id
-        FROM {$wpdb->prefix}woocommerce_order_items as order_items
-        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-        LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
-        WHERE posts.post_type = 'shop_order'
-        AND posts.post_status IN ( '" . implode( "','", $order_status ) . "' )
-        AND order_items.order_item_type = 'line_item'
-        AND order_item_meta.meta_key = '_product_id'
-        AND order_item_meta.meta_value IN ( '" . implode( "','", $product_ids ) . "' )
-    ");
+            SELECT order_items.order_id
+            FROM {$wpdb->prefix}woocommerce_order_items as order_items
+            LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
+            LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
+            WHERE posts.post_type = 'shop_order'
+            AND posts.post_status IN ( '" . implode( "','", $order_status ) . "' )
+            AND order_items.order_item_type = 'line_item'
+            AND order_item_meta.meta_key = '_product_id'
+            AND order_item_meta.meta_value IN ( '" . implode( "','", $product_ids ) . "' )
+        ");
 		return $results;
     }
 
-    function author_url($user_login) {
+    function get_author_url($user_login) {
         return esc_url(add_query_arg(array('author' => $user_login)));
     }
 
-    public function author_name(){
+    public function get_author_name(){
 		global $post;
 		$author = get_user_by('id', $post->post_author);
 		$author_name = $author->first_name . ' ' . $author->last_name;
-		if (empty($author->first_name))
-			$author_name = $author->display_name;
-
+		if (empty($author->first_name)){
+            $author_name = $author->display_name;
+        }
 		return $author_name;
 	}
 
 
 	public function author_name_by_login($author_login){
 		$author = get_user_by('login', $author_login);
-
 		$author_name = $author->first_name . ' ' . $author->last_name;
-		if (empty($author->first_name))
-			$author_name = $author->user_login;
-
+		if (empty($author->first_name)){
+            $author_name = $author->user_login;
+        }
 		return $author_name;
 	}
 
 
 	public function campaign_location(){
 		global $post;
-		$wpneo_country = get_post_meta($post->ID, 'wpneo_country', true);
+		$country = get_post_meta($post->ID, 'wpneo_country', true);
 		$location = get_post_meta($post->ID, '_nf_location', true);
 		$country_name = '';
 		if (class_exists('WC_Countries')) {
-			//Get Country name from WooCommerce
 			$countries_obj = new \WC_Countries();
 			$countries = $countries_obj->__get('countries');
-
-			if ($wpneo_country){
-				$country_name = $countries[$wpneo_country];
+			if ($country){
+				$country_name = $countries[$country];
 				$location = $location . ', ' . $country_name;
 			}
 		}
@@ -292,7 +288,6 @@ class Functions {
     public function template($template = '404'){
 		$template_class = new \WPCF\woocommerce\Templating;
 		$locate_file = $template_class->_theme_in_themes_path.$template.'.php';
-
 		if (file_exists($locate_file)){
 			include $locate_file;
 		} else { 
@@ -304,10 +299,9 @@ class Functions {
     public function fund_raised($campaign_id = 0){
 		global $wpdb, $post;
 		$db_prefix = $wpdb->prefix;
-
-		if ($campaign_id == 0)
-			$campaign_id = $post->ID;
-
+		if ($campaign_id == 0){
+            $campaign_id = $post->ID;
+        }
 		// WPML compatibility.
 		if ( apply_filters( 'wpml_setting', false, 'setup_complete' ) ) {
 			$type = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
@@ -320,18 +314,12 @@ class Functions {
 		$placeholders = implode( ',', array_fill( 0, count( $campaign_ids ), '%d' ) );
 		
 
-		$query = "SELECT
-                    SUM(ltoim.meta_value) as total_sales_amount
-                FROM
-                    {$wpdb->prefix}woocommerce_order_itemmeta woim
-			    LEFT JOIN
-                    {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
-			    LEFT JOIN
-                    {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID
-			    LEFT JOIN
-                    {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
-			    WHERE
-                    woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
+		$query ="SELECT SUM(ltoim.meta_value) as total_sales_amount
+                FROM {$wpdb->prefix}woocommerce_order_itemmeta woim
+			    LEFT JOIN {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
+			    LEFT JOIN {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID
+			    LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
+			    WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
 
 		$wp_sql = $wpdb->get_row($wpdb->prepare($query, $campaign_ids));
 
@@ -388,7 +376,6 @@ class Functions {
 				$user_id = get_current_user_id();
 				$loved_campaign_ids = array();
 				$prev_campaign_ids = get_user_meta($user_id, 'loved_campaign_ids', true);
-
 				if ($prev_campaign_ids) {
 					$loved_campaign_ids = json_decode($prev_campaign_ids, true);
 					return count($loved_campaign_ids);
@@ -430,14 +417,13 @@ class Functions {
 		return $url;
 	}
 
-	public function embeded_video($url){
+	public function get_embeded_video($url){
 		if (! empty($url)) {
 			$embeded = wp_oembed_get($url);
 
 			if ($embeded == false) {
-				$url = strtolower($url);
-
 				$format = '';
+				$url = strtolower($url);
 				if (strpos($url, '.mp4')) {
 					$format = 'mp4';
 				} elseif (strpos($url, '.ogg')) {
@@ -445,17 +431,16 @@ class Functions {
 				} elseif (strpos($url, '.webm')) {
 					$format = 'WebM';
 				}
-
 				$embeded = '<video controls><source src="' . $url . '" type="video/' . $format . '">'.__('Your browser does not support the video tag.', 'wp-crowdfunding').'</video>';
 			}
 			return '<div class="wpneo-video-wrapper">' . $embeded . '</div>';
-		} else{
+		} else {
 			return false;
 		}
     }
 
     // Pagination
-	function pagination($page_numb, $max_page) {
+	function get_pagination($page_numb, $max_page) {
 		$html = '';
 		$big = 999999999; // need an unlikely integer
 		$html .= '<div class="wpneo-pagination">';
@@ -497,12 +482,15 @@ class Functions {
         update_user_meta($user_id,'shipping_first_name', $shipping_first_name);
     }
 
-    public function dateRemaining($post_id = 0){
-
+    public function dateRemaining($post_id = 0){ //@compatibility
+        return $this->get_date_remaining($post_id = 0);
+    }
+    public function get_date_remaining($post_id = 0){
         global $post;
-        if ($post_id == 0) $post_id = $post->ID;
+        if ($post_id == 0){
+            $post_id = $post->ID;
+        }
         $enddate = get_post_meta( $post_id, '_nf_duration_end', true );
-
         if ((strtotime($enddate) + 86399) > time()) {
             $diff = strtotime($enddate) - time();
             $temp = $diff / 86400; // 60 sec/min*60 min/hr*24 hr/day=86400 sec/day
@@ -515,7 +503,7 @@ class Functions {
     public function is_reach_target_goal(){
         global $post;
         $funding_goal = get_post_meta($post->ID, '_nf_funding_goal' , true);
-        $raised = $this->totalFundRaisedByCampaign();
+        $raised = $this->get_total_fund();
         if ( $raised >= $funding_goal ){
             return true;
         }else{
@@ -523,19 +511,18 @@ class Functions {
         }
     }
 
-    public function campaignValid(){
+    public function campaignValid(){ //@compatibility
+        return $this->is_campaign_valid();
+    }
+    public function is_campaign_valid(){
         global $post;
-
         $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
-
         if ($_nf_duration_start){
             if (strtotime($_nf_duration_start) > time()){
                 return false;
             }
         }
-
         $campaign_end_method = get_post_meta($post->ID, 'wpneo_campaign_end_method' , true);
-
         switch ($campaign_end_method){
 
             case 'target_goal':
@@ -547,7 +534,7 @@ class Functions {
                 break;
 
             case 'target_date':
-                if ($this->dateRemaining()){
+                if ($this->get_date_remaining()){
                     return true;
                 }else{
                     return false;
@@ -558,7 +545,7 @@ class Functions {
                 if ( ! $this->is_reach_target_goal()) {
                     return true;
                 }
-                if ( $this->dateRemaining()) {
+                if ( $this->get_date_remaining()) {
                     return true;
                 }
                 return false;
@@ -579,15 +566,14 @@ class Functions {
      *
      * Get Total funded amount by a campaign
      */
-
-    public function totalFundRaisedByCampaign($campaign_id = 0){
-
+    public function totalFundRaisedByCampaign($campaign_id = 0){ //@compatibility
+        return $this->get_total_fund( $campaign_id = 0 );
+    }
+    public function get_total_fund($campaign_id = 0){
         global $wpdb, $post;
-
         if ($campaign_id == 0){
             $campaign_id = $post->ID;
         }
-
         // WPML compatibility.
         if ( apply_filters( 'wpml_setting', false, 'setup_complete' ) ) {
             $type           = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
@@ -624,7 +610,10 @@ class Functions {
      *
      * Get total campaign goal
      */
-    public function totalGoalByCampaign($campaign_id){
+    public function totalGoalByCampaign($campaign_id){ //@compatibility
+        return $this->get_total_goal($campaign_id);
+    }
+    public function get_total_goal($campaign_id){
         return $funding_goal = get_post_meta( $campaign_id, '_nf_funding_goal', true );
     }
 
@@ -634,26 +623,31 @@ class Functions {
      *
      * Return total percent funded for a campaign
      */
-    public function getFundRaisedPercent($campaign_id = 0) {
-
+    public function get_raised_percent($campaign_id = 0) {
         global $post;
         $percent = 0;
         if ($campaign_id == 0){
             $campaign_id = $post->ID;
         }
-        $total = $this->totalFundRaisedByCampaign($campaign_id);
-        $goal = $this->totalGoalByCampaign($campaign_id);
+        $total = $this->get_total_fund($campaign_id);
+        $goal = $this->get_total_goal($campaign_id);
         if ($total > 0 && $goal > 0  ) {
             $percent = number_format($total / $goal * 100, 2, '.', '');
         }
         return $percent;
     }
+    public function getFundRaisedPercent(){ // @compatibility of getFundRaisedPercentFormat
+        return $this->get_raised_percent($campaign_id = 0);
+    }
 
     public function getFundRaisedPercentFormat(){
+        return $this->get_fund_raised_percent_format();
+    }
+    public function get_fund_raised_percent_format(){ // @compatibility of getFundRaisedPercentFormat
         return $this->getFundRaisedPercent().'%';
     }
 
-    public function ordersIDlistPerCampaign( $post_id = Null ) {
+    public function get_campaign_orders_id_list( $post_id = Null ) {
 
         global $wpdb, $post;
         $prefix = $wpdb->prefix;
@@ -675,16 +669,19 @@ class Functions {
     }
 
     public function totalBackers(){
-        $wpneo_orders = $this->getCustomersByProductQuery();
-        if ($wpneo_orders){
-            return $wpneo_orders->post_count;
+        return $this->get_total_backers();
+    }
+    public function get_total_backers(){
+        $orders = $this->get_customers_by_product_query();
+        if ($orders){
+            return $orders->post_count;
         }else{
             return 0;
         }
     }
 
-    public function getCustomersByProductQuery(){
-        $order_ids = $this->ordersIDlistPerCampaign();
+    public function get_customers_by_product_query(){
+        $order_ids = $this->get_campaign_orders_id_list();
         if( $order_ids ) {
             $args = array(
                 'post_type'         =>'shop_order',
@@ -693,18 +690,21 @@ class Functions {
                 'order'             => 'ASC',
                 'post_status'       => 'wc-completed',
             );
-            $wpneo_orders = new WP_Query( $args );
-            return $wpneo_orders;
+            $orders = new WP_Query( $args );
+            return $orders;
         }
         return false;
     }
 
-    function getCustomersByProduct($post_id = Null) {
-        $order_ids = $this->ordersIDlistPerCampaign( $post_id );
+    public function getCustomersByProduct($post_id = Null) {
+        return $this->get_customers_product($post_id = Null);
+    }
+    public function get_customers_product($post_id = Null) {
+        $order_ids = $this->get_campaign_orders_id_list( $post_id );
         return $order_ids;
     }
 
-    public function wpneo_campaign_update_status(){
+    public function get_campaign_update_status(){
 
         global $post;
         $saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);

@@ -53,6 +53,8 @@ class Dashboard{
             $campaign_ids[] = get_the_ID();
         endforeach; 
         wp_reset_postdata();
+
+
         
         if (count($campaign_ids) > 0) {
             $campaign_ids_string     = implode(',', $campaign_ids);
@@ -147,7 +149,7 @@ class Dashboard{
      * Register meta box(es).
      */
     function register_meta_boxes() {
-        add_meta_box( 'meta-box-id', __( 'Campaign Summary', 'wp-crowdfunding' ), array($this, 'wpneo_crowdfunding_metabox_display_callback'), 'product', 'side', 'high' );
+        add_meta_box( 'meta-box-id', __( 'Campaign Summary', 'wp-crowdfunding' ), array($this, 'metabox_display_callback'), 'product', 'side', 'high' );
     }
 
     /**
@@ -155,7 +157,7 @@ class Dashboard{
      *
      * @param WP_Post $post Current post object.
      */
-    function wpneo_crowdfunding_metabox_display_callback( $post ) {
+    function metabox_display_callback( $post ) {
         $html = '';
         $html .='<table class="widefat striped our-products">';
             $html .='<tr>';
@@ -195,7 +197,7 @@ class Dashboard{
 
             $html .='<tr>';
                 $html .='<td>'.__("Raised Percent", "wp-crowdfunding").'</td>';
-                $html .='<td><span class="label-danger">'.WPNEOCF()->getFundRaisedPercentFormat().'</span></td>';
+                $html .='<td><span class="label-danger">'.wpcf_function()->get_fund_raised_percent_format().'</span></td>';
             $html .='</tr>';
 
         $html .='</table>';

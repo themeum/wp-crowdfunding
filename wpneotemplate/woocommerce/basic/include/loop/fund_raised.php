@@ -1,8 +1,8 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-$raised_percent = WPNEOCF()->getFundRaisedPercentFormat();
+$raised_percent = wpcf_function()->get_fund_raised_percent_format();
 $raised = 0;
-$total_raised = WPNEOCF()->totalFundRaisedByCampaign();
+$total_raised = wpcf_function()->get_total_fund();
 if ($total_raised){
     $raised = $total_raised;
 }

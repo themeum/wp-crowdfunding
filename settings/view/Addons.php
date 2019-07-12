@@ -11,7 +11,7 @@
                 <div id="the-list">
 					<?php
 					foreach ( $addons as $basName => $addon ) {
-						$addonConfig = wpcf_function()->addon_config($basName);
+						$addonConfig = wpcf_function()->get_addon_config($basName);
                         $isEnable = (bool)wpcf_function()->avalue_dot('is_enable', $addonConfig);
 
 						$thumbnailURL =  WPCF_DIR_URL.'assets/images/wpcf-plugin.png';
@@ -82,7 +82,7 @@
                         );
 
                         foreach ( $proAddons as $basName => $addon ) {
-                            $addonConfig = wpcf_function()->addon_config($basName);
+                            $addonConfig = wpcf_function()->get_addon_config($basName);
     
                             $addons_path = trailingslashit(WPCF_DIR_PATH."assets/addons/{$basName}");
                             $addons_url = trailingslashit(WPCF_DIR_URL."assets/addons/{$basName}");
