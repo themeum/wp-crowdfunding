@@ -49,9 +49,7 @@ final class Crowdfunding {
 					new \WPCF\woocommerce\Woocommerce();
 					new \WPCF\woocommerce\Actions();
 					$template_hook_obj = new \WPCF\woocommerce\Template_Hooks(); //variable used @compatibility actions
-
-					//require file for compatibility
-					require_once WPCF_DIR_PATH.'includes/compatibility/Actions.php';
+					require_once WPCF_DIR_PATH.'includes/compatibility/Actions.php'; //require file for compatibility
 				} else {
 					add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
