@@ -9,7 +9,7 @@ global $post, $woocommerce, $product;
         <?php
         $wpneo_funding_video = trim(get_post_meta($post->ID, 'wpneo_funding_video', true));
         if (! empty($wpneo_funding_video)){
-            echo wpcf_function()->embeded_video($wpneo_funding_video);
+            echo wpcf_function()->get_embeded_video($wpneo_funding_video);
         } else {
             if (has_post_thumbnail()) {
                 $image_caption = get_post(get_post_thumbnail_id())->post_excerpt;

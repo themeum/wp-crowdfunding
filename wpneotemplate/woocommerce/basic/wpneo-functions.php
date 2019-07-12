@@ -7,9 +7,8 @@ function campaign_listing_by_author_before_loop(){
 		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
 	}
 }
-//add_action('woocommerce_product_thumbnails', array('Template_Hooks', 'wpneo_crowdfunding_campaign_single_love_this'));
 
-function wpneo_campaign_order_number_data( $min_data, $max_data, $post_id ){
+function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ){
 	global $woocommerce, $wpdb;
 	$query  =   "SELECT 
                     COUNT(p.ID)
@@ -41,13 +40,9 @@ function wpneo_campaign_order_number_data( $min_data, $max_data, $post_id ){
 }
 
 // Bio Data View
-add_action( 'wp_ajax_nopriv_wpcf_bio_action', 'wpneo_bio_campaign_action' );
-add_action( 'wp_ajax_wpcf_bio_action', 'wpneo_bio_campaign_action' );
-function wpneo_bio_campaign_action(){
-	/* if ( ! is_user_logged_in()){
-		 die(json_encode(array('success'=> 0, 'message' => __('Please Sign In first', 'wp-crowdfunding') )));
-	 }
-	 */
+add_action( 'wp_ajax_nopriv_wpcf_bio_action', 'wpcf_bio_campaign_action' );
+add_action( 'wp_ajax_wpcf_bio_action', 'wpcf_bio_campaign_action' );
+function wpcf_bio_campaign_action(){
 	$html = '';
 	$author         = sanitize_text_field($_POST['author']);
 	if( $author ){
@@ -68,7 +63,7 @@ function wpneo_bio_campaign_action(){
 		}
 		$html .= '</div>';
 		$html .= '<div class="wpneo-profile">';
-		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaigns_url($creator->ID).'">'.wpcf_function()->author_name().'</a></div>';
+		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaigns_url($creator->ID).'">'.wpcf_function()->get_author_name().'</a></div>';
 		$location = wpcf_function()->campaigns_location();
 		if ($location){
 			$html .= '<div class="wpneo-profile-location">';

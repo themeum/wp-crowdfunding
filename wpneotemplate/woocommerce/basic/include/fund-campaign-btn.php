@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 	global $post, $woocommerce, $product;
 	$currency = '$';
 	if ($product->get_type() == 'crowdfunding') {
-		if (WPNEOCF()->campaignValid()) {
+		if (wpcf_function()->is_campaign_valid()) {
 			$recomanded_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
 			$min_price = get_post_meta($post->ID, 'wpneo_funding_minimum_price', true);
 			$max_price = get_post_meta($post->ID, 'wpneo_funding_maximum_price', true);
@@ -53,10 +53,10 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php
 		} else {
-			if ( ! WPNEOCF()->is_campaign_started()){
-				WPNEOCF()->campaign_start_countdown();
+			if ( ! wpcf_function()->is_campaign_started()){
+				wpcf_function()->campaign_start_countdown();
 			}else{
-				if( WPNEOCF()->is_reach_target_goal() ){
+				if( wpcf_function()->is_reach_target_goal() ){
 					_e('The campaign is successful.','wp-crowdfunding');
 				}else{
 					_e('This campaign has been invalid or not started yet.','wp-crowdfunding');

@@ -185,7 +185,7 @@ $query_args = array(
 );
 $get_crowdfunding_campaigns = new WP_Query($query_args);
 
-$pladges_received = wpcf_function()->range_pladges_received($from_date, $to_date);
+$pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
 ?>
 
 <div class="wpneo-dashboard-chart wpneo-shadow chart-container">

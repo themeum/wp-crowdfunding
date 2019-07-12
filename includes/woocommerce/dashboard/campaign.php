@@ -51,7 +51,7 @@ $the_query = new WP_Query( $args );
                     
                     <!-- author -->
                     <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 
-                        <a href="<?php echo wpcf_function()->author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->author_name(); ?></a>
+                        <a href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
                     </p>
 
                     <!-- location -->
@@ -83,16 +83,16 @@ $the_query = new WP_Query( $args );
                 <div class="wpneo-percent-rund-wrap">
                     
                     <!-- percent -->
-                    <?php $raised_percent = WPNEOCF()->getFundRaisedPercentFormat(); ?>
+                    <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
                     <div class="crowdfound-pie-chart" data-size="60" data-percent="<?php echo $raised_percent; ?>">
                         <div class="sppb-chart-percent"><span><?php echo $raised_percent; ?></span></div>
                     </div>
 
                     <!-- fund-raised -->
                     <?php 
-                    $raised_percent = WPNEOCF()->getFundRaisedPercentFormat();
+                    $raised_percent = wpcf_function()->get_fund_raised_percent_format();
                     $raised = 0;
-                    $total_raised = WPNEOCF()->totalFundRaisedByCampaign();
+                    $total_raised = wpcf_function()->get_total_fund();
                     if ($total_raised){
                         $raised = $total_raised;
                     }
@@ -111,19 +111,19 @@ $the_query = new WP_Query( $args );
 
                     <!--  Days to go -->
                     <?php $days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
-                    if (WPNEOCF()->dateRemaining()){
-                        $days_remaining = apply_filters('date_remaining_msg', __(WPNEOCF()->dateRemaining(), 'wp-crowdfunding'));
+                    if (wpcf_function()->get_date_remaining()){
+                        $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
                     }
 
                     $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
 
                     if ($wpneo_campaign_end_method != 'never_end'){ ?>
                         <div class="crowdfound-time-remaining">
-                            <?php if (WPNEOCF()->is_campaign_started()){ ?>
-                                <div class="wpneo-meta-desc"><?php echo WPNEOCF()->dateRemaining(); ?></div>
+                            <?php if (wpcf_function()->is_campaign_started()){ ?>
+                                <div class="wpneo-meta-desc"><?php echo wpcf_function()->get_date_remaining(); ?></div>
                                 <div class="wpneo-meta-name"><?php _e( 'Days to go','wp-crowdfunding' ); ?></div>
                             <?php } else { ?>
-                                <div class="wpneo-meta-desc"><?php echo WPNEOCF()->days_until_launch(); ?></div>
+                                <div class="wpneo-meta-desc"><?php echo wpcf_function()->days_until_launch(); ?></div>
                                 <div class="wpneo-meta-name"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
                             <?php } ?>
                         </div>
@@ -141,7 +141,7 @@ else :
     $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
 endif;
 
-$html .= wpcf_function()->pagination( $page_numb , $the_query->max_num_pages );
+$html .= wpcf_function()->get_pagination( $page_numb , $the_query->max_num_pages );
 
 $html .= '<div style="clear: both;"></div>';
 $html .= '</div>';

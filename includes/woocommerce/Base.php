@@ -28,20 +28,15 @@ class Base {
      * @hook
      */
     public function __construct() {
-
         add_action('admin_enqueue_scripts',            array($this, 'admin_script')); //Add Additional backend js and css
         add_action('wp_enqueue_scripts',               array($this, 'frontend_script')); //Add frontend js and css
-
         add_action('init',                             array($this, 'media_pluggable'));
         add_action('admin_init',                       array($this, 'network_disable_notice' ));
-        add_action('wp_ajax_wpcf_rated',               array($this, 'admin_footer_text_rated'));
         add_action('admin_head',                       array($this, 'add_mce_button'));
-
-        //Ajax action
         add_action('wp_ajax_wpcf_settings_reset',      array($this, 'settings_reset'));
         add_action('wp_ajax_wpcf_addon_enable_disable',array($this, 'addon_enable_disable'));
-
         add_filter('admin_footer_text',                 array($this, 'admin_footer_text'), 2); // Footer Text, Asking Rating
+        add_action('wp_ajax_wpcf_rated',                array($this, 'admin_footer_text_rated'));
         add_filter('plugin_action_links_'.WPCF_BASENAME,array($this, 'settings_link' ), 10, 5);
     }
 
@@ -150,7 +145,7 @@ class Base {
         }
 
         $current_screen = get_current_screen();
-        $crowdfunding_screen_ids = wpcf_function()->screen_id();
+        $crowdfunding_screen_ids = wpcf_function()->get_screen_id();
 
         if ( ! in_array($current_screen->id, $crowdfunding_screen_ids)){
             return $footer_text;

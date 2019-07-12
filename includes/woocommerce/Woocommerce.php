@@ -532,7 +532,7 @@ class Woocommerce {
         if ($product->get_type() == 'crowdfunding') {
             $html .= '<div class="donate_field wp_neo">';
 
-            if (WPNEOCF()->campaignValid()) {
+            if (wpcf_function()->is_campaign_valid()) {
 
                 $html .= '<form class="cart" method="post" enctype="multipart/form-data">';
                 $html .= do_action('before_wpneo_donate_field');
@@ -938,7 +938,7 @@ class Woocommerce {
             return '';
         }
 
-        $funding_goal   = wpcf_function()->totalGoalByCampaign($post->ID);
+        $funding_goal   = wpcf_function()->get_total_goal($post->ID);
         $wpneo_country  = get_post_meta( $post->ID, 'wpneo_country', true);
         $total_sales    = get_post_meta( $post->ID, 'total_sales', true );
         $enddate        = get_post_meta( $post->ID, '_nf_duration_end', true );
@@ -953,7 +953,7 @@ class Woocommerce {
         }
 
         $raised = 0;
-        $total_raised = wpcf_function()->totalFundRaisedByCampaign();
+        $total_raised = wpcf_function()->get_total_fund();
         if ($total_raised){
             $raised = $total_raised;
         }
@@ -962,8 +962,8 @@ class Woocommerce {
         $sales_value_by_product = 0;
 
         $days_remaining = apply_filters('date_expired_msg', __('Date expired', 'wp-crowdfunding'));
-        if ( wpcf_function()->dateRemaining() ) {
-            $days_remaining = apply_filters('date_remaining_msg', __( wpcf_function()->dateRemaining().' days remaining', 'wp-crowdfunding') );
+        if ( wpcf_function()->get_date_remaining() ) {
+            $days_remaining = apply_filters('date_remaining_msg', __( wpcf_function()->get_date_remaining().' days remaining', 'wp-crowdfunding') );
         }
 
         $html = '';
@@ -988,7 +988,7 @@ class Woocommerce {
         }
 
         if ($total_sales && $funding_goal) {
-            $percent = wpcf_function()->getFundRaisedPercent();
+            $percent = wpcf_function()->get_raised_percent();
             $html .= '<div class="percent_funded">';
             $html .= '<p class="wpneo_thumb_text">'.__('Funded percent: ', 'wp-crowdfunding') . '<span class="price amount">' . $percent.' %</span>'. '</p>';
             $html .= '</div>';
@@ -1030,7 +1030,7 @@ class Woocommerce {
         $html       = '';
         $prefix     = $wpdb->prefix;
         $product_id = $post->ID;
-        $data_array = wpcf_function()->ordersIDlistPerCampaign();
+        $data_array = wpcf_function()->get_campaign_orders_id_list();
 
         $args = array(
             'post_type'     => 'shop_order',

@@ -173,9 +173,9 @@ class Template_Hooks {
 			);
 		}
 
-		$wpneo_show_contributor_table = get_post_meta($post->ID, 'wpneo_show_contributor_table', true);
-		if($wpneo_show_contributor_table == '1') {
-			$baker_list = WPNEOCF()->getCustomersByProduct();
+		$show_table = get_post_meta($post->ID, 'wpneo_show_contributor_table', true);
+		if($show_table == '1') {
+			$baker_list = wpcf_function()->get_customers_product();
 			if (count($baker_list) > 0) {
 				$tabs['baker_list'] = array(
 					'title' => __('Backer List', 'wp-crowdfunding'),
@@ -221,14 +221,14 @@ class Template_Hooks {
 		global $post;
 		$url = trim(get_post_meta($post->ID, 'wpneo_funding_video', true));
 		if ( !empty($url) ) {
-			wpneo_crowdfunding_embeded_video( $url );
+			wpcf_function()->get_embeded_video( $url );
 		} else {
 			return $img_html;
 		}
 	}
 
 
-	public function wpneo_crowdfunding_wc_toggle_login_form(){
+	public function wpcf_toggle_login_form(){
 		$html = '';
 		$html .= '<div class="woocommerce">';
 		$html .= '<div class="woocommerce-info">' . __("Please log in first?", "wp-crowdfunding") . ' <a class="wpneoShowLogin" href="#">' . __("Click here to login", "wp-crowdfunding") . '</a></div>';
