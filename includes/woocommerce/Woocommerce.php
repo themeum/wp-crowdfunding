@@ -610,9 +610,6 @@ class Woocommerce {
         global $woocommerce;
         foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
             if ($cart_item['data']->get_type() == 'crowdfunding') {
-                /*if ( ! empty($_COOKIE['wpneo_user_donation'])){
-                    $cart_item['data']->set_price($_COOKIE['wpneo_user_donation']);
-                }*/
                 $donate_cart_amount = WC()->session->get('wpneo_donate_amount');
                 if ( ! empty($donate_cart_amount)){
                     $cart_item['data']->set_price($donate_cart_amount);

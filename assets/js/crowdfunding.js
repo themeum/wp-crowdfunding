@@ -1,5 +1,5 @@
 /*========================================================================
- * Neo Crowdfunding
+ * WP Crowdfunding
  *======================================================================== */
 jQuery(document).ready(function($){
 
@@ -37,8 +37,8 @@ jQuery(document).ready(function($){
 	//Add More Campaign Update Field
 	$('#addcampaignupdate').on('click', function (e) {
 		e.preventDefault();
-		var wpneo_update_fields = $('#campaign_update_field').html();
-		$('#campaign_update_addon_field').append(wpneo_update_fields);
+		var update = $('#campaign_update_field').html();
+		$('#campaign_update_addon_field').append(update);
 		countRemovesBtn('.removecampaignupdate');
 	});
 

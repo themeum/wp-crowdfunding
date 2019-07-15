@@ -20,7 +20,7 @@ class Templating {
 
     /**
      * @var string
-     * Return theme in WPNEO crowdfunding directory
+     * Return theme in crowdfunding directory
      */
     public $_theme_in_plugin_path;
 

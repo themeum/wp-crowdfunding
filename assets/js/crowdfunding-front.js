@@ -1,4 +1,4 @@
-// Neo Crowdfunding Scripts
+// Crowdfunding Scripts
 
 jQuery(document).ready(function($){
     

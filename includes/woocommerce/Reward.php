@@ -6,6 +6,10 @@ defined( 'ABSPATH' ) || exit;
 class Reward{
 
     public function __construct(){
+        
+        global $reward_count;
+        $reward_count = 1;
+
         add_filter('woocommerce_product_data_tabs',     array($this, 'reward_tabs'));
         add_action('woocommerce_product_data_panels',   array($this, 'reward_content'));
         add_action('woocommerce_process_product_meta',  array($this, 'reward_action'));
@@ -300,9 +304,12 @@ class Reward{
     }
 
     public function selected_reward_in_order_review(){
+        global $reward_count;
+        
         $rewards_data = WC()->session->get('wpneo_rewards_data');
         $reward_data = isset($rewards_data['wpneo_selected_rewards_checkout']) ? $rewards_data['wpneo_selected_rewards_checkout'] : array();
-        if (is_array($reward_data) && count($reward_data) ) {
+
+        if (is_array($reward_data) && count($reward_data) && $reward_count == 1 ) {
             ?>
             <tr>
                 <td>
@@ -319,6 +326,7 @@ class Reward{
             </tr>
             <?php
         }
+        $reward_count++;
     }
 
     public function show_reward_in_general_tab($content){
