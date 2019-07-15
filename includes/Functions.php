@@ -689,7 +689,7 @@ class Functions {
                 'order'             => 'ASC',
                 'post_status'       => 'wc-completed',
             );
-            $orders = new WP_Query( $args );
+            $orders = new \WP_Query( $args );
             return $orders;
         }
         return false;
@@ -713,7 +713,7 @@ class Functions {
         $html .="<div class='campaign_update_wrapper'>";
 
         $html .= '<h3>';
-        $html .= apply_filters( 'wpneo_campaign_update_title', __( $post->post_title.'\'s Update','wp-crowdfunding' ) );
+        $html .= apply_filters( 'wpcf_campaign_update_title', __( $post->post_title.'\'s Update','wp-crowdfunding' ) );
         $html .= '</h3>';
 
         if (is_array($saved_campaign_update_a)) {
