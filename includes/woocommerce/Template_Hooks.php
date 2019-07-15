@@ -5,9 +5,9 @@ defined( 'ABSPATH' ) || exit;
 
 class Template_Hooks {
 
-    public function __construct(){
-		add_action('wpcf_before_crowdfunding_single_campaign_summary', 	array($this, 'campaign_single_feature_image'));
-		add_action('wpcf_crowdfunding_after_feature_img',               array($this, 'campaign_single_description'));
+    public function __construct() {
+		add_action('wpcf_before_single_campaign_summary', 				array($this, 'campaign_single_feature_image'));
+		add_action('wpcf__after_feature_img',               			array($this, 'campaign_single_description'));
         
         // Single campaign Template hook
         add_action('wpcf_single_campaign_summary',        				array($this, 'single_campaign_summary'));
@@ -115,14 +115,6 @@ class Template_Hooks {
 		wpcf_function()->template('include/location');
 	}
 
-	public function wpneo_crowdfunding_campaign_single_left_div_start() {
-		wpcf_function()->template('include/single-left-div-start');
-	}
-
-	public function wpneo_crowdfunding_campaign_single_left_div_end() {
-		wpcf_function()->template('include/single-left-div-end');
-	}
-
 	public function campaign_single_tab() {
 		wpcf_function()->template('include/campaign-tab');
     }
@@ -137,14 +129,6 @@ class Template_Hooks {
 
 	public function single_fund_raised() {
 		wpcf_function()->template('include/fund-raised');
-	}
-
-	public function wpneo_crowdfunding_campaign_single_bakers_count_html() {
-		wpcf_function()->template('include/single-bakers-counter');
-	}
-
-	public function wpneo_crowdfunding_campaign_single_days_remaining() {
-		wpcf_function()->template('include/days-remaining');
 	}
 
 	public function single_fund_this_campaign_btn() {

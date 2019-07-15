@@ -689,7 +689,7 @@ class Functions {
                 'order'             => 'ASC',
                 'post_status'       => 'wc-completed',
             );
-            $orders = new WP_Query( $args );
+            $orders = new \WP_Query( $args );
             return $orders;
         }
         return false;
@@ -713,7 +713,7 @@ class Functions {
         $html .="<div class='campaign_update_wrapper'>";
 
         $html .= '<h3>';
-        $html .= apply_filters( 'wpneo_campaign_update_title', __( $post->post_title.'\'s Update','wp-crowdfunding' ) );
+        $html .= apply_filters( 'wpcf_campaign_update_title', __( $post->post_title.'\'s Update','wp-crowdfunding' ) );
         $html .= '</h3>';
 
         if (is_array($saved_campaign_update_a)) {
@@ -745,33 +745,31 @@ class Functions {
     }
 
     function limit_word_text($text, $limit) {
-        if(!function_exists('mb_str_word_count')){
-            function mb_str_word_count($string, $format = 0, $charlist = '[]') {
-                mb_internal_encoding( 'UTF-8');
-                mb_regex_encoding( 'UTF-8');
-                $words = mb_split('[^\x{0600}-\x{06FF}]', $string);
-                switch ($format) {
-                    case 0:
-                        return count($words);
-                        break;
-                    case 1:
-                    case 2:
-                        return $words;
-                        break;
-                    default:
-                        return $words;
-                        break;
-                }
-            }
-        }
-        if (mb_str_word_count($text, 0) > $limit) {
-            $words  = mb_str_word_count($text, 2);
+        if ( $this->mb_str_word_count($text, 0) > $limit ) {
+            $words  = $this->mb_str_word_count($text, 2);
             $pos    = array_keys($words);
             $text   = mb_substr($text, 0, $pos[$limit]) . '...';
         }
         return $text;
     }
 
+    function mb_str_word_count($string, $format = 0, $charlist = '[]') {
+        mb_internal_encoding( 'UTF-8');
+        mb_regex_encoding( 'UTF-8');
+        $words = mb_split('[^\x{0600}-\x{06FF}]', $string);
+        switch ($format) {
+            case 0:
+                return count($words);
+                break;
+            case 1:
+            case 2:
+                return $words;
+                break;
+            default:
+                return $words;
+                break;
+        }
+    }
 
     public function is_campaign_started($post_id = 0){
         global $post;

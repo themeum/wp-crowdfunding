@@ -21,9 +21,9 @@ defined( 'ABSPATH' ) || exit;
  * Filter tabs and allow third parties to add their own.
  *
  * Each tab is an array containing title, callback and priority.
- * @see wpneo_crowdfunding_default_single_campaign_tabs()
+ * @see wpcf_default_single_campaign_tabs()
  */
-$tabs = apply_filters( 'wpneo_crowdfunding_default_single_campaign_tabs', array() );
+$tabs = apply_filters( 'wpcf_default_single_campaign_tabs', array() );
 
 if ( ! empty( $tabs ) ) : ?>
 
@@ -35,7 +35,7 @@ if ( ! empty( $tabs ) ) : ?>
                 $current = $i === 1 ? 'wpneo-current' : '';
                 ?>
                 <li class="<?php echo $current.' '.esc_attr( $key ); ?>_tab">
-                    <a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'wpneo_campaign_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
+                    <a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'wpcf_campaign_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
