@@ -169,12 +169,12 @@ class Init {
                                         </div>
     
                                         <?php
-                                        $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                                        $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
                                         $days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
                                         if (wpcf_function()->get_date_remaining()){
                                             $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
                                         }
-                                        if ($wpneo_campaign_end_method != 'never_end'){ ?>
+                                        if ($end_method != 'never_end'){ ?>
                                             <div class="wpneo-time-remaining">
                                                 <div class="wpneo-meta-desc"><?php echo $days_remaining; ?></div>
                                                 <div class="wpneo-meta-name float-left"><?php _e('Days to go', 'wp-crowdfunding'); ?></div>

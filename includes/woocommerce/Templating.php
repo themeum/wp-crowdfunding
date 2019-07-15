@@ -110,9 +110,9 @@ class Templating {
         }
 
         //Determine where single campaign will be load, is it WooCommerce or Wp Crowdfunding
-        $wpneo_single_page_template = get_option('wpneo_single_page_template');
+        $single_page_template = get_option('wpneo_single_page_template');
 
-        if (empty($wpneo_single_page_template) || ($wpneo_single_page_template == 'in_wp_crowdfunding') ){
+        if (empty($single_page_template) || ($single_page_template == 'in_wp_crowdfunding') ){
             add_filter( 'template_include',         array( $this, 'template_chooser_callback' ), 99); //Get custom template for this
         }
 

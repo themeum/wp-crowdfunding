@@ -207,27 +207,23 @@ class Actions {
     }
 
     public function update_status_save(){
-
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
             exit;
         }
-        
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
-
-            $post_id                            = $_POST['postid'];
-            $wpneo_prject_update_title_field    = $_POST['wpneo_prject_update_title_field'];
-            $wpneo_prject_update_date_field     = $_POST['wpneo_prject_update_date_field'];
-            $wpneo_prject_update_details_field  = $_POST['wpneo_prject_update_details_field'];
-            $total_update_field                 = count($wpneo_prject_update_title_field);
-
-            $data = array();
-            for ($i=0; $i<$total_update_field; $i++){
-                if (! empty($wpneo_prject_update_title_field[$i])) {
+            $data           = array();
+            $post_id        = $_POST['postid'];
+            $title_field    = $_POST['wpneo_prject_update_title_field'];
+            $date_field     = $_POST['wpneo_prject_update_date_field'];
+            $details_field  = $_POST['wpneo_prject_update_details_field'];
+            $field_count    = count($title_field);
+            for ($i=0; $i<$field_count; $i++){
+                if (! empty($title_field[$i])) {
                     $data[] = array(
-                        'date'      => sanitize_text_field( $wpneo_prject_update_date_field[$i] ),
-                        'title'     => sanitize_text_field( $wpneo_prject_update_title_field[$i] ),
-                        'details'   => esc_html( $wpneo_prject_update_details_field[$i] )
+                        'date'      => sanitize_text_field( $date_field[$i] ),
+                        'title'     => sanitize_text_field( $title_field[$i] ),
+                        'details'   => esc_html( $details_field[$i] )
                     );
                 }
             }
@@ -238,7 +234,6 @@ class Actions {
                 do_action('wpcf_campaign_update_email', $post_id);
                 
             }
-
             $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=update&postid='.$post_id;
             die(json_encode(array('success'=> 1, 'message' => __('Successfully updated'), 'redirect' => $redirect)));
         }

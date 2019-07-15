@@ -46,8 +46,8 @@ if ( $the_query->have_posts() ) :
                                 if (wpcf_function()->get_date_remaining()){
                                     $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
                                 }
-                                $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
-                                if ($wpneo_campaign_end_method != 'never_end'){ ?>
+                                $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                                if ($end_method != 'never_end'){ ?>
                                     <?php if (wpcf_function()->is_campaign_started()){ ?>
                                         <p class="funding-amount"><?php echo wpcf_function()->get_date_remaining(); ?></p>
                                         <span class="info-text"><?php _e( 'Days to go','wp-crowdfunding' ); ?></span>

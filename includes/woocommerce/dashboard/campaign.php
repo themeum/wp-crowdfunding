@@ -115,9 +115,9 @@ $the_query = new WP_Query( $args );
                         $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
                     }
 
-                    $wpneo_campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                    $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
 
-                    if ($wpneo_campaign_end_method != 'never_end'){ ?>
+                    if ($end_method != 'never_end'){ ?>
                         <div class="crowdfound-time-remaining">
                             <?php if (wpcf_function()->is_campaign_started()){ ?>
                                 <div class="wpneo-meta-desc"><?php echo wpcf_function()->get_date_remaining(); ?></div>

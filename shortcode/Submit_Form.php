@@ -16,7 +16,7 @@ class Campaign_Submit_Form {
         global $post, $wpdb;
 
         $html = '';
-        $title = $description = $short_description = $category = $tag = $image_url = $image_id = $video = $start_date = $end_date = $minimum_price = $maximum_price = $recommended_price = $wpcf_predefined_pledge_amount = $funding_goal = $campaign_end_method = $type = $contributor_show = $paypal = $country =
+        $title = $description = $short_description = $category = $tag = $image_url = $image_id = $video = $start_date = $end_date = $minimum_price = $maximum_price = $recommended_price = $pledge_amount = $funding_goal = $campaign_end_method = $type = $contributor_show = $paypal = $country =
         $location = $edit_form = $edit_id = $checked = $checked2 = '';
 
         $reward = '';
@@ -65,10 +65,10 @@ class Campaign_Submit_Form {
                             $end_date           = get_post_meta( get_the_ID(), '_nf_duration_end', true );
                             $minimum_price      = get_post_meta( get_the_ID(), 'wpneo_funding_minimum_price', true );
                             $maximum_price      = get_post_meta( get_the_ID(), 'wpneo_funding_maximum_price', true );
-                            $recommended_price   = get_post_meta( get_the_ID(), 'wpneo_funding_recommended_price', true );
-                            $wpcf_predefined_pledge_amount   = get_post_meta( get_the_ID(), 'wpcf_predefined_pledge_amount', true );
+                            $recommended_price  = get_post_meta( get_the_ID(), 'wpneo_funding_recommended_price', true );
+                            $pledge_amount      = get_post_meta( get_the_ID(), 'wpcf_predefined_pledge_amount', true );
                             $funding_goal       = get_post_meta( get_the_ID(), '_nf_funding_goal', true );
-                            $campaign_end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                            $campaign_end_method= get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
                             $type               = get_post_meta( get_the_ID(), 'wpneo_show_contributor_table', true );
                             $contributor_show   = get_post_meta( get_the_ID(), 'wpneo_mark_contributors_as_anonymous', true );
                             $paypal             = get_post_meta( get_the_ID(), 'wpneo_campaigner_paypal_id', true );
@@ -295,7 +295,7 @@ class Campaign_Submit_Form {
         $html .= '<div class="wpneo-single">';
         $html .= '<div class="wpneo-name">'.__( "Predefined Pledge Amount" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
-        $html .= '<input type="text" name="wpcf_predefined_pledge_amount" value="'.$wpcf_predefined_pledge_amount.'">';
+        $html .= '<input type="text" name="wpcf_predefined_pledge_amount" value="'.$pledge_amount.'">';
         $html .= '<small>'.__("Predefined amount allow you to place the amount in donate box by click, price should separated by comma (,), example: <code>10,20,30,40</code>","wp-crowdfunding").'</small>';
         $html .= '</div>';
         $html .= '</div>';

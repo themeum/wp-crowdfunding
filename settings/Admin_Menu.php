@@ -302,11 +302,11 @@ class Admin_Menu {
                         }
                     }
 
-                    $wpneo_form_page_id = intval(wpcf_function()->post('wpneo_form_page_id'));
+                    $form_page_id = intval(wpcf_function()->post('wpneo_form_page_id'));
 
-                    if (!empty($wpneo_form_page_id)) {
+                    if (!empty($form_page_id)) {
                         global $wpdb;
-                        $page_id = $wpneo_form_page_id;
+                        $page_id = $form_page_id;
                         update_option( 'wpneo_form_page_id', $page_id );
 
                         //Update That Page with new crowdFunding [wpneo_crowdfunding_form]
@@ -316,9 +316,9 @@ class Admin_Menu {
                         $wpdb->update($wpdb->posts, array('post_content' => $new_content), array('ID'=> $page_id));
                     }
 
-                    $wpneo_crowdfunding_dashboard_page_id = intval(wpcf_function()->post('wpneo_crowdfunding_dashboard_page_id'));
-                    if (!empty($wpneo_crowdfunding_dashboard_page_id)) {
-                        $page_id = $wpneo_crowdfunding_dashboard_page_id;
+                    $dashboard_page_id = intval(wpcf_function()->post('wpneo_crowdfunding_dashboard_page_id'));
+                    if (!empty($dashboard_page_id)) {
+                        $page_id = $dashboard_page_id;
                         update_option('wpneo_crowdfunding_dashboard_page_id', $page_id);
 
                         //Update That Page with new crowdFunding [wpcf_dashboard]

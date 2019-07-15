@@ -62,7 +62,7 @@ class Dashboard{
             $wp_sql_on_hold          = $this->totalOrdersSalesAmount($campaign_ids_string, 'wc-on-hold');
             $total_campaign_orders   = $wp_sql->total_sales_amount;
             $total_orders            = $wp_sql->total_orders ? $wp_sql->total_orders : 0;
-            $totalCampaigns          = $campaigns->post_count ;
+            $totalCampaigns          = count($campaigns) ;
             $on_hole_total_orders    = $wp_sql_on_hold->total_orders;
         }
 

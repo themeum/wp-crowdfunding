@@ -249,25 +249,25 @@ class Reward{
     function reward_action($post_id){
         if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
 
-            $wpneo_rewards_pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
-            $wpneo_rewards_image_field      = $_POST['wpneo_rewards_image_field'];
-            $wpneo_rewards_description      = $_POST['wpneo_rewards_description'];
-            $wpneo_rewards_endmonth         = $_POST['wpneo_rewards_endmonth'];
-            $wpneo_rewards_endyear          = $_POST['wpneo_rewards_endyear'];
-            $wpneo_rewards_item_limit       = $_POST['wpneo_rewards_item_limit'];
+            $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
+            $image_field      = $_POST['wpneo_rewards_image_field'];
+            $description      = $_POST['wpneo_rewards_description'];
+            $end_month         = $_POST['wpneo_rewards_endmonth'];
+            $end_year          = $_POST['wpneo_rewards_endyear'];
+            $item_limit       = $_POST['wpneo_rewards_item_limit'];
 
-            $total_update_field = count($wpneo_rewards_pladge_amount);
+            $field_count = count($pladge_amount);
 
             $data = array();
-            for ($i = 0; $i < $total_update_field; $i++) {
-                if (!empty($wpneo_rewards_pladge_amount[$i])) {
+            for ($i = 0; $i < $field_count; $i++) {
+                if (!empty($pladge_amount[$i])) {
                     $data[] = array(
-                        'wpneo_rewards_pladge_amount'   => intval($wpneo_rewards_pladge_amount[$i]),
-                        'wpneo_rewards_image_field'     => intval($wpneo_rewards_image_field[$i]),
-                        'wpneo_rewards_description'     => esc_textarea($wpneo_rewards_description[$i]),
-                        'wpneo_rewards_endmonth'        => esc_html($wpneo_rewards_endmonth[$i]),
-                        'wpneo_rewards_endyear'         => esc_html($wpneo_rewards_endyear[$i]),
-                        'wpneo_rewards_item_limit'      => esc_html($wpneo_rewards_item_limit[$i]),
+                        'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
+                        'wpneo_rewards_image_field'     => intval($image_field[$i]),
+                        'wpneo_rewards_description'     => esc_textarea($description[$i]),
+                        'wpneo_rewards_endmonth'        => esc_html($end_month[$i]),
+                        'wpneo_rewards_endyear'         => esc_html($end_year[$i]),
+                        'wpneo_rewards_item_limit'      => esc_html($item_limit[$i]),
                     );
                 }
             }

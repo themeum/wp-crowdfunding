@@ -131,7 +131,7 @@
                         });
                     }
                 }, {
-                    text: 'Campaign Donate Button',
+                    text: 'Donate Button',
                     onclick: function() {
                         editor.windowManager.open( {
                             title: 'Campaign Donate Shortcode from Anywhere',

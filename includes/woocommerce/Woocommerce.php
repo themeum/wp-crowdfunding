@@ -310,7 +310,7 @@ class Woocommerce {
                 'placeholder'   => __( 'Location', 'wp-crowdfunding' ), 
                 'description'   => __( 'Location of this campaign','wp-crowdfunding' ), 
                 'type'          => 'text'
-                ) 
+            ) 
         );
         do_action( 'new_crowd_funding_campaign_option' );
         echo '</div>';
@@ -423,19 +423,17 @@ class Woocommerce {
      */
     public function update_status_save($post_id){
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
-            
-            $wpneo_prject_update_title_field = sanitize_text_field( $_POST['wpneo_prject_update_title_field'] );
-            $wpneo_prject_update_date_field = sanitize_text_field( $_POST['wpneo_prject_update_date_field'] );
-            $wpneo_prject_update_details_field = esc_html( $_POST['wpneo_prject_update_details_field'] );
-            $total_update_field = count( $wpneo_prject_update_title_field );
-
-            $data = array();
+            $data               = array();
+            $title_field        = sanitize_text_field( $_POST['wpneo_prject_update_title_field'] );
+            $date_field         = sanitize_text_field( $_POST['wpneo_prject_update_date_field'] );
+            $details_field      = esc_html( $_POST['wpneo_prject_update_details_field'] );
+            $total_update_field = count( $title_field );
             for ($i=0; $i<$total_update_field; $i++){
-                if (! empty($wpneo_prject_update_title_field[$i])) {
+                if (! empty($title_field[$i])) {
                     $data[] = array(
-                        'date'      => $wpneo_prject_update_date_field[$i],
-                        'title'     => $wpneo_prject_update_title_field[$i],
-                        'details'   => $wpneo_prject_update_details_field[$i]
+                        'date'      => $date_field[$i],
+                        'title'     => $title_field[$i],
+                        'details'   => $details_field[$i]
                     );
                 }
             }
@@ -451,70 +449,54 @@ class Woocommerce {
      * Saving meta information over this method
      */
     function custom_field_save($post_id ){
-
-        // _neo_crowdfunding_product_type
-        $_neo_crowdfunding_product_type = sanitize_text_field(wpcf_function()->post('_neo_crowdfunding_product_type'));
-        if( !empty( $_neo_crowdfunding_product_type) ) {
+        $product_type = sanitize_text_field(wpcf_function()->post('_neo_crowdfunding_product_type'));
+        if( !empty( $product_type) ) {
             wpcf_function()->update_meta($post_id, '_neo_crowdfunding_product_type', 'yes');
         } else {
             wpcf_function()->update_meta($post_id, '_neo_crowdfunding_product_type', 'no');
         }
 
-        // _nf_location
-        $_nf_location = sanitize_text_field( $_POST['_nf_location'] );
-        wpcf_function()->update_meta($post_id, '_nf_location', $_nf_location);
+        $location = sanitize_text_field( $_POST['_nf_location'] );
+        wpcf_function()->update_meta($post_id, '_nf_location', $location);
 
-        // wpneo_funding_video
-        $wpneo_funding_video = sanitize_text_field( $_POST['wpneo_funding_video'] );
-        wpcf_function()->update_meta($post_id, 'wpneo_funding_video', $wpneo_funding_video);
+        $funding_video = sanitize_text_field( $_POST['wpneo_funding_video'] );
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_video', $funding_video);
 
-        // _nf_duration_start
-        $_nf_duration_start = sanitize_text_field( $_POST['_nf_duration_start'] );
-        wpcf_function()->update_meta($post_id, '_nf_duration_start', $_nf_duration_start);
+        $duration_start = sanitize_text_field( $_POST['_nf_duration_start'] );
+        wpcf_function()->update_meta($post_id, '_nf_duration_start', $duration_start);
 
-        // _nf_duration_end
-        $_nf_duration_end = sanitize_text_field( $_POST['_nf_duration_end'] );
-        wpcf_function()->update_meta($post_id, '_nf_duration_end', $_nf_duration_end);
+        $duration_end = sanitize_text_field( $_POST['_nf_duration_end'] );
+        wpcf_function()->update_meta($post_id, '_nf_duration_end', $duration_end);
 
-        // _nf_funding_goal
-        $_nf_funding_goal = sanitize_text_field($_POST['_nf_funding_goal']);
-        wpcf_function()->update_meta($post_id, '_nf_funding_goal', $_nf_funding_goal);
+        $funding_goal = sanitize_text_field($_POST['_nf_funding_goal']);
+        wpcf_function()->update_meta($post_id, '_nf_funding_goal', $funding_goal);
 
-        // wpneo_funding_minimum_price
-        $wpneo_funding_minimum_price = sanitize_text_field($_POST['wpneo_funding_minimum_price']);
-        wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', $wpneo_funding_minimum_price);
+        $minimum_price = sanitize_text_field($_POST['wpneo_funding_minimum_price']);
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', $minimum_price);
 
-        // wpneo_funding_maximum_price
-        $wpneo_funding_maximum_price = sanitize_text_field($_POST['wpneo_funding_maximum_price']);
-        wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', $wpneo_funding_maximum_price);
+        $maximum_price = sanitize_text_field($_POST['wpneo_funding_maximum_price']);
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', $maximum_price);
 
-        // wpneo_funding_recommended_price
-        $wpneo_funding_recommended_price = sanitize_text_field($_POST['wpneo_funding_recommended_price']);
-        wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', $wpneo_funding_recommended_price);
+        $recommended_price = sanitize_text_field($_POST['wpneo_funding_recommended_price']);
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', $recommended_price);
 
-        //wpcf_predefined_pledge_amount
-        $wpcf_predefined_pledge_amount = sanitize_text_field($_POST['wpcf_predefined_pledge_amount']);
-        wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', $wpcf_predefined_pledge_amount);
+        $pledge_amount = sanitize_text_field($_POST['wpcf_predefined_pledge_amount']);
+        wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', $pledge_amount);
 
-        // wpneo_campaign_end_method
-        $wpneo_campaign_end_method = sanitize_text_field( $_POST['wpneo_campaign_end_method'] );
-        wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', $wpneo_campaign_end_method);
+        $end_method = sanitize_text_field( $_POST['wpneo_campaign_end_method'] );
+        wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', $end_method);
 
-        // wpneo_show_contributor_table
-        $wpneo_show_contributor_table = sanitize_text_field( $_POST['wpneo_show_contributor_table'] );
-        wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', $wpneo_show_contributor_table);
+        $contributor_table = sanitize_text_field( $_POST['wpneo_show_contributor_table'] );
+        wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', $contributor_table);
 
-        // wpneo_mark_contributors_as_anonymous
-        $wpneo_mark_contributors_as_anonymous = sanitize_text_field( $_POST['wpneo_mark_contributors_as_anonymous'] );
-        wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', $wpneo_mark_contributors_as_anonymous);
+        $contributors_as_anonymous = sanitize_text_field( $_POST['wpneo_mark_contributors_as_anonymous'] );
+        wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', $contributors_as_anonymous);
 
-        // wpneo_campaigner_paypal_id
-        $wpneo_campaigner_paypal_id = sanitize_text_field( $_POST['wpneo_campaigner_paypal_id'] );
-        wpcf_function()->update_meta($post_id, 'wpneo_campaigner_paypal_id', $wpneo_campaigner_paypal_id);
+        $campaigner_paypal_id = sanitize_text_field( $_POST['wpneo_campaigner_paypal_id'] );
+        wpcf_function()->update_meta($post_id, 'wpneo_campaigner_paypal_id', $campaigner_paypal_id);
 
-        // wpneo_country
-        $wpneo_country = sanitize_text_field( $_POST['wpneo_country'] );
-        wpcf_function()->update_meta($post_id, 'wpneo_country', $wpneo_country);
+        $country = sanitize_text_field( $_POST['wpneo_country'] );
+        wpcf_function()->update_meta($post_id, 'wpneo_country', $country);
     }
 
 
@@ -597,20 +579,19 @@ class Woocommerce {
                         return;
                     }
 
-                    $selected_reward = stripslashes_deep($_POST['wpneo_selected_rewards_checkout']);
-                    $selected_reward = unserialize($selected_reward);
+                    $selected_reward    = stripslashes_deep($_POST['wpneo_selected_rewards_checkout']);
+                    $selected_reward    = unserialize($selected_reward);
+                    $reward_index       = (int) $_POST['wpneo_rewards_index'];
+                    $rewards_index      = (int) sanitize_text_field(wpcf_function()->post('wpneo_rewards_index')) -1;
+                    $product_author_id  = sanitize_text_field(wpcf_function()->post('_cf_product_author_id'));
+                    $product_id         = sanitize_text_field(wpcf_function()->post('add-to-cart'));
 
-                    $reward_index = (int) $_POST['wpneo_rewards_index'];
-
-                    $wpneo_rewards_index = (int) sanitize_text_field(wpcf_function()->post('wpneo_rewards_index')) -1;
-                    $_cf_product_author_id = sanitize_text_field(wpcf_function()->post('_cf_product_author_id'));
-                    $product_id = sanitize_text_field(wpcf_function()->post('add-to-cart'));
                     WC()->session->set('wpneo_rewards_data',
                         array(
                             'wpneo_selected_rewards_checkout' => $selected_reward,
-                            'rewards_index' => $wpneo_rewards_index,
+                            'rewards_index' => $rewards_index,
                             'product_id' => $product_id,
-                            '_cf_product_author_id' => $_cf_product_author_id
+                            '_cf_product_author_id' => $product_author_id
                         )
                     );
                 }else{
@@ -761,18 +742,12 @@ class Woocommerce {
      */
     public function crowdfunding_order_type($order_id){
         global $woocommerce;
-
         if( WC()->session != null ) {
-            $wpneo_rewards_data = WC()->session->get( 'wpneo_rewards_data' );
-            if ( ! empty( $wpneo_rewards_data ) ) {
-                //$campaign_rewards   = get_post_meta($wpneo_rewards_data['product_id'], 'wpneo_reward', true);
-                //$campaign_rewards   = stripslashes($campaign_rewards);
-                //$campaign_rewards_a = json_decode($campaign_rewards, true);
-                //$reward = $campaign_rewards_a[$wpneo_rewards_data['rewards_index']];
-                $reward = $wpneo_rewards_data['wpneo_selected_rewards_checkout'];
-
+            $rewards_data = WC()->session->get( 'wpneo_rewards_data' );
+            if ( ! empty( $rewards_data ) ) {
+                $reward = $rewards_data['wpneo_selected_rewards_checkout'];
                 wpcf_function()->update_meta( $order_id, 'wpneo_selected_reward', $reward );
-                wpcf_function()->update_meta( $order_id, '_cf_product_author_id', $wpneo_rewards_data['_cf_product_author_id'] );
+                wpcf_function()->update_meta( $order_id, '_cf_product_author_id', $rewards_data['_cf_product_author_id'] );
                 WC()->session->__unset( 'wpneo_rewards_data' );
             }
         }
@@ -939,7 +914,7 @@ class Woocommerce {
         }
 
         $funding_goal   = wpcf_function()->get_total_goal($post->ID);
-        $wpneo_country  = get_post_meta( $post->ID, 'wpneo_country', true);
+        $country        = get_post_meta( $post->ID, 'wpneo_country', true);
         $total_sales    = get_post_meta( $post->ID, 'total_sales', true );
         $enddate        = get_post_meta( $post->ID, '_nf_duration_end', true );
 
@@ -948,8 +923,8 @@ class Woocommerce {
         $countries      = $countries_obj->__get('countries');
 
         $country_name = '';
-        if ($wpneo_country){
-            $country_name = $countries[$wpneo_country];
+        if ($country){
+            $country_name = $countries[$country];
         }
 
         $raised = 0;

@@ -17,60 +17,51 @@ class Dashboard {
         if ( is_user_logged_in() ) {
             $pagelink = get_permalink( get_the_ID() );
             $dashboard_menus = apply_filters('wpneo_crowdfunding_frontend_dashboard_menus', array(
-                'dashboard' =>
-                    array(
-                        'tab'             => 'dashboard',
-                        'tab_name'        => __('Dashboard','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php'
-                    ),
-                'profile' =>
-                    array(
-                        'tab'             => 'account',
-                        'tab_name'        => __('Profile','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php'
-                    ),
-                'contact' =>
-                    array(
-                        'tab'             => 'account',
-                        'tab_name'        => __('Contact','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/contact.php'
-                    ),
-                'campaign' =>
-                    array(
-                        'tab'             => 'campaign',
-                        'tab_name'        => __('My Campaigns','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php'
-                    ),
-                'backed_campaigns' =>
-                    array(
-                        'tab'             => 'campaign',
-                        'tab_name'        => __('My Invested Campaigns','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php'
-                    ),
-                'pledges_received' =>
-                    array(
-                        'tab'            => 'campaign',
-                        'tab_name'       => __('Pledges Received','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php'
-                    ),
-                'bookmark' =>
-                    array(
-                        'tab'            => 'campaign',
-                        'tab_name'       => __('Bookmarks','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php'
-                    ),
-                'password' =>
-                    array(
-                        'tab'            => 'account',
-                        'tab_name'       => __('Password','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/password.php'
-                    ),
-                'rewards' =>
-                    array(
-                        'tab'            => 'account',
-                        'tab_name'       => __('Rewards','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
-                    ),
+                'dashboard' => array(
+                    'tab'             => 'dashboard',
+                    'tab_name'        => __('Dashboard','wp-crowdfunding'),
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php'
+                ),
+                'profile' => array(
+                    'tab'             => 'account',
+                    'tab_name'        => __('Profile','wp-crowdfunding'),
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php'
+                ),
+                'contact' => array(
+                    'tab'             => 'account',
+                    'tab_name'        => __('Contact','wp-crowdfunding'),
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/contact.php'
+                ),
+                'campaign' => array(
+                    'tab'             => 'campaign',
+                    'tab_name'        => __('My Campaigns','wp-crowdfunding'),
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php'
+                ),
+                'backed_campaigns' => array(
+                    'tab'             => 'campaign',
+                    'tab_name'        => __('My Invested Campaigns','wp-crowdfunding'),
+                    'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php'
+                ),
+                'pledges_received' => array(
+                    'tab'            => 'campaign',
+                    'tab_name'       => __('Pledges Received','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php'
+                ),
+                'bookmark' => array(
+                    'tab'            => 'campaign',
+                    'tab_name'       => __('Bookmarks','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php'
+                ),
+                'password' => array(
+                    'tab'            => 'account',
+                    'tab_name'       => __('Password','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/password.php'
+                ),
+                'rewards' => array(
+                    'tab'            => 'account',
+                    'tab_name'       => __('Rewards','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
+                ),
             ));
             
 

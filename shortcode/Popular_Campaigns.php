@@ -27,7 +27,6 @@ class Popular_Campaigns {
             'orderby' 		 		=> 'meta_value_num',
             'order'                 => $atts['order'],
             'fields'                => 'ids',
-
             'meta_query' => array(
                 array(
                     'key' 		=> 'total_sales',
@@ -35,7 +34,6 @@ class Popular_Campaigns {
                     'compare' 	=> '>',
                 )
             ),
-
             'tax_query' => array(
                 array(
                     'taxonomy' => 'product_type',

@@ -390,7 +390,6 @@ class Functions {
 		if ( ! $author_id){
 			$author_id = get_current_user_id();
 		}
-
 		$args = array(
 			'post_status' => 'publish',
 			'post_type' => 'product',
