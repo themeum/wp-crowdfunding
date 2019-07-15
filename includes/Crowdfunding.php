@@ -26,7 +26,7 @@ final class Crowdfunding {
 
 	// Include Core
 	public function includes_core() {
-		require_once WPCF_DIR_PATH.'includes/Compatibility.php';
+		require_once WPCF_DIR_PATH.'includes/compatibility/Functions.php'; //require file for compatibility
 		require_once WPCF_DIR_PATH.'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH.'settings/Admin_Menu.php';
 		new settings\Admin_Menu();
@@ -45,10 +45,11 @@ final class Crowdfunding {
 					require_once WPCF_DIR_PATH.'includes/woocommerce/Template_Hooks.php';
 					new \WPCF\woocommerce\Base();
 					new \WPCF\woocommerce\Common();
-					new \WPCF\woocommerce\Templating();
+					$templating_obj = new \WPCF\woocommerce\Templating(); //variable used @compatibility actions
 					new \WPCF\woocommerce\Woocommerce();
 					new \WPCF\woocommerce\Actions();
-					new \WPCF\woocommerce\Template_Hooks();
+					$template_hook_obj = new \WPCF\woocommerce\Template_Hooks(); //variable used @compatibility actions
+					require_once WPCF_DIR_PATH.'includes/compatibility/Actions.php'; //require file for compatibility
 				} else {
 					add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -73,15 +74,18 @@ final class Crowdfunding {
 		include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
 		include_once WPCF_DIR_PATH.'shortcode/Donate.php';
 
-		new \WPCF\shortcode\Dashboard();
-		new \WPCF\shortcode\Project_Listing();
-		new \WPCF\shortcode\Registration();
-		new \WPCF\shortcode\Campaign_Submit_Form();
-		new \WPCF\shortcode\Search();
-		new \WPCF\shortcode\Campaign_Box();
-		new \WPCF\shortcode\Single_Campaign();
-		new \WPCF\shortcode\Popular_Campaigns();
-		new \WPCF\shortcode\Donate();
+		$wpcf_dashboard = new \WPCF\shortcode\Dashboard();
+		$wpcf_project_listing = new \WPCF\shortcode\Project_Listing();
+		$wpcf_registraion = new \WPCF\shortcode\Registration();
+		$wpcf_campaign_submit_from = new \WPCF\shortcode\Campaign_Submit_Form();
+		$wpcf_search_box = new \WPCF\shortcode\Search();
+		$wpcf_campaign_box = new \WPCF\shortcode\Campaign_Box();
+		$wpcf_single_campaign = new \WPCF\shortcode\Single_Campaign();
+		$wpcf_popular_campaign = new \WPCF\shortcode\Popular_Campaigns();
+		$wpcf_donate = new \WPCF\shortcode\Donate();
+
+		//require file for compatibility
+		require_once WPCF_DIR_PATH.'includes/compatibility/Shortcodes.php';
 	}
 
 	// Include Addons directory
@@ -103,5 +107,4 @@ final class Crowdfunding {
 		register_activation_hook( WPCF_FILE, array( 'WPCF_Initial_Setup', 'initial_plugin_activation' ) );
 		register_deactivation_hook( WPCF_FILE , array( 'WPCF_Initial_Setup', 'initial_plugin_deactivation') );
 	}
-
 }

@@ -5,8 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 
 class Campaign_Submit_Form {
-    public function __construct(){
-        add_shortcode( 'wpneo_crowdfunding_form', array( $this, 'campaign_form_callback' ) ); //@comparability
+    public function __construct() {
         add_shortcode( 'wpcf_form', array( $this, 'campaign_form_callback' ) );        
     }
     

@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Single_Campaign {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_single_campaign', array( $this, 'single_campaign_callback' ) ); //@comparability
         add_shortcode( 'wpcf_single_campaign', array( $this, 'single_campaign_callback' ) );
     }
 

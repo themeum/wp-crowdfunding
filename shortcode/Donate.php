@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Donate {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_donate', array( $this, 'donate_callback' ) ); //@comparability
         add_shortcode( 'wpcf_donate', array( $this, 'donate_callback' ) );
     }
 

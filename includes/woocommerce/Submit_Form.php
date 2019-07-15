@@ -89,7 +89,7 @@ class Submit_Form {
         );
 
         //added wpneo_crowdfunding_before_campaign_submit_action action hook
-        do_action('wpneo_crowdfunding_before_campaign_submit_action');
+        do_action('wpcf_before_campaign_submit_action');
 
         if(isset($_POST['edit_form'])){
             //Prevent if unauthorised access
@@ -110,7 +110,7 @@ class Submit_Form {
             $post_id = wp_insert_post( $my_post );
             if ($post_id) {
                 WC()->mailer(); // load email classes
-                do_action('wpneo_crowdfunding_after_campaign_email',$post_id);
+                do_action('wpcf_after_campaign_email',$post_id);
             }
         }
 

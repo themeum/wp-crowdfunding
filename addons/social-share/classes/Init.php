@@ -1,6 +1,6 @@
 <?php
 
-class Init {
+class WPCF_Social_Share {
     /**
      * @var null
      *
@@ -19,14 +19,14 @@ class Init {
     }
 
     public function __construct() {
-        add_action( 'init',                             array($this, 'wpcf_embed_data') );
-        add_action( 'wp_enqueue_scripts',               array($this, 'wpcf_social_share_enqueue_frontend_script') ); //Add social share js in footer
-        add_filter( 'wpcf_settings_panel_tabs',         array($this, 'add_social_share_tab_to_wpcf_settings')); //Hook to add social share field with user registration form
+        add_action( 'init',                                 array( $this, 'embed_data') );
+        add_action( 'wp_enqueue_scripts',                   array( $this, 'social_share_enqueue_frontend_script') ); //Add social share js in footer
+        add_filter( 'wpcf_settings_panel_tabs',             array( $this, 'add_social_share_tab_to_wpcf_settings') ); //Hook to add social share field with user registration form
 
-        add_action( 'init',                             array($this, 'wpcf_social_share_save_settings') ); // Social Share Settings
-        add_action( 'wp_ajax_wpcf_embed_action',        array($this, 'wpcf_embed_campaign_action') );
-        add_action( 'wp_ajax_nopriv_wpcf_embed_action', array($this, 'wpcf_embed_campaign_action') );
-        add_action( 'wpneo_after_crowdfunding_single_campaign_summary', array( $this, 'wpcf_campaign_single_social_share') );
+        add_action( 'init',                                 array( $this, 'social_share_save_settings') ); // Social Share Settings
+        add_action( 'wp_ajax_wpcf_embed_action',            array( $this, 'embed_campaign_action') );
+        add_action( 'wp_ajax_nopriv_wpcf_embed_action',     array( $this, 'embed_campaign_action') );
+        add_action( 'wpcf_after_single_campaign_summary',   array( $this, 'single_campaign_social_share') );
     }
 
     public function add_social_share_tab_to_wpcf_settings($tabs){
@@ -37,14 +37,14 @@ class Init {
         return $tabs;
     }
 
-    public function wpcf_social_share_enqueue_frontend_script() {
+    public function social_share_enqueue_frontend_script() {
         wp_enqueue_script('wpcf-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/SocialShare.min.js', array('jquery'), WPCF_VERSION, true);
     }
 
     /**
      * All settings will be save in this method
      */
-    public function wpcf_social_share_save_settings(){
+    public function social_share_save_settings(){
         if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpcf_varify_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
             // Checkbox
             $embed_share = sanitize_text_field(wpcf_function()->post('wpcf_embed_share'));
@@ -57,7 +57,7 @@ class Init {
     }
 
     // Data Post Embed Code
-    public function wpcf_embed_data(){
+    public function embed_data(){
         $url = $_SERVER["REQUEST_URI"];
         $embed = strpos($url, 'themeumembed');
         if ($embed!==false){
@@ -205,7 +205,7 @@ class Init {
 
 
     // Odrer Data View 
-    public function wpcf_embed_campaign_action(){
+    public function embed_campaign_action(){
         
         $html = '';
         $title = __("Embed Code","wp-crowdfunding");
@@ -219,8 +219,8 @@ class Init {
         die(json_encode(array('success'=> 1, 'message' => $html, 'title' => $title )));
     }
 
-    public function wpcf_campaign_single_social_share() {
+    public function single_campaign_social_share() {
         wpcf_function()->template('include/social-share');
     }
 }
-Init::instance();
+WPCF_Social_Share::instance();

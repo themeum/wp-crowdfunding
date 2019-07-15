@@ -6,7 +6,7 @@ $number = array( "2"=>"two","3"=>"three","4"=>"four" );
 
 <div class="wpneo-wrapper">
     <div class="wpneo-container">
-        <?php do_action('wpneo_campaign_listing_before_loop'); ?>
+        <?php do_action('wpcf_campaign_listing_before_loop'); ?>
         <div class="wpneo-wrapper-inner">
             <?php if (have_posts()): ?>
                 <?php
@@ -20,11 +20,11 @@ $number = array( "2"=>"two","3"=>"three","4"=>"four" );
                     if($i == 1){ $class = 'first'; }
                 ?>
                     <div class="wpneo-listings <?php echo $number[$col_num]; ?> <?php echo $class; ?>">
-                        <?php do_action('wpneo_campaign_loop_item_before_content'); ?>
+                        <?php do_action('wpcf_campaign_loop_item_before_content'); ?>
                         <div class="wpneo-listing-content">
-                            <?php do_action('wpneo_campaign_loop_item_content'); ?>
+                            <?php do_action('wpcf_campaign_loop_item_content'); ?>
                         </div>
-                        <?php do_action('wpneo_campaign_loop_item_after_content'); ?>
+                        <?php do_action('wpcf_campaign_loop_item_after_content'); ?>
                     </div>
                 <?php $i++; endwhile; ?>
             <?php
@@ -34,7 +34,7 @@ $number = array( "2"=>"two","3"=>"three","4"=>"four" );
             ?>
         </div>
         <?php 
-            do_action('wpneo_campaign_listing_after_loop');
+            do_action('wpcf_campaign_listing_after_loop');
             wpcf_function()->template('include/pagination');
         ?>
     </div>

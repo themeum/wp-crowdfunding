@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Popular_Campaigns {
 
     function __construct() {
-        add_shortcode( 'wp_crowdfunding_popular_campaigns', array( $this, 'popular_campaigns_callback' ) ); //@comparability
         add_shortcode( 'wpcf_popular_campaigns', array( $this, 'popular_campaigns_callback' ) );
     }
 
