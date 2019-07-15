@@ -10,7 +10,7 @@ class Project_Listing {
     }
 
     function listing_callback( $atts, $shortcode ){
-        if( function_exists('WPNEOCF') ){
+        if( function_exists('wpcf_function') ){
 
             $a = shortcode_atts(array(
                 'cat'         => null,
