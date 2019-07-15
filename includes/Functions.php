@@ -745,33 +745,31 @@ class Functions {
     }
 
     function limit_word_text($text, $limit) {
-        if(!function_exists('mb_str_word_count')){
-            function mb_str_word_count($string, $format = 0, $charlist = '[]') {
-                mb_internal_encoding( 'UTF-8');
-                mb_regex_encoding( 'UTF-8');
-                $words = mb_split('[^\x{0600}-\x{06FF}]', $string);
-                switch ($format) {
-                    case 0:
-                        return count($words);
-                        break;
-                    case 1:
-                    case 2:
-                        return $words;
-                        break;
-                    default:
-                        return $words;
-                        break;
-                }
-            }
-        }
-        if (mb_str_word_count($text, 0) > $limit) {
-            $words  = mb_str_word_count($text, 2);
+        if ( $this->mb_str_word_count($text, 0) > $limit ) {
+            $words  = $this->mb_str_word_count($text, 2);
             $pos    = array_keys($words);
             $text   = mb_substr($text, 0, $pos[$limit]) . '...';
         }
         return $text;
     }
 
+    function mb_str_word_count($string, $format = 0, $charlist = '[]') {
+        mb_internal_encoding( 'UTF-8');
+        mb_regex_encoding( 'UTF-8');
+        $words = mb_split('[^\x{0600}-\x{06FF}]', $string);
+        switch ($format) {
+            case 0:
+                return count($words);
+                break;
+            case 1:
+            case 2:
+                return $words;
+                break;
+            default:
+                return $words;
+                break;
+        }
+    }
 
     public function is_campaign_started($post_id = 0){
         global $post;
