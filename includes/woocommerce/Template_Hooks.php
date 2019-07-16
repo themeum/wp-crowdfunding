@@ -7,7 +7,7 @@ class Template_Hooks {
 
     public function __construct() {
 		add_action('wpcf_before_single_campaign_summary', 				array($this, 'campaign_single_feature_image'));
-		add_action('wpcf__after_feature_img',               			array($this, 'campaign_single_description'));
+		add_action('wpcf_after_feature_img',               				array($this, 'campaign_single_description'));
         
         // Single campaign Template hook
         add_action('wpcf_single_campaign_summary',        				array($this, 'single_campaign_summary'));
