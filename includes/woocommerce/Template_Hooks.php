@@ -216,7 +216,7 @@ class Template_Hooks {
 		$html = '';
 		$html .= '<div class="woocommerce">';
 		$html .= '<div class="woocommerce-info">' . __("Please log in first?", "wp-crowdfunding") . ' <a class="wpneoShowLogin" href="#">' . __("Click here to login", "wp-crowdfunding") . '</a></div>';
-		$html .= wpneo_crowdfunding_wc_login_form();
+		$html .= wpcf_function()->login_form();
 		$html .= '</div>';
 		return $html;
 	}
