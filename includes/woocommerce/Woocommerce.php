@@ -14,9 +14,6 @@ class Woocommerce {
     }
 
     public function __construct(){
-
-        $this->includes();
-
         add_action( 'plugins_loaded',                                   array($this, 'includes')); //Include all of resource to the plugin 
         add_filter( 'product_type_selector',                            array($this, 'product_type_selector')); //Added one more product type in woocommerce product
         add_action( 'init',                                             array($this, 'register_product_type') ); //Initialized the product type class
@@ -318,11 +315,11 @@ class Woocommerce {
 
 
     public function add_campaign_update(){
-        add_meta_box( 'campaign-update-status-meta', __( 'Campaign Update Status', 'wp-crowdfunding' ), array($this, 'wpneo_campaign_status_metabox'), 'product', 'normal' );
+        add_meta_box( 'campaign-update-status-meta', __( 'Campaign Update Status', 'wp-crowdfunding' ), array($this, 'campaign_status_metabox'), 'product', 'normal' );
     }
 
 
-    public function wpneo_campaign_status_metabox() {
+    public function campaign_status_metabox() {
         global $post;
         $saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);
         $saved_campaign_update_a = json_decode($saved_campaign_update, true);
@@ -424,21 +421,20 @@ class Woocommerce {
     public function update_status_save($post_id){
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
             $data               = array();
-            $title_field        = sanitize_text_field( $_POST['wpneo_prject_update_title_field'] );
-            $date_field         = sanitize_text_field( $_POST['wpneo_prject_update_date_field'] );
-            $details_field      = esc_html( $_POST['wpneo_prject_update_details_field'] );
+            $title_field        = $_POST['wpneo_prject_update_title_field'];
+            $date_field         = $_POST['wpneo_prject_update_date_field'];
+            $details_field      = $_POST['wpneo_prject_update_details_field'];
             $total_update_field = count( $title_field );
             for ($i=0; $i<$total_update_field; $i++){
                 if (! empty($title_field[$i])) {
                     $data[] = array(
-                        'date'      => $date_field[$i],
-                        'title'     => $title_field[$i],
-                        'details'   => $details_field[$i]
+                        'date'      => sanitize_text_field($date_field[$i]),
+                        'title'     => sanitize_text_field($title_field[$i]),
+                        'details'   => esc_html($details_field[$i])
                     );
                 }
             }
             $data_json = json_encode($data,JSON_UNESCAPED_UNICODE);
-
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_updates', wp_slash($data_json));
         }
     }

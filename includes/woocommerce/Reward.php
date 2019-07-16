@@ -6,10 +6,6 @@ defined( 'ABSPATH' ) || exit;
 class Reward{
 
     public function __construct(){
-        
-        global $reward_count;
-        $reward_count = 1;
-
         add_filter('woocommerce_product_data_tabs',     array($this, 'reward_tabs'));
         add_action('woocommerce_product_data_panels',   array($this, 'reward_content'));
         add_action('woocommerce_process_product_meta',  array($this, 'reward_action'));
@@ -252,17 +248,14 @@ class Reward{
     */
     function reward_action($post_id){
         if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
-
+            $data             = array();
             $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
             $image_field      = $_POST['wpneo_rewards_image_field'];
             $description      = $_POST['wpneo_rewards_description'];
-            $end_month         = $_POST['wpneo_rewards_endmonth'];
-            $end_year          = $_POST['wpneo_rewards_endyear'];
+            $end_month        = $_POST['wpneo_rewards_endmonth'];
+            $end_year         = $_POST['wpneo_rewards_endyear'];
             $item_limit       = $_POST['wpneo_rewards_item_limit'];
-
-            $field_count = count($pladge_amount);
-
-            $data = array();
+            $field_count      = count($pladge_amount);
             for ($i = 0; $i < $field_count; $i++) {
                 if (!empty($pladge_amount[$i])) {
                     $data[] = array(
@@ -275,7 +268,7 @@ class Reward{
                     );
                 }
             }
-            $data_json = json_encode( $data,JSON_UNESCAPED_UNICODE );
+            $data_json = json_encode( $data, JSON_UNESCAPED_UNICODE );
             wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
         }
     }
@@ -304,12 +297,9 @@ class Reward{
     }
 
     public function selected_reward_in_order_review(){
-        global $reward_count;
-        
         $rewards_data = WC()->session->get('wpneo_rewards_data');
         $reward_data = isset($rewards_data['wpneo_selected_rewards_checkout']) ? $rewards_data['wpneo_selected_rewards_checkout'] : array();
-
-        if (is_array($reward_data) && count($reward_data) && $reward_count == 1 ) {
+        if (is_array($reward_data) && count($reward_data) ) {
             ?>
             <tr>
                 <td>
@@ -326,7 +316,6 @@ class Reward{
             </tr>
             <?php
         }
-        $reward_count++;
     }
 
     public function show_reward_in_general_tab($content){

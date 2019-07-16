@@ -196,7 +196,7 @@ jQuery(document).ready(function($){
     // Remove Campaign Update
     $('body').on('click', '.removecampaignupdate', function (e) {
         e.preventDefault();
-        $(this).closest('.campaign_update_field_copy').html('');
+        $(this).closest('.campaign_update_field_copy').html('').hide();
         countRemovesBtn('.removecampaignupdate');
     });
     countRemovesBtn('.removecampaignupdate');

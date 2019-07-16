@@ -88,7 +88,6 @@ class Submit_Form {
             'post_author'   => $user_id,
         );
 
-        //added wpneo_crowdfunding_before_campaign_submit_action action hook
         do_action('wpcf_before_campaign_submit_action');
 
         if(isset($_POST['edit_form'])){
