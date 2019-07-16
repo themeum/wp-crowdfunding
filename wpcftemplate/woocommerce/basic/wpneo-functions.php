@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 add_action('wpcf_campaign_listing_before_loop', 'campaign_listing_by_author_before_loop');
 function campaign_listing_by_author_before_loop(){
 	if (! empty($_GET['author'])) {
-		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
+		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.wpcf_function()->author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
 	}
 }
 

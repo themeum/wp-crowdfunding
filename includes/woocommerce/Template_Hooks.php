@@ -7,7 +7,7 @@ class Template_Hooks {
 
     public function __construct() {
 		add_action('wpcf_before_single_campaign_summary', 				array($this, 'campaign_single_feature_image'));
-		add_action('wpcf__after_feature_img',               			array($this, 'campaign_single_description'));
+		add_action('wpcf_after_feature_img',               				array($this, 'campaign_single_description'));
         
         // Single campaign Template hook
         add_action('wpcf_single_campaign_summary',        				array($this, 'single_campaign_summary'));
@@ -216,7 +216,7 @@ class Template_Hooks {
 		$html = '';
 		$html .= '<div class="woocommerce">';
 		$html .= '<div class="woocommerce-info">' . __("Please log in first?", "wp-crowdfunding") . ' <a class="wpneoShowLogin" href="#">' . __("Click here to login", "wp-crowdfunding") . '</a></div>';
-		$html .= wpneo_crowdfunding_wc_login_form();
+		$html .= wpcf_function()->login_form();
 		$html .= '</div>';
 		return $html;
 	}
