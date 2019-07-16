@@ -20,7 +20,7 @@ class Templating {
 
     /**
      * @var string
-     * Return theme in WPNEO crowdfunding directory
+     * Return theme in crowdfunding directory
      */
     public $_theme_in_plugin_path;
 
@@ -76,9 +76,14 @@ class Templating {
         $this->_vendor = get_option('vendor_type',true);
 
         //Set Theme
-        $this->_theme_in_themes_path = get_stylesheet_directory()."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
-        $this->_theme_in_plugin_path = WPCF_DIR_PATH."wpneotemplate/{$this->_vendor}/{$this->_theme}/";
-        $this->_vendor_path = WPCF_DIR_PATH."wpneotemplate/{$this->_vendor}/";
+        $is_new_theme = true;
+        if( !file_exists( get_stylesheet_directory().'/wpcftemplate/{$this->_vendor}/{$this->_theme}/style.css' ) ){
+            $is_new_theme = false;
+        }
+
+        $this->_theme_in_themes_path = get_stylesheet_directory()."/".( $is_new_theme ? "wpcftemplate" : "wpneotemplate" )."/{$this->_vendor}/{$this->_theme}/";
+        $this->_theme_in_plugin_path = WPCF_DIR_PATH."wpcftemplate/{$this->_vendor}/{$this->_theme}/";
+        $this->_vendor_path = WPCF_DIR_PATH."wpcftemplate/{$this->_vendor}/";
 
         $single_template_path = $this->_theme_in_themes_path."single-crowdfunding.php";
         $single_plugin_path = $this->_theme_in_plugin_path."single-crowdfunding.php";
@@ -86,26 +91,22 @@ class Templating {
         if (file_exists($single_template_path)){
             $this->_selected_theme_path = $this->_theme_in_themes_path;
             $this->_selected_theme = $single_template_path;
-
         } elseif(file_exists($single_plugin_path)) {
-
             $this->_selected_theme_path = $this->_theme_in_plugin_path;
             $this->_selected_theme = $single_plugin_path;
-
         }
 
         if ($this->check_theme_standard($this->_selected_theme_path)){
-
             if (file_exists($this->_theme_in_themes_path.'style.css')){
-                $this->_selected_theme_uri = get_stylesheet_directory_uri()."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
+                $this->_selected_theme_uri = get_stylesheet_directory_uri()."/".( $is_new_theme ? "wpcftemplate" : "wpneotemplate" )."/{$this->_vendor}/{$this->_theme}/";
             }else{
-                $this->_selected_theme_uri = WPCF_DIR_URL."wpneotemplate/{$this->_vendor}/{$this->_theme}/";
+                $this->_selected_theme_uri = WPCF_DIR_URL."wpcftemplate/{$this->_vendor}/{$this->_theme}/";
             }
         }else{
             if (file_exists($this->_selected_theme_path.'style.css')){
-                $this->_selected_theme_uri = get_stylesheet_directory_uri()."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
+                $this->_selected_theme_uri = get_stylesheet_directory_uri()."/".( $is_new_theme ? "wpcftemplate" : "wpneotemplate" )."/{$this->_vendor}/{$this->_theme}/";
             }else{
-                $this->_selected_theme_uri = WPCF_DIR_URL."/wpneotemplate/{$this->_vendor}/{$this->_theme}/";
+                $this->_selected_theme_uri = WPCF_DIR_URL."/wpcftemplate/{$this->_vendor}/{$this->_theme}/";
             }
         }
 
@@ -291,7 +292,7 @@ class Templating {
      * @return all theme directory from selected vendor
      */
     public function wpcf_select_themes_dir(){
-        $theme_dirs = array_filter(glob(WPCF_DIR_PATH.'wpneotemplate/woocommerce/*'), 'is_dir');
+        $theme_dirs = array_filter(glob(WPCF_DIR_PATH.'wpcftemplate/woocommerce/*'), 'is_dir');
         $get_dir = array();
         if (count($theme_dirs) > 0) {
             foreach ($theme_dirs as $key => $value) {

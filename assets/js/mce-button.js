@@ -1,5 +1,5 @@
 /*========================================================================
- * Neo Crowdfunding Shortcode Button
+ * Crowdfunding Shortcode Button
  *======================================================================== */
 (function() {
 	tinymce.PluginManager.add('crowdfunding_button', function( editor, url ) {
