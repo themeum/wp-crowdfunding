@@ -77,7 +77,7 @@ class Templating {
 
         //Set Theme
         $is_new_theme = true;
-        if( !file_exists( get_stylesheet_directory().'/wpcftemplate/{$this->_vendor}/{$this->_theme}/style.css' ) ){
+        if( !file_exists( get_stylesheet_directory()."/wpcftemplate/{$this->_vendor}/{$this->_theme}/style.css" ) ){
             $is_new_theme = false;
         }
 
