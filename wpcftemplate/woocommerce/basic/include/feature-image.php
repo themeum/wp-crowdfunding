@@ -5,7 +5,6 @@ global $post, $woocommerce, $product;
 <div class="wpneo-campaign-single-left-info">
 
     <div class="wpneo-post-img">
-        <?php do_action( 'woocommerce_product_thumbnails' ); ?>
         <?php
         $funding_video = trim(get_post_meta($post->ID, 'wpneo_funding_video', true));
         if (! empty($funding_video)){
@@ -39,6 +38,7 @@ global $post, $woocommerce, $product;
             }
         }
         ?>
+        <?php do_action( 'woocommerce_product_thumbnails' ); ?>
     </div>
 
     <?php do_action( 'wpcf_after_feature_img' ); ?>
