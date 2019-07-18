@@ -479,28 +479,21 @@ p.wpneo-short-description{
     position: relative;
     top: 2px;
 }
-.wpneo-icon-location{
-    background-position: -400px -11px;
-    width: 16px;
-}
-.wpneo-icon-facebook {
-    background-position: -28px -14px;
-}
-.wpneo-icon-twitter {
-    background-position: -75px -14px;
-}
-.wpneo-icon-gplus {
-    background-position: -122px -14px;
-}
-.wpneo-icon-pinterest {
-    background-position: -169px -14px;
-}
-.wpneo-icon-linkedin {
-    background-position: -588px -14px;
-}
-.wpneo-icon-embed {
-    background-position: -624px -15px;
-}
+.wpneo-icon-facebook{ background-position: -28px -14px; }
+.wpneo-icon-twitter{ background-position: -75px -14px; }
+.wpneo-icon-gplus{ background-position: -122px -14px; }
+.wpneo-icon-pinterest{ background-position: -169px -14px; }
+.wpneo-icon-linkedin{ background-position: -588px -14px; }
+.wpneo-icon-tumblr{ background-position: -672px -14px; }
+.wpneo-icon-blogger{ background-position: -718px -14px; }
+.wpneo-icon-delicious{ background-position: -765px -14px; }
+.wpneo-icon-digg{ background-position: -812px -14px; }
+.wpneo-icon-reddit{ background-position: -991px -14px; }
+.wpneo-icon-stumbleupon{ background-position: -860px -14px; }
+.wpneo-icon-pocket{ background-position: -904px -14px; }
+.wpneo-icon-wordpress{ background-position: -948px -14px; }
+.wpneo-icon-whatsapp{ background-position: -1035px -14px; }
+.wpneo-icon-embed { background-position: -624px -15px; }
 .wpneo-raised-percent{
     border-top: 1px solid #e9e9e9;
     padding: 20px 0 5px;

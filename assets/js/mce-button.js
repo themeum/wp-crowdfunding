@@ -4,22 +4,22 @@
 (function() {
 	tinymce.PluginManager.add('crowdfunding_button', function( editor, url ) {
 		editor.addButton( 'crowdfunding_button', {
-			text: 'Shortcode',
+			text: 'CF Shortcode',
 			icon: false,
 			type: 'menubutton',
 			menu: [
 				{
-					text: 'Registration Shortcode',
+					text: 'Registration',
 					onclick: function() {
 						editor.insertContent('[wpcf_registration]');
 					}
 				},{
-					text: 'Dashboard Shortcode',
+					text: 'Dashboard',
 					onclick: function() {
 						editor.insertContent('[wpcf_dashboard]');
 					}
 				},{
-					text: 'Search Shortcode',
+					text: 'Search',
 					onclick: function() {
 						editor.insertContent('[wpcf_search]');
 					}
@@ -29,7 +29,7 @@
 						editor.insertContent('[wpcf_form]');
 					}
 				},{
-					text: 'Listing Shortcode',
+					text: 'Listing',
 					onclick: function() {
 						editor.windowManager.open( {
 							title: 'Campaign Listing Shortcode',

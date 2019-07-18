@@ -132,9 +132,9 @@ class Functions {
 
 
     public function get_wpcf_author_campaigns_url($author_id = 0, $author_nicename = ''){ //@compatibility
-        $this->campaigns_url( $author_id, $author_nicename );
+        $this->campaign_url( $author_id, $author_nicename );
     }
-    public function campaigns_url($author_id = 0, $author_nicename = ''){
+    public function campaign_url($author_id = 0, $author_nicename = ''){
         $author_id = $author_id ? $author_id : get_current_user_id();
         if (! $author_id){
             return false;
