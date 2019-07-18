@@ -303,15 +303,14 @@ class Admin_Menu {
                     }
 
                     $form_page_id = intval(wpcf_function()->post('wpneo_form_page_id'));
-
                     if (!empty($form_page_id)) {
                         global $wpdb;
                         $page_id = $form_page_id;
                         update_option( 'wpneo_form_page_id', $page_id );
 
                         //Update That Page with new crowdFunding [wpneo_crowdfunding_form]
-                        $previous_content = str_replace('[wpneo_crowdfunding_form]', '', get_post_field('post_content', $page_id));
-                        $new_content = $previous_content . '[wpneo_crowdfunding_form]';
+                        $previous_content = str_replace( array( '[wpcf_form]', '[wpneo_crowdfunding_form]' ), array( '', '' ), get_post_field('post_content', $page_id));
+                        $new_content = $previous_content . '[wpcf_form]';
                         //Update Post
                         $wpdb->update($wpdb->posts, array('post_content' => $new_content), array('ID'=> $page_id));
                     }
@@ -322,7 +321,7 @@ class Admin_Menu {
                         update_option('wpneo_crowdfunding_dashboard_page_id', $page_id);
 
                         //Update That Page with new crowdFunding [wpcf_dashboard]
-                        $previous_content = str_replace('[wpcf_dashboard]', '', get_post_field('post_content', $page_id));
+                        $previous_content = str_replace( array( '[wpcf_dashboard]', '[wpneo_crowdfunding_dashboard]' ), array( '', '' ), get_post_field('post_content', $page_id));
                         $new_content = $previous_content . '[wpcf_dashboard]';
                         //Update Post
                         $wpdb->update($wpdb->posts, array('post_content' => $new_content), array('ID'=> $page_id));
