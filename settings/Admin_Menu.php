@@ -148,19 +148,19 @@ class Admin_Menu {
         );
         add_submenu_page(
             'wpcf-crowdfunding',
-            __('Settings', 'wp-crowdfunding'),
-            __('Settings', 'wp-crowdfunding'),
-            'manage_options',
-            'wpcf-crowdfunding',
-            array( $this, 'wpcf_menu_page' )
-        );
-        add_submenu_page(
-            'wpcf-crowdfunding',
             __( 'Add-ons', 'wp-crowdfunding' ),
             __( 'Add-ons <span class="dashicons dashicons-star-filled"></span>', 'wp-crowdfunding' ),
             'manage_options',
             'wpcf-addons',
             array( $this, 'wpcf_manage_addons' )
+        );
+        add_submenu_page(
+            'wpcf-crowdfunding',
+            __('Settings', 'wp-crowdfunding'),
+            __('Settings', 'wp-crowdfunding'),
+            'manage_options',
+            'wpcf-crowdfunding',
+            array( $this, 'wpcf_menu_page' )
         );
     }
 
