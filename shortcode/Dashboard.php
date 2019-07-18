@@ -130,8 +130,11 @@ class Dashboard {
                 
             $html .= '</div>'; //wpneo-wrapper
 
-        }else{
-            $html .= wpcf_toggle_login_form();
+        } else {
+            $html .= '<div class="woocommerce">';
+            $html .= '<div class="woocommerce-info">' . __("Please log in first?", "wp-crowdfunding") . ' <a class="wpneoShowLogin" href="#">' . __("Click here to login", "wp-crowdfunding") . '</a></div>';
+            $html .= wpcf_function()->login_form();
+            $html .= '</div>';
         }
 
         return $html;

@@ -210,16 +210,6 @@ class Template_Hooks {
 		}
 	}
 
-
-	public function wpcf_toggle_login_form(){
-		$html = '';
-		$html .= '<div class="woocommerce">';
-		$html .= '<div class="woocommerce-info">' . __("Please log in first?", "wp-crowdfunding") . ' <a class="wpneoShowLogin" href="#">' . __("Click here to login", "wp-crowdfunding") . '</a></div>';
-		$html .= wpcf_function()->login_form();
-		$html .= '</div>';
-		return $html;
-	}
-
 	public function loop_item_thumbnail()  {
 		wpcf_function()->template('include/loop/thumbnail');
 	}
