@@ -51,4 +51,4 @@ ob_start(); ?>
     </div>
 </div>
 
-<?php $html = ob_get_clean(); ?>
+<?php $html .= ob_get_clean(); ?>
