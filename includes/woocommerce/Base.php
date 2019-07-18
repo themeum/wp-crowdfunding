@@ -13,7 +13,7 @@ class Base {
     protected static $_instance = null;
 
     /**
-     * @return null|Wpneo_Crowdfunding
+     * @return null|Base
      */
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -23,7 +23,7 @@ class Base {
     }
 
     /**
-     * Wpneo_Crowdfunding constructor.
+     * Base constructor.
      *
      * @hook
      */

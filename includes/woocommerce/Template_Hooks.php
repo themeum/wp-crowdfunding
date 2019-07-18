@@ -77,7 +77,6 @@ class Template_Hooks {
 	public function single_campaign_summary() {
 		wpcf_function()->template('include/campaign-title');
 		wpcf_function()->template('include/author');
-		wpcf_function()->template('include/loop/rating_html');
 		$this->loop_item_rating();
 		$this->single_fund_raised();
 		wpcf_function()->template('include/fund_raised_percent');

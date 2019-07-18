@@ -3,8 +3,6 @@ defined( 'ABSPATH' ) || exit;
 global $post;
 $saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);
 $saved_campaign_update_a = json_decode($saved_campaign_update, true);
-
-//print_r($saved_campaign_update);
 ?>
 <div class='campaign_update_wrapper'>
 <?php if (is_array($saved_campaign_update_a)) {

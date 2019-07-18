@@ -15,8 +15,6 @@ defined( 'ABSPATH' ) || exit;
 				$predefined_price = apply_filters('wpcf_predefined_pledge_amount_array_a', explode(',', $predefined_price));
 			}
 
-			//print_r($predefined_price);
-
 			if(function_exists( 'get_woocommerce_currency_symbol' )){
 				$currency = get_woocommerce_currency_symbol();
 			}

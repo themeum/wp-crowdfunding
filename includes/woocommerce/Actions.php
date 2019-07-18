@@ -13,7 +13,7 @@ class Actions {
     protected static $_instance = null;
 
     /**
-     * @return null|Wpneo_Crowdfunding_Frontend_Dashboard
+     * @return null
      */
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -23,7 +23,7 @@ class Actions {
     }
 
     /**
-     * Wpneo_Crowdfunding_Frontend_Dashboard constructor.
+     * Actions constructor.
      *
      * @hook
      */
