@@ -128,6 +128,8 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
+= 2.0.0 - 22 July, 2019 =
+
 = 1.8.8 - 25 April, 2019 =
 
 * Updated: WPML support added

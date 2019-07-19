@@ -43,7 +43,7 @@ if (is_array($campaign_rewards_a)) {
 						if (function_exists('wc_price')) {
 							echo wc_price($value['wpneo_rewards_pladge_amount']);
 							if( 'true' != get_option('wpneo_reward_fixed_price','') ){
-								echo ( ! empty($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount']))? ' - '. wc_price($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount'] - 1) : __("or more", 'wp-crowdfunding');
+								echo ( ! empty($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount']))? ' - '. wc_price($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount'] - 1) : __(" or more", 'wp-crowdfunding');
 							}
 						}
 						?>

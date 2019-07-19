@@ -68,7 +68,7 @@ if ( has_post_thumbnail() ) {
                 jQuery(document).ready(function($){
                     $('.wpcf-share').ShareLink({
                         title: "<?php echo get_the_title( $post_id ); ?>",
-                        text: "<?php echo wp_strip_all_tags($description); ?>",
+                        text: "<?php echo sanitize_title(wp_strip_all_tags($description)); ?>",
                         image: "<?php echo $post_thumbnail_url; ?>",
                         url: "<?php echo get_permalink( $post_id ); ?>"
                     });

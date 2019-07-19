@@ -816,6 +816,9 @@ input[type="button"].removeCampaignRewards:hover{
     text-align: left;
     padding: 80px 0px 20px;
 }
+.wpneo-requirement-title label:hover{
+    cursor: pointer;
+}
 
 .wpneo-fields #bio{
     border: 1px solid #eee;
@@ -1696,4 +1699,12 @@ ul.wpcf_predefined_pledge_amount li a{
     .wpneo-wallet-box .wpneo-box-amount {
         font-size: 14px;
     }
+}
+
+/* Twienty Nineteen Theme Support */
+.supports-drag-drop .media-frame-title h1:before{
+    margin: 0;
+}
+.supports-drag-drop button:hover{
+    background-color: transparent;
 }

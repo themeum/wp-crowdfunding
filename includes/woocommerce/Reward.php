@@ -104,7 +104,6 @@ class Reward{
                 'value'         => '',
                 'options'       => array(
                     ''     => __('- Select -', 'wp-crowdfunding'),
-                    '2018' => __('2018', 'wp-crowdfunding'),
                     '2019' => __('2019', 'wp-crowdfunding'),
                     '2020' => __('2020', 'wp-crowdfunding'),
                     '2021' => __('2021', 'wp-crowdfunding'),
@@ -230,7 +229,7 @@ class Reward{
 
             if ( wpcf_function()->is_free() ) {
                 ?>
-                <p class="description"><?php _e('pro version is required to add more than 1 reward', 'wp-crowdfunding') ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank"> <?php _e('click here to get pro version', 'wp-crowdfunding') ?></a></p>
+                <p class="description"><?php _e('pro version is required to add more than 1 reward', 'wp-crowdfunding') ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank"> <?php _e('click here to get pro version', 'wp-crowdfunding') ?></a></p>
                 <?php
             } else {
                 ?>

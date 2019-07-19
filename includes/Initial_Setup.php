@@ -1,9 +1,11 @@
 <?php
+namespace WPCF;
+
 defined( 'ABSPATH' ) || exit;
 
-if (! class_exists('WPCF_Initial_Setup')) {
+if (! class_exists('Initial_Setup')) {
 
-    class WPCF_Initial_Setup {
+    class Initial_Setup {
 
         /**
          * Do some task during plugin activation

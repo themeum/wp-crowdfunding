@@ -35,6 +35,7 @@ final class Crowdfunding {
 	//Checking Vendor
 	public function run() {
 		if( wpcf_function()->is_woocommerce() ) {
+			$initial_setup = new \WPCF\Initial_Setup();
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
 				if ( wpcf_function()->wc_version() ) {
 					require_once WPCF_DIR_PATH.'includes/woocommerce/Base.php';
@@ -51,11 +52,11 @@ final class Crowdfunding {
 					$template_hook_obj = new \WPCF\woocommerce\Template_Hooks(); //variable used @compatibility actions
 					require_once WPCF_DIR_PATH.'includes/compatibility/Actions.php'; //require file for compatibility
 				} else {
-					add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'wc_low_version' ) );
+					add_action( 'admin_notices', array( $initial_setup , 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
 				}
 			} else {
-				add_action( 'admin_notices', array( 'WPCF_Initial_Setup', 'no_vendor_notice' ) );
+				add_action( 'admin_notices', array( $initial_setup , 'no_vendor_notice' ) );
 			}
 		}else{
 			// Local Code
@@ -64,28 +65,30 @@ final class Crowdfunding {
 
 	// Include Shortcode
 	public function include_shortcode() {
-		include_once WPCF_DIR_PATH.'shortcode/Dashboard.php';
-		include_once WPCF_DIR_PATH.'shortcode/Project_Listing.php';
-		include_once WPCF_DIR_PATH.'shortcode/Registration.php';
-		include_once WPCF_DIR_PATH.'shortcode/Search.php';
-		include_once WPCF_DIR_PATH.'shortcode/Submit_Form.php';
-		include_once WPCF_DIR_PATH.'shortcode/Campaign_Box.php';
-		include_once WPCF_DIR_PATH.'shortcode/Single_Campaign.php';
-		include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
-		include_once WPCF_DIR_PATH.'shortcode/Donate.php';
-
-		$wpcf_dashboard = new \WPCF\shortcode\Dashboard();
-		$wpcf_project_listing = new \WPCF\shortcode\Project_Listing();
-		$wpcf_registraion = new \WPCF\shortcode\Registration();
-		$wpcf_campaign_submit_from = new \WPCF\shortcode\Campaign_Submit_Form();
-		$wpcf_search_box = new \WPCF\shortcode\Search();
-		$wpcf_campaign_box = new \WPCF\shortcode\Campaign_Box();
-		$wpcf_single_campaign = new \WPCF\shortcode\Single_Campaign();
-		$wpcf_popular_campaign = new \WPCF\shortcode\Popular_Campaigns();
-		$wpcf_donate = new \WPCF\shortcode\Donate();
-
-		//require file for compatibility
-		require_once WPCF_DIR_PATH.'includes/compatibility/Shortcodes.php';
+		if( class_exists( 'WooCommerce' ) ){
+			include_once WPCF_DIR_PATH.'shortcode/Dashboard.php';
+			include_once WPCF_DIR_PATH.'shortcode/Project_Listing.php';
+			include_once WPCF_DIR_PATH.'shortcode/Registration.php';
+			include_once WPCF_DIR_PATH.'shortcode/Search.php';
+			include_once WPCF_DIR_PATH.'shortcode/Submit_Form.php';
+			include_once WPCF_DIR_PATH.'shortcode/Campaign_Box.php';
+			include_once WPCF_DIR_PATH.'shortcode/Single_Campaign.php';
+			include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
+			include_once WPCF_DIR_PATH.'shortcode/Donate.php';
+	
+			$wpcf_dashboard = new \WPCF\shortcode\Dashboard();
+			$wpcf_project_listing = new \WPCF\shortcode\Project_Listing();
+			$wpcf_registraion = new \WPCF\shortcode\Registration();
+			$wpcf_campaign_submit_from = new \WPCF\shortcode\Campaign_Submit_Form();
+			$wpcf_search_box = new \WPCF\shortcode\Search();
+			$wpcf_campaign_box = new \WPCF\shortcode\Campaign_Box();
+			$wpcf_single_campaign = new \WPCF\shortcode\Single_Campaign();
+			$wpcf_popular_campaign = new \WPCF\shortcode\Popular_Campaigns();
+			$wpcf_donate = new \WPCF\shortcode\Donate();
+	
+			//require file for compatibility
+			require_once WPCF_DIR_PATH.'includes/compatibility/Shortcodes.php';
+		}
 	}
 
 	// Include Addons directory
@@ -104,7 +107,8 @@ final class Crowdfunding {
 
 	// Activation & Deactivation Hook
 	public function initial_activation() {
-		register_activation_hook( WPCF_FILE, array( 'WPCF_Initial_Setup', 'initial_plugin_activation' ) );
-		register_deactivation_hook( WPCF_FILE , array( 'WPCF_Initial_Setup', 'initial_plugin_deactivation') );
+		$initial_setup = new \WPCF\Initial_Setup();
+		register_activation_hook( WPCF_FILE, array( $initial_setup, 'initial_plugin_activation' ) );
+		register_deactivation_hook( WPCF_FILE , array( $initial_setup, 'initial_plugin_deactivation' ) );
 	}
 }

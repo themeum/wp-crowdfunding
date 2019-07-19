@@ -19,6 +19,15 @@ class Functions {
         return null;
     }
 
+    public function is_published($post_id=0){
+        global $post;
+        if ($post_id == 0){
+            $post_id = $post->ID;
+        }
+        $status = get_post_status($post_id);
+        return $status=='publish' ? true : false;
+    }
+
 
     public function is_free(){
         if (is_plugin_active('wp-crowdfunding-pro/wp-crowdfunding-pro.php')) {
@@ -207,7 +216,7 @@ class Functions {
             'numberposts' => -1, // Chnage Number
             'post__in'	  => $order_ids,
             'meta_key'    => '_customer_user',
-            'post_type'   => wc_get_order_types( 'view-orders' ),
+            'post_type'   => \wc_get_order_types( 'view-orders' ),
             'post_status' => array_keys( wc_get_order_statuses() ),
 
             'date_query' => array(
@@ -246,13 +255,15 @@ class Functions {
     function get_author_url($user_login) {
         return esc_url(add_query_arg(array('author' => $user_login)));
     }
-
-    public function get_author_name(){
-		global $post;
-		$author = get_user_by('id', $post->post_author);
-		$author_name = $author->first_name . ' ' . $author->last_name;
-		if (empty($author->first_name)){
-            $author_name = $author->display_name;
+    public function get_author_name() {
+        global $post;
+        $author_name = '';
+        $author = get_userdata($post->post_author);
+        if( isset($author->user_login) ){
+            $author_name = isset($author->display_name) ? $author->display_name : $author->user_login;
+            if (!empty($author->first_name)){
+                $author_name = $author->first_name . ' ' . $author->last_name;
+            }
         }
 		return $author_name;
 	}

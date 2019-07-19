@@ -18,8 +18,6 @@ $args = array(
     'paged'             => $page_numb
 );
 
-$current_page = get_permalink();
-
 $html .= '<div class="wpneo-row wp-dashboard-row">';
 $the_query = new WP_Query( $args );
 if ( $the_query->have_posts() ) :
@@ -27,16 +25,15 @@ if ( $the_query->have_posts() ) :
     $i = 1;
     while ( $the_query->have_posts() ) : $the_query->the_post();
         ob_start(); 
+        $permalink = wpcf_function()->is_published() ? get_permalink() : '#';
         ?>
-
         <div class="wpneo-col6">
             <div class="wpcrowd-listing">
-                <a href="<?php echo get_permalink(); ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
+                <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
             </div>
             <div class="wpcrowd-listing-content">
                 <div class="wpcrowd-admin-title">
-                    <!-- title -->
-                    <h3><a href="<?php  echo get_permalink(); ?> "><?php echo get_the_title(); ?></a></h3>
+                    <h3><a href="<?php echo $permalink; ?> "><?php echo get_the_title(); ?></a></h3>
                 </div>
                     <div class="wpcrowd-admin-metadata">
                         <div class="wpcrowd-admin-meta-info">

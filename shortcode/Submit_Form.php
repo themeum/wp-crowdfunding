@@ -95,7 +95,7 @@ class Campaign_Submit_Form {
 
         if (is_user_logged_in()){
             if (!current_user_can('campaign_form_submit')) {
-                $html .= '<div class="woocommerce-info">'.__("You Do not have permission to submit form.","wp-crowdfunding").'</div>';
+                $html .= '<div class="woocommerce-info">'.__("You do not have permission to create a new campaign. Please contact the website administrator.","wp-crowdfunding").'</div>';
                 return $html;
             }
         }
@@ -443,7 +443,7 @@ class Campaign_Submit_Form {
                     $html .= '<div class="wpneo-fields">';
                     $html .= '<select style="" class="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">';
                     $html .= '<option value=""> '.__('- Select -', 'wp-crowdfunding').' </option>';
-                    for ($i=2018; $i<=2025; $i++){
+                    for ($i=2019; $i<=2025; $i++){
                         $selected = ($v['wpneo_rewards_endyear'] == $i)? 'selected':'';
                         $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                     }
@@ -523,7 +523,6 @@ class Campaign_Submit_Form {
             $html .= '<div class="wpneo-fields">';
             $html .= '<select style="" class="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">';
             $html .= '<option selected="selected" value="">'.__('- Select -', 'wp-crowdfunding').'</option>';
-            $html .= '<option value="2018">2018</option>';
             $html .= '<option value="2019">2019</option>';
             $html .= '<option value="2020">2020</option>';
             $html .= '<option value="2021">2021</option>';
@@ -556,8 +555,10 @@ class Campaign_Submit_Form {
 
         if ( wpcf_function()->is_free() ) {
             $html .= '<div style="clear: both;"></div>';
-            $html .= '<p> <i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a> </i></p>';
-        }else {
+            if(is_admin()){
+                $html .= '<p><i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a></i></p>';
+            }
+        } else {
             $html .= '<div id="rewards_addon_fields"></div>';
             $html .= '<div class="text-right">';
             $html .= '<input type="button" value="' . __("+ Add", "wp-crowdfunding") . '" id="addreward" class="button tagadd" name="save">';
@@ -577,7 +578,7 @@ class Campaign_Submit_Form {
         $requirement_agree_title = get_option( 'wpneo_requirement_agree_title', '' );
         $html .= '<div class="wpneo-title">'.$requirement_title.'</div>';
         $html .= '<div class="wpneo-text">'.$requirement_text.'</div>';
-        $html .= '<div class="wpneo-requirement-title"><input type="checkbox" value="agree" name="wpneo_terms_agree"> '.$requirement_agree_title.'</div>';
+        $html .= '<div class="wpneo-requirement-title"><input id="wpcf-term-agree" type="checkbox" value="agree" name="wpneo_terms_agree" /> <label for="wpcf-term-agree">'.$requirement_agree_title.'</label></div>';
 
 
 

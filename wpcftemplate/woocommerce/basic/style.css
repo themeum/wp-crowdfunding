@@ -479,6 +479,9 @@ p.wpneo-short-description{
     position: relative;
     top: 2px;
 }
+.wpneo-icon-location{
+    background-position: -393px -11px;
+}
 .wpneo-icon-facebook{ background-position: -28px -14px; }
 .wpneo-icon-twitter{ background-position: -75px -14px; }
 .wpneo-icon-gplus{ background-position: -122px -14px; }

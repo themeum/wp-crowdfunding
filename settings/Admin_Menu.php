@@ -148,19 +148,19 @@ class Admin_Menu {
         );
         add_submenu_page(
             'wpcf-crowdfunding',
-            __('Settings', 'wp-crowdfunding'),
-            __('Settings', 'wp-crowdfunding'),
+            __('Add-ons', 'wp-crowdfunding'),
+            __('Add-ons <span class="dashicons dashicons-star-filled" style="color:#ef450b"/>', 'wp-crowdfunding'),
             'manage_options',
             'wpcf-crowdfunding',
-            array( $this, 'wpcf_menu_page' )
+            array( $this, 'wpcf_manage_addons' )
         );
         add_submenu_page(
             'wpcf-crowdfunding',
-            __( 'Add-ons', 'wp-crowdfunding' ),
-            __( 'Add-ons <span class="dashicons dashicons-star-filled"></span>', 'wp-crowdfunding' ),
+            __( 'Settings', 'wp-crowdfunding' ),
+            __( 'Settings', 'wp-crowdfunding' ),
             'manage_options',
-            'wpcf-addons',
-            array( $this, 'wpcf_manage_addons' )
+            'wpcf-settings',
+            array( $this, 'wpcf_menu_page' )
         );
     }
 
@@ -176,23 +176,24 @@ class Admin_Menu {
     public function wpcf_menu_page(){
         // Settings Tab With slug and Display name
         $tabs = apply_filters('wpcf_settings_panel_tabs', array(
-                'general' 	=>
-                    array(
-                        'tab_name' => __('General Settings','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_General.php'
-                    ),
-                'woocommerce' 	=>
-                    array(
-                        'tab_name' => __('WooCommerce Settings','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Woocommerce.php'
-                    ),
-                'style'   =>
-                    array(
-                        'tab_name' => __('Style','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
-                    ),
+                'general' => array(
+                    'tab_name' => __('General Settings','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_General.php'
+                ),
+                'style' => array(
+                    'tab_name' => __('Style','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
+                ),
             )
         );
+
+        if( class_exists( 'WooCommerce' ) ){
+            $woo_tab = array(
+                'tab_name' => __('WooCommerce Settings','wp-crowdfunding'),
+                'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Woocommerce.php'
+            );
+            $tabs = array_slice($tabs, 0, 1, true) + array('woocommerce' => $woo_tab) + array_slice($tabs, 1, count($tabs), true);
+        }
 
         $current_page = 'general';
         if( ! empty($_GET['tab']) ){
@@ -203,7 +204,7 @@ class Admin_Menu {
         echo '<h2 class="nav-tab-wrapper">';
         foreach( $tabs as $tab => $name ){
             $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-            echo "<a class='nav-tab$class' href='?page=wpcf-crowdfunding&tab=$tab'>{$name['tab_name']}</a>";
+            echo "<a class='nav-tab$class' href='?page=wpcf-settings&tab=$tab'>{$name['tab_name']}</a>";
         }
         echo '</h2>';
         ?>
