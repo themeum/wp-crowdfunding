@@ -16,7 +16,7 @@ class Woocommerce {
     public function __construct(){
         add_action( 'plugins_loaded',                                   array($this, 'includes')); //Include all of resource to the plugin 
         add_filter( 'product_type_selector',                            array($this, 'product_type_selector')); //Added one more product type in woocommerce product
-        add_action( 'init',                                             array($this, 'register_product_type') ); //Initialized the product type class
+        add_action( 'wp_loaded',                                        array($this, 'register_product_type') ); //Initialized the product type class
         add_action( 'woocommerce_product_options_general_product_data', array($this, 'add_meta_info')); //Additional Meta form for crowdfunding campaign
         add_action( 'add_meta_boxes',                                   array($this, 'add_campaign_update' ), 30 );
         add_action( 'woocommerce_process_product_meta',                 array($this, 'update_status_save')  ); //Save update status for this campaign with product
@@ -49,6 +49,8 @@ class Woocommerce {
         if ( 'true' == get_option('hide_cf_campaign_from_shop_page' )) {
             add_action('woocommerce_product_query',                     array($this, 'limit_show_cf_campaign_in_shop')); //Filter product query
         }
+
+        add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
     }
 
     /**
@@ -560,27 +562,27 @@ class Woocommerce {
      */
     function save_user_donation_to_cookie( $array, $int ) {
         if ($array['data']->get_type() == 'crowdfunding'){
-            if ( ! empty($_POST['wpneo_donate_amount_field'])){
+            if ( !empty($_POST['wpneo_donate_amount_field']) ) {
                 if (is_user_logged_in()){
                     $user_id = get_current_user_id();
                     delete_user_meta($user_id,'wpneo_wallet_info');
                 }
 
                 //setcookie("wpneo_user_donation", esc_attr($_POST['wpneo_donate_amount_field']), 0, "/");
-                $donate_amount = sanitize_text_field(wpcf_function()->post('wpneo_donate_amount_field'));
+                $donate_amount = wpcf_function()->post('wpneo_donate_amount_field');
                 WC()->session->set('wpneo_donate_amount', $donate_amount);
 
-                if ( isset($_POST['wpneo_rewards_index'])){
-                    if ( ! $_POST['wpneo_rewards_index']){
+                if ( isset($_POST['wpneo_rewards_index'])) {
+                    if ( !$_POST['wpneo_rewards_index']) {
                         return;
                     }
 
                     $selected_reward    = stripslashes_deep($_POST['wpneo_selected_rewards_checkout']);
                     $selected_reward    = json_decode($selected_reward, TRUE);
                     $reward_index       = (int) $_POST['wpneo_rewards_index'];
-                    $rewards_index      = (int) sanitize_text_field(wpcf_function()->post('wpneo_rewards_index')) -1;
-                    $product_author_id  = sanitize_text_field(wpcf_function()->post('_cf_product_author_id'));
-                    $product_id         = sanitize_text_field(wpcf_function()->post('add-to-cart'));
+                    $rewards_index      = (int) wpcf_function()->post('wpneo_rewards_index') -1;
+                    $product_author_id  = (int) wpcf_function()->post('_cf_product_author_id');
+                    $product_id         = (int) wpcf_function()->post('add-to-cart');
 
                     WC()->session->set('wpneo_rewards_data',
                         array(
@@ -602,12 +604,12 @@ class Woocommerce {
      * Get donation amount from cookie. Add user input base donation amount to cart
      */
 
-    function add_user_donation(){
+    function add_user_donation() {
         global $woocommerce;
         foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
             if ($cart_item['data']->get_type() == 'crowdfunding') {
                 $donate_cart_amount = WC()->session->get('wpneo_donate_amount');
-                if ( ! empty($donate_cart_amount)){
+                if ( !empty($donate_cart_amount) ) {
                     $cart_item['data']->set_price($donate_cart_amount);
                 }
             }
@@ -1070,6 +1072,12 @@ class Woocommerce {
         );
         $wp_query->set( 'tax_query', $tax_query );
         return $wp_query;
+    }
+
+    function wc_empty_cart() {
+        if( function_exists('WC') ){
+            WC()->cart->empty_cart();
+        }
     }
 
 
