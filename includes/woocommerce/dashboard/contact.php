@@ -300,4 +300,4 @@ ob_start();
 
 </div>
 
-<?php $html = ob_get_clean(); ?>
+<?php $html .= ob_get_clean(); ?>
