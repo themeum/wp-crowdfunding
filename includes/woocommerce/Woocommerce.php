@@ -576,7 +576,7 @@ class Woocommerce {
                     }
 
                     $selected_reward    = stripslashes_deep($_POST['wpneo_selected_rewards_checkout']);
-                    $selected_reward    = unserialize($selected_reward);
+                    $selected_reward    = json_decode($selected_reward, TRUE);
                     $reward_index       = (int) $_POST['wpneo_rewards_index'];
                     $rewards_index      = (int) sanitize_text_field(wpcf_function()->post('wpneo_rewards_index')) -1;
                     $product_author_id  = sanitize_text_field(wpcf_function()->post('_cf_product_author_id'));
