@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 $post_id = (int) $_GET['postid'];
 $saved_campaign_update = get_post_meta($post_id, 'wpneo_campaign_updates', true);
-$saved_campaign_update_a = json_decode($saved_campaign_update, true);
+$saved_campaign_update_a = (array) json_decode($saved_campaign_update, true);
 
 if(isset($_GET["postid"])){
     $post_author = get_post_field( 'post_author', $_GET["postid"] );
