@@ -32,22 +32,25 @@ class Popular_Campaigns {
             'paged'                 => $paged,
             'orderby' 		        => 'meta_value_num',
             'order'                 => $a['order'],
-            'tax_query'     => array(
-                'relation'  => 'AND',
-                array(
-                    'taxonomy'  => 'product_type',
-                    'field'     => 'slug',
-                    'terms'     => 'crowdfunding',
-                ),
+            'meta_query' => array(
                 array(
                     'key' 		=> 'total_sales',
                     'value' 	=> 0,
                     'compare' 	=> '>',
                 )
+            ),
+
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'product_type',
+                    'field'    => 'slug',
+                    'terms'    => 'crowdfunding',
+                ),
             )
         );
 
         query_posts($query_args);
+
         ob_start();
         wpcf_function()->template('wpneo-listing');
         $html = ob_get_clean();
