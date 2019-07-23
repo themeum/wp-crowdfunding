@@ -577,9 +577,9 @@ class Woocommerce {
                         return;
                     }
 
-                    $selected_reward    = stripslashes_deep($_POST['wpneo_selected_rewards_checkout']);
+                    $selected_reward    = stripslashes_deep( wpcf_function()->post('wpneo_selected_rewards_checkout') );
                     $selected_reward    = json_decode($selected_reward, TRUE);
-                    $reward_index       = (int) $_POST['wpneo_rewards_index'];
+                    $reward_index       = (int) wpcf_function()->post('wpneo_rewards_index');
                     $rewards_index      = (int) wpcf_function()->post('wpneo_rewards_index') -1;
                     $product_author_id  = (int) wpcf_function()->post('_cf_product_author_id');
                     $product_id         = (int) wpcf_function()->post('add-to-cart');
