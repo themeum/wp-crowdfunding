@@ -14,8 +14,7 @@ class Project_Listing {
 
             $a = shortcode_atts(array(
                 'cat'         => null,
-                'number'      => -1,
-                'pagination'  => false
+                'number'      => -1
             ), $atts, $shortcode );
 
             $paged = 1;
