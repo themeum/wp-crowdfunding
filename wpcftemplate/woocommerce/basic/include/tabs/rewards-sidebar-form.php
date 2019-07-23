@@ -78,7 +78,7 @@ if (is_array($campaign_rewards_a)) {
 											<?php } else { ?>
                                                 <form enctype="multipart/form-data" method="post" class="cart">
                                                     <input type="hidden" value="<?php echo $value['wpneo_rewards_pladge_amount']; ?>" name="wpneo_donate_amount_field" />
-                                                    <input type="hidden" value="<?php echo esc_attr(serialize($value)); ?>" name="wpneo_selected_rewards_checkout" />
+                                                    <input type="hidden" value='<?php echo json_encode($value); ?>' name="wpneo_selected_rewards_checkout" />
                                                     <input type="hidden" value="<?php echo $key; ?>" name="wpneo_rewards_index" />
                                                     <input type="hidden" value="<?php echo esc_attr($post->post_author); ?>" name="_cf_product_author_id">
                                                     <input type="hidden" value="<?php echo esc_attr($post->ID); ?>" name="add-to-cart">
@@ -95,7 +95,7 @@ if (is_array($campaign_rewards_a)) {
 									<?php else: ?>
                                         <form enctype="multipart/form-data" method="post" class="cart">
                                             <input type="hidden" value="<?php echo $value['wpneo_rewards_pladge_amount']; ?>" name="wpneo_donate_amount_field" />
-                                            <input type="hidden" value="<?php echo esc_attr(serialize($value)); ?>" name="wpneo_selected_rewards_checkout" />
+                                            <input type="hidden" value='<?php echo json_encode($value); ?>' name="wpneo_selected_rewards_checkout" />
                                             <input type="hidden" value="<?php echo $key; ?>" name="wpneo_rewards_index" />
                                             <input type="hidden" value="<?php echo esc_attr($post->post_author); ?>" name="_cf_product_author_id">
                                             <input type="hidden" value="<?php echo esc_attr($post->ID); ?>" name="add-to-cart">
