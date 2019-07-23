@@ -50,12 +50,9 @@ class Dashboard{
         $campaign_ids = array();
 
         foreach ( $campaigns as $post ) : setup_postdata( $post );
-            $campaign_ids[] = get_the_ID();
-        endforeach; 
+            $campaign_ids[] = $post->ID;
+        endforeach;
         wp_reset_postdata();
-
-
-        
         if (count($campaign_ids) > 0) {
             $campaign_ids_string     = implode(',', $campaign_ids);
             $wp_sql                  = $this->totalOrdersSalesAmount($campaign_ids_string);
