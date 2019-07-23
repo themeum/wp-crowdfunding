@@ -18,7 +18,7 @@ class Functions {
         }
         return null;
     }
-
+    
     public function is_published($post_id=0){
         global $post;
         if ($post_id == 0){

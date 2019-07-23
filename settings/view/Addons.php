@@ -176,8 +176,8 @@
                                     <div class="action-links">
                                         <ul class="plugin-action-buttons">
                                             <li>
-                                                <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin&utm_medium=addons_lists&utm_campaign=wpcf_addons_lists"
-                                                   class="addon-buynow-link" target="_blank">Buy Now</a>
+                                                <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin"
+                                                   class="addon-buynow-link" target="_blank"><?php _e('Buy Now','wp-crowdfunding'); ?></a>
                                             </li>
                                         </ul>
                                     </div>

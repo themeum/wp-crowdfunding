@@ -66,8 +66,15 @@ class Base {
     }
 
     public function settings_link($links){
-        $new_link = array('settings' => '<a href="'.admin_url('admin.php?page=wpcf-crowdfunding').'">Settings</a>');
-        return array_merge($new_link, $links);
+		$actionsLinks = array(
+		    'settings' => '<a href="'.admin_url('admin.php?page=wpcf-settings').'">Settings</a>',
+		    'wpcf_docs' => '<a href="https://www.themeum.com/docs/wp-crowdfunding-introduction/" target="_blank">'.__('Docs', 'wp-crowdfunding').'</a>',
+            'wpcf_support' => '<a href="https://www.themeum.com/support-forums/" target="_blank">'.__('Support', 'wp-crowdfunding').'</a>',
+        );
+		if( !defined('WPCF_PRO_VERSION') ){
+			$actionsLinks['wpcf_update_pro'] = '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">'.__('Update Pro', 'wp-crowdfunding').'</a>';
+		}
+        return array_merge($actionsLinks, $links);
     }
 
     // Set notice for disable in network

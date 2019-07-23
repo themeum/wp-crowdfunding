@@ -104,14 +104,20 @@ if (! class_exists('Initial_Setup')) {
              */
             $dashboard_page = wp_insert_post( $dashboard );
             if ( !is_wp_error( $dashboard_page ) ) {
-                update_option( 'wpneo_crowdfunding_dashboard_page_id', $dashboard_page );
+                wpcf_function()->update_text( 'wpneo_crowdfunding_dashboard_page_id', $dashboard_page );
             }
             $form_page = wp_insert_post( $form );
             if( !is_wp_error( $form_page ) ){
-                update_option( 'wpneo_form_page_id', $form_page );
+                wpcf_function()->update_text( 'wpneo_form_page_id', $form_page );
             }
-            wp_insert_post( $listing );
-            wp_insert_post( $registration );
+            $listing_page = wp_insert_post( $listing );
+            if( !is_wp_error( $listing_page ) ){
+                wpcf_function()->update_text( 'wpneo_listing_page_id', $listing_page );
+            }
+            $registration_page = wp_insert_post( $registration );
+            if( !is_wp_error( $registration_page ) ){
+                wpcf_function()->update_text( 'wpneo_registration_page_id', $registration_page );
+            }
         }
 
 

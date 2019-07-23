@@ -145,7 +145,7 @@
 }
 .wp-crowd-new-campaign {
    float: right; 
-   margin-top: 16px;
+   margin-top: 7px;
 }
 
 
@@ -624,10 +624,11 @@ textarea[disabled], html input[disabled]{
 input[type="button"].wpneo-image-upload,
 input#cc-image-upload-file-button, input.profile_image_url{
     text-transform: capitalize;
-    padding: 6px 20px !important;
+    padding: 10px 20px !important;
     font-weight: 300;
     width: 21% !important;
     margin-top: 0;
+    color:#ffffff;
 }
 
 #reward_options {

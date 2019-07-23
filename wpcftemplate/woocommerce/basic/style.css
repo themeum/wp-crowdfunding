@@ -8,7 +8,6 @@
 #wpneofrontenddata select,
 #wpneofrontenddata textarea{
     font-family: 'Rubik', sans-serif;
-    color: #686C8B;
 }
 .float-left{
     float: left;
@@ -480,7 +479,7 @@ p.wpneo-short-description{
     top: 2px;
 }
 .wpneo-icon-location{
-    background-position: -393px -11px;
+    background-position: -401px -11px;
 }
 .wpneo-icon-facebook{ background-position: -28px -14px; }
 .wpneo-icon-twitter{ background-position: -75px -14px; }
@@ -647,7 +646,6 @@ input[type="number"].wpneo_donate_amount_field{
     text-transform: none;
     margin: 0px 0px 0px 10px;
     border: none;
-    line-height: 37px;
 }
 
 .wpneo-campaign-creator-info-wrapper{
@@ -666,10 +664,12 @@ input[type="number"].wpneo_donate_amount_field{
 
 .wpneo-campaign-creator-details{
     display: inline-block;
+    font-size: 16px;
 }
 .wpneo-campaign-creator-details > p{
     padding-bottom: 0;
     margin-bottom: 0;
+    margin-top:0;
 }
 .wpneo-campaign-creator-details > p:last-child{
     padding-top: 5px;
@@ -862,6 +862,7 @@ img.profile-avatar{
 .wpneo-profile-about h3{
     font-size: 18px;
     line-height: 50px;
+    margin: 0;
 }
 .wpneo-profile-about p{
     font-size: 14px;
@@ -897,6 +898,7 @@ a.wpneo-profile-button:hover{
     border-top: none;
     border-left: none;
     border-right: none;
+    text-align: left;
 }
 .social-container{
     display: inline-flex;

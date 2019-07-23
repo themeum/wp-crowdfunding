@@ -26,13 +26,13 @@ $html .= '<div class="wpneo-content">';
                     $html .= '<h4>'.__("Profile Picture","wp-crowdfunding").'</h4>';
                     $html .= '<div class="wpneo-fields">';
                     $html .= '<input type="hidden" name="action" value="wpneo_profile_form">';
-                        $img_src = '';
+                        
+                        $img_src = get_avatar_url( $current_user_id );
                         $image_id = get_user_meta( $current_user_id, 'profile_image_id', true );
-
-                        if( $image_id && $image_id > 0 ){
-                            $img_src = wp_get_attachment_image_src( $image_id, 'full' )[0];
-                            $html .= '<img class="profile-form-img" src="'.$img_src.'" alt="'.__( "Profile Image:" , "wp-crowdfunding" ).'">';
+                        if ($image_id && $image_id > 0) {
+                            $img_src = wp_get_attachment_image_src($image_id, 'full')[0];
                         }
+                        $html .= '<img class="profile-form-img" src="'.$img_src.'" alt="'.__( "Profile Image:" , "wp-crowdfunding" ).'">';
 
                         $html .= '<span id="wpneo-image-show"></span>';
                         $html .= '<input type="hidden" name="profile_image_id" class="wpneo-form-image-id" value="'.$image_id.'">';
@@ -82,7 +82,7 @@ $html .= '<div class="wpneo-content">';
                 // Profile Information
                 $html .= '<div class="wpneo-single">';
                     $html .= '<div class="wpneo-name">';
-                        $html .= '<p>'.__( "Profile Info:" , "wp-crowdfunding" ).'</p>';
+                        $html .= '<p>'.__( "User Bio:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
                         $value = ''; if(isset($data['profile_portfolio'][0])){ $value = esc_textarea($data['profile_portfolio'][0]); }

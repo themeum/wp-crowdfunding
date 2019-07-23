@@ -146,10 +146,15 @@ class Admin_Menu {
             'dashicons-admin-multisite', 
             null 
         );
+
+        $addon_pro =  __('Add-ons', 'wp-crowdfunding');
+        if( !defined('WPCF_PRO_FILE') ){
+            $addon_pro = __('Add-ons <span class="dashicons dashicons-star-filled" style="color:#ef450b"/>', 'wp-crowdfunding');
+        }
         add_submenu_page(
             'wpcf-crowdfunding',
             __('Add-ons', 'wp-crowdfunding'),
-            __('Add-ons <span class="dashicons dashicons-star-filled" style="color:#ef450b"/>', 'wp-crowdfunding'),
+            $addon_pro,
             'manage_options',
             'wpcf-crowdfunding',
             array( $this, 'wpcf_manage_addons' )
@@ -200,6 +205,14 @@ class Admin_Menu {
             $current_page = sanitize_text_field($_GET['tab']);
         }
 
+        // $screen = get_current_screen();
+        // print_r( $screen );   
+        if (wpcf_function()->post('wpneo_settings_page_nonce_field')){
+            echo '<div class="notice notice-success is-dismissible">';
+                echo '<p>'.__( "Settings have been Saved.", "wp-crowdfunding" ).'</p>';
+            echo '</div>';
+        }
+
         // Print the Tab Title
         echo '<h2 class="nav-tab-wrapper">';
         foreach( $tabs as $tab => $name ){
@@ -209,7 +222,7 @@ class Admin_Menu {
         echo '</h2>';
         ?>
 
-        <form id="neo-crowdfunding" role="form" method="post" action="">
+        <form id="wpcf-crowdfunding" role="form" method="post" action="">
             <?php
             //Load tab file
             $default_file = WPCF_DIR_PATH.'settings/tabs/Tab_General.php';

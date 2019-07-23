@@ -28,6 +28,6 @@ $creator = get_user_by('id', $post->post_author);
         <?php if ( ! empty($user_info['profile_website'][0])){ ?>
             <p><a href="<?php echo wpcf_function()->url($user_info['profile_website'][0]); ?>"><strong> <?php echo wpcf_function()->url($user_info['profile_website'][0]); ?></strong></a></p>
         <?php } ?>
-        <p><a href="javascript:;" data-author="<?php echo $post->post_author; ?>" class="wpneo-fund-modal-btn wpneo-link-style1"><strong><?php _e('See full bio.', 'wp-crowdfunding'); ?></strong></a></p>
+        <p><a href="javascript:;" data-author="<?php echo $post->post_author; ?>" class="wpneo-fund-modal-btn wpneo-link-style1"><strong><?php _e('See full bio', 'wp-crowdfunding'); ?></strong></a></p>
     </div>
 </div>
