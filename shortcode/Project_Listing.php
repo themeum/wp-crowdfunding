@@ -9,23 +9,25 @@ class Project_Listing {
         add_shortcode( 'wpcf_listing', array( $this, 'listing_callback' ) );
     }
 
-    function listing_callback( $atts, $shortcode ){
+    function listing_callback( $atts, $shortcode ) {
         if( function_exists('wpcf_function') ){
 
             $a = shortcode_atts(array(
                 'cat'         => null,
-                'number'      => -1
+                'number'      => -1,
+                'order'     => 'DESC',
             ), $atts, $shortcode );
 
             $paged = 1;
-            if (get_query_var('paged')){
-                $paged = absint( get_query_var( 'paged' ) );
-            }elseif (get_query_var('page')){
-                $paged = absint( get_query_var( 'page' ) );
+            if ( get_query_var('paged') ){
+                $paged = absint( get_query_var('paged') );
+            } elseif (get_query_var('page')) {
+                $paged = absint( get_query_var('page') );
             }
 
             $query_args = array(
                 'post_type'     => 'product',
+                'post_status'   => 'publish',
                 'tax_query'     => array(
                     'relation'  => 'AND',
                     array(
@@ -34,8 +36,10 @@ class Project_Listing {
                         'terms'     => 'crowdfunding',
                     ),
                 ),
-                'posts_per_page' => $a['number'],
-                'paged' => $paged
+                'posts_per_page'    => $a['number'],
+                'paged'             => $paged,
+                'orderby' 		    => 'post_title',
+                'order'             => $a['order'],
             );
 
             if (!empty($_GET['author'])) {
