@@ -49,6 +49,7 @@ class Woocommerce {
         if ( 'true' == get_option('hide_cf_campaign_from_shop_page' )) {
             add_action('woocommerce_product_query',                     array($this, 'limit_show_cf_campaign_in_shop')); //Filter product query
         }
+        add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') );
 
         add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
     }
@@ -1072,6 +1073,10 @@ class Woocommerce {
         );
         $wp_query->set( 'tax_query', $tax_query );
         return $wp_query;
+    }
+
+    function wpcf_campaign_single_love_this() {
+        return wpcf_function()->campaign_single_love_this();
     }
 
     function wc_empty_cart() {
