@@ -1712,3 +1712,7 @@ ul.wpcf_predefined_pledge_amount li a{
 .wpneo-campaign-single-left-info .woocommerce-product-gallery.images {
     width: 100% !important;
 }
+.woocommerce-product-gallery__trigger {
+    top: 40%;
+    right: 45%;
+}
