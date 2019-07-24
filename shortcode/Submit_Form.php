@@ -182,7 +182,7 @@ class Campaign_Submit_Form {
 
         //Image
         $html .= '<div class="wpneo-single">';
-        $html .= '<div class="wpneo-name">'.__( "Image" , "wp-crowdfunding" ).'</div>';
+        $html .= '<div class="wpneo-name">'.__( "Feature Image" , "wp-crowdfunding" ).'</div>';
         $html .= '<div class="wpneo-fields">';
         $html .= '<input type="text" name="wpneo-form-image-url" class="wpneo-upload wpneo-form-image-url" value="'.$image_url.'">';
         $html .= '<input type="hidden" name="wpneo-form-image-id" class="wpneo-form-image-id" value="'.$image_id.'">';
