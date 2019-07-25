@@ -24,7 +24,6 @@ class Woocommerce {
         add_filter( 'woocommerce_add_cart_item',                        array($this, 'save_user_donation_to_cookie'), 10, 3 ); //Filter cart item and save donation amount into cookir if product type crowdfunding
         add_action( 'woocommerce_before_calculate_totals',              array($this, 'add_user_donation')); //Save user input as there preferable amount with cart
         add_filter( 'woocommerce_add_to_cart_redirect',                 array($this, 'redirect_to_checkout')); //Skip cart page after click Donate button, going directly on checkout page
-        add_filter( 'woocommerce_coupons_enabled',                      array($this, 'wc_coupon_disable')); //Hide coupon form on checkout page
         add_filter( 'woocommerce_get_price_html',                       array($this, 'wc_price_remove'), 10, 2 ); //Hide default price details
         add_filter( 'woocommerce_is_purchasable',                       array($this, 'return_true_woocommerce_is_purchasable'), 10, 2 ); // Return true is purchasable
         add_filter( 'woocommerce_paypal_args',                          array($this, 'custom_override_paypal_email'), 100, 1); // Override paypal reciever email address with campaign creator email
@@ -50,6 +49,7 @@ class Woocommerce {
             add_action('woocommerce_product_query',                     array($this, 'limit_show_cf_campaign_in_shop')); //Filter product query
         }
         add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') );
+        !is_admin() and add_filter( 'woocommerce_coupons_enabled',      array($this, 'wc_coupon_disable') ); //Hide coupon form on checkout page
 
         add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
     }
