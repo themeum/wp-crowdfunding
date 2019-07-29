@@ -114,6 +114,7 @@ jQuery(document).ready(function($){
             return false;
         }
     }
+    window.wpcf_modal = wpcf_modal; //make global function
 
     // Image Upload Function
     function wpcf_upload_image( button_class ) {
