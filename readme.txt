@@ -148,7 +148,8 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 * Fixed: Fatal error in Woocommerce  order page
 * Fixed: Campaign form start date and end date CSS issue in Tweny Nineteen theme
 
-= 1.9.1 - 29 May, 2019 =		= 2.0.0 - 22 July, 2019 =
+= 1.9.1 - 29 May, 2019 =
+
 * Added: Status bar on the backend		
 * Added: Campaign invoice print function		
 * Update: CSS improvement		
@@ -234,6 +235,7 @@ count($reward_data_array) : 0; (PHP 7.0 compatible)
 * Renamed: Two Button Name in report export button
 
 = 1.8.2 =
+
 * Fixed: reCaptcha Addon
 
 = 1.8.1 =
