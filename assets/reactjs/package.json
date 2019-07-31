@@ -1,0 +1,28 @@
+{
+  "name": "liveedit",
+  "version": "1.0.0",
+  "description": "live edit crowdfunding",
+  "main": "index.js",
+  "author": "themeum",
+  "license": "GPL",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "path": "^0.12.7",
+    "standard": "^13.1.0",
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.6"
+  },
+  "scripts": {
+    "start": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production webpack --config ./webpack.production.config.js",
+    "test": "standard && node my-tests.js"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

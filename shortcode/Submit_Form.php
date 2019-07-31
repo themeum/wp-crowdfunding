@@ -6,12 +6,24 @@ defined( 'ABSPATH' ) || exit;
 
 class Campaign_Submit_Form {
     public function __construct() {
-        add_shortcode( 'wpcf_form', array( $this, 'campaign_form_callback' ) );        
+        add_shortcode('wpcf_form',          array($this, 'campaign_form_callback'));
+        add_action('wp_enqueue_scripts',    array($this, 'campaign_form_assets')); 
     }
     
+    public function campaign_form_assets( $atts ){
+        $page_id = get_option('wpneo_form_page_id');
+        if( get_the_ID() && get_the_ID() == $page_id ){
+            wp_enqueue_style( 'wpcf-campaign-style', WPCF_DIR_URL.'assets/css/campaign-form.css', false, WPCF_VERSION );
+            wp_enqueue_script( 'wpcf-campaign-script', WPCF_DIR_URL.'assets/js/campaign-form.js', array('jquery'), WPCF_VERSION, true );
+        }
+    }
+
     // Shortcode for Forntend Submission Form
     public function campaign_form_callback( $atts ){
+
+        return '<div id="wpcf-live-form"></div>';
         
+        /*
         global $post, $wpdb;
 
         $html = '';
@@ -592,6 +604,7 @@ class Campaign_Submit_Form {
         $html .= '</form>';
 
         return $html;
+        */
     }
 }
 
