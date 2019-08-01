@@ -71,6 +71,8 @@ class Submit_Form {
         if( $_POST['wpneo-form-max-price'] ){                   $max_price = sanitize_text_field($_POST['wpneo-form-max-price']); }
         if( $_POST['wpneo-form-recommended-price'] ){           $recommended_price = sanitize_text_field($_POST['wpneo-form-recommended-price']); }
         if( isset($_POST['wpcf_predefined_pledge_amount']) ){   $wpcf_predefined_pledge_amount = sanitize_text_field($_POST['wpcf_predefined_pledge_amount']); }
+        if( isset($_POST['wpcf_campaign_sizes']) ){             $wpcf_campaign_sizes = sanitize_text_field($_POST['wpcf_campaign_sizes']); }
+        if( isset($_POST['wpcf_campaign_colors']) ){            $wpcf_campaign_colors = sanitize_text_field($_POST['wpcf_campaign_colors']); }
         if( $_POST['wpneo-form-funding-goal'] ){                $funding_goal = sanitize_text_field($_POST['wpneo-form-funding-goal']); }
         if( $_POST['wpneo-form-type'] ){                        $type = sanitize_text_field($_POST['wpneo-form-type']); }
         if( $_POST['wpneo-form-contributor-table'] ){           $contributor_table = sanitize_text_field($_POST['wpneo-form-contributor-table']); }
@@ -132,6 +134,14 @@ class Submit_Form {
             wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($max_price));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
             wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
+
+            if( isset($wpcf_campaign_sizes )) {
+                wpcf_function()->update_meta($post_id, 'wpcf_campaign_sizes', esc_attr($wpcf_campaign_sizes));
+            }
+            if( isset($wpcf_campaign_colors)) {
+                wpcf_function()->update_meta($post_id, 'wpcf_campaign_colors', esc_attr($wpcf_campaign_colors));
+            }
+
             wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($type));
             wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));

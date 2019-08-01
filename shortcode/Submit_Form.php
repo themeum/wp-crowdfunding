@@ -301,6 +301,7 @@ class Campaign_Submit_Form {
         $html .= '</div>';
         $html .= '</div>';
 
+        $html .= apply_filters('wpcf_after_campaign_form_pledge_amount', $post_id );
 
         //Show Contributor Table
         $html .= '<div class="wpneo-single">';
@@ -311,7 +312,6 @@ class Campaign_Submit_Form {
         $html .= '<input type="checkbox" '.$checked.' name="wpneo-form-contributor-table" value="1" >'.__("Show contributor table on campaign single page","wp-crowdfunding" );
         $html .= '</div>';
         $html .= '</div>';
-
 
         //Mark Contributors as Anonymous
         $html .= '<div class="wpneo-single">';
@@ -572,8 +572,6 @@ class Campaign_Submit_Form {
         $html .= '<div class="wpneo-title">'.$requirement_title.'</div>';
         $html .= '<div class="wpneo-text">'.$requirement_text.'</div>';
         $html .= '<div class="wpneo-requirement-title"><input id="wpcf-term-agree" type="checkbox" value="agree" name="wpneo_terms_agree" /> <label for="wpcf-term-agree">'.$requirement_agree_title.'</label></div>';
-
-
 
         $var = get_option( 'wpneo_crowdfunding_dashboard_page_id', '' );
         if( $var != '' ){

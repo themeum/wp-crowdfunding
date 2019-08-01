@@ -325,7 +325,7 @@ class Woocommerce {
     public function campaign_status_metabox() {
         global $post;
         $saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);
-        $saved_campaign_update_a = json_decode($saved_campaign_update, true);
+        $saved_campaign_update_a = ( !empty($saved_campaign_update) ) ? json_decode($saved_campaign_update, true) : array();
 
         $total_campaign_update = count($saved_campaign_update_a);
 
