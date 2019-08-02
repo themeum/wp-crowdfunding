@@ -31,7 +31,7 @@ if( !function_exists('is_plugin_active_for_network') ){
 * @Plugin Base Name
 */
 define('WPCF_FILE', __FILE__);
-define('WPCF_VERSION', '2.0.0');
+define('WPCF_VERSION', '2.0.1');
 define('WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ));
 define('WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ));
 define('WPCF_BASENAME', plugin_basename( WPCF_FILE ));
