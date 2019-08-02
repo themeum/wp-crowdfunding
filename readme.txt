@@ -133,6 +133,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 = 2.0.1 - 02 August, 2019 =
 * Fixed: PHP Warnings in WooCommerce product edit
 * Fixed: CSS issue in dashboard campaign list
+* Fixed: Backward compatibilities
 
 = 2.0.0 - 31 July, 2019 =
 * Added: Addon list menu with enable disable option
