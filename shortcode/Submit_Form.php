@@ -301,7 +301,7 @@ class Campaign_Submit_Form {
         $html .= '</div>';
         $html .= '</div>';
 
-        $html .= apply_filters('wpcf_after_campaign_form_pledge_amount', $post_id );
+        $html .= apply_filters('wpcf_after_campaign_form_pledge_amount', isset($post_id) ? $post_id : 0 );
 
         //Show Contributor Table
         $html .= '<div class="wpneo-single">';

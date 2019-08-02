@@ -139,10 +139,6 @@ class Functions {
         return $value;
     }
 
-
-    public function get_wpcf_author_campaigns_url($author_id = 0, $author_nicename = ''){ //@compatibility
-        $this->campaign_url( $author_id, $author_nicename );
-    }
     public function campaign_url($author_id = 0, $author_nicename = ''){
         $author_id = $author_id ? $author_id : get_current_user_id();
         if (! $author_id){
@@ -492,9 +488,6 @@ class Functions {
         update_user_meta($user_id,'shipping_first_name', $shipping_first_name);
     }
 
-    public function dateRemaining($post_id = 0){ //@compatibility
-        return $this->get_date_remaining($post_id = 0);
-    }
     public function get_date_remaining($post_id = 0){
         global $post;
         if ($post_id == 0){
@@ -521,9 +514,6 @@ class Functions {
         }
     }
 
-    public function campaignValid(){ //@compatibility
-        return $this->is_campaign_valid();
-    }
     public function is_campaign_valid(){
         global $post;
         $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
@@ -576,9 +566,6 @@ class Functions {
      *
      * Get Total funded amount by a campaign
      */
-    public function totalFundRaisedByCampaign($campaign_id = 0){ //@compatibility
-        return $this->get_total_fund( $campaign_id = 0 );
-    }
     public function get_total_fund($campaign_id = 0){
         global $wpdb, $post;
         if ($campaign_id == 0){
@@ -620,9 +607,6 @@ class Functions {
      *
      * Get total campaign goal
      */
-    public function totalGoalByCampaign($campaign_id){ //@compatibility
-        return $this->get_total_goal($campaign_id);
-    }
     public function get_total_goal($campaign_id){
         return $funding_goal = get_post_meta( $campaign_id, '_nf_funding_goal', true );
     }
@@ -646,15 +630,9 @@ class Functions {
         }
         return $percent;
     }
-    public function getFundRaisedPercent(){ // @compatibility of getFundRaisedPercentFormat
-        return $this->get_raised_percent($campaign_id = 0);
-    }
 
-    public function getFundRaisedPercentFormat(){
-        return $this->get_fund_raised_percent_format();
-    }
-    public function get_fund_raised_percent_format(){ // @compatibility of getFundRaisedPercentFormat
-        return $this->getFundRaisedPercent().'%';
+    public function get_fund_raised_percent_format() {
+        return $this->get_raised_percent().'%';
     }
 
     public function get_campaign_orders_id_list( $post_id = Null ) {
@@ -860,4 +838,24 @@ class Functions {
         return 0;
     }
 
+
+    //Compatibilities
+    function dateRemaining($post_id = 0) {
+        return $this->get_date_remaining($post_id = 0);
+    }
+    function campaignValid() {
+        return $this->is_campaign_valid();
+    }
+    function totalFundRaisedByCampaign($campaign_id = 0) {
+        return $this->get_total_fund( $campaign_id = 0 );
+    }
+    function totalGoalByCampaign($campaign_id) {
+        return $this->get_total_goal($campaign_id);
+    }
+    function getFundRaisedPercent() {
+        return $this->get_raised_percent($campaign_id = 0);
+    }
+    function getFundRaisedPercentFormat() {
+        return $this->get_fund_raised_percent_format();
+    }
 }

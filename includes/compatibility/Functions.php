@@ -9,6 +9,10 @@ function author_name_by_login($author_login){
     return wpcf_function()->author_name_by_login($author_login);
 }
 
+function get_wpcf_author_campaigns_url($author_id = 0, $author_nicename = '') {
+    wpcf_function()->campaign_url( $author_id, $author_nicename );
+}
+
 function wpneo_crowdfunding_get_campaigns_location(){
     return wpcf_function()->campaign_location();
 }
