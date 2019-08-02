@@ -1,7 +1,6 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+
 $html .= '<div class="wpneo-content">';
 $html .= '<div class="wpneo-form campaign-listing-page">';
 
@@ -29,9 +28,9 @@ if( is_array( $id_array ) ){
         global $wpdb;
         $prefix = $wpdb->prefix;
         $query = "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi 
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim 
-						ON woim.order_item_id = oi.order_item_id 
-						WHERE woim.meta_key='_product_id' AND woim.meta_value IN ( {$id_array} )";
+                    LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim 
+                    ON woim.order_item_id = oi.order_item_id 
+                    WHERE woim.meta_key='_product_id' AND woim.meta_value IN ( {$id_array} )";
         $order_ids = $wpdb->get_col( $query );
     }
 }
@@ -121,12 +120,10 @@ if ( $customer_orders ) :
                                     if ($order_total >= $value['wpneo_rewards_pladge_amount']) {
                                         if( $temp <= $value['wpneo_rewards_pladge_amount'] ){
                                             $temp = $value['wpneo_rewards_pladge_amount'];
-                                            $rewards_amount = '<a class="label-default" href="'.get_permalink($product_id).'" target="_blank">'.__('Rewards', 'wp-crowdfunding').': ' . wpneo_crowdfunding_price($value['wpneo_rewards_pladge_amount']).'</a>';
+                                            $rewards_amount = '<a class="label-default" href="'.get_permalink($product_id).'" target="_blank">'.__('Rewards', 'wp-crowdfunding').': ' . wpcf_function()->price($value['wpneo_rewards_pladge_amount']).'</a>';
                                         }
-
                                     }
                                 }
-
                             }
                         }
 
@@ -162,7 +159,7 @@ if(!empty($customer_order_all)){
     $max_page = ceil( count($customer_order_all)/10 );
 }
 // Pagination
-$html .= wpneo_crowdfunding_pagination( $page_numb , $max_page );
+$html .= wpcf_function()->get_pagination( $page_numb , $max_page );
 
 $html .='</div>';
 $html .='</div>';

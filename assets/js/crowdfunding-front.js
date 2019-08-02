@@ -1,4 +1,4 @@
-// Neo Crowdfunding Scripts
+// Crowdfunding Scripts
 
 jQuery(document).ready(function($){
     
@@ -46,85 +46,48 @@ jQuery(document).ready(function($){
         dateFormat: 'yy-mm-dd'
     });
 
-    // var ctx = $("#WPcrowdFundChart");
-    // var lineChart = new Chart(ctx, {
-    //   type: 'line',
-    //   data: {
-    //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    //     datasets: [{
-    //       label: "2015",
-    //       fill: false,
-    //       data: [10, 8, 6, 5, 12, 8, 16, 17, 6, 7, 6, 10],
-    //       pointRadius: 5,
-    //       pointHoverRadius: 8,
-    //       pointHoverBackgroundColor:'#4C76FF',
-    //       pointHoverBorderColor:'#fff',
-    //       backgroundColor:'#4C76FF',
-    //       borderColor:'#DCDCE9',
-    //     borderWidth: 3,
-    //     pointStyle: 'circle',
-    //     }]
-    //   },  
-    //   options: {
-    //         scales: {
-    //             yAxes: [{
-    //                 stacked: true
-    //             }]
-    //         },
-    //         elements: {
-    //             line: {
-    //                 tension: 0,
-    //             }
-    //         },
-    //         legend: {
-    //             display: false,
-    //         }
-    //     }
-    // })
-
     // Insert Campaign Post Data
-    $('#wpneofrontenddata').submit(WpneoAjaxSubmitFrontend);
-    function WpneoAjaxSubmitFrontend(){
+    $('#wpneofrontenddata').submit(submit_frontend);
+    function submit_frontend(){
         tinyMCE.triggerSave();
-        var wpneofrontenddata = $(this).serialize();
+        var front_end_data = $(this).serialize();
         $.ajax({
             type:"POST",
             url: wpcf_ajax_object.ajax_url,
-            data: wpneofrontenddata,
+            data: front_end_data,
             success:function(data){
                 var parseData = JSON.parse(data);
 
                 if ( ! parseData.success){
                     //Reset reCaptcha if failed
-                    if(typeof grecaptcha !== 'undefined'){
+                    if( (typeof grecaptcha !== 'undefined') && ($('.g-recaptcha').length !== 0) ) {
                         grecaptcha.reset();
                     }
                 }
-                if (wpneo_crowdfunding_modal(data)){  }
+                if (wpcf_modal(data)){  }
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error sending data'})
+                wpcf_modal({'success':0, 'message':'Error sending data'})
             }
         });
         return false;
     }
-
 
     $( document ).on('click', '.wpcf-print-button', function (e) {
         window.print();
     });
 
     // Common Modal Function
-    function wpneo_crowdfunding_modal( data, print = false ){
+    function wpcf_modal( data, print = false ){
         var data = JSON.parse(data);
         var html = '<div class="wpneo-modal-wrapper"> ' +
             ' <div class="wpneo-modal-content"> ' +
             '<div class="wpneo-modal-wrapper-head">' +
-            '<h4 id="wpneo_crowdfunding_modal_title">Message</h4><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
+            '<h4 id="wpcf_modal_title">Message</h4><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
             if( print ){
                 html += '</div><span class="wpcf-print-button button">print</span>';
             }
-            html += '<div class="wpneo-modal-content-inner"><div id="wpneo_crowdfunding_modal_message"></div></div></div></div>';
+            html += '<div class="wpneo-modal-content-inner"><div id="wpcf_modal_message"></div></div></div></div>';
         if ($('.wpneo-modal-wrapper').length == 0){
             $('body').append(html);
             if (data.redirect){
@@ -135,10 +98,10 @@ jQuery(document).ready(function($){
         }
         if (data.success == 1){
             if(data.message){
-                $('.wpneo-modal-wrapper #wpneo_crowdfunding_modal_message').html( data.message );
+                $('.wpneo-modal-wrapper #wpcf_modal_message').html( data.message );
             }
             if(data.title){
-                $('.wpneo-modal-wrapper #wpneo_crowdfunding_modal_title').html( data.title );
+                $('.wpneo-modal-wrapper #wpcf_modal_title').html( data.title );
             }
             $('.wpneo-modal-wrapper').css({'display': 'block'});
             if ( $('#wpneofrontenddata').length > 0 ){
@@ -146,26 +109,21 @@ jQuery(document).ready(function($){
             }
             return true;
         }else {
-            $('.wpneo-modal-wrapper #wpneo_crowdfunding_modal_message').html(data.message);
+            $('.wpneo-modal-wrapper #wpcf_modal_message').html(data.message);
             $('.wpneo-modal-wrapper').css({'display': 'block'});
             return false;
         }
     }
+    window.wpcf_modal = wpcf_modal; //make global function
 
     // Image Upload Function
-    function wpneo_upload_image( button_class ) {
+    function wpcf_upload_image( button_class ) {
         var _custom_media = true,
             _orig_send_attachment = wp.media.editor.send.attachment;
         $('body').on('click',button_class, function(e) {
             var button_id ='#'+$(this).attr('id');
-            var button_class ='.'+$(this).attr('id');
-            var site_url = $(this).data('url');
-            var self = $(button_id);
-            var send_attachment_bkp = wp.media.editor.send.attachment;
             var button = $(button_id);
-            var id = button.attr('id').replace('_button', '');
             _custom_media = true;
-
             wp.media.editor.send.attachment = function(props, attachment){
                 if ( _custom_media  ) {
                     var attachment_url = attachment.url;
@@ -179,7 +137,7 @@ jQuery(document).ready(function($){
             return false;
         });
     }
-    wpneo_upload_image('.wpneo-image-upload');
+    wpcf_upload_image('.wpneo-image-upload');
     $(document).on('click','.add_media', function(){
         _custom_media = false;
     });
@@ -210,8 +168,8 @@ jQuery(document).ready(function($){
     //Add Rewards
     $('#addreward').on('click', function (e) {
         e.preventDefault();
-        var wpneo_rewards_fields = $('.reward_group').html();
-        $('#rewards_addon_fields').append(wpneo_rewards_fields);
+        var rewards_fields = $('.reward_group').html();
+        $('#rewards_addon_fields').append(rewards_fields);
         $('#rewards_addon_fields .campaign_rewards_field_copy:last-child').find('input,textarea,select').each(function(){
             if ( ($(this).attr('name') != 'remove_rewards')&&($(this).attr('type') != 'button') ){
                 $(this).val('');
@@ -231,15 +189,15 @@ jQuery(document).ready(function($){
     //Add More Campaign Update Field
     $('#addcampaignupdate').on('click', function (e) {
         e.preventDefault();
-        var wpneo_update_fields = $('#campaign_update_field').html();
-        $('#campaign_update_addon_field').append(wpneo_update_fields);
+        var update_fields = $('#campaign_update_field').html();
+        $('#campaign_update_addon_field').append(update_fields);
         countRemovesBtn('.removecampaignupdate');
     });
     
     // Remove Campaign Update
     $('body').on('click', '.removecampaignupdate', function (e) {
         e.preventDefault();
-        $(this).closest('.campaign_update_field_copy').html('');
+        $(this).closest('.campaign_update_field_copy').html('').hide();
         countRemovesBtn('.removecampaignupdate');
     });
     countRemovesBtn('.removecampaignupdate');
@@ -262,7 +220,7 @@ jQuery(document).ready(function($){
     });
 
     // Dashboard Data Save
-    function wpneo_data_dashboard_data_save(){
+    function wpcf_dashboard_data_save(){
         var return_data;
         var postdata = $('#wpneo-dashboard-form').serializeArray();
         $.ajax({
@@ -271,11 +229,11 @@ jQuery(document).ready(function($){
                 type: "POST",
                 data : postdata,
                 success:function(data, textStatus, jqXHR) {
-                    wpneo_crowdfunding_modal(data);
+                    wpcf_modal(data);
                     return_data = data;
                 },
                 error: function(jqXHR, textStatus, errorThrown){
-                    wpneo_crowdfunding_modal({'success':0, 'message':'Error sending data'})
+                    wpcf_modal({'success':0, 'message':'Error sending data'})
                 }
             });
         $('.wpneo-content input,.wpneo-content textarea,.wpneo-content select').attr("disabled","disabled").css( "border", "none" );
@@ -300,32 +258,32 @@ jQuery(document).ready(function($){
     $('#wpneo-dashboard-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
         var postdata = $('#wpneo-dashboard-form').serializeArray();
-        wpneo_data_dashboard_data_save();
+        wpcf_dashboard_data_save();
     });
 
     // Dashboard Froentend ( Profile )
     $('#wpneo-profile-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
-        wpneo_data_dashboard_data_save();
+        wpcf_dashboard_data_save();
     });
 
     // Dashboard Froentend ( Contact )
     $('#wpneo-contact-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
-        wpneo_data_dashboard_data_save();
+        wpcf_dashboard_data_save();
     });
 
     // Dashboard Froentend ( Password )
     $('#wpneo-password-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
-        wpneo_data_dashboard_data_save();
+        wpcf_dashboard_data_save();
     });
 
     // Dashboard Froentend ( Update )
     $('#wpneo-update-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
-        var return_respone = wpneo_data_dashboard_data_save();
-        wpneo_crowdfunding_modal(return_respone);
+        var return_respone = wpcf_dashboard_data_save();
+        wpcf_modal(return_respone);
     });
 
     // Tab Menu Action (Product Single)
@@ -349,16 +307,15 @@ jQuery(document).ready(function($){
             url: wpcf_ajax_object.ajax_url,
             data: { 'action': 'wpcf_bio_action', 'author': author },
             success:function(data){
-                wpneo_crowdfunding_modal( data );
+                wpcf_modal( data );
             },
-            error: function(jqXHR, textStatus, errorThrown){ wpneo_crowdfunding_modal({'success':0, 'message':'Error'}) }
+            error: function(jqXHR, textStatus, errorThrown){ wpcf_modal({'success':0, 'message':'Error'}) }
         });
     });
 
     // Modal Close Option
     $(document).on('click', '.wpneo-modal-close', function(){
         $('.wpneo-modal-wrapper').css({'display': 'none'});
-
         if ( $('#wpneo_crowdfunding_redirect_url').length > 0 ) {
             location.href = $('#wpneo_crowdfunding_redirect_url').val();
         }
@@ -396,10 +353,9 @@ jQuery(document).ready(function($){
                 if (data.success == 1){
                     $('#campaign_loved_html').html(data.return_html);
                 }
-
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error'})
+                wpcf_modal({'success':0, 'message':'Error'})
             }
         });
     });
@@ -416,7 +372,7 @@ jQuery(document).ready(function($){
                 $('#campaign_loved_html').html(data.return_html);
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error'})
+                wpcf_modal({'success':0, 'message':'Error'})
             }
         });
     });
@@ -429,7 +385,7 @@ jQuery(document).ready(function($){
             url: wpcf_ajax_object.ajax_url,
             data: registration_form_data,
             success:function(data){
-                wpneo_crowdfunding_modal(data);
+                wpcf_modal(data);
                 data = JSON.parse(data);
                 if (data.success){
                     location.href = data.redirect;
@@ -440,7 +396,7 @@ jQuery(document).ready(function($){
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error'});
+                wpcf_modal({'success':0, 'message':'Error'});
             }
         });
     });
@@ -518,10 +474,10 @@ jQuery(document).ready(function($){
             url: wpcf_ajax_object.ajax_url,
             data: { 'action': 'wpcf_order_action', 'orderid': orderid },
             success:function(data){
-                wpneo_crowdfunding_modal( data, true );
+                wpcf_modal( data, true );
             },
             error: function(jqXHR, textStatus, errorThrown){
-                wpneo_crowdfunding_modal({'success':0, 'message':'Error'})
+                wpcf_modal({'success':0, 'message':'Error'})
             }
         });
     });
@@ -535,9 +491,9 @@ jQuery(document).ready(function($){
             url: wpcf_ajax_object.ajax_url,
             data: { 'action': 'wpcf_embed_action', 'postid': postid },
             success:function(data){
-                wpneo_crowdfunding_modal(data);
+                wpcf_modal(data);
             },
-            error: function(jqXHR, textStatus, errorThrown){ wpneo_crowdfunding_modal({'success':0, 'message':'Error'}) }
+            error: function(jqXHR, textStatus, errorThrown){ wpcf_modal({'success':0, 'message':'Error'}) }
         });
     });
 
@@ -547,12 +503,10 @@ jQuery(document).ready(function($){
      * @since 10.22
      */
     $(document).on('click', 'ul.wpcf_predefined_pledge_amount li a', function(){
-        //var price = $(this).text().match(/-?\d+\.?\d*/);
         var price = $(this).attr('data-predefined-price');
         $('.wpneo_donate_amount_field').val(price);
     });
 
-    
     $('select[name="wpneo-form-type"]').on('change', function(){
         if( $(this).val() == 'never_end' ){
             $('#wpneo_form_start_date').parents('.wpneo-single').hide();

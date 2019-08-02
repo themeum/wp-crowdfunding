@@ -1,7 +1,6 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+
 $html .= '<div class="wpneo-content">';
     $html .= '<form id="wpneo-dashboard-form" action="" method="post" class="wpneo-form">';
 

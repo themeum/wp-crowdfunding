@@ -3,9 +3,8 @@ Contributors: themeum,kawshar, mhshohel, jakirhasan, anik4e, fahimmurshed
 Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online sell, e-commerce, paypal, shop, indiegogo, invest, fund collecting, crowd, marketplace, crowd funding, crowdfund, charity, donate, fundraising plugin, paypal donation, stripe donation, wordpress crowdfunding plugin, adaptive payment, split payment, paypal adaptive, stripe split, stripe connect
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
-Tested up to: 5.1
-Stable tag: 1.9.1
-Requires PHP: 5.6
+Tested up to: 5.2
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,21 +76,25 @@ Please let us know your feedback, if you think something can be more awesome thi
 = Shortcode List =
 To use these shortcodes, just place the required shortcode(s) on your desired location.
 
-  * Crowdfunding Product Listing Shortcode [wpneo_crowdfunding_listing]
-  * Crowdfunding Product Listing Shortcode with specific category [wpneo_crowdfunding_listing cat="cat_name"]
-  * Crowdfunding Product Submission Form Shortcode [wpneo_crowdfunding_form]
-  * Crowdfunding Product Search Shortcode [wpneo_search_shortcode]
-  * Crowdfunding User Dashboard Shortcode [wpneo_crowdfunding_dashboard]
-  * Crowdfunding User Registration Shortcode [wpneo_registration]
+  * Listing Shortcode [wpcf_listing]
+  * Listing Shortcode with specific category [wpcf_listing cat="cat_name"]
+  * Submission Form Shortcode [wpcf_form]
+  * Search Shortcode [wpcf_search]
+  * Crowdfunding User Dashboard Shortcode [wpcf_dashboard]
+  * Crowdfunding User Registration Shortcode [wpcf_registration]
+  * Single Campaign [wpcf_single_campaign campaign_id="post_id"]
+  * Campaign Box [wpcf_campaign_box campaign_id="post_id"]
+  * Popular Campaigns [wpcf_popular_campaigns limit="4" column="4" order="DESC" class=""]
+  * Donate [wpcf_donate campaign_id amount="9000" min_amount="5" max_amount="1000" show_input_box="true" donate_button_text="Donate"]
 
 = Pro Version =
 
 > [Pro Plugin + One Free Theme](https://www.themeum.com/product/wp-crowdfunding-plugin/)
+> [Pro Plugins + Pro Themes](https://www.themeum.com/product/backer/)
 
-= Crowdfunding Themes =
-
-> [Backer Crowdfunding Theme](https://www.themeum.com/product/backer/)
-> [BackNow Crowdfunding Theme](https://themeforest.net/item/backnow-crowdfunding-and-fundraising-wordpress-theme/)
+= Crowdfunding Themes =		
+> [Backer Crowdfunding Theme](https://www.themeum.com/product/backer/)		
+> [BackNow Crowdfunding Theme](https://themeforest.net/item/backnow-crowdfunding-and-fundraising-wordpress-theme/)		
 > [Patrios Crowdfunding Theme](https://www.themeum.com/product/patrios/)
 
 = Author =
@@ -127,20 +130,39 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
-= 1.9.1 - 28 May, 2019 =
-* Added: Status bar on the backend
-* Added: Campaign invoice print function
-* Update: CSS improvement
-* Fixed: Campaign never ends date time issue
-* Fixed: Coupon disable issue
+= 2.0.1 - 02 August, 2019 =
+* Fixed: PHP Warnings in WooCommerce product edit
+* Fixed: CSS issue in dashboard campaign list
+* Fixed: Backward compatibilities
 
-= 1.9.0 - 03 May, 2019 =
+= 2.0.0 - 31 July, 2019 =
+* Added: Addon list menu with enable disable option
+* Added: [reward_details] param in WP CrowdFunding New Backed Notification email
+* Added: ‘wpcf_popular_campaigns’ Shortcode
+* Added: ‘wpcf_donate’ Shortcode
+* Updated: Social share addon
+* Fixed: SMTP email settings
+* Fixed: Menu hide problem in dashboard contact and bookmark page
+* Fixed: Empty data design issue in bookmark and reward page
+* Fixed: PHP warnings in WooCommerce cart page
+* FIxed: WooCommerce deprecated functions
+* Fixed: Selected reward issue in checkout page
+* Fixed: Campaign rating CSS issue in Twenty Nineten theme
+* Fixed: Single campaign shortcode issue
+* Fixed: Campaign form media upload CSS issue
+* Fixed: Fatal error in Woocommerce  order page
+* Fixed: Campaign form start date and end date CSS issue in Tweny Nineteen theme
 
-* Fixed: We revert the previous version for an mistake update
+= 1.9.1 - 29 May, 2019 =
 
-
-= 1.8.9 - 03 May, 2019 =
-
+* Added: Status bar on the backend		
+* Added: Campaign invoice print function		
+* Update: CSS improvement		
+* Fixed: Campaign never ends date time issue		
+* Fixed: Coupon disable issue		
+= 1.9.0 - 03 May, 2019 =		
+* Fixed: We revert the previous version for an mistake update		
+= 1.8.9 - 03 May, 2019 =		
 * Fixed: priority for template loading for wp crowdfunding overwriting ability template
 
 = 1.8.8 - 25 April, 2019 =
@@ -200,14 +222,14 @@ it's moved to template
 = 1.8.3 =
 
 * Added: Admin can now review backers profile
-* Added: Single File Templating Overwriting in Theme (wpneotemplate)
+* Added: Single File Templating Overwriting in Theme
 * Added: Crowdfunding own category
 * Added: License Expire Date
 * Fixed: Placing predefined donate amount after comma separator
 * Fixed: Spelling Plages to Pledges
 * Fixed: User can't modify submitted campaign
 * Fixed: Short-code does not work in campaign single page
-* Fixed: Few translate issue in wpneotemplate
+* Fixed: Few translate issue in template
 * Fixed: The HTML issue Reward sidebar
 * Fixed: Frontpage My Profile profile picture button hide the Upload button when user is not in edit mode
 * Fixed: Image upload bug, `$user_signon = wp_signon( $info, false );` to `$user_signon = wp_signon( $info, true );`
@@ -218,6 +240,7 @@ count($reward_data_array) : 0; (PHP 7.0 compatible)
 * Renamed: Two Button Name in report export button
 
 = 1.8.2 =
+
 * Fixed: reCaptcha Addon
 
 = 1.8.1 =

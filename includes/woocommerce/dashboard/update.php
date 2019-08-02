@@ -1,11 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 $post_id = (int) $_GET['postid'];
 $saved_campaign_update = get_post_meta($post_id, 'wpneo_campaign_updates', true);
-$saved_campaign_update_a = json_decode($saved_campaign_update, true);
+$saved_campaign_update_a = (array) json_decode($saved_campaign_update, true);
 
 if(isset($_GET["postid"])){
     $post_author = get_post_field( 'post_author', $_GET["postid"] );
@@ -13,11 +11,6 @@ if(isset($_GET["postid"])){
         $var = get_post_meta( $_GET["postid"],"wpneo_campaign_updates",true );
     }
 }
-
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
-
 
 $data = get_user_meta(get_current_user_id());
 
@@ -78,12 +71,14 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
 
     $html .= '<input type="hidden"  value="wpneo_update_status_save" name="action" />';
     $html .= '<input type="hidden"  value="'. intval(esc_attr($post_id)) .'" name="postid" />';
-    $html .= '</div>';//wpneo-padding25        
+    $html .= '</div>';//wpneo-padding25
     //Save Button
     $html .= '<div class="wpneo-buttons-group float-right">';
     $html .= '<button id="wpneo-update-save" class="wpneo-save-btn" type="submit">'.__( "Save" , "wp-crowdfunding" ).'</button>';
     $html .= '</div>';
     $html .= '<div class="clear-float"></div>';
+
+    $html .= wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false );
 
     $html .= '</form>';
     $html .= '</div>';

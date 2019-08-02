@@ -1,15 +1,13 @@
 <?php
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 $current_user = wp_get_current_user();
 ?>
 <?php
 
 ob_start();
-include_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/chartreports/wpcrowd-reports-chart.php';
+include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/wpcrowd-reports-chart.php';
 $html .= ob_get_clean();
 ?>
 
@@ -19,7 +17,7 @@ $html .= '<div class="wpneo-row">';
     $html .= '<div class="wpneo-col6">';
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
         $html .= '<h4>'.__( "My Campaigns" , "wp-crowdfunding" ).'</h4>';
-        include_once WPNEO_CROWDFUNDING_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
+        include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
     $html .= '</div>';//wpneo-shadow 
     $html .= '</div>';//wpneo-col6 
     $html .= '<div class="wpneo-col6">';
@@ -92,11 +90,9 @@ $html .= '<div class="wpneo-row">';
                     $html .= '</div>';
                 $html .= '</div>';
 
-            if (WPNEO_CROWDFUNDING_TYPE != 'free'){
-                $html .= '<h4>'.__('Payment Info', 'wp-crowdfunding').'</h4>';
-            }
+            $html .= '<h4>'.__('Payment Info', 'wp-crowdfunding').'</h4>';
             ob_start();
-            do_action('wpneo_crowdfunding_dashboard_after_dashboard_form');
+            do_action('wpcf_dashboard_after_dashboard_form');
             $html .= ob_get_clean();
 
             $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );

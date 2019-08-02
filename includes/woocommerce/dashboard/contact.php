@@ -1,19 +1,17 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
-$id 		= get_current_user_id();
+$id 		    = get_current_user_id();
 // Billing Data
-$f_name 	= get_user_meta( $id,'shipping_first_name',true );
-$l_name 	= get_user_meta( $id,'shipping_last_name',true );
-$company 	= get_user_meta( $id,'shipping_company',true );
-$address1 	= get_user_meta( $id,'shipping_address_1',true );
-$address2 	= get_user_meta( $id,'shipping_address_2',true );
-$city 		= get_user_meta( $id,'shipping_city',true );
-$postcode 	= get_user_meta( $id,'shipping_postcode',true );
-$country 	= get_user_meta( $id,'shipping_country',true );
-$state 		= get_user_meta( $id,'shipping_state',true );
+$f_name 	    = get_user_meta( $id,'shipping_first_name',true );
+$l_name 	    = get_user_meta( $id,'shipping_last_name',true );
+$company 	    = get_user_meta( $id,'shipping_company',true );
+$address1 	    = get_user_meta( $id,'shipping_address_1',true );
+$address2 	    = get_user_meta( $id,'shipping_address_2',true );
+$city 		    = get_user_meta( $id,'shipping_city',true );
+$postcode 	    = get_user_meta( $id,'shipping_postcode',true );
+$country 	    = get_user_meta( $id,'shipping_country',true );
+$state 		    = get_user_meta( $id,'shipping_state',true );
 // Shipping Data
 $b_f_name       = get_user_meta( $id,'billing_first_name',true );
 $b_l_name       = get_user_meta( $id,'billing_last_name',true );
@@ -26,278 +24,280 @@ $b_country      = get_user_meta( $id,'billing_country',true );
 $b_state        = get_user_meta( $id,'billing_state',true );
 $b_phone        = get_user_meta( $id,'billing_phone',true );
 $b_email        = get_user_meta( $id,'billing_email',true );
+ob_start();
+?>
 
 
-$html .= '<div class="wpneo-content">';
+<div class="wpneo-content">
 
-    $html .= '<form id="wpneo-dashboard-form" action="" method="" class="wpneo-form">';
+    <form id="wpneo-dashboard-form" action="" method="" class="wpneo-form">
 
+        <div class="wpneo-row">
 
+            <div class="wpneo-col6">
+                <div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
+                    <h4><?php _e("Shipping Address","wp-crowdfunding"); ?></h4>
+                    
+                    <!-- // First Name ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "First Name:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                        <input type="hidden" name="action" value="wpneo_contact_form">
+                            <input type="text" name="shipping_first_name" value="<?php echo $f_name; ?>" disabled>
+                        </div>
+                    </div>
 
-    $html .= '<div class="wpneo-row">';
+                    <!-- // Last Name ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_last_name" value="<?php echo $l_name; ?>" disabled>
+                        </div>
+                    </div>
 
-        $html .= '<div class="wpneo-col6">';  
-            $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
-                // Shipping Address
-                $html .= '<h4>'.__("Shipping Address","wp-crowdfunding").'</h4>';
-        		// First Name ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "First Name:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                    $html .= '<input type="hidden" name="action" value="wpneo_contact_form">';
-                        $html .= '<input type="text" name="shipping_first_name" value="'.$f_name.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Company ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Company:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_company" value="<?php echo $company; ?>" disabled>
+                        </div>
+                    </div>
 
-        		// Last Name ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Last Name:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_last_name" value="'.$l_name.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Address 1 ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_address_1" value="<?php echo $address1; ?>" disabled>
+                        </div>
+                    </div>
 
-        		// Company ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Company:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_company" value="'.$company.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Address 2 ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_address_2" value="<?php echo $address2; ?>" disabled>
+                        </div>
+                    </div>
 
-        		// Address 1 ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Address 1:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_address_1" value="'.$address1.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // City ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "City:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_city" value="<?php echo $city; ?>" disabled>
+                        </div>
+                    </div>
 
-        		// Address 2 ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Address 2:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_address_2" value="'.$address2.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Postcode ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_postcode" value="<?php echo $postcode; ?>" disabled>
+                        </div>
+                    </div>
 
-                // City ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "City:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_city" value="'.$city.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Country ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Country:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <?php
+                            $countries_obj   = new WC_Countries();
+                            $countries   = $countries_obj->__get('countries');
+                            array_unshift($countries, __('Select a country','wp-crowdfunding'));
+                            ?>
+                            <select name="shipping_country" disabled>
+                                <?php foreach ($countries as $key=>$value) {
+                                    if( $country==$key ){ ?>
+                                        <option selected="selected" value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                    <?php }else{ ?>
+                                        <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
 
-                // Postcode ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Postcode:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_postcode" value="'.$postcode.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // State ( Shipping ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "State:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="shipping_state" value="<?php echo $state; ?>" disabled>
+                        </div>
+                    </div>
 
-        		// Country ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Country:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $countries_obj   = new WC_Countries();
-                        $countries   = $countries_obj->__get('countries');
-                        array_unshift($countries, __('Select a country','wp-crowdfunding'));
-                        $html .= '<select name="shipping_country" disabled>';
-                        foreach ($countries as $key=>$value) {
-                            if( $country==$key ){
-                                $html .= '<option selected="selected" value="'.$key.'">'.$value.'</option>';
-                            }else{
-                                $html .= '<option value="'.$key.'">'.$value.'</option>';
-                            }
-                        }
-                        $html .= '</select>';
-                        //$html .= '<input type="text" name="shipping_country" value="'.$country.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                </div>
+            </div>
 
-                // State ( Shipping )
-        		$html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "State:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="shipping_state" value="'.$state.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-            $html .= '</div>';//wpneo-shadow    
-        $html .= '</div>';//wpneo-col6    
-
-        $html .= '<div class="wpneo-col6">'; 
-            $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
-                // Billing Address
-                $html .= '<h4>'.__("Billing Address","wp-crowdfunding").'</h4>';
-                // First Name ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "First Name:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_first_name" value="'.$b_f_name.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-
-                // Last Name ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Last Name:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_last_name" value="'.$b_l_name.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+            <div class="wpneo-col6">
+                <div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
+                    <!-- // Billing Address -->
+                    <h4><?php _e("Billing Address","wp-crowdfunding"); ?></h4>
+                    <!-- // First Name ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "First Name:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_first_name" value="<?php echo $b_f_name; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // Company ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Company:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_company" value="'.$b_company.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Last Name ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_last_name" value="<?php echo $b_l_name; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // Address 1 ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Address 1:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_address_1" value="'.$b_address1.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Company ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Company:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_company" value="<?php echo $b_company; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // Address 2 ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Address 2:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_address_2" value="'.$b_address2.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Address 1 ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_address_1" value="<?php echo $b_address1; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // City ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "City:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_city" value="'.$b_city.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Address 2 ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_address_2" value="<?php echo $b_address2; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // Postcode ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Postcode:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_postcode" value="'.$b_postcode.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // City ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "City:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_city" value="<?php echo $b_city; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // Country ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Country:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $countries_obj   = new WC_Countries();
-                        $countries   = $countries_obj->__get('countries');
-                        array_unshift($countries, __('Select a country','wp-crowdfunding'));
-                        $html .= '<select name="billing_country" disabled>';
-                        foreach ($countries as $key=>$value) {
-                            if( $b_country==$key ){
-                                $html .= '<option selected="selected" value="'.$key.'">'.$value.'</option>';
-                            }else{
-                                $html .= '<option value="'.$key.'">'.$value.'</option>';
-                            }
-                        }
-                        $html .= '</select>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Postcode ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_postcode" value="<?php echo $b_postcode; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // State ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "State:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_state" value="'.$b_state.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // Country ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Country:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <?php
+                            $countries_obj = new WC_Countries();
+                            $countries = $countries_obj->__get('countries');
+                            array_unshift($countries, __('Select a country','wp-crowdfunding')); ?>
+                            <select name="billing_country" disabled>
+                            <?php foreach ($countries as $key=>$value) {
+                                if( $b_country==$key ){ ?>
+                                    <option selected="selected" value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                <?php }else{ ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                <?php }
+                            } ?>
+                            </select>
+                        </div>
+                    </div>
 
 
-                // Telephone ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Telephone:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="text" name="billing_phone" value="'.$b_phone.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                    <!-- // State ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "State:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_state" value="<?php echo $b_state; ?>" disabled>
+                        </div>
+                    </div>
 
 
-                // Email ( Billing )
-                $html .= '<div class="wpneo-single">';
-                    $html .= '<div class="wpneo-name float-left">';
-                        $html .= '<p>'.__( "Email:" , "wp-crowdfunding" ).'</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="wpneo-fields">';
-                        $html .= '<input type="email" name="billing_email" value="'.$b_email.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-            $html .= '</div>';//wpneo-shadow    
-        $html .= '</div>';//wpneo-col6   
-
-    $html .= '</div>';//wpneo-row
+                    <!-- // Telephone ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Telephone:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="text" name="billing_phone" value="<?php echo $b_phone; ?>" disabled>
+                        </div>
+                    </div>
 
 
-        $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );
+                    <!-- // Email ( Billing ) -->
+                    <div class="wpneo-single">
+                        <div class="wpneo-name float-left">
+                            <p><?php _e( "Email:" , "wp-crowdfunding" ); ?></p>
+                        </div>
+                        <div class="wpneo-fields">
+                            <input type="email" name="billing_email" value="<?php echo $b_email; ?>" disabled>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
 
-		//Save Button
-        $html .= '<div class="wpneo-buttons-group float-right">';
-            $html .= '<button id="wpneo-edit" class="wpneo-edit-btn">'.__( "Edit" , "wp-crowdfunding" ).'</button>';
-            $html .= '<button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit">'.__( "Cancel" , "wp-crowdfunding" ).'</button>';
-            $html .= '<button id="wpneo-contact-save" class="wpneo-save-btn wpneo-hidden" type="submit">'.__( "Save" , "wp-crowdfunding" ).'</button>';
-        $html .= '</div>';
-        $html .= '<div class="clear-float"></div>';
+        </div>
 
-	$html .= '</form>';
+        <?php echo wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false ); ?>
 
-$html .= '</div>';
+		<!-- //Save Button -->
+        <div class="wpneo-buttons-group float-right">
+            <button id="wpneo-edit" class="wpneo-edit-btn"><?php _e( "Edit" , "wp-crowdfunding" ); ?></button>
+            <button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit"><?php _e( "Cancel" , "wp-crowdfunding" ); ?></button>
+            <button id="wpneo-contact-save" class="wpneo-save-btn wpneo-hidden" type="submit"><?php _e( "Save" , "wp-crowdfunding" ); ?></button>
+        </div>
+        <div class="clear-float"></div>
+
+	</form>
+
+</div>
+
+<?php $html .= ob_get_clean(); ?>

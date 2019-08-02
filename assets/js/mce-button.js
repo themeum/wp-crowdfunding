@@ -1,35 +1,35 @@
 /*========================================================================
- * Neo Crowdfunding Shortcode Button
+ * Crowdfunding Shortcode Button
  *======================================================================== */
 (function() {
 	tinymce.PluginManager.add('crowdfunding_button', function( editor, url ) {
 		editor.addButton( 'crowdfunding_button', {
-			text: 'Shortcode',
+			text: 'CF Shortcode',
 			icon: false,
 			type: 'menubutton',
 			menu: [
 				{
-					text: 'Registration Shortcode',
+					text: 'Registration',
 					onclick: function() {
-						editor.insertContent('[wpneo_registration]');
+						editor.insertContent('[wpcf_registration]');
 					}
 				},{
-					text: 'Dashboard Shortcode',
+					text: 'Dashboard',
 					onclick: function() {
-						editor.insertContent('[wpneo_crowdfunding_dashboard]');
+						editor.insertContent('[wpcf_dashboard]');
 					}
 				},{
-					text: 'Search Shortcode',
+					text: 'Search',
 					onclick: function() {
-						editor.insertContent('[wpneo_search_shortcode]');
+						editor.insertContent('[wpcf_search]');
 					}
 				},{
 					text: 'Form Shortcode',
 					onclick: function() {
-						editor.insertContent('[wpneo_crowdfunding_form]');
+						editor.insertContent('[wpcf_form]');
 					}
 				},{
-					text: 'Listing Shortcode',
+					text: 'Listing',
 					onclick: function() {
 						editor.windowManager.open( {
 							title: 'Campaign Listing Shortcode',
@@ -48,7 +48,7 @@
 								}
 							],
 							onsubmit: function( e ) {
-								editor.insertContent( '[wpneo_crowdfunding_listing number="' + e.data.number + '" cat="' + e.data.cat + '" ]');
+								editor.insertContent( '[wpcf_listing number="' + e.data.number + '" cat="' + e.data.cat + '" ]');
 							}
 						});
 					}
@@ -66,7 +66,7 @@
                                 }
                             ],
                             onsubmit: function( e ) {
-                                editor.insertContent( '[wp_crowdfunding_single_campaign campaign_id="' + e.data.campaign_id + '" ]');
+                                editor.insertContent( '[wpcf_single_campaign campaign_id="' + e.data.campaign_id + '" ]');
                             }
                         });
                     }
@@ -84,7 +84,7 @@
                                 }
                             ],
                             onsubmit: function( e ) {
-                                editor.insertContent( '[wp_crowdfunding_campaign_box campaign_id="' + e.data.campaign_id + '" ]');
+                                editor.insertContent( '[wpcf_campaign_box campaign_id="' + e.data.campaign_id + '" ]');
                             }
                         });
                     }
@@ -126,12 +126,12 @@
                                 }
                             ],
                             onsubmit: function( e ) {
-                                editor.insertContent( '[wp_crowdfunding_popular_campaigns limit="' + e.data.limit + '" column="'+e.data.column+'" order="'+e.data.order+'" class="'+e.data.class+'" ]');
+                                editor.insertContent( '[wpcf_popular_campaigns limit="' + e.data.limit + '" column="'+e.data.column+'" order="'+e.data.order+'" class="'+e.data.class+'" ]');
                             }
                         });
                     }
                 }, {
-                    text: 'Campaign Donate Button',
+                    text: 'Donate Button',
                     onclick: function() {
                         editor.windowManager.open( {
                             title: 'Campaign Donate Shortcode from Anywhere',
@@ -177,7 +177,7 @@
                                 }
                             ],
                             onsubmit: function( e ) {
-                                editor.insertContent( '[wp_crowdfunding_donate campaign_id="' + e.data.campaign_id + '" amount="'+e.data.amount+'" min_amount="'+e.data.min_amount+'" max_amount="'+e.data.max_amount+'" show_input_box="'+e.data.show_input_box+'" donate_button_text="'+e.data.donate_button_text+'" ]');
+                                editor.insertContent( '[wpcf_donate campaign_id="' + e.data.campaign_id + '" amount="'+e.data.amount+'" min_amount="'+e.data.min_amount+'" max_amount="'+e.data.max_amount+'" show_input_box="'+e.data.show_input_box+'" donate_button_text="'+e.data.donate_button_text+'" ]');
                             }
                         });
                     }

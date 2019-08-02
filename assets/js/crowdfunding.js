@@ -1,21 +1,8 @@
 /*========================================================================
- * Neo Crowdfunding
+ * WP Crowdfunding
  *======================================================================== */
 jQuery(document).ready(function($){
-	//Add More Campaign Update Field
-	$('#addreward').on('click', function (e) {
-		e.preventDefault();
-		var wpneo_rewards_fields = $('.reward_group').html();
-		$('#rewards_addon_fields').append(wpneo_rewards_fields);
-		countRemovesBtn('.removeCampaignRewards');
-	});
 
-	$('body').on('click', '.removeCampaignRewards', function (e) {
-		e.preventDefault();
-		$(this).closest('.campaign_rewards_field_copy').html('');
-		countRemovesBtn('.removeCampaignRewards');
-	});
-	countRemovesBtn('.removeCampaignRewards');
 
 	function countRemovesBtn(btn) {
 		var rewards_count = $(btn).length;
@@ -34,21 +21,34 @@ jQuery(document).ready(function($){
 	}
 
 	//Add More Campaign Update Field
+	$('#addreward').on('click', function (e) {
+		e.preventDefault();
+		$('#rewards_addon_fields').append( $('.reward_group').html() );
+		countRemovesBtn('.removeCampaignRewards');
+	});
+
+	$('body').on('click', '.removeCampaignRewards', function (e) {
+		e.preventDefault();
+		$(this).closest('.campaign_rewards_field_copy').html('');
+		countRemovesBtn('.removeCampaignRewards');
+	});
+	countRemovesBtn('.removeCampaignRewards');
+
+	//Add More Campaign Update Field
 	$('#addcampaignupdate').on('click', function (e) {
 		e.preventDefault();
-		var wpneo_update_fields = $('#campaign_update_field').html();
-		$('#campaign_update_addon_field').append(wpneo_update_fields);
+		var update = $('#campaign_update_field').html();
+		$('#campaign_update_addon_field').append(update);
 		countRemovesBtn('.removecampaignupdate');
 	});
 
 	$('body').on('click', '.removecampaignupdate', function (e) {
 		e.preventDefault();
-		$(this).closest('.campaign_update_field_copy').html('');
+		$(this).closest('.campaign_update_field_copy').html('').hide();
 		countRemovesBtn('.removecampaignupdate');
 	});
 	countRemovesBtn('.removecampaignupdate');
 
-	//$('<button class="remove-this">Remove</button>').appendTo($cloned);
 
 	/**
 	 * Show necessary Meta field and hide base on product type select
@@ -93,8 +93,7 @@ jQuery(document).ready(function($){
         var image = wp.media({ 
             title: 'Upload Image',
             multiple: false
-        }).open()
-        .on('select', function(e){
+        }).open().on('select', function(e){
             var uploaded_image = image.state().get('selection').first();
             var uploaded_url = uploaded_image.toJSON().url;
             uploaded_image = uploaded_image.toJSON().id;
@@ -119,11 +118,28 @@ jQuery(document).ready(function($){
 		$.ajax({
 			type : 'POST',
 			url : ajaxurl,
-			data : { action : 'wpneo_crowdfunding_reset'},
+			data : { action : 'wpcf_settings_reset'},
 			success : function(data){
 				window.location.reload(true);
 			}
 		});
 	});
+
+
+	$(document).on('change', '.wpcf_addons_list_item', function(e) {
+        var $that = $(this);
+        var isEnable = $that.prop('checked') ? 1 : 0;
+        var addonFieldName = $that.attr('name');
+        $.ajax({
+            url : ajaxurl,
+            type : 'POST',
+            data : {isEnable:isEnable, addonFieldName:addonFieldName, action : 'wpcf_addon_enable_disable'},
+            success: function (data) {
+                if (data.success){
+                    //Success
+                }
+            }
+        });
+    });
 
 });

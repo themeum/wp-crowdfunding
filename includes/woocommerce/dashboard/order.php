@@ -1,7 +1,6 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+
 $html .= '<div class="wpneo-content">';
 $html .= '<div class="wpneo-form">';
 
@@ -133,7 +132,7 @@ if ( $customer_orders ) :
                                     if ($order_total >= $value['wpneo_rewards_pladge_amount']) {
                                         if( $temp <= $value['wpneo_rewards_pladge_amount'] ){
                                             $temp = $value['wpneo_rewards_pladge_amount'];
-                                            $rewards_amount = '<a class="label-default" href="'.get_permalink($product_id).'" target="_blank">'.__('Rewards', 'wp-crowdfunding'). wpneo_crowdfunding_price($value['wpneo_rewards_pladge_amount']).'</a>';
+                                            $rewards_amount = '<a class="label-default" href="'.get_permalink($product_id).'" target="_blank">'.__('Rewards', 'wp-crowdfunding'). wpcf_function()->price($value['wpneo_rewards_pladge_amount']).'</a>';
                                         }
 
                                     }
@@ -175,7 +174,7 @@ if(!empty($customer_order_all)){
     $max_page = ceil( count($customer_order_all)/10 );
 }
 // Pagination
-$html .= wpneo_crowdfunding_pagination( $page_numb , $max_page );
+$html .= wpcf_function()->get_pagination( $page_numb , $max_page );
 
 
 $html .='</div>';

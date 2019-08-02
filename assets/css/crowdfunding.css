@@ -1,5 +1,5 @@
 /*
- * Neo Crowdfunding CSS
+ * Crowdfunding CSS
  * File Description: The main stylesheet of this plugins for main design part.
  */
 #addreward, #addcampaignupdate{
@@ -10,16 +10,6 @@
 .reward_group{
     border-bottom: 1px solid #F3EDED;
 }
-.wpcf-reached,
-.wpcf-not-reached,
-.wpcf-not-started{
-    border-radius: 4px;
-    padding: 5px;
-}
-.wpcf-reached{ background-color: #d4edda; }
-.wpcf-not-reached{ background-color: #fff3cd; }
-.wpcf-not-started{ background-color: #f8d7da; }
-th#campaign_owner, td.campaign_owner, th#campaign_status, td.campaign_status{ white-space: nowrap; }
 .removeCampaignRewards, .removecampaignupdate{
     position: relative;
     float: right;
