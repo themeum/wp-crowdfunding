@@ -4,7 +4,7 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,10 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+
+= 2.0.1 - 02 August, 2019 =
+* Fixed: PHP Warnings in WooCommerce product edit
+* Fixed: CSS issue in dashboard campaign list
 
 = 2.0.0 - 31 July, 2019 =
 * Added: Addon list menu with enable disable option

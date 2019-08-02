@@ -16,11 +16,9 @@ $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
             ?>
             <li>
                 <?php if (wpcf_function()->is_campaign_started()){ ?>
-                    <p class="funding-amount"><?php echo wpcf_function()->get_date_remaining(); ?></p>
-                    <span class="info-text"><?php _e( 'Days to go','wp-crowdfunding' ); ?></span>
+                    <span class="info-text"><?php echo wpcf_function()->get_date_remaining().' '; _e( 'Days to go','wp-crowdfunding' ); ?></span>
                 <?php } else { ?>
-                    <p class="funding-amount"><?php echo wpcf_function()->days_until_launch(); ?></p>
-                    <span class="info-text"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
+                    <span class="info-text"><?php echo wpcf_function()->days_until_launch().' '; _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
                 <?php } ?>
             </li>
         <?php } ?>
