@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import '../styles/style.scss';
 import Dashboard from './dashboard';
 import Profile from './profile';
+import MyCampaigns from './myCampaigns';
 
 class App extends Component {
 	constructor (props) {
@@ -42,18 +43,8 @@ class App extends Component {
 									<li className='wpcf-dashboard-menu-index'><Link to="/profile">My Profile</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/messages">Messages</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/notifications">Notifications</Link></li>
-									<li className='wpcf-dashboard-menu-index'><Link to="/">Campaigns</Link></li>
+									<li className='wpcf-dashboard-menu-index'><Link to="/my-campaigns">My Campaigns</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/">User Settings</Link></li>
-									{/* <li className='wpcf-dashboard-menu-index'>Campaigns
-										<ul>
-											<li className='wpcf-dashboard-menu-index '><Link to="/my-profile">My Campaigns</Link></li>
-										</ul>
-									</li>
-									<li className='wpcf-dashboard-menu-index'>User Settings 
-										<ul>
-											<li className='wpcf-dashboard-menu-index '><Link to="/">My Campaigns</Link></li>
-										</ul>
-									</li> */}
 									<li className='wpcf-dashboard-menu-index'><Link to="/rewards">Rewards</Link></li>
 									<li className='wpcf-dashboard-menu-logout  '><Link to="/">Logout</Link></li>
 								</ul>
@@ -61,6 +52,7 @@ class App extends Component {
 							<div className="wpcf-col-9">
 								<Route path="/" exact component={ Dashboard } />
 								<Route path="/profile" exact component={ Profile } />
+								<Route path="/my-campaigns" exact component={ MyCampaigns } />
 							</div>
 						</Router>
 					</div>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchUser } from '../actions';
-
+import { fetchUser } from '../actions/userAction';
 
 class Profile extends Component {
 	constructor (props) {
@@ -10,37 +8,34 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        if( this.emptyProps() ) {
+        const { loaded } = this.props.user;
+        if( !loaded ) {
             this.props.fetchUser();
         }
     }
-
-    emptyProps() {
-        return (Object.keys(this.props.user).length === 0) ? true : false;
-    }
     
 	render() {
-        const { user } = this.props;
-        if( this.emptyProps() ) { 
+        const { loading, data } = this.props.user;
+        if( loading ) { 
             return (
                 <div>
                     Loading...
                 </div>
             ) 
         };
-		return (
+        return (
             <div className="wpcf-dashboard-content">
                 <h3>Profile</h3>
                 <div className="wpcf-dashboard-content-inner">
                     <div>
-                        { ( user.img_src ) &&
-                            <img className="profile-form-img" src={ user.img_src } alt="Profile Image" />
+                        { ( data.img_src ) &&
+                            <img className="profile-form-img" src={ data.img_src } alt="Profile Image" />
                         }
-                        { ( user.profile_email1 ) &&
-                            <p>{ user.profile_email1[0] } </p>
+                        { ( data.profile_email1 ) &&
+                            <p>{ data.profile_email1[0] } </p>
                         }
-                        { ( user.profile_country ) &&
-                            <p>{ user.profile_country[0] } </p>
+                        { ( data.profile_country ) &&
+                            <p>{ data.profile_country[0] } </p>
                         }
                     </div>
                     <div className="wpcf-dashboard-profile">
@@ -49,8 +44,8 @@ class Profile extends Component {
                                 <span>Username</span>
                             </div>
                             <div className="content">
-                                { ( user.display_name ) &&
-                                    <p>{ user.display_name }</p>
+                                { ( data.display_name ) &&
+                                    <p>{ data.display_name }</p>
                                 }
                             </div>
                         </div>
@@ -59,8 +54,8 @@ class Profile extends Component {
                                 <span>Address</span>
                             </div>
                             <div className="content">
-                                { ( user.profile_address ) &&
-                                    <p>{ user.profile_address[0] }</p>
+                                { ( data.profile_address ) &&
+                                    <p>{ data.profile_address[0] }</p>
                                 }
                             </div>
                         </div>
@@ -69,8 +64,8 @@ class Profile extends Component {
                                 <span>City</span>
                             </div>
                             <div className="content">
-                                { ( user.profile_city ) &&
-                                    <p>{ user.profile_city[0] }</p>
+                                { ( data.profile_city ) &&
+                                    <p>{ data.profile_city[0] }</p>
                                 }
                             </div>
                         </div>
@@ -79,15 +74,15 @@ class Profile extends Component {
                                 <span>Postal Code</span>
                             </div>
                             <div className="content">
-                                { ( user.profile_postal_code ) &&
-                                    <p>{ user.profile_postal_code[0] }</p>
+                                { ( data.profile_postal_code ) &&
+                                    <p>{ data.profile_postal_code[0] }</p>
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-		)
+        )
 	}
 }
 
