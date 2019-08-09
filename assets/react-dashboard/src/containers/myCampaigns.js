@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
+import Pagination from '../components/pagination';
 
 class MyCampaigns extends Component {
 	constructor (props) {
         super(props);
+        this.state = {
+            pageOfItems: []
+        };
+        this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentDidMount() {
@@ -14,7 +19,12 @@ class MyCampaigns extends Component {
             this.props.fetchCampaigns();
         }
     }
-    
+
+    onChangePage(pageOfItems) {
+        // update state with new page of items
+        this.setState({ pageOfItems: pageOfItems });
+    }
+
 	render() {
         const { loading, data } = this.props.campaign;
         if( loading ) { 
@@ -31,6 +41,7 @@ class MyCampaigns extends Component {
                     { data.map( (campaign, index) => 
                         <ItemCampaign key={index} data={campaign} />
                     )}
+                    <Pagination items={ data } onChangePage={this.onChangePage} />
                 </div>
             </div>
         )

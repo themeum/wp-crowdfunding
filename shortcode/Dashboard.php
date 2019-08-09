@@ -48,7 +48,7 @@ class Dashboard {
 
     function my_campaigns() {
         $page_numb = max( 1, get_query_var('paged') );
-        $posts_per_page = get_option( 'posts_per_page',10 );
+        $posts_per_page = get_option( 'posts_per_page', 10 );
         $args = array(
             'post_type' 		=> 'product',
             'post_status'		=> array('publish', 'draft'),

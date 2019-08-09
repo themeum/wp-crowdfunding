@@ -1,7 +1,7 @@
 import React from 'react';
 
 function createMarkup( html ) {
-    return {__html: html};
+    return { __html: html };
   }
 
 export default (props) => {
@@ -22,7 +22,7 @@ export default (props) => {
             <div className="wpneo-listing-content clearfix">
                 <div className="wpneo-admin-title float-left">
                     <h4><a href="<?php  echo get_permalink(); ?> ">{ data.title }</a></h4>
-                    <p className="wpneo-author">by <a href="#">{ data.author_name }</a> </p>
+                    <p className="wpneo-author">by <a href="javascript:void(0)">{ data.author_name }</a> </p>
                     <div className="wpneo-location">
                         <i className="wpneo-icon wpneo-icon-location"></i>
                         <div className="wpneo-meta-desc">{ data.location }</div>
