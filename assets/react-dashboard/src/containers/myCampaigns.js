@@ -17,6 +17,7 @@ class MyCampaigns extends Component {
         const { loaded } = this.props.campaign;
         if( !loaded ) {
             this.props.fetchCampaigns();
+
         }
     }
 
@@ -26,22 +27,23 @@ class MyCampaigns extends Component {
     }
 
 	render() {
-        const { loading, data } = this.props.campaign;
-        if( loading ) { 
+        const { campaign } = this.props;
+        if( campaign.loading ) { 
             return (
                 <div>
                     Loading...
                 </div>
-            ) 
+            )
         };
+        
         return (
             <div className="wpcf-dashboard-content">
                 <h3>My Campaigns</h3>
                 <div className="wpcf-dashboard-content-inner">
-                    { data.map( (campaign, index) => 
-                        <ItemCampaign key={index} data={campaign} />
+                    {this.state.pageOfItems.map( (item, index) =>
+                        <ItemCampaign key={index} data={ item } />
                     )}
-                    <Pagination items={ data } onChangePage={this.onChangePage} />
+                    <Pagination items={ campaign.data } pageSize={ 5 } onChangePage={this.onChangePage} />
                 </div>
             </div>
         )

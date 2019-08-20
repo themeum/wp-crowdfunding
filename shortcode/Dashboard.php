@@ -47,8 +47,8 @@ class Dashboard {
     }
 
     function my_campaigns() {
-        $page_numb = max( 1, get_query_var('paged') );
-        $posts_per_page = get_option( 'posts_per_page', 10 );
+        /* $page_numb = max( 1, get_query_var('paged') );
+        $posts_per_page = get_option( 'posts_per_page', 10 ); */
         $args = array(
             'post_type' 		=> 'product',
             'post_status'		=> array('publish', 'draft'),
@@ -60,8 +60,8 @@ class Dashboard {
                     'terms'    => 'crowdfunding',
                 ),
             ),
-            'posts_per_page'    => $posts_per_page,
-            'paged'             => $page_numb
+            /* 'posts_per_page'    => $posts_per_page,
+            'paged'             => $page_numb */
         );
         $the_query = new \WP_Query( $args );
 

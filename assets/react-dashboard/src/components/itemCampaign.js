@@ -2,14 +2,14 @@ import React from 'react';
 
 function createMarkup( html ) {
     return { __html: html };
-  }
+}
 
 export default (props) => {
     const { data } = props;
     return (
         <div className="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
             <div className="wpneo-listing-img">
-                <a href="" title={ data.title } dangerouslySetInnerHTML={ createMarkup(data.thumbnail) } />
+                <a href="#" title={ data.title } dangerouslySetInnerHTML={ createMarkup(data.thumbnail) } />
                 <div className="overlay">
                     <div>
                         <div>
