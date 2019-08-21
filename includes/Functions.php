@@ -860,4 +860,12 @@ class Functions {
         return 0;
     }
 
+    function get_campaign_status() {
+        $post_status = get_post_status();
+        if( $post_status === "publish" ) {
+            $post_status = $this->is_campaign_valid() ? "running" : "completed";
+        }
+        return $post_status;
+    }
+
 }

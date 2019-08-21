@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMyCampaigns } from '../actions/campaignAction';
+import { fetchInvestedCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
 
-class MyCampaigns extends Component {
+class InvestedCampaigns extends Component {
 	constructor (props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class MyCampaigns extends Component {
     componentDidMount() {
         const { loaded } = this.props.campaign;
         if( !loaded ) {
-            this.props.fetchMyCampaigns();
+            this.props.fetchInvestedCampaigns();
         }
     }
 
@@ -86,7 +86,7 @@ class MyCampaigns extends Component {
 }
 
 const mapStateToProps = state => ({
-    campaign: state.myCampaign
+    campaign: state.investedCampaign
 })
 
-export default connect( mapStateToProps, { fetchMyCampaigns } )(MyCampaigns);
+export default connect( mapStateToProps, { fetchInvestedCampaigns } )(InvestedCampaigns);

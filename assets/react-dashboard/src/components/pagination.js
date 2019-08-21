@@ -16,7 +16,9 @@ class Pagination extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.items !== prevProps.items) {
+        const changeItem = (this.props.items.length !== prevProps.items.length);
+        const changefilter = (this.props.filterValue !== prevProps.filterValue);
+        if ( changeItem || changefilter ) {
             this.setPage(this.props.initialPage);
         }
     }
@@ -29,9 +31,9 @@ class Pagination extends Component {
             return;
         }
         pager = this.getPager(items.length, currentPage);
-        var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
+        var pageItems = items.slice(pager.startIndex, pager.endIndex + 1);
         this.setState({ pager: pager });
-        this.props.onChangePage(pageOfItems);
+        this.props.onChangePage(pageItems);
     }
 
     getPager(totalItems, currentPage) {

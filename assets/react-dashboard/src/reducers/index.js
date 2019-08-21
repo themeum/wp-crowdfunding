@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import userReducer from './userReducer';
-import campaignReducer from './campaignReducer';
+import myCampaign from './myCampaign';
+import investedCampaign from './investedCampaign';
 
 const rootReducer = combineReducers({
     user: userReducer,
-    campaign: campaignReducer
+    myCampaign,
+    investedCampaign,
 });
 
 export default rootReducer;
