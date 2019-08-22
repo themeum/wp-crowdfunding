@@ -14,7 +14,7 @@ export default function(state = { loading: true, loaded: false, data:[] }, actio
                 ...state,
                 loading: false,
                 loaded: true,
-                data: action.payload.data,
+                data: action.payload,
             };
         case FETCH_INVESTED_CAMPAIGNS_ERROR:
             return {
