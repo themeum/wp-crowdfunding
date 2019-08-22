@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchInvestedCampaigns } from '../actions/campaignAction';
+import { fetchBookmarkCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
 
-class InvestedCampaigns extends Component {
+class BookmarkCampaigns extends Component {
 	constructor (props) {
         super(props);
         this.state = {
@@ -17,25 +17,12 @@ class InvestedCampaigns extends Component {
     componentDidMount() {
         const { loaded } = this.props.campaign;
         if( !loaded ) {
-            this.props.fetchInvestedCampaigns();
+            this.props.fetchBookmarkCampaigns();
         }
     }
 
     onChangePage(pageOfItems) {
         this.setState({ pageOfItems });
-    }
-
-    onClickFilter(e) {
-        e.preventDefault();
-        const filterValue = e.target.innerText.toLowerCase();
-        this.setState({ filterValue });
-    }
-
-    getCampaignData() {
-        const { filterValue } = this.state;
-        const { campaign } = this.props;
-        const filterData = campaign.data.filter( item => item.status == filterValue );
-        return filterData;
     }
 
 	render() {
@@ -49,28 +36,20 @@ class InvestedCampaigns extends Component {
         };
 
         const { pageOfItems, filterValue } = this.state;
-        const campaignData = this.getCampaignData();
         
         return (
             <div className="wpcf-dashboard-content">
-                <h3>My Campaigns</h3>
-                <div>
-                    <span onClick={ e => this.onClickFilter(e) }>Running</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Pending</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Draft</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Completed</span>
-                </div>
+                <h3>Bookmarks</h3>
                 <div className="wpcf-dashboard-content-inner">
-                    { campaignData.length ?
+                    { campaign.data.length ?
                         <div>
                             { pageOfItems.map( (item, index) =>
                                 <ItemCampaign 
-                                    key={index}
-                                    data={ item }
-                                    pledge={ true }/>
+                                    key={index} 
+                                    data={ item } />
                             ) }
                             <Pagination
-                                items={ campaignData }
+                                items={ campaign.data }
                                 pageSize={ 5 }
                                 filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
@@ -87,7 +66,7 @@ class InvestedCampaigns extends Component {
 }
 
 const mapStateToProps = state => ({
-    campaign: state.investedCampaign
+    campaign: state.bookmarkCampaign
 })
 
-export default connect( mapStateToProps, { fetchInvestedCampaigns } )(InvestedCampaigns);
+export default connect( mapStateToProps, { fetchBookmarkCampaigns } )(BookmarkCampaigns);

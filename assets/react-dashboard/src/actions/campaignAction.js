@@ -29,3 +29,19 @@ export const fetchInvestedCampaigns = () => dispatch => {
     .then( payload => dispatch( {type: FETCH_INVESTED_CAMPAIGNS_COMPLETE, payload} ) )
     .catch( payload => dispatch( {type: FETCH_INVESTED_CAMPAIGNS_ERROR, payload} ) );
 }
+
+
+//BOOKMARK CAMPAIGNS
+export const FETCH_BOOKMARK_CAMPAIGNS_PENDING = 'fetch_bookmark_campaigns_pending';
+export const FETCH_BOOKMARK_CAMPAIGNS_COMPLETE = 'fetch_bookmark_campaigns_complete';
+export const FETCH_BOOKMARK_CAMPAIGNS_ERROR = 'fetch_bookmark_campaigns_error';
+
+export const fetchBookmarkCampaigns = () => dispatch => {
+    dispatch({ type: FETCH_BOOKMARK_CAMPAIGNS_PENDING });
+    const fetchURL = `${WPCF.rest_url}/bookmark-campaigns`;
+    const option = { method: 'GET', headers:{ 'Content-Type': 'application/json' } };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload => dispatch( {type: FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, payload} ) )
+    .catch( payload => dispatch( {type: FETCH_BOOKMARK_CAMPAIGNS_ERROR, payload} ) );
+}

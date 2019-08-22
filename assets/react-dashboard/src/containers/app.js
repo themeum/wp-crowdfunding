@@ -5,6 +5,7 @@ import Dashboard from './dashboard';
 import Profile from './profile';
 import MyCampaigns from './myCampaigns';
 import InvestedCampaigns from './investedCampaigns';
+import BookmarkCampaigns from './bookmarkCampaigns';
 
 class App extends Component {
 	constructor (props) {
@@ -46,6 +47,7 @@ class App extends Component {
 									<li className='wpcf-dashboard-menu-index'><Link to="/notifications">Notifications</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/my-campaigns">My Campaigns</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/invested-campaigns">Invested Campaigns</Link></li>
+									<li className='wpcf-dashboard-menu-index'><Link to="/bookmark-campaigns">Bookmarks</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/">User Settings</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/rewards">Rewards</Link></li>
 									<li className='wpcf-dashboard-menu-logout'><Link to="/">Logout</Link></li>
@@ -56,6 +58,7 @@ class App extends Component {
 								<Route path="/profile" component={ Profile } />
 								<Route path="/my-campaigns" component={ MyCampaigns } />
 								<Route path="/invested-campaigns" component={ InvestedCampaigns } />
+								<Route path="/bookmark-campaigns" component={ BookmarkCampaigns } />
 							</div>
 						</Router>
 					</div>

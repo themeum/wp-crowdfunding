@@ -52,6 +52,12 @@ export default (props) => {
                             <div className="wpneo-meta-name">Days { ( data.is_started ) ? "to go" :  "Until Launch" }</div>
                         </div>
                     }
+
+                    { props.pledge &&
+                        <div className="">
+                            <span><a href="#">Pledge More</a></span>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

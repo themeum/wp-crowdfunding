@@ -46,6 +46,9 @@ class Dashboard {
         register_rest_route( $namespace, '/invested-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'invested_campaigns'), ),
         ));
+        register_rest_route( $namespace, '/bookmark-campaigns', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'bookmark_campaigns'), ),
+        ));
     }
     
     /**
@@ -125,7 +128,7 @@ class Dashboard {
      */
     function invested_campaigns() {
         global $wpdb;
-        $invested_campaign_ids = $wpdb->get_col( $wpdb->prepare(
+        $invested_campaign_ids = $wpdb->get_col($wpdb->prepare(
             "
             SELECT      itemmeta.meta_value
             FROM        " . $wpdb->prefix . "woocommerce_order_itemmeta itemmeta
@@ -141,8 +144,7 @@ class Dashboard {
             ORDER BY    orders.post_date DESC
             ",
             $this->current_user_id
-        ) );
-        $invested_campaign_ids = array_unique( $invested_campaign_ids );
+        ));
     
         $data = array();
         if( !empty( $invested_campaign_ids ) ) {
@@ -162,7 +164,26 @@ class Dashboard {
             $data = $this->fetchCampaigns( $query ); //call to private function fetchCampaigns
         }
         return rest_ensure_response( $data );
-        
+    }
+
+    /**
+     * Get user bookmark campaigns
+     * @access    public
+     * @return    {json} mixed
+     */
+    function bookmark_campaigns() {
+        $campaign_ids = get_user_meta( $this->current_user_id, 'loved_campaign_ids', true );
+        $campaign_ids = json_decode( $campaign_ids, true );
+        $data = array();
+        if( !empty( $campaign_ids ) ) {
+            $query = array(
+                'post_type' => 'product',
+                'post__in' => $campaign_ids,
+                'orderby' => 'post__in',
+            );
+            $data = $this->fetchCampaigns( $query ); //call to private function fetchCampaigns
+        }
+        return rest_ensure_response( $data );
     }
 
     /**
