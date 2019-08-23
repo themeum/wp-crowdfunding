@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default (props) => {
-    const { data:{ details: {billing, raised, receivable, marketplace, status} } } = props;
+    const { data:{ details, details: {billing, raised, receivable, marketplace, status} } } = props;
     return (
         <tr>
             <td>{ billing.first_name+' '+billing.last_name }</td>
@@ -10,7 +10,7 @@ export default (props) => {
             <td dangerouslySetInnerHTML={{__html:marketplace}} />
             <td>{ status }</td>
             <td><i className="fa fa-envelope"></i></td>
-            <td><span> Details </span></td>
+            <td><span onClick={ () => props.onClickDetails( details ) }> Details </span></td>
         </tr>
     )
 };

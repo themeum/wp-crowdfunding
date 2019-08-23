@@ -258,6 +258,22 @@ class Dashboard {
                 if( $order_details['status'] == 'completed' ) {
                     $total_raised += $total;
                 }
+                //Inject reward data if available
+                $reward = get_post_meta($customer_order->ID, 'wpneo_selected_reward', true);
+                if ( !empty($reward) && is_array($reward) ) {
+                    $reward_html = '';
+                    $reward_html .="<h3>".__('Selected Reward', 'wp-crowdfunding')."</h3>";
+                    if ( !empty($reward['wpneo_rewards_description'])) {
+                        $reward_html .= "<div>{$reward['wpneo_rewards_description']}</div>";
+                    }
+                    if ( !empty($reward['wpneo_rewards_pladge_amount'])) {
+                        $reward_html .= "<div><abbr>".__('Amount','wp-crowdfunding').' : '.wc_price($reward['wpneo_rewards_pladge_amount']).', '.__(' Delivery','wp-crowdfunding').' : '.$reward['wpneo_rewards_endmonth'].', '.$reward['wpneo_rewards_endyear'];
+                    }
+                    $customer_order->details['selected_reward'] = $reward_html;
+                }
+                $customer_order->details['subtotal'] = wc_price($order->get_subtotal());
+                $customer_order->details['formatted_b_addr'] = $order->get_formatted_billing_address();
+                $customer_order->details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
             }
         }
 

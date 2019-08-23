@@ -3,14 +3,19 @@ import { connect } from 'react-redux';
 import { fetchPledgeReceived } from '../actions/campaignAction';
 import Pagination from '../components/pagination';
 import ItemPledgeReceived from '../components/itemPledgeReceived';
+import PledgeDetails from '../components/pledgeDetails';
 
 class PledgeReceived extends Component {
 	constructor (props) {
         super(props);
         this.state = {
             pageOfItems: [],
+            openModal: false,
+            modalData: ''
         };
         this.onChangePage = this.onChangePage.bind(this);
+        this.onClickDetails = this.onClickDetails.bind(this);
+        this.onClickModalClose = this.onClickModalClose.bind(this);
     }
 
     componentDidMount() {
@@ -24,6 +29,14 @@ class PledgeReceived extends Component {
         this.setState({ pageOfItems });
     }
 
+    onClickDetails( data ) {
+        this.setState({ openModal: true, modalData: data });
+    }
+
+    onClickModalClose() {
+        this.setState({ openModal: false });
+    }
+
 	render() {
         const { pledge } = this.props;
         if( pledge.loading ) { 
@@ -34,7 +47,7 @@ class PledgeReceived extends Component {
             )
         };
 
-        const { pageOfItems } = this.state;
+        const { pageOfItems, openModal, modalData } = this.state;
         const { total_goal, total_raised, total_available, receiver_percent, orders } = pledge.data;
         
         return (
@@ -79,16 +92,25 @@ class PledgeReceived extends Component {
                                 <tbody>
                                     { pageOfItems.map( (item, index) =>
                                         <ItemPledgeReceived
-                                            key={index} 
-                                            data={ item }/>
+                                            key={index}
+                                            data={ item }
+                                            onClickDetails={ this.onClickDetails } />
                                     ) }
                                 </tbody>
                             </table>
+
                             <Pagination
                                 items={ orders }
                                 pageSize={ 5 }
                                 onChangePage={ this.onChangePage } />
+
+                            { openModal && 
+                                <PledgeDetails 
+                                    data={ modalData }
+                                    onClickModalClose={ this.onClickModalClose }/>
+                            }
                         </div>
+
                     :   <div>
                             Data not found
                         </div>
