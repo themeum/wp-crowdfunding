@@ -8,8 +8,7 @@ class BookmarkCampaigns extends Component {
 	constructor (props) {
         super(props);
         this.state = {
-            pageOfItems: [],
-            filterValue: 'running'
+            pageOfItems: []
         };
         this.onChangePage = this.onChangePage.bind(this);
     }
@@ -35,7 +34,7 @@ class BookmarkCampaigns extends Component {
             )
         };
 
-        const { pageOfItems, filterValue } = this.state;
+        const { pageOfItems } = this.state;
         
         return (
             <div className="wpcf-dashboard-content">
@@ -51,7 +50,6 @@ class BookmarkCampaigns extends Component {
                             <Pagination
                                 items={ campaign.data }
                                 pageSize={ 5 }
-                                filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
                         </div>
                     :   <div>

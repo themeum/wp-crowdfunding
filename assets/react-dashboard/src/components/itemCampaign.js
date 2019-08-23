@@ -1,15 +1,11 @@
 import React from 'react';
 
-function createMarkup( html ) {
-    return { __html: html };
-}
-
 export default (props) => {
     const { data } = props;
     return (
         <div className="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
             <div className="wpneo-listing-img">
-                <a href="#" title={ data.title } dangerouslySetInnerHTML={ createMarkup(data.thumbnail) } />
+                <a href="#" title={ data.title } dangerouslySetInnerHTML={{__html: data.thumbnail}} />
                 <div className="overlay">
                     <div>
                         <div>
@@ -38,11 +34,11 @@ export default (props) => {
                         <div className="sppb-chart-percent"><span>{ data.raised_percent }</span></div>
                     </div>
                     <div className="crowdfound-fund-raised">
-                        <div className="wpneo-meta-desc" dangerouslySetInnerHTML={ createMarkup(data.total_raised) } />
+                        <div className="wpneo-meta-desc" dangerouslySetInnerHTML={{__html: data.total_raised}}/>
                         <div className="wpneo-meta-name">Fund Raised</div>
                     </div>
                     <div className="crowdfound-funding-goal">
-                        <div className="wpneo-meta-desc" dangerouslySetInnerHTML={ createMarkup(data.funding_goal) } />
+                        <div className="wpneo-meta-desc" dangerouslySetInnerHTML={{__html: data.funding_goal}}/>
                         <div className="wpneo-meta-name">Funding Goal</div>
                     </div>
 

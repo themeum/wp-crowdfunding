@@ -1,0 +1,107 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchPledgeReceived } from '../actions/campaignAction';
+import Pagination from '../components/pagination';
+import ItemPledgeReceived from '../components/itemPledgeReceived';
+
+class PledgeReceived extends Component {
+	constructor (props) {
+        super(props);
+        this.state = {
+            pageOfItems: [],
+        };
+        this.onChangePage = this.onChangePage.bind(this);
+    }
+
+    componentDidMount() {
+        const { loaded } = this.props.pledge;
+        if( !loaded ) {
+            this.props.fetchPledgeReceived();
+        }
+    }
+
+    onChangePage(pageOfItems) {
+        this.setState({ pageOfItems });
+    }
+
+	render() {
+        const { pledge } = this.props;
+        if( pledge.loading ) { 
+            return (
+                <div>
+                    Loading...
+                </div>
+            )
+        };
+
+        const { pageOfItems } = this.state;
+        const { total_goal, total_raised, total_available, receiver_percent, orders } = pledge.data;
+        
+        return (
+            <div className="wpcf-dashboard-content">
+                <h3>Pledge Recieved</h3>
+                <div className="wpcf-dashboard-content-inner">
+                <div className="wpcf-dashboard-info-cards">
+                        <div className="wpcf-dashboard-info-card">
+                            <p>
+                                <span>Fund Raised</span>
+                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_raised}}></span>
+                            </p>
+                        </div>
+                        <div className="wpcf-dashboard-info-card">
+                            <p>
+                                <span>Goal</span>
+                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_goal}}></span>
+                            </p>
+                        </div>
+                        <div className="wpcf-dashboard-info-card">
+                            <p>
+                                <span>Available</span>
+                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_available}}></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    { orders.length ?
+                        <div className="wpcf-dashboard-info-table-wrap">
+                            <table className="wpcf-dashboard-info-table">
+                                <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Raised</td>
+                                        <td>Receivable { receiver_percent && `(${receiver_percent}%)` }</td>
+                                        <td>Marketplace { receiver_percent && `(${100-receiver_percent}%)` }</td>
+                                        <td>Status</td>
+                                        <td>Email</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { pageOfItems.map( (item, index) =>
+                                        <ItemPledgeReceived
+                                            key={index} 
+                                            data={ item }/>
+                                    ) }
+                                </tbody>
+                            </table>
+                            <Pagination
+                                items={ orders }
+                                pageSize={ 5 }
+                                onChangePage={ this.onChangePage } />
+                        </div>
+                    :   <div>
+                            Data not found
+                        </div>
+                    }
+                        
+                </div>
+            </div>
+        )
+	}
+}
+
+const mapStateToProps = state => ({
+    pledge: state.pledgeReceived
+})
+
+export default connect( mapStateToProps, { fetchPledgeReceived } )(PledgeReceived);

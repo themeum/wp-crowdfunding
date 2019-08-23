@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 const defaultProps = {
-    initialPage: 1
+    initialPage: 1,
+    filterValue: ""
 }
 class Pagination extends Component {
     constructor(props) {

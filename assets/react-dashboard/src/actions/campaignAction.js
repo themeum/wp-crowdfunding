@@ -31,6 +31,22 @@ export const fetchInvestedCampaigns = () => dispatch => {
 }
 
 
+//PLEDGE RECEIVED
+export const FETCH_PLEDGE_RECEIVED_PENDING = 'fetch_pledge_received_pending';
+export const FETCH_PLEDGE_RECEIVED_COMPLETE = 'fetch_pledge_received_complete';
+export const FETCH_PLEDGE_RECEIVED_ERROR = 'fetch_pledge_received_error';
+
+export const fetchPledgeReceived = () => dispatch => {
+    dispatch({ type: FETCH_PLEDGE_RECEIVED_PENDING });
+    const fetchURL = `${WPCF.rest_url}/pledge-received`;
+    const option = { method: 'GET', headers:{ 'Content-Type': 'application/json' } };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload => dispatch( {type: FETCH_PLEDGE_RECEIVED_COMPLETE, payload} ) )
+    .catch( payload => dispatch( {type: FETCH_PLEDGE_RECEIVED_ERROR, payload} ) );
+}
+
+
 //BOOKMARK CAMPAIGNS
 export const FETCH_BOOKMARK_CAMPAIGNS_PENDING = 'fetch_bookmark_campaigns_pending';
 export const FETCH_BOOKMARK_CAMPAIGNS_COMPLETE = 'fetch_bookmark_campaigns_complete';

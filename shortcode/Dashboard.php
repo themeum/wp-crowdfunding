@@ -46,6 +46,9 @@ class Dashboard {
         register_rest_route( $namespace, '/invested-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'invested_campaigns'), ),
         ));
+        register_rest_route( $namespace, '/pledge-received', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'pledge_received'), ),
+        ));
         register_rest_route( $namespace, '/bookmark-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'bookmark_campaigns'), ),
         ));
@@ -145,6 +148,8 @@ class Dashboard {
             ",
             $this->current_user_id
         ));
+
+        $invested_campaign_ids = array_unique( $invested_campaign_ids );
     
         $data = array();
         if( !empty( $invested_campaign_ids ) ) {
@@ -164,6 +169,107 @@ class Dashboard {
             $data = $this->fetchCampaigns( $query ); //call to private function fetchCampaigns
         }
         return rest_ensure_response( $data );
+    }
+
+    /**
+     * Get user pledge received
+     * @access    public
+     * @return    {json} mixed
+     */
+    function pledge_received() {
+        global $wpdb;
+        $total_goal = 0;
+        $total_raised = 0;
+        $campaign_ids = array();
+        $order_ids = array();
+        $customer_orders = array();
+        $receiver_percent = get_option( 'wallet_receiver_percent' );
+        //Get current user campaign list
+        $args = array(
+            'post_type' 		=> 'product',
+            'author'    		=> get_current_user_id(),
+            'tax_query' 		=> array(
+                array(
+                    'taxonomy' => 'product_type',
+                    'field'    => 'slug',
+                    'terms'    => 'crowdfunding',
+                ),
+            ),
+            'posts_per_page'    => -1
+        );
+        $campaign_list = get_posts( $args );
+        //Generate campaign_ids array and add total goal from campaign loop
+        foreach ($campaign_list as $value) {
+            $campaign_ids[] = $value->ID;
+            $funding_goal = get_post_meta($value->ID, '_nf_funding_goal', true);
+            $total_goal += $funding_goal;
+        }
+        //Get order_ids array from order_items by campaign ids
+        if(!empty($campaign_ids)) {
+            $campaign_ids = implode( ', ', $campaign_ids );
+            $prefix = $wpdb->prefix;
+            $order_ids = $wpdb->get_col(
+                "
+                SELECT      oi.order_id
+                FROM        " . $wpdb->prefix . "woocommerce_order_items oi
+                INNER JOIN  " . $wpdb->prefix . "woocommerce_order_itemmeta woim
+                            ON woim.order_item_id = oi.order_item_id
+                WHERE       woim.meta_key='_product_id'
+                            AND woim.meta_value IN ( {$campaign_ids} )
+                ORDER BY    oi.order_id DESC
+                " 
+            );
+        }
+        //Get customers orders with details
+        if(!empty($order_ids)) {
+            $customer_orders = get_posts(array(
+                'post__in'	  => $order_ids,
+                'meta_key'    => '_customer_user',
+                'post_type'   => wc_get_order_types( 'view-orders' ),
+                'post_status' => array_keys( wc_get_order_statuses() )
+            ));
+            //Injecting order details to customer orders
+            foreach ( $customer_orders as $customer_order )  {
+                $order = wc_get_order( $customer_order );
+                $order_details = $order->get_data();
+                $line_items = array();
+                foreach ( $order->get_items() as $item_key => $item_values ) {
+                    $item_data = $item_values->get_data();
+                    $line_items[] = array(
+                        'product_name' => $item_data['name'],
+                        'line_subtotal' => $item_data['subtotal'],
+                        'line_total' => $item_data['total']
+                    );
+                }
+                $customer_order->details = $order_details;
+                //Overwrite line items of campaign details
+                $customer_order->details['line_items'] = $line_items;
+                $total = $order_details['total'];
+                $receivable = wc_price( $total );
+                $marketplace = wc_price( 0 );
+                if( $receiver_percent ) {
+                    $receivable = wc_price( ($total*$receiver_percent) / 100 );
+                    $marketplace = wc_price( ($total* (100-$receiver_percent) ) / 100 );
+                }
+                $customer_order->details['receivable'] = $receivable;
+                $customer_order->details['marketplace'] = $marketplace;
+                $customer_order->details['raised'] = wc_price( $total );
+                //Plus fund raised if order is completed
+                if( $order_details['status'] == 'completed' ) {
+                    $total_raised += $total;
+                }
+            }
+        }
+
+        $response_data = array(
+            'total_goal' => wc_price( $total_goal ),
+            'total_raised' => wc_price( $total_raised ),
+            'total_available' => wc_price( $total_goal - $total_raised ),
+            'receiver_percent' => $receiver_percent ? $receiver_percent : '',
+            'orders' => $customer_orders,
+        );
+
+        return rest_ensure_response( $response_data );
     }
 
     /**
