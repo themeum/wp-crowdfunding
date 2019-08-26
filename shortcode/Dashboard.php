@@ -52,6 +52,9 @@ class Dashboard {
         register_rest_route( $namespace, '/bookmark-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'bookmark_campaigns'), ),
         ));
+        register_rest_route( $namespace, '/orders', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'orders'), ),
+        ));
     }
     
     /**
@@ -220,7 +223,7 @@ class Dashboard {
                 " 
             );
         }
-        //Get customers orders with details
+        //Get customers orders with injecting details
         if(!empty($order_ids)) {
             $customer_orders = get_posts(array(
                 'post__in'	  => $order_ids,
@@ -232,28 +235,18 @@ class Dashboard {
             foreach ( $customer_orders as $customer_order )  {
                 $order = wc_get_order( $customer_order );
                 $order_details = $order->get_data();
-                $line_items = array();
-                foreach ( $order->get_items() as $item_key => $item_values ) {
-                    $item_data = $item_values->get_data();
-                    $line_items[] = array(
-                        'product_name' => $item_data['name'],
-                        'line_subtotal' => $item_data['subtotal'],
-                        'line_total' => $item_data['total']
-                    );
-                }
-                $customer_order->details = $order_details;
-                //Overwrite line items of campaign details
-                $customer_order->details['line_items'] = $line_items;
+
                 $total = $order_details['total'];
                 $receivable = wc_price( $total );
                 $marketplace = wc_price( 0 );
+                //If receiver_percent available overwrite receivable adn marketplace value
                 if( $receiver_percent ) {
                     $receivable = wc_price( ($total*$receiver_percent) / 100 );
                     $marketplace = wc_price( ($total* (100-$receiver_percent) ) / 100 );
                 }
-                $customer_order->details['receivable'] = $receivable;
-                $customer_order->details['marketplace'] = $marketplace;
-                $customer_order->details['raised'] = wc_price( $total );
+                $order_details['receivable'] = $receivable;
+                $order_details['marketplace'] = $marketplace;
+                $order_details['raised'] = wc_price( $total );
                 //Plus fund raised if order is completed
                 if( $order_details['status'] == 'completed' ) {
                     $total_raised += $total;
@@ -269,11 +262,27 @@ class Dashboard {
                     if ( !empty($reward['wpneo_rewards_pladge_amount'])) {
                         $reward_html .= "<div><abbr>".__('Amount','wp-crowdfunding').' : '.wc_price($reward['wpneo_rewards_pladge_amount']).', '.__(' Delivery','wp-crowdfunding').' : '.$reward['wpneo_rewards_endmonth'].', '.$reward['wpneo_rewards_endyear'];
                     }
-                    $customer_order->details['selected_reward'] = $reward_html;
+                    $order_details['selected_reward'] = $reward_html;
                 }
-                $customer_order->details['subtotal'] = wc_price($order->get_subtotal());
-                $customer_order->details['formatted_b_addr'] = $order->get_formatted_billing_address();
-                $customer_order->details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
+                $order_details['subtotal'] = wc_price($order->get_subtotal());
+                $order_details['formatted_b_addr'] = $order->get_formatted_billing_address();
+                $order_details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
+                $order_details['status_name'] = wc_get_order_status_name( $order_details['status'] );
+
+                //Overwrite line items of campaign details
+                $line_items = array();
+                foreach ( $order->get_items() as $item_key => $item_values ) {
+                    $item_data = $item_values->get_data();
+                    $line_items[] = array(
+                        'product_name' => $item_data['name'],
+                        'line_subtotal' => $item_data['subtotal'],
+                        'line_total' => $item_data['total']
+                    );
+                }
+                //Overwrite line items of campaign details
+                $order_details['line_items'] = $line_items;
+                //Inject details to cutomer order
+                $customer_order->details = $order_details;
             }
         }
 
@@ -284,6 +293,9 @@ class Dashboard {
             'receiver_percent' => $receiver_percent ? $receiver_percent : '',
             'orders' => $customer_orders,
         );
+
+       /*  echo "<pre>";
+        print_r( $response_data ); */
 
         return rest_ensure_response( $response_data );
     }
@@ -342,6 +354,53 @@ class Dashboard {
             endwhile;
         endif;
         return $data;
+    }
+
+
+    /**
+     * Get user order list
+     * @access    public
+     * @return    {json} mixed
+     */
+    function orders() {
+        //Get customers orders
+        $customer_orders = get_posts(array(
+            'numberposts' => -1,
+            'meta_key'    => '_customer_user',
+            'meta_value'  => $this->current_user_id,
+            'post_type'   => wc_get_order_types(),
+            'post_status' => array_keys( wc_get_order_statuses() ),
+        ));
+        //Injecting order details to customer orders
+        foreach ( $customer_orders as $customer_order )  {
+            $order = wc_get_order( $customer_order );
+            $order_details = $order->get_data(); //get order data
+            $order_details['total'] = $order->get_formatted_order_total();
+            $order_details['formatted_b_addr'] = $order->get_formatted_billing_address();
+            $order_details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
+            $order_details['formatted_oc_date'] = wc_format_datetime($order->get_date_completed());
+            $order_details['status_name'] = wc_get_order_status_name( $order_details['status'] );;
+
+            //Get line items
+            $line_items = array();
+            foreach ( $order->get_items() as $item_key => $item_values ) {
+                $item_data = $item_values->get_data();
+                $line_items[] = array(
+                    'product_id' => $item_data['product_id'],
+                    'product_name' => $item_data['name']
+                );
+            }
+            $order_details['line_items'] = $line_items; //Overwrite line items of campaign details
+            $order_details['fulfillment'] =  ( wpcf_function()->is_campaign_valid( $line_items[0]['product_id'] ) ) ? 'On Process' : 'Done';
+            $order_details['billing']['country_name'] =  WC()->countries->countries[ $order_details['billing']['country'] ];
+            //Inject details to cutomer order
+            $customer_order->details = $order_details;
+        }
+
+        /* echo "<pre>";
+        print_r( $customer_orders ); */
+
+        return rest_ensure_response( $customer_orders );
     }
 
 }

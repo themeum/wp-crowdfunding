@@ -54,23 +54,23 @@ class PledgeReceived extends Component {
             <div className="wpcf-dashboard-content">
                 <h3>Pledge Recieved</h3>
                 <div className="wpcf-dashboard-content-inner">
-                <div className="wpcf-dashboard-info-cards">
+                    <div className="wpcf-dashboard-info-cards">
                         <div className="wpcf-dashboard-info-card">
                             <p>
-                                <span>Fund Raised</span>
                                 <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_raised}}></span>
+                                <span>Fund Raised</span>
                             </p>
                         </div>
                         <div className="wpcf-dashboard-info-card">
                             <p>
-                                <span>Goal</span>
                                 <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_goal}}></span>
+                                <span>Goal</span>
                             </p>
                         </div>
                         <div className="wpcf-dashboard-info-card">
                             <p>
-                                <span>Available</span>
                                 <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_available}}></span>
+                                <span>Available</span>
                             </p>
                         </div>
                     </div>

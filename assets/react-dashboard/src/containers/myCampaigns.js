@@ -55,10 +55,10 @@ class MyCampaigns extends Component {
             <div className="wpcf-dashboard-content">
                 <h3>My Campaigns</h3>
                 <div>
-                    <span onClick={ e => this.onClickFilter(e) }>Running</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Pending</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Draft</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Completed</span>
+                    <span className={ (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</span>
+                    <span className={ (filterValue=='pending'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Pending</span>
+                    <span className={ (filterValue=='draft'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Draft</span>
+                    <span className={ (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</span>
                 </div>
                 <div className="wpcf-dashboard-content-inner">
                     { campaignData.length ?

@@ -510,11 +510,12 @@ class Functions {
         return 0;
     }
 
-    public function is_reach_target_goal(){
+    public function is_reach_target_goal( $post_id ) {
         global $post;
-        $funding_goal = get_post_meta($post->ID, '_nf_funding_goal' , true);
-        $raised = $this->get_total_fund();
-        if ( $raised >= $funding_goal ){
+        $postID = ( $post_id ) ? $post_id : $post->ID;
+        $funding_goal = get_post_meta($postID, '_nf_funding_goal' , true);
+        $raised = $this->get_total_fund( $postID );
+        if ( $raised >= $funding_goal ) {
             return true;
         }else{
             return false;
@@ -524,38 +525,41 @@ class Functions {
     public function campaignValid(){ //@compatibility
         return $this->is_campaign_valid();
     }
-    public function is_campaign_valid(){
+    public function is_campaign_valid($post_id = '') {
         global $post;
-        $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
+        $postID = ( $post_id ) ? $post_id : $post->ID;
+        $_nf_duration_start = get_post_meta($postID, '_nf_duration_start', true);
         if ($_nf_duration_start){
             if (strtotime($_nf_duration_start) > time()){
                 return false;
             }
         }
-        $campaign_end_method = get_post_meta($post->ID, 'wpneo_campaign_end_method' , true);
+        $campaign_end_method = get_post_meta($postID, 'wpneo_campaign_end_method' , true);
+        $is_reach_target_goal = $this->is_reach_target_goal( $postID );
+        $get_date_remaining = $this->get_date_remaining( $postID );
         switch ($campaign_end_method){
 
             case 'target_goal':
-                if ($this->is_reach_target_goal()){
+                if ( $is_reach_target_goal ) {
                     return false;
-                }else{
+                } else {
                     return true;
                 }
                 break;
 
             case 'target_date':
-                if ($this->get_date_remaining()){
+                if ( $get_date_remaining ) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
                 break;
 
             case 'target_goal_and_date':
-                if ( ! $this->is_reach_target_goal()) {
+                if ( !$is_reach_target_goal ) {
                     return true;
                 }
-                if ( $this->get_date_remaining()) {
+                if ( $get_date_remaining ) {
                     return true;
                 }
                 return false;

@@ -2,7 +2,6 @@ import React from 'react';
 
 export default (props) => {
     const { data, data:{ billing, line_items } } = props;
-    console.log( data );
     return (
         <div className="wpneo-modal-wrapper" style={ {display: 'block'} }>
             <div className="wpneo-modal-content">
@@ -16,7 +15,7 @@ export default (props) => {
                         <div>
                             <div><span>Order ID:</span> {data.id}</div>
                             <div><span>Order Date:</span> {data.formatted_c_date}</div>
-                            <div><span>Order Status:</span> {data.status}</div>
+                            <div><span>Order Status:</span> {data.status_name}</div>
                             <table>
                                 <thead>
                                     <tr>
