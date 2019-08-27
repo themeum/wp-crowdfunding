@@ -27,7 +27,7 @@ export default (props) => {
                 </div>
 
                 <div>
-                    <h5>Shipping Details</h5>
+                    <h5>Billing Details</h5>
                     <div>
                         <p>First Name</p>
                         <p>{ billing.first_name }</p>

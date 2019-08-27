@@ -26,8 +26,9 @@ class Dashboard {
      */
     function init_rest_api() {
         $this->current_user_id = get_current_user_id();
-        if( $this->current_user_id )
-        add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
+        if( $this->current_user_id ) {
+            add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
+        }
     }
 
     /**
@@ -54,6 +55,9 @@ class Dashboard {
         ));
         register_rest_route( $namespace, '/orders', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'orders'), ),
+        ));
+        register_rest_route( $namespace, '/withdraws', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'withdraws'), ),
         ));
     }
     
@@ -356,7 +360,6 @@ class Dashboard {
         return $data;
     }
 
-
     /**
      * Get user order list
      * @access    public
@@ -397,10 +400,96 @@ class Dashboard {
             $customer_order->details = $order_details;
         }
 
-        /* echo "<pre>";
-        print_r( $customer_orders ); */
-
         return rest_ensure_response( $customer_orders );
+    }
+
+    /**
+     * Get user withdraw list
+     * @access    public
+     * @return    {json} mixed
+     */
+    function withdraws() {
+        global $woocommerce, $wpdb;
+        $product_ids = array();
+        $product_ids = $wpdb->get_col(
+            "
+            SELECT      ID
+            FROM        {$wpdb->posts}
+            WHERE       post_author = {$this->current_user_id}
+                        AND post_type= 'product'
+            "
+        );
+
+        $where_meta = array();
+        $where_meta[] = array(
+            'type' => 'order_item_meta',
+            'meta_key' => '_product_id',
+            'operator' => 'in',
+            'meta_value' => $product_ids
+        );
+
+        if( !class_exists('WC_Admin_Report') ) {
+            include_once($woocommerce->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');
+        }
+        $wc_report = new \WC_Admin_Report();
+
+        $sold_products = $wc_report->get_order_report_data(array(
+            'data' => array(
+                '_product_id' => array(
+                    'type' => 'order_item_meta',
+                    'order_item_type' => 'line_item',
+                    'function' => '',
+                    'name' => 'product_id'
+                ),
+                '_qty' => array(
+                    'type' => 'order_item_meta',
+                    'order_item_type' => 'line_item',
+                    'function' => 'SUM',
+                    'name' => 'quantity'
+                ),
+                '_line_subtotal' => array(
+                    'type' => 'order_item_meta',
+                    'order_item_type' => 'line_item',
+                    'function' => 'SUM',
+                    'name' => 'gross'
+                ),
+                '_line_total' => array(
+                    'type' => 'order_item_meta',
+                    'order_item_type' => 'line_item',
+                    'function' => 'SUM',
+                    'name' => 'gross_after_discount'
+                )
+            ),
+            'query_type' => 'get_results',
+            'group_by' => 'product_id',
+            'where_meta' => $where_meta,
+            'order_by' => 'ID DESC',
+            'order_types' => wc_get_order_types('order_count'),
+            'order_status' => array('completed')
+        ));
+
+        $response = array();
+        foreach ($sold_products as $product) {
+            $product_id = $product->product_id;
+            $raised_percent = wpcf_function()->get_raised_percent( $product_id );
+            $receiver_percent = get_post_meta( $product_id, 'wpneo_wallet_receiver_percent', true );
+            if ( !$receiver_percent ) {
+                $receiver_percent = (int) get_option('wallet_receiver_percent');
+                update_post_meta( $product_id, 'wpneo_wallet_receiver_percent', $receiver_percent);
+            }
+            $response[] = array(
+                'product_id' => $product_id,
+                'campaign_title' => html_entity_decode( get_the_title( $product_id ) ),
+                'raised_percentage' => wpcf_function()->get_raised_percent( $product_id ),
+                'total_gross' => wc_price( $product->gross ),
+                'total_receivable' => wc_price( ( $product->gross * $receiver_percent ) / 100 ),
+            );
+        }
+
+        /* echo "<pre>";
+        print_r( $response ); */
+
+        return rest_ensure_response( $response );
     }
 
 }
