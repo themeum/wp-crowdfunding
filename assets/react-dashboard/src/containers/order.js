@@ -80,6 +80,7 @@ class Order extends Component {
 
         const { pageOfItems, filterValue, searchText, orderDetails } = this.state;
         const orderData = this.getOrderData();
+        
         if( orderDetails ) {
             return (
                 <OrderDetails data={ orderDetails } onClickBack={ this.onClickDetails }/>
@@ -150,6 +151,7 @@ class Order extends Component {
                             <Pagination
                                 items={ orderData }
                                 pageSize={ 5 }
+                                filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
                         </div>
 

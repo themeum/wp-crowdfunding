@@ -3,19 +3,17 @@ import { connect } from 'react-redux';
 import { fetchWithdraws } from '../actions/orderAction';
 import Pagination from '../components/pagination';
 import ItemWithdraw from '../components/itemWithdraw';
-import WithdrawModal from '../components/withdrawModal';
+import WithdrawDetails from '../components/withdrawDetails';
 
 class Withdraw extends Component {
 	constructor (props) {
         super(props);
         this.state = {
             pageOfItems: [],
-            openModal: false,
-            modalData: ''
+            withdrawDetails: ''
         };
         this.onChangePage = this.onChangePage.bind(this);
-        this.onClickDetails = this.onClickDetails.bind(this);
-        this.onClickModalClose = this.onClickModalClose.bind(this);
+        this.onClickWithdrawDetails = this.onClickWithdrawDetails.bind(this);
     }
 
     componentDidMount() {
@@ -29,12 +27,8 @@ class Withdraw extends Component {
         this.setState({ pageOfItems });
     }
 
-    onClickDetails( data ) {
-        this.setState({ openModal: true, modalData: data });
-    }
-
-    onClickModalClose() {
-        this.setState({ openModal: false });
+    onClickWithdrawDetails( data ) {
+        this.setState({ withdrawDetails: data });
     }
 
 	render() {
@@ -47,23 +41,29 @@ class Withdraw extends Component {
             )
         };
 
-        const { pageOfItems, openModal, modalData } = this.state;
+        const { pageOfItems, withdrawDetails } = this.state;
+
+        if( withdrawDetails ) {
+            return (
+                <WithdrawDetails
+                    data={ withdrawDetails }
+                    onClickBack={ this.onClickWithdrawDetails }/>
+            );
+        }
         
         return (
             <div className="wpcf-dashboard-content">
-                <h3>withdraw Recieved</h3>
+                <h3>Withdraw</h3>
                 <div className="wpcf-dashboard-content-inner">
                     { withdraw.data.length ?
                         <div className="wpcf-dashboard-info-table-wrap">
                             <table className="wpcf-dashboard-info-table">
                                 <thead>
                                     <tr>
-                                        <td>Name</td>
-                                        <td>Raised</td>
-                                        <td>Receivable { receiver_percent && `(${receiver_percent}%)` }</td>
-                                        <td>Marketplace { receiver_percent && `(${100-receiver_percent}%)` }</td>
-                                        <td>Status</td>
-                                        <td>Email</td>
+                                        <td>Project</td>
+                                        <td>Goal Complete</td>
+                                        <td>Available Currency</td>
+                                        <td>Available to Withdraw</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -72,7 +72,7 @@ class Withdraw extends Component {
                                         <ItemWithdraw
                                             key={index}
                                             data={ item }
-                                            onClickDetails={ this.onClickDetails } />
+                                            onClickWithdrawDetails={ this.onClickWithdrawDetails } />
                                     ) }
                                 </tbody>
                             </table>
@@ -81,12 +81,6 @@ class Withdraw extends Component {
                                 items={ withdraw.data }
                                 pageSize={ 5 }
                                 onChangePage={ this.onChangePage } />
-
-                            { openModal && 
-                                <WithdrawModal 
-                                    data={ modalData }
-                                    onClickModalClose={ this.onClickModalClose }/>
-                            }
                         </div>
 
                     :   <div>

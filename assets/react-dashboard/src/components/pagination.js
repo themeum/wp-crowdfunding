@@ -11,8 +11,8 @@ class Pagination extends Component {
     }
 
     componentWillMount() {
-        if (this.props.items && this.props.items.length) {
-            this.setPage(this.props.initialPage);
+        if ( this.props.items && this.props.items.length ) {
+            this.setPage( this.props.initialPage );
         }
     }
 
@@ -20,7 +20,7 @@ class Pagination extends Component {
         const changeItem = (this.props.items.length !== prevProps.items.length);
         const changefilter = (this.props.filterValue !== prevProps.filterValue);
         if ( changeItem || changefilter ) {
-            this.setPage(this.props.initialPage);
+            this.setPage( this.props.initialPage );
         }
     }
 
