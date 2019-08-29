@@ -435,11 +435,11 @@ class Dashboard {
         $sold_campaigns = $this->sold_campaigns( $where_meta ); 
 
         $response = array();
-        foreach ($sold_campaigns as $product) {
-            $campaign_id = $product->product_id;
+        foreach ($sold_campaigns as $campaign) {
+            $campaign_id = $campaign->product_id;
             $campaign_title = get_the_title( $campaign_id );
             $total_goal = get_post_meta( $campaign_id, '_nf_funding_goal', true);
-            $total_raised = $product->gross;
+            $total_raised = $campaign->gross;
             $raised_percent = wpcf_function()->get_raised_percent( $campaign_id );
             $receiver_percent = get_post_meta( $campaign_id, 'wpneo_wallet_receiver_percent', true );
             if ( !$receiver_percent ) {
@@ -474,12 +474,11 @@ class Dashboard {
      * @access    public
      * @return    {json} mixed
      */
-    function withdraw_request() {
+    function withdraw_request( \WP_REST_Request $request ) {
         global $wpdb, $woocommerce;
-
-        $campaign_id = (int) sanitize_text_field(wpcf_function()->post('campaign_id'));
-        $requested_withdraw_amount = sanitize_text_field(wpcf_function()->post('withdraw_amount'));
-        $withdraw_message = sanitize_text_field(wpcf_function()->post('withdraw_message'));
+        $campaign_id = (int) $request['campaign_id'];
+        $requested_withdraw_amount = $request['withdraw_amount'];
+        $withdraw_message = sanitize_text_field( $request['withdraw_message'] );
         $date_format = date(get_option('date_format'));
         $time_format = date(get_option('time_format'));
 
@@ -493,8 +492,8 @@ class Dashboard {
         //Get sold campaign data by meta query
         $sold_campaigns = $this->sold_campaigns( $where_meta );
         $total_raised = 0;
-        foreach ($sold_products as $product) {
-            $total_raised = $product->gross;
+        foreach ($sold_campaigns as $campaign) {
+            $total_raised = $campaign->gross;
         }
         $receiver_percent = get_post_meta($campaign_id, 'wpneo_wallet_receiver_percent', true);
         $total_receivable = ( $total_raised * $receiver_percent ) / 100;
@@ -508,7 +507,7 @@ class Dashboard {
 
         //Compare if balance is greater then commission
         if ($requested_withdraw_amount <= $balance) {
-            $post_title = __('Withdraw request', 'wp-crowdfunding-pro') . ' - '.$date_format.' @ '.$time_format;
+            $post_title = 'Withdraw request' . ' - '.$date_format.' @ '.$time_format;
             $deposit_data = array(
                 'post_title'    => $post_title,
                 'post_type'     => 'wpneo_withdraw',
@@ -521,21 +520,23 @@ class Dashboard {
                 ),
             );
             //Insert deposit data now
-            $post_id = wp_insert_post($deposit_data);
+            /* $post_id = wp_insert_post($deposit_data);
             if ( $post_id ) {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_withdrawal_request_email', $post_id);
-            }
+            } */
             //New response data
             $total_withdraw = $total_withdraw+$requested_withdraw_amount;
+            //push new item to request items
+            array_push( $request_items, (object) [
+                'title' => $post_title,
+                'amount' => wc_price( $requested_withdraw_amount ),
+                'status' => get_post_meta( $post_id, 'withdraw_request_status', true )
+            ]);
             $response_data = (object) [
                 'campaign_id' => $campaign_id,
                 'withdraw' => [
-                    'request_items' => array_push($request_items, [
-                        'title' => $post_title,
-                        'amount' => wc_price( $requested_withdraw_amount ),
-                        'status' => get_post_meta( $post_id, 'withdraw_request_status', true )
-                    ]),
+                    'request_items' => $request_items,
                     'total_withdraw' => wc_price( $total_withdraw  ),
                     'balance' => wc_price( $total_receivable - $total_withdraw)
                 ]
@@ -546,11 +547,12 @@ class Dashboard {
                 'data' => $response_data,
                 'msg' => __('Your withdraw request is processing', 'wp-crowdfunding-pro')
             );
+        } else {
+            $response = array(
+                'success' => 0, 
+                'msg' => __('You are not eligible to make a withdraw', 'wp-crowdfunding-pro')
+            );
         }
-        $response = array(
-            'success' => 0, 
-            'msg' => __('You are not eligible to make a withdraw', 'wp-crowdfunding-pro')
-        );
         return rest_ensure_response( $response );
     }
 
@@ -621,11 +623,11 @@ class Dashboard {
                 $withdraw_query->the_post();
                 $request_status = get_post_meta( get_the_ID(),'withdraw_request_status',true );
                 $request_amount = get_post_meta( get_the_ID(),'wpneo_wallet_withdrawal_amount',true );
-                $request_items = array(
-                    'title' => the_title(),
+                $request_items[] = (object) [
+                    'title' => get_the_title(),
                     'amount' => wc_price( $request_amount ),
                     'status' => $request_status
-                );
+                ];
                 $total_withdraw += $request_amount;
             }
         }

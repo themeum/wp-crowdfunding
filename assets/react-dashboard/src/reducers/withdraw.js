@@ -1,6 +1,6 @@
-import { FETCH_WITHDRAWS_PENDING, FETCH_WITHDRAWS_COMPLETE, FETCH_WITHDRAWS_ERROR, POST_WITHDRAW_REQUEST_COMPLETE } from "../actions/orderAction";
+import { FETCH_WITHDRAWS_PENDING, FETCH_WITHDRAWS_COMPLETE, FETCH_WITHDRAWS_ERROR, POST_WITHDRAW_REQUEST_PENDING, POST_WITHDRAW_REQUEST_COMPLETE, POST_WITHDRAW_REQUEST_ERROR } from "../actions/orderAction";
 
-export default function(state = { loading: true, loaded: false, data:[] }, action ) {
+export default function(state = { loading: true, loaded: false, reqStatus: 'pending', data:[] }, action ) {
     switch( action.type ) {
         
         case FETCH_WITHDRAWS_PENDING:
@@ -23,20 +23,37 @@ export default function(state = { loading: true, loaded: false, data:[] }, actio
                     loaded: false,
                     error: action.payload,
             };
+        case POST_WITHDRAW_REQUEST_PENDING:
+            return {
+                ...state,
+                reqStatus: 'pending',
+            };
         case POST_WITHDRAW_REQUEST_COMPLETE:
             const res = action.payload;
             let data = [ ...state.data ];
-            console.log(res);
             if( res.success ) {
-                index = data.findIndex(item => item.campaign_id === res.data.campaign_id);
-                data[index]['withdraw'] = res.data.withdraw;
+                const index = data.findIndex(item => item.campaign_id == res.data.campaign_id);
+                data[0]['withdraw'] = res.data.withdraw;
                 data = JSON.parse( JSON.stringify(data) );
-                return { ...state, data }
+                return { 
+                        ...state, 
+                        reqStatus: 'complete',
+                        data 
+                };
+            } else {
+                return {
+                    ...state,
+                    reqStatus: 'error',
+                    error: action.payload,
+                };
             }
+        case POST_WITHDRAW_REQUEST_ERROR:
             return {
                 ...state,
+                reqStatus: 'error',
                 error: action.payload,
             };
+            
         default: 
             return state;
     }

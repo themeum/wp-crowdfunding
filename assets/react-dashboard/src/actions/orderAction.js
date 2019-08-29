@@ -30,10 +30,13 @@ export const fetchWithdraws = () => dispatch => {
 }
 
 
+
+export const POST_WITHDRAW_REQUEST_PENDING = 'post_withdraw_request_pending';
 export const POST_WITHDRAW_REQUEST_COMPLETE = 'post_withdraw_request_complete';
 export const POST_WITHDRAW_REQUEST_ERROR = 'post_withdraw_request_error';
 
 export const postWithdrawRequest = ( data ) => dispatch => {
+    dispatch({ type: POST_WITHDRAW_REQUEST_PENDING });
     const fetchURL = `${WPCF.rest_url}/withdraw-request`;
     const option = { method: 'POST', body: JSON.stringify(data), headers:{ 'Content-Type': 'application/json' } };
     fetch( fetchURL, option )
