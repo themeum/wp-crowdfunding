@@ -33,8 +33,7 @@ export default function(state = { loading: true, loaded: false, reqStatus: 'pend
             let data = [ ...state.data ];
             if( res.success ) {
                 const index = data.findIndex(item => item.campaign_id == res.data.campaign_id);
-                data[0]['withdraw'] = res.data.withdraw;
-                data = JSON.parse( JSON.stringify(data) );
+                data[index]['withdraw'] = res.data.withdraw;
                 return { 
                         ...state, 
                         reqStatus: 'complete',

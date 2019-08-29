@@ -7,9 +7,9 @@ class WithdrawDetails extends Component {
         super(props);
         this.state = {
             openModal: false,
-            campaign_id: this.props.data.campaign_id,
             withdraw_amount: '',
             withdraw_message: '',
+            errorMsg: '',
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.onChangeInput = this.onChangeInput.bind(this);
@@ -17,23 +17,27 @@ class WithdrawDetails extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { withdraw } = this.props;
-        if ( withdraw.reqStatus !== prevProps.withdraw.reqStatus ) {
-            this.resetReqData();
+        const { withdraw, withdraw: { reqStatus } } = this.props;
+        if ( reqStatus !== prevProps.withdraw.reqStatus ) {
+            if( reqStatus == 'complete' ) {
+                this.setState({
+                    openModal: false,
+                    withdraw_amount: '',
+                    withdraw_message: '',
+                    errorMsg: ''
+                });
+            }
+            if( reqStatus == 'error' ) {
+                this.setState({
+                    errorMsg: withdraw.error.msg
+                });
+            }
         }
-    }
-
-    resetReqData() {
-        this.setState({
-            openModal: false,
-            withdraw_amount: '',
-            withdraw_message: '',
-        });
     }
 
     toggleModal(e) {
         e.preventDefault();
-        this.setState({ openModal: !this.state.openModal });
+        this.setState({ openModal: !this.state.openModal, errorMsg: '' });
     }
 
     onChangeInput(e) {
@@ -42,13 +46,23 @@ class WithdrawDetails extends Component {
 
     onSubmitWithdrawReq(e) {
         e.preventDefault();
+        const { withdraw_amount, withdraw_message } = this.state;
+        if( withdraw_amount <= 0 ) {
+            this.setState({ errorMsg: "Please enter valid amount"});
+            return false;
+        }
+        const postData = {
+            withdraw_amount,
+            withdraw_message,
+            campaign_id: this.props.data.campaign_id
+        }
         //Send withdraw request
-        this.props.postWithdrawRequest(this.state);
+        this.props.postWithdrawRequest( postData );
     }
 
     render() {
         const { data, data: { withdraw }, onClickBack } = this.props;
-        const { openModal, withdraw_amount, withdraw_message } = this.state;
+        const { openModal, withdraw_amount, withdraw_message, errorMsg } = this.state;
 
         return (
             <div className="wpcf-dashboard-content">
@@ -99,10 +113,16 @@ class WithdrawDetails extends Component {
                                 </thead>
                                 <tbody>
                                     {withdraw.request_items.map((item, index) =>
+
                                         <tr key={index}>
                                             <td dangerouslySetInnerHTML={{ __html: item.title }} />
                                             <td dangerouslySetInnerHTML={{ __html: item.amount }} />
-                                            <td> <span className={'label-' + (item.status == 'paid') ? 'success' : 'warning'}>{item.status}</span></td>
+                                            <td> 
+                                                { item.status == 'paid' ?
+                                                    <span className="label-success">Paid</span>
+                                                :   <span className="label-warning">Not Paid</span>
+                                                }
+                                            </td>
                                         </tr>
                                     )}
                                     <tr>
@@ -128,7 +148,7 @@ class WithdrawDetails extends Component {
                         <div id="wpneo-fade" className="wpcf-message-overlay"></div>
                         <button className="label-primary wpcf-message" onClick={this.toggleModal}>Withdraw</button>
 
-                        {openModal &&
+                        { openModal &&
                             <div className="wpneo-modal-wrapper" style={{ display: 'block' }}>
                                 <div className="wpneo-modal-content">
                                     <div className="wpneo-modal-wrapper-head">
@@ -138,6 +158,11 @@ class WithdrawDetails extends Component {
                                     <div className="wpneo-modal-content-inner">
                                         <form onSubmit={ this.onSubmitWithdrawReq }>
                                             <div id="wpcf_modal_message">
+                                                { errorMsg &&
+                                                    <div className="wpneo-single">
+                                                        <p className="alert-danger">{ errorMsg }</p>
+                                                    </div>
+                                                }
                                                 <div className="wpneo-single">
                                                     <div className="wpneo-name">Amount</div>
                                                     <div className="wpneo-fields">

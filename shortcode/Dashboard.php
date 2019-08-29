@@ -101,10 +101,11 @@ class Dashboard {
         $current_user_id = $this->current_user_id;
         $user = get_user_by('ID', $current_user_id);
         $data = ( object ) get_user_meta($current_user_id);
+        //Inject additional data
         $data->display_name = isset($user->display_name) ? $user->display_name : '';
         $data->first_name = isset($user->first_name) ? $user->first_name : '';
         $data->last_name = isset($user->last_name) ? $user->last_name : '';
-
+        //Inject image src if avaibale
         $data->img_src = get_avatar_url( $current_user_id );
         $image_id = get_user_meta( $current_user_id, 'profile_image_id', true );
         if ( $image_id && $image_id > 0 ) {
@@ -131,7 +132,8 @@ class Dashboard {
                 ),
             ),
         );
-        $data = $this->fetch_campaigns( $query ); //call to private function fetch_campaigns
+        //Fetch all campaigns by query
+        $data = $this->fetch_campaigns( $query ); 
         return rest_ensure_response( $data );
     }
 
@@ -177,7 +179,8 @@ class Dashboard {
                     ),
                 ),
             );
-            $data = $this->fetch_campaigns( $query ); //call to private function fetch_campaigns
+            //Fetch all campaigns by query
+            $data = $this->fetch_campaigns( $query );
         }
         return rest_ensure_response( $data );
     }
@@ -301,10 +304,6 @@ class Dashboard {
             'receiver_percent' => $receiver_percent ? $receiver_percent : '',
             'orders' => $customer_orders,
         );
-
-       /*  echo "<pre>";
-        print_r( $response_data ); */
-
         return rest_ensure_response( $response_data );
     }
 
@@ -468,7 +467,6 @@ class Dashboard {
         return rest_ensure_response( $response );
     }
 
-
     /**
      * Post user withdraw request
      * @access    public
@@ -479,6 +477,15 @@ class Dashboard {
         $campaign_id = (int) $request['campaign_id'];
         $requested_withdraw_amount = $request['withdraw_amount'];
         $withdraw_message = sanitize_text_field( $request['withdraw_message'] );
+
+        //return error if invalid data
+        if( empty($campaign_id) || $requested_withdraw_amount <= 0  ) {
+            return rest_ensure_response(array(
+                'success' => 0,
+                'msg' => __('Amount must be greater than 0', 'wp-crowdfunding-pro')
+            ));
+        }
+
         $date_format = date(get_option('date_format'));
         $time_format = date(get_option('time_format'));
 
@@ -520,11 +527,12 @@ class Dashboard {
                 ),
             );
             //Insert deposit data now
-            /* $post_id = wp_insert_post($deposit_data);
+            $post_id = wp_insert_post($deposit_data);
             if ( $post_id ) {
+                update_post_meta( $post_id,'withdraw_request_status','pending');
                 WC()->mailer(); // load email classes
                 do_action('wpcf_withdrawal_request_email', $post_id);
-            } */
+            }
             //New response data
             $total_withdraw = $total_withdraw+$requested_withdraw_amount;
             //push new item to request items
@@ -550,7 +558,7 @@ class Dashboard {
         } else {
             $response = array(
                 'success' => 0, 
-                'msg' => __('You are not eligible to make a withdraw', 'wp-crowdfunding-pro')
+                'msg' => __('You are not eligible to make this withdraw', 'wp-crowdfunding-pro')
             );
         }
         return rest_ensure_response( $response );
