@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userAction';
+import SocialForm from '../components/socialForm';
 
 class ProfileSettings extends Component {
 	constructor (props) {
@@ -13,9 +14,9 @@ class ProfileSettings extends Component {
             this.props.fetchUser();
         }
     }
-    
+
 	render() {
-        const { loading, data } = this.props.user;
+        const { loading, data, data:{ profile, social } } = this.props.user;
         if( loading ) { 
             return (
                 <div>
@@ -27,58 +28,31 @@ class ProfileSettings extends Component {
             <div className="wpcf-dashboard-content">
                 <h3>Profile</h3>
                 <div className="wpcf-dashboard-content-inner">
-                    <div>
-                        { ( data.img_src ) &&
-                            <img className="profile-form-img" src={ data.img_src } alt="Profile Image" />
-                        }
-                        { ( data.profile_email1 ) &&
-                            <p>{ data.profile_email1[0] } </p>
-                        }
-                        { ( data.profile_country ) &&
-                            <p>{ data.profile_country[0] } </p>
-                        }
+                    <div className="wpcf-dashboard-profile">
+                        <div>
+                            <img className="profile-form-img" src={ profile.image } alt="Profile Image" />
+                        </div>
+                        <div>
+                            <p>{data.first_name+' '+data.last_name}</p>
+                            <p>{data.profile_email1}</p>
+                        </div>
+                        <div>
+                            <p> Country </p>
+                            <p>{profile.country}</p>
+                        </div>
                     </div>
                     <div className="wpcf-dashboard-profile">
-                        <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>Username</span>
-                            </div>
-                            <div className="content">
-                                { ( data.display_name ) &&
-                                    <p>{ data.display_name }</p>
-                                }
-                            </div>
+                        <div>
+                            <p>Deactivated your Account</p>
+                            <p>{profile.country}</p>
                         </div>
-                        <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>Address</span>
-                            </div>
-                            <div className="content">
-                                { ( data.profile_address ) &&
-                                    <p>{ data.profile_address[0] }</p>
-                                }
-                            </div>
+                        <div>
+                            <button>Yes</button>
                         </div>
-                        <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>City</span>
-                            </div>
-                            <div className="content">
-                                { ( data.profile_city ) &&
-                                    <p>{ data.profile_city[0] }</p>
-                                }
-                            </div>
-                        </div>
-                        <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>Postal Code</span>
-                            </div>
-                            <div className="content">
-                                { ( data.profile_postal_code ) &&
-                                    <p>{ data.profile_postal_code[0] }</p>
-                                }
-                            </div>
-                        </div>
+                    </div>
+                    <div className="wpcf-dashboard-profile">
+                        <h2>Connected Social Account</h2>
+                        <SocialForm data={ social }/>
                     </div>
                 </div>
             </div>

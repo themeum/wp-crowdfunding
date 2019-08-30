@@ -15,7 +15,7 @@ class Profile extends Component {
     }
     
 	render() {
-        const { loading, data } = this.props.user;
+        const { loading, data, data:{ profile } } = this.props.user;
         if( loading ) { 
             return (
                 <div>
@@ -28,56 +28,26 @@ class Profile extends Component {
                 <h3>Profile</h3>
                 <div className="wpcf-dashboard-content-inner">
                     <div>
-                        { ( data.img_src ) &&
-                            <img className="profile-form-img" src={ data.img_src } alt="Profile Image" />
-                        }
-                        { ( data.profile_email1 ) &&
-                            <p>{ data.profile_email1[0] } </p>
-                        }
-                        { ( data.profile_country ) &&
-                            <p>{ data.profile_country[0] } </p>
-                        }
+                        <img className="profile-form-img" src={ profile.image } alt="Profile Image" />
+                        <p>{profile.email} </p>
+                        <p>{profile.country} </p>
                     </div>
                     <div className="wpcf-dashboard-profile">
                         <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>Username</span>
-                            </div>
-                            <div className="content">
-                                { ( data.display_name ) &&
-                                    <p>{ data.display_name }</p>
-                                }
-                            </div>
+                            <p>Username</p>
+                            <p>{data.username}</p>
                         </div>
                         <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>Address</span>
-                            </div>
-                            <div className="content">
-                                { ( data.profile_address ) &&
-                                    <p>{ data.profile_address[0] }</p>
-                                }
-                            </div>
+                            <p>Address</p>
+                            <p>{profile.address}</p>
                         </div>
                         <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>City</span>
-                            </div>
-                            <div className="content">
-                                { ( data.profile_city ) &&
-                                    <p>{ data.profile_city[0] }</p>
-                                }
-                            </div>
+                            <p>City</p>
+                            <p>{profile.city}</p>
                         </div>
                         <div className="wpcf-dashboard-profile-item">
-                            <div className="heading">
-                                <span>Postal Code</span>
-                            </div>
-                            <div className="content">
-                                { ( data.profile_postal_code ) &&
-                                    <p>{ data.profile_postal_code[0] }</p>
-                                }
-                            </div>
+                            <p>Postal Code</p>
+                            <p>{profile.post_code}</p>
                         </div>
                     </div>
                 </div>

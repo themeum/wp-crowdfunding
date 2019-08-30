@@ -107,6 +107,7 @@ class Actions {
         update_user_meta( $user_id,'profile_email1',    $profile_email1 );
         update_user_meta( $user_id,'profile_fax',       $profile_fax );
         update_user_meta( $user_id,'profile_address',   $profile_address );
+        
         update_user_meta( $user_id,'profile_facebook',  $profile_facebook );
         update_user_meta( $user_id,'profile_twitter',   $profile_twitter );
         update_user_meta( $user_id,'profile_vk',        $profile_vk );

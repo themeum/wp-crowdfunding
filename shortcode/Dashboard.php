@@ -39,8 +39,8 @@ class Dashboard {
         $namespace = $this->api_namespace . $this->api_version;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
-        register_rest_route( $namespace, '/dashbord-profile', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'dashbord_profile') ),
+        register_rest_route( $namespace, '/user-profile', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile') ),
         ));
         register_rest_route( $namespace, '/my-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'my_campaigns') ),
@@ -97,21 +97,40 @@ class Dashboard {
      * @access    public
      * @return    {json} mixed
      */
-    function dashbord_profile() {
-        $current_user_id = $this->current_user_id;
-        $user = get_user_by('ID', $current_user_id);
-        $data = ( object ) get_user_meta($current_user_id);
-        //Inject additional data
-        $data->display_name = isset($user->display_name) ? $user->display_name : '';
-        $data->first_name = isset($user->first_name) ? $user->first_name : '';
-        $data->last_name = isset($user->last_name) ? $user->last_name : '';
-        //Inject image src if avaibale
-        $data->img_src = get_avatar_url( $current_user_id );
-        $image_id = get_user_meta( $current_user_id, 'profile_image_id', true );
+    function user_profile() {
+        $user_id = $this->current_user_id;
+        $user = get_userdata( $user_id );
+        $data = array(
+            'username' => $user->user_login,
+            'first_name' => isset($user->first_name) ? $user->first_name : '',
+            'last_name' => isset($user->last_name) ? $user->last_name : '',
+            //Social links
+            'profile' => array(
+                'image' => get_avatar_url( $user_id ),
+                'email' => get_user_meta( $user_id, 'profile_email1', true ),
+                'phone' => get_user_meta( $user_id, 'profile_mobile1', true ),
+                'country' => get_user_meta( $user_id, 'profile_country', true ),
+                'city' => get_user_meta( $user_id, 'profile_city', true ),
+                'address' => get_user_meta( $user_id, 'profile_address', true ),
+                'post_code' => get_user_meta( $user_id, 'profile_postal_code', true ),
+            ),
+            //Social links
+            'social' => array(
+                'facebook' => get_user_meta( $user_id, 'profile_facebook', true ),
+                'twitter' => get_user_meta( $user_id, 'profile_twitter', true ),
+                'instagram' => get_user_meta( $user_id, 'profile_instagram', true ),
+                'youtube' => get_user_meta( $user_id, 'profile_youtube', true ),
+                'linkedin' => get_user_meta( $user_id, 'profile_linkedin', true ),
+                'pinterest' => get_user_meta( $user_id, 'profile_pinterest', true ),
+                'vk' => get_user_meta( $user_id, 'profile_vk', true )
+            )
+        );
+        //Overwrite profile image if avaibale
+        $image_id = get_user_meta( $user_id, 'profile_image_id', true );
         if ( $image_id && $image_id > 0 ) {
-            $data->img_src = wp_get_attachment_image_src($image_id, 'full')[0];
+            $data['profile']['image'] = wp_get_attachment_image_src($image_id, 'full')[0];
         }
-        return rest_ensure_response( $data );
+        return rest_ensure_response( (object) $data );
     }
 
     /**
