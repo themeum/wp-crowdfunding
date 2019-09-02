@@ -6,6 +6,7 @@ import bookmarkCampaign from './bookmarkCampaign';
 import pledgeReceived from './pledgeReceived';
 import order from './order';
 import withdraw from './withdraw';
+import countries from './countries';
 
 const rootReducer = combineReducers({
     user,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     pledgeReceived,
     order,
     withdraw,
+    countries,
 });
 
 export default rootReducer;

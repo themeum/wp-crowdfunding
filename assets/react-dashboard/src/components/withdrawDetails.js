@@ -29,7 +29,7 @@ class WithdrawDetails extends Component {
             }
             if( reqStatus == 'error' ) {
                 this.setState({
-                    errorMsg: withdraw.error.msg
+                    errorMsg: withdraw.error
                 });
             }
         }

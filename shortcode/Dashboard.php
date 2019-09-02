@@ -1,17 +1,43 @@
 <?php
-namespace WPCF\shortcode;
+/**
+ * WP-Crowdfunding dashboard REST API's
+ *
+ * @category   Crowdfunding
+ * @package    Dashboard
+ * @author     Themeum <www.themeum.com>
+ * @copyright  2019 Themeum <www.themeum.com>
+ * @version    Release: @1.0.0
+ * @since      2.0.1
+ */
 
+namespace WPCF\shortcode;
 defined( 'ABSPATH' ) || exit;
 
 class Dashboard {
+    /**
+     * The version of user dashboard api
+     * @var     int $api_version
+     * @access  private
+     */
+    private $api_version = 1;
 
-	public $api_version = 1;
-	public $current_user_id = 0;
-    public $api_namespace = 'wp-crowdfunding/v';
+    /**
+     * Logged in user id
+     * @var     int $current_user_id
+     * @access  private
+     */
+    private $current_user_id = 0;
     
     /**
-     * Constructor function
+     * Namespace of user dashboard api
+     * @var     string $api_namespace
+     * @access  private
+     */
+    private $api_namespace = 'wp-crowdfunding/v';
+    
+    /**
      * @constructor
+     * @since 2.0.1
      */
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
@@ -22,7 +48,8 @@ class Dashboard {
 
     /**
      * Init rest api
-     * @access    public
+     * @since   2.0.1
+     * @access  public
      */
     function init_rest_api() {
         $this->current_user_id = get_current_user_id();
@@ -33,7 +60,8 @@ class Dashboard {
 
     /**
      * Register rest api routes
-     * @access    public
+     * @since   2.0.1
+     * @access  public
      */
     function register_rest_api() {
         $namespace = $this->api_namespace . $this->api_version;
@@ -63,11 +91,18 @@ class Dashboard {
         register_rest_route( $namespace, '/withdraw-request', array(
             array( 'methods' => $method_creatable, 'callback' => array($this, 'withdraw_request'), ),
         ));
+        register_rest_route( $namespace, '/save-userdata', array(
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_user_data'), ),
+        ));
+        register_rest_route( $namespace, '/wc-countries', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries'), ),
+        ));
     }
     
     /**
      * Enqueue dashboard assets
-     * @access    public
+     * @since   2.0.1
+     * @access  public
      */
     function dashboard_assets() {
         $api_namespace = $this->api_namespace . $this->api_version;
@@ -84,9 +119,10 @@ class Dashboard {
 
     /**
      * Dashboard shortcode callback
-     * @param     {object}  attr
+     * @since     2.0.1
      * @access    public
-     * @return    {html} mixed
+     * @param     {object}  attr
+     * @return    {html}    mixed
      */
     function dashboard_callback($attr) {
         return '<div id="wpcf-dashboard"></div>';
@@ -94,47 +130,47 @@ class Dashboard {
 
     /**
      * Get dashboard profile data
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
     function user_profile() {
         $user_id = $this->current_user_id;
         $user = get_userdata( $user_id );
+        $country_code = get_user_meta( $user_id, 'profile_country', true );
+        $profile_image_id = get_user_meta( $user_id, 'profile_image_id', true );
         $data = array(
-            'username' => $user->user_login,
-            'first_name' => isset($user->first_name) ? $user->first_name : '',
-            'last_name' => isset($user->last_name) ? $user->last_name : '',
-            //Social links
-            'profile' => array(
-                'image' => get_avatar_url( $user_id ),
-                'email' => get_user_meta( $user_id, 'profile_email1', true ),
-                'phone' => get_user_meta( $user_id, 'profile_mobile1', true ),
-                'country' => get_user_meta( $user_id, 'profile_country', true ),
-                'city' => get_user_meta( $user_id, 'profile_city', true ),
-                'address' => get_user_meta( $user_id, 'profile_address', true ),
-                'post_code' => get_user_meta( $user_id, 'profile_postal_code', true ),
-            ),
-            //Social links
-            'social' => array(
-                'facebook' => get_user_meta( $user_id, 'profile_facebook', true ),
-                'twitter' => get_user_meta( $user_id, 'profile_twitter', true ),
-                'instagram' => get_user_meta( $user_id, 'profile_instagram', true ),
-                'youtube' => get_user_meta( $user_id, 'profile_youtube', true ),
-                'linkedin' => get_user_meta( $user_id, 'profile_linkedin', true ),
-                'pinterest' => get_user_meta( $user_id, 'profile_pinterest', true ),
-                'vk' => get_user_meta( $user_id, 'profile_vk', true )
-            )
+            'username'          => $user->user_login,
+            'first_name'        => isset($user->first_name) ? $user->first_name : '',
+            'last_name'         => isset($user->last_name) ? $user->last_name : '',
+            'profile_image'     => get_avatar_url( $user_id ),
+            'profile_image_id'  => $profile_image_id,
+            'profile_email1'    => get_user_meta( $user_id, 'profile_email1', true ),
+            'profile_mobile1'   => get_user_meta( $user_id, 'profile_mobile1', true ),
+            'profile_country'   => $country_code,
+            'country_name'      => WC()->countries->countries[$country_code],
+            'profile_city'      => get_user_meta( $user_id, 'profile_city', true ),
+            'profile_address'   => get_user_meta( $user_id, 'profile_address', true ),
+            'profile_post_code' => get_user_meta( $user_id, 'profile_post_code', true ),
+            'profile_facebook'  => get_user_meta( $user_id, 'profile_facebook', true ),
+            'profile_twitter'   => get_user_meta( $user_id, 'profile_twitter', true ),
+            'profile_instagram' => get_user_meta( $user_id, 'profile_instagram', true ),
+            'profile_youtube'   => get_user_meta( $user_id, 'profile_youtube', true ),
+            'profile_linkedin'  => get_user_meta( $user_id, 'profile_linkedin', true ),
+            'profile_pinterest' => get_user_meta( $user_id, 'profile_pinterest', true ),
+            'profile_vk'        => get_user_meta( $user_id, 'profile_vk', true )
         );
-        //Overwrite profile image if avaibale
-        $image_id = get_user_meta( $user_id, 'profile_image_id', true );
-        if ( $image_id && $image_id > 0 ) {
-            $data['profile']['image'] = wp_get_attachment_image_src($image_id, 'full')[0];
+        if ( $profile_image_id && $profile_image_id > 0 ) {
+            //Overwrite profile image if image meta avaibale
+            $data['profile_image'] = wp_get_attachment_image_src($profile_image_id, 'full')[0];
         }
+        $data['countries'] = $countries;
         return rest_ensure_response( (object) $data );
     }
 
     /**
      * Get user my campaigns
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
@@ -158,6 +194,7 @@ class Dashboard {
 
     /**
      * Get user invested campaigns
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
@@ -206,6 +243,7 @@ class Dashboard {
 
     /**
      * Get user pledge received
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
@@ -328,6 +366,7 @@ class Dashboard {
 
     /**
      * Get user bookmark campaigns
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
@@ -341,16 +380,18 @@ class Dashboard {
                 'post__in' => $campaign_ids,
                 'orderby' => 'post__in',
             );
-            $data = $this->fetch_campaigns( $query ); //call to private function fetch_campaigns
+            //Fetch all campaigns by query
+            $data = $this->fetch_campaigns( $query );
         }
         return rest_ensure_response( $data );
     }
 
     /**
      * Fetch campaigns from the query
+     * @since     2.0.1
+     * @access    private
      * @param     {array}  query
-     * @access    public
-     * @return    {array} mixed
+     * @return    {array}  mixed
      */
     private function fetch_campaigns( $query ) {
         $wp_query = new \WP_Query( $query );
@@ -384,6 +425,7 @@ class Dashboard {
 
     /**
      * Get user order list
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
@@ -428,6 +470,7 @@ class Dashboard {
 
     /**
      * Get user withdraw list
+     * @since     2.0.1
      * @access    public
      * @return    {json} mixed
      */
@@ -488,8 +531,10 @@ class Dashboard {
 
     /**
      * Post user withdraw request
+     * @since     2.0.1
      * @access    public
-     * @return    {json} mixed
+     * @param     {object}  request
+     * @return    {json}    mixed
      */
     function withdraw_request( \WP_REST_Request $request ) {
         global $wpdb, $woocommerce;
@@ -571,8 +616,7 @@ class Dashboard {
 
             $response = array(
                 'success' => 1,
-                'data' => $response_data,
-                'msg' => __('Your withdraw request is processing', 'wp-crowdfunding-pro')
+                'data' => $response_data
             );
         } else {
             $response = array(
@@ -585,8 +629,10 @@ class Dashboard {
 
     /**
      * Get sold campaigns by where_meta
+     * @since     2.0.1
      * @access    private
-     * @return    {array} mixed
+     * @param     {object}  request
+     * @return    {array}   mixed
      */
     private function sold_campaigns( $where_meta ) {
         global $wpdb, $woocommerce;
@@ -636,6 +682,7 @@ class Dashboard {
     /**
      * Get withdraw details by campaign_id
      * @access    private
+     * @param     {int}   campaign_id
      * @return    {array} mixed
      */
     private function withdraw_details( $campaign_id ) {
@@ -662,6 +709,39 @@ class Dashboard {
             'total_withdraw' => $total_withdraw, 
             'request_items' => $request_items 
         ];
+    }
+
+    /**
+     * Save user user data
+     * @since     2.0.1
+     * @access    public
+     * @param     {object}  request
+     * @return    {json}    mixed
+     */
+    function save_user_data( \WP_REST_Request $request ) {
+        $json_params = $request->get_json_params();
+        $response_data = array();
+        foreach( $json_params as $key => $value ) {
+            update_user_meta( $this->current_user_id, $key, sanitize_text_field($value) );
+            $response_data[$key] = sanitize_text_field( $value );
+        }
+        $response = array(
+            'success' => 1, 
+            'data' => $response_data
+        );
+        return rest_ensure_response( $response );
+    }
+
+
+    /**
+     * Get wc_countries
+     * @since     2.0.1
+     * @access    public
+     * @return    {json} mixed
+     */
+    function wc_countries() {
+        $countries = (array) WC()->countries->countries;
+        return rest_ensure_response( $countries );
     }
 
 }

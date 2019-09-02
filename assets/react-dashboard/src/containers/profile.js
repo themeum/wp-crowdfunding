@@ -15,7 +15,7 @@ class Profile extends Component {
     }
     
 	render() {
-        const { loading, data, data:{ profile } } = this.props.user;
+        const { loading, data } = this.props.user;
         if( loading ) { 
             return (
                 <div>
@@ -28,26 +28,26 @@ class Profile extends Component {
                 <h3>Profile</h3>
                 <div className="wpcf-dashboard-content-inner">
                     <div>
-                        <img className="profile-form-img" src={ profile.image } alt="Profile Image" />
-                        <p>{profile.email} </p>
-                        <p>{profile.country} </p>
+                        <img className="profile-form-img" src={ data.profile_image } alt="Profile Image" />
+                        <p>{ data.profile_email1 } </p>
+                        <p>{ data.profile_country } </p>
                     </div>
                     <div className="wpcf-dashboard-profile">
                         <div className="wpcf-dashboard-profile-item">
                             <p>Username</p>
-                            <p>{data.username}</p>
+                            <p>{ data.username }</p>
                         </div>
                         <div className="wpcf-dashboard-profile-item">
                             <p>Address</p>
-                            <p>{profile.address}</p>
+                            <p>{data.profile_address}</p>
                         </div>
                         <div className="wpcf-dashboard-profile-item">
                             <p>City</p>
-                            <p>{profile.city}</p>
+                            <p>{data.profile_city}</p>
                         </div>
                         <div className="wpcf-dashboard-profile-item">
                             <p>Postal Code</p>
-                            <p>{profile.post_code}</p>
+                            <p>{data.profile_post_code}</p>
                         </div>
                     </div>
                 </div>

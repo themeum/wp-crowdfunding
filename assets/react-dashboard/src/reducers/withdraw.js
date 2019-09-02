@@ -18,10 +18,10 @@ export default function(state = { loading: true, loaded: false, reqStatus: 'pend
             };
         case FETCH_WITHDRAWS_ERROR:
             return {
-                    ...state,
-                    loading: false,
-                    loaded: false,
-                    error: action.payload,
+                ...state,
+                loading: false,
+                loaded: false,
+                error: action.payload,
             };
         case POST_WITHDRAW_REQUEST_PENDING:
             return {
@@ -35,15 +35,15 @@ export default function(state = { loading: true, loaded: false, reqStatus: 'pend
                 const index = data.findIndex(item => item.campaign_id == res.data.campaign_id);
                 data[index]['withdraw'] = res.data.withdraw;
                 return { 
-                        ...state, 
-                        reqStatus: 'complete',
-                        data 
+                    ...state, 
+                    reqStatus: 'complete',
+                    data 
                 };
             } else {
                 return {
                     ...state,
                     reqStatus: 'error',
-                    error: action.payload,
+                    error: res.msg,
                 };
             }
         case POST_WITHDRAW_REQUEST_ERROR:
