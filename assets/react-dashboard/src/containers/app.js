@@ -18,6 +18,8 @@ class App extends Component {
 		this.state = { basePath };
 	}
 
+	
+
 	render () {
 		const { basePath } = this.state;
 		return (

@@ -47,6 +47,7 @@ class ProfileSettings extends Component {
 	render() {
         const { profileEdit } = this.state;
         const { loading, data } = this.props.user;
+        
         if( loading ) { 
             return (
                 <div>

@@ -719,10 +719,16 @@ class Dashboard {
      * @return    {json}    mixed
      */
     function save_user_data( \WP_REST_Request $request ) {
+        $user_id = $this->current_user_id;
         $json_params = $request->get_json_params();
         $response_data = array();
+        if( isset($json_params['password']) ) {
+            $password = $json_params['password'];
+            unset( $json_params['password'] );
+            wp_set_password( $password, $user_id );
+        }
         foreach( $json_params as $key => $value ) {
-            update_user_meta( $this->current_user_id, $key, sanitize_text_field($value) );
+            update_user_meta( $user_id, $key, sanitize_text_field($value) );
             $response_data[$key] = sanitize_text_field( $value );
         }
         $response = array(

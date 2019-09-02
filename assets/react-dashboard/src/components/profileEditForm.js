@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ProfileEditForm extends Component {
 	constructor (props) {
         super(props);
-        this.state = { ...this.props.data };
+        this.state = { ...this.props.data, new_pass: '', retype_pass: '', error: '' };
         this.changeImage = this.changeImage.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -25,17 +25,36 @@ class ProfileEditForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.onClickSaveData( this.state );
+        const { new_pass, retype_pass } = this.state;
+        let postData = this.state;
+        delete postData.new_pass;
+        delete postData.retype_pass;
+        delete postData.error;
+
+        if( new_pass ) {
+            if( new_pass !== retype_pass ) {
+                this.setState({
+                    error: "Password doesn't match"
+                });
+                return false;
+            }
+            postData['password'] = new_pass;
+        }
+        this.props.onClickSaveData( postData );
+        this.setState({error: ""});
     }
 
 	render() {
         const { countries } = this.props;
-        const { profile_image, profile_image_id, username, first_name, last_name, profile_email1, profile_country, profile_city, profile_address, profile_post_code } = this.state;
+        const { profile_image, username, first_name, last_name, profile_email1, profile_country, profile_city, profile_address, profile_post_code, new_pass, retype_pass, error } = this.state;
         return (
             <form onSubmit={ this.onSubmit }>
+                { error &&
+                    <div className="alert alert-danger">{error}</div>
+                }
                 <div className="wpcf-form-group">
                     <label>Profile Picture</label>
-                    <img className="" src={ profile_image } style={ { maxWidth: "200px" } }/>
+                    <img className="" src={ profile_image } style={{ maxWidth: "200px" }}/>
                     <span onClick={ this.changeImage }>Edit</span>
                 </div>
                 <div className="wpcf-form-group">
@@ -75,6 +94,15 @@ class ProfileEditForm extends Component {
                 <div className="wpcf-form-group">
                     <label htmlFor="wpcfp_post_code">Postal Code</label>
                     <input type="text" id="wpcfp_post_code" name="profile_post_code" value={ profile_post_code } onChange={ this.onChangeValue }/>
+                </div>
+                <h3>Password</h3>
+                <div className="wpcf-form-group">
+                    <label htmlFor="wpcfp_new_pass">New Password</label>
+                    <input type="password" id="wpcfp_new_pass" name="new_pass" value={ new_pass || '' } onChange={ this.onChangeValue }/>
+                </div>
+                <div className="wpcf-form-group">
+                    <label htmlFor="wpcfp_retype_pass">Retype Password</label>
+                    <input type="password" id="wpcfp_retype_pass" name="retype_pass" value={ retype_pass || '' } onChange={ this.onChangeValue }/>
                 </div>
                 <button type="button" onClick={ this.props.toggleEdit }>Cancel</button>
                 <button type="submit">Save</button>
