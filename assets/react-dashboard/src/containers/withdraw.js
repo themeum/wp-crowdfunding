@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchWithdraws } from '../actions/orderAction';
+import { fetchWithdraws } from '../actions/withdrawAction';
 import Pagination from '../components/pagination';
 import ItemWithdraw from '../components/itemWithdraw';
 import WithdrawDetails from '../components/withdrawDetails';

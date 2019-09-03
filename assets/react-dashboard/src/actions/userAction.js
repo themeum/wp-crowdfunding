@@ -1,3 +1,4 @@
+//FETCH COUNTRIES
 export const FETCH_COUNTRIES_PENDING = 'fetch_countries_pending';
 export const FETCH_COUNTRIES_COMPLETE = 'fetch_countries_complete';
 export const FETCH_COUNTRIES_ERROR = 'fetch_countries_error';
@@ -12,6 +13,7 @@ export const fetchCountries = () => dispatch => {
     .catch( payload => dispatch( {type: FETCH_COUNTRIES_ERROR, payload} ) );
 }
 
+//FETCH USER DATA
 export const FETCH_USER_PENDING = 'fetch_user_pending';
 export const FETCH_USER_COMPLETE = 'fetch_user_complete';
 export const FETCH_USER_ERROR = 'fetch_user_error';
@@ -26,7 +28,7 @@ export const fetchUser = () => dispatch => {
     .catch( payload => dispatch( {type: FETCH_USER_ERROR, payload} ) );
 }
 
-
+//SAVE USER DATA
 export const SAVE_USER_DATA_PENDING = 'save_user_data_pending';
 export const SAVE_USER_DATA_COMPLETE = 'save_user_data_complete';
 export const SAVE_USER_DATA_ERROR = 'save_user_data_error';

@@ -7,7 +7,7 @@
  * @author     Themeum <www.themeum.com>
  * @copyright  2019 Themeum <www.themeum.com>
  * @version    Release: @1.0.0
- * @since      2.0.1
+ * @since      2.1.0
  */
 
 namespace WPCF\shortcode;
@@ -37,7 +37,7 @@ class Dashboard {
     
     /**
      * @constructor
-     * @since 2.0.1
+     * @since 2.1.0
      */
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
@@ -48,7 +48,7 @@ class Dashboard {
 
     /**
      * Init rest api
-     * @since   2.0.1
+     * @since   2.1.0
      * @access  public
      */
     function init_rest_api() {
@@ -60,7 +60,7 @@ class Dashboard {
 
     /**
      * Register rest api routes
-     * @since   2.0.1
+     * @since   2.1.0
      * @access  public
      */
     function register_rest_api() {
@@ -94,6 +94,12 @@ class Dashboard {
         register_rest_route( $namespace, '/save-userdata', array(
             array( 'methods' => $method_creatable, 'callback' => array($this, 'save_user_data'), ),
         ));
+        register_rest_route( $namespace, '/withdraw-methods', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'withdraw_methods'), ),
+        ));
+        register_rest_route( $namespace, '/save-withdraw-account', array(
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_withdraw_account'), ),
+        ));
         register_rest_route( $namespace, '/wc-countries', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries'), ),
         ));
@@ -101,7 +107,7 @@ class Dashboard {
     
     /**
      * Enqueue dashboard assets
-     * @since   2.0.1
+     * @since   2.1.0
      * @access  public
      */
     function dashboard_assets() {
@@ -119,7 +125,7 @@ class Dashboard {
 
     /**
      * Dashboard shortcode callback
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @param     {object}  attr
      * @return    {html}    mixed
@@ -130,7 +136,7 @@ class Dashboard {
 
     /**
      * Get dashboard profile data
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -170,7 +176,7 @@ class Dashboard {
 
     /**
      * Get user my campaigns
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -194,7 +200,7 @@ class Dashboard {
 
     /**
      * Get user invested campaigns
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -243,7 +249,7 @@ class Dashboard {
 
     /**
      * Get user pledge received
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -366,7 +372,7 @@ class Dashboard {
 
     /**
      * Get user bookmark campaigns
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -388,7 +394,7 @@ class Dashboard {
 
     /**
      * Fetch campaigns from the query
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    private
      * @param     {array}  query
      * @return    {array}  mixed
@@ -425,7 +431,7 @@ class Dashboard {
 
     /**
      * Get user order list
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -467,10 +473,9 @@ class Dashboard {
         return rest_ensure_response( $customer_orders );
     }
 
-
     /**
      * Get user withdraw list
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
@@ -531,7 +536,7 @@ class Dashboard {
 
     /**
      * Post user withdraw request
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @param     {object}  request
      * @return    {json}    mixed
@@ -629,7 +634,7 @@ class Dashboard {
 
     /**
      * Get sold campaigns by where_meta
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    private
      * @param     {object}  request
      * @return    {array}   mixed
@@ -713,7 +718,7 @@ class Dashboard {
 
     /**
      * Save user user data
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @param     {object}  request
      * @return    {json}    mixed
@@ -740,8 +745,123 @@ class Dashboard {
 
 
     /**
+     * Get withdraw methods
+     * @since     2.1.0
+     * @access    public
+     * @return    {json}    mixed
+     */
+    function withdraw_methods() {
+        $saved_methods = get_option('wpcf_withdraw_methods');
+        $saved_methods = is_array($saved_methods) ? $saved_methods : [];
+        $min_withdraw_amount = get_option('walleet_min_withdraw_amount');
+        $method_desc = 'Min Withdraw '. wc_price($min_withdraw_amount);
+        $withdraw_methods = array(
+            //Bank Transfer
+			'bank_transfer' => array(
+				'method_name' => __('Bank Transfer', 'wp-crowdfunding'),
+				'desc' => __($method_desc, 'wp-crowdfunding'),
+				'form_fields' => array(
+					array(
+                        'type' => 'text',
+                        'name' => 'account_name',
+						'label' => __('Account Name', 'wp-crowdfunding'),
+					),
+					array(
+                        'type' => 'text',
+                        'name' => 'account_number',
+						'label' => __('Account Number', 'wp-crowdfunding'),
+					),
+					array(
+                        'type'  => 'text',
+                        'name' => 'bank_name',
+						'label' => __('Bank Name', 'wp-crowdfunding'),
+					),
+					array(
+                        'type' => 'text',
+                        'name' => 'iban',
+						'label' => __('IBAN', 'wp-crowdfunding'),
+					),
+					array(
+                        'type' => 'text',
+                        'name' => 'swift',
+						'label' => __('BIC / SWIFT', 'wp-crowdfunding'),
+					),
+				),
+			),
+            //ECHECK
+			'echeck' => array(
+                'method_name'  => __('ECHECK', 'wp-crowdfunding'),
+                'desc' => __($method_desc, 'wp-crowdfunding'),
+				'form_fields' => array(
+					array(
+                        'type' => 'textarea',
+                        'name' => 'physical_address',
+						'label' => __('Your Physical Address', 'wp-crowdfunding'),
+						'desc' => __('We will send you an ECHECK to this address directly.', 'wp-crowdfunding'),
+					),
+				),
+            ),
+            //PayPal Payment
+			'paypal' => array(
+                'method_name' => __('PayPal Payment', 'wp-crowdfunding'),
+                'desc' => __($method_desc, 'wp-crowdfunding'),
+				'form_fields' => array(
+					array(
+                        'type' => 'email',
+                        'name' => 'paypal_email',
+						'label' => __('PayPal E-Mail Address', 'wp-crowdfunding'),
+						'desc' => __('Write your paypal email address to get payout directly to your paypal account', 'wp-crowdfunding'),
+					),
+				),
+			),
+        );
+        
+        foreach( $withdraw_methods as $key => $method ) {
+            if( !in_array($key, $saved_methods) ) {
+                unset( $withdraw_methods[$key] ); //remove method if not set from admin
+            }
+        }
+
+        $selected_method = get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true);
+
+        $response = array(
+            'success' => 1,
+            'methods' => $withdraw_methods,
+            'selected_method' => $selected_method
+        );
+
+        return rest_ensure_response( $response );
+    }
+
+    /**
+     * Save user withdraw account
+     * @since     2.1.0
+     * @access    public
+     * @param     {object}  request
+     * @return    {json}    mixed
+     */
+    function save_withdraw_account( \WP_REST_Request $request ) {
+        $user_id = $this->current_user_id;
+        $json_params = $request->get_json_params();
+        
+        $saved_data = array(
+            'key' => $json_params['key'],
+            'data' => $json_params['data']
+        );
+
+        update_user_meta($user_id, 'wpcf_user_withdraw_account', $saved_data);
+
+        $response = array(
+            'success' => 1, 
+            'data' => $saved_data
+        );
+        return rest_ensure_response( $response );
+    }
+    
+
+    /**
      * Get wc_countries
-     * @since     2.0.1
+     * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */

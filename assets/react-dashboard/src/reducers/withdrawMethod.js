@@ -1,58 +1,56 @@
-import { FETCH_WITHDRAWS_PENDING, FETCH_WITHDRAWS_COMPLETE, FETCH_WITHDRAWS_ERROR, POST_WITHDRAW_REQUEST_PENDING, POST_WITHDRAW_REQUEST_COMPLETE, POST_WITHDRAW_REQUEST_ERROR } from "../actions/withdrawAction";
+import { FETCH_WITHDRAW_METHODS_PENDING, FETCH_WITHDRAW_METHODS_COMPLETE, FETCH_WITHDRAW_METHODS_ERROR, SAVE_WITHDRAW_ACCOUNT_PENDING, SAVE_WITHDRAW_ACCOUNT_COMPLETE, SAVE_WITHDRAW_ACCOUNT_ERROR } from "../actions/withdrawAction";
 
-export default function(state = { loading: true, loaded: false, reqStatus: 'pending', data:[] }, action ) {
+export default function(state = { loading: true, loaded: false, saveReq: 'pending', data:{} }, action ) {
     switch( action.type ) {
         
-        case FETCH_WITHDRAWS_PENDING:
+        case FETCH_WITHDRAW_METHODS_PENDING:
             return {
                 ...state,
                 loading: true,
                 loaded: false,
             };
-        case FETCH_WITHDRAWS_COMPLETE:
+        case FETCH_WITHDRAW_METHODS_COMPLETE:
             return {
                 ...state,
                 loading: false,
                 loaded: true,
                 data: action.payload,
             };
-        case FETCH_WITHDRAWS_ERROR:
+        case FETCH_WITHDRAW_METHODS_ERROR:
             return {
                 ...state,
                 loading: false,
                 loaded: false,
                 error: action.payload,
             };
-        case POST_WITHDRAW_REQUEST_PENDING:
+        case SAVE_WITHDRAW_ACCOUNT_PENDING:
             return {
                 ...state,
-                reqStatus: 'pending',
+                saveReq: 'pending',
             };
-        case POST_WITHDRAW_REQUEST_COMPLETE:
+        case SAVE_WITHDRAW_ACCOUNT_COMPLETE:
             const res = action.payload;
-            let data = [ ...state.data ];
+            let data = { ...state.data };
             if( res.success ) {
-                const index = data.findIndex(item => item.campaign_id == res.data.campaign_id);
-                data[index]['withdraw'] = res.data.withdraw;
+                data['selected_method'] = res.data;
                 return { 
                     ...state, 
-                    reqStatus: 'complete',
+                    saveReq: 'complete',
                     data 
                 };
             } else {
                 return {
                     ...state,
-                    reqStatus: 'error',
+                    saveReq: 'error',
                     error: res.msg,
                 };
             }
-        case POST_WITHDRAW_REQUEST_ERROR:
+        case SAVE_WITHDRAW_ACCOUNT_ERROR:
             return {
                 ...state,
-                reqStatus: 'error',
+                saveReq: 'error',
                 error: action.payload,
             };
-            
         default: 
             return state;
     }

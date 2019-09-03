@@ -10,6 +10,7 @@ import BookmarkCampaigns from './bookmarkCampaigns';
 import Order from './order';
 import Withdraw from './withdraw';
 import ProfileSettings from './profileSettings';
+import WithdrawMethodSettings from './withdrawMethodSettings';
 
 class App extends Component {
 	constructor (props) {
@@ -18,7 +19,7 @@ class App extends Component {
 		this.state = { basePath };
 	}
 
-	
+
 
 	render () {
 		const { basePath } = this.state;
@@ -59,6 +60,7 @@ class App extends Component {
 									<li className='wpcf-dashboard-menu-index'><Link to="/withdraw">Withdraw</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/">User Settings</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/settings/profile">Profile</Link></li>
+									<li className='wpcf-dashboard-menu-index'><Link to="/settings/withdraw">Withdraw Method</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/rewards">Rewards</Link></li>
 									<li className='wpcf-dashboard-menu-logout'><Link to="/">Logout</Link></li>
 								</ul>
@@ -73,6 +75,7 @@ class App extends Component {
 								<Route path="/order" component={ Order } />
 								<Route path="/withdraw" component={ Withdraw } />
 								<Route path="/settings/profile" component={ ProfileSettings } />
+								<Route path="/settings/withdraw" component={ WithdrawMethodSettings } />
 							</div>
 						</Router>
 					</div>

@@ -227,66 +227,6 @@
   .wpcf-dashboard-info-table-wrap > h3 + table{
     border-radius: 0 0 4px 4px ;
   }
-  
-  
-  /**
-   * Tutor Dashboard Review
-   */
-  
-  .wpcf-dashboard-single-review{
-    border: 1px solid #DCDFE5;
-    border-radius: 4px;
-    margin-bottom: 30px;
-  }
-  .wpcf-dashboard-review-heading{
-    padding: 18px 24px;
-    border-bottom: 1px solid #DCDFE5;
-    
-    
-    display: flex;
-    align-items: center;
-  }
-  .individual-dashboard-review-body{
-    padding: 18px 24px;
-  }
-  
-  .wpcf-dashboard-review-title{
-    font-size: 18px;
-    -webkit-box-flex: 1;
-    
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 300;
-  }
-  .wpcf-dashboard-review-title a{
-    font-weight: 500;
-    color: var(--wpcf-primary-color);
-  }
-  
-  .wpcf-dashboard-review-links{
-    white-space: nowrap;
-    font-weight: 400;
-  }
-  
-  .wpcf-dashboard-review-links a{
-    color: #8C94A8;
-    margin-left: 30px;
-    display: inline-flex;
-    align-items: center;
-  }
-  
-  .wpcf-dashboard-review-links a i{
-    line-height: inherit;
-    font-size: 24px;
-    margin-right: 10px;
-  }
-  .wpcf-dashboard-review-links a:last-child i{
-    color: #F0576A;
-  }
-  
-  
   /*dashboard content*/
   
   .wpcf-dashboard-info-cards{
@@ -324,80 +264,12 @@
     vertical-align: middle;
   }
   
-  /*dashboard quiz attempts*/
   .wpcf-dashboard-content{
     margin-bottom: 60px;
   }
   
   .wpcf-dashboard-content > h2{
     margin-bottom: 20px;
-  }
-  
-  .wpcf-dashboard-content  .wpcf-quiz-attempt-history tr th,
-  .wpcf-dashboard-content  .wpcf-quiz-attempt-history tr td{
-    vertical-align: middle;
-  }
-  .wpcf-dashboard-content  .wpcf-quiz-attempt-history tr td:first-child{
-    padding: 15px 13px !important;
-  }
-  .wpcf-dashboard-content  .wpcf-quiz-attempt-history tr.pass{
-    border-left: 3px solid var(--wpcf-success-button-color);
-  }
-  .wpcf-dashboard-content  .wpcf-quiz-attempt-history tr.fail{
-    border-left: 3px solid #D71830;
-  }
-  .wpcf-dashboard-content .wpcf-quiz-attempt-history table span.result-fail,
-  .wpcf-dashboard-content .wpcf-quiz-attempt-history table span.result-pass{
-    width: auto;
-    height: auto;
-    line-height: 19px;
-    padding: 0 5px;
-    margin-right: 4px;
-  }
-  
-  
-  .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr th{
-    background: #FAFBFC;
-  }
-  
-  .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr td{
-    background: #fff;
-  }
-  
-  @media (max-width: 768px) {
-    .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr{
-      display: flex;
-      flex-wrap: wrap;
-      box-sizing: border-box;
-    }
-    .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr th{
-      display: none;
-    }
-    .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr td{
-      width: 100%;
-    }
-    .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr td:not(:first-child){
-      text-align: right;
-    }
-  
-    .wpcf-dashboard-content .wpcf-quiz-attempt-history table tr td:not(:first-child)::before{
-      content: attr(title) ": ";
-      float: left;
-      font-weight: 700;
-    }
-  
-  }
-  
-  .wpcf-dashboard-content .wpcf-quiz-attempt-history table a{
-    color: var(--wpcf-primary-color);
-    font-weight: 700;
-    //font-size: var(--wpcf-text-size);
-    line-height: 24px;
-  }
-  
-  
-  .wpcf-dashboard-content .wpcf-quiz-attempt-history table a:hover{
-    color: var(--wpcf-primary-color);
   }
   
   .wpcf-dashboard-item-group{
@@ -412,173 +284,6 @@
     color: var(--wpcf-primary-color);
     font-weight: 500;
   }
-  
-  /* Dashboard Assignment */
-  .wpcf-dashboard-assignment-submitted-table tr td{
-    text-align: center;
-  }
-  
-  .wpcf-dashboard-assignment-submitted-table tr td a{
-    color: #8C94A8;
-    transition: 300ms;
-  }
-  
-  .wpcf-dashboard-assignment-submitted-table tr td a:hover{
-    color: var(--wpcf-primary-color);
-  }
-  
-  .wpcf-dashboard-assignment-submitted-table tr td,
-  .wpcf-dashboard-assignment-submitted-table tr th{
-    border: 1px solid #DCDFE5;
-  }
-  
-  /* Dashboard Assignment Review */
-  
-  .wpcf-assignment-review-header{
-    margin-bottom: 30px;
-  }
-  .wpcf-assignment-review-header h3{
-    margin-bottom: 10px;
-    line-height: 28px;
-  }
-  
-  .wpcf-assignment-evaluate-wraps h3,
-  .wpcf-assignment-review-header h3 a{
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--wpcf-text-color);
-    display: block;
-  }
-  
-  .wpcf-assignment-review-header p{
-    margin: 0;
-    color: var(--wpcf-text-color);
-    font-weight: 700;
-  }
-  
-  .wpcf-assignment-review-header p a{
-    font-weight: 400;
-    color: var(--wpcf-text-color);
-  }
-  
-  .wpcf-assignment-review-header a{
-    transition: 300ms;
-  }
-  
-  .wpcf-assignment-review-header a:hover{
-    color: var(--wpcf-primary-color);
-  }
-  
-  .wpcf-dashboard-assignment-review{
-    background: rgba(220, 223, 229, 0.14);
-    border: 1px solid #DCDFE5;
-    padding: 25px;
-    //font-size: var(--wpcf-text-size);
-    font-weight: 400;
-    border-radius: 4px;
-    margin-bottom: 40px;
-  }
-  
-  .wpcf-dashboard-assignment-review h5,
-  .wpcf-dashboard-assignment-review h4{
-    font-size: 16px;
-    line-height: 23px;
-    font-weight: 700;
-    color: var(--wpcf-text-color);
-  }
-  .wpcf-dashboard-assignment-review h5{
-    //font-size: var(--wpcf-text-size);
-    margin-bottom: 15px;
-  }
-  
-  .wpcf-dashboard-assignment-files {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -9px;
-  }
-  
-  .wpcf-dashboard-assignment-files .uploaded-files{
-    background-color: #fff;
-    border: 1px solid #DCDFE5;
-    border-radius: 4px;
-    margin: 9px;
-    transition: 300ms;
-  }
-  
-  .wpcf-dashboard-assignment-files .uploaded-files:hover{
-    box-shadow: 0 5px 10px rgba(0,0,0,.1);
-  }
-  
-  .wpcf-dashboard-assignment-files .uploaded-files a i{
-    margin-right: 12px;
-    color: #606C8F;
-    float: left;
-    font-size: 28px;
-    line-height: 28px;
-  }
-  
-  .wpcf-dashboard-assignment-files .uploaded-files a{
-    color: var(--wpcf-primary-color);
-    display: block;
-    overflow: hidden;
-    line-height: 28px;
-    padding: 15px 17px;
-  }
-  
-  .wpcf-assignment-evaluate-row{
-    display: flex;
-  }
-  
-  .wpcf-assignment-evaluate-row .wpcf-option-field-label{
-    flex: 0 0 135px;
-  }
-  
-  .wpcf-assignment-evaluate-row .wpcf-option-field{
-    flex-grow: 1;
-  }
-  
-  .wpcf-assignment-evaluate-row .wpcf-option-field-label label{
-    display: block;
-    padding-top: 12px;
-  }
-  
-  .wpcf-option-field-label label br{
-    display: none;
-  }
-  
-  .wpcf-option-field-label label p{
-    margin: 0;
-    display: inline-block;
-  }
-  
-  .wpcf-assignment-evaluate-row textarea,
-  .wpcf-assignment-evaluate-row .wpcf-option-field input{
-    border: 1px solid #DCDFE5;
-    height: 50px;
-    padding: 0 15px;
-    border-radius: 4px;
-    width: 100px;
-    background-color: #fff;
-  }
-  
-  
-  .wpcf-assignment-evaluate-row textarea{
-    height: 165px;
-    width: 100%;
-  }
-  
-  .wpcf-assignment-evaluate-row{
-    margin-bottom: 60px;
-  }
-  
-  .wpcf-assignment-evaluate-row p.desc{
-    margin-bottom: 0;
-    margin-top: 6px;
-    //font-size: var(--wpcf-text-size);
-    font-style: italic;
-  }
-  
-  /* end dashboard content*/
   
   /*  dashboard profile*/
   
@@ -761,55 +466,7 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     color: #fff;
   }
-  
-  .wpcf-dashboard-menu-my-profile a:before{
-    content: "\e963";
-  }
-  
-  .wpcf-dashboard-menu-enrolled-courses a:before{
-    content: "\e969";
-  }
-  
-  .wpcf-dashboard-menu-my-courses a:before{
-    content: "\e965";
-  }
-  
-  .wpcf-dashboard-menu-wishlist a:before{
-    content: "\e908";
-  }
-  
-  .wpcf-dashboard-menu-reviews a:before{
-    content: "\e917";
-  }
-  
-  .wpcf-dashboard-menu-quiz-attempts a:before{
-    content: "\e948";
-  }
-  
-  .wpcf-dashboard-menu-earning a:before{
-    content: "\e96b";
-  }
-  
-  .wpcf-dashboard-menu-withdraw a:before{
-    content: "\e960";
-  }
-  .wpcf-dashboard-menu-settings a:before{
-    content: "\e961";
-  }
-  .wpcf-dashboard-menu-logout a:before{
-    content: "\e962";
-  }
-  
-  .wpcf-dashboard-menu-purchase_history a:before{
-    content: "\e964";
-  }
-  .wpcf-dashboard-menu-assignments a:before{
-    content: "\e98b";
-  }
-  .wpcf-dashboard-content{
-    padding-top: 30px;
-  }
-  
+
   .wpcf-dashboard-content > h3{
     color: var(--wpcf-text-color);
     font-size: 22px;
@@ -817,3 +474,151 @@
     line-height: 23px;
     margin-bottom: 20px;
   }
+
+
+  .withdraw-method-select-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -15px 40px
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 0 15px;
+    margin-bottom: 30px
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select label {
+    display: block;
+    padding: 20px;
+    margin: 0;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid #DCDFE5;
+    border-radius: 4px;
+    position: relative
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select label.active {
+    border-color: #4bd863;
+    -webkit-box-shadow: 0 0 0 1px #4bd863;
+    box-shadow: 0 0 0 1px #4bd863
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select label:after {
+    content: '\e90f';
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    border: 1px solid #DCDFE5;
+    height: 22px;
+    width: 22px;
+    text-align: center;
+    line-height: 22px;
+    color: transparent
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select label.active:after {
+    color: #fff;
+    background: #4bd863;
+    border-color: #4bd863;
+    font-family: 'tutor' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 13px
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select p {
+    margin: 0
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select label>p {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--tutor-primary-color)
+  }
+  
+  .withdraw-method-select-wrap .withdraw-method-select label span {
+    color: #B0B6C8;
+    font-weight: 400
+  }
+  
+  .withdraw-method-form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -15px
+  }
+  
+  .withdraw-method-form>div {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    min-width: 50%;
+    padding: 0 15px 20px
+  }
+  
+  @media (max-width: 480px) {
+    .withdraw-method-form>div {
+      width: 100%
+    }
+  }
+  
+  .withdraw-method-form>div.withdraw-account-save-btn-wrap {
+    width: 100%
+  }
+  
+  .withdraw-form-field-amount input[type='text'],
+  .withdraw-method-forms-wrap .withdraw-method-form input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]),
+  .withdraw-method-forms-wrap .withdraw-method-form textarea {
+    border: 1px solid #DCDFE5;
+    display: block;
+    width: 100%;
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 4px
+  }
+  
+  label[for="tutor_withdraw_amount"] {
+    margin-bottom: 7px;
+    display: block
+  }
+  
+  .withdraw-form-field-amount input[type='text'] {
+    margin-bottom: 10px;
+    height: 45px
+  }
+  
+  .withdraw-method-forms-wrap .withdraw-method-form input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]):focus,
+  .withdraw-method-forms-wrap .withdraw-method-form textarea:focus {
+    border-color: var(--tutor-primary-color);
+    outline: none
+  }
+  
+  .withdraw-method-forms-wrap .withdraw-method-form textarea {
+    min-height: 80px
+  }
+  
+  .withdraw-method-forms-wrap .withdraw-method-form label {
+    color: #989EAF;
+    margin-bottom: 8px;
+    display: block
+  }
+  
+  .withdraw-method-forms-wrap .withdraw-method-form .withdraw-field-desc {
+    font-size: 12px;
+    margin: 5px 0 0;
+    font-style: italic
+  }
+  

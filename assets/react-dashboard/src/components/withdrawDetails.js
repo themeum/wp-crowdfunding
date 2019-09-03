@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postWithdrawRequest } from '../actions/orderAction';
+import { postWithdrawRequest } from '../actions/withdrawAction';
 
 class WithdrawDetails extends Component {
     constructor(props) {
