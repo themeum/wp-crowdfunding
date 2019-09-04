@@ -8,7 +8,7 @@ export default (props) => {
             <td>{ data.raised_percentage }%</td>
             <td dangerouslySetInnerHTML={{__html: data.total_raised}} />
             <td dangerouslySetInnerHTML={{__html: data.total_receivable}} />
-            <td><span onClick={ () => props.onClickWithdrawDetails( data ) }> Withdraw Details</span></td>
+            <td><span onClick={ () => props.onClickWithdrawDetails( data ) }> Withdraw </span></td>
         </tr>
     )
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { postWithdrawRequest } from '../actions/withdrawAction';
 
@@ -6,12 +7,11 @@ class WithdrawDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openModal: false,
             withdraw_amount: '',
             withdraw_message: '',
+            withdraw_method: '',
             errorMsg: '',
         };
-        this.toggleModal = this.toggleModal.bind(this);
         this.onChangeInput = this.onChangeInput.bind(this);
         this.onSubmitWithdrawReq = this.onSubmitWithdrawReq.bind(this);
     }
@@ -21,9 +21,9 @@ class WithdrawDetails extends Component {
         if ( reqStatus !== prevProps.withdraw.reqStatus ) {
             if( reqStatus == 'complete' ) {
                 this.setState({
-                    openModal: false,
                     withdraw_amount: '',
                     withdraw_message: '',
+                    withdraw_method: '',
                     errorMsg: ''
                 });
             }
@@ -35,72 +35,32 @@ class WithdrawDetails extends Component {
         }
     }
 
-    toggleModal(e) {
-        e.preventDefault();
-        this.setState({ openModal: !this.state.openModal, errorMsg: '' });
-    }
-
     onChangeInput(e) {
         this.setState( { [e.target.name]: e.target.value } );
     }
 
     onSubmitWithdrawReq(e) {
         e.preventDefault();
-        const { withdraw_amount, withdraw_message } = this.state;
+        const { campaign_id } = this.props.data;
+        const { withdraw_amount } = this.state;
         if( withdraw_amount <= 0 ) {
             this.setState({ errorMsg: "Please enter valid amount"});
             return false;
         }
-        const postData = {
-            withdraw_amount,
-            withdraw_message,
-            campaign_id: this.props.data.campaign_id
-        }
+        let postData = { ...this.state, campaign_id };
+        delete postData.errorMsg; //remove error msg from postData
         //Send withdraw request
         this.props.postWithdrawRequest( postData );
     }
 
     render() {
-        const { data, data: { withdraw }, onClickBack } = this.props;
-        const { openModal, withdraw_amount, withdraw_message, errorMsg } = this.state;
+        const { data, data: { withdraw, methods }, onClickBack } = this.props;
+        const { withdraw_amount, withdraw_message, withdraw_method, errorMsg } = this.state;
 
         return (
             <div className="wpcf-dashboard-content">
                 <h3>{data.campaign_title} <a href="javascript:void(0)" onClick={() => onClickBack('')}> Back </a></h3>
                 <div className="wpcf-dashboard-content-inner">
-                    <div className="wpcf-dashboard-info-cards">
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{ __html: data.total_goal }} />
-                                <span>Goal</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{ __html: data.total_raised }} />
-                                <span>Funding</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val">{data.raised_percentage}%</span>
-                                <span>Raised(%)</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{ __html: data.total_receivable }} />
-                                <span>Receivable</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val">{data.receiver_percent}%</span>
-                                <span>Commission</span>
-                            </p>
-                        </div>
-                    </div>
-
                     {withdraw.request_items.length > 0 &&
                         <div className="wpcf-dashboard-info-table-wrap">
                             <table className="wpcf-dashboard-info-table">
@@ -108,6 +68,7 @@ class WithdrawDetails extends Component {
                                     <tr>
                                         <th>#Title</th>
                                         <th>#Amount</th>
+                                        <th>#Method</th>
                                         <th>#Status</th>
                                     </tr>
                                 </thead>
@@ -117,6 +78,7 @@ class WithdrawDetails extends Component {
                                         <tr key={index}>
                                             <td dangerouslySetInnerHTML={{ __html: item.title }} />
                                             <td dangerouslySetInnerHTML={{ __html: item.amount }} />
+                                            <td> {item.method} </td>
                                             <td> 
                                                 { item.status == 'paid' ?
                                                     <span className="label-success">Paid</span>
@@ -144,45 +106,37 @@ class WithdrawDetails extends Component {
                             </table>
                         </div>
                     }
-                    <div className="wpneo-wallet-withdraw-button">
-                        <div id="wpneo-fade" className="wpcf-message-overlay"></div>
-                        <button className="label-primary wpcf-message" onClick={this.toggleModal}>Withdraw</button>
 
-                        { openModal &&
-                            <div className="wpneo-modal-wrapper" style={{ display: 'block' }}>
-                                <div className="wpneo-modal-content">
-                                    <div className="wpneo-modal-wrapper-head">
-                                        <h4 id="wpcf_modal_title">Withdraw Info</h4>
-                                        <a href="javascript:void(0);" onClick={this.toggleModal} className="wpneo-modal-close">×</a>
-                                    </div>
-                                    <div className="wpneo-modal-content-inner">
-                                        <form onSubmit={ this.onSubmitWithdrawReq }>
-                                            <div id="wpcf_modal_message">
-                                                { errorMsg &&
-                                                    <div className="wpneo-single">
-                                                        <p className="alert-danger">{ errorMsg }</p>
-                                                    </div>
-                                                }
-                                                <div className="wpneo-single">
-                                                    <div className="wpneo-name">Amount</div>
-                                                    <div className="wpneo-fields">
-                                                        <input type="number" name="withdraw_amount" placeholder="Withdrawal amount" value={ withdraw_amount } onChange={this.onChangeInput} />
-                                                        <small>(You can withdraw upto <span dangerouslySetInnerHTML={{ __html: withdraw.balance }} />)</small>
-                                                    </div>
-                                                </div>
-                                                <div className="wpneo-single">
-                                                    <div className="wpneo-name">Message</div>
-                                                    <div className="wpneo-fields">
-                                                        <textarea name="withdraw_message" className="wpcf-wallet-withdraw-message" value={ withdraw_message } onChange={this.onChangeInput} />
-                                                    </div>
-                                                </div>
-                                                <button className="wpcf-withdraw-req-button"> Withdraw </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                    <div className="withdraw-method-forms-wrap">
+                        <form className="withdraw-method-form" onSubmit={ this.onSubmitWithdrawReq }>
+                            { errorMsg &&
+                                <div className="alert alert-danger">{errorMsg}</div>
+                            }
+                            <div className="withdraw-method-field-wrap">
+                                <label htmlFor="wpcf_withdraw_amount">Amount</label>
+                                <input id="wpcf_withdraw_amount" type="number" name="withdraw_amount" value={ withdraw_amount } onChange={ this.onChangeInput } required/>
+                                <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{ __html: withdraw.balance }} /></p>
                             </div>
-                        }
+                            <div className="withdraw-method-field-wrap">
+                                <label htmlFor="wpcf_withdraw_message">Message</label>
+                                <input id="wpcf_withdraw_message" type="textarea" name="withdraw_message" value={ withdraw_message } onChange={ this.onChangeInput }/>
+                            </div>
+                            <div className="withdraw-method-select-wrap">
+                                { Object.keys( methods.data ).map( (key) =>
+                                    <div key={ key } className="withdraw-method-select">
+                                        <input type="radio" id={`wpcf_withdraw_method_${key}`} className="withdraw-method-select-input" name="withdraw_method" value={ key } onChange={ this.onChangeInput } required checked={ withdraw_method == key ? true : false }/>
+                                        <label htmlFor={`wpcf_withdraw_method_${key}`} className={ withdraw_method == key ? 'active' : '' }>
+                                            <p>{methods.data[key].method_name}</p>
+                                            <span dangerouslySetInnerHTML={{__html: data.min_withdraw}}/>
+                                            <Link to="/settings/withdraw">Change info</Link>
+                                        </label>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="withdraw-account-save-btn-wrap">
+                                <button type="submit" className="wpcf-btn">Confirm Withdrawal</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

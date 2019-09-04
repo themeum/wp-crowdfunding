@@ -50,15 +50,13 @@ class App extends Component {
 								<ul className="wpcf-dashboard-permalinks">
 									<li className='wpcf-dashboard-menu-index'><Link to="/">Dashboard</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/profile">My Profile</Link></li>
-									<li className='wpcf-dashboard-menu-index'><Link to="/messages">Messages</Link></li>
-									<li className='wpcf-dashboard-menu-index'><Link to="/notifications">Notifications</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/my-campaigns">My Campaigns</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/invested-campaigns">Invested Campaigns</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/pledge-received">Pledge Received</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/bookmark-campaigns">Bookmarks</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/order">Order</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/withdraw">Withdraw</Link></li>
-									<li className='wpcf-dashboard-menu-index'><Link to="/">User Settings</Link></li>
+									<li className='wpcf-dashboard-menu-index'><a href="javascript:void(0)">User Settings</a></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/settings/profile">Profile</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/settings/withdraw">Withdraw Method</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/rewards">Rewards</Link></li>

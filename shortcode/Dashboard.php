@@ -498,7 +498,7 @@ class Dashboard {
             'meta_value' => $product_ids
         );
         //Get all sold campaigns
-        $sold_campaigns = $this->sold_campaigns( $where_meta ); 
+        $sold_campaigns = $this->sold_campaigns( $where_meta );
 
         $response = array();
         foreach ($sold_campaigns as $campaign) {
@@ -519,16 +519,16 @@ class Dashboard {
             $response[] = array(
                 'campaign_id' => $campaign_id,
                 'campaign_title' => html_entity_decode( $campaign_title ),
-                'total_goal' => wc_price( $total_goal ),
                 'total_raised' => wc_price( $total_raised ),
-                'raised_percentage' => wpcf_function()->get_raised_percent( $campaign_id ),
-                'receiver_percent' => $receiver_percent,
                 'total_receivable' => wc_price( $total_receivable ),
+                'raised_percentage' => wpcf_function()->get_raised_percent( $campaign_id ),
                 'withdraw' => array(
                     'request_items' => $withdraw_details->request_items,
                     'total_withdraw' => wc_price( $withdraw_details->total_withdraw ),
                     'balance' => wc_price( $total_receivable - $withdraw_details->total_withdraw),
                 ),
+                'methods' => json_decode( get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true) ),
+                'min_withdraw' => 'Min Withdraw '. wc_price( get_option('walleet_min_withdraw_amount') )
             );
         }
         return rest_ensure_response( $response );
@@ -546,6 +546,7 @@ class Dashboard {
         $campaign_id = (int) $request['campaign_id'];
         $requested_withdraw_amount = $request['withdraw_amount'];
         $withdraw_message = sanitize_text_field( $request['withdraw_message'] );
+        $withdraw_method = $request['withdraw_method'];
 
         //return error if invalid data
         if( empty($campaign_id) || $requested_withdraw_amount <= 0  ) {
@@ -581,6 +582,8 @@ class Dashboard {
         $request_items = $withdraw_details->request_items;
         $balance = $total_receivable - $total_withdraw;
 
+        $user_withdraw_account = json_decode( get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true) );
+        $withdraw_method_data = $user_withdraw_account->data->{$withdraw_method};
         //Compare if balance is greater then commission
         if ($requested_withdraw_amount <= $balance) {
             $post_title = 'Withdraw request' . ' - '.$date_format.' @ '.$time_format;
@@ -593,6 +596,7 @@ class Dashboard {
                 'post_content'  => $withdraw_message,
                 'meta_input'    => array(
                     'wpneo_wallet_withdrawal_amount'  => $requested_withdraw_amount,
+                    'wpneo_wallet_withdrawal_method'  => json_encode( $withdraw_method_data )
                 ),
             );
             //Insert deposit data now
@@ -608,6 +612,7 @@ class Dashboard {
             array_push( $request_items, (object) [
                 'title' => $post_title,
                 'amount' => wc_price( $requested_withdraw_amount ),
+                'method' => $withdraw_method_data->method_name,
                 'status' => get_post_meta( $post_id, 'withdraw_request_status', true )
             ]);
             $response_data = (object) [
@@ -702,9 +707,11 @@ class Dashboard {
                 $withdraw_query->the_post();
                 $request_status = get_post_meta( get_the_ID(),'withdraw_request_status',true );
                 $request_amount = get_post_meta( get_the_ID(),'wpneo_wallet_withdrawal_amount',true );
+                $withdraw_method = json_decode( get_post_meta( get_the_ID(),'wpneo_wallet_withdrawal_method', true ) );
                 $request_items[] = (object) [
                     'title' => get_the_title(),
                     'amount' => wc_price( $request_amount ),
+                    'method' => $withdraw_method->method_name,
                     'status' => $request_status
                 ];
                 $total_withdraw += $request_amount;
@@ -790,7 +797,7 @@ class Dashboard {
 			),
             //ECHECK
 			'echeck' => array(
-                'method_name'  => __('ECHECK', 'wp-crowdfunding'),
+                'method_name'  => __('E-Check', 'wp-crowdfunding'),
                 'desc' => __($method_desc, 'wp-crowdfunding'),
 				'form_fields' => array(
 					array(
@@ -827,7 +834,7 @@ class Dashboard {
         $response = array(
             'success' => 1,
             'methods' => $withdraw_methods,
-            'selected_method' => $selected_method
+            'selected_method' => json_decode( $selected_method )
         );
 
         return rest_ensure_response( $response );
@@ -843,14 +850,14 @@ class Dashboard {
     function save_withdraw_account( \WP_REST_Request $request ) {
         $user_id = $this->current_user_id;
         $json_params = $request->get_json_params();
-        
-        $saved_data = array(
-            'key' => $json_params['key'],
-            'data' => $json_params['data']
-        );
-
-        update_user_meta($user_id, 'wpcf_user_withdraw_account', $saved_data);
-
+        $data = $json_params['data'];
+        foreach( $data as $key => $value ) {
+            if( count($value) <= 1) {
+                unset( $data[$key] ); //remove key if not value available
+            }
+        }
+        $saved_data = array( 'key' => $json_params['key'], 'data' => $data );
+        update_user_meta( $user_id, 'wpcf_user_withdraw_account', json_encode($saved_data) );
         $response = array(
             'success' => 1, 
             'data' => $saved_data
