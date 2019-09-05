@@ -47,12 +47,17 @@ class WithdrawMethodSettings extends Component {
             <div className="wpcf-dashboard-content">
                 <h3>Select a withdraw method</h3>
                 <div className="wpcf-dashboard-content-inner">
+                { Object.keys(data.methods).length ?
                     <div id="wpcf-withdraw-account-set-form">
                         <WithdrawMethodForm
                             data={ data }
                             onChangeData={ this.onChangeData }
                             onClickSaveData={ this.onClickSaveData }/>
                     </div>
+                :  <div>
+                        Data not found
+                    </div>
+                }
                 </div>    
             </div>
         )
