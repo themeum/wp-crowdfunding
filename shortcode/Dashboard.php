@@ -67,6 +67,9 @@ class Dashboard {
         $namespace = $this->api_namespace . $this->api_version;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
+        register_rest_route( $namespace, '/report', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'report') ),
+        ));
         register_rest_route( $namespace, '/user-profile', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile') ),
         ));
@@ -114,6 +117,7 @@ class Dashboard {
         $api_namespace = $this->api_namespace . $this->api_version;
         $page_id = get_option('wpneo_crowdfunding_dashboard_page_id');
         if( get_the_ID() && get_the_ID() == $page_id ) {
+            wp_enqueue_script( 'chart.bundle.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js', array('jquery'), '', true );
             wp_enqueue_script( 'wpcf-dashboard-script', WPCF_DIR_URL.'assets/js/dashboard.js', array('jquery'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
                 'dashboard_url' => get_permalink(),
@@ -132,6 +136,152 @@ class Dashboard {
      */
     function dashboard_callback($attr) {
         return '<div id="wpcf-dashboard"></div>';
+    }
+
+    /**
+     * Get dashboard report
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function report( \WP_REST_Request $request ) {
+        global $wpdb;
+        $json_params = $request->get_json_params();
+        $query_range_args = array(
+            'date_range'        => sanitize_text_field($json_params['date_range']),
+            'date_range_from'   => sanitize_text_field($json_params['date_range_from']),
+            'date_range_to'     => sanitize_text_field($json_params['date_range_to'])
+        );
+        $query_range = $this->get_query_range_params( $query_range_args );
+
+        $fund_raised        = 0;
+        $total_backed       = 0;
+        $from_time          = strtotime('-1 day', strtotime($query_range->from_date));
+        $to_time            = strtotime('-1 day', strtotime($query_range->to_date));
+
+        $csv                = array();
+        $csv[]              = array("Date", "Pledge Amount ", "Sales");
+        $format             = array();
+        $label              = array();
+        $product_ids        = wpcf_function()->get_products_id_by_user($this->current_user_id);
+        $order_ids_         = wpcf_function()->get_order_ids_by_product_ids($product_ids);
+
+        if ($from_time < $to_time) {
+            if ($query_range->range === 'month_wise') {
+                $from_time      = strtotime('-1 month', strtotime($query_range->from_date));
+                $to_time        = strtotime('-1 month', strtotime($query_range->to_date));
+
+                $add_format     = '+1 month'; $printed_format = 'F'; $query_format   = 'Y-m%';
+                $query_select   = 'MONTHNAME(post_date)';
+            } else {
+                $add_format     = '+1 day'; $printed_format = 'd M'; $query_format   = 'Y-m-d%';
+                $query_select   = "DATE_FORMAT(post_date, '%d %b')";
+            }
+            while ($from_time < $to_time) {
+                $from_time      = strtotime( $add_format, $from_time );
+                $printed_date   = date( $printed_format, $from_time );
+                $query_date     = date( $query_format, $from_time );
+                $sales_count    = 0;
+                $backers_amount = 0;
+                $results        = $wpdb->get_results(
+                    "
+                    SELECT      ID, 
+                                $query_select AS order_time  ,
+                                $wpdb->postmeta.*, 
+                                GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids 
+                    FROM        $wpdb->posts 
+                    LEFT JOIN   $wpdb->postmeta 
+                                ON $wpdb->posts.ID = $wpdb->postmeta.post_id
+                    WHERE       $wpdb->posts.post_type = 'shop_order' 
+                                AND $wpdb->posts.ID IN ( '" . implode("','", $order_ids_) . "' )
+                                AND meta_key = 'is_crowdfunding_order' 
+                                AND meta_value = '1' 
+                                AND post_status = 'wc-completed'  
+                                AND post_date LIKE '" . $query_date . "' 
+                    GROUP BY    order_time"
+                );
+
+                if( $results ) {
+                    foreach( $results as $result ) {
+                        $sales_count    = count(explode(',', $result->order_ids));
+                        $backers_amount += $wpdb->get_var("(SELECT SUM(meta_value) from $wpdb->postmeta where post_id IN({$result->order_ids}) and meta_key = '_order_total' )");
+                    }
+                }
+
+                $csv[]          = array( $printed_date, $backers_amount, $sales_count );
+                $format[]       = $backers_amount;
+                $label[]        = "'{$printed_date}'";
+                $total_backed   += $sales_count; //Get Total backers amount and sales count all time
+                $fund_raised    += $backers_amount;
+            }
+        }
+        $response = array(
+            'csv' => $csv,
+            'format' => $format,
+            'label' => $label,
+            'fund_raised' => $fund_raised,
+            'total_backed' => $total_backed,
+        );
+
+        echo "<pre>";
+        print_r( $response );
+
+        return rest_ensure_response( $response );
+    }
+
+    /**
+     * Get Query range params for report
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function get_query_range_params($range) {
+        $from_date          = date('Y-m-d 00:00:00', strtotime('-30 days'));
+        $to_date            = date('Y-m-d 23:59:59');
+        $query_range        = 'day_wise';
+        if ( !empty($range['date_range']) ) {
+            switch ($range['date_range']) {
+                case 'last_7_days':
+                    $query_range    = 'day_wise';
+                    break;
+                case 'last_14_days':
+                    $to_date        = date('Y-m-d 23:59:59');
+                    $from_date      = date('Y-m-01 00:00:00');
+                    $query_range    = 'day_wise';
+                    break;
+                case 'this_month':
+                    $to_date        = date('Y-m-d 23:59:59');
+                    $from_date      = date('Y-m-01 00:00:00');
+                    $query_range    = 'day_wise';
+                    break;
+                case 'last_3_months':
+                    $to_date        = date('Y-m-t 23:59:59', strtotime('-1 month'));
+                    $from_date      = date('Y-m-01 00:00:00', strtotime('-3 month'));
+                    $query_range    = 'month_wise';
+                    break;
+                case 'last_6_months':
+                    $to_date        = date('Y-m-t 23:59:59', strtotime('-1 month'));
+                    $from_date      = date('Y-m-01 00:00:00', strtotime('-6 month'));
+                    $query_range    = 'month_wise';
+                    break;
+                case 'this_year':
+                    $to_date        = date('Y-m-d 23:59:59');
+                    $from_date      = date('Y-01-01 00:00:00');
+                    $query_range    = __('1Y', 'wp-crowdfunding');
+                    break;
+            }
+        }
+        if (!empty($range['date_range_from'])) {
+            $from_date = $range['date_range_from'];
+        }
+        if (!empty($range['date_range_to'])) {
+            $to_date = $range['date_range_to'];
+        }
+        return (object) [
+            'from_date' => $from_date,
+            'to_date' => $to_date,
+            'range' => $query_range
+        ];
     }
 
     /**
@@ -170,7 +320,6 @@ class Dashboard {
             //Overwrite profile image if image meta avaibale
             $data['profile_image'] = wp_get_attachment_image_src($profile_image_id, 'full')[0];
         }
-        $data['countries'] = $countries;
         return rest_ensure_response( (object) $data );
     }
 
@@ -267,9 +416,9 @@ class Dashboard {
             'author'    		=> get_current_user_id(),
             'tax_query' 		=> array(
                 array(
-                    'taxonomy' => 'product_type',
-                    'field'    => 'slug',
-                    'terms'    => 'crowdfunding',
+                    'taxonomy'  => 'product_type',
+                    'field'     => 'slug',
+                    'terms'     => 'crowdfunding',
                 ),
             ),
             'posts_per_page'    => -1
@@ -278,14 +427,13 @@ class Dashboard {
         //Generate campaign_ids array and add total goal from campaign loop
         foreach ($campaign_list as $value) {
             $campaign_ids[] = $value->ID;
-            $funding_goal = get_post_meta($value->ID, '_nf_funding_goal', true);
-            $total_goal += $funding_goal;
+            $funding_goal   = get_post_meta($value->ID, '_nf_funding_goal', true);
+            $total_goal     += $funding_goal;
         }
         //Get order_ids array from order_items by campaign ids
         if(!empty($campaign_ids)) {
-            $campaign_ids = implode( ', ', $campaign_ids );
-            $prefix = $wpdb->prefix;
-            $order_ids = $wpdb->get_col(
+            $campaign_ids   = implode( ', ', $campaign_ids );
+            $order_ids      = $wpdb->get_col(
                 "
                 SELECT      oi.order_id
                 FROM        " . $wpdb->prefix . "woocommerce_order_items oi
@@ -307,20 +455,20 @@ class Dashboard {
             ));
             //Injecting order details to customer orders
             foreach ( $customer_orders as $customer_order )  {
-                $order = wc_get_order( $customer_order );
-                $order_details = $order->get_data();
+                $order          = wc_get_order( $customer_order );
+                $order_details  = $order->get_data();
 
-                $total = $order_details['total'];
-                $receivable = wc_price( $total );
-                $marketplace = wc_price( 0 );
+                $total          = $order_details['total'];
+                $receivable     = wc_price( $total );
+                $marketplace    = wc_price( 0 );
                 //If receiver_percent available overwrite receivable adn marketplace value
                 if( $receiver_percent ) {
-                    $receivable = wc_price( ($total*$receiver_percent) / 100 );
-                    $marketplace = wc_price( ($total* (100-$receiver_percent) ) / 100 );
+                    $receivable     = wc_price( ($total*$receiver_percent) / 100 );
+                    $marketplace    = wc_price( ($total* (100-$receiver_percent) ) / 100 );
                 }
-                $order_details['receivable'] = $receivable;
-                $order_details['marketplace'] = $marketplace;
-                $order_details['raised'] = wc_price( $total );
+                $order_details['receivable']    = $receivable;
+                $order_details['marketplace']   = $marketplace;
+                $order_details['raised']        = wc_price( $total );
                 //Plus fund raised if order is completed
                 if( $order_details['status'] == 'completed' ) {
                     $total_raised += $total;
@@ -338,19 +486,19 @@ class Dashboard {
                     }
                     $order_details['selected_reward'] = $reward_html;
                 }
-                $order_details['subtotal'] = wc_price($order->get_subtotal());
-                $order_details['formatted_b_addr'] = $order->get_formatted_billing_address();
-                $order_details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
-                $order_details['status_name'] = wc_get_order_status_name( $order_details['status'] );
+                $order_details['subtotal']          = wc_price($order->get_subtotal());
+                $order_details['formatted_b_addr']  = $order->get_formatted_billing_address();
+                $order_details['formatted_c_date']  = wc_format_datetime($order->get_date_created());
+                $order_details['status_name']       = wc_get_order_status_name( $order_details['status'] );
 
                 //Overwrite line items of campaign details
                 $line_items = array();
                 foreach ( $order->get_items() as $item_key => $item_values ) {
                     $item_data = $item_values->get_data();
                     $line_items[] = array(
-                        'product_name' => $item_data['name'],
+                        'product_name'  => $item_data['name'],
                         'line_subtotal' => $item_data['subtotal'],
-                        'line_total' => $item_data['total']
+                        'line_total'    => $item_data['total']
                     );
                 }
                 //Overwrite line items of campaign details
@@ -361,11 +509,11 @@ class Dashboard {
         }
 
         $response_data = array(
-            'total_goal' => wc_price( $total_goal ),
-            'total_raised' => wc_price( $total_raised ),
-            'total_available' => wc_price( $total_goal - $total_raised ),
-            'receiver_percent' => $receiver_percent ? $receiver_percent : '',
-            'orders' => $customer_orders,
+            'total_goal'        => wc_price( $total_goal ),
+            'total_raised'      => wc_price( $total_raised ),
+            'total_available'   => wc_price( $total_goal - $total_raised ),
+            'receiver_percent'  => $receiver_percent ? $receiver_percent : '',
+            'orders'            => $customer_orders,
         );
         return rest_ensure_response( $response_data );
     }
@@ -383,8 +531,8 @@ class Dashboard {
         if( !empty( $campaign_ids ) ) {
             $query = array(
                 'post_type' => 'product',
-                'post__in' => $campaign_ids,
-                'orderby' => 'post__in',
+                'post__in'  => $campaign_ids,
+                'orderby'   => 'post__in',
             );
             //Fetch all campaigns by query
             $data = $this->fetch_campaigns( $query );
@@ -459,8 +607,8 @@ class Dashboard {
             foreach ( $order->get_items() as $item_key => $item_values ) {
                 $item_data = $item_values->get_data();
                 $line_items[] = array(
-                    'product_id' => $item_data['product_id'],
-                    'product_name' => $item_data['name']
+                    'product_id'    => $item_data['product_id'],
+                    'product_name'  => $item_data['name']
                 );
             }
             $order_details['line_items'] = $line_items; //Overwrite line items of campaign details
@@ -492,9 +640,9 @@ class Dashboard {
         );
         $where_meta = array();
         $where_meta[] = array(
-            'type' => 'order_item_meta',
-            'meta_key' => '_product_id',
-            'operator' => 'in',
+            'type'      => 'order_item_meta',
+            'meta_key'  => '_product_id',
+            'operator'  => 'in',
             'meta_value' => $product_ids
         );
         //Get all sold campaigns
@@ -502,12 +650,10 @@ class Dashboard {
 
         $response = array();
         foreach ($sold_campaigns as $campaign) {
-            $campaign_id = $campaign->product_id;
-            $campaign_title = get_the_title( $campaign_id );
-            $total_goal = get_post_meta( $campaign_id, '_nf_funding_goal', true);
-            $total_raised = $campaign->gross;
-            $raised_percent = wpcf_function()->get_raised_percent( $campaign_id );
-            $receiver_percent = get_post_meta( $campaign_id, 'wpneo_wallet_receiver_percent', true );
+            $campaign_id        = $campaign->product_id;
+            $campaign_title     = get_the_title( $campaign_id );
+            $total_raised       = $campaign->gross;
+            $receiver_percent   = get_post_meta( $campaign_id, 'wpneo_wallet_receiver_percent', true );
             if ( !$receiver_percent ) {
                 $receiver_percent = (int) get_option('wallet_receiver_percent');
                 update_post_meta( $campaign_id, 'wpneo_wallet_receiver_percent', $receiver_percent);
@@ -517,18 +663,18 @@ class Dashboard {
             $withdraw_details = $this->withdraw_details( $campaign_id );
             //Add response data
             $response[] = array(
-                'campaign_id' => $campaign_id,
-                'campaign_title' => html_entity_decode( $campaign_title ),
-                'total_raised' => wc_price( $total_raised ),
-                'total_receivable' => wc_price( $total_receivable ),
-                'raised_percentage' => wpcf_function()->get_raised_percent( $campaign_id ),
-                'withdraw' => array(
-                    'request_items' => $withdraw_details->request_items,
-                    'total_withdraw' => wc_price( $withdraw_details->total_withdraw ),
-                    'balance' => wc_price( $total_receivable - $withdraw_details->total_withdraw),
+                'campaign_id'           => $campaign_id,
+                'campaign_title'        => html_entity_decode( $campaign_title ),
+                'total_raised'          => wc_price( $total_raised ),
+                'total_receivable'      => wc_price( $total_receivable ),
+                'raised_percentage'     => wpcf_function()->get_raised_percent( $campaign_id ),
+                'withdraw'              => array(
+                    'request_items'     => $withdraw_details->request_items,
+                    'total_withdraw'    => wc_price( $withdraw_details->total_withdraw ),
+                    'balance'           => wc_price( $total_receivable - $withdraw_details->total_withdraw),
                 ),
-                'methods' => json_decode( get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true) ),
-                'min_withdraw' => 'Min Withdraw '. wc_price( get_option('walleet_min_withdraw_amount') )
+                'methods'               => json_decode( get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true) ),
+                'min_withdraw'          => 'Min Withdraw '. wc_price( get_option('walleet_min_withdraw_amount') )
             );
         }
         return rest_ensure_response( $response );
@@ -543,16 +689,16 @@ class Dashboard {
      */
     function withdraw_request( \WP_REST_Request $request ) {
         global $wpdb, $woocommerce;
-        $campaign_id = (int) $request['campaign_id'];
-        $requested_withdraw_amount = $request['withdraw_amount'];
-        $withdraw_message = sanitize_text_field( $request['withdraw_message'] );
-        $withdraw_method = $request['withdraw_method'];
+        $campaign_id                = (int) $request['campaign_id'];
+        $requested_withdraw_amount  = $request['withdraw_amount'];
+        $withdraw_message           = sanitize_text_field( $request['withdraw_message'] );
+        $withdraw_method            = $request['withdraw_method'];
 
         //return error if invalid data
         if( empty($campaign_id) || $requested_withdraw_amount <= 0  ) {
             return rest_ensure_response(array(
-                'success' => 0,
-                'msg' => __('Amount must be greater than 0', 'wp-crowdfunding-pro')
+                'success'   => 0,
+                'msg'       => __('Amount must be greater than 0', 'wp-crowdfunding-pro')
             ));
         }
 
@@ -561,9 +707,9 @@ class Dashboard {
 
         $where_meta = array();
         $where_meta[] = array(
-            'type' => 'order_item_meta',
-            'meta_key' => '_product_id',
-            'operator' => 'in',
+            'type'      => 'order_item_meta',
+            'meta_key'  => '_product_id',
+            'operator'  => 'in',
             'meta_value' => array($campaign_id)
         );
         //Get sold campaign data by meta query
@@ -719,7 +865,7 @@ class Dashboard {
         }
         return (object) [
             'total_withdraw' => $total_withdraw, 
-            'request_items' => $request_items 
+            'request_items'  => $request_items 
         ];
     }
 
@@ -744,8 +890,8 @@ class Dashboard {
             $response_data[$key] = sanitize_text_field( $value );
         }
         $response = array(
-            'success' => 1, 
-            'data' => $response_data
+            'success'   => 1, 
+            'data'      => $response_data
         );
         return rest_ensure_response( $response );
     }

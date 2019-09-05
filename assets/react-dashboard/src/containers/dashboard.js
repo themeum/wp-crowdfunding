@@ -14,41 +14,26 @@ class Dashboard extends Component {
                     <div className="wpcf-dashboard-info-cards">
                         <div className="wpcf-dashboard-info-card">
                             <p>
-                                <span>Enrolled Course</span>
+                                <span>Fund Raised</span>
                                 <span className="wpcf-dashboard-info-val">9</span>
                             </p>
                         </div>
                         <div className="wpcf-dashboard-info-card">
                             <p>
-                                <span>Active Course</span>
+                                <span>Funded</span>
                                 <span className="wpcf-dashboard-info-val">4</span>
                             </p>
                         </div>
                         <div className="wpcf-dashboard-info-card">
                             <p>
-                                <span>Completed Course</span>
-                                <span className="wpcf-dashboard-info-val">5</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span>Total Students</span>
-                                <span className="wpcf-dashboard-info-val">7</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span>Total Courses</span>
-                                <span className="wpcf-dashboard-info-val">7</span>
-                            </p>
-                        </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span>Total Earning</span>
-                                <span className="wpcf-dashboard-info-val"><span className="woocommerce-Price-amount amount"><span className="woocommerce-Price-currencySymbol">&#36;</span>880.00</span></span>
+                                <span>Backers</span>
+                                <span className="wpcf-dashboard-info-val">4</span>
                             </p>
                         </div>
                     </div>
+
+                    
+                   
                     <div className="wpcf-dashboard-info-table-wrap">
                         <h3>Most Popular Courses</h3>
                         <table className="wpcf-dashboard-info-table">

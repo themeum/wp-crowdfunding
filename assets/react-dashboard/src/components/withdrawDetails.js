@@ -59,7 +59,7 @@ class WithdrawDetails extends Component {
 
         return (
             <div className="wpcf-dashboard-content">
-                <h3>{data.campaign_title} <a href="javascript:void(0)" onClick={() => onClickBack('')}> Back </a></h3>
+                <h3>{data.campaign_title}</h3>
                 <div className="wpcf-dashboard-content-inner">
                     {withdraw.request_items.length > 0 &&
                         <div className="wpcf-dashboard-info-table-wrap">
@@ -135,6 +135,7 @@ class WithdrawDetails extends Component {
                             </div>
                             <div className="withdraw-account-save-btn-wrap">
                                 <button type="submit" className="wpcf-btn">Confirm Withdrawal</button>
+                                <button type="button" onClick={() => onClickBack('')}> Back </button>
                             </div>
                         </form>
                     </div>
