@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import user from './user';
 import myCampaign from './myCampaign';
+import campaignsReport from './campaignsReport';
 import investedCampaign from './investedCampaign';
 import bookmarkCampaign from './bookmarkCampaign';
 import pledgeReceived from './pledgeReceived';
@@ -12,6 +13,7 @@ import countries from './countries';
 const rootReducer = combineReducers({
     user,
     myCampaign,
+    campaignsReport,
     investedCampaign,
     bookmarkCampaign,
     pledgeReceived,

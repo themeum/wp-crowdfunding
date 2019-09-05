@@ -12,7 +12,7 @@ export default (props) => {
                     <h5>Order Details</h5>
                     <div>
                         <p>{ billing.first_name+' '+billing.last_name }</p>
-                        <p>{ line_items[0].product_name }</p>
+                        <p>{ (line_items.length) ? line_items[0].product_name : '' }</p>
                         <p dangerouslySetInnerHTML={{__html: 'Pledged '+data.total}} />
                     </div>
                     <div>

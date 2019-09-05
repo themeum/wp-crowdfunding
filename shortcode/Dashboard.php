@@ -67,7 +67,7 @@ class Dashboard {
         $namespace = $this->api_namespace . $this->api_version;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
-        register_rest_route( $namespace, '/dashboard-report', array(
+        register_rest_route( $namespace, '/campaigns-report', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'report') ),
         ));
         register_rest_route( $namespace, '/user-profile', array(
@@ -117,7 +117,7 @@ class Dashboard {
         $api_namespace = $this->api_namespace . $this->api_version;
         $page_id = get_option('wpneo_crowdfunding_dashboard_page_id');
         if( get_the_ID() && get_the_ID() == $page_id ) {
-            wp_enqueue_script( 'chart.bundle.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js', array('jquery'), '', true );
+            wp_enqueue_script( 'chart.bundle.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js', array('jquery'), '', true );
             wp_enqueue_script( 'wpcf-dashboard-script', WPCF_DIR_URL.'assets/js/dashboard.js', array('jquery'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
                 'dashboard_url' => get_permalink(),
@@ -142,11 +142,13 @@ class Dashboard {
      * Get dashboard report
      * @since     2.1.0
      * @access    public
-     * @return    {json} mixed
+     * @param     {object}  request
+     * @return    {json}    mixed
      */
     function report( \WP_REST_Request $request ) {
         global $wpdb;
         $json_params = $request->get_json_params();
+        $campaign_id =  $json_params['campaign_id'];
         $query_range_args = array(
             'date_range'        => sanitize_text_field($json_params['date_range']),
             'date_range_from'   => sanitize_text_field($json_params['date_range_from']),
@@ -163,8 +165,17 @@ class Dashboard {
         $csv[]              = array("Date", "Pledge Amount ", "Sales");
         $format             = array();
         $label              = array();
-        $product_ids        = wpcf_function()->get_products_id_by_user($this->current_user_id);
-        $order_ids_         = wpcf_function()->get_order_ids_by_product_ids($product_ids);
+        
+        if( !empty($campaign_id) ) {
+            $campaign_ids       = array( $campaign_id );
+            $total_goals        = get_post_meta($campaign_id, '_nf_funding_goal', true);
+        } else {
+            $campaigns_info     = $this->user_campaign_ids_with_total_goals();
+            $campaign_ids       = $campaigns_info->campaign_ids;
+            $total_goals        = $campaigns_info->total_goals;
+        }
+        
+        $order_ids__            = wpcf_function()->get_order_ids_by_product_ids($campaign_ids);
 
         if ($from_time < $to_time) {
             if ($query_range->range === 'month_wise') {
@@ -193,7 +204,7 @@ class Dashboard {
                     LEFT JOIN   $wpdb->postmeta 
                                 ON $wpdb->posts.ID = $wpdb->postmeta.post_id
                     WHERE       $wpdb->posts.post_type = 'shop_order' 
-                                AND $wpdb->posts.ID IN ( '" . implode("','", $order_ids_) . "' )
+                                AND $wpdb->posts.ID IN ( '" . implode("','", $order_ids__) . "' )
                                 AND meta_key = 'is_crowdfunding_order' 
                                 AND meta_value = '1' 
                                 AND post_status = 'wc-completed'  
@@ -215,17 +226,51 @@ class Dashboard {
                 $fund_raised    += $backers_amount;
             }
         }
+
+        $pledges = array();
+        //Get customers orders with injecting details
+        if(!empty($order_ids__)) {
+            $args = array(
+                'post__in'	  => $order_ids__,
+                'meta_key'    => '_customer_user',
+                'post_type'   => wc_get_order_types( 'view-orders' ),
+                'post_status' => array_keys( wc_get_order_statuses() )
+            );
+            if(empty($campaign_id)) {
+                $args['numberposts'] = 10; // if not single campaign then limit 10
+            }
+            $orders = get_posts( $args );
+            foreach ( $orders as $order )  {
+                $order      = wc_get_order( $order );
+                $backer_id  = $order->get_user_id();
+                $first_name = get_user_meta( $backer_id, 'first_name', true);
+                $last_name  = get_user_meta( $backer_id, 'last_name ', true);
+                $b_country  = $order->get_billing_country();
+                foreach ( $order->get_items() as $item ) {
+                    $product_id = $item['product_id'];
+                }
+                $funding_goal = get_post_meta($product_id, '_nf_funding_goal', true);
+                $pledge = $order->get_total();
+                $pledges[]  = array(
+                    'name'      => $first_name.' '.$last_name,
+                    'country'   => WC()->countries->countries[$b_country],
+                    'date'      => $order->get_date_created()->format ('d/n/y'),
+                    'pledge'    => wc_price( $pledge ),
+                    'percent'   => round( ($pledge*100)/$funding_goal, 2)
+                );
+            }
+        }
+
         $response = array(
-            'csv' => $csv,
-            'format' => $format,
-            'label' => $label,
-            'fund_raised' => $fund_raised,
-            'total_backed' => $total_backed,
+            'csv'           => $csv,
+            'format'        => $format,
+            'label'         => $label,
+            'fundRaised'    => wc_price( $fund_raised ),
+            'raisedPercent' => round( ($fund_raised*100) / $total_goals, 2),
+            'totalBacked'   => $total_backed,
+            'pledges'       => $pledges,
+            'query_range'       => $query_range,
         );
-
-        echo "<pre>";
-        print_r( $response );
-
         return rest_ensure_response( $response );
     }
 
@@ -233,10 +278,11 @@ class Dashboard {
      * Get Query range params for report
      * @since     2.1.0
      * @access    public
-     * @return    {json} mixed
+     * @param     {array}  range
+     * @return    {object} mixed
      */
     function get_query_range_params($range) {
-        $from_date          = date('Y-m-d 00:00:00', strtotime('-30 days'));
+        $from_date          = date('Y-m-d 00:00:00', strtotime('-7 days'));
         $to_date            = date('Y-m-d 23:59:59');
         $query_range        = 'day_wise';
         if ( !empty($range['date_range']) ) {
@@ -336,9 +382,9 @@ class Dashboard {
             'author'    		=> $this->current_user_id,
             'tax_query' 		=> array(
                 array(
-                    'taxonomy' => 'product_type',
-                    'field'    => 'slug',
-                    'terms'    => 'crowdfunding',
+                    'taxonomy'  => 'product_type',
+                    'field'     => 'slug',
+                    'terms'     => 'crowdfunding',
                 ),
             ),
         );
@@ -404,32 +450,13 @@ class Dashboard {
      */
     function pledge_received() {
         global $wpdb;
-        $total_goal = 0;
         $total_raised = 0;
-        $campaign_ids = array();
         $order_ids = array();
         $customer_orders = array();
         $receiver_percent = get_option( 'wallet_receiver_percent' );
-        //Get current user campaign list
-        $args = array(
-            'post_type' 		=> 'product',
-            'author'    		=> get_current_user_id(),
-            'tax_query' 		=> array(
-                array(
-                    'taxonomy'  => 'product_type',
-                    'field'     => 'slug',
-                    'terms'     => 'crowdfunding',
-                ),
-            ),
-            'posts_per_page'    => -1
-        );
-        $campaign_list = get_posts( $args );
-        //Generate campaign_ids array and add total goal from campaign loop
-        foreach ($campaign_list as $value) {
-            $campaign_ids[] = $value->ID;
-            $funding_goal   = get_post_meta($value->ID, '_nf_funding_goal', true);
-            $total_goal     += $funding_goal;
-        }
+        $campaign_ids_goals = $this->user_campaign_ids_with_total_goals();
+        $campaign_ids = $campaign_ids_goals->campaign_ids;
+        $total_goals = $campaign_ids_goals->total_goals;
         //Get order_ids array from order_items by campaign ids
         if(!empty($campaign_ids)) {
             $campaign_ids   = implode( ', ', $campaign_ids );
@@ -494,8 +521,8 @@ class Dashboard {
                 //Overwrite line items of campaign details
                 $line_items = array();
                 foreach ( $order->get_items() as $item_key => $item_values ) {
-                    $item_data = $item_values->get_data();
-                    $line_items[] = array(
+                    $item_data      = $item_values->get_data();
+                    $line_items[]   = array(
                         'product_name'  => $item_data['name'],
                         'line_subtotal' => $item_data['subtotal'],
                         'line_total'    => $item_data['total']
@@ -509,9 +536,9 @@ class Dashboard {
         }
 
         $response_data = array(
-            'total_goal'        => wc_price( $total_goal ),
+            'total_goal'        => wc_price( $total_goals ),
             'total_raised'      => wc_price( $total_raised ),
-            'total_available'   => wc_price( $total_goal - $total_raised ),
+            'total_available'   => wc_price( $total_goals - $total_raised ),
             'receiver_percent'  => $receiver_percent ? $receiver_percent : '',
             'orders'            => $customer_orders,
         );
@@ -552,11 +579,11 @@ class Dashboard {
         $data = array();
         if ( $wp_query->have_posts() ) : global $post; $i = 0;
             while ( $wp_query->have_posts() ) : $wp_query->the_post();
-                $total_raised = wpcf_function()->get_total_fund();
-                $total_raised = ($total_raised) ? $total_raised : 0;
-                $funding_goal = get_post_meta($post->ID, '_nf_funding_goal', true);
-                $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
-                $data[$i] = array(
+                $total_raised   = wpcf_function()->get_total_fund();
+                $total_raised   = ($total_raised) ? $total_raised : 0;
+                $funding_goal   = get_post_meta($post->ID, '_nf_funding_goal', true);
+                $end_method     = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                $data[$i]       = array(
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
                     'thumbnail'         => woocommerce_get_product_thumbnail(),
@@ -605,8 +632,8 @@ class Dashboard {
             //Get line items
             $line_items = array();
             foreach ( $order->get_items() as $item_key => $item_values ) {
-                $item_data = $item_values->get_data();
-                $line_items[] = array(
+                $item_data          = $item_values->get_data();
+                $line_items[]       = array(
                     'product_id'    => $item_data['product_id'],
                     'product_name'  => $item_data['name']
                 );
@@ -628,7 +655,7 @@ class Dashboard {
      * @return    {json} mixed
      */
     function withdraws() {
-        global $woocommerce, $wpdb;
+        global $wpdb;
         $product_ids = array();
         $product_ids = $wpdb->get_col(
             "
@@ -688,7 +715,6 @@ class Dashboard {
      * @return    {json}    mixed
      */
     function withdraw_request( \WP_REST_Request $request ) {
-        global $wpdb, $woocommerce;
         $campaign_id                = (int) $request['campaign_id'];
         $requested_withdraw_amount  = $request['withdraw_amount'];
         $withdraw_message           = sanitize_text_field( $request['withdraw_message'] );
@@ -705,12 +731,12 @@ class Dashboard {
         $date_format = date(get_option('date_format'));
         $time_format = date(get_option('time_format'));
 
-        $where_meta = array();
+        $where_meta   = array();
         $where_meta[] = array(
             'type'      => 'order_item_meta',
             'meta_key'  => '_product_id',
             'operator'  => 'in',
-            'meta_value' => array($campaign_id)
+            'meta_value'=> array($campaign_id)
         );
         //Get sold campaign data by meta query
         $sold_campaigns = $this->sold_campaigns( $where_meta );
@@ -838,8 +864,8 @@ class Dashboard {
     /**
      * Get withdraw details by campaign_id
      * @access    private
-     * @param     {int}   campaign_id
-     * @return    {array} mixed
+     * @param     {int}     campaign_id
+     * @return    {object}  mixed
      */
     private function withdraw_details( $campaign_id ) {
         $withdraw_query = new \WP_Query(array(
@@ -910,60 +936,60 @@ class Dashboard {
         $method_desc = 'Min Withdraw '. wc_price($min_withdraw_amount);
         $withdraw_methods = array(
             //Bank Transfer
-			'bank_transfer' => array(
-				'method_name' => __('Bank Transfer', 'wp-crowdfunding'),
-				'desc' => __($method_desc, 'wp-crowdfunding'),
-				'form_fields' => array(
+			'bank_transfer'     => array(
+				'method_name'   => __('Bank Transfer', 'wp-crowdfunding'),
+				'desc'          => __($method_desc, 'wp-crowdfunding'),
+				'form_fields'   => array(
 					array(
-                        'type' => 'text',
-                        'name' => 'account_name',
+                        'type'  => 'text',
+                        'name'  => 'account_name',
 						'label' => __('Account Name', 'wp-crowdfunding'),
 					),
 					array(
-                        'type' => 'text',
-                        'name' => 'account_number',
+                        'type'  => 'text',
+                        'name'  => 'account_number',
 						'label' => __('Account Number', 'wp-crowdfunding'),
 					),
 					array(
                         'type'  => 'text',
-                        'name' => 'bank_name',
+                        'name'  => 'bank_name',
 						'label' => __('Bank Name', 'wp-crowdfunding'),
 					),
 					array(
-                        'type' => 'text',
-                        'name' => 'iban',
+                        'type'  => 'text',
+                        'name'  => 'iban',
 						'label' => __('IBAN', 'wp-crowdfunding'),
 					),
 					array(
-                        'type' => 'text',
-                        'name' => 'swift',
+                        'type'  => 'text',
+                        'name'  => 'swift',
 						'label' => __('BIC / SWIFT', 'wp-crowdfunding'),
 					),
 				),
 			),
             //ECHECK
-			'echeck' => array(
-                'method_name'  => __('E-Check', 'wp-crowdfunding'),
-                'desc' => __($method_desc, 'wp-crowdfunding'),
-				'form_fields' => array(
+			'echeck'            => array(
+                'method_name'   => __('E-Check', 'wp-crowdfunding'),
+                'desc'          => __($method_desc, 'wp-crowdfunding'),
+				'form_fields'   => array(
 					array(
-                        'type' => 'textarea',
-                        'name' => 'physical_address',
+                        'type'  => 'textarea',
+                        'name'  => 'physical_address',
 						'label' => __('Your Physical Address', 'wp-crowdfunding'),
-						'desc' => __('We will send you an ECHECK to this address directly.', 'wp-crowdfunding'),
+						'desc'  => __('We will send you an ECHECK to this address directly.', 'wp-crowdfunding'),
 					),
 				),
             ),
             //PayPal Payment
-			'paypal' => array(
-                'method_name' => __('PayPal Payment', 'wp-crowdfunding'),
-                'desc' => __($method_desc, 'wp-crowdfunding'),
-				'form_fields' => array(
+			'paypal'            => array(
+                'method_name'   => __('PayPal Payment', 'wp-crowdfunding'),
+                'desc'          => __($method_desc, 'wp-crowdfunding'),
+				'form_fields'   => array(
 					array(
-                        'type' => 'email',
-                        'name' => 'paypal_email',
+                        'type'  => 'email',
+                        'name'  => 'paypal_email',
 						'label' => __('PayPal E-Mail Address', 'wp-crowdfunding'),
-						'desc' => __('Write your paypal email address to get payout directly to your paypal account', 'wp-crowdfunding'),
+						'desc'  => __('Write your paypal email address to get payout directly to your paypal account', 'wp-crowdfunding'),
 					),
 				),
 			),
@@ -978,9 +1004,9 @@ class Dashboard {
         $selected_method = get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true);
 
         $response = array(
-            'success' => 1,
-            'methods' => $withdraw_methods,
-            'selected_method' => json_decode( $selected_method )
+            'success'           => 1,
+            'methods'           => $withdraw_methods,
+            'selected_method'   => json_decode( $selected_method )
         );
 
         return rest_ensure_response( $response );
@@ -1005,12 +1031,46 @@ class Dashboard {
         $saved_data = array( 'key' => $json_params['key'], 'data' => $data );
         update_user_meta( $user_id, 'wpcf_user_withdraw_account', json_encode($saved_data) );
         $response = array(
-            'success' => 1, 
-            'data' => $saved_data
+            'success'   => 1, 
+            'data'      => $saved_data
         );
         return rest_ensure_response( $response );
     }
-    
+
+    /**
+     * Get user cmapgaing ids and total goals
+     * @since     2.1.0
+     * @access    public
+     * @return    {object} mixed
+     */
+    function user_campaign_ids_with_total_goals() {
+        $campaign_ids   = array();
+        $total_goals    = 0;
+        //Get current user campaign list
+        $args = array(
+            'post_type' 		=> 'product',
+            'author'    		=> $this->current_user_id,
+            'tax_query' 		=> array(
+                array(
+                    'taxonomy'  => 'product_type',
+                    'field'     => 'slug',
+                    'terms'     => 'crowdfunding',
+                ),
+            ),
+            'posts_per_page'    => -1
+        );
+        $campaign_list = get_posts( $args );
+        //Generate campaign_ids array and add total goal from campaign loop
+        foreach ($campaign_list as $value) {
+            $campaign_ids[] = $value->ID;
+            $funding_goal   = get_post_meta($value->ID, '_nf_funding_goal', true);
+            $total_goals    += $funding_goal;
+        }
+        return (object) [
+            'campaign_ids'  => $campaign_ids,
+            'total_goals'   => $total_goals
+        ];
+    }
 
     /**
      * Get wc_countries
