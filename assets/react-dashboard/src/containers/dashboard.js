@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampaignsReport } from '../actions/campaignAction';
+import DatePicker from '../components/datePicker';
 import LineGraph from '../components/lineGraph';
+import PledgeReports from '../components/pledgeReports';
 
 class Dashboard extends Component {
 	constructor (props) {
-		super(props);
-		this.state = { 
-            query_args: { 'date_range': 'last_7_days'},
+        super(props);
+		this.state  = { 
+            query_args: {'date_range': 'last_7_days'},
             option_params: {
                 last_7_days: 'Last Week',
                 last_14_days: 'Last 14 Days',
@@ -17,20 +19,27 @@ class Dashboard extends Component {
                 this_year: 'This Year'
             }
         };
-        this.genQueryArgs = this.genQueryArgs.bind( this );
+        this._onChange = this._onChange.bind(this);
     }
 
     componentDidMount() {
         let { query_args } = this.state;
-        this.props.fetchCampaignsReport(query_args);
+        this.props.fetchCampaignsReport( this.encodeQueryArgs(query_args) );
     }
 
-    genQueryArgs(e) {
-        let { query_args } = this.state;
-        query_args = Object.assign({}, query_args, { [e.target.name]: e.target.value });
-        this.props.fetchCampaignsReport(query_args);
+    encodeQueryArgs(data) {
+        const ret = [];
+        for (let d in data)
+            ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        return ret.join('&');
+    }
+
+    _onChange(e) {
+        const query_args = Object.assign({}, this.state.query_args, { [e.target.name]: e.target.value });
+        this.props.fetchCampaignsReport( this.encodeQueryArgs(query_args) );
         this.setState( { query_args } );
     }
+
     
 	render () {
         const { query_args, option_params } = this.state;
@@ -70,38 +79,34 @@ class Dashboard extends Component {
                     </div>
 
                     <div className="filter">
-                        <select id="date_range" name="date_range" value={query_args.date_range} onChange={ this.genQueryArgs }>
+                        <select id="date_range" name="date_range" value={query_args.date_range} onChange={ this._onChange }>
                             { Object.keys( option_params ).map( key => 
                                 <option key={key} value={key}> {option_params[key]} </option>
                             )}
                         </select>
+                        <DatePicker
+                            name="date_range_from"
+                            value={query_args.date_range_from}
+                            onChange={ e => this._onChange(e) }
+                            placeholder="From"
+                            format="yy-mm-dd"
+                        />
+                        <DatePicker
+                            name="date_range_to"
+                            value={query_args.date_range_to}
+                            onChange={ e => this._onChange(e) }
+                            placeholder="To"
+                            format="yy-mm-dd"
+                        />
                     </div>
-
-                   {/*  <LineGraph format={ format } label={ label }/> */}
-                   
-                    <div className="wpcf-dashboard-info-table-wrap">
-                        <h3>Most Popular Courses</h3>
-                        <table className="wpcf-dashboard-info-table">
-                            <thead>
-                                <tr>
-                                    <td>Course Name</td>
-                                    <td>Enrolled</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Tutor LMS – eLearning and online course solution</td>
-                                    <td>1</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <LineGraph format={ format } label={ label }/>
+                    <hr />
+                    <PledgeReports pledges={pledges} />
                 </div>
             </div>
 		)
 	}
 }
-
 
 const mapStateToProps = state => ({
     report: state.campaignsReport

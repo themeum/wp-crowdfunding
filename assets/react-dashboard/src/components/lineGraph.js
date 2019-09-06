@@ -21,10 +21,10 @@ class LineGraph extends Component {
                     data: [ ...this.props.format ],
                     pointRadius: 5,
                     pointHoverRadius: 8,
-                    pointHoverBackgroundColor: '#1adc68',
+                    pointHoverBackgroundColor: '#3060c5',
                     pointHoverBorderColor: '#fff',
-                    backgroundColor: '#1adc68',
-                    borderColor: '#DCDCE9',
+                    backgroundColor: '#3060c5',
+                    borderColor: '#dcdce4',
                     borderWidth: 3,
                     pointStyle: 'circle',
                 }]

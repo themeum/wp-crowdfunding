@@ -142,18 +142,14 @@ class Dashboard {
      * Get dashboard report
      * @since     2.1.0
      * @access    public
-     * @param     {object}  request
-     * @return    {json}    mixed
+     * @return    {json} mixed
      */
-    function report( \WP_REST_Request $request ) {
+    function report() {
         global $wpdb;
-        $json_params = $request->get_json_params();
-        $campaign_id =  $json_params['campaign_id'];
-        $query_range_args = array(
-            'date_range'        => sanitize_text_field($json_params['date_range']),
-            'date_range_from'   => sanitize_text_field($json_params['date_range_from']),
-            'date_range_to'     => sanitize_text_field($json_params['date_range_to'])
-        );
+        $campaign_id =  isset($_GET['campaign_id']) ? sanitize_text_field($_GET['campaign_id']) : '';
+        $query_range_args['date_range'] =  isset($_GET['date_range']) ? sanitize_text_field($_GET['date_range']) : '';
+        $query_range_args['date_range_from'] =  isset($_GET['date_range_from']) ? sanitize_text_field($_GET['date_range_from']) : '';
+        $query_range_args['date_range_to'] =  isset($_GET['date_range_to']) ? sanitize_text_field($_GET['date_range_to']) : '';
         $query_range = $this->get_query_range_params( $query_range_args );
 
         $fund_raised        = 0;
@@ -165,6 +161,7 @@ class Dashboard {
         $csv[]              = array("Date", "Pledge Amount ", "Sales");
         $format             = array();
         $label              = array();
+        $pledges            = array();
         
         if( !empty($campaign_id) ) {
             $campaign_ids       = array( $campaign_id );
@@ -214,50 +211,40 @@ class Dashboard {
 
                 if( $results ) {
                     foreach( $results as $result ) {
-                        $sales_count    = count(explode(',', $result->order_ids));
+                        $order_ids      = explode(',', $result->order_ids);
+                        $total_backed   += count( $order_ids );
                         $backers_amount += $wpdb->get_var("(SELECT SUM(meta_value) from $wpdb->postmeta where post_id IN({$result->order_ids}) and meta_key = '_order_total' )");
+                    
+                        foreach($order_ids as $order_id) {
+                            //Get order details for table listing
+                            $order      = wc_get_order( $order_id );
+                            $backer_id  = $order->get_user_id();
+                            $first_name = get_user_meta( $backer_id, 'first_name', true);
+                            $last_name  = get_user_meta( $backer_id, 'last_name', true);
+                            $b_country  = $order->get_billing_country();
+                            foreach ($order->get_items() as $item) {
+                                $product_id = $item['product_id'];
+                            }
+                            $funding_goal   = get_post_meta($product_id, '_nf_funding_goal', true);
+                            $pledge         = $order->get_total();
+                            $status         = $order->get_status();
+                            $pledges[]  = array(
+                                'name'      => $first_name.' '.$last_name,
+                                'country'   => WC()->countries->countries[$b_country],
+                                'date'      => $order->get_date_created()->format ('d/n/y'),
+                                'pledge'    => wc_price( $pledge ),
+                                'percent'   => round( ($pledge*100)/$funding_goal, 2),
+                                'status'    => $status,
+                                'status__'  => wc_get_order_status_name( $status ),
+                            );
+                        }
                     }
                 }
 
                 $csv[]          = array( $printed_date, $backers_amount, $sales_count );
                 $format[]       = $backers_amount;
                 $label[]        = "'{$printed_date}'";
-                $total_backed   += $sales_count; //Get Total backers amount and sales count all time
                 $fund_raised    += $backers_amount;
-            }
-        }
-
-        $pledges = array();
-        //Get customers orders with injecting details
-        if(!empty($order_ids__)) {
-            $args = array(
-                'post__in'	  => $order_ids__,
-                'meta_key'    => '_customer_user',
-                'post_type'   => wc_get_order_types( 'view-orders' ),
-                'post_status' => array_keys( wc_get_order_statuses() )
-            );
-            if(empty($campaign_id)) {
-                $args['numberposts'] = 10; // if not single campaign then limit 10
-            }
-            $orders = get_posts( $args );
-            foreach ( $orders as $order )  {
-                $order      = wc_get_order( $order );
-                $backer_id  = $order->get_user_id();
-                $first_name = get_user_meta( $backer_id, 'first_name', true);
-                $last_name  = get_user_meta( $backer_id, 'last_name ', true);
-                $b_country  = $order->get_billing_country();
-                foreach ( $order->get_items() as $item ) {
-                    $product_id = $item['product_id'];
-                }
-                $funding_goal = get_post_meta($product_id, '_nf_funding_goal', true);
-                $pledge = $order->get_total();
-                $pledges[]  = array(
-                    'name'      => $first_name.' '.$last_name,
-                    'country'   => WC()->countries->countries[$b_country],
-                    'date'      => $order->get_date_created()->format ('d/n/y'),
-                    'pledge'    => wc_price( $pledge ),
-                    'percent'   => round( ($pledge*100)/$funding_goal, 2)
-                );
             }
         }
 
@@ -268,8 +255,7 @@ class Dashboard {
             'fundRaised'    => wc_price( $fund_raised ),
             'raisedPercent' => round( ($fund_raised*100) / $total_goals, 2),
             'totalBacked'   => $total_backed,
-            'pledges'       => $pledges,
-            'query_range'       => $query_range,
+            'pledges'       => $pledges
         );
         return rest_ensure_response( $response );
     }
@@ -291,29 +277,27 @@ class Dashboard {
                     $query_range    = 'day_wise';
                     break;
                 case 'last_14_days':
+                    $from_date      = date('Y-m-d 00:00:00', strtotime('-14 days'));
                     $to_date        = date('Y-m-d 23:59:59');
-                    $from_date      = date('Y-m-01 00:00:00');
-                    $query_range    = 'day_wise';
                     break;
                 case 'this_month':
-                    $to_date        = date('Y-m-d 23:59:59');
                     $from_date      = date('Y-m-01 00:00:00');
-                    $query_range    = 'day_wise';
+                    $to_date        = date('Y-m-d 23:59:59');
                     break;
                 case 'last_3_months':
-                    $to_date        = date('Y-m-t 23:59:59', strtotime('-1 month'));
                     $from_date      = date('Y-m-01 00:00:00', strtotime('-3 month'));
+                    $to_date        = date('Y-m-t 23:59:59', strtotime('-1 month'));
                     $query_range    = 'month_wise';
                     break;
                 case 'last_6_months':
-                    $to_date        = date('Y-m-t 23:59:59', strtotime('-1 month'));
                     $from_date      = date('Y-m-01 00:00:00', strtotime('-6 month'));
+                    $to_date        = date('Y-m-t 23:59:59', strtotime('-1 month'));
                     $query_range    = 'month_wise';
                     break;
                 case 'this_year':
-                    $to_date        = date('Y-m-d 23:59:59');
                     $from_date      = date('Y-01-01 00:00:00');
-                    $query_range    = __('1Y', 'wp-crowdfunding');
+                    $to_date        = date('Y-m-d 23:59:59');
+                    $query_range    = 'month_wise';
                     break;
             }
         }
