@@ -6,14 +6,14 @@ class DatePicker extends Component {
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
-      }
+    }
     
     componentDidMount() {
         const { name, onChange, format } = this.props;
         const inputRef = this.inputRef.current;
         $(inputRef).datepicker({
             dateFormat: format,
-            onSelect: function(value) {
+            onSelect: value => {
                 const obj = {
                     target: { name, value}
                 }

@@ -4,12 +4,15 @@ import { fetchCampaignsReport } from '../actions/campaignAction';
 import DatePicker from '../components/datePicker';
 import LineGraph from '../components/lineGraph';
 import PledgeReports from '../components/pledgeReports';
+import ExportCSV from '../components/exportCSV';
 
 class Dashboard extends Component {
 	constructor (props) {
         super(props);
-		this.state  = { 
-            query_args: {'date_range': 'last_7_days'},
+		this.state  = {
+            query_args: { 
+                date_range: 'last_7_days'
+            },
             option_params: {
                 last_7_days: 'Last Week',
                 last_14_days: 'Last 14 Days',
@@ -28,24 +31,26 @@ class Dashboard extends Component {
     }
 
     encodeQueryArgs(data) {
-        const ret = [];
-        for (let d in data)
-            ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-        return ret.join('&');
+        const args = [];
+        for (let key in data) {
+            args.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+        }
+        return args.join('&');
     }
 
     _onChange(e) {
-        const query_args = Object.assign({}, this.state.query_args, { [e.target.name]: e.target.value });
+        let { query_args } = this.state;
+        const{ name, value } = e.target;
+        query_args = (name =="date_range") ? {date_range: value} : Object.assign(query_args, {[name]: value});
         this.props.fetchCampaignsReport( this.encodeQueryArgs(query_args) );
         this.setState( { query_args } );
     }
 
-    
 	render () {
         const { query_args, option_params } = this.state;
         const { loading, data:{ csv, format, label, fundRaised, raisedPercent, totalBacked, pledges } } = this.props.report;
         
-        if( loading ) {
+        if (loading) {
             return (
                 <div>
                     Loading...
@@ -99,6 +104,7 @@ class Dashboard extends Component {
                             format="yy-mm-dd"
                         />
                     </div>
+                    <ExportCSV data={csv} file_name="campaigns-report"/>
                     <LineGraph format={ format } label={ label }/>
                     <hr />
                     <PledgeReports pledges={pledges} />

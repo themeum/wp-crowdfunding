@@ -103,6 +103,9 @@ class Dashboard {
         register_rest_route( $namespace, '/save-withdraw-account', array(
             array( 'methods' => $method_creatable, 'callback' => array($this, 'save_withdraw_account'), ),
         ));
+        register_rest_route( $namespace, '/rewards', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'rewards'), ),
+        ));
         register_rest_route( $namespace, '/wc-countries', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries'), ),
         ));
@@ -279,10 +282,12 @@ class Dashboard {
                 case 'last_14_days':
                     $from_date      = date('Y-m-d 00:00:00', strtotime('-14 days'));
                     $to_date        = date('Y-m-d 23:59:59');
+                    $query_range    = 'day_wise';
                     break;
                 case 'this_month':
                     $from_date      = date('Y-m-01 00:00:00');
                     $to_date        = date('Y-m-d 23:59:59');
+                    $query_range    = 'day_wise';
                     break;
                 case 'last_3_months':
                     $from_date      = date('Y-m-01 00:00:00', strtotime('-3 month'));
@@ -1018,6 +1023,47 @@ class Dashboard {
             'success'   => 1, 
             'data'      => $saved_data
         );
+        return rest_ensure_response( $response );
+    }
+
+    /**
+     * Get all user created rewards
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function rewards() {
+        $args = array(
+            'post_type' 		=> 'product',
+            'author'    		=> $this->current_user_id,
+            'tax_query' 		=> array(
+                array(
+                    'taxonomy'  => 'product_type',
+                    'field'     => 'slug',
+                    'terms'     => 'crowdfunding',
+                ),
+            ),
+            'posts_per_page'    => -1
+        );
+        $campaign_list = get_posts( $args );
+        $rewards = array();
+        foreach ($campaign_list as $value) {
+
+            $campaign_rewards = get_post_meta($value->ID, 'wpneo_reward', true);
+            $campaign_rewards = stripslashes($campaign_rewards);
+            $rewards[] = json_decode($campaign_rewards, true);
+
+        }
+
+        
+
+        $response = array(
+            'rewards' => $rewards
+        );
+
+        echo "<pre>";
+        print_r( $response );
+
         return rest_ensure_response( $response );
     }
 

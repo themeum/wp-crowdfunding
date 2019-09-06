@@ -9,6 +9,7 @@ import order from './order';
 import withdraw from './withdraw';
 import withdrawMethod from './withdrawMethod';
 import countries from './countries';
+import reward from './reward';
 
 const rootReducer = combineReducers({
     user,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     withdraw,
     withdrawMethod,
     countries,
+    reward
 });
 
 export default rootReducer;

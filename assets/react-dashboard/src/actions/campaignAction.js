@@ -77,3 +77,19 @@ export const fetchBookmarkCampaigns = () => dispatch => {
     .then( payload => dispatch( {type: FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, payload} ) )
     .catch( payload => dispatch( {type: FETCH_BOOKMARK_CAMPAIGNS_ERROR, payload} ) );
 }
+
+
+//CAMPAIGN REWARDS
+export const FETCH_REWARDS_PENDING = 'fetch_rewards_pending';
+export const FETCH_REWARDS_COMPLETE = 'fetch_rewards_complete';
+export const FETCH_REWARDS_ERROR = 'fetch_rewards_error';
+
+export const fetchRewards = () => dispatch => {
+    dispatch({ type: FETCH_REWARDS_PENDING });
+    const fetchURL = `${WPCF.rest_url}/rewards`;
+    const option = { method: 'GET', headers:{ 'Content-Type': 'application/json' } };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload => dispatch( {type: FETCH_REWARDS_COMPLETE, payload} ) )
+    .catch( payload => dispatch( {type: FETCH_REWARDS_ERROR, payload} ) );
+}
