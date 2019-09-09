@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userAction';
-import '../styles/style.scss';
 import Dashboard from './dashboard';
 import Profile from './profile';
 import MyCampaigns from './myCampaigns';
@@ -14,6 +13,7 @@ import Withdraw from './withdraw';
 import ProfileSettings from './profileSettings';
 import WithdrawMethodSettings from './withdrawMethodSettings';
 import Rewards from './rewards';
+import '../styles/style.scss';
 
 class App extends Component {
 	constructor (props) {
@@ -49,7 +49,7 @@ class App extends Component {
                 <div>
                     Loading...
                 </div>
-            ) 
+            )
         };
 		return (
 			<div className="wpcf-wrap wpcf-dashboard">
