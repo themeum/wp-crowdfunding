@@ -54,7 +54,7 @@ class WithdrawDetails extends Component {
     }
 
     render() {
-        const { data, data: { withdraw, methods }, onClickBack } = this.props;
+        const { data, data: { withdraw }, methods, onClickBack } = this.props;
         const { withdraw_amount, withdraw_message, withdraw_method, errorMsg } = this.state;
 
         return (
@@ -122,19 +122,23 @@ class WithdrawDetails extends Component {
                                 <input id="wpcf_withdraw_message" type="textarea" name="withdraw_message" value={ withdraw_message } onChange={ this.onChangeInput }/>
                             </div>
                             <div className="withdraw-method-select-wrap">
-                                { Object.keys( methods.data ).map( (key) =>
-                                    <div key={ key } className="withdraw-method-select">
-                                        <input type="radio" id={`wpcf_withdraw_method_${key}`} className="withdraw-method-select-input" name="withdraw_method" value={ key } onChange={ this.onChangeInput } required checked={ withdraw_method == key ? true : false }/>
-                                        <label htmlFor={`wpcf_withdraw_method_${key}`} className={ withdraw_method == key ? 'active' : '' }>
-                                            <p>{methods.data[key].method_name}</p>
-                                            <span dangerouslySetInnerHTML={{__html: data.min_withdraw}}/>
-                                            <Link to="/settings/withdraw">Change info</Link>
-                                        </label>
-                                    </div>
+                                { 
+                                    (methods == null) ?
+                                        <Link to="/settings/withdraw">Setup withdraw methods</Link> 
+                                    :
+                                        Object.keys( methods.data ).map( (key) =>
+                                        <div key={ key } className="withdraw-method-select">
+                                            <input type="radio" id={`wpcf_withdraw_method_${key}`} className="withdraw-method-select-input" name="withdraw_method" value={ key } onChange={ this.onChangeInput } required checked={ withdraw_method == key ? true : false }/>
+                                            <label htmlFor={`wpcf_withdraw_method_${key}`} className={ withdraw_method == key ? 'active' : '' }>
+                                                <p>{methods.data[key].method_name}</p>
+                                                <span dangerouslySetInnerHTML={{__html: data.min_withdraw}}/>
+                                                <Link to="/settings/withdraw">Change info</Link>
+                                            </label>
+                                        </div>
                                 )}
                             </div>
                             <div className="withdraw-account-save-btn-wrap">
-                                <button type="submit" className="wpcf-btn">Confirm Withdrawal</button>
+                                <button type="submit" className="wpcf-btn" disabled={(methods == null)}>Confirm Withdrawal</button>
                                 <button type="button" onClick={() => onClickBack('')}> Back </button>
                             </div>
                         </form>

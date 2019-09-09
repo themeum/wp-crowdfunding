@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { fetchUser } from '../actions/userAction';
 import '../styles/style.scss';
 import Dashboard from './dashboard';
 import Profile from './profile';
@@ -18,12 +20,37 @@ class App extends Component {
 		super(props);
 		const basePath = WPCF.dashboard_url.replace( window.location.origin, '' );
 		this.state = { basePath };
+		this.logout = this.logout.bind(this);
 	}
 
+	componentDidMount() {
+        const { loaded } = this.props.user;
+        if( !loaded ) {
+            this.props.fetchUser();
+		}
+    }
 
+	logout(e) {
+		e.preventDefault();
+		fetch(`${WPCF.rest_url}/logout`)
+			.then(res => res.json())
+			.then(res => {
+				if(res.success) {
+					location.href = res.redirect;
+				}
+			});
+	}
 
 	render () {
 		const { basePath } = this.state;
+		const { loading, data } = this.props.user;
+        if( loading ) { 
+            return (
+                <div>
+                    Loading...
+                </div>
+            ) 
+        };
 		return (
 			<div className="wpcf-wrap wpcf-dashboard">
 				<div className="wpcf-container">
@@ -31,11 +58,11 @@ class App extends Component {
 						<div className="wpcf-col-12">
 							<div className="wpcf-dashboard-header">
 								<div className="wpcf-dashboard-header-avatar">
-									<img src="http://1.gravatar.com/avatar/169dc7be10b05744eadec177079f9031?s=150&d=mm&r=g" />
+								<img className="profile-form-img" src={ data.profile_image } alt="Profile Image" />
 								</div>
 								<div className="wpcf-dashboard-header-info">
 									<div className="wpcf-dashboard-header-display-name">
-										<h4>Howdy, <strong>John Doe</strong> </h4>
+										<h4>{data.first_name+' '+data.last_name}</h4>
 									</div>
 								</div>
 								<div className="wpcf-dashboard-header-button">
@@ -61,7 +88,7 @@ class App extends Component {
 									<li className='wpcf-dashboard-menu-index'><Link to="/settings/profile">Profile</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/settings/withdraw">Withdraw Method</Link></li>
 									<li className='wpcf-dashboard-menu-index'><Link to="/rewards">Rewards</Link></li>
-									<li className='wpcf-dashboard-menu-logout'><Link to="/">Logout</Link></li>
+									<li className='wpcf-dashboard-menu-logout'><a href="javascript:void(0)" onClick={this.logout}>Logout</a></li>
 								</ul>
 							</div>
 							<div className="wpcf-col-9">
@@ -85,4 +112,8 @@ class App extends Component {
 	}
 }
 
-export default App;
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect( mapStateToProps, { fetchUser } )(App);

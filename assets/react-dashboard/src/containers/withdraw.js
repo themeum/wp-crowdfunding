@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchWithdraws } from '../actions/withdrawAction';
+import { fetchWithdraws, fetchWithdrawMethods } from '../actions/withdrawAction';
 import Pagination from '../components/pagination';
 import ItemWithdraw from '../components/itemWithdraw';
 import WithdrawDetails from '../components/withdrawDetails';
@@ -17,9 +17,12 @@ class Withdraw extends Component {
     }
 
     componentDidMount() {
-        const { loaded } = this.props.withdraw;
-        if( !loaded ) {
+        const { withdraw, methods } = this.props;
+        if( !withdraw.loaded ) {
             this.props.fetchWithdraws();
+        }
+        if( !methods.loaded ) {
+            this.props.fetchWithdrawMethods();
         }
     }
 
@@ -32,8 +35,8 @@ class Withdraw extends Component {
     }
 
 	render() {
-        const { withdraw } = this.props;
-        if( withdraw.loading ) { 
+        const { withdraw, methods } = this.props;
+        if( withdraw.loading || methods.loading ) { 
             return (
                 <div>
                     Loading...
@@ -47,6 +50,7 @@ class Withdraw extends Component {
             return (
                 <WithdrawDetails
                     data={ withdrawDetails }
+                    methods={ methods.data.selected_method }
                     onClickBack={ this.onClickWithdrawDetails }/>
             );
         }
@@ -95,7 +99,8 @@ class Withdraw extends Component {
 }
 
 const mapStateToProps = state => ({
-    withdraw: state.withdraw
+    withdraw: state.withdraw,
+    methods: state.withdrawMethod
 })
 
-export default connect( mapStateToProps, { fetchWithdraws } )(Withdraw);
+export default connect( mapStateToProps, { fetchWithdraws, fetchWithdrawMethods } )(Withdraw);

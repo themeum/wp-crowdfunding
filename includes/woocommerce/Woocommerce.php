@@ -1080,8 +1080,11 @@ class Woocommerce {
     }
 
     function wc_empty_cart() {
-        if( function_exists('WC') ){
-            WC()->cart->empty_cart();
+        if ( function_exists('WC') ) {
+            $cart_item = is_object( WC()->cart ) ? WC()->cart->get_cart_contents_count() : '';
+            if( $cart_item ) {
+                WC()->cart->empty_cart();
+            }
         }
     }
 

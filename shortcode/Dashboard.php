@@ -109,6 +109,9 @@ class Dashboard {
         register_rest_route( $namespace, '/wc-countries', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries'), ),
         ));
+        register_rest_route( $namespace, '/logout', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'logout'), ),
+        ));
     }
     
     /**
@@ -124,8 +127,9 @@ class Dashboard {
             wp_enqueue_script( 'wpcf-dashboard-script', WPCF_DIR_URL.'assets/js/dashboard.js', array('jquery'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
                 'dashboard_url' => get_permalink(),
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'rest_url' => rest_url( $api_namespace )
+                'ajax_url'      => admin_url( 'admin-ajax.php' ),
+                'rest_url'      => rest_url( $api_namespace ),
+                'nonce'         => wp_create_nonce( 'wpcf_api_nonce' )
             ) );
         }
     }
@@ -149,11 +153,17 @@ class Dashboard {
      */
     function report() {
         global $wpdb;
-        $campaign_id =  isset($_GET['campaign_id']) ? sanitize_text_field($_GET['campaign_id']) : '';
-        $query_range_args['date_range'] =  isset($_GET['date_range']) ? sanitize_text_field($_GET['date_range']) : '';
-        $query_range_args['date_range_from'] =  isset($_GET['date_range_from']) ? sanitize_text_field($_GET['date_range_from']) : '';
-        $query_range_args['date_range_to'] =  isset($_GET['date_range_to']) ? sanitize_text_field($_GET['date_range_to']) : '';
-        $query_range = $this->get_query_range_params( $query_range_args );
+        /* $headers = getallheaders();
+        var_dump(wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce'));
+        if( !wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce') ) {
+            return array( 'success' => 0, 'msg' => 'Invalid nonce!' );
+        } */
+        
+        $campaign_id                            = isset($_GET['campaign_id']) ? sanitize_text_field($_GET['campaign_id']) : '';
+        $query_range_args['date_range']         = isset($_GET['date_range']) ? sanitize_text_field($_GET['date_range']) : '';
+        $query_range_args['date_range_from']    = isset($_GET['date_range_from']) ? sanitize_text_field($_GET['date_range_from']) : '';
+        $query_range_args['date_range_to']      = isset($_GET['date_range_to']) ? sanitize_text_field($_GET['date_range_to']) : '';
+        $query_range                            = $this->get_query_range_params( $query_range_args );
 
         $fund_raised        = 0;
         $total_backed       = 0;
@@ -689,7 +699,6 @@ class Dashboard {
                     'total_withdraw'    => wc_price( $withdraw_details->total_withdraw ),
                     'balance'           => wc_price( $total_receivable - $withdraw_details->total_withdraw),
                 ),
-                'methods'               => json_decode( get_user_meta($this->current_user_id, 'wpcf_user_withdraw_account', true) ),
                 'min_withdraw'          => 'Min Withdraw '. wc_price( get_option('walleet_min_withdraw_amount') )
             );
         }
@@ -1135,6 +1144,21 @@ class Dashboard {
     function wc_countries() {
         $countries = (array) WC()->countries->countries;
         return rest_ensure_response( $countries );
+    }
+
+    /**
+     * Logout user
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function logout() {
+        wp_logout();
+        $response =  array(
+            'success'  => 1,
+            'redirect'  => home_url(),
+        );
+        return rest_ensure_response( $response );
     }
 
 }
