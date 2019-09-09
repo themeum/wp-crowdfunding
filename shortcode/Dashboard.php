@@ -1046,25 +1046,49 @@ class Dashboard {
             'posts_per_page'    => -1
         );
         $campaign_list = get_posts( $args );
-        $rewards = array();
+
+        $all_reward = array();
+
         foreach ($campaign_list as $value) {
+            $campaign_rewards   = get_post_meta($value->ID, 'wpneo_reward', true);
+            $campaign_rewards   = json_decode(stripslashes($campaign_rewards), true);
 
-            $campaign_rewards = get_post_meta($value->ID, 'wpneo_reward', true);
-            $campaign_rewards = stripslashes($campaign_rewards);
-            $rewards[] = json_decode($campaign_rewards, true);
+            foreach($campaign_rewards as $reward) {
+                $image_id       = $reward['wpneo_rewards_image_field'];
+                $reward_image   = ($image_id) ? wp_get_attachment_image_src($image_id)[0] : wc_placeholder_img_src();
+                $reward_title   = (isset($reward['wpneo_rewards_title'])) ? $reward['wpneo_rewards_title'] : '';
+                
+                $end_month      = $reward['wpneo_rewards_endmonth'];
+                $end_year       = $reward['wpneo_rewards_endyear'];
 
+                $end_date       = date("Y-m-t 23:59:59", strtotime( $end_year.'-'.$end_month ));
+                $end_date       = new \DateTime($end_date);
+                $current_date   = new \DateTime();
+                $interval       = $end_date->diff($current_date);
+
+                if($current_date < $end_date) {
+                    $status = ($interval->days <= 5) ? 'about_to_end' : 'remain';
+                } else {
+                    $status = 'completed';
+                }
+                $description    = $reward['wpneo_rewards_description'];
+                $end_string     = (strlen($description) > 150) ? '...' : '';
+                $description    = substr($description, 0, 150).$end_string;
+                $pladge_amount  = $reward['wpneo_rewards_pladge_amount'];
+                $all_reward[]   = array(
+                    'title'         => $reward_title,
+                    'image'         => $reward_image,
+                    'description'   => $description,
+                    'pladge_amount' => wc_price( $pladge_amount ),
+                    'endmonth'      => $end_month,
+                    'endyear'       => $end_year,
+                    'interval'      => $interval,
+                    'status'        => $status
+                );
+            }
         }
 
-        
-
-        $response = array(
-            'rewards' => $rewards
-        );
-
-        echo "<pre>";
-        print_r( $response );
-
-        return rest_ensure_response( $response );
+        return rest_ensure_response( $all_reward );
     }
 
     /**

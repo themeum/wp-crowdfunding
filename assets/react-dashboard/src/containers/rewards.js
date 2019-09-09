@@ -4,20 +4,20 @@ import { fetchRewards } from '../actions/campaignAction';
 import ItemReward from '../components/itemReward';
 import Pagination from '../components/pagination';
 
-class Reward extends Component {
+class Rewards extends Component {
 	constructor (props) {
         super(props);
         this.state = {
             pageOfItems: [],
-            filterValue: 'running'
+            filterValue: ''
         };
         this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentDidMount() {
-        const { loaded } = this.props.campaign;
+        const { loaded } = this.props.reward;
         if( !loaded ) {
-            this.props.fetchMyCampaigns();
+            this.props.fetchRewards();
         }
     }
 
@@ -25,22 +25,23 @@ class Reward extends Component {
         this.setState({ pageOfItems });
     }
 
-    onClickFilter(e) {
-        e.preventDefault();
-        const filterValue = e.target.innerText.toLowerCase();
+    onClickFilter(filterValue) {
         this.setState({ filterValue });
     }
 
-    getCampaignData() {
+    getRewardsData() {
         const { filterValue } = this.state;
-        const { campaign } = this.props;
-        const filterData = campaign.data.filter( item => item.status == filterValue );
+        const { reward } = this.props;
+        let filterData = reward.data;
+        if( filterValue ) {
+            filterData = reward.data.filter( item => item.status == filterValue );
+        }
         return filterData;
     }
 
 	render() {
-        const { campaign } = this.props;
-        if( campaign.loading ) { 
+        const { reward } = this.props;
+        if( reward.loading ) { 
             return (
                 <div>
                     Loading...
@@ -49,13 +50,19 @@ class Reward extends Component {
         };
 
         const { pageOfItems, filterValue } = this.state;
-        const campaignData = this.getCampaignData();
+        const rewardsData = this.getRewardsData();
         
         return (
             <div className="wpcf-dashboard-content">
                 <h3>Rewards</h3>
+                <div>
+                    <span className={ (filterValue==''? 'active' : '') } onClick={ e => this.onClickFilter( '' ) }>All</span>
+                    <span className={ (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter( 'completed' ) }>Completed</span>
+                    <span className={ (filterValue=='remain'? 'active' : '') } onClick={ e => this.onClickFilter( 'remain' ) }>Remain</span>
+                    <span className={ (filterValue=='about_to_end'? 'active' : '') } onClick={ e => this.onClickFilter( 'about_to_end' ) }>About To End</span>
+                </div>
                 <div className="wpcf-dashboard-content-inner">
-                    { campaignData.length ?
+                    { rewardsData.length ?
                         <div>
                             { pageOfItems.map( (item, index) =>
                                 <ItemReward 
@@ -63,7 +70,7 @@ class Reward extends Component {
                                     data={ item } />
                             ) }
                             <Pagination
-                                items={ campaignData }
+                                items={ rewardsData }
                                 pageSize={ 5 }
                                 filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
@@ -80,7 +87,7 @@ class Reward extends Component {
 }
 
 const mapStateToProps = state => ({
-    campaign: state.myCampaign
+    reward: state.reward
 })
 
-export default connect( mapStateToProps, { fetchRewards } )(Reward);
+export default connect( mapStateToProps, { fetchRewards } )(Rewards);

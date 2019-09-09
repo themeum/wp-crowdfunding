@@ -11,6 +11,7 @@ import Order from './order';
 import Withdraw from './withdraw';
 import ProfileSettings from './profileSettings';
 import WithdrawMethodSettings from './withdrawMethodSettings';
+import Rewards from './rewards';
 
 class App extends Component {
 	constructor (props) {
@@ -74,6 +75,7 @@ class App extends Component {
 								<Route path="/withdraw" component={ Withdraw } />
 								<Route path="/settings/profile" component={ ProfileSettings } />
 								<Route path="/settings/withdraw" component={ WithdrawMethodSettings } />
+								<Route path="/rewards" component={ Rewards } />
 							</div>
 						</Router>
 					</div>
