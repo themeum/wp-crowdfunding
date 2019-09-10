@@ -85,6 +85,9 @@ class Dashboard {
         register_rest_route( $namespace, '/bookmark-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'bookmark_campaigns'), ),
         ));
+        register_rest_route( $namespace, '/save-campaign-updates', array(
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign_updates'), ),
+        ));
         register_rest_route( $namespace, '/orders', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'orders'), ),
         ));
@@ -582,7 +585,9 @@ class Dashboard {
                 $total_raised   = ($total_raised) ? $total_raised : 0;
                 $funding_goal   = get_post_meta($post->ID, '_nf_funding_goal', true);
                 $end_method     = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
+                $updates        = get_post_meta(get_the_id(), 'wpneo_campaign_updates', true);
                 $data[$i]       = array(
+                    'id'                => get_the_id(),
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
                     'thumbnail'         => woocommerce_get_product_thumbnail(),
@@ -595,12 +600,33 @@ class Dashboard {
                     'is_started'        => wpcf_function()->is_campaign_started(),
                     'days_remaining'    => wpcf_function()->get_date_remaining(),
                     'days_until_launch' => wpcf_function()->days_until_launch(),
-                    'status'            => wpcf_function()->get_campaign_status()
+                    'status'            => wpcf_function()->get_campaign_status(),
+                    'updates'           => ($updates) ? json_decode($updates, true) :  array()
                 );
                 $i++;
             endwhile;
         endif;
         return $data;
+    }
+
+
+    /**
+     * Save campaign updates
+     * @since     2.1.0
+     * @access    public
+     * @param     {object}  request
+     * @return    {json}    mixed
+     */
+    function save_campaign_updates( \WP_REST_Request $request ) {
+        $campaignId = (int) $request['campaignId'];
+        $updates    = $request['updates'];
+        update_post_meta( $campaignId, 'wpneo_campaign_updates', json_encode($updates));
+        $response   = array(
+            'success'   => 1,
+            'id'        => $campaignId,
+            'updates'   => $updates,
+        );
+        return rest_ensure_response( $response );
     }
 
     /**

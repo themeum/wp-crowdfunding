@@ -28,7 +28,7 @@ class DatePicker extends Component {
                 ref={this.inputRef}
                 name={name}
                 defaultValue={value} 
-                placeholder={placeholder}/>
+                placeholder={placeholder || ''}/>
         )
     }
 }

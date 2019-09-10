@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMyCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
+import CampaignUpdate from '../components/campaignUpdate';
 import Pagination from '../components/pagination';
 
 class MyCampaigns extends Component {
@@ -9,9 +10,12 @@ class MyCampaigns extends Component {
         super(props);
         this.state = {
             pageOfItems: [],
-            filterValue: 'running'
+            filterValue: 'running',
+            campaignId: '',
+            updates: []
         };
         this.onChangePage = this.onChangePage.bind(this);
+        this.onClickUpdates = this.onClickUpdates.bind(this);
     }
 
     componentDidMount() {
@@ -31,6 +35,10 @@ class MyCampaigns extends Component {
         this.setState({ filterValue });
     }
 
+    onClickUpdates(campaignId, updates) {
+        this.setState({ campaignId, updates });
+    }
+
     getCampaignData() {
         const { filterValue } = this.state;
         const { campaign } = this.props;
@@ -40,6 +48,7 @@ class MyCampaigns extends Component {
 
 	render() {
         const { campaign } = this.props;
+        const { pageOfItems, filterValue, campaignId, updates } = this.state;
         if( campaign.loading ) { 
             return (
                 <div>
@@ -48,7 +57,17 @@ class MyCampaigns extends Component {
             )
         };
 
-        const { pageOfItems, filterValue } = this.state;
+        if( campaignId ) {
+            return (
+                <CampaignUpdate
+                    updates={ updates }
+                    campaignId={ campaignId }
+                    onClickUpdates={ this.onClickUpdates }/>
+            );
+        }
+
+        console.log( updates );
+       
         const campaignData = this.getCampaignData();
         
         return (
@@ -66,7 +85,8 @@ class MyCampaigns extends Component {
                             { pageOfItems.map( (item, index) =>
                                 <ItemCampaign 
                                     key={index} 
-                                    data={ item } />
+                                    data={ item } 
+                                    onClickUpdates={ this.onClickUpdates }/>
                             ) }
                             <Pagination
                                 items={ campaignData }

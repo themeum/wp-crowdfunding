@@ -11,7 +11,7 @@ export const FETCH_CAMPAIGNS_REPORT_ERROR = 'fetch_campaigns_report_error';
 export const fetchCampaignsReport = (args) => dispatch => {
     dispatch({ type: FETCH_CAMPAIGNS_REPORT_PENDING });
     const fetchURL = `${WPCF.rest_url}/campaigns-report?${args}`;
-    const option = { method: 'GET', headers };
+    const option = { method: 'GET', body: JSON.stringify(args), headers };
     fetch( fetchURL, option )
     .then( response =>  response.json() )
     .then( payload =>  dispatch( {type: FETCH_CAMPAIGNS_REPORT_COMPLETE, payload} ) )
@@ -96,4 +96,20 @@ export const fetchRewards = () => dispatch => {
     .then( response =>  response.json() )
     .then( payload => dispatch( {type: FETCH_REWARDS_COMPLETE, payload} ) )
     .catch( payload => dispatch( {type: FETCH_REWARDS_ERROR, payload} ) );
+}
+
+
+//SAVE USER DATA
+export const SAVE_CAMPAIGN_UPDATES_PENDING = 'save_campaign_updates_pending';
+export const SAVE_CAMPAIGN_UPDATES_COMPLETE = 'save_campaign_updates_complete';
+export const SAVE_CAMPAIGN_UPDATES_ERROR = 'save_campaign_updates_error';
+
+export const saveCampaignUpdates = ( data ) => dispatch => {
+    dispatch({ type: SAVE_CAMPAIGN_UPDATES_PENDING });
+    const fetchURL = `${WPCF.rest_url}/save-campaign-updates`;
+    const option = { method: 'POST', body: JSON.stringify(data), headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload => dispatch( {type: SAVE_CAMPAIGN_UPDATES_COMPLETE, payload} ) )
+    .catch( payload => dispatch( {type: SAVE_CAMPAIGN_UPDATES_ERROR, payload} ) );
 }

@@ -25,7 +25,7 @@ export default (props) => {
                     </div>
                 </div>
                 <div className="wpneo-admin-location float-right">
-                    <span><a href="#">Update</a></span>
+                    <span><a href="javascript:void(0)" onClick={ () => props.onClickUpdates( data.id, data.updates ) }>Update</a></span>
                     <span><a href="#" className="wp-crowd-btn wp-crowd-btn-primary">Edit</a></span>
                 </div>
                 <div className="wpneo-clearfix"></div>
