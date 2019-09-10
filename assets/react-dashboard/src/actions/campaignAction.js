@@ -11,7 +11,7 @@ export const FETCH_CAMPAIGNS_REPORT_ERROR = 'fetch_campaigns_report_error';
 export const fetchCampaignsReport = (args) => dispatch => {
     dispatch({ type: FETCH_CAMPAIGNS_REPORT_PENDING });
     const fetchURL = `${WPCF.rest_url}/campaigns-report?${args}`;
-    const option = { method: 'GET', body: JSON.stringify(args), headers };
+    const option = { method: 'GET', headers };
     fetch( fetchURL, option )
     .then( response =>  response.json() )
     .then( payload =>  dispatch( {type: FETCH_CAMPAIGNS_REPORT_COMPLETE, payload} ) )

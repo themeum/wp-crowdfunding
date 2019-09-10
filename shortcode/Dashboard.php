@@ -67,6 +67,7 @@ class Dashboard {
         $namespace = $this->api_namespace . $this->api_version;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
+        
         register_rest_route( $namespace, '/campaigns-report', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'report') ),
         ));

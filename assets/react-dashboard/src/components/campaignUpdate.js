@@ -45,15 +45,11 @@ class CampaignUpdate extends Component {
     onSubmitUpates(e) {
         e.preventDefault();
         let postData = { ...this.state };
-        //Send withdraw request
         this.props.saveCampaignUpdates( postData );
     }
 
     render() {
         const { updates } = this.state;
-
-        console.log( updates );
-
         return (
             <div className="wpcf-dashboard-content">
                 <h3>Updates</h3>

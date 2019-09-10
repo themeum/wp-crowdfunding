@@ -65,8 +65,6 @@ class MyCampaigns extends Component {
                     onClickUpdates={ this.onClickUpdates }/>
             );
         }
-
-        console.log( updates );
        
         const campaignData = this.getCampaignData();
         

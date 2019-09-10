@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, HashRouter, Route, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userAction';
 import Dashboard from './dashboard';
@@ -73,7 +73,7 @@ class App extends Component {
 						</div>
 					</div>
 					<div className="wpcf-row">
-						<Router basename={ basePath }>
+						<HashRouter>
 							<div className="wpcf-col-3 wpcf-dashboard-left-menu">
 								<ul className="wpcf-dashboard-permalinks">
 									<li className='wpcf-dashboard-menu-index'><Link to="/">Dashboard</Link></li>
@@ -104,7 +104,7 @@ class App extends Component {
 								<Route path="/settings/withdraw" component={ WithdrawMethodSettings } />
 								<Route path="/rewards" component={ Rewards } />
 							</div>
-						</Router>
+						</HashRouter>
 					</div>
 				</div>
 			</div>
