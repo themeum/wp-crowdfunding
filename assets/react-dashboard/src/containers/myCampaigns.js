@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMyCampaigns } from '../actions/campaignAction';
+import CampaignReport from '../containers/campaignReport';
 import ItemCampaign from '../components/itemCampaign';
 import CampaignUpdate from '../components/campaignUpdate';
 import Pagination from '../components/pagination';
@@ -11,10 +12,12 @@ class MyCampaigns extends Component {
         this.state = {
             pageOfItems: [],
             filterValue: 'running',
+            campaignReport: { id: '', name: '' },
             campaignId: '',
-            updates: []
+            updates: [],
         };
         this.onChangePage = this.onChangePage.bind(this);
+        this.onClickReport = this.onClickReport.bind(this);
         this.onClickUpdates = this.onClickUpdates.bind(this);
     }
 
@@ -35,6 +38,10 @@ class MyCampaigns extends Component {
         this.setState({ filterValue });
     }
 
+    onClickReport(campaignReport) {
+        this.setState({ campaignReport });
+    }
+
     onClickUpdates(campaignId, updates) {
         this.setState({ campaignId, updates });
     }
@@ -48,7 +55,7 @@ class MyCampaigns extends Component {
 
 	render() {
         const { campaign } = this.props;
-        const { pageOfItems, filterValue, campaignId, updates } = this.state;
+        const { pageOfItems, filterValue, campaignReport, campaignId, updates } = this.state;
         if( campaign.loading ) { 
             return (
                 <div>
@@ -56,6 +63,14 @@ class MyCampaigns extends Component {
                 </div>
             )
         };
+
+        if( campaignReport.id ) {
+            return (
+                <CampaignReport 
+                    campaign={ campaignReport }
+                    onClickBack={ this.onClickReport }/>
+            );
+        }
 
         if( campaignId ) {
             return (
@@ -84,6 +99,7 @@ class MyCampaigns extends Component {
                                 <ItemCampaign 
                                     key={index} 
                                     data={ item } 
+                                    onClickReport={ this.onClickReport }
                                     onClickUpdates={ this.onClickUpdates }/>
                             ) }
                             <Pagination

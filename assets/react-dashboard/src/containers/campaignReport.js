@@ -6,12 +6,13 @@ import LineGraph from '../components/lineGraph';
 import PledgeReports from '../components/pledgeReports';
 import ExportCSV from '../components/exportCSV';
 
-class Dashboard extends Component {
+class CampaignReport extends Component {
 	constructor (props) {
         super(props);
 		this.state  = {
             query_args: { 
-                date_range: 'last_7_days'
+                date_range: 'last_7_days',
+                campaign_id: (this.props.campaign.id) ? this.props.campaign.id : ''
             },
             option_params: {
                 last_7_days: 'Last Week',
@@ -39,9 +40,9 @@ class Dashboard extends Component {
     }
 
     _onChange(e) {
-        let { query_args } = this.state;
+        let { query_args, query_args: {campaign_id} } = this.state;
         const{ name, value } = e.target;
-        query_args = (name =="date_range") ? {date_range: value} : Object.assign(query_args, {[name]: value});
+        query_args = (name =="date_range") ? {date_range: value, campaign_id} : Object.assign(query_args, {[name]: value});
         this.props.fetchCampaignsReport( this.encodeQueryArgs(query_args) );
         this.setState( { query_args } );
     }
@@ -60,7 +61,11 @@ class Dashboard extends Component {
         
         return (
             <div className="wpcf-dashboard-content">
-                <h3>Dashboard</h3>
+                { (this.props.campaign.name) ?
+                    <h4>Showing Report for {(this.props.campaign.name)} <button onClick={ () => this.props.onClickBack({id:'',name:''}) }>Back</button></h4>
+                    :
+                    <h3>Dashboard</h3>
+                }
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-info-cards">
                         <div className="wpcf-dashboard-info-card">
@@ -118,4 +123,8 @@ const mapStateToProps = state => ({
     report: state.campaignsReport
 })
 
-export default connect( mapStateToProps, { fetchCampaignsReport } )(Dashboard);
+CampaignReport.defaultProps = {
+    campaign: { id: '', name: ''}
+}
+
+export default connect( mapStateToProps, { fetchCampaignsReport } )(CampaignReport);

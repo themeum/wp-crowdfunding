@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, HashRouter, Route, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userAction';
-import Dashboard from './dashboard';
+import CampaignReport from './campaignReport';
 import Profile from './profile';
 import MyCampaigns from './myCampaigns';
 import InvestedCampaigns from './investedCampaigns';
@@ -92,7 +92,7 @@ class App extends Component {
 								</ul>
 							</div>
 							<div className="wpcf-col-9">
-								<Route path="/" exact component={ Dashboard } />
+								<Route path="/" exact component={ CampaignReport } />
 								<Route path="/profile" component={ Profile } />
 								<Route path="/my-campaigns" component={ MyCampaigns } />
 								<Route path="/invested-campaigns" component={ InvestedCampaigns } />
