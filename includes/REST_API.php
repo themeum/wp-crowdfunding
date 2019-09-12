@@ -124,7 +124,6 @@ function wpcf_form_field_callback($permission) {
 	);
 	return array_merge($default_permission, $permission);
 }
-add_filter( 'wpcf_form_fields', 'wpcf_form_field_callback' );
 
 
 add_action( 'rest_api_init', function(){
