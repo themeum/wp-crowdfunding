@@ -8,7 +8,7 @@ function wpcf_form_field_callback($permission) {
 	$default_permission = array(
         //Information
         'category' => array(
-            'show' => true, 
+            'show' => true,
             'required' => true,
             'title' => __("Campaign Title *","wp-crowdfunding"),
             'desc' => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.","wp-crowdfunding")
@@ -171,46 +171,46 @@ function rest_tags_callback($attr){
 
 
 function rest_forms_callback($attr){
-        $data = array();
-        
-        // Category
-        $terms = array();
-        $term_return = array();
-        $seperate_cat = get_option('seperate_crowdfunding_categories');
-        if( $seperate_cat ){
-            $terms = get_terms( 'product_cat', array(
-                'hide_empty' => false,
-                'meta_query' => array(
-                    array(
-                        'key' => '_marked_as_crowdfunding',
-                        'value' => 1,
-                        'compare' => '='
-                    )
+    $data = array();
+    
+    // Category
+    $terms = array();
+    $term_return = array();
+    $seperate_cat = get_option('seperate_crowdfunding_categories');
+    if( $seperate_cat ) {
+        $terms = get_terms( 'product_cat', array(
+            'hide_empty' => false,
+            'meta_query' => array(
+                array(
+                    'key' => '_marked_as_crowdfunding',
+                    'value' => 1,
+                    'compare' => '='
                 )
-            ));
-        }else{
-            $terms = get_terms('post_tag', array('hide_empty' => false));
-        }
-        if(!empty($terms)){
-            foreach($terms as $val){
-                if($val->parent){
-                    $term_return[$val->parent]['child'][] = array( 'name' => $val->name, 'slug' => $val->slug );
-                }else{
-                    $term_return[$val->term_id] = array( 'name' => $val->name, 'slug' => $val->slug, 'child' => array() );
-                }
+            )
+        ));
+    } else {
+        $terms = get_terms('post_tag', array('hide_empty' => false));
+    }
+    if(!empty($terms)) {
+        foreach($terms as $val) {
+            if($val->parent){
+                $term_return[$val->parent]['child'][] = array( 'name' => $val->name, 'slug' => $val->slug );
+            } else {
+                $term_return[$val->term_id] = array( 'name' => $val->name, 'slug' => $val->slug, 'child' => array() );
             }
-            $data['tax'] = $term_return;
         }
+        $data['tax'] = $term_return;
+    }
 
-        // Country
-        $countries = array();
-        if( class_exists('WC_Countries') ){
-            $countries_obj = new WC_Countries();
-            $countries = $countries_obj->__get('countries');
-            $data['country'] = $countries;
-        }
+    // Country
+    $countries = array();
+    if( class_exists('WC_Countries') ){
+        $countries_obj = new WC_Countries();
+        $countries = $countries_obj->__get('countries');
+        $data['country'] = $countries;
+    }
 
-        $data['permission'] = apply_filters('wpcf_form_fields',array());
+    $data['permission'] = apply_filters('wpcf_form_fields',array());
 
     return rest_ensure_response( $data );
 }

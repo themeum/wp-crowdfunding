@@ -36,6 +36,9 @@ define('WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ));
 define('WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ));
 define('WPCF_BASENAME', plugin_basename( WPCF_FILE ));
 
+define('WPCF_API_NAMESPACE', 'wp-crowdfunding/v');
+define('WPCF_API_VERSION', 1);
+
 /**
 * Load Text Domain Language
 */
