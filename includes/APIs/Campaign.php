@@ -38,7 +38,7 @@ class API_Campaign {
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_fields') ),
             ));
             register_rest_route( $namespace, '/form-tags', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'form_tags') ),
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_tags') ),
             ));
             register_rest_route( $namespace, '/form-saved-data', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_saved_data') ),
@@ -84,13 +84,19 @@ class API_Campaign {
             $data['tax'] = $term_return;
         }
 
-        $data['fields'] = apply_filters( 'wpcf_form_fields' );
+        $data['fields'] = apply_filters( 'wpcf_form_fields', [] );
 
         return rest_ensure_response( $data );
     }
 
-
-    function form_tags($attr){
+    /**
+     * Get campaign form tags
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   attr
+     * @return    [array]   mixed
+     */
+    function get_form_tags($attr) {
         $data = array();
         $arg = array(
             'post_type' => 'product',
@@ -119,128 +125,236 @@ class API_Campaign {
         return rest_ensure_response( $data );
     }
 
-    function form_fields($fields= array()) {
+    /**
+     * Campaign form fields
+     * @since     2.1.0
+     * @access    public
+     * @param     {fields}  fields
+     * @return    [array]   mixed
+     */
+    function form_fields($fields = []) {
         $default_fields = array(
             //Information
             'info' => array(
                 'category' => array(
-                    'show' => true,
-                    'required' => true,
-                    'title' => __("Campaign Title *","wp-crowdfunding"),
-                    'desc' => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.","wp-crowdfunding")
+                    'type'      => 'select',
+                    'title'     => __("Campaign Catagory *", "wp-crowdfunding"),
+                    'desc'      => __("Choose the Category That Most closely aligns with your project", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true
                 ),
                 'sub_category' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Campaign Sub-Title","wp-crowdfunding"),
-                    'desc' => __("Use Words People Might Search For..","wp-crowdfunding")
+                    'type'      => 'select',
+                    'title'     => __("Campaign Sub- Catagory", "wp-crowdfunding"),
+                    'desc'      => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => false,
+                    'show'      => true
                 ),
                 'types' => array(
-                    'show' => true, 
-                    'required' => true,
-                    'title' => __("","wp-crowdfunding"),
-                    'desc' => __("","wp-crowdfunding")
+                    'type'      => 'radio',
+                    'title'     => __("Raising Money For *", "wp-crowdfunding"),
+                    'desc'      => __("Estimated Shipping Date Rewards to be Recieved", "wp-crowdfunding"),
+                    'value'     => '',
+                    'options'   => array(
+                        array(
+                            'value' => 'individual',
+                            'label' => __("Individual", "wp-crowdfunding"),
+                            'desc'  => __("", "wp-crowdfunding"),
+                        ),
+                        array(
+                            'value' => 'business',
+                            'label' => __("Business", "wp-crowdfunding"),
+                            'desc'  => __("", "wp-crowdfunding"),
+                        ),
+                        array(
+                            'value' => 'non-profit',
+                            'label' => __("Non-Profit", "wp-crowdfunding"),
+                            'desc'  => __("", "wp-crowdfunding"),
+                        )
+                    ),
+                    'required'  => true,
+                    'show'      => true
                 ),
                 'country' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Campaign Description *","wp-crowdfunding"),
-                    'desc' => __("Keep It Short. Just Small Brief About your Project","wp-crowdfunding")
+                    'type'      => 'select',
+                    'title'     => __("Country *","wp-crowdfunding"),
+                    'desc'      => __("", "wp-crowdfunding"),
+                    'value'     => '',
+                    'options'   => WC()->countries->countries,
+                    'required'  => false,
+                    'show'      => true,
                 ),
                 'city' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Campaign Description *","wp-crowdfunding"),
-                    'desc' => __("Keep It Short. Just Small Brief About your Project","wp-crowdfunding")
+                    'type'      => 'select',
+                    'title'     => __("City *","wp-crowdfunding"),
+                    'desc'      => __("", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true,
                 ),
             ),
             // Details
             'details' => array(
                 'title' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("","wp-crowdfunding"),
-                    'desc' => __("","wp-crowdfunding")
+                    'type'      => 'text',
+                    'title'     => __("Campaign Title *", "wp-crowdfunding"),
+                    'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true,
                 ),
                 'subtitle' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("","wp-crowdfunding"),
-                    'desc' => __("","wp-crowdfunding")
+                    'type'      => 'text',
+                    'title'     => __("Campaign Sub-Title", "wp-crowdfunding"),
+                    'desc'      => __("Use Words People Might Search For..", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => false,
+                    'show'      => true,
                 ),
                 'short_desc' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("","wp-crowdfunding"),
-                    'desc' => __("","wp-crowdfunding")
+                    'type'      => 'textarea',
+                    'title'     => __("Campaign Description *", "wp-crowdfunding"),
+                    'desc'      => __("Keep It Short. Just Small Brief About your Project", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true,
                 ),
-                'tag' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("","wp-crowdfunding"),
-                    'desc' => __("","wp-crowdfunding")
+                'tags' => array(
+                    'type'      => 'tags',
+                    'title'     => __("Tags", "wp-crowdfunding"),
+                    'desc'      => __("Reach a more specific community by also choosing right Tags. Max Tag : 20", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => false,
+                    'show'      => true,
                 ),
             ),
             // Media
             'media' => array(
                 'video' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Video","wp-crowdfunding"),
-                    'desc' => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.","wp-crowdfunding")
+                    'type'      => 'text',
+                    'title'     => __("Video", "wp-crowdfunding"),
+                    'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => false,
+                    'show'      => true,
+                ),
+                'video_upload' => array(
+                    'type'      => 'file',
+                    'title'     => __("Video Upload", "wp-crowdfunding"),
+                    'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => false,
+                    'show'      => true
                 ),
                 'image' => array(
-                    'show' => true, 
-                    'required' => true,
-                    'title' => __("Image Upload *","wp-crowdfunding"),
-                    'desc' => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding")
+                    'type'      => 'file',
+                    'title'     => __("Image Upload *","wp-crowdfunding"),
+                    'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true
                 ),
                 'goal' => array(
-                    'show' => true, 
-                    'required' => true,
-                    'title' => __("Funding Goals *","wp-crowdfunding"),
-                    'desc' => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding")
+                    'type'      => 'range',
+                    'title'     => __("Funding Goals *", "wp-crowdfunding"),
+                    'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true,
                 ),
                 'fund_type' => array(
-                    'show' => true, 
-                    'required' => true,
-                    'title' => __("Funding Type *","wp-crowdfunding"),
-                    'desc' => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding")
+                    'type'      => 'radio',
+                    'title'     => __("Funding Type *","wp-crowdfunding"),
+                    'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
+                    'value'     => '',
+                    'options'   => array(
+                        array(
+                            'value' => 'fixed_funding',
+                            'label' => __("Fixed Funding", "wp-crowdfunding"),
+                            'desc'  => __("Accept All or Nothing", "wp-crowdfunding"),
+                        ),
+                        array(
+                            'value' => 'flexible_funding',
+                            'label' => __("Flexible Funding", "wp-crowdfunding"),
+                            'desc'  => __("Accept if doesnot meet goal", "wp-crowdfunding"),
+                        )
+                    ),
+                    'required'  => true,
+                    'show'      => true,
                 ),
                 'goal_type' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Goal Type *","wp-crowdfunding"),
-                    'desc' => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
+                    'type'      => 'radio',
+                    'title'     => __("Goal Type *","wp-crowdfunding"),
+                    'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
+                    'value'     => '',
+                    'options'   => array(
+                        array(
+                            'value' => 'target_goal',
+                            'label' => __("Target Goal", "wp-crowdfunding"),
+                            'desc'  => __("", "wp-crowdfunding"),
+                        ),
+                        array(
+                            'value' => 'target_date',
+                            'label' => __("Target Date", "wp-crowdfunding"),
+                            'desc'  => __("", "wp-crowdfunding"),
+                        ),
+                        array(
+                            'value' => 'never_end',
+                            'label' => __("Campaign Never End", "wp-crowdfunding"),
+                            'desc'  => __("", "wp-crowdfunding"),
+                        )
+                    ),
+                    'required'  => false,
+                    'show'      => true,
                 ),
-                'range' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Amount Range *","wp-crowdfunding"),
-                    'desc' => __("You can Fixed a Maximum and Minimum Amount","wp-crowdfunding")
+                'amount_range' => array(
+                    'type'      => 'amount_range',
+                    'title'     => __("Amount Range *","wp-crowdfunding"),
+                    'desc'      => __("You can Fixed a Maximum and Minimum Amount", "wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true,
                 ),
                 'recommended' => array(
-                    'show' => true, 
-                    'required' => true,
-                    'title' => __("Recommended Amount *","wp-crowdfunding"),
-                    'desc' => __("You can Fixed a Maximum Amount","wp-crowdfunding")
+                    'type'      => 'recommended_amount',
+                    'title'     => __("Recommended Amount *","wp-crowdfunding"),
+                    'desc'      => __("You can Fixed a Maximum Amount","wp-crowdfunding"),
+                    'value'     => '',
+                    'required'  => true,
+                    'show'      => true,
                 ),
             ),
             // Contributor
             'contributor' => array(
                 'table' => array(
-                    'show' => true, 
-                    'required' => false,
-                    'title' => __("Contributor Table","wp-crowdfunding"),
-                    'desc' => __("You can make contributors table","wp-crowdfunding"),
-                    'label' => __("Show contributor table on campaign single page","wp-crowdfunding"),
+                    'type'      => 'checkbox',
+                    'title'     => __("Contributor Table", "wp-crowdfunding"),
+                    'desc'      => __("You can make contributors table", "wp-crowdfunding"),
+                    'value'     => '',
+                    'options'   => array(
+                        array(
+                            'value' => 1,
+                            'label' => __("Show contributor table on campaign single page", "wp-crowdfunding"),
+                        )
+                    ),
+                    'required'  => false,
+                    'show'      => true,
                 ),
                 'anonymity' => array(
-                    'show' => true, 
+                    'type'      => 'checkbox',
+                    'title' => __("Contributor Anonymity", "wp-crowdfunding"),
+                    'desc' => __("You can make contributors anonymus visitors will not see the backers", "wp-crowdfunding"),
+                    'value'     => '',
+                    'options'   => array(
+                        array(
+                            'value' => 1,
+                            'label' => __("Make contributors anonymous on the contributor table", "wp-crowdfunding"),
+                        )
+                    ),
                     'required' => false,
-                    'title' => __("Contributor Anonymity","wp-crowdfunding"),
-                    'desc' => __("You can make contributors anonymus visitors will not see the backers","wp-crowdfunding"),
-                    'label' => __("Make contributors anonymous on the contributor table","wp-crowdfunding"),
+                    'show' => true,
                 ),
             )
         );
