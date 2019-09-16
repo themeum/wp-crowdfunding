@@ -84,9 +84,9 @@ class API_Campaign {
             $data['tax'] = $term_return;
         }
 
-        $data['fields'] = apply_filters( 'wpcf_form_fields', [] );
+        $fields = apply_filters( 'wpcf_form_fields', [] );
 
-        return rest_ensure_response( $data );
+        return rest_ensure_response( $fields );
     }
 
     /**
