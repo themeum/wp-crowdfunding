@@ -1,13 +1,13 @@
 import { 
-    FETCH_FORM_FIELDS_PENDING,
-    FETCH_FORM_FIELDS_COMPLETE,
-    FETCH_FORM_FIELDS_ERROR,
+    FETCH_REQUEST_PENDING,
+    FETCH_FORM_TAGS_COMPLETE,
+    FETCH_FORM_FIELDS_COMPLETE
 } from "../actions";
 
 export default function(state = { loading: true, loaded: false }, action ) {
     switch( action.type ) {
         
-        case FETCH_FORM_FIELDS_PENDING:
+        case FETCH_REQUEST_PENDING:
             return {
                 ...state,
                 loading: true,
@@ -20,12 +20,12 @@ export default function(state = { loading: true, loaded: false }, action ) {
                 loaded: true,
                 formFields: action.payload,
             };
-        case FETCH_FORM_FIELDS_ERROR:
+        case FETCH_FORM_TAGS_COMPLETE:
             return {
-                    ...state,
-                    loading: false,
-                    loaded: false,
-                    error: action.payload,
+                ...state,
+                loading: false,
+                loaded: true,
+                formTags: action.payload,
             };
         default: 
             return state;

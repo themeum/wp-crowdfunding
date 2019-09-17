@@ -33,18 +33,19 @@ class API_Campaign {
             $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
             $method_readable = \WP_REST_Server::READABLE;
             $method_creatable = \WP_REST_Server::CREATABLE;
-            
+
             register_rest_route( $namespace, '/form-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_fields') ),
-            ));
+            ));            
             register_rest_route( $namespace, '/form-tags', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_tags') ),
+                array( 'methods' => $method_readable, 'callback' => array($this, 'form_tags') ),
             ));
             register_rest_route( $namespace, '/form-saved-data', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_saved_data') ),
             ));
         });
     }
+
 
     /**
      * Get campaign form fields
@@ -90,42 +91,6 @@ class API_Campaign {
     }
 
     /**
-     * Get campaign form tags
-     * @since     2.1.0
-     * @access    public
-     * @param     {array}   attr
-     * @return    [array]   mixed
-     */
-    function get_form_tags($attr) {
-        $data = array();
-        $arg = array(
-            'post_type' => 'product',
-            'tax_query' => array(
-                'relation' => 'AND',
-                array(
-                    'taxonomy' => 'product_cat',
-                    'field'    => 'slug',
-                    'terms'    => array( esc_attr($attr['cat']) ),
-                ),
-            ),
-            'post_status'=> 'publish'
-        );
-        $query = new \WP_Query( $arg );
-        while ( $query->have_posts() ) {
-            $query->the_post();
-            $posttags = get_the_terms( get_the_ID(), 'product_tag' );
-            if ($posttags) {
-                foreach($posttags as $tag) {
-                    $data[$tag->slug] = $tag->name; 
-                }
-            }
-        }
-        wp_reset_postdata();
-
-        return rest_ensure_response( $data );
-    }
-
-    /**
      * Campaign form fields
      * @since     2.1.0
      * @access    public
@@ -133,14 +98,47 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function form_fields($fields = []) {
+        $cat_args = array(
+            'taxonomy' => 'product_cat',
+            'hide_empty' => false,
+        );
+        //Get is Crowdfunding Categories only
+        $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
+        if ('true' === $is_only_crowdfunding_categories){
+            $cat_args['meta_query'] = array(
+                array(
+                    'key' => '_marked_as_crowdfunding',
+                    'value' => '1'
+                )
+            );
+        }
+        $categories = get_terms($cat_args);
+        $res_categories = array();
+        foreach($categories as $category) {
+            $res_categories[] = array(
+                'label' => $category->name,
+                'value' => $category->term_id
+            );
+        }
+
+        $countries = WC()->countries->countries;
+        $res_countries = array();
+        foreach($countries as $key => $country) {
+            $res_countries[] = array(
+                'label' => $country,
+                'value' => $key
+            );
+        }
+
         $default_fields = array(
             //Information
-            'info' => array(
+            'campaign_info' => array(
                 'category' => array(
                     'type'      => 'select',
                     'title'     => __("Campaign Catagory *", "wp-crowdfunding"),
                     'desc'      => __("Choose the Category That Most closely aligns with your project", "wp-crowdfunding"),
                     'value'     => '',
+                    'options'   => $res_categories,
                     'required'  => true,
                     'show'      => true
                 ),
@@ -182,7 +180,7 @@ class API_Campaign {
                     'title'     => __("Country *","wp-crowdfunding"),
                     'desc'      => __("", "wp-crowdfunding"),
                     'value'     => '',
-                    'options'   => WC()->countries->countries,
+                    'options'   => $res_countries,
                     'required'  => false,
                     'show'      => true,
                 ),
@@ -226,6 +224,7 @@ class API_Campaign {
                     'title'     => __("Tags", "wp-crowdfunding"),
                     'desc'      => __("Reach a more specific community by also choosing right Tags. Max Tag : 20", "wp-crowdfunding"),
                     'value'     => '',
+                    'options'   => $this->get_form_tags(),
                     'required'  => false,
                     'show'      => true,
                 ),
@@ -369,6 +368,58 @@ class API_Campaign {
 
         return $default_fields;
     }
+
+
+    /**
+     * Campaign form tags
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   attr
+     * @return    [array]   mixed
+     */
+    function form_tags() {
+        $data = $this->get_form_tags();
+        return rest_ensure_response( $data );
+    }
+
+    /**
+     * Get campaign form tags
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   attr
+     * @return    [array]   mixed
+     */
+    function get_form_tags() {
+        $data = array();
+        $arg = array(
+            'post_type' => 'product',
+            /* 'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'slug',
+                    'terms'    => array( esc_attr($_GET['cat']) ),
+                ),
+            ), */
+            'post_status'=> 'publish'
+        );
+        $query = new \WP_Query( $arg );
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            $posttags = get_the_terms( get_the_ID(), 'product_tag' );
+            if ($posttags) {
+                foreach($posttags as $tag) {
+                    $data[] = array(
+                        'value' => $tag->slug,
+                        'label' => $tag->name
+                    );
+                }
+            }
+        }
+
+        return $data;
+    }
+
 
 }
 

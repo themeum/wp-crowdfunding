@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchFormFields } from '../actions';
 import TabBar from '../components/TabBar';
 import MainForm from '../components/MainForm';
 import Sidebar from '../components/Sidebar';
@@ -8,7 +10,11 @@ class App extends Component {
 	constructor (props) {
 		super(props)
 		this.state = { selectForm: 'basic', percent: 0 }
-	}
+    }
+    
+    componentDidMount() {
+        this.props.fetchFormFields();
+    }
 
 	onSet(val) {
 		this.setState({selectForm:val})
@@ -41,4 +47,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default connect( '', { fetchFormFields } )(App);
