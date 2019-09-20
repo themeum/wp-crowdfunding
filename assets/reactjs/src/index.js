@@ -1,10 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
 import reduxThunk from 'redux-thunk';
 import App from './containers/App';
-import rootReducer from './reducers';
+import reducers from './reducers';
+
+const rootReducer = combineReducers({
+	data: reducers,
+	form: reduxFormReducer
+  });
 
 const store = createStore( rootReducer, compose( 
     applyMiddleware( reduxThunk ), 

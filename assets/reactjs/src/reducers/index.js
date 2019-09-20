@@ -4,7 +4,7 @@ import {
     FETCH_FORM_FIELDS_COMPLETE
 } from "../actions";
 
-export default function(state = { loading: true, loaded: false }, action ) {
+export default function(state = { loading: true, loaded: false, formFields:{} }, action ) {
     switch( action.type ) {
         
         case FETCH_REQUEST_PENDING:

@@ -9,17 +9,17 @@ class Footer extends Component {
 		return (
 			<div className="wpcf-form-footer">
 				<button
-					className={currentIndex == 0 ? "" : "active"}
+					className={currentIndex == 0 ? "" : "disable"}
 					onClick={() => {
 						if (currentIndex != 0) {
-							onSet(defData[currentIndex - 1]);
+							onSet(defData[currentIndex-1]);
 						}
 					}}>Previous</button>
 				<button
-					className={currentIndex == 3 ? "" : "active"}
+					className={currentIndex == 3 ? "" : "disable"}
 					onClick={() => {
 						if (currentIndex != 3) {
-							onSet(defData[currentIndex + 1]);
+							onSet(defData[currentIndex+1]);
 						}
 					}}>Next</button>
 			</div>

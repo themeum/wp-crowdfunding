@@ -21,7 +21,13 @@ class App extends Component {
 	}
 
 	render() {
-		const { selectForm } = this.state
+        const { selectForm } = this.state;
+        
+        if(this.props.loading) {
+            return (
+                <div>Loading...</div>
+            )
+        }
 		return (
 			<div>
 				<div style={ {borderBottom: '1px solid #dcdce4'} }>
@@ -47,4 +53,8 @@ class App extends Component {
 	}
 }
 
-export default connect( '', { fetchFormFields } )(App);
+const mapStateToProps = state => ({
+    loading: state.data.loading
+});
+
+export default connect( mapStateToProps, { fetchFormFields } )(App);

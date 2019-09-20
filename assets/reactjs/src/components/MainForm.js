@@ -17,4 +17,5 @@ class MainForm extends Component {
 		)
 	}
 }
+
 export default MainForm;
