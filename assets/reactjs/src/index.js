@@ -6,6 +6,7 @@ import { reducer as reduxFormReducer } from 'redux-form';
 import reduxThunk from 'redux-thunk';
 import App from './containers/App';
 import reducers from './reducers';
+import './styles/style.scss';
 
 const rootReducer = combineReducers({
 	data: reducers,

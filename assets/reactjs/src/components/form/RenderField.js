@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Field } from 'redux-form';
 import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
 
-const RenderField = (props) => {
+export const RenderField = (props) => {
 
-    const { input, meta: { touched, error }, item } = props;
+    const { input, meta: { touched, error }, item , uploadFile, removeFile} = props;
 
-    switch(item.type) {
+    switch (item.type) {
         case 'text':
             return (
-                <input {...input} type={item.type} placeholder={item.placeholder}/>
+                <input {...input} type={item.type} placeholder={item.placeholder} />
             );
         case 'select':
             return (
                 <div className="">
                     <select {...input}>
                         <option value="">{item.placeholder}</option>
-                        {item.options.map( (option, index) =>
+                        {item.options.map((option, index) =>
                             <option key={index} value={option.value}>{option.label}</option>
                         )}
                     </select>
@@ -25,7 +27,7 @@ const RenderField = (props) => {
         case 'radio':
             return (
                 <div className="">
-                    {item.options.map( (option, index) =>
+                    {item.options.map((option, index) =>
                         <label key={index} className="radio-inline">
                             <input {...input} type={item.type} /> {option.label} <span>{option.desc}</span>
                         </label>
@@ -35,9 +37,9 @@ const RenderField = (props) => {
         case 'checkbox':
             return (
                 <div className="">
-                    {item.options.map( (option, index) =>
+                    {item.options.map((option, index) =>
                         <label key={index} className="checkbox-inline">
-                           <input {...input} type={item.type} /> {option.label}
+                            <input {...input} type={item.type} /> {option.label}
                         </label>
                     )}
                 </div>
@@ -45,9 +47,9 @@ const RenderField = (props) => {
         case 'tags':
             return (
                 <div className="">
-                    <input type='text' defaultValue='Sample Sub Title' />
+                    <input type='text'/>
                     <div className=''>
-                        {item.options.map( (option, index) =>
+                        {item.options.map((option, index) =>
                             <span key={index}>+ {option.label}</span>
                         )}
                     </div>
@@ -56,32 +58,22 @@ const RenderField = (props) => {
         case 'file':
             return (
                 <div className="">
-                    <button dangerouslySetInnerHTML={{__html: item.button}} />
-                </div>
-            );
-        case 'video_link':
-            return (
-                <div className="">
-                    <input {...input} type="text"/>
-                    <button dangerouslySetInnerHTML={{__html: item.button}} />
+                    <div className="wpcf-form-attachments">
+                        {input.value && input.value.map( (item, index) =>
+                            <div key={index}>{item.name} <span onClick={() => removeFile(index, input.name, input.value)} className="fa fa-times"/></div>
+                        )}
+                    </div>
+                    <button dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(input.name)}/>
                 </div>
             );
         case 'range':
             return (
                 <div className="">
                     <InputRange
-                        minValue={0}
-                        maxValue={20}/>
-                    <div className="">{}</div>
-                </div>
-            );
-        case 'amount_range':
-            return (
-                <div className="">
-                    <InputRange
-                        step={2}
-                        minValue={0}
-                        maxValue={20}/>
+                        minValue={item.minVal}
+                        maxValue={item.maxVal}
+                        value={input.value}
+                        onChange={input.onChange} />
                     <div className="">{}</div>
                 </div>
             );
@@ -97,7 +89,9 @@ const RenderField = (props) => {
                     <InputRange
                         step={2}
                         minValue={0}
-                        maxValue={20}/>
+                        maxValue={20}
+                        value={input.value}
+                        onChange={input.onChange} />
                     <div className="">{}</div>
                 </div>
             );
@@ -106,4 +100,26 @@ const RenderField = (props) => {
     }
 }
 
-export default RenderField;
+export const renderVideoLinks = ({ fields, meta: { error, submitFailed }, item }) => (
+    <div className="">
+        {fields.map((field, index) => (
+            <div key={index}>
+                <Field
+                    name={`${field}.url`}
+                    component="input"
+                    type="url"
+                    placeholder=""/>
+                { index !== 0 &&
+                    <button
+                        type="button" 
+                        title="Remove"
+                        onClick={() => fields.remove(index)}>
+                        Remove
+                    </button>
+                }
+            </div>
+        ))}
+        <button dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
+        {submitFailed && error && <span>{error}</span>}
+    </div>
+)

@@ -43,8 +43,9 @@ class App extends Component {
 				<div>
 					<div className='wpcf-form-wrapper'>
 						<TabBar current={selectForm} />
-						<MainForm current={selectForm} />
-						<Sidebar />
+						<MainForm current={selectForm}/>
+						<Sidebar/>
+                        <div className="clearfix"/>
 						<Footer current={selectForm} onSet={val=>this.onSet(val)}/>
 					</div>
 				</div>

@@ -1,119 +1,24 @@
-.wpcf-form-wrapper {
-    padding-left: 15px;
-    padding-right: 15px;
-    max-width: 1140px;
-    margin-right: auto;
-    margin-left: auto;
-    width: 100%;
+.wpcf-form-main {
+    width: 635px;
+    float: left;
 }
-
-.wpcf-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.wpcf-col-auto,
-.wpcf-col,
-.wpcf-col-3,
-.wpcf-col-4,
-.wpcf-col-5,
-.wpcf-col-6,
-.wpcf-col-7,
-.wpcf-col-8,
-.wpcf-col-9,
-.wpcf-col-12 {
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.wpcf-col {
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
-}
-
-.wpcf-col-auto {
-    flex: 0 0 auto;
-    width: auto;
-    max-width: none;
-}
-
-.wpcf-col-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
-}
-
-.wpcf-col-4 {
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-}
-
-.wpcf-col-5 {
-    flex: 0 0 41.666667%;
-    max-width: 41.666667%;
-}
-
-.wpcf-col-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.wpcf-col-7 {
-    flex: 0 0 58.333333%;
-    max-width: 58.333333%;
-}
-
-.wpcf-col-8 {
-    flex: 0 0 66.666666%;
-    max-width: 66.666666%;
-}
-
-.wpcf-col-9 {
-    flex: 0 0 75%;
-    max-width: 75%;
-}
-
-.wpcf-col-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
-}
-
-.wpcf-align-items-center {
-    align-items: center;
-}
-
-@media (max-width: 991px) {
-    .wpcf-col-auto,
-    .wpcf-col,
-    .wpcf-col-3,
-    .wpcf-col-4,
-    .wpcf-col-6,
-    .wpcf-col-8,
-    .wpcf-col-9 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-
-    .wpcf-col-md-100 {
-        flex: 0 0 100%;
-        max-width: 100%;
+.wpcf-accordion-title {
+    padding: 15px;
+    border-radius: 4px;
+    border: solid 1px #dcdce4;
+    background-color: #f5f5fa;
+    text-transform: capitalize;
+    font-size: 16px;
+    color: #25265e;
+    &.active {
+        color: #fff;
+        background-color: #070839;
     }
 }
-
-@media (max-width: 767px) {
-    .wpcf-col-auto,
-    .wpcf-col,
-    .wpcf-col-3,
-    .wpcf-col-4,
-    .wpcf-col-6,
-    .wpcf-col-8,
-    .wpcf-col-9 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+.wpcf-form-sidebar {
+    width: 445px;
+    border-radius: 4px;
+    border: solid 1px #dcdce4;
+    background-color: #ffffff;
+    float: left;
 }

@@ -9,7 +9,7 @@ class MainForm extends Component {
 		const { current } = this.props;
 		return (
 			<div className='wpcf-form-main'>
-				{ current == 'basic' && <Basic /> }
+				{ current == 'basic' && <Basic/> }
 				{ current == 'story' && <Story /> }
 				{ current == 'reward' && <Reward /> }
 				{ current == 'team' && <Team /> }
