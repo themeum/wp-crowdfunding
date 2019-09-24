@@ -1834,9 +1834,6 @@ a.wpneo-cancel-campaign {
 .wpneo-tab h2 {
     font-size: 30px;
 }
-.has-regular-font-size, .has-large-font-size, .comments-title, h3 {
-    font-size: inherit !important;
-}
 ol.commentlist {
     padding: 0;
 }
