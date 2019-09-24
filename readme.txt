@@ -85,7 +85,7 @@ To use these shortcodes, just place the required shortcode(s) on your desired lo
   * Single Campaign [wpcf_single_campaign campaign_id="post_id"]
   * Campaign Box [wpcf_campaign_box campaign_id="post_id"]
   * Popular Campaigns [wpcf_popular_campaigns limit="4" column="4" order="DESC" class=""]
-  * Donate [wpcf_donate campaign_id amount="9000" min_amount="5" max_amount="1000" show_input_box="true" donate_button_text="Donate"]
+  * Donate [wpcf_donate campaign_id="124" amount="9000" min_amount="5" max_amount="1000" show_input_box="true" donate_button_text="Donate"]
 
 = Pro Version =
 
