@@ -40,6 +40,12 @@ class API_Campaign {
             register_rest_route( $namespace, '/form-tags', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_tags') ),
             ));
+            register_rest_route( $namespace, '/sub-categories', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
+            ));
+            register_rest_route( $namespace, '/states', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
+            ));
             register_rest_route( $namespace, '/form-saved-data', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_saved_data') ),
             ));
@@ -188,11 +194,11 @@ class API_Campaign {
                     'required'      => false,
                     'show'          => true,
                 ),
-                'city' => array(
+                'state' => array(
                     'type'          => 'select',
-                    'title'         => __("City *","wp-crowdfunding"),
+                    'title'         => __("State *","wp-crowdfunding"),
                     'desc'          => __("", "wp-crowdfunding"),
-                    'placeholder'   => __("Select City", "wp-crowdfunding"),
+                    'placeholder'   => __("Select State", "wp-crowdfunding"),
                     'value'         => '',
                     'options'       => array(),
                     'required'      => true,
@@ -333,7 +339,7 @@ class API_Campaign {
                     'show'      => true,
                 ),
                 'recommended' => array(
-                    'type'      => 'recommended_amount',
+                    'type'      => 'text',
                     'title'     => __("Recommended Amount *","wp-crowdfunding"),
                     'desc'      => __("You can Fixed a Maximum Amount","wp-crowdfunding"),
                     'value'     => '',
@@ -409,30 +415,84 @@ class API_Campaign {
         $data = array();
         $arg = array(
             'post_type' => 'product',
-            /* 'tax_query' => array(
-                'relation' => 'AND',
+            'tax_query' 		=> array(
                 array(
+                    'taxonomy'  => 'product_type',
+                    'field'     => 'slug',
+                    'terms'     => 'crowdfunding',
+                ),
+                /* array(
                     'taxonomy' => 'product_cat',
                     'field'    => 'slug',
                     'terms'    => array( esc_attr($_GET['cat']) ),
-                ),
-            ), */
+                ), */
+            ),
             'post_status'=> 'publish'
         );
+        $uniqeTags = [];
         $query = new \WP_Query( $arg );
         while ( $query->have_posts() ) {
             $query->the_post();
             $posttags = get_the_terms( get_the_ID(), 'product_tag' );
             if ($posttags) {
                 foreach($posttags as $tag) {
-                    $data[] = array(
-                        'value' => $tag->slug,
-                        'label' => $tag->name
-                    );
+                    if( !in_array($tag->slug, $uniqeTags) ) {
+                        $data[] = array(
+                            'value' => $tag->slug,
+                            'label' => $tag->name
+                        );
+                        $uniqeTags[] = $tag->slug;
+                    }
                 }
             }
         }
 
+        return $data;
+    }
+
+    function get_states() {
+        $code = $_GET['code'];
+        $country = new \WC_Countries();
+        $states = $country->get_states($code);
+        $options = array();
+        if($states) {
+            foreach($states as $key => $state) {
+                $options[] = array(
+                    'value' => $key,
+                    'label' => $state
+                );
+            }
+        }
+        $response = array(
+            'section' => 'campaign_info',
+            'field' => 'state',
+            'options' => $options,
+        );
+        return rest_ensure_response( $response );
+    }
+
+    function sub_categories() {
+        $id = $_GET['id'];
+        $options = $this->get_subcategories($id);
+        $response = array(
+            'section' => 'campaign_info',
+            'field' => 'sub_category',
+            'options' => $options,
+        );
+        return rest_ensure_response( $response );
+    }
+
+
+    function get_subcategories($id) {
+        $data = array();
+        $args = array('child_of' => $id);
+        $categories = get_categories( $args );
+        foreach($categories as $category) {
+            $data[] = array(
+                'id' => $category->term_id,
+                'name' => $category->name
+            ); 
+        }
         return $data;
     }
 
