@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchFormFields } from '../actions';
 import TabBar from '../components/TabBar';
-import MainForm from '../components/MainForm';
-import Sidebar from '../components/Sidebar';
+import Content from '../components/Content';
 import Footer from '../components/Footer';
 
 class App extends Component {
@@ -43,9 +42,7 @@ class App extends Component {
 				<div>
 					<div className='wpcf-form-wrapper'>
 						<TabBar current={selectForm} />
-						<MainForm current={selectForm}/>
-						<Sidebar/>
-                        <div className="clearfix"/>
+						<Content current={selectForm}/>
 						<Footer current={selectForm} onSet={val=>this.onSet(val)}/>
 					</div>
 				</div>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Field, FieldArray, reduxForm, change as changeFieldValue, formValueSelector } from 'redux-form';
 import { RenderField, renderVideoLinks } from './RenderField';
 import { fetchSubCategories, fetchStates } from '../../actions';
-import validate from './Validate'
 
 const required = value => value ? undefined : 'Required';
 const notRequred = value => '';
@@ -16,10 +15,6 @@ class Basic extends Component {
         this._addTag = this._addTag.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
-    }
-
-    onSubmit(values) {
-        console.log( values );
     }
 
     sectionName(name) {
@@ -51,17 +46,38 @@ class Basic extends Component {
         }
     }
 
-    _uploadFile(field) {
-        let files = [];
-        wp.media.editor.open({library: {type: field}});
-        wp.media.editor.send.attachment = (props, attachment) => {
-            files.push({
-                id: attachment.id,
-                name: attachment.filename,
-                url: attachment.url,
+    _uploadFile(field, sFiles) {
+        const prevFiles = sFiles ? [...sFiles] : [];
+        const mediaLibrary = wp.media({
+            multiple: true,
+            library: {
+                type: field
+            }
+        });
+        //Callback function for set prev selected files
+        mediaLibrary.on('open', () => {
+            const selectionAPI = mediaLibrary.state().get('selection');
+            prevFiles.forEach( item => {
+                const attachment = wp.media.attachment( item.id );
+                selectionAPI.add( attachment ? [ attachment ] : []);
             });
-            this.props.changeFieldValue('formBasic', field, [...files]);
-        };
+        });
+        //Callback function on select files
+        mediaLibrary.on('select', () => {
+            const length = mediaLibrary.state().get('selection').length;
+            const files = mediaLibrary.state().get('selection').models;
+            let selectedFiles = [];
+            for(let i = 0; i < length; i++) {
+                selectedFiles.push({
+                    id: files[i].id,
+                    name: files[i].changed.filename,
+                    url: files[i].changed.url,
+                });
+            }
+            //Dispatch for update field value
+            this.props.changeFieldValue('formBasic', field, selectedFiles);
+        });
+        mediaLibrary.open();
     }
 
     _removeArrValue(index, field, values) {
@@ -70,12 +86,16 @@ class Basic extends Component {
         this.props.changeFieldValue('formBasic', field, values);
     }
 
+    _onSubmit(values) {
+        console.log( values );
+    }
+
     render() {
         const { activeSection } = this.state;
         const { fields, handleSubmit } =  this.props;
         return (
             <div className='wpcf-accordion-wrapper'>
-                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
                     {Object.keys(fields).map( section =>
                         <div key={section} className='wpcf-accordion'>
                             <div className={`wpcf-accordion-title ${section == activeSection ? 'active' : ''}`} onClick={ () => this._onChangeSection(section) }>{this.sectionName(section)}</div>
@@ -115,7 +135,7 @@ class Basic extends Component {
 
 const mapStateToProps = state => ({
     fields: state.data.formFields,
-    initialValues: { goal: 1, amount_range: {min: 1, max: 5000000}, video_link: [{url:''}] },
+    initialValues: { goal: 1, amount_range: {min: 1, max: 5000000}, video_link: [{url:''}] }
 });
 
 function mapDispatchToProps(dispatch) {

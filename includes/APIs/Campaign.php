@@ -105,8 +105,9 @@ class API_Campaign {
      */
     function form_fields($fields = []) {
         $cat_args = array(
-            'taxonomy' => 'product_cat',
-            'hide_empty' => false,
+            'taxonomy'      => 'product_cat',
+            'hide_empty'    => false,
+            'parent'        => 0
         );
         //Get is Crowdfunding Categories only
         $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
@@ -252,6 +253,7 @@ class API_Campaign {
                     'title'     => __("Video", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Link', 'wp-crowdfunding'),
+                    'placeholder'=> __("", "wp-crowdfunding"),
                     'value'     => '',
                     'required'  => false,
                     'show'      => true,
@@ -484,13 +486,27 @@ class API_Campaign {
 
 
     function get_subcategories($id) {
+        $cat_args = array(
+            'taxonomy'      => 'product_cat',
+            'hide_empty'    => false,
+            'parent'        => $id
+        );
+        //Get is Crowdfunding Categories only
+        $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
+        if ('true' === $is_only_crowdfunding_categories){
+            $cat_args['meta_query'] = array(
+                array(
+                    'key' => '_marked_as_crowdfunding',
+                    'value' => '1'
+                )
+            );
+        }
         $data = array();
-        $args = array('child_of' => $id);
-        $categories = get_categories( $args );
+        $categories = get_terms($cat_args);
         foreach($categories as $category) {
             $data[] = array(
-                'id' => $category->term_id,
-                'name' => $category->name
+                'label' => $category->name,
+                'value' => $category->term_id
             ); 
         }
         return $data;

@@ -62,7 +62,15 @@ export const RenderField = (props) => {
                     {input.value && input.value.map( (item, index) =>
                         <div key={index} onClick={() => removeArrValue(index, input.name, input.value)}>{item.label}</div>
                     )}
-                    <input type='text' />
+                    <input type='text' onKeyDown={(e) => {
+                            if (e.keyCode === 13) {
+                                e.preventDefault();
+                                const value = e.target.value.toLowerCase();
+                                const tag = { value, label: e.target.value };
+                                addTag(tag, input.name, input.value);
+                                e.target.value = '';
+                            }
+                        }}/>
                     <div className=''>
                         {item.options.map((tag, index) =>
                             <span key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</span>
@@ -78,7 +86,7 @@ export const RenderField = (props) => {
                             <div key={index}>{item.name} <span onClick={() => removeArrValue(index, input.name, input.value)} className="fa fa-times"/></div>
                         )}
                     </div>
-                    <button dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(input.name)}/>
+                    <button dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(input.name, input.value)}/>
                     {touched && error && <span>{error}</span>}
                 </div>
             );
@@ -98,26 +106,23 @@ export const RenderField = (props) => {
     }
 }
 
-export const renderVideoLinks = ({ fields, meta: { error, submitFailed }, item }) => (
+const renderLinkField = ({ input, meta: { touched, error }, item }) => (
+    <div>
+        <input {...input} type="url" placeholder={item.placeholder} />
+        {touched && error && <span>{error}</span>}
+    </div>
+)
+
+export const renderVideoLinks = ({ fields, meta: { error }, item }) => (
     <div className="">
         {fields.map((field, index) => (
             <div key={index}>
-                <Field
-                    name={`${field}.url`}
-                    component="input"
-                    type="url"
-                    placeholder=""/>
+                <Field item={item} name={`${field}.url`} component={renderLinkField}/>
                 { index !== 0 &&
-                    <button
-                        type="button" 
-                        title="Remove"
-                        onClick={() => fields.remove(index)}>
-                        Remove
-                    </button>
+                    <span onClick={() => fields.remove(index)} className="fa fa-times"/>
                 }
             </div>
         ))}
         <button dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
-        {submitFailed && error && <span>{error}</span>}
     </div>
 )
