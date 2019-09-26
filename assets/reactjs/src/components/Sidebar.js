@@ -15,8 +15,8 @@ class Sidebar extends Component {
                 <div className="preview-title">Preview</div>
                 { current == 'basic' } {
                     <PreviewMedia 
-                        video={video}
-                        image={image}
+                        video={video || []}
+                        image={image || []}
                         video_link={video_link}/>
                 }
             </div>

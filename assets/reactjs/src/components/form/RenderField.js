@@ -117,7 +117,7 @@ export const renderVideoLinks = ({ fields, meta: { error }, item }) => (
     <div className="">
         {fields.map((field, index) => (
             <div key={index}>
-                <Field item={item} name={`${field}.url`} component={renderLinkField}/>
+                <Field item={item} name={`${field}.src`} component={renderLinkField}/>
                 { index !== 0 &&
                     <span onClick={() => fields.remove(index)} className="fa fa-times"/>
                 }

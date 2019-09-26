@@ -67,11 +67,15 @@ class Basic extends Component {
             const length = mediaLibrary.state().get('selection').length;
             const files = mediaLibrary.state().get('selection').models;
             let selectedFiles = [];
+            console.log(files);
             for(let i = 0; i < length; i++) {
                 selectedFiles.push({
                     id: files[i].id,
                     name: files[i].changed.filename,
-                    url: files[i].changed.url,
+                    type: files[i].changed.type,
+                    src: files[i].changed.url,
+                    mime: files[i].changed.mime,
+                    thumb: (field == 'image') ? files[i].changed.sizes.thumbnail.url : '',
                 });
             }
             //Dispatch for update field value
@@ -106,8 +110,8 @@ class Basic extends Component {
                                         <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
 
                                         { fields[section][field].type == 'video_link' ?
-                                            <FieldArray 
-                                                name={field} 
+                                            <FieldArray
+                                                name={field}
                                                 item={fields[section][field]}
                                                 component={renderVideoLinks} />
                                             :
@@ -135,7 +139,7 @@ class Basic extends Component {
 
 const mapStateToProps = state => ({
     fields: state.data.formFields,
-    initialValues: { goal: 1, amount_range: {min: 1, max: 5000000}, video_link: [{url:''}] }
+    initialValues: { goal: 1, amount_range: {min: 1, max: 5000000}, video_link: [{src:''}] }
 });
 
 function mapDispatchToProps(dispatch) {
