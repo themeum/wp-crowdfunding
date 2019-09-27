@@ -1,24 +1,26 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import InputRange from 'react-input-range';
+import { required, notRequred  } from '../../Helper';
 import 'react-input-range/lib/css/index.css';
 
 export const RenderField = (props) => {
-
-    const { input, meta: { touched, error }, item, onChangeSelect, addTag, uploadFile, removeArrValue} = props;
+    const { input, meta: { touched, error }, item, uploadFile, removeArrValue} = props;
+    const addTag = (props.addTag) ? props.addTag : null;
+    const onChangeSelect = (props.onChangeSelect) ? props.onChangeSelect : null;
     switch (item.type) {
         case 'text':
         case 'number':
             return (
                 <div>
-                    <input {...input} type={item.type} placeholder={item.placeholder}/>
+                    <input {...input} type={item.type} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
         case 'textarea':
             return (
                 <div>
-                    <textarea {...input} placeholder={item.placeholder}/>
+                    <textarea {...input} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
@@ -62,7 +64,9 @@ export const RenderField = (props) => {
                     {input.value && input.value.map( (item, index) =>
                         <div key={index} onClick={() => removeArrValue(index, input.name, input.value)}>{item.label}</div>
                     )}
-                    <input type='text' onKeyDown={(e) => {
+                    <input 
+                        type='text' 
+                        onKeyDown={(e) => {
                             if (e.keyCode === 13) {
                                 e.preventDefault();
                                 const value = e.target.value.toLowerCase();
@@ -70,7 +74,7 @@ export const RenderField = (props) => {
                                 addTag(tag, input.name, input.value);
                                 e.target.value = '';
                             }
-                        }}/>
+                        }} />
                     <div className=''>
                         {item.options.map((tag, index) =>
                             <span key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</span>
@@ -86,7 +90,7 @@ export const RenderField = (props) => {
                             <div key={index}>{item.name} <span onClick={() => removeArrValue(index, input.name, input.value)} className="fa fa-times"/></div>
                         )}
                     </div>
-                    <button dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(input.name, input.value)}/>
+                    <button type="button" dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(input.name, input.value, item.multiple)}/>
                     {touched && error && <span>{error}</span>}
                 </div>
             );
@@ -106,23 +110,28 @@ export const RenderField = (props) => {
     }
 }
 
-const renderLinkField = ({ input, meta: { touched, error }, item }) => (
-    <div>
-        <input {...input} type="url" placeholder={item.placeholder} />
-        {touched && error && <span>{error}</span>}
-    </div>
-)
-
-export const renderVideoLinks = ({ fields, meta: { error }, item }) => (
-    <div className="">
-        {fields.map((field, index) => (
-            <div key={index}>
-                <Field item={item} name={`${field}.src`} component={renderLinkField}/>
-                { index !== 0 &&
-                    <span onClick={() => fields.remove(index)} className="fa fa-times"/>
-                }
-            </div>
-        ))}
-        <button dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
-    </div>
-)
+export const renderRepeatableFields = (props) => {
+    const { fields, item } = props;
+    return (
+        <div className="">
+            {fields.map((field, index) => (
+                <div key={index}>
+                    {Object.keys(item.fields).map( key =>
+                        <Field
+                            key={key}
+                            name={`${field}.${key}`}
+                            item={item.fields[key]}
+                            uploadFile={props.uploadFile}
+                            removeArrValue={props.removeArrValue}
+                            component={RenderField}
+                            validate={[item.fields[key].required ? required : notRequred]}/>
+                    )}
+                    { index !== 0 &&
+                        <span onClick={() => fields.remove(index)} className="fa fa-times"/>
+                    }
+                </div>
+            ))}
+            <button type="button" dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
+        </div>
+    )
+}

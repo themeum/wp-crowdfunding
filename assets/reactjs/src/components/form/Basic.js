@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { required, notRequred, uploadFiles, removeArrValue  } from '../../Helper';
 import { Field, FieldArray, reduxForm, change as changeFieldValue, formValueSelector } from 'redux-form';
-import { RenderField, renderVideoLinks } from './RenderField';
+import { RenderField, renderRepeatableFields } from './RenderField';
 import { fetchSubCategories, fetchStates } from '../../actions';
 
-const required = value => value ? undefined : 'Required';
-const notRequred = value => '';
 class Basic extends Component {
     constructor(props) {
         super(props);
-        this.state = { activeSection: Object.keys(this.props.fields)[0] };
+        this.state = { index: 0 };
         this._onChangeSelect = this._onChangeSelect.bind(this);
         this._addTag = this._addTag.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
@@ -21,20 +20,14 @@ class Basic extends Component {
         return name.replace('_', ' ');
     }
 
-    _onChangeSection(section) {
-        this.setState({
-            activeSection: section
-        });
-    }
-
     _onChangeSelect(e) {
         const { name, value } = e.target;
         if(name == 'category') {
             this.props.fetchSubCategories(value);
-            this.props.changeFieldValue('formBasic', 'sub_category', '');
+            this.props.changeFieldValue('campaignForm', 'sub_category', '');
         } else if(name == 'country') {
             this.props.fetchStates(value);
-            this.props.changeFieldValue('formBasic', 'state', '');
+            this.props.changeFieldValue('campaignForm', 'state', '');
         }
     }
 
@@ -42,52 +35,19 @@ class Basic extends Component {
         selectedTags = [...selectedTags];
         if( selectedTags.findIndex( item => item.value == tag.value) === -1 ) {
             selectedTags.push(tag);
-            this.props.changeFieldValue('formBasic', field, [...selectedTags]);
+            this.props.changeFieldValue('campaignForm', field, [...selectedTags]);
         }
     }
 
-    _uploadFile(field, sFiles) {
-        const prevFiles = sFiles ? [...sFiles] : [];
-        const mediaLibrary = wp.media({
-            multiple: true,
-            library: {
-                type: field
-            }
+    _uploadFile(field, sFiles, multiple) {
+        uploadFiles(field, sFiles, multiple).then( (files) => {
+            this.props.changeFieldValue('campaignForm', field, files);
         });
-        //Callback function for set prev selected files
-        mediaLibrary.on('open', () => {
-            const selectionAPI = mediaLibrary.state().get('selection');
-            prevFiles.forEach( item => {
-                const attachment = wp.media.attachment( item.id );
-                selectionAPI.add( attachment ? [ attachment ] : []);
-            });
-        });
-        //Callback function on select files
-        mediaLibrary.on('select', () => {
-            const length = mediaLibrary.state().get('selection').length;
-            const files = mediaLibrary.state().get('selection').models;
-            let selectedFiles = [];
-            console.log(files);
-            for(let i = 0; i < length; i++) {
-                selectedFiles.push({
-                    id: files[i].id,
-                    name: files[i].changed.filename,
-                    type: files[i].changed.type,
-                    src: files[i].changed.url,
-                    mime: files[i].changed.mime,
-                    thumb: (field == 'image') ? files[i].changed.sizes.thumbnail.url : '',
-                });
-            }
-            //Dispatch for update field value
-            this.props.changeFieldValue('formBasic', field, selectedFiles);
-        });
-        mediaLibrary.open();
     }
 
     _removeArrValue(index, field, values) {
-        values = [...values];
-        values.splice(index, 1);
-        this.props.changeFieldValue('formBasic', field, values);
+        values = removeArrValue(values, index);
+        this.props.changeFieldValue('campaignForm', field, values);
     }
 
     _onSubmit(values) {
@@ -100,20 +60,24 @@ class Basic extends Component {
         return (
             <div className='wpcf-accordion-wrapper'>
                 <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
-                    {Object.keys(fields).map( section =>
+                    {Object.keys(fields).map( (section, index) =>
                         <div key={section} className='wpcf-accordion'>
-                            <div className={`wpcf-accordion-title ${section == activeSection ? 'active' : ''}`} onClick={ () => this._onChangeSection(section) }>{this.sectionName(section)}</div>
-                            <div className='wpcf-accordion-details' style={ section == activeSection ? { display: 'block' } : { display: 'none' } } >
+                            <div className={`wpcf-accordion-title ${index == this.state.index ? 'active' : ''}`} onClick={ () => this.setState({index}) }>
+                                {this.sectionName(section)}
+                            </div>
+                            <div className='wpcf-accordion-details' style={ index == this.state.index ? { display: 'block' } : { display: 'none' } } >
                                 {Object.keys(fields[section]).map( field =>
                                     <div key={field} className='wpcf-form-field'>
                                         <div className='wpcf-field-title'>{fields[section][field].title}</div>
                                         <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
 
-                                        { fields[section][field].type == 'video_link' ?
+                                        { fields[section][field].type == 'repeatable' ?
                                             <FieldArray
                                                 name={field}
                                                 item={fields[section][field]}
-                                                component={renderVideoLinks} />
+                                                uploadFile={this._uploadFile}
+                                                removeArrValue={this._removeArrValue}
+                                                component={renderRepeatableFields}/>
                                             :
                                             <Field
                                                 name={field}
@@ -123,7 +87,7 @@ class Basic extends Component {
                                                 uploadFile={this._uploadFile}
                                                 removeArrValue={this._removeArrValue}
                                                 component={RenderField}
-                                                validate={[ fields[section][field].required ? required : notRequred ]}/>
+                                                validate={[fields[section][field].required ? required : notRequred]}/>
                                         }  
                                     </div>
                                 )}
@@ -152,5 +116,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-    form: 'formBasic'
+    form: 'campaignForm',
+    destroyOnUnmount: false, //preserve form data
+  	forceUnregisterOnUnmount: true, //unregister fields on unmount
 })(Basic));

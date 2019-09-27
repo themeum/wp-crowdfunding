@@ -4,11 +4,11 @@ const headers = {
 }
 
 //COMMON STATE
-export const FETCH_REQUEST_PENDING = 'fetch_request_pending';
+export const FETCH_REQUEST_PENDING = 'FETCH_REQUEST_PENDING';
 
 
 //FETCH FORM FIELDS
-export const FETCH_FORM_FIELDS_COMPLETE = 'fetch_form_fields_complete';
+export const FETCH_FORM_FIELDS_COMPLETE = 'FETCH_FORM_FIELDS_COMPLETE';
 export const fetchFormFields = () => dispatch => {
     dispatch({ type: FETCH_REQUEST_PENDING });
     const fetchURL = `${WPCF.rest_url}/form-fields`;
@@ -16,6 +16,18 @@ export const fetchFormFields = () => dispatch => {
     fetch( fetchURL, option )
     .then( response =>  response.json() )
     .then( payload =>  dispatch( {type: FETCH_FORM_FIELDS_COMPLETE, payload} ) )
+    .catch( error => console.log(error) );
+}
+
+//FETCH FORM FIELDS
+export const FETCH_FORM_REWARD_FIELDS_COMPLETE = 'FETCH_FORM_REWARD_FIELDS_COMPLETE';
+export const fetchRewardFields = () => dispatch => {
+    dispatch({ type: FETCH_REQUEST_PENDING });
+    const fetchURL = `${WPCF.rest_url}/reward-fields`;
+    const option = { method: 'GET', headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload =>  dispatch( {type: FETCH_FORM_REWARD_FIELDS_COMPLETE, payload} ) )
     .catch( error => console.log(error) );
 }
 

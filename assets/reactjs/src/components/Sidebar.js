@@ -8,16 +8,17 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         const { current, basicValues: { video_link, video, image } } = this.props;
         return (
             <div className='wpcf-form-sidebar'>
                 <div className="preview-title">Preview</div>
                 { current == 'basic' } {
-                    <PreviewMedia 
+                    <PreviewMedia
                         video={video || []}
                         image={image || []}
-                        video_link={video_link}/>
+                        video_link={video_link || []}/>
                 }
             </div>
         )
@@ -25,7 +26,7 @@ class Sidebar extends Component {
 }
 
 const mapStateToProps = state => ({
-    basicValues: getFormValues('formBasic')(state)
+    basicValues: getFormValues('campaignForm')(state)
 });
 
 function mapDispatchToProps(dispatch) {

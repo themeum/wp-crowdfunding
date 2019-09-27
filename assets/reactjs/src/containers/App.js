@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchFormFields } from '../actions';
+import { fetchFormFields, fetchRewardFields } from '../actions';
 import TabBar from '../components/TabBar';
 import Content from '../components/Content';
 import Footer from '../components/Footer';
@@ -13,6 +13,7 @@ class App extends Component {
     
     componentDidMount() {
         this.props.fetchFormFields();
+        this.props.fetchRewardFields();
     }
 
 	onSet(val) {
@@ -55,4 +56,4 @@ const mapStateToProps = state => ({
     loading: state.data.loading
 });
 
-export default connect( mapStateToProps, { fetchFormFields } )(App);
+export default connect( mapStateToProps, { fetchFormFields, fetchRewardFields } )(App);

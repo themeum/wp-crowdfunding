@@ -20,7 +20,8 @@ class API_Campaign {
      */
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
-        add_filter( 'wpcf_form_fields', array( $this, 'form_fields') );
+        add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
+        add_filter( 'wpcf_form_reward_fields', array( $this, 'form_reward_fields') );
     }
 
     /**
@@ -35,7 +36,7 @@ class API_Campaign {
             $method_creatable = \WP_REST_Server::CREATABLE;
 
             register_rest_route( $namespace, '/form-fields', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_fields') ),
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
             ));            
             register_rest_route( $namespace, '/form-tags', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_tags') ),
@@ -45,6 +46,9 @@ class API_Campaign {
             ));
             register_rest_route( $namespace, '/states', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
+            ));
+            register_rest_route( $namespace, '/reward-fields', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
             ));
             register_rest_route( $namespace, '/form-saved-data', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_saved_data') ),
@@ -57,43 +61,11 @@ class API_Campaign {
      * Get campaign form fields
      * @since     2.1.0
      * @access    public
-     * @param     {array}   attr
      * @return    [array]   mixed
      */
-    function get_form_fields($attr) {
-        $data = array();
-        // Category
-        $terms = array();
-        $term_return = array();
-        $seperate_cat = get_option('seperate_crowdfunding_categories');
-        if( $seperate_cat ) {
-            $terms = get_terms( 'product_cat', array(
-                'hide_empty' => false,
-                'meta_query' => array(
-                    array(
-                        'key' => '_marked_as_crowdfunding',
-                        'value' => 1,
-                        'compare' => '='
-                    )
-                )
-            ));
-        } else {
-            $terms = get_terms('post_tag', array('hide_empty' => false));
-        }
-        if( !empty($terms) ) {
-            foreach($terms as $val) {
-                if($val->parent){
-                    $term_return[$val->parent]['child'][] = array( 'name' => $val->name, 'slug' => $val->slug );
-                } else {
-                    $term_return[$val->term_id] = array( 'name' => $val->name, 'slug' => $val->slug, 'child' => array() );
-                }
-            }
-            $data['tax'] = $term_return;
-        }
-
-        $fields = apply_filters( 'wpcf_form_fields', [] );
-
-        return rest_ensure_response( $fields );
+    function get_form_basic_fields() {
+        $data = apply_filters( 'wpcf_form_basic_fields', [] );
+        return rest_ensure_response( $data );
     }
 
     /**
@@ -103,7 +75,7 @@ class API_Campaign {
      * @param     {fields}  fields
      * @return    [array]   mixed
      */
-    function form_fields($fields = []) {
+    function form_basic_fields($fields = []) {
         $cat_args = array(
             'taxonomy'      => 'product_cat',
             'hide_empty'    => false,
@@ -249,11 +221,18 @@ class API_Campaign {
             // Media
             'media' => array(
                 'video_link' => array(
-                    'type'      => 'video_link',
+                    'type'      => 'repeatable',
                     'title'     => __("Video", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Link', 'wp-crowdfunding'),
-                    'placeholder'=> __("", "wp-crowdfunding"),
+                    'fields'    => array(
+                        'src' => array(
+                            'type'          => 'text',
+                            'placeholder'   => __("", "wp-crowdfunding"),
+                            'required'      => true,
+                            'show'          => true,
+                        ),
+                    ),
                     'value'     => '',
                     'required'  => false,
                     'show'      => true,
@@ -263,6 +242,7 @@ class API_Campaign {
                     'title'     => __("Video Upload", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'button'    => '<i class="fa fa-file"/> '.__('Upload Video', 'wp-crowdfunding'),
+                    'multiple'  => true,
                     'required'  => false,
                     'show'      => true
                 ),
@@ -272,6 +252,7 @@ class API_Campaign {
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
                     'value'     => '',
+                    'multiple'  => true,
                     'required'  => true,
                     'show'      => true
                 ),
@@ -406,6 +387,7 @@ class API_Campaign {
         return rest_ensure_response( $data );
     }
 
+
     /**
      * Get campaign form tags
      * @since     2.1.0
@@ -452,6 +434,13 @@ class API_Campaign {
         return $data;
     }
 
+
+    /**
+     * Get states from country code
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
     function get_states() {
         $code = $_GET['code'];
         $country = new \WC_Countries();
@@ -473,6 +462,13 @@ class API_Campaign {
         return rest_ensure_response( $response );
     }
 
+    
+    /**
+     * Get Sub categories from main category
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
     function sub_categories() {
         $id = $_GET['id'];
         $options = $this->get_subcategories($id);
@@ -485,6 +481,12 @@ class API_Campaign {
     }
 
 
+    /**
+     * Get Sub categories from main category
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
     function get_subcategories($id) {
         $cat_args = array(
             'taxonomy'      => 'product_cat',
@@ -512,6 +514,121 @@ class API_Campaign {
         return $data;
     }
 
+
+    /**
+     * Get campaign form fields
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
+    function get_form_reward_fields() {
+        $data = apply_filters( 'wpcf_form_reward_fields', [] );
+        return rest_ensure_response( $data );
+    }
+
+
+    /**
+     * Default reward fields
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   fields
+     * @return    [array]   mixed
+     */
+    function form_reward_fields($fields = []) {
+        
+        $default_fields = array(
+            'title' => array(
+                'type'          => 'text',
+                'title'         => __("Title *", "wp-crowdfunding"),
+                'desc'          => __("Briefly describe this reward.", "wp-crowdfunding"),
+                'placeholder'   => __("", "wp-crowdfunding"),
+                'value'         => '',
+                'required'      => true,
+                'show'          => true
+            ),
+            'amount' => array(
+                'type'          => 'text',
+                'title'         => __("Pledge Amount *", "wp-crowdfunding"),
+                'desc'          => __("Briefly describe this reward.", "wp-crowdfunding"),
+                'placeholder'   => __("", "wp-crowdfunding"),
+                'value'         => '',
+                'required'      => true,
+                'show'          => true
+            ),
+            'image' => array(
+                'type'      => 'file',
+                'title'     => __("Rewards Image *","wp-crowdfunding"),
+                'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
+                'button'    => '<i class="fa fa-plus"/> '.__('Add Image', 'wp-crowdfunding'),
+                'value'     => '',
+                'multiple'  => false,
+                'required'  => true,
+                'show'      => true
+            ),
+            'description' => array(
+                'type'          => 'textarea',
+                'title'         => __("Rewards Description *", "wp-crowdfunding"),
+                'desc'          => __("Keep It Short. Just Small Brief About your Project", "wp-crowdfunding"),
+                'placeholder'   => __("", "wp-crowdfunding"),
+                'value'         => '',
+                'required'      => true,
+                'show'          => true,
+            ),
+            'estimate_delivery' => array(
+                'type'          => 'item_group',
+                'title'         => __("Estimate Delivery *", "wp-crowdfunding"),
+                'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
+                'fields' => array(
+                    'month' => array(
+                        'type'          => 'select',
+                        'class'         => 'col-md-7',
+                        'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
+                        'value'         => '',
+                        'options'       => array(),
+                        'required'      => true,
+                        'show'          => true
+                    ),
+                    'year' => array(
+                        'type'          => 'select',
+                        'class'         => 'col-md-5',
+                        'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
+                        'value'         => '',
+                        'options'       => array(),
+                        'required'      => true,
+                        'show'          => true
+                    )
+                )
+            ),
+            'ewards_items' => array(
+                'type'      => 'repeatable',
+                'title'     => __("Rewards Item *", "wp-crowdfunding"),
+                'desc'      => __("Be Specific About What are Included in the Perks", "wp-crowdfunding"),
+                'button'    => '<i class="fa fa-plus"/> '.__('Add More Link', 'wp-crowdfunding'),
+                'fields'    => array(
+                    'name' => array(
+                        'type'          => 'text',
+                        'placeholder'   => __("", "wp-crowdfunding"),
+                        'required'      => true,
+                        'show'          => true,
+                    ),
+                ),
+                'value'     => '',
+                'required'  => false,
+                'show'      => true,
+            ),
+            'no_of_items' => array(
+                'type'          => 'text',
+                'title'         => __("Total Number of Rewards *", "wp-crowdfunding"),
+                'desc'          => __("", "wp-crowdfunding"),
+                'placeholder'   => __("", "wp-crowdfunding"),
+                'value'         => '',
+                'required'      => true,
+                'show'          => true
+            ),
+        );
+
+        return array_merge($default_fields, $fields);
+    }
 
 }
 
