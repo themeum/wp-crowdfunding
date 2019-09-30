@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchFormFields, fetchRewardFields } from '../actions';
+import { fetchFormFields, fetchRewardTypes, fetchRewardFields } from '../actions';
 import TabBar from '../components/TabBar';
 import Content from '../components/Content';
 import Footer from '../components/Footer';
@@ -14,6 +15,7 @@ class App extends Component {
     componentDidMount() {
         this.props.fetchFormFields();
         this.props.fetchRewardFields();
+        this.props.fetchRewardTypes();
     }
 
 	onSet(val) {
@@ -56,4 +58,12 @@ const mapStateToProps = state => ({
     loading: state.data.loading
 });
 
-export default connect( mapStateToProps, { fetchFormFields, fetchRewardFields } )(App);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ 
+        fetchFormFields, 
+        fetchRewardTypes, 
+        fetchRewardFields,
+    }, dispatch);
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(App);

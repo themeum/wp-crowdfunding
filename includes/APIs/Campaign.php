@@ -21,6 +21,7 @@ class API_Campaign {
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
         add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
+        add_filter( 'wpcf_form_reward_types', array( $this, 'form_reward_types') );
         add_filter( 'wpcf_form_reward_fields', array( $this, 'form_reward_fields') );
     }
 
@@ -46,6 +47,9 @@ class API_Campaign {
             ));
             register_rest_route( $namespace, '/states', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
+            ));
+            register_rest_route( $namespace, '/reward-types', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_types') ),
             ));
             register_rest_route( $namespace, '/reward-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
@@ -462,7 +466,7 @@ class API_Campaign {
         return rest_ensure_response( $response );
     }
 
-    
+
     /**
      * Get Sub categories from main category
      * @since     2.1.0
@@ -512,6 +516,48 @@ class API_Campaign {
             ); 
         }
         return $data;
+    }
+
+    /**
+     * Get reward typs
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
+    function get_form_reward_types() {
+        $data = apply_filters( 'wpcf_form_reward_types', [] );
+        return rest_ensure_response( $data );
+    }
+
+
+    /**
+     * Default form reward types
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   fields
+     * @return    [array]   mixed
+     */
+    function form_reward_types($fields = []) {
+        
+        $default_fields = array(
+            array(
+                'title'     => __("Giving Thanks", "wp-crowdfunding"),
+                'icon'      => '',
+                'show'      => true
+            ),
+            array(
+                'title'     => __("Digital Goods", "wp-crowdfunding"),
+                'icon'      => '',
+                'show'      => true
+            ),
+            array(
+                'title'     => __("Physical Goods", "wp-crowdfunding"),
+                'icon'      => '',
+                'show'      => true
+            )
+        );
+
+        return array_merge($default_fields, $fields);
     }
 
 

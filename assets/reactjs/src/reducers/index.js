@@ -6,7 +6,7 @@ import {
     FETCH_STATES_COMPLETE,
 } from "../actions";
 
-export default function(state = { loading: true, loaded: false, formFields:{}, rewardFields:{} }, action ) {
+export default function(state = { loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{} }, action ) {
     switch( action.type ) {
         
         case FETCH_REQUEST_PENDING:
@@ -21,6 +21,13 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 loading: false,
                 loaded: true,
                 formFields: action.payload,
+            };
+        case FETCH_FORM_REWARD_TYPES_COMPLETE:
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                rewardTypes: action.payload,
             };
         case FETCH_FORM_REWARD_FIELDS_COMPLETE:
             return {
