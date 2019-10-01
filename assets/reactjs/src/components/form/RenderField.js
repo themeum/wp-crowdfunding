@@ -82,7 +82,8 @@ export const RenderField = (props) => {
                     </div>
                 </div>
             );
-        case 'file':
+        case 'image':
+        case 'video':
             return (
                 <div className="">
                     <div className="wpcf-form-attachments">
@@ -90,7 +91,7 @@ export const RenderField = (props) => {
                             <div key={index}>{item.name} <span onClick={() => removeArrValue(index, input.name, input.value)} className="fa fa-times"/></div>
                         )}
                     </div>
-                    <button type="button" dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(input.name, input.value, item.multiple)}/>
+                    <button type="button" dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(item.type, input.name, input.value, item.multiple)}/>
                     {touched && error && <span>{error}</span>}
                 </div>
             );

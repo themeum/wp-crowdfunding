@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Field, FieldArray, reduxForm, change as changeFieldValue, formValueSelector } from 'redux-form';
+import { required, notRequred, uploadFiles, removeArrValue  } from '../../Helper';
+import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue, formValueSelector } from 'redux-form';
 import { RenderField, renderRepeatableFields } from './RenderField';
 
 class Reward extends Component {
@@ -9,12 +10,35 @@ class Reward extends Component {
 		super(props);
 		this.state = {
 			selectedType: 0,
-			openForm: false
+			selectedItem: 0,
+			openForm: false,
 		}
+        this._uploadFile = this._uploadFile.bind(this);
+        this._removeArrValue = this._removeArrValue.bind(this);
+        this._addReward = this._addReward.bind(this);
+	}
+
+	_uploadFile(type, field, sFiles, multiple) {
+        uploadFiles(type, sFiles, multiple).then( (files) => {
+            this.props.changeFieldValue('campaignForm', field, files);
+        });
+    }
+
+    _removeArrValue(index, field, values) {
+        values = removeArrValue(values, index);
+        this.props.changeFieldValue('campaignForm', field, values);
+	}
+	
+	_addReward() {
+		const { formValues: {rewards} } = this.props;
+		this.props.changeFieldValue('campaignForm', 'rewards', [...rewards, {}]);
+		this.setState({ openForm: true });
 	}
 
 	render() {
-		const { rewardTypes, rewardFields } = this.props;
+		const { openForm, selectedType, selectedItem } = this.state;
+		const { rewardTypes, rewardFields, formValues: {rewards} } = this.props;
+		console.log(rewards);
 		return (
 			<div>
 				<div className="wpcf-accordion-wrapper">
@@ -28,7 +52,7 @@ class Reward extends Component {
 								{rewardTypes.map((item, index) =>
 									<div
 										key={index}
-										className={'wpcf-reward-type' (selectedType == index) ? 'active':''}
+										className={`wpcf-reward-type ${(selectedType == index) ? 'active':''}`}
 										onClick={() => this.setState({selectedType: index})}>
 										<img src={item.icon} alt={item.title}/>
 										<p>{item.title}</p>
@@ -37,31 +61,40 @@ class Reward extends Component {
 							</div>
 						}
 						{ openForm &&
-							<form onSubmit={}>
-								{Object.keys(rewardFields).map( field =>
-									<div key={field} className='wpcf-form-field'>
-										<div className='wpcf-field-title'>{rewardFields[field].title}</div>
-										<div className='wpcf-field-desc'>{rewardFields[field].desc}</div>
-										{ frewardFields[field].type == 'repeatable' ?
-											<FieldArray
-												name={field}
-												item={rewardFields[field]}
-												uploadFile={this._uploadFile}
-												removeArrValue={this._removeArrValue}
-												component={renderRepeatableFields}/>
-											:
-											<Field
-												name={field}
-												item={rewardFields[field]}
-												addTag={this._addTag}
-												onChangeSelect={this._onChangeSelect}
-												uploadFile={this._uploadFile}
-												removeArrValue={this._removeArrValue}
-												component={RenderField}
-												validate={[rewardFields[field].required ? required : notRequred]}/>
-										}
-									</div>
-								)}
+							<form>
+								<FieldArray
+									name="rewards"
+									component={ ({ fields }) => (
+										<div>
+											{fields.map( (field, index) => (
+                								<div key={index}>
+													{Object.keys(rewardFields).map( key =>
+														<div key={key} className='wpcf-form-field'>
+															<div className='wpcf-field-title'>{rewardFields[key].title}</div>
+															<div className='wpcf-field-desc'>{rewardFields[key].desc}</div>
+															{ rewardFields[key].type == 'repeatable' ?
+																<FieldArray
+																	name={`${field}.${key}`}
+																	item={rewardFields[key]}
+																	uploadFile={this._uploadFile}
+																	removeArrValue={this._removeArrValue}
+																	component={renderRepeatableFields}/>
+																:
+																<Field
+																	name={`${field}.${key}`}
+																	item={rewardFields[key]}
+																	uploadFile={this._uploadFile}
+																	removeArrValue={this._removeArrValue}
+																	component={RenderField}
+																	validate={[rewardFields[key].required ? required : notRequred]}/>
+															}
+														</div>
+													)}
+												</div>
+											))}
+										</div>
+									)
+								}/>
 							</form>
 						}
 					</div>
@@ -69,8 +102,16 @@ class Reward extends Component {
 
 				<div className="">
 					<h3>Rewards</h3>
-					<div>
-						<span className="fa fa-icon-plus"/>
+					{rewards && rewards.map((item, index) =>
+						<div
+							key={index}
+							className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}
+							onClick={() => this.setState({openForm: true, selectedItem: index})}>
+							<p>Reward {index+1}</p>
+						</div>
+					)}
+					<div className="wpcf-reward-item" onClick={this._addReward}>
+						<span className="fa fa-plus"/>
 					</div>
 				</div>
 			</div>
@@ -79,8 +120,9 @@ class Reward extends Component {
 }
 
 const mapStateToProps = state => ({
+	formValues: getFormValues('campaignForm')(state),
     rewardTypes: state.data.rewardTypes,
-    rewardFields: state.data.rewardFields
+	rewardFields: state.data.rewardFields
 });
 
 function mapDispatchToProps(dispatch) {

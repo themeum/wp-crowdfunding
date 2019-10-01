@@ -15,7 +15,10 @@ class PreviewMedia extends Component {
 
     getAllItems() {
         let items = [];
-        const { video_link, video, image } = this.props;
+        const { data } = this.props;
+        const video_link = data.video_link || [];
+        const video = data.video || [];
+        const image = data.image || [];
         if(video_link.length > 0) {
             video_link.map( item => {
                 if(item.src) {

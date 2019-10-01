@@ -4,14 +4,12 @@ import React from 'react'
 export const required = value => value ? undefined : 'Required';
 export const notRequred = value => '';
 
-export const uploadFiles = (field, sFiles, multiple) => {
+export const uploadFiles = (type, sFiles, multiple) => {
     return new Promise((resolve, reject) => {
         const prevFiles = sFiles ? [...sFiles] : [];
         const mediaLibrary = wp.media({
             multiple,
-            library: {
-                type: field
-            }
+            library: { type }
         });
         mediaLibrary.on('open', () => {
             const selectionAPI = mediaLibrary.state().get('selection');
@@ -31,7 +29,7 @@ export const uploadFiles = (field, sFiles, multiple) => {
                     type: files[i].changed.type,
                     src: files[i].changed.url,
                     mime: files[i].changed.mime,
-                    thumb: (field == 'image') ? files[i].changed.sizes.thumbnail.url : '',
+                    thumb: (type == 'image') ? files[i].changed.sizes.thumbnail.url : '',
                 });
             }
             resolve(selectedFiles);

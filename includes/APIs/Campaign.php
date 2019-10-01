@@ -242,7 +242,7 @@ class API_Campaign {
                     'show'      => true,
                 ),
                 'video' => array(
-                    'type'      => 'file',
+                    'type'      => 'video',
                     'title'     => __("Video Upload", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'button'    => '<i class="fa fa-file"/> '.__('Upload Video', 'wp-crowdfunding'),
@@ -251,7 +251,7 @@ class API_Campaign {
                     'show'      => true
                 ),
                 'image' => array(
-                    'type'      => 'file',
+                    'type'      => 'image',
                     'title'     => __("Image Upload *","wp-crowdfunding"),
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
@@ -602,7 +602,7 @@ class API_Campaign {
                 'show'          => true
             ),
             'image' => array(
-                'type'      => 'file',
+                'type'      => 'image',
                 'title'     => __("Rewards Image *","wp-crowdfunding"),
                 'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                 'button'    => '<i class="fa fa-plus"/> '.__('Add Image', 'wp-crowdfunding'),
