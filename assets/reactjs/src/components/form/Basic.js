@@ -22,12 +22,12 @@ class Basic extends Component {
 
     _onChangeSelect(e) {
         const { name, value } = e.target;
-        if(name == 'category') {
+        if(name == 'basic.category') {
             this.props.fetchSubCategories(value);
-            this.props.changeFieldValue('campaignForm', 'sub_category', '');
-        } else if(name == 'country') {
+            this.props.changeFieldValue('campaignForm', 'basic.sub_category', '');
+        } else if(name == 'basic.country') {
             this.props.fetchStates(value);
-            this.props.changeFieldValue('campaignForm', 'state', '');
+            this.props.changeFieldValue('campaignForm', 'basic.state', '');
         }
     }
 
@@ -105,7 +105,7 @@ class Basic extends Component {
 
 const mapStateToProps = state => ({
     fields: state.data.formFields,
-    initialValues: { basic: {goal: 1, amount_range: {min: 1, max: 5000000}, video_link: [{src:''}]}, rewards:[] }
+    initialValues: { basic: {goal: 1, amount_range: {min: 1, max: 5000000}}, rewards:[] }
 });
 
 function mapDispatchToProps(dispatch) {

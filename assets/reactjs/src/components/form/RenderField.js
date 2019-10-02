@@ -1,32 +1,33 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 import InputRange from 'react-input-range';
 import { required, notRequred  } from '../../Helper';
 import 'react-input-range/lib/css/index.css';
 
 export const RenderField = (props) => {
     const { input, meta: { touched, error }, item, uploadFile, removeArrValue} = props;
-    const addTag = (props.addTag) ? props.addTag : null;
-    const onChangeSelect = (props.onChangeSelect) ? props.onChangeSelect : null;
+    const addTag = (typeof props.addTag == 'function') ? props.addTag : () => {};
+    const onChangeSelect = (typeof props.onChangeSelect == 'function') ? props.onChangeSelect : () => {};
+    const className = (props.className) ? props.className : null;
     switch (item.type) {
         case 'text':
         case 'number':
             return (
-                <div>
+                <div className={className}>
                     <input {...input} type={item.type} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
         case 'textarea':
             return (
-                <div>
+                <div className={className}>
                     <textarea {...input} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
         case 'select':
             return (
-                <div className="">
+                <div className={className}>
                     <select {...input} onChange={(e) => { input.onChange(e); onChangeSelect(e); }}>
                         <option value="">{item.placeholder}</option>
                         {item.options.map((option, index) =>
@@ -38,10 +39,10 @@ export const RenderField = (props) => {
             );
         case 'radio':
             return (
-                <div className="">
+                <div className={className}>
                     {item.options.map((option, index) =>
                         <label key={index} className="radio-inline">
-                            <input {...input} type={item.type} /> {option.label} <span>{option.desc}</span>
+                            <input {...input} type={item.type} value={option.value}/> {option.label} <span>{option.desc}</span>
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -49,10 +50,10 @@ export const RenderField = (props) => {
             );
         case 'checkbox':
             return (
-                <div className="">
+                <div className={className}>
                     {item.options.map((option, index) =>
                         <label key={index} className="checkbox-inline">
-                            <input {...input} type={item.type} /> {option.label}
+                            <input {...input} type={item.type} value={option.value}/> {option.label}
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -60,7 +61,7 @@ export const RenderField = (props) => {
             );
         case 'tags':
             return (
-                <div className="">
+                <div className={className}>
                     {input.value && input.value.map( (item, index) =>
                         <div key={index} onClick={() => removeArrValue(index, input.name, input.value)}>{item.label}</div>
                     )}
@@ -75,7 +76,7 @@ export const RenderField = (props) => {
                                 e.target.value = '';
                             }
                         }} />
-                    <div className=''>
+                    <div className={className}>
                         {item.options.map((tag, index) =>
                             <span key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</span>
                         )}
@@ -85,7 +86,7 @@ export const RenderField = (props) => {
         case 'image':
         case 'video':
             return (
-                <div className="">
+                <div className={className}>
                     <div className="wpcf-form-attachments">
                         {input.value && input.value.map( (item, index) =>
                             <div key={index}>{item.name} <span onClick={() => removeArrValue(index, input.name, input.value)} className="fa fa-times"/></div>
@@ -97,7 +98,7 @@ export const RenderField = (props) => {
             );
         case 'range':
             return (
-                <div className="">
+                <div className={className}>
                     <InputRange
                         minValue={item.minVal}
                         maxValue={item.maxVal}
@@ -111,8 +112,12 @@ export const RenderField = (props) => {
     }
 }
 
+
 export const renderRepeatableFields = (props) => {
     const { fields, item } = props;
+    if(fields.length == 0 && item.open_first_item) {
+        fields.push({});
+    }
     return (
         <div className="">
             {fields.map((field, index) => (
@@ -136,3 +141,50 @@ export const renderRepeatableFields = (props) => {
         </div>
     )
 }
+
+
+export const renderRewardFields = (props) => {
+    const { selectedItem, rewardFields, uploadFile, removeArrValue, fields:{name} } = props;
+    return (
+        <div className="">
+            {Object.keys(rewardFields).map( key =>
+                <div key={key} className='wpcf-form-field'>
+                    <div className='wpcf-field-title'>{rewardFields[key].title}</div>
+                    <div className='wpcf-field-desc'>{rewardFields[key].desc}</div>
+                    { rewardFields[key].type == 'form_group' ?
+                        <div className="form-group">
+                            {Object.keys(rewardFields[key].fields).map( field =>
+                                <Field
+                                    key={field}
+                                    name={field}
+                                    item={rewardFields[key].fields[field]}
+                                    className={rewardFields[key].fields[field].class}
+                                    uploadFile={props.uploadFile}
+                                    removeArrValue={props.removeArrValue}
+                                    component={RenderField}
+                                    validate={[rewardFields[key].fields[field].required ? required : notRequred]}/>
+                            )}
+                        </div>
+
+                    : rewardFields[key].type == 'repeatable' ?
+                        <FieldArray
+                            name={`${name}[${selectedItem}].${key}`}
+                            item={rewardFields[key]}
+                            uploadFile={uploadFile}
+                            removeArrValue={removeArrValue}
+                            component={renderRepeatableFields}/>
+                    :
+                        <Field
+                            name={`${name}[${selectedItem}].${key}`}
+                            item={rewardFields[key]}
+                            uploadFile={uploadFile}
+                            removeArrValue={removeArrValue}
+                            component={RenderField}
+                            validate={[rewardFields[key].required ? required : notRequred]}/>
+                    }
+                </div>
+            )}
+        </div>
+    )
+}
+

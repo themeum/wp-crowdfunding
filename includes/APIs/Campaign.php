@@ -238,6 +238,7 @@ class API_Campaign {
                         ),
                     ),
                     'value'     => '',
+                    'open_first_item' => true,
                     'required'  => false,
                     'show'      => true,
                 ),
@@ -581,6 +582,27 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function form_reward_fields($fields = []) {
+
+        $month_list = array(
+            array( 'value' => 'jan', 'label' => __('January', "wp-crowdfunding") ),
+            array( 'value' => 'feb', 'label' => __('February', "wp-crowdfunding") ),
+            array( 'value' => 'mar', 'label' => __('March', "wp-crowdfunding") ),
+            array( 'value' => 'apr', 'label' => __('April', "wp-crowdfunding") ),
+            array( 'value' => 'may', 'label' => __('May', "wp-crowdfunding") ),
+            array( 'value' => 'jun', 'label' => __('June', "wp-crowdfunding") ),
+            array( 'value' => 'jul', 'label' => __('July', "wp-crowdfunding") ),
+            array( 'value' => 'aug', 'label' => __('August', "wp-crowdfunding") ),
+            array( 'value' => 'sep', 'label' => __('September', "wp-crowdfunding") ),
+            array( 'value' => 'oct', 'label' => __('October', "wp-crowdfunding") ),
+            array( 'value' => 'nov', 'label' => __('November', "wp-crowdfunding") ),
+            array( 'value' => 'dec', 'label' => __('December', "wp-crowdfunding") ),
+        );
+
+        $year_list = array();
+        foreach( range(date('Y'), date('Y')+10) as $year ) {
+            $year_list[] = array( 'value' => $year, 'label' => __($year, "wp-crowdfunding") );
+        }
+        
         
         $default_fields = array(
             'title' => array(
@@ -621,7 +643,7 @@ class API_Campaign {
                 'show'          => true,
             ),
             'estimate_delivery' => array(
-                'type'          => 'item_group',
+                'type'          => 'form_group',
                 'title'         => __("Estimate Delivery *", "wp-crowdfunding"),
                 'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
                 'fields' => array(
@@ -630,7 +652,7 @@ class API_Campaign {
                         'class'         => 'col-md-7',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
                         'value'         => '',
-                        'options'       => array(),
+                        'options'       => $month_list,
                         'required'      => true,
                         'show'          => true
                     ),
@@ -639,17 +661,17 @@ class API_Campaign {
                         'class'         => 'col-md-5',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
                         'value'         => '',
-                        'options'       => array(),
+                        'options'       => $year_list,
                         'required'      => true,
                         'show'          => true
                     )
                 )
             ),
-            'ewards_items' => array(
+            'rewards_items' => array(
                 'type'      => 'repeatable',
                 'title'     => __("Rewards Item *", "wp-crowdfunding"),
                 'desc'      => __("Be Specific About What are Included in the Perks", "wp-crowdfunding"),
-                'button'    => '<i class="fa fa-plus"/> '.__('Add More Link', 'wp-crowdfunding'),
+                'button'    => '<i class="fa fa-plus"/> '.__('Add More Item', 'wp-crowdfunding'),
                 'fields'    => array(
                     'name' => array(
                         'type'          => 'text',
@@ -659,6 +681,7 @@ class API_Campaign {
                     ),
                 ),
                 'value'     => '',
+                'open_first_item' => true,
                 'required'  => false,
                 'show'      => true,
             ),

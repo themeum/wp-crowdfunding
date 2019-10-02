@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { required, notRequred, uploadFiles, removeArrValue  } from '../../Helper';
-import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue, formValueSelector } from 'redux-form';
-import { RenderField, renderRepeatableFields } from './RenderField';
+import { uploadFiles, removeArrValue  } from '../../Helper';
+import { FieldArray, reduxForm, getFormValues, change as changeFieldValue, formValueSelector } from 'redux-form';
+import { renderRewardFields } from './RenderField';
 
 class Reward extends Component {
 	constructor(props) {
@@ -64,37 +64,11 @@ class Reward extends Component {
 							<form>
 								<FieldArray
 									name="rewards"
-									component={ ({ fields }) => (
-										<div>
-											{fields.map( (field, index) => (
-                								<div key={index}>
-													{Object.keys(rewardFields).map( key =>
-														<div key={key} className='wpcf-form-field'>
-															<div className='wpcf-field-title'>{rewardFields[key].title}</div>
-															<div className='wpcf-field-desc'>{rewardFields[key].desc}</div>
-															{ rewardFields[key].type == 'repeatable' ?
-																<FieldArray
-																	name={`${field}.${key}`}
-																	item={rewardFields[key]}
-																	uploadFile={this._uploadFile}
-																	removeArrValue={this._removeArrValue}
-																	component={renderRepeatableFields}/>
-																:
-																<Field
-																	name={`${field}.${key}`}
-																	item={rewardFields[key]}
-																	uploadFile={this._uploadFile}
-																	removeArrValue={this._removeArrValue}
-																	component={RenderField}
-																	validate={[rewardFields[key].required ? required : notRequred]}/>
-															}
-														</div>
-													)}
-												</div>
-											))}
-										</div>
-									)
-								}/>
+									selectedItem={selectedItem}
+									rewardFields={rewardFields}
+									uploadFile={this._uploadFile}
+                                    removeArrValue={this._removeArrValue}
+									component={renderRewardFields}/>
 							</form>
 						}
 					</div>
