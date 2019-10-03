@@ -76,11 +76,12 @@ class PreviewBasic extends Component {
         )
     }
 }
+
 const mapStateToProps = state => ({
     formValues: getFormValues('campaignForm')(state)
 });
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return bindActionCreators({ 
         getFormValues,
     }, dispatch);

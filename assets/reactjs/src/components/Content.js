@@ -12,7 +12,7 @@ class MainForm extends Component {
 	render () {
 		const { current } = this.props;
 		return (
-			<div className="row">
+			<div>
 				{ current == 'basic' && <Basic/> }
 				{ current == 'story' && <Story /> }
 				{ current == 'reward' && <Reward /> }

@@ -58,7 +58,7 @@ class Basic extends Component {
     render() {
         const { fields, handleSubmit } =  this.props;
         return (
-            <div>
+            <div className="row">
                 <div className='col-md-7'>
                     <div className='wpcf-accordion-wrapper'>
                         <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
@@ -118,7 +118,7 @@ const mapStateToProps = state => ({
     initialValues: { basic: {goal: 1, amount_range: {min: 1, max: 5000000}}, rewards:[] }
 });
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         changeFieldValue,
         fetchSubCategories,

@@ -31,7 +31,7 @@ export const RenderField = (props) => {
                     <select {...input} onChange={(e) => { input.onChange(e); onChangeSelect(e); }}>
                         <option value="">{item.placeholder}</option>
                         {item.options.map((option, index) =>
-                            <option key={index} value={option.value} dangerouslySetInnerHTML={{ __html: option.label }} />
+                            <option key={index} value={option.value} dangerouslySetInnerHTML={{ __html: option.label }}/>
                         )}
                     </select>
                     {touched && error && <span>{error}</span>}
@@ -156,7 +156,7 @@ export const renderRewardFields = (props) => {
                             {Object.keys(rewardFields[key].fields).map( field =>
                                 <Field
                                     key={field}
-                                    name={field}
+                                    name={`${name}[${selectedItem}].${field}`}
                                     item={rewardFields[key].fields[field]}
                                     className={rewardFields[key].fields[field].class}
                                     uploadFile={props.uploadFile}

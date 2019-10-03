@@ -647,7 +647,7 @@ class API_Campaign {
                 'title'         => __("Estimate Delivery *", "wp-crowdfunding"),
                 'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
                 'fields' => array(
-                    'month' => array(
+                    'end_month' => array(
                         'type'          => 'select',
                         'class'         => 'col-md-7',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
@@ -656,7 +656,7 @@ class API_Campaign {
                         'required'      => true,
                         'show'          => true
                     ),
-                    'year' => array(
+                    'end_year' => array(
                         'type'          => 'select',
                         'class'         => 'col-md-5',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),

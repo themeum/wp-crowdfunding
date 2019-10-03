@@ -55,3 +55,36 @@
     padding: 15px;
     cursor: pointer;
 }
+
+.wpcf-preview-reward {
+    width: 100%;
+    .reward-thumb {
+        width: 285px;
+        height: 496px;
+        margin: 30px;
+        padding: 5px;
+        border-radius: 4px;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: solid 1px #dcdce4;
+        background-color: #ffffff;
+        .reward-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            background-color: #f5f5fa;
+            text-align: center;
+            span {
+                height: 180px;
+                line-height: 180px;
+            };
+            img {
+                width: 100%;
+                height: auto;
+            };
+        }
+    }
+    
+}
