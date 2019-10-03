@@ -38,7 +38,6 @@ class Reward extends Component {
 	render() {
 		const { openForm, selectedType, selectedItem } = this.state;
 		const { rewardTypes, rewardFields, formValues: {rewards} } = this.props;
-		console.log(rewards);
 		return (
 			<div>
 				<div className="wpcf-accordion-wrapper">

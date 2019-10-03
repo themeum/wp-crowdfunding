@@ -52,25 +52,3 @@ export const getYotubeVideoID = src => {
     }
     return false;
 }
-
-export const generateBasicPreview = (items, index) => {
-    let mainViewItem;
-    if( (items && items.length > 0) ) {
-        mainViewItem = (typeof items[index] !== 'undefined') ? items[index] : items[0];
-    } else {
-        return '';
-    }
-    if(mainViewItem.type == 'youtube') {
-        return (
-            <iframe width="100%" height="300" src={`//www.youtube.com/embed/${getYotubeVideoID(mainViewItem.src)}`}/>
-        );
-    } else if(mainViewItem.type == 'video') {
-        return (
-            <video controls><source src={mainViewItem.src} type={mainViewItem.mime}/>Your browser does not support the video tag</video>
-        );
-    } else if(mainViewItem.type == 'image') {
-        return (
-            <img src={mainViewItem.src}/>
-        );
-    }
-}

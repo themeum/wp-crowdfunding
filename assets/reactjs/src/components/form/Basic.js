@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { required, notRequred, uploadFiles, removeArrValue  } from '../../Helper';
-import { FormSection, Field, FieldArray, reduxForm, change as changeFieldValue, formValueSelector } from 'redux-form';
+import { FormSection, Field, FieldArray, reduxForm, change as changeFieldValue } from 'redux-form';
 import { RenderField, renderRepeatableFields } from './RenderField';
 import { fetchSubCategories, fetchStates } from '../../actions';
+import PreviewBasic from './preview/Basic';
 
 class Basic extends Component {
     constructor(props) {
@@ -55,49 +56,58 @@ class Basic extends Component {
     }
 
     render() {
-        const { activeSection } = this.state;
         const { fields, handleSubmit } =  this.props;
         return (
-            <div className='wpcf-accordion-wrapper'>
-                <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
-                    <FormSection name="basic">
-                        {Object.keys(fields).map( (section, index) =>
-                            <div key={section} className='wpcf-accordion'>
-                                <div className={`wpcf-accordion-title ${index == this.state.index ? 'active' : ''}`} onClick={ () => this.setState({index}) }>
-                                    {this.sectionName(section)}
-                                </div>
-                                <div className='wpcf-accordion-details' style={ index == this.state.index ? { display: 'block' } : { display: 'none' } } >
-                                    {Object.keys(fields[section]).map( field =>
-                                        <div key={field} className='wpcf-form-field'>
-                                            <div className='wpcf-field-title'>{fields[section][field].title}</div>
-                                            <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
-
-                                            { fields[section][field].type == 'repeatable' ?
-                                                <FieldArray
-                                                    name={field}
-                                                    item={fields[section][field]}
-                                                    uploadFile={this._uploadFile}
-                                                    removeArrValue={this._removeArrValue}
-                                                    component={renderRepeatableFields}/>
-                                                :
-                                                <Field
-                                                    name={field}
-                                                    item={fields[section][field]}
-                                                    addTag={this._addTag}
-                                                    onChangeSelect={this._onChangeSelect}
-                                                    uploadFile={this._uploadFile}
-                                                    removeArrValue={this._removeArrValue}
-                                                    component={RenderField}
-                                                    validate={[fields[section][field].required ? required : notRequred]}/>
-                                            }  
+            <div>
+                <div className='col-md-7'>
+                    <div className='wpcf-accordion-wrapper'>
+                        <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
+                            <FormSection name="basic">
+                                {Object.keys(fields).map( (section, index) =>
+                                    <div key={section} className='wpcf-accordion'>
+                                        <div className={`wpcf-accordion-title ${index == this.state.index ? 'active' : ''}`} onClick={ () => this.setState({index}) }>
+                                            {this.sectionName(section)}
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </FormSection>
-                    <button type="submit">Show form data</button>
-                </form>
+                                        <div className='wpcf-accordion-details' style={ index == this.state.index ? { display: 'block' } : { display: 'none' } } >
+                                            {Object.keys(fields[section]).map( field =>
+                                                <div key={field} className='wpcf-form-field'>
+                                                    <div className='wpcf-field-title'>{fields[section][field].title}</div>
+                                                    <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
+
+                                                    { fields[section][field].type == 'repeatable' ?
+                                                        <FieldArray
+                                                            name={field}
+                                                            item={fields[section][field]}
+                                                            uploadFile={this._uploadFile}
+                                                            removeArrValue={this._removeArrValue}
+                                                            component={renderRepeatableFields}/>
+                                                        :
+                                                        <Field
+                                                            name={field}
+                                                            item={fields[section][field]}
+                                                            addTag={this._addTag}
+                                                            onChangeSelect={this._onChangeSelect}
+                                                            uploadFile={this._uploadFile}
+                                                            removeArrValue={this._removeArrValue}
+                                                            component={RenderField}
+                                                            validate={[fields[section][field].required ? required : notRequred]}/>
+                                                    }  
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </FormSection>
+                            <button type="submit">Show form data</button>
+                        </form>
+                    </div>
+                </div>
+				<div className='col-md-5'>
+                    <div className='wpcf-form-sidebar'>
+                        <div className="preview-title">Preview</div>
+                        <PreviewBasic />
+                    </div>
+                </div>
             </div>
         )
     }
@@ -109,9 +119,8 @@ const mapStateToProps = state => ({
 });
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ 
-        changeFieldValue, 
-        formValueSelector, 
+    return bindActionCreators({
+        changeFieldValue,
         fetchSubCategories,
         fetchStates,
     }, dispatch);
