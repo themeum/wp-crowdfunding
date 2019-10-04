@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, FieldArray } from 'redux-form';
 import InputRange from 'react-input-range';
 import { required, notRequred  } from '../../Helper';
@@ -144,9 +144,22 @@ export const renderRepeatableFields = (props) => {
 
 
 export const renderRewardFields = (props) => {
-    const { selectedItem, rewardFields, uploadFile, removeArrValue, fields:{name} } = props;
+    const { rewards, rewardTypes, onChangeType, selectedItem, rewardFields, uploadFile, removeArrValue, fields:{name} } = props;
+    const [changeType, setChangeType] = useState(false);
+
     return (
         <div className="">
+            <div className='wpcf-form-field'>
+                <div className='wpcf-field-title'>
+                    {rewardTypes[rewards[selectedItem].type].title}
+                    <span onClick={() => setChangeType(true)}>Change</span>
+                </div>
+                { changeType && rewardTypes.map((item, index) =>
+                    <label key={index} className="radio-inline">
+                        <input type='radio' name="type" value={index} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
+                    </label>
+                )}
+            </div>
             {Object.keys(rewardFields).map( key =>
                 <div key={key} className='wpcf-form-field'>
                     <div className='wpcf-field-title'>{rewardFields[key].title}</div>

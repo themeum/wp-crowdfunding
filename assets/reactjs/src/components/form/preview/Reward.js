@@ -1,14 +1,19 @@
 import React from 'react';
+import { getMonthName } from '../../../Helper'
 
 export default (props) => {
 
-    const { rewards, selectedItem } = props;
+    const { months, rewards, selectedItem } = props;
 
-    const getValue = (key) => {
+    const getValue = key => {
         return rewards.length > 0 && rewards[selectedItem].hasOwnProperty(key) ? rewards[selectedItem][key] : '';
     };
 
-    console.log(props);
+    const getMonthName = key => {
+        const month = months.filter( item => item.value == key );
+        return (month.length > 0) ? month[0].label : '';
+    }
+
     return (
         <div className="wpcf-preview-reward">
             <div className="reward-thumb">
@@ -27,7 +32,7 @@ export default (props) => {
                     <h3>{getValue('title')}</h3>
                     <p>{getValue('description')}</p>
                     <p>Estimate Delivery Date</p>
-                    <p>{getValue('end_month')} {getValue('end_year')}</p>
+                    <p>{getMonthName(getValue('end_month'))} {getValue('end_year')}</p>
                     <span>
                         <p>Backers</p>
                         <p>0</p>
