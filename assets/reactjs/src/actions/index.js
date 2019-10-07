@@ -7,7 +7,7 @@ const headers = {
 export const FETCH_REQUEST_PENDING = 'FETCH_REQUEST_PENDING';
 
 
-//FETCH FORM FIELDS
+//FETCH FORM BASIC FIELDS
 export const FETCH_FORM_FIELDS_COMPLETE = 'FETCH_FORM_FIELDS_COMPLETE';
 export const fetchFormFields = () => dispatch => {
     dispatch({ type: FETCH_REQUEST_PENDING });
@@ -19,7 +19,7 @@ export const fetchFormFields = () => dispatch => {
     .catch( error => console.log(error) );
 }
 
-//FETCH FORM FIELDS
+//FETCH FORM REWARD TYPE FIELDS
 export const FETCH_FORM_REWARD_TYPES_COMPLETE = 'FETCH_FORM_REWARD_TYPES_COMPLETE';
 export const fetchRewardTypes = () => dispatch => {
     dispatch({ type: FETCH_REQUEST_PENDING });
@@ -31,7 +31,7 @@ export const fetchRewardTypes = () => dispatch => {
     .catch( error => console.log(error) );
 }
 
-//FETCH FORM FIELDS
+//FETCH FORM REWARD FIELDS
 export const FETCH_FORM_REWARD_FIELDS_COMPLETE = 'FETCH_FORM_REWARD_FIELDS_COMPLETE';
 export const fetchRewardFields = () => dispatch => {
     dispatch({ type: FETCH_REQUEST_PENDING });
@@ -43,6 +43,17 @@ export const fetchRewardFields = () => dispatch => {
     .catch( error => console.log(error) );
 }
 
+//FETCH FORM TEAM FIELDS
+export const FETCH_FORM_TEAM_FIELDS_COMPLETE = 'FETCH_FORM_TEAM_FIELDS_COMPLETE';
+export const fetchTeamFields = () => dispatch => {
+    dispatch({ type: FETCH_REQUEST_PENDING });
+    const fetchURL = `${WPCF.rest_url}/team-fields`;
+    const option = { method: 'GET', headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload =>  dispatch( {type: FETCH_FORM_TEAM_FIELDS_COMPLETE, payload} ) )
+    .catch( error => console.log(error) );
+}
 
 //FETCH FORM TAGS
 export const FETCH_SUB_CATEGORIES_COMPLETE = 'fetch_sub_categories_complete';

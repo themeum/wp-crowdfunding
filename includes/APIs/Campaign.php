@@ -23,6 +23,7 @@ class API_Campaign {
         add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
         add_filter( 'wpcf_form_reward_types', array( $this, 'form_reward_types') );
         add_filter( 'wpcf_form_reward_fields', array( $this, 'form_reward_fields') );
+        add_filter( 'wpcf_form_team_fields', array( $this, 'form_team_fields') );
     }
 
     /**
@@ -38,9 +39,6 @@ class API_Campaign {
 
             register_rest_route( $namespace, '/form-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
-            ));            
-            register_rest_route( $namespace, '/form-tags', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'form_tags') ),
             ));
             register_rest_route( $namespace, '/sub-categories', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
@@ -53,6 +51,9 @@ class API_Campaign {
             ));
             register_rest_route( $namespace, '/reward-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
+            ));
+            register_rest_route( $namespace, '/team-fields', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
             ));
             register_rest_route( $namespace, '/form-saved-data', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'form_saved_data') ),
@@ -381,19 +382,6 @@ class API_Campaign {
 
 
     /**
-     * Campaign form tags
-     * @since     2.1.0
-     * @access    public
-     * @param     {array}   attr
-     * @return    [array]   mixed
-     */
-    function form_tags() {
-        $data = $this->get_form_tags();
-        return rest_ensure_response( $data );
-    }
-
-
-    /**
      * Get campaign form tags
      * @since     2.1.0
      * @access    public
@@ -698,6 +686,79 @@ class API_Campaign {
 
         return array_merge($default_fields, $fields);
     }
+
+
+    /**
+     * Get campaign team fields
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
+    function get_form_team_fields() {
+        $data = apply_filters( 'wpcf_form_team_fields', [] );
+        return rest_ensure_response( $data );
+    }
+
+
+    /**
+     * Default team fields
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   fields
+     * @return    [array]   mixed
+     */
+    function form_team_fields($fields = []) {
+        $default_fields = array(
+            'email' => array(
+                'type'          => 'email',
+                'title'         => __("Email *", "wp-crowdfunding"),
+                'desc'          => __("", "wp-crowdfunding"),
+                'placeholder'   => __("", "wp-crowdfunding"),
+                'value'         => '',
+                'required'      => true,
+                'show'          => true
+            ),
+            'name' => array(
+                'type'          => 'text',
+                'title'         => __("Collaborator Name", "wp-crowdfunding"),
+                'desc'          => __("", "wp-crowdfunding"),
+                'placeholder'   => __("", "wp-crowdfunding"),
+                'value'         => '',
+                'required'      => false,
+                'show'          => true
+            ),
+            'manage_campaign' => array(
+                'type'      => 'checkbox',
+                'title'     => __("If you Want to Show Contributor List", "wp-crowdfunding"),
+                'desc'      => __("", "wp-crowdfunding"),
+                'value'     => '',
+                'options'   => array(
+                    array(
+                        'value' => 1,
+                        'label' => __("Give Permission to Manage Campaign", "wp-crowdfunding"),
+                    )
+                ),
+                'required'  => false,
+                'show'      => true,
+            ),
+            'edit_campaign' => array(
+                'type'      => 'checkbox',
+                'title'     => __("If you Want to Show Contributor List", "wp-crowdfunding"),
+                'desc'      => __("", "wp-crowdfunding"),
+                'value'     => '',
+                'options'   => array(
+                    array(
+                        'value' => 1,
+                        'label' => __("Give Permission to Edit Campaign", "wp-crowdfunding"),
+                    )
+                ),
+                'required'  => false,
+                'show'      => true,
+            ),
+        );
+
+        return array_merge($default_fields, $fields);
+    }    
 
 }
 

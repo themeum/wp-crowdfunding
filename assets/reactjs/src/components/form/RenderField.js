@@ -4,13 +4,21 @@ import InputRange from 'react-input-range';
 import { required, notRequred  } from '../../Helper';
 import 'react-input-range/lib/css/index.css';
 
-export const RenderField = (props) => {
-    const { input, meta: { touched, error }, item, uploadFile, removeArrValue} = props;
-    const addTag = (typeof props.addTag == 'function') ? props.addTag : () => {};
-    const onChangeSelect = (typeof props.onChangeSelect == 'function') ? props.onChangeSelect : () => {};
-    const className = (props.className) ? props.className : null;
+
+const defaultProps = {
+    addTag: () => {},
+    onChangeSelect: () => {},
+    uploadFile: () => {},
+    removeArrValue: () => {},
+    className: '',
+    fieldValue: ''
+};
+export const RenderField = (_props) => {
+    const props = {...defaultProps, ..._props};
+    const { input, meta: { touched, error }, item, addTag, onChangeSelect, uploadFile, removeArrValue, className, fieldValue} = props;
     switch (item.type) {
         case 'text':
+        case 'email':
         case 'number':
             return (
                 <div className={className}>
@@ -53,7 +61,7 @@ export const RenderField = (props) => {
                 <div className={className}>
                     {item.options.map((option, index) =>
                         <label key={index} className="checkbox-inline">
-                            <input {...input} type={item.type} value={option.value}/> {option.label}
+                            <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label}
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -145,8 +153,7 @@ export const renderRepeatableFields = (props) => {
 
 export const renderRewardFields = (props) => {
     const { rewards, rewardTypes, onChangeType, selectedItem, rewardFields, uploadFile, removeArrValue, fields:{name} } = props;
-    const [changeType, setChangeType] = useState(false);
-
+    const [ changeType, setChangeType ] = useState(false);
     return (
         <div className="">
             <div className='wpcf-form-field'>
@@ -201,3 +208,24 @@ export const renderRewardFields = (props) => {
     )
 }
 
+
+export const renderTeamFields = (props) => {
+    const { selectedItem, teamFields, values, fields:{name} } = props;
+    //console.log(values[selectedItem]);
+    return (
+        <div className="">
+            {Object.keys(teamFields).map( key =>
+                <div key={key} className='wpcf-form-field'>
+                    <div className='wpcf-field-title'>{teamFields[key].title}</div>
+                    <div className='wpcf-field-desc'>{teamFields[key].desc}</div>
+                    <Field
+                        name={`${name}[${selectedItem}].${key}`}
+                        item={teamFields[key]}
+                        component={RenderField}
+                        fieldValue={ values.length && values[selectedItem].hasOwnProperty(key) ? values[selectedItem][key] : ''}
+                        validate={[teamFields[key].required ? required : notRequred]}/>
+                </div>
+            )}
+        </div>
+    )
+}
