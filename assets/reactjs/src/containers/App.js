@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchFormFields, fetchRewardTypes, fetchRewardFields, fetchTeamFields } from '../actions';
+import { fetchFormFields, fetchFormStoryTools, fetchRewardTypes, fetchRewardFields, fetchTeamFields } from '../actions';
 import TabBar from '../components/TabBar';
 import Content from '../components/Content';
 import Footer from '../components/Footer';
@@ -14,6 +14,7 @@ class App extends Component {
     
     componentDidMount() {
         this.props.fetchFormFields();
+        this.props.fetchFormStoryTools();
         this.props.fetchRewardTypes();
         this.props.fetchRewardFields();
         this.props.fetchTeamFields();
@@ -62,6 +63,7 @@ const mapStateToProps = state => ({
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ 
         fetchFormFields, 
+        fetchFormStoryTools, 
         fetchRewardTypes, 
         fetchRewardFields,
         fetchTeamFields,

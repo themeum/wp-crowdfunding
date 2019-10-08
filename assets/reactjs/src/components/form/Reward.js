@@ -133,9 +133,9 @@ class Reward extends Component {
 }
 
 const mapStateToProps = state => ({
-	formValues: getFormValues('campaignForm')(state),
     rewardTypes: state.data.rewardTypes,
-	rewardFields: state.data.rewardFields
+	rewardFields: state.data.rewardFields,
+	formValues: getFormValues('campaignForm')(state)
 });
 
 const mapDispatchToProps = dispatch => {

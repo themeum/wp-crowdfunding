@@ -87,5 +87,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-	form: 'campaignForm'
+    form: 'campaignForm',
+    destroyOnUnmount: false, //preserve form data
+  	forceUnregisterOnUnmount: true, //unregister fields on unmount
 })(Team));

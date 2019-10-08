@@ -19,6 +19,18 @@ export const fetchFormFields = () => dispatch => {
     .catch( error => console.log(error) );
 }
 
+//FETCH FORM STORY TOOLS
+export const FETCH_FORM_STORY_TOOLS_COMPLETE = 'FETCH_FORM_STORY_TOOLS_COMPLETE';
+export const fetchFormStoryTools = () => dispatch => {
+    dispatch({ type: FETCH_REQUEST_PENDING });
+    const fetchURL = `${WPCF.rest_url}/story-tools`;
+    const option = { method: 'GET', headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload =>  dispatch( {type: FETCH_FORM_STORY_TOOLS_COMPLETE, payload} ) )
+    .catch( error => console.log(error) );
+}
+
 //FETCH FORM REWARD TYPE FIELDS
 export const FETCH_FORM_REWARD_TYPES_COMPLETE = 'FETCH_FORM_REWARD_TYPES_COMPLETE';
 export const fetchRewardTypes = () => dispatch => {

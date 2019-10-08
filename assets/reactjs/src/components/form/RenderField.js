@@ -211,7 +211,6 @@ export const renderRewardFields = (props) => {
 
 export const renderTeamFields = (props) => {
     const { selectedItem, teamFields, values, fields:{name} } = props;
-    //console.log(values[selectedItem]);
     return (
         <div className="">
             {Object.keys(teamFields).map( key =>

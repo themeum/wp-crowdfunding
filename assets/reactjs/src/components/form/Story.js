@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, change as changeFieldValue, formValueSelector } from 'redux-form';
-import PreviewStory from './preview/Story'
+import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
+import PreviewStory from './preview/Story';
 
 class Story extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+
 	render() {
+		const { tools } = this.props;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
@@ -14,7 +20,15 @@ class Story extends Component {
 							Add Brief Story
 						</div>
 						<div className='wpcf-accordion-details'>
-							<p>Story Content</p>
+							<p>Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.</p>
+							<div className="wpcf-story-tools">
+								{ Object.keys(tools).map( key => 
+									<div key={key} className="story-tool-item">
+										<img src={tools[key].name}/>
+										<p>{tools[key].name}</p>
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -30,13 +44,14 @@ class Story extends Component {
 }
 
 const mapStateToProps = state => ({
-    fields: state.data.formFields
+    tools: state.data.storyTools,
+	formValues: getFormValues('campaignForm')(state)
 });
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({ 
-        changeFieldValue, 
-        formValueSelector
+        getFormValues, 
+        changeFieldValue
     }, dispatch);
 }
 

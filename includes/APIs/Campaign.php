@@ -21,6 +21,7 @@ class API_Campaign {
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
         add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
+        add_filter( 'wpcf_form_story_tools', array( $this, 'form_story_tools') );
         add_filter( 'wpcf_form_reward_types', array( $this, 'form_reward_types') );
         add_filter( 'wpcf_form_reward_fields', array( $this, 'form_reward_fields') );
         add_filter( 'wpcf_form_team_fields', array( $this, 'form_team_fields') );
@@ -40,6 +41,9 @@ class API_Campaign {
             register_rest_route( $namespace, '/form-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
             ));
+            register_rest_route( $namespace, '/story-tools', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_story_tools') ),
+            ));
             register_rest_route( $namespace, '/sub-categories', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
             ));
@@ -56,7 +60,7 @@ class API_Campaign {
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
             ));
             register_rest_route( $namespace, '/form-saved-data', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'form_saved_data') ),
+                array( 'methods' => $method_creatable, 'callback' => array($this, 'form_saved_data') ),
             ));
         });
     }
@@ -378,6 +382,72 @@ class API_Campaign {
         }
 
         return $default_fields;
+    }
+
+
+    /**
+     * Get campaign form story tools
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
+    function get_form_story_tools() {
+        $data = apply_filters( 'wpcf_form_story_tools', [] );
+        return rest_ensure_response( $data );
+    }
+
+
+    /**
+     * Default team fields
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   fields
+     * @return    [array]   mixed
+     */
+    function form_story_tools($tools = []) {
+        $default_tools = array(
+            'image' => array(
+                'name'  => __("Image", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'video' => array(
+                'name'  => __("Video", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'embeded_file' => array(
+                'name'  => __("Embeded File", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'text' => array(
+                'name'  => __("Text", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'text_image' => array(
+                'name'  => __("Text + Image", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'image_image' => array(
+                'name'  => __("Image + Image", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'text_text' => array(
+                'name'  => __("Text + Text", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+            'text_video' => array(
+                'name'  => __("Text + Video", "wp-crowdfunding"),
+                'icon'  => '',
+                'show'  => true
+            ),
+        );
+        return array_merge($default_tools, $tools);
     }
 
 
@@ -758,7 +828,7 @@ class API_Campaign {
         );
 
         return array_merge($default_fields, $fields);
-    }    
+    }
 
 }
 

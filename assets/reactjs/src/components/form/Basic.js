@@ -115,7 +115,7 @@ class Basic extends Component {
 
 const mapStateToProps = state => ({
     fields: state.data.formFields,
-    initialValues: { basic: {goal: 1, amount_range: {min: 1, max: 5000000}}, rewards:[], team:[] }
+    initialValues: { basic: {goal: 1, amount_range: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] }
 });
 
 const mapDispatchToProps = dispatch => {
