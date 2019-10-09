@@ -9,6 +9,21 @@ class Story extends Component {
 		super(props);
 	}
 
+	addItem(tool) {
+		const { formValues: {story} } = this.props;
+		this.props.changeFieldValue('campaignForm', 'story', [...story, {tool}]);
+	}
+
+	moveItem() {
+		
+	}
+	
+	deleteItem(index) {
+		const { formValues: {story} } = this.props;
+		const values = removeArrValue(story, index);
+		this.props.changeFieldValue('campaignForm', 'story', values);
+	}
+
 
 	render() {
 		const { tools } = this.props;
@@ -26,6 +41,7 @@ class Story extends Component {
 									<div key={key} className="story-tool-item">
 										<img src={tools[key].name}/>
 										<p>{tools[key].name}</p>
+										<i className="fa fa-plus" onClick={() => this.addItem(key)} />
 									</div>
 								)}
 							</div>
@@ -35,7 +51,7 @@ class Story extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title">Preview</div>
-                        <PreviewStory />
+                        <RenderStoryEditor />
                     </div>
                 </div>
 			</div>

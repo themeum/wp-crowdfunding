@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { required, notRequred, uploadFiles, removeArrValue  } from '../../Helper';
 import { FormSection, Field, FieldArray, reduxForm, change as changeFieldValue } from 'redux-form';
-import { RenderField, renderRepeatableFields } from './RenderField';
+import { RenderField, RenderRepeatableFields } from './RenderField';
 import { fetchSubCategories, fetchStates } from '../../actions';
 import PreviewBasic from './preview/Basic';
 
@@ -80,7 +80,7 @@ class Basic extends Component {
                                                             item={fields[section][field]}
                                                             uploadFile={this._uploadFile}
                                                             removeArrValue={this._removeArrValue}
-                                                            component={renderRepeatableFields}/>
+                                                            component={RenderRepeatableFields}/>
                                                         :
                                                         <Field
                                                             name={field}

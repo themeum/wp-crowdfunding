@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { uploadFiles, removeArrValue  } from '../../Helper';
 import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import { renderRewardFields } from './RenderField';
+import { RenderRewardFields } from './RenderField';
 import PreviewReward from './preview/Reward';
 
 class Reward extends Component {
@@ -48,7 +48,7 @@ class Reward extends Component {
 		this.props.changeFieldValue('campaignForm', 'rewards', [...rewards, {type}]);
 		this.setState({ openForm: true });
 	}
-
+ 
 	_editReward(index) {
 		this.setState({openForm: true, selectedItem: index})
 	}
@@ -99,7 +99,7 @@ class Reward extends Component {
 										onChangeType={this._changeType}
 										uploadFile={this._uploadFile}
 										removeArrValue={this._removeArrValue}
-										component={renderRewardFields}/>
+										component={RenderRewardFields}/>
 								</form>
 							}
 						</div>

@@ -121,7 +121,7 @@ export const RenderField = (_props) => {
 }
 
 
-export const renderRepeatableFields = (props) => {
+export const RenderRepeatableFields = (props) => {
     const { fields, item } = props;
     if(fields.length == 0 && item.open_first_item) {
         fields.push({});
@@ -151,7 +151,7 @@ export const renderRepeatableFields = (props) => {
 }
 
 
-export const renderRewardFields = (props) => {
+export const RenderRewardFields = (props) => {
     const { rewards, rewardTypes, onChangeType, selectedItem, rewardFields, uploadFile, removeArrValue, fields:{name} } = props;
     const [ changeType, setChangeType ] = useState(false);
     return (
@@ -192,7 +192,7 @@ export const renderRewardFields = (props) => {
                             item={rewardFields[key]}
                             uploadFile={uploadFile}
                             removeArrValue={removeArrValue}
-                            component={renderRepeatableFields}/>
+                            component={RenderRepeatableFields}/>
                     :
                         <Field
                             name={`${name}[${selectedItem}].${key}`}
@@ -209,7 +209,7 @@ export const renderRewardFields = (props) => {
 }
 
 
-export const renderTeamFields = (props) => {
+export const RenderTeamFields = (props) => {
     const { selectedItem, teamFields, values, fields:{name} } = props;
     return (
         <div className="">

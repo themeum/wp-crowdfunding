@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { removeArrValue  } from '../../Helper';
 import { FieldArray, reduxForm,  getFormValues, change as changeFieldValue } from 'redux-form';
-import { renderTeamFields } from './RenderField';
+import { RenderTeamFields } from './RenderField';
 
 class Team extends Component {
 	constructor(props) {
@@ -46,7 +46,7 @@ class Team extends Component {
                                     values={team}
                                     teamFields={teamFields}
                                     selectedItem={selectedItem}
-                                    component={renderTeamFields}/>
+                                    component={RenderTeamFields}/>
                                 <button type="button" onClick={() => this._addMember()}><span className="fa fa-plus"/> Add More Member</button>
                             </form>
 						</div>
