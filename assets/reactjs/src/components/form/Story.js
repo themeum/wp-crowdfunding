@@ -21,11 +21,8 @@ class Story extends Component {
 		this.props.changeFieldValue('campaignForm', 'story', [...story, {type, value:{}}]);
 	}
 
-	_editItem(index, name, value) {
-		const story = [ ...this.props.formValues.story ];
-		story[index][name] = value;
-		this.props.changeFieldValue('campaignForm', 'story', story);
-		console.log(this.props.formValues.story);
+	_editItem(index, value) {
+		this.props.changeFieldValue('campaignForm', `story[${index}].value`, value);
 	}
 	
 	_deleteItem(index) {
@@ -35,7 +32,8 @@ class Story extends Component {
 	}
 
 	_moveItem( index, moveTo ) {
-		const story = [ ...this.props.formValues.story ];
+		let { formValues: {story} } = this.props;
+		story = [ ...story ];
         const moveIndex = ( moveTo == 'left' ) ? index-1 : index+1;
         const movableItem = story[ index ];
         story[ index ] = story[ moveIndex ];
@@ -45,7 +43,7 @@ class Story extends Component {
 
 	_upload(index, type, sFiles) {
         uploadFiles(type, sFiles, false).then( (files) => {
-            this._editItem(index, 'value', files);
+			this.props.changeFieldValue('campaignForm', `story[${index}].value`, files);
         });
     }
 
