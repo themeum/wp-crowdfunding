@@ -18,6 +18,7 @@ class Campaign_Submit_Form {
             wp_enqueue_style( 'wpcf-campaign-style', WPCF_DIR_URL.'assets/css/campaign-form.css', false, WPCF_VERSION );
             wp_enqueue_script( 'wpcf-campaign-script', WPCF_DIR_URL.'assets/js/campaign-form.js', array('jquery'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-campaign-script', 'WPCF', array (
+                'assets'        => WPCF_DIR_URL.'assets/',
                 'rest_url'      => rest_url( $api_namespace ),
                 'nonce'         => wp_create_nonce( 'wpcf_form_nonce' )
             ) );

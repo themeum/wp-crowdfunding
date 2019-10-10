@@ -35,6 +35,7 @@ class Dashboard {
             wp_enqueue_script( 'wpcf-dashboard-script', WPCF_DIR_URL.'assets/js/dashboard.js', array('jquery'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
                 'dashboard_url' => get_permalink(),
+                'assets'        => WPCF_DIR_URL.'assets/',
                 'ajax_url'      => admin_url( 'admin-ajax.php' ),
                 'rest_url'      => rest_url( $api_namespace ),
                 'nonce'         => wp_create_nonce( 'wpcf_api_nonce' )

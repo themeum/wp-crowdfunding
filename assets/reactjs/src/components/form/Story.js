@@ -1,32 +1,56 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
+import { uploadFiles, removeArrValue  } from '../../Helper';
+import { reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
+import RenderStoryEditor from './RenderStoryEditor';
 import PreviewStory from './preview/Story';
 
 class Story extends Component {
 	constructor(props) {
 		super(props);
+		this._addItem = this._addItem.bind(this);
+        this._editItem = this._editItem.bind(this);
+        this._deleteItem = this._deleteItem.bind(this);
+        this._moveItem = this._moveItem.bind(this);
+        this._upload = this._upload.bind(this);
 	}
 
-	addItem(tool) {
+	_addItem(type) {
 		const { formValues: {story} } = this.props;
-		this.props.changeFieldValue('campaignForm', 'story', [...story, {tool}]);
+		this.props.changeFieldValue('campaignForm', 'story', [...story, {type, value:{}}]);
 	}
 
-	moveItem() {
-		
+	_editItem(index, name, value) {
+		const story = [ ...this.props.formValues.story ];
+		story[index][name] = value;
+		this.props.changeFieldValue('campaignForm', 'story', story);
+		console.log(this.props.formValues.story);
 	}
 	
-	deleteItem(index) {
+	_deleteItem(index) {
 		const { formValues: {story} } = this.props;
 		const values = removeArrValue(story, index);
 		this.props.changeFieldValue('campaignForm', 'story', values);
 	}
 
+	_moveItem( index, moveTo ) {
+		const story = [ ...this.props.formValues.story ];
+        const moveIndex = ( moveTo == 'left' ) ? index-1 : index+1;
+        const movableItem = story[ index ];
+        story[ index ] = story[ moveIndex ];
+		story[ moveIndex ] = movableItem;
+		this.props.changeFieldValue('campaignForm', 'story', story);
+    }
+
+	_upload(index, type, sFiles) {
+        uploadFiles(type, sFiles, false).then( (files) => {
+            this._editItem(index, 'value', files);
+        });
+    }
 
 	render() {
-		const { tools } = this.props;
+		const { tools, formValues: {story} } = this.props;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
@@ -41,8 +65,20 @@ class Story extends Component {
 									<div key={key} className="story-tool-item">
 										<img src={tools[key].name}/>
 										<p>{tools[key].name}</p>
-										<i className="fa fa-plus" onClick={() => this.addItem(key)} />
+										<i className="fa fa-plus" onClick={() => this._addItem(key)} />
 									</div>
+								)}
+							</div>
+							<div className="wpcf-story-values">
+								{ story.map( (item, index) => 
+									<RenderStoryEditor 
+										key={index} 
+										data={item}
+										index={index}
+										edit={this._editItem}
+										deleteItem={this._deleteItem}
+										move={this._moveItem}
+										upload={this._upload}/>
 								)}
 							</div>
 						</div>
@@ -51,7 +87,7 @@ class Story extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title">Preview</div>
-                        <RenderStoryEditor />
+                        <PreviewStory data={story}/>
                     </div>
                 </div>
 			</div>
