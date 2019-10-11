@@ -36,22 +36,24 @@ class Team extends Component {
 			<div className="row">
                 <div className='col-md-7'>
 					<div className="wpcf-accordion-wrapper">
-						<div className="wpcf-accordion-title active">
-							Create Rewards
-						</div>
-						<div className='wpcf-accordion-details'>
-                            <form>
-                                <FieldArray
-                                    name="team"
-                                    values={team}
-                                    teamFields={teamFields}
-                                    selectedItem={selectedItem}
-                                    component={RenderTeamFields}/>
-                                <button type="button" onClick={() => this._addMember()}><span className="fa fa-plus"/> Add More Member</button>
-                            </form>
+						<div className="wpcf-accordion">
+							<div className="wpcf-accordion-title active">
+								Create Rewards
+							</div>
+							<div className='wpcf-accordion-details'>
+								<form>
+									<FieldArray
+										name="team"
+										values={team}
+										teamFields={teamFields}
+										selectedItem={selectedItem}
+										component={RenderTeamFields}/>
+									<button type="button" onClick={() => this._addMember()}><span className="fa fa-plus"/> Add More Member</button>
+								</form>
+							</div>
 						</div>
 					</div>
-					<div className="">
+					<div className="wpcf-team-members">
 						<h3>Team Members</h3>
 						{team && team.map((item, index) =>
 							<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>

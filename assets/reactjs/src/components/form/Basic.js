@@ -60,9 +60,9 @@ class Basic extends Component {
         return (
             <div className="row">
                 <div className='col-md-7'>
-                    <div className='wpcf-accordion-wrapper'>
-                        <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
-                            <FormSection name="basic">
+                    <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
+                        <FormSection name="basic">
+                            <div className='wpcf-accordion-wrapper'>
                                 {Object.keys(fields).map( (section, index) =>
                                     <div key={section} className='wpcf-accordion'>
                                         <div className={`wpcf-accordion-title ${index == this.state.index ? 'active' : ''}`} onClick={ () => this.setState({index}) }>
@@ -97,10 +97,9 @@ class Basic extends Component {
                                         </div>
                                     </div>
                                 )}
-                            </FormSection>
-                            <button type="submit">Show form data</button>
-                        </form>
-                    </div>
+                            </div>
+                        </FormSection>
+                    </form>
                 </div>
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>

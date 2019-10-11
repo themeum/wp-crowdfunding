@@ -70,41 +70,43 @@ class Reward extends Component {
 			<div className="row">
                 <div className='col-md-7'>
 					<div className="wpcf-accordion-wrapper">
-						<div className="wpcf-accordion-title active">
-							Create Rewards
-						</div>
-						<div className='wpcf-accordion-details'>
-							{ !openForm &&
-								<div>
-									<p>Tell potential contributors more about your campaign. Provide details that will motivate people to contribute. A good pitch is compelling, informative, and easy to digest.</p>
-									{rewardTypes.map((item, index) =>
-										<div
-											key={index}
-											className={`wpcf-reward-type ${(selectedType == index) ? 'active':''}`}
-											onClick={() => this.setState({selectedType: index})}>
-											<img src={item.icon} alt={item.title}/>
-											<p>{item.title}</p>
-										</div>
-									)}
-								</div>
-							}
-							{ openForm &&
-								<form>
-									<FieldArray
-										name="rewards"
-										rewards={rewards}
-										rewardTypes={rewardTypes}
-										selectedItem={selectedItem}
-										rewardFields={rewardFields}
-										onChangeType={this._changeType}
-										uploadFile={this._uploadFile}
-										removeArrValue={this._removeArrValue}
-										component={RenderRewardFields}/>
-								</form>
-							}
+						<div className="wpcf-accordion">
+							<div className="wpcf-accordion-title active">
+								Create Rewards
+							</div>
+							<div className='wpcf-accordion-details'>
+								{ !openForm &&
+									<div>
+										<p>Tell potential contributors more about your campaign. Provide details that will motivate people to contribute. A good pitch is compelling, informative, and easy to digest.</p>
+										{rewardTypes.map((item, index) =>
+											<div
+												key={index}
+												className={`wpcf-reward-type ${(selectedType == index) ? 'active':''}`}
+												onClick={() => this.setState({selectedType: index})}>
+												<img src={item.icon} alt={item.title}/>
+												<p>{item.title}</p>
+											</div>
+										)}
+									</div>
+								}
+								{ openForm &&
+									<form>
+										<FieldArray
+											name="rewards"
+											rewards={rewards}
+											rewardTypes={rewardTypes}
+											selectedItem={selectedItem}
+											rewardFields={rewardFields}
+											onChangeType={this._changeType}
+											uploadFile={this._uploadFile}
+											removeArrValue={this._removeArrValue}
+											component={RenderRewardFields}/>
+									</form>
+								}
+							</div>
 						</div>
 					</div>
-					<div className="">
+					<div className="wpcf-rewards">
 						<h3>Rewards</h3>
 						{rewards && rewards.map((item, index) =>
 							<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
