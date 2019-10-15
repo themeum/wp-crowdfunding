@@ -11,18 +11,18 @@ const RenderPreview = (props) => {
         case 'video':
             return (
                 <div className="story-item-image">
-                    { data.value && data.value.length > 0 ? 
+                    { data.value && data.value.length > 0 ?
                         <video controls><source src={data.value[0].src} type={data.value[0].mime}/>Your browser does not support the video tag</video>
                     :   <img src={`${WPCF.assets}images/story-default-image.png`}/> }
                 </div>
             );
-        case 'embeded_file':
         case 'text':
+        case 'embeded':
             return (
                 <div dangerouslySetInnerHTML={{__html: data.value}} />
             );
         default:
-            return '';
+            return null;
     }
 }
 
@@ -32,20 +32,14 @@ export default (props) => {
         <div className="preview-story">
             { data.map( (item, index) =>
                 <div key={index} className="preview-story-item">
-                    { item && item.length > 0 ?
-                        <div className="story-item-multiple">
-                            { item.map((itm, i) =>
-                                <RenderPreview 
-                                    key={index+i} 
-                                    data={itm}
-                                />
-                            )}
-                        </div>
-                    :   <RenderPreview 
-                            key={index} 
-                            data={item}
-                        />
-                    }
+                    <div className="story-item-value">
+                        { item && item.map((itm, i) =>
+                            <RenderPreview 
+                                key={index+i} 
+                                data={itm}
+                            />
+                        )}
+                    </div>
                 </div>
             )}
         </div>

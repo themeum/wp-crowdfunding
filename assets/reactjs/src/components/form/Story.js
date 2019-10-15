@@ -19,16 +19,10 @@ class Story extends Component {
 
 	_addItem(type) {
 		const { formValues: {story} } = this.props;
-		let newItem = {type, value:''};
-		if(type == 'text_image') {
-			newItem = [{type:'text', value:''}, {type:'image', value:''}];
-		} else if(type == 'image_image') {
-			newItem = [{type:'image', value:''}, {type:'image', value:''}];
-		} else if(type == 'text_text') {
-			newItem = [{type:'text', value:''}, {type:'text', value:''}];
-		} else if(type == 'text_video') {
-			newItem = [{type:'text', value:''}, {type:'video', value:''}];
-		}
+		const newItem = [];
+		type.split('_').forEach( item => {
+			newItem.push({type: item, value:''});
+		});
 		this.props.changeFieldValue('campaignForm', 'story', [...story, newItem]);
 	}
 
@@ -45,7 +39,7 @@ class Story extends Component {
 		story[ moveIndex ] = movableItem;
 		this.props.changeFieldValue('campaignForm', 'story', story);
 	}
-	
+
 	_swapItem( index ) {
 		let { formValues: {story} } = this.props;
 		story = [ ...story ];
@@ -53,7 +47,7 @@ class Story extends Component {
 		story[index] = [ item[1], item[0] ];
 		this.props.changeFieldValue('campaignForm', 'story', story);
     }
-	
+
 	_removeItem(index) {
 		const { formValues: {story} } = this.props;
 		const values = removeArrValue(story, index);
@@ -90,32 +84,25 @@ class Story extends Component {
 								<div className="wpcf-story-values">
 									{ story.map((data, index) => 
 										<div key={index} className="wpcf-story-item">
-											{ data && data.length > 0 ?
-												<div className="story-item-multiple">
-													{ data.map((item, i) =>
-														<RenderStoryItem
-															data={item}
-															key={index+i}
-															edit={this._editItem}
-															upload={this._upload}
-															name={`story[${index}][${i}].value`}
-														/>
-													)}
-													<div className="story-item-swap-control">
-														<span onClick={ () => this._swapItem( index ) }>
-															<i className="fa fa-long-arrow-right"/>
-															<i className="fa fa-long-arrow-left"/>
-														</span>
-													</div>
+											<div className="story-item-value">
+												{ data && data.map((item, i) =>
+													<RenderStoryItem
+														data={item}
+														key={index+i}
+														edit={this._editItem}
+														upload={this._upload}
+														name={`story[${index}][${i}].value`}
+													/>
+												)}
+											</div>
+											{ data && data.length==2 &&
+												<div className="story-item-swap">
+													<span onClick={ () => this._swapItem( index ) }>
+														<i className="fa fa-long-arrow-right"/>
+														<i className="fa fa-long-arrow-left"/>
+													</span>
 												</div>
-											: 	<RenderStoryItem
-													data={data}
-													edit={this._editItem}
-													upload={this._upload}
-													name={`story[${index}].value`}
-												/>
 											}
-
 											<div className="story-item-control">
 												<span onClick={ () => this._moveItem( index, 'top' ) } className={ ( index == 0 ) && 'item-move-disable' }><i className="fa fa-long-arrow-up"/></span>
 												<span onClick={ () => this._moveItem( index, 'bottom' ) } className={ ( index == story.length-1 ) && 'item-move-disable' }><i className="fa fa-long-arrow-down"/></span>

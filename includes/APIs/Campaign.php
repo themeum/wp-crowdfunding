@@ -416,7 +416,7 @@ class API_Campaign {
                 'icon'  => '',
                 'show'  => true
             ),
-            'embeded_file' => array(
+            'embeded' => array(
                 'name'  => __("Embeded File", "wp-crowdfunding"),
                 'icon'  => '',
                 'show'  => true

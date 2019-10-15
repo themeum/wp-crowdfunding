@@ -13,11 +13,12 @@ class Footer extends Component {
 						<button onClick={() => onSet(defData[currentIndex-1])}>Previous</button>
 					}
 					{ (currentIndex != 3) &&
-						<button onClick={() => onSet(defData[currentIndex+1])}>Next</button>
+						<button type="submit" onClick={() => onSet(defData[currentIndex+1])}>Next</button>
 					}
 				</div>
 			</div>
 		);
 	}
 }
+
 export default Footer;

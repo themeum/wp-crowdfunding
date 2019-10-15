@@ -67,11 +67,11 @@ export default (props) => {
             return <Image {...props}/>
         case 'video':
             return <Video {...props}/>
-        case 'embeded_file':
+        case 'embeded':
             return <EmbededFile {...props}/>
         case 'text':
             return <TextEditor {...props}/>
         default:
-            return '';
+            return null;
     }
 }
