@@ -156,17 +156,19 @@ export const RenderRewardFields = (props) => {
     const [ changeType, setChangeType ] = useState(false);
     return (
         <div className="">
-            <div className='wpcf-form-field'>
-                <div className='wpcf-field-title'>
-                    {rewardTypes[rewards[selectedItem].type].title}
-                    <span onClick={() => setChangeType(true)}>Change</span>
+            { rewards[selectedItem] &&
+                <div className='wpcf-form-field'>
+                    <div className='wpcf-field-title'>
+                        {rewardTypes[rewards[selectedItem].type].title}
+                        <span onClick={() => setChangeType(true)}>Change</span>
+                    </div>
+                    { changeType && rewardTypes.map((item, index) =>
+                        <label key={index} className="radio-inline">
+                            <input type='radio' name="type" value={index} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
+                        </label>
+                    )}
                 </div>
-                { changeType && rewardTypes.map((item, index) =>
-                    <label key={index} className="radio-inline">
-                        <input type='radio' name="type" value={index} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
-                    </label>
-                )}
-            </div>
+            }
             {Object.keys(rewardFields).map( key =>
                 <div key={key} className='wpcf-form-field'>
                     <div className='wpcf-field-title'>{rewardFields[key].title}</div>

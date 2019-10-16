@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { required, notRequred, uploadFiles, removeArrValue  } from '../../Helper';
 import { FormSection, Field, FieldArray, reduxForm, change as changeFieldValue } from 'redux-form';
 import { RenderField, RenderRepeatableFields } from './RenderField';
-import { fetchSubCategories, fetchStates } from '../../actions';
+import { fetchSubCategories, fetchStates, submitCampaign } from '../../actions';
 import PreviewBasic from './preview/Basic';
 
 class Basic extends Component {
@@ -127,6 +127,7 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'campaignForm',
+    onSubmit: submitCampaign, // submit function must be passed to onSubmit
     destroyOnUnmount: false, //preserve form data
   	forceUnregisterOnUnmount: true, //unregister fields on unmount
 })(Basic));

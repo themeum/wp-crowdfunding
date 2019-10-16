@@ -89,3 +89,9 @@ export const fetchStates = (code) => dispatch => {
     .then( payload =>  dispatch( {type: FETCH_STATES_COMPLETE, payload} ) )
     .catch( error => console.log(error) );
 }
+
+
+//Submit Campaign
+export const submitCampaign = values => {
+    console.log(values);
+}

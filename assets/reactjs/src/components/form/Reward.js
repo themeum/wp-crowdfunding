@@ -29,7 +29,7 @@ class Reward extends Component {
 	}
 	
 	_changeType(e) {
-		const { value } = e.target
+		const { value } = e.target;
 		const { selectedItem } = this.state;
 		let { formValues: {rewards} } = this.props;
 		rewards = [...rewards];
@@ -43,9 +43,11 @@ class Reward extends Component {
 	}
 	
 	_addReward() {
-		const { selectedType: type } = this.state;
-		const { formValues: {rewards} } = this.props;
-		this.props.changeFieldValue('campaignForm', 'rewards', [...rewards, {type}]);
+		const { selectedType } = this.state;
+		let { formValues: {rewards} } = this.props;
+		rewards = [ ...rewards ];
+		rewards.push({type:selectedType});
+		this.props.changeFieldValue('campaignForm', 'rewards', rewards);
 		this.setState({ openForm: true });
 	}
  
