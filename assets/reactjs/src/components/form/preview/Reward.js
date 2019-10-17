@@ -1,18 +1,14 @@
 import React from 'react';
 
 export default (props) => {
-
     const { months, rewards, selectedItem } = props;
-
     const getValue = key => {
         return rewards.length > 0 && rewards[selectedItem].hasOwnProperty(key) ? rewards[selectedItem][key] : '';
     };
-
     const getMonthName = key => {
         const month = months.filter( item => item.value == key );
         return (month.length > 0) ? month[0].label : '';
     }
-
     return (
         <div className="wpcf-preview-reward">
             <div className="reward-thumb">

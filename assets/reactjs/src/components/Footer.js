@@ -1,27 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-const defData = ["basic", "story", "reward", "team"];
-
-class Footer extends Component {
-	render() {
-		const { current, onSet } = this.props;
-		const currentIndex = defData.indexOf(current);
-		return (
-			<div className="row">
-				<div className="col-md-12">
-					{ (currentIndex > 0) &&
-						<button onClick={() => onSet(defData[currentIndex-1])}>Previous</button>
-					}
-					{ (currentIndex+1 < defData.length) &&
-						<button onClick={() => onSet(defData[currentIndex+1])}>Next</button>
-					}
-					{ (currentIndex+1 == defData.length) &&
-						<button onClick={() => onSet(defData[currentIndex+1])}>Submit</button>
-					}
-				</div>
+export default (props) => {
+	const { steps, current, prevStep, nextStep } = props;
+	return (
+		<div className="row">
+			<div className="col-md-12">
+				{ (current > 0) &&
+					<button onClick={() => prevStep()}>Previous</button>
+				}
+				<button onClick={() => nextStep()}>{(current+1 == steps.length) ? 'Submit' : 'Next'}</button>
 			</div>
-		);
-	}
+		</div>
+	);
 }
-
-export default Footer;

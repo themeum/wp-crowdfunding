@@ -4,13 +4,20 @@ import { connect } from 'react-redux';
 import { reduxForm, getFormValues, submit } from 'redux-form';
 import { fetchFormFields, fetchFormStoryTools, fetchRewardTypes, fetchRewardFields, fetchTeamFields } from '../actions';
 import TabBar from '../components/TabBar';
-import Content from '../components/Content';
 import Footer from '../components/Footer';
+import Basic from '../components/form/Basic';
+import Story from '../components/form/Story';
+import Reward from '../components/form/Reward';
+import Team from '../components/form/Team';
 
+const formName = "campaignForm";
+const steps = ["Campaign Basics", "Story", "Rewards", "Team"];
 class App extends Component {
 	constructor (props) {
 		super(props);
-		this.state = { selectForm: 'basic', percent: 0 };
+		this.state = { current: 0, percent: 0 };
+		this._prevStep = this._prevStep.bind(this);
+		this._nextStep = this._nextStep.bind(this);
 		this._onSave = this._onSave.bind(this);
 		this._onSubmit = this._onSubmit.bind(this);
     }
@@ -23,8 +30,12 @@ class App extends Component {
         this.props.fetchTeamFields();
     }
 
-	_onSet(val) {
-		this._onSubmit();
+	_prevStep() {
+		this.setState({ current: this.state.current-1 })
+	}
+
+	_nextStep() {
+		this.props.submit(formName);
 	}
 
 	_onSave() {
@@ -32,18 +43,18 @@ class App extends Component {
 		console.log( formValues );
 	}
 
-	_onSubmit() {
-		this.props.submit('campaignForm');
-	}
-
-	submit(values) {
-		this.setState({selectForm:val});
-		console.log(values);
+	_onSubmit(values) {
+		const { current } = this.state;
+		if(current+1 < steps.length) {
+			this.setState({ current: current+1 })
+		} else {
+			console.log(values);
+		}
 	}
 
 	render() {
 		const { loading } = this.props;
-        const { selectForm } = this.state;
+        const { current } = this.state;
         
         if(loading) {
             return (
@@ -65,9 +76,20 @@ class App extends Component {
 				</div>
 				<div>
 					<div className='wpcf-form-wrapper'>
-						<TabBar current={selectForm} />
-						<Content current={selectForm}/>
-						<Footer current={selectForm} onSet={val=>this._onSet(val)}/>
+						<TabBar 
+							steps={steps}
+							current={current}/>
+
+						{ current == 0 && <Basic /> }
+						{ current == 1 && <Story /> }
+						{ current == 2 && <Reward /> }
+						{ current == 3 && <Team /> }
+
+						<Footer
+							steps={steps}
+							current={current}
+							prevStep={this._prevStep}
+							nextStep={this._nextStep}/>
 					</div>
 				</div>
 			</div>
@@ -77,7 +99,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     loading: state.data.loading,
-	formValues: getFormValues('campaignForm')(state),
+	formValues: getFormValues(formName)(state),
 });
 
 const mapDispatchToProps = dispatch => {
@@ -93,6 +115,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-    form: 'campaignForm',
-    onSubmit: App.prototype.submit, //submit function must be passed to onSubmit
+    form: formName,
+    onSubmit: App.prototype._onSubmit, //submit function must be passed to onSubmit
 })(App));
