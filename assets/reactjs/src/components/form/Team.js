@@ -5,6 +5,8 @@ import { removeArrValue  } from '../../Helper';
 import { FieldArray, reduxForm,  getFormValues, change as changeFieldValue } from 'redux-form';
 import { RenderTeamFields } from './RenderField';
 
+const formName = "campaignForm";
+const sectionName = "team";
 class Team extends Component {
 	constructor(props) {
 		super(props);
@@ -17,7 +19,7 @@ class Team extends Component {
 
 	_addMember() {
 		const { formValues: {team} } = this.props;
-		this.props.changeFieldValue('campaignForm', 'team', [...team, {}]);
+		this.props.changeFieldValue(formName, sectionName, [...team, {}]);
 		this.setState({selectedItem: team.length-1});
 	}
 	
@@ -26,7 +28,7 @@ class Team extends Component {
 		const selectedItem = (index==0) ? 0 : index-1;
 		const values = removeArrValue(team, index);
 		this.setState({selectedItem});
-		this.props.changeFieldValue('campaignForm', 'team', values);
+		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
 	render() {
@@ -43,7 +45,7 @@ class Team extends Component {
 							<div className='wpcf-accordion-details'>
 								<form>
 									<FieldArray
-										name="team"
+										name={sectionName}
 										values={team}
 										teamFields={teamFields}
 										selectedItem={selectedItem}
@@ -78,7 +80,7 @@ class Team extends Component {
 
 const mapStateToProps = state => ({
     teamFields: state.data.teamFields,
-    formValues: getFormValues('campaignForm')(state)
+    formValues: getFormValues(formName)(state)
 });
 
 const mapDispatchToProps = dispatch => {
@@ -89,7 +91,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-    form: 'campaignForm',
+    form: formName,
     destroyOnUnmount: false, //preserve form data
   	forceUnregisterOnUnmount: true, //unregister fields on unmount
 })(Team));

@@ -6,6 +6,8 @@ import { reduxForm, getFormValues, change as changeFieldValue } from 'redux-form
 import RenderStoryItem from './RenderStoryItem';
 import PreviewStory from './preview/Story';
 
+const formName = "campaignForm";
+const sectionName = "story";
 class Story extends Component {
 	constructor(props) {
 		super(props);
@@ -23,11 +25,11 @@ class Story extends Component {
 		type.split('_').forEach( item => {
 			newItem.push({type: item, value:''});
 		});
-		this.props.changeFieldValue('campaignForm', 'story', [...story, newItem]);
+		this.props.changeFieldValue(formName, sectionName, [...story, newItem]);
 	}
 
 	_editItem(name, value) {
-		this.props.changeFieldValue('campaignForm', name, value);
+		this.props.changeFieldValue(formName, name, value);
 	}
 
 	_moveItem( index, moveTo ) {
@@ -37,7 +39,7 @@ class Story extends Component {
         const movableItem = story[ index ];
         story[ index ] = story[ moveIndex ];
 		story[ moveIndex ] = movableItem;
-		this.props.changeFieldValue('campaignForm', 'story', story);
+		this.props.changeFieldValue(formName, sectionName, story);
 	}
 
 	_swapItem( index ) {
@@ -45,18 +47,18 @@ class Story extends Component {
 		story = [ ...story ];
 		const item = story[ index ];
 		story[index] = [ item[1], item[0] ];
-		this.props.changeFieldValue('campaignForm', 'story', story);
+		this.props.changeFieldValue(formName, sectionName, story);
     }
 
 	_removeItem(index) {
 		const { formValues: {story} } = this.props;
 		const values = removeArrValue(story, index);
-		this.props.changeFieldValue('campaignForm', 'story', values);
+		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
 	_upload(name, type, sFiles) {
         uploadFiles(type, sFiles, false).then( (files) => {
-			this.props.changeFieldValue('campaignForm', name, files);
+			this.props.changeFieldValue(formName, name, files);
         });
     }
 
@@ -91,7 +93,7 @@ class Story extends Component {
 														key={index+i}
 														edit={this._editItem}
 														upload={this._upload}
-														name={`story[${index}][${i}].value`}
+														name={`${sectionName}[${index}][${i}].value`}
 													/>
 												)}
 											</div>
@@ -128,7 +130,7 @@ class Story extends Component {
 
 const mapStateToProps = state => ({
     tools: state.data.storyTools,
-	formValues: getFormValues('campaignForm')(state)
+	formValues: getFormValues(formName)(state)
 });
 
 const mapDispatchToProps = dispatch => {
@@ -139,7 +141,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-	form: 'campaignForm',
+	form: formName,
 	destroyOnUnmount: false, //preserve form data
   	forceUnregisterOnUnmount: true, //unregister fields on unmount
 })(Story));

@@ -1,5 +1,4 @@
 import React from 'react';
-import { getMonthName } from '../../../Helper'
 
 export default (props) => {
 

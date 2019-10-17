@@ -9,11 +9,14 @@ class Footer extends Component {
 		return (
 			<div className="row">
 				<div className="col-md-12">
-					{ (currentIndex != 0) &&
+					{ (currentIndex > 0) &&
 						<button onClick={() => onSet(defData[currentIndex-1])}>Previous</button>
 					}
-					{ (currentIndex != 3) &&
-						<button type="submit" onClick={() => onSet(defData[currentIndex+1])}>Next</button>
+					{ (currentIndex+1 < defData.length) &&
+						<button onClick={() => onSet(defData[currentIndex+1])}>Next</button>
+					}
+					{ (currentIndex+1 == defData.length) &&
+						<button onClick={() => onSet(defData[currentIndex+1])}>Submit</button>
 					}
 				</div>
 			</div>

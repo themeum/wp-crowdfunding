@@ -6,6 +6,8 @@ import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from
 import { RenderRewardFields } from './RenderField';
 import PreviewReward from './preview/Reward';
 
+const formName = "campaignForm";
+const sectionName = "rewards";
 class Reward extends Component {
 	constructor(props) {
 		super(props);
@@ -24,7 +26,7 @@ class Reward extends Component {
 
 	_uploadFile(type, field, sFiles, multiple) {
         uploadFiles(type, sFiles, multiple).then( (files) => {
-            this.props.changeFieldValue('campaignForm', field, files);
+            this.props.changeFieldValue(formName, field, files);
         });
 	}
 	
@@ -34,12 +36,12 @@ class Reward extends Component {
 		let { formValues: {rewards} } = this.props;
 		rewards = [...rewards];
 		rewards[selectedItem].type = value;
-		this.props.changeFieldValue('campaignForm', 'rewards', rewards);
+		this.props.changeFieldValue(formName, sectionName, rewards);
 	}
 
     _removeArrValue(index, field, values) {
         values = removeArrValue(values, index);
-        this.props.changeFieldValue('campaignForm', field, values);
+        this.props.changeFieldValue(formName, field, values);
 	}
 	
 	_addReward() {
@@ -47,7 +49,7 @@ class Reward extends Component {
 		let { formValues: {rewards} } = this.props;
 		rewards = [ ...rewards ];
 		rewards.push({type:selectedType});
-		this.props.changeFieldValue('campaignForm', 'rewards', rewards);
+		this.props.changeFieldValue(formName, sectionName, rewards);
 		this.setState({ openForm: true });
 	}
  
@@ -61,7 +63,7 @@ class Reward extends Component {
 		const selectedItem = (index==0) ? 0 : index-1;
 		const values = removeArrValue(rewards, index);
 		this.setState({openForm, selectedItem});
-		this.props.changeFieldValue('campaignForm', 'rewards', values);
+		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
 	render() {
@@ -94,7 +96,7 @@ class Reward extends Component {
 								{ openForm &&
 									<form>
 										<FieldArray
-											name="rewards"
+											name={sectionName}
 											rewards={rewards}
 											rewardTypes={rewardTypes}
 											selectedItem={selectedItem}
@@ -139,7 +141,7 @@ class Reward extends Component {
 const mapStateToProps = state => ({
     rewardTypes: state.data.rewardTypes,
 	rewardFields: state.data.rewardFields,
-	formValues: getFormValues('campaignForm')(state)
+	formValues: getFormValues(formName)(state)
 });
 
 const mapDispatchToProps = dispatch => {
@@ -150,7 +152,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-	form: 'campaignForm',
+	form: formName,
 	destroyOnUnmount: false, //preserve form data
   	forceUnregisterOnUnmount: true, //unregister fields on unmount
 })(Reward));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getFormValues, submit } from 'redux-form';
+import { reduxForm, getFormValues, submit } from 'redux-form';
 import { fetchFormFields, fetchFormStoryTools, fetchRewardTypes, fetchRewardFields, fetchTeamFields } from '../actions';
 import TabBar from '../components/TabBar';
 import Content from '../components/Content';
@@ -24,7 +24,7 @@ class App extends Component {
     }
 
 	_onSet(val) {
-		this.setState({selectForm:val})
+		this._onSubmit();
 	}
 
 	_onSave() {
@@ -34,6 +34,11 @@ class App extends Component {
 
 	_onSubmit() {
 		this.props.submit('campaignForm');
+	}
+
+	submit(values) {
+		this.setState({selectForm:val});
+		console.log(values);
 	}
 
 	render() {
@@ -61,7 +66,7 @@ class App extends Component {
 				<div>
 					<div className='wpcf-form-wrapper'>
 						<TabBar current={selectForm} />
-						<Content current={selectForm} onSubmit={this._onSubmit}/>
+						<Content current={selectForm}/>
 						<Footer current={selectForm} onSet={val=>this._onSet(val)}/>
 					</div>
 				</div>
@@ -72,10 +77,10 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     loading: state.data.loading,
-	formValues: getFormValues('campaignForm')(state)
+	formValues: getFormValues('campaignForm')(state),
 });
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return bindActionCreators({ 
         fetchFormFields, 
         fetchFormStoryTools,
@@ -83,8 +88,11 @@ function mapDispatchToProps(dispatch) {
         fetchRewardFields,
 		fetchTeamFields,
 		getFormValues,
-		submit
+		submit,
     }, dispatch);
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )(App);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+    form: 'campaignForm',
+    onSubmit: App.prototype.submit, //submit function must be passed to onSubmit
+})(App));

@@ -4,7 +4,6 @@ import InputRange from 'react-input-range';
 import { required, notRequred  } from '../../Helper';
 import 'react-input-range/lib/css/index.css';
 
-
 const defaultProps = {
     addTag: () => {},
     onChangeSelect: () => {},
@@ -13,6 +12,7 @@ const defaultProps = {
     className: '',
     fieldValue: ''
 };
+
 export const RenderField = (_props) => {
     const props = {...defaultProps, ..._props};
     const { input, meta: { touched, error }, item, addTag, onChangeSelect, uploadFile, removeArrValue, className, fieldValue} = props;

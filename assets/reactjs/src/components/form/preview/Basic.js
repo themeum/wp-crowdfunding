@@ -1,27 +1,33 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { getYotubeVideoID } from '../../../Helper'
-import { getFormValues } from 'redux-form';
+import React, { useState } from 'react';
+import { getYotubeVideoID } from '../../../Helper';
 
-class PreviewBasic extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            index: 0
-        }
+const RenderPreview = (props) => {
+    const { items, index } = props;
+    let viewItem = (typeof items[index] !== 'undefined') ? items[index] : items[0];
+    switch (viewItem.type) {
+        case 'youtube':
+            return (
+                <iframe width="100%" height="300" src={`//www.youtube.com/embed/${getYotubeVideoID(viewItem.src)}`}/>
+            );
+        case 'video':
+            return (
+                <video controls><source src={viewItem.src} type={viewItem.mime}/>Your browser does not support the video tag</video>
+            );
+        case 'image':
+            return (
+                <img src={viewItem.src}/>
+            );
     }
+}
 
-    componentDidMount() {
-        this.genPreview();
-    }
-
-    getAllItems() {
+export default (props) => {
+    const { data } = props;
+    const [ index, setIndex] = useState(0);
+    const getAllItems = () => {
         let items = [];
-        const { formValues: {basic} } = this.props;
-        const video_link = basic.video_link || [];
-        const video = basic.video || [];
-        const image = basic.image || [];
+        const video_link = data.video_link || [];
+        const video = data.video || [];
+        const image = data.image || [];
         if(video_link.length > 0) {
             video_link.map( item => {
                 if(item.src) {
@@ -37,54 +43,19 @@ class PreviewBasic extends Component {
         }
         return items.concat(video).concat(image);
     }
-
-    genPreview(items, index) {
-        let mainViewItem;
-        if( (items && items.length > 0) ) {
-            mainViewItem = (typeof items[index] !== 'undefined') ? items[index] : items[0];
-        } else {
-            return '';
-        }
-        if(mainViewItem.type == 'youtube') {
-            return (
-                <iframe width="100%" height="300" src={`//www.youtube.com/embed/${getYotubeVideoID(mainViewItem.src)}`}/>
-            );
-        } else if(mainViewItem.type == 'video') {
-            return (
-                <video controls><source src={mainViewItem.src} type={mainViewItem.mime}/>Your browser does not support the video tag</video>
-            );
-        } else if(mainViewItem.type == 'image') {
-            return (
-                <img src={mainViewItem.src}/>
-            );
-        }
-    }
-
-    render() {
-        const items = this.getAllItems();
-        return (
-            <div className="preview-media">
-                <div className="main-view">
-                    {this.genPreview(items, this.state.index)}
-                </div>
-                <div className="thumbnails-view">
-                    {items && items.map( (item, index) =>
-                        <img key={index} src={item.thumb} onClick={() => this.setState({ index })} alt="Thumbnail"/>
-                    )}
-                </div>
+    const items = getAllItems();
+    return (
+        <div className="preview-media">
+            <div className="main-view">
+                { items && items.length > 0 &&
+                    <RenderPreview items={items} index={index}/>
+                }
             </div>
-        )
-    }
+            <div className="thumbnails-view">
+                {items && items.map( (item, index) =>
+                    <img key={index} src={item.thumb} onClick={() => setIndex(index)} alt="Thumbnail"/>
+                )}
+            </div>
+        </div>
+    )
 }
-
-const mapStateToProps = state => ({
-    formValues: getFormValues('campaignForm')(state)
-});
-
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ 
-        getFormValues,
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PreviewBasic);
