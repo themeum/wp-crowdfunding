@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { removeArrValue  } from '../Helper';
 import { FieldArray, reduxForm,  getFormValues, change as changeFieldValue } from 'redux-form';
 import { RenderTeamFields } from './renderItems/Field';
-import PageControl from './PageControl';
+import PageControl from './Control';
 
 const formName = "campaignForm";
 const sectionName = "team";

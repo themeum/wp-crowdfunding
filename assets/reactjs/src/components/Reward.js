@@ -5,7 +5,7 @@ import { uploadFiles, removeArrValue  } from '../Helper';
 import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
 import { RenderRewardFields } from './renderItems/Field';
 import PreviewReward from './preview/Reward';
-import PageControl from './PageControl';
+import PageControl from './Control';
 
 const formName = "campaignForm";
 const sectionName = "rewards";
