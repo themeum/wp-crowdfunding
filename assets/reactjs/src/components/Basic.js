@@ -6,7 +6,7 @@ import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as cha
 import { RenderField, RenderRepeatableFields } from './renderItems/Field';
 import { fetchSubCategories, fetchStates } from '../actions';
 import PreviewBasic from './preview/Basic';
-import PageControl from './PageControl';
+import PageControl from './Control';
 
 const formName = "campaignForm";
 const sectionName = "basic";
