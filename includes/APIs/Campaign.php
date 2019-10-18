@@ -50,9 +50,6 @@ class API_Campaign {
             register_rest_route( $namespace, '/states', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
             ));
-            register_rest_route( $namespace, '/reward-types', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_types') ),
-            ));
             register_rest_route( $namespace, '/reward-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
             ));
@@ -73,8 +70,8 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_basic_fields() {
-        $data = apply_filters( 'wpcf_form_basic_fields', [] );
-        return rest_ensure_response( $data );
+        $response = apply_filters( 'wpcf_form_basic_fields', [] );
+        return rest_ensure_response( $response );
     }
 
     /**
@@ -392,8 +389,8 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_story_tools() {
-        $data = apply_filters( 'wpcf_form_story_tools', [] );
-        return rest_ensure_response( $data );
+        $response = apply_filters( 'wpcf_form_story_tools', [] );
+        return rest_ensure_response( $response );
     }
 
 
@@ -578,18 +575,6 @@ class API_Campaign {
     }
 
     /**
-     * Get reward typs
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_reward_types() {
-        $data = apply_filters( 'wpcf_form_reward_types', [] );
-        return rest_ensure_response( $data );
-    }
-
-
-    /**
      * Default form reward types
      * @since     2.1.0
      * @access    public
@@ -627,8 +612,11 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_reward_fields() {
-        $data = apply_filters( 'wpcf_form_reward_fields', [] );
-        return rest_ensure_response( $data );
+        $response = array(
+            'types' => apply_filters( 'wpcf_form_reward_types', [] ),
+            'fields' => apply_filters( 'wpcf_form_reward_fields', [] )
+        );
+        return rest_ensure_response( $response );
     }
 
 
@@ -765,8 +753,8 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_team_fields() {
-        $data = apply_filters( 'wpcf_form_team_fields', [] );
-        return rest_ensure_response( $data );
+        $response = apply_filters( 'wpcf_form_team_fields', [] );
+        return rest_ensure_response( $response );
     }
 
 

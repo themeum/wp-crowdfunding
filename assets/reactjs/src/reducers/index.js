@@ -2,7 +2,6 @@ import {
     FETCH_REQUEST_PENDING,
     FETCH_FORM_FIELDS_COMPLETE,
     FETCH_FORM_STORY_TOOLS_COMPLETE,
-    FETCH_FORM_REWARD_TYPES_COMPLETE,
     FETCH_FORM_REWARD_FIELDS_COMPLETE,
     FETCH_FORM_TEAM_FIELDS_COMPLETE,
     FETCH_SUB_CATEGORIES_COMPLETE,
@@ -32,19 +31,13 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 loaded: true,
                 storyTools: action.payload,
             };
-        case FETCH_FORM_REWARD_TYPES_COMPLETE:
-            return {
-                ...state,
-                loading: false,
-                loaded: true,
-                rewardTypes: action.payload,
-            };
         case FETCH_FORM_REWARD_FIELDS_COMPLETE:
             return {
                 ...state,
                 loading: false,
                 loaded: true,
-                rewardFields: action.payload,
+                rewardTypes: action.payload.types,
+                rewardFields: action.payload.fields,
             };
         case FETCH_FORM_TEAM_FIELDS_COMPLETE:
             return {

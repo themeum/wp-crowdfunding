@@ -16,7 +16,7 @@ export default (props) => {
                         name={`${name}[${selectedItem}].${key}`}
                         item={teamFields[key]}
                         component={RenderField}
-                        fieldValue={ values.length && values[selectedItem].hasOwnProperty(key) ? values[selectedItem][key] : ''}
+                        fieldValue={ values.length && values[selectedItem] ? values[selectedItem][key] : ''}
                         validate={[teamFields[key].required ? required : notRequred]}/>
                 </div>
             )}

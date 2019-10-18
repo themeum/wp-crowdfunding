@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
-import { fetchFormFields, fetchFormStoryTools, fetchRewardTypes, fetchRewardFields, fetchTeamFields } from './actions';
+import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields } from './actions';
 import TabBar from './components/TabBar';
 import Basic from './components/Basic';
 import Story from './components/Story';
@@ -24,7 +24,6 @@ class App extends Component {
     componentDidMount() {
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
-        this.props.fetchRewardTypes();
         this.props.fetchRewardFields();
         this.props.fetchTeamFields();
     }
@@ -112,9 +111,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({ 
-        fetchFormFields, 
+        fetchFormFields,
         fetchFormStoryTools,
-        fetchRewardTypes, 
         fetchRewardFields,
 		fetchTeamFields,
 		getFormValues

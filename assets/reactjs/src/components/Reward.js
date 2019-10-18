@@ -48,10 +48,10 @@ class Reward extends Component {
 	_addReward() {
 		const { selectedType } = this.state;
 		let { formValues: {rewards} } = this.props;
-		rewards = [ ...rewards ];
-		rewards.push({type:selectedType});
+		rewards = [ ...rewards ]; rewards.push({type:selectedType});
 		this.props.changeFieldValue(formName, sectionName, rewards);
-		this.setState({ openForm: true });
+		const selectedItem = rewards.length-1;
+		this.setState({ openForm: true, selectedItem});
 	}
  
 	_editReward(index) {

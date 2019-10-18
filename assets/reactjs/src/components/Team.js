@@ -19,8 +19,9 @@ class Team extends Component {
 	}
 
 	_addMember() {
-		const { formValues: {team} } = this.props;
-		this.props.changeFieldValue(formName, sectionName, [...team, {}]);
+		let { formValues: {team} } = this.props;
+		team = [ ...team ]; team.push({});
+		this.props.changeFieldValue(formName, sectionName, team);
 		this.setState({selectedItem: team.length-1});
 	}
 	

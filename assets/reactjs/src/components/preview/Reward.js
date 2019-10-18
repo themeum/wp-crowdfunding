@@ -3,7 +3,7 @@ import React from 'react';
 export default (props) => {
     const { months, rewards, selectedItem } = props;
     const getValue = key => {
-        return rewards.length > 0 && rewards[selectedItem].hasOwnProperty(key) ? rewards[selectedItem][key] : '';
+        return rewards.length > 0 && rewards[selectedItem] ? rewards[selectedItem][key] : '';
     };
     const getMonthName = key => {
         const month = months.filter( item => item.value == key );

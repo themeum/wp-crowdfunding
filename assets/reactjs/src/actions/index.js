@@ -31,18 +31,6 @@ export const fetchFormStoryTools = () => dispatch => {
     .catch( error => console.log(error) );
 }
 
-//FETCH FORM REWARD TYPE FIELDS
-export const FETCH_FORM_REWARD_TYPES_COMPLETE = 'FETCH_FORM_REWARD_TYPES_COMPLETE';
-export const fetchRewardTypes = () => dispatch => {
-    dispatch({ type: FETCH_REQUEST_PENDING });
-    const fetchURL = `${WPCF.rest_url}/reward-types`;
-    const option = { method: 'GET', headers };
-    fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_FORM_REWARD_TYPES_COMPLETE, payload} ) )
-    .catch( error => console.log(error) );
-}
-
 //FETCH FORM REWARD FIELDS
 export const FETCH_FORM_REWARD_FIELDS_COMPLETE = 'FETCH_FORM_REWARD_FIELDS_COMPLETE';
 export const fetchRewardFields = () => dispatch => {
