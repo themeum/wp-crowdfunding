@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { removeArrValue  } from '../Helper';
 import { FieldArray, reduxForm,  getFormValues, change as changeFieldValue } from 'redux-form';
-import { RenderTeamFields } from './renderItems/Field';
+import RenderTeamFields from './fields/Team';
 import PageControl from './Control';
 
 const formName = "campaignForm";

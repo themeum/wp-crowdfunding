@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { uploadFiles, removeArrValue  } from '../Helper';
 import { reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import RenderStoryItem from './renderItems/StoryItem';
+import RenderStoryItem from './fields/Story';
 import PreviewStory from './preview/Story';
 import PageControl from './Control';
 

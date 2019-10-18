@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { required, notRequred, uploadFiles, removeArrValue } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import { RenderField, RenderRepeatableFields } from './renderItems/Field';
 import { fetchSubCategories, fetchStates } from '../actions';
+import RenderField from './fields/Single';
+import RenderRepeatableFields from './fields/Repeatable';
 import PreviewBasic from './preview/Basic';
 import PageControl from './Control';
 
