@@ -5,7 +5,7 @@ import { uploadFiles, removeArrValue  } from '../Helper';
 import { reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
 import RenderStoryItem from './renderItems/StoryItem';
 import PreviewStory from './preview/Story';
-import PageControl from './PageControl';
+import PageControl from './Control';
 
 const formName = "campaignForm";
 const sectionName = "story";
