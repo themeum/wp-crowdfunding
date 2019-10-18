@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { uploadFiles, removeArrValue  } from '../../Helper';
+import { uploadFiles, removeArrValue  } from '../Helper';
 import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import { RenderRewardFields } from './RenderField';
+import { RenderRewardFields } from './renderItems/Field';
 import PreviewReward from './preview/Reward';
+import PageControl from './PageControl';
 
 const formName = "campaignForm";
 const sectionName = "rewards";
@@ -68,33 +69,33 @@ class Reward extends Component {
 
 	render() {
 		const { openForm, selectedType, selectedItem } = this.state;
-		const { rewardTypes, rewardFields, formValues: {rewards} } = this.props;
+		const { rewardTypes, rewardFields, formValues: {rewards}, handleSubmit, current, prevStep } = this.props;
 		const { options: months } = rewardFields.estimate_delivery.fields.end_month;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
-					<div className="wpcf-accordion-wrapper">
-						<div className="wpcf-accordion">
-							<div className="wpcf-accordion-title active">
-								Create Rewards
-							</div>
-							<div className='wpcf-accordion-details'>
-								{ !openForm &&
-									<div>
-										<p>Tell potential contributors more about your campaign. Provide details that will motivate people to contribute. A good pitch is compelling, informative, and easy to digest.</p>
-										{rewardTypes.map((item, index) =>
-											<div
-												key={index}
-												className={`wpcf-reward-type ${(selectedType == index) ? 'active':''}`}
-												onClick={() => this.setState({selectedType: index})}>
-												<img src={item.icon} alt={item.title}/>
-												<p>{item.title}</p>
-											</div>
-										)}
-									</div>
-								}
-								{ openForm &&
-									<form>
+					<form onSubmit={handleSubmit}>
+						<div className="wpcf-accordion-wrapper">
+							<div className="wpcf-accordion">
+								<div className="wpcf-accordion-title active">
+									Create Rewards
+								</div>
+								<div className='wpcf-accordion-details'>
+									{ !openForm &&
+										<div>
+											<p>Tell potential contributors more about your campaign. Provide details that will motivate people to contribute. A good pitch is compelling, informative, and easy to digest.</p>
+											{rewardTypes.map((item, index) =>
+												<div
+													key={index}
+													className={`wpcf-reward-type ${(selectedType == index) ? 'active':''}`}
+													onClick={() => this.setState({selectedType: index})}>
+													<img src={item.icon} alt={item.title}/>
+													<p>{item.title}</p>
+												</div>
+											)}
+										</div>
+									}
+									{ openForm &&
 										<FieldArray
 											name={sectionName}
 											rewards={rewards}
@@ -105,24 +106,28 @@ class Reward extends Component {
 											uploadFile={this._uploadFile}
 											removeArrValue={this._removeArrValue}
 											component={RenderRewardFields}/>
-									</form>
-								}
+									}
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="wpcf-rewards">
-						<h3>Rewards</h3>
-						{rewards && rewards.map((item, index) =>
-							<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
-								<p>Reward {index+1}</p>
-								<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
-								<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
+						<div className="wpcf-rewards">
+							<h3>Rewards</h3>
+							{rewards && rewards.map((item, index) =>
+								<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
+									<p>Reward {index+1}</p>
+									<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
+									<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
+								</div>
+							)}
+							<div className="wpcf-reward-item" onClick={() => this._addReward()}>
+								<span className="fa fa-plus"/>
 							</div>
-						)}
-						<div className="wpcf-reward-item" onClick={() => this._addReward()}>
-							<span className="fa fa-plus"/>
 						</div>
-					</div>
+
+						<PageControl 
+							current={current}
+							prevStep={prevStep}/>
+					</form>
 				</div>
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>

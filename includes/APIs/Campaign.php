@@ -163,7 +163,7 @@ class API_Campaign {
                             'desc'  => __("", "wp-crowdfunding"),
                         )
                     ),
-                    'required'      => false,
+                    'required'      => true,
                     'show'          => true
                 ),
                 'country' => array(
@@ -183,7 +183,7 @@ class API_Campaign {
                     'placeholder'   => __("Select State", "wp-crowdfunding"),
                     'value'         => '',
                     'options'       => array(),
-                    'required'      => false,
+                    'required'      => true,
                     'show'          => true,
                 ),
             ),
@@ -238,7 +238,7 @@ class API_Campaign {
                         'src' => array(
                             'type'          => 'text',
                             'placeholder'   => __("", "wp-crowdfunding"),
-                            'required'      => false,
+                            'required'      => true,
                             'show'          => true,
                         ),
                     ),
@@ -263,7 +263,7 @@ class API_Campaign {
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
                     'value'     => '',
                     'multiple'  => true,
-                    'required'  => false,
+                    'required'  => true,
                     'show'      => true
                 ),
                 'goal' => array(
@@ -273,7 +273,7 @@ class API_Campaign {
                     'value'     => 30000,
                     'minVal'    => 1,
                     'maxVal'    => 5000000,
-                    'required'  => false,
+                    'required'  => true,
                     'show'      => true,
                 ),
                 'fund_type' => array(
@@ -293,7 +293,7 @@ class API_Campaign {
                             'desc'  => __("Accept if doesnot meet goal", "wp-crowdfunding"),
                         )
                     ),
-                    'required'  => false,
+                    'required'  => true,
                     'show'      => true,
                 ),
                 'goal_type' => array(
@@ -328,7 +328,7 @@ class API_Campaign {
                     'value'     => '',
                     'minVal'    => 1,
                     'maxVal'    => 5000000,
-                    'required'  => false,
+                    'required'  => true,
                     'show'      => true,
                 ),
                 'recommended' => array(
@@ -336,7 +336,7 @@ class API_Campaign {
                     'title'     => __("Recommended Amount *","wp-crowdfunding"),
                     'desc'      => __("You can Fixed a Maximum Amount","wp-crowdfunding"),
                     'value'     => '',
-                    'required'  => false,
+                    'required'  => true,
                     'show'      => true,
                 ),
             ),

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getYotubeVideoID } from '../../../Helper';
+import { getYotubeVideoID } from '../../Helper';
 
 const RenderPreview = (props) => {
     const { items, index } = props;

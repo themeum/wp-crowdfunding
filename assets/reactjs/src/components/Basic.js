@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { required, notRequred, uploadFiles, removeArrValue } from '../../Helper';
+import { required, notRequred, uploadFiles, removeArrValue } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import { RenderField, RenderRepeatableFields } from './RenderField';
-import { fetchSubCategories, fetchStates } from '../../actions';
+import { RenderField, RenderRepeatableFields } from './renderItems/Field';
+import { fetchSubCategories, fetchStates } from '../actions';
 import PreviewBasic from './preview/Basic';
+import PageControl from './PageControl';
 
 const formName = "campaignForm";
 const sectionName = "basic";
@@ -51,12 +52,12 @@ class Basic extends Component {
 
     render() {
         const { sectionActive } = this.state;
-        const { fields, formValues } =  this.props;
+        const { fields, formValues, handleSubmit, current, prevStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
         return (
             <div className="row">
                 <div className='col-md-7'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <FormSection name={sectionName}>
                             <div className='wpcf-accordion-wrapper'>
                                 {Object.keys(fields).map( (section, index) =>
@@ -95,6 +96,10 @@ class Basic extends Component {
                                 )}
                             </div>
                         </FormSection>
+
+                        <PageControl 
+                            current={current}
+                            prevStep={prevStep}/>
                     </form>
                 </div>
 				<div className='col-md-5'>

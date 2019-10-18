@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { uploadFiles, removeArrValue  } from '../../Helper';
+import { uploadFiles, removeArrValue  } from '../Helper';
 import { reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import RenderStoryItem from './RenderStoryItem';
+import RenderStoryItem from './renderItems/StoryItem';
 import PreviewStory from './preview/Story';
+import PageControl from './PageControl';
 
 const formName = "campaignForm";
 const sectionName = "story";
@@ -63,59 +64,65 @@ class Story extends Component {
     }
 
 	render() {
-		const { tools, formValues: {story} } = this.props;
+		const { tools, formValues: {story}, handleSubmit, current, prevStep } = this.props;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
-					<div className="wpcf-accordion-wrapper">
-						<div className="wpcf-accordion">
-						<div className="wpcf-accordion-title active">
-								Add Brief Story
-							</div>
-							<div className='wpcf-accordion-details'>
-								<p>Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.</p>
-								<div className="wpcf-story-tools">
-									{ Object.keys(tools).map( key =>
-										<div key={key} className="story-tool-item">
-											<img src={tools[key].name}/>
-											<p>{tools[key].name}</p>
-											<i className="fa fa-plus" onClick={() => this._addItem(key)} />
-										</div>
-									)}
+					<form onSubmit={handleSubmit}>
+						<div className="wpcf-accordion-wrapper">
+							<div className="wpcf-accordion">
+							<div className="wpcf-accordion-title active">
+									Add Brief Story
 								</div>
-								<div className="wpcf-story-values">
-									{ story.map((data, index) => 
-										<div key={index} className="wpcf-story-item">
-											<div className="story-item-value">
-												{ data && data.map((item, i) =>
-													<RenderStoryItem
-														data={item}
-														key={index+i}
-														edit={this._editItem}
-														upload={this._upload}
-														name={`${sectionName}[${index}][${i}].value`}
-													/>
-												)}
+								<div className='wpcf-accordion-details'>
+									<p>Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.</p>
+									<div className="wpcf-story-tools">
+										{ Object.keys(tools).map( key =>
+											<div key={key} className="story-tool-item">
+												<img src={tools[key].name}/>
+												<p>{tools[key].name}</p>
+												<i className="fa fa-plus" onClick={() => this._addItem(key)} />
 											</div>
-											{ data && data.length==2 &&
-												<div className="story-item-swap">
-													<span onClick={ () => this._swapItem( index ) }>
-														<i className="fa fa-long-arrow-right"/>
-														<i className="fa fa-long-arrow-left"/>
-													</span>
+										)}
+									</div>
+									<div className="wpcf-story-values">
+										{ story.map((data, index) => 
+											<div key={index} className="wpcf-story-item">
+												<div className="story-item-value">
+													{ data && data.map((item, i) =>
+														<RenderStoryItem
+															data={item}
+															key={index+i}
+															edit={this._editItem}
+															upload={this._upload}
+															name={`${sectionName}[${index}][${i}].value`}
+														/>
+													)}
 												</div>
-											}
-											<div className="story-item-control">
-												<span onClick={ () => this._moveItem( index, 'top' ) } className={ ( index == 0 ) && 'item-move-disable' }><i className="fa fa-long-arrow-up"/></span>
-												<span onClick={ () => this._moveItem( index, 'bottom' ) } className={ ( index == story.length-1 ) && 'item-move-disable' }><i className="fa fa-long-arrow-down"/></span>
-												<span onClick={ () => this._removeItem( index ) }><i className="fa fa-trash"/></span>
+												{ data && data.length==2 &&
+													<div className="story-item-swap">
+														<span onClick={ () => this._swapItem( index ) }>
+															<i className="fa fa-long-arrow-right"/>
+															<i className="fa fa-long-arrow-left"/>
+														</span>
+													</div>
+												}
+												<div className="story-item-control">
+													<span onClick={ () => this._moveItem( index, 'top' ) } className={ ( index == 0 ) && 'item-move-disable' }><i className="fa fa-long-arrow-up"/></span>
+													<span onClick={ () => this._moveItem( index, 'bottom' ) } className={ ( index == story.length-1 ) && 'item-move-disable' }><i className="fa fa-long-arrow-down"/></span>
+													<span onClick={ () => this._removeItem( index ) }><i className="fa fa-trash"/></span>
+												</div>
 											</div>
-										</div>
-									)}
+										)}
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+						
+						<PageControl 
+                            current={current}
+                            prevStep={prevStep}/>
+					</form>
 				</div>
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
