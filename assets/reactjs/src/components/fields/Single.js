@@ -1,6 +1,8 @@
 import React from 'react';
+import { Field } from 'redux-form';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
+import DatePicker from './DatePicker';
 
 const defaultProps = {
     addTag: () => {},
@@ -14,6 +16,8 @@ const defaultProps = {
 export default (_props) => {
     const props = {...defaultProps, ..._props};
     const { input, meta: { touched, error }, item, addTag, onChangeSelect, uploadFile, removeArrValue, className, fieldValue} = props;
+    
+    console.log(fieldValue);
     switch (item.type) {
         case 'text':
         case 'email':
@@ -113,7 +117,21 @@ export default (_props) => {
                     <div className="">{}</div>
                 </div>
             );
+        case 'date':
+            return (
+                <div className={className}>
+                    <DatePicker
+                        name={input.name}
+                        value={input.value}
+                        onChange={input.onChange} 
+                        placeholder={item.placeholder}
+                        format="yy-mm-dd"
+                    />
+                    {touched && error && <span>{error}</span>}
+                </div>
+            )
         default:
             return '';
     }
 }
+
