@@ -9,10 +9,19 @@
             width: 65px;
             height: 65px;
             border-radius: 50%;
+            margin-bottom: 14px;
+            display: block;
         }
         h4{
             font-size: 21px;
-            margin: 0;
+            margin: 0 0 4px;
+            color: var(--wpcf-heading-color);
+            font-weight: 400;
+        }
+        span{
+            font-size: 14px;
+            color: #adaecf;
+            display: block;
         }
     }
     .wpcf-dashboard-permalinks{
