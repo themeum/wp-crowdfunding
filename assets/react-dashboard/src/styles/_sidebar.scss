@@ -1,0 +1,54 @@
+
+.wpcf-dashboard-sidebar{
+    border-left: 1px solid var(--wpcf-border-color);
+    border-right: 1px solid var(--wpcf-border-color);
+    .wpcf-dashboard-profile{
+        padding: 15px 30px 30px;
+        border-bottom: 1px solid var(--wpcf-border-color);
+        img{
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+        }
+        h4{
+            font-size: 21px;
+            margin: 0;
+        }
+    }
+    .wpcf-dashboard-permalinks{
+        margin: 0;
+        padding: 20px 0 20px;
+        list-style: none;
+        font-size: 16px;
+        li{
+            a{
+                line-height: 30px;
+                padding: 10px 30px;
+                display: flex;
+                align-items: center;
+                color: var(--wpcf-primary-text-color);
+                &:hover{
+                    background: #f2f6ff;
+                    color: var(--wpcf-primary-color);
+                }
+                span.wpcf-icon{
+                    flex: 0 0 20px;
+                    text-align: center;
+                    font-size: 17px;
+                    margin-right: 19px;
+                }
+            }
+            ul{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                font-size: 14px;
+                li a{
+                    padding-left: 63px;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }
+  }

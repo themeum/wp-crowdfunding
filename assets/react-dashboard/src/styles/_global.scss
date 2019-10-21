@@ -1,0 +1,28 @@
+:root{
+	--wpcf-font-family: 'Roboto', sans-serif;
+    --wpcf-primary-text-color: #787993;
+    --wpcf-primary-color: #3060c5;
+    --wpcf-border-color: #dcdce4;
+}
+
+$sidebar_width: 255px;
+
+
+#wpcf-dashboard{
+    font-family: var(--wpcf-font-family);
+    color: var(--wpcf-primary-text-color);
+}
+
+.wpcf-dashboard-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.wpcf-dashboard-sidebar{
+    flex: 0 0 $sidebar_width;
+    max-width: $sidebar_width;
+}
+
+.wpcf-dashboard-content{
+    flex: 1 0 calc(100% - $sidebar_width);
+    max-width: calc(100% - $sidebar_width);
+}
