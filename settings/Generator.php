@@ -134,7 +134,7 @@ class Settings_Generator {
                         $html .= '<tr>';
                         $html .= '<th><label for="'.$value['id'].'">'.$value['label'].'</label></th>';
                         $html .= '<td>';
-                            $var = get_option( $value['id'] );
+                            $var = get_option( $value['id'], isset($value['value']) ? $value['value'] : 'true');
                             if(isset($value['multiple'])) {
                                 $save_value = ( is_array( $var ) ? $var : array() );
                                 foreach( $value['option'] as $key => $val ){
@@ -144,7 +144,7 @@ class Settings_Generator {
                                 $html .= '<input type="checkbox" name="'.$value['id'].'" id="'.$value['id'].'" value="true" '.($var=="true"?"checked='checked'":"").'/>';
                             }
                             if(isset($value['desc'])) {
-                                $html .= '<label>'.$value['desc'].'</label>'; 
+                                $html .= "<label for='{$value['id']}'>{$value['desc']}</label>";
                             }
                         $html .= '</td>';
                         $html .= '</tr>';
@@ -191,5 +191,5 @@ class Settings_Generator {
 
         echo $html;
     }
-    
+
 }

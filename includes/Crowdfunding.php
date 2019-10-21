@@ -30,10 +30,10 @@ final class Crowdfunding {
 		require_once WPCF_DIR_PATH.'includes/compatibility/Functions.php'; //require file for compatibility
 		require_once WPCF_DIR_PATH.'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH.'settings/Admin_Menu.php';
-		
+
 		require_once WPCF_DIR_PATH.'includes/REST_API.php';
 		//new \WPCF\REST_API();
-		
+
 		new settings\Admin_Menu();
 	}
 
@@ -88,7 +88,7 @@ final class Crowdfunding {
 			include_once WPCF_DIR_PATH.'shortcode/Single_Campaign.php';
 			include_once WPCF_DIR_PATH.'shortcode/Popular_Campaigns.php';
 			include_once WPCF_DIR_PATH.'shortcode/Donate.php';
-	
+
 			$wpcf_dashboard = new \WPCF\shortcode\Dashboard();
 			$wpcf_project_listing = new \WPCF\shortcode\Project_Listing();
 			$wpcf_registraion = new \WPCF\shortcode\Registration();
@@ -98,7 +98,7 @@ final class Crowdfunding {
 			$wpcf_single_campaign = new \WPCF\shortcode\Single_Campaign();
 			$wpcf_popular_campaign = new \WPCF\shortcode\Popular_Campaigns();
 			$wpcf_donate = new \WPCF\shortcode\Donate();
-	
+
 			//require file for compatibility
 			require_once WPCF_DIR_PATH.'includes/compatibility/Shortcodes.php';
 		}
