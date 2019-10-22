@@ -207,7 +207,7 @@ module.exports = _inheritsLoose;
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
 // Module
-exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color); }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - $sidebar_width);\n  max-width: calc(100% - $sidebar_width); }\n\n.wpcf-dashboard-sidebar {\n  border-left: 1px solid var(--wpcf-border-color);\n  border-right: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: #adaecf;\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 20px;\n    list-style: none;\n    font-size: 16px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n      line-height: 30px;\n      padding: 10px 30px;\n      display: flex;\n      align-items: center;\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n        background: #f2f6ff;\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n        flex: 0 0 20px;\n        text-align: center;\n        font-size: 17px;\n        margin-right: 19px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n      font-size: 14px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n        padding-left: 63px;\n        padding-top: 5px;\n        padding-bottom: 5px; }\n", "",{"version":3,"sources":["/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_global.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_sidebar.scss"],"names":[],"mappings":"AAAA;EACC,wCAAmB;EAChB,kCAA0B;EAC1B,6BAAqB;EACrB,6BAAqB;EACrB,4BAAoB,EAAA;;AAMxB;EACI,oCAAoC;EACpC,qCAAqC,EAAA;;AAGzC;EACI,aAAa;EACb,eAAe,EAAA;;AAEnB;EACI,eAbiB;EAcjB,gBAdiB,EAAA;;AAiBrB;EACI,qCAAqC;EACrC,sCAAsC,EAAA;;AC1B1C;EACI,+CAA+C;EAC/C,gDAAgD,EAAA;EAFpD;IAIQ,uBAAuB;IACvB,iDAAiD,EAAA;IALzD;MAOY,WAAW;MACX,YAAY;MACZ,kBAAkB;MAClB,mBAAmB;MACnB,cAAc,EAAA;IAX1B;MAcY,eAAe;MACf,eAAe;MACf,gCAAgC;MAChC,gBAAgB,EAAA;IAjB5B;MAoBY,eAAe;MACf,cAAc;MACd,cAAc,EAAA;EAtB1B;IA0BQ,SAAS;IACT,oBAAoB;IACpB,gBAAgB;IAChB,eAAe,EAAA;IA7BvB;MAgCgB,iBAAiB;MACjB,kBAAkB;MAClB,aAAa;MACb,mBAAmB;MACnB,qCAAqC,EAAA;MApCrD;QAsCoB,mBAAmB;QACnB,gCAAgC,EAAA;MAvCpD;QA0CoB,cAAc;QACd,kBAAkB;QAClB,eAAe;QACf,kBAAkB,EAAA;IA7CtC;MAiDgB,gBAAgB;MAChB,UAAU;MACV,SAAS;MACT,eAAe,EAAA;MApD/B;QAsDoB,kBAAkB;QAClB,gBAAgB;QAChB,mBAAmB,EAAA","file":"style.scss","sourcesContent":[":root{\n\t--wpcf-font-family: 'Roboto', sans-serif;\n    --wpcf-primary-text-color: #787993;\n    --wpcf-primary-color: #3060c5;\n    --wpcf-heading-color: #25265e;\n    --wpcf-border-color: #dcdce4;\n}\n\n$sidebar_width: 255px;\n\n\n#wpcf-dashboard{\n    font-family: var(--wpcf-font-family);\n    color: var(--wpcf-primary-text-color);\n}\n\n.wpcf-dashboard-container{\n    display: flex;\n    flex-wrap: wrap;\n}\n.wpcf-dashboard-sidebar{\n    flex: 0 0 $sidebar_width;\n    max-width: $sidebar_width;\n}\n\n.wpcf-dashboard-content{\n    flex: 1 0 calc(100% - $sidebar_width);\n    max-width: calc(100% - $sidebar_width);\n}","\n.wpcf-dashboard-sidebar{\n    border-left: 1px solid var(--wpcf-border-color);\n    border-right: 1px solid var(--wpcf-border-color);\n    .wpcf-dashboard-profile{\n        padding: 15px 30px 30px;\n        border-bottom: 1px solid var(--wpcf-border-color);\n        img{\n            width: 65px;\n            height: 65px;\n            border-radius: 50%;\n            margin-bottom: 14px;\n            display: block;\n        }\n        h4{\n            font-size: 21px;\n            margin: 0 0 4px;\n            color: var(--wpcf-heading-color);\n            font-weight: 400;\n        }\n        span{\n            font-size: 14px;\n            color: #adaecf;\n            display: block;\n        }\n    }\n    .wpcf-dashboard-permalinks{\n        margin: 0;\n        padding: 20px 0 20px;\n        list-style: none;\n        font-size: 16px;\n        li{\n            a{\n                line-height: 30px;\n                padding: 10px 30px;\n                display: flex;\n                align-items: center;\n                color: var(--wpcf-primary-text-color);\n                &:hover{\n                    background: #f2f6ff;\n                    color: var(--wpcf-primary-color);\n                }\n                span.wpcf-icon{\n                    flex: 0 0 20px;\n                    text-align: center;\n                    font-size: 17px;\n                    margin-right: 19px;\n                }\n            }\n            ul{\n                list-style: none;\n                padding: 0;\n                margin: 0;\n                font-size: 14px;\n                li a{\n                    padding-left: 63px;\n                    padding-top: 5px;\n                    padding-bottom: 5px;\n                }\n            }\n        }\n    }\n  }"]}]);
+exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color); }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px); }\n\n.wpcf-dashboard-sidebar {\n  border-left: 1px solid var(--wpcf-border-color);\n  border-right: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: #adaecf;\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 20px;\n    list-style: none;\n    font-size: 16px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color); }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.collapse > ul {\n        display: block; }\n", "",{"version":3,"sources":["/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_global.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_sidebar.scss"],"names":[],"mappings":"AAAA;EACC,wCAAmB;EAChB,kCAA0B;EAC1B,6BAAqB;EACrB,6BAAqB;EACrB,4BAAoB,EAAA;;AAMxB;EACI,oCAAoC;EACpC,qCAAqC,EAAA;;AAGzC;EACI,aAAa;EACb,eAAe,EAAA;;AAEnB;EACI,eAbiB;EAcjB,gBAdiB,EAAA;;AAiBrB;EACI,4BAAwC;EACxC,6BAAyC,EAAA;;AC1B7C;EACI,+CAA+C;EAC/C,gDAAgD,EAAA;EAFpD;IAIQ,uBAAuB;IACvB,iDAAiD,EAAA;IALzD;MAOY,WAAW;MACX,YAAY;MACZ,kBAAkB;MAClB,mBAAmB;MACnB,cAAc,EAAA;IAX1B;MAcY,eAAe;MACf,eAAe;MACf,gCAAgC;MAChC,gBAAgB,EAAA;IAjB5B;MAoBY,eAAe;MACf,cAAc;MACd,cAAc,EAAA;EAtB1B;IA0BQ,SAAS;IACT,oBAAoB;IACpB,gBAAgB;IAChB,eAAe,EAAA;IA7BvB;MA+BY,gBAAgB,EAAA;IA/B5B;MAkCY,kBAAkB,EAAA;MAlC9B;QAoCgB,iBAAiB;QACjB,kBAAkB;QAClB,aAAa;QACb,mBAAmB;QACnB,qCAAqC,EAAA;QAxCrD;UA0CoB,cAAc;UACd,kBAAkB;UAClB,eAAe;UACf,kBAAkB,EAAA;QA7CtC;UAgDoB,iBAAiB,EAAA;QAhDrC;UAmDoB,mBAAmB;UACnB,gCAAgC,EAAA;MApDpD;QAwDgB,gBAAgB;QAChB,UAAU;QACV,SAAS;QACT,eAAe;QACf,aAAa,EAAA;QA5D7B;UA8DoB,kBAAkB;UAClB,gBAAgB;UAChB,mBAAmB,EAAA;MAhEvC;QAqEoB,gCAAgC,EAAA;MArEpD;QAwEoB,cAAc,EAAA","file":"style.scss","sourcesContent":[":root{\n\t--wpcf-font-family: 'Roboto', sans-serif;\n    --wpcf-primary-text-color: #787993;\n    --wpcf-primary-color: #3060c5;\n    --wpcf-heading-color: #25265e;\n    --wpcf-border-color: #dcdce4;\n}\n\n$sidebar_width: 255px;\n\n\n#wpcf-dashboard{\n    font-family: var(--wpcf-font-family);\n    color: var(--wpcf-primary-text-color);\n}\n\n.wpcf-dashboard-container{\n    display: flex;\n    flex-wrap: wrap;\n}\n.wpcf-dashboard-sidebar{\n    flex: 0 0 $sidebar_width;\n    max-width: $sidebar_width;\n}\n\n.wpcf-dashboard-content{\n    flex: 1 0 calc(100% - #{$sidebar_width});\n    max-width: calc(100% - #{$sidebar_width});\n}\n","\n.wpcf-dashboard-sidebar{\n    border-left: 1px solid var(--wpcf-border-color);\n    border-right: 1px solid var(--wpcf-border-color);\n    .wpcf-dashboard-profile{\n        padding: 15px 30px 30px;\n        border-bottom: 1px solid var(--wpcf-border-color);\n        img{\n            width: 65px;\n            height: 65px;\n            border-radius: 50%;\n            margin-bottom: 14px;\n            display: block;\n        }\n        h4{\n            font-size: 21px;\n            margin: 0 0 4px;\n            color: var(--wpcf-heading-color);\n            font-weight: 400;\n        }\n        span{\n            font-size: 14px;\n            color: #adaecf;\n            display: block;\n        }\n    }\n    .wpcf-dashboard-permalinks{\n        margin: 0;\n        padding: 20px 0 20px;\n        list-style: none;\n        font-size: 16px;\n        > li:last-child{\n            margin-top: auto;\n        }\n        li{\n            position: relative;\n            a{\n                line-height: 30px;\n                padding: 10px 30px;\n                display: flex;\n                align-items: center;\n                color: var(--wpcf-primary-text-color);\n                span.wpcf-icon{\n                    flex: 0 0 20px;\n                    text-align: center;\n                    font-size: 17px;\n                    margin-right: 19px;\n                }\n                span.wpcf-float-icon{\n                    margin-left: auto;\n                }\n                &:hover{\n                    background: #f2f6ff;\n                    color: var(--wpcf-primary-color);\n                }\n            }\n            ul{\n                list-style: none;\n                padding: 0;\n                margin: 0;\n                font-size: 14px;\n                display: none;\n                li a{\n                    padding-left: 63px;\n                    padding-top: 5px;\n                    padding-bottom: 5px;\n                }\n            }\n            &.collapse {\n                > a{\n                    color: var(--wpcf-primary-color);\n                }\n                > ul{\n                    display: block;\n                }\n            }\n        }\n    }\n  }\n"]}]);
 
 
 /***/ }),
@@ -34435,7 +34435,9 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     var basePath = WPCF.dashboard_url.replace(window.location.origin, '');
     _this.state = {
-      basePath: basePath
+      basePath: basePath,
+      myCampainsCollapse: false,
+      userSettingsCollapse: false
     };
     _this.logout = _this.logout.bind(_assertThisInitialized(_this));
     return _this;
@@ -34465,6 +34467,8 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var basePath = this.state.basePath;
       var _this$props$user = this.props.user,
           loading = _this$props$user.loading,
@@ -34487,42 +34491,82 @@ function (_Component) {
         alt: "Profile Image"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, data.display_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.user_email)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "wpcf-dashboard-permalinks"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        exact: true,
+        activeClassName: "is-active",
         to: "/"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "fas fa-home wpcf-icon"
-      }), "Dashboard")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }), "Dashboard")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/profile"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "far fa-user wpcf-icon"
-      }), "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/my-campaigns"
+      }), "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: this.state.myCampainsCollapse ? 'collapse' : 'collapsed'
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "javascript:void(0)",
+        onClick: function onClick() {
+          _this2.setState({
+            myCampainsCollapse: !_this2.state.myCampainsCollapse
+          });
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        "class": "far fa-paper-plane wpcf-icon"
-      }), "My Campaigns"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "wpcf-dashboard-sub-permalinks"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "far fa-paper-plane wpcf-icon"
+      }), "Campaigns", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "wpcf-float-icon fas fa-angle-" + (this.state.myCampainsCollapse ? 'up' : 'down')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: " wpcf-dashboard-sub-permalinks"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
+        to: "/my-campaigns"
+      }, "My Campaigns")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/invested-campaigns"
-      }, "Invested Campaigns")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, "Invested Campaigns")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/pledge-received"
-      }, "Pledge Received")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, "Pledge Received")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/bookmark-campaigns"
-      }, "Bookmarks")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, "Bookmarks")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/order"
-      }, "Order")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, "Order")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/withdraw"
-      }, "Withdraw")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/settings/profile"
+      }, "Withdraw")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
+        to: "/rewards"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "fas fa-gift wpcf-icon"
+      }), "Rewards")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: this.state.userSettingsCollapse ? 'collapse' : 'collapsed'
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "javascript:void(0)",
+        onClick: function onClick() {
+          _this2.setState({
+            userSettingsCollapse: !_this2.state.userSettingsCollapse
+          });
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "wpcf-icon fas fa-sliders-h"
-      }), "User Settings")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }), "User Settings", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "wpcf-float-icon fas fa-angle-" + (this.state.userSettingsCollapse ? 'up' : 'down')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: " wpcf-dashboard-sub-permalinks"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
+        to: "/settings/profile"
+      }, "Profile Settings")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "is-active",
         to: "/settings/withdraw"
-      }, "Withdraw Method")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/rewards"
-      }, "Rewards")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, "Withdraw Method")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "javascript:void(0)",
         onClick: this.logout
-      }, "Logout")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "wpcf-icon fas fa-sign-out-alt"
+      }), "Logout")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-header-button"
@@ -34557,14 +34601,14 @@ function (_Component) {
         path: "/withdraw",
         component: _withdraw__WEBPACK_IMPORTED_MODULE_11__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+        path: "/rewards",
+        component: _rewards__WEBPACK_IMPORTED_MODULE_14__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/settings/profile",
         component: _profileSettings__WEBPACK_IMPORTED_MODULE_12__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/settings/withdraw",
         component: _withdrawMethodSettings__WEBPACK_IMPORTED_MODULE_13__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-        path: "/rewards",
-        component: _rewards__WEBPACK_IMPORTED_MODULE_14__["default"]
       }))));
     }
   }]);
@@ -34668,9 +34712,7 @@ function (_Component) {
 
       ;
       var pageOfItems = this.state.pageOfItems;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bookmarks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bookmarks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, campaign.data.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pageOfItems.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -34833,9 +34875,7 @@ function (_Component) {
       }
 
       ;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, this.props.campaign.name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Showing Report for ", this.props.campaign.name, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.campaign.name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Showing Report for ", this.props.campaign.name, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: function onClick() {
           return _this2.props.onClickBack({
             id: '',
@@ -35031,9 +35071,7 @@ function (_Component) {
           pageOfItems = _this$state.pageOfItems,
           filterValue = _this$state.filterValue;
       var campaignData = this.getCampaignData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "My Campaigns"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "My Campaigns"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
         }
@@ -35236,9 +35274,7 @@ function (_Component) {
       }
 
       var campaignData = this.getCampaignData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "My Campaigns"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "My Campaigns"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: filterValue == 'running' ? 'active' : '',
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
@@ -35456,9 +35492,7 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Order"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Order"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-cards"
@@ -35652,9 +35686,7 @@ function (_Component) {
           total_available = _pledge$data.total_available,
           receiver_percent = _pledge$data.receiver_percent,
           orders = _pledge$data.orders;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Pledge Recieved"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Pledge Recieved"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-cards"
@@ -35782,9 +35814,7 @@ function (_Component) {
       }
 
       ;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-form-img",
@@ -35944,9 +35974,7 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-profile"
@@ -36097,9 +36125,7 @@ function (_Component) {
           pageOfItems = _this$state.pageOfItems,
           filterValue = _this$state.filterValue;
       var rewardsData = this.getRewardsData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Rewards"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Rewards"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: filterValue == '' ? 'active' : '',
         onClick: function onClick(e) {
           return _this2.onClickFilter('');
@@ -36266,9 +36292,7 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Withdraw"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Withdraw"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, withdraw.data.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-table-wrap"
@@ -36400,9 +36424,7 @@ function (_Component) {
       }
 
       ;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Select a withdraw method"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Select a withdraw method"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, Object.keys(data.methods).length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "wpcf-withdraw-account-set-form"
