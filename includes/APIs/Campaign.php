@@ -318,6 +318,28 @@ class API_Campaign {
                     'required'  => false,
                     'show'      => true,
                 ),
+                'if_target_date' => array(
+                    'type'          => 'form_group',
+                    'title'         => __("Specific Date & Time", "wp-crowdfunding"),
+                    'desc'          => __("Max Campaign Duration 60 Days", "wp-crowdfunding"),
+                    'fields' => array(
+                        'start_date' => array(
+                            'type'          => 'date',
+                            'class'         => 'col-md-6',
+                            'placeholder'   => __("-form-", "wp-crowdfunding"),
+                            'value'         => '',
+                            'required'      => true
+                        ),
+                        'end_date' => array(
+                            'type'          => 'date',
+                            'class'         => 'col-md-6',
+                            'placeholder'   => __("-to-", "wp-crowdfunding"),
+                            'value'         => '',
+                            'required'      => true
+                        )
+                    ),
+                    'show' => false,
+                ),
                 'amount_range' => array(
                     'type'      => 'range',
                     'title'     => __("Amount Range *","wp-crowdfunding"),

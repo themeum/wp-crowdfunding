@@ -21,6 +21,12 @@ class Basic extends Component {
         this._removeArrValue = this._removeArrValue.bind(this);
     }
 
+    componentDidUpdate() {
+        const { formValues } =  this.props;
+        const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
+        //input.name== `${basicSeciton}.goal_type` && fieldValue=="target_date" &&
+    }
+
     _onChangeSelect(e) {
         const { name, value } = e.target;
         if(name == `${sectionName}.category`) {
@@ -68,19 +74,32 @@ class Basic extends Component {
                                         </div>
                                         <div className='wpcf-accordion-details' style={ index == sectionActive ? { display: 'block' } : { display: 'none' } } >
                                             {Object.keys(fields[section]).map( field =>
-                                                <div key={field} className='wpcf-form-field'>
+                                                <div key={field} className='wpcf-form-field' style={{ display: field.show ? 'block' : 'none' }}>
                                                     <div className='wpcf-field-title'>{fields[section][field].title}</div>
                                                     <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
 
-                                                    { fields[section][field].type == 'repeatable' ?
+                                                    { fields[section][field].type == 'form_group' ?
+                                                        <div className="form-group">
+                                                            {Object.keys(fields[section][field].fields).map( key =>
+                                                                <Field
+                                                                    key={key}
+                                                                    name={key}
+                                                                    item={fields[section][field].fields[field]}
+                                                                    className={fields[section][field].fields[key].class}
+                                                                    component={RenderField}
+                                                                    validate={[fields[section][field].fields[key].required ? required : notRequred]}/>
+                                                            )}
+                                                        </div>
+
+                                                    : fields[section][field].type == 'repeatable' ?
                                                         <FieldArray
                                                             name={field}
                                                             item={fields[section][field]}
                                                             uploadFile={this._uploadFile}
                                                             removeArrValue={this._removeArrValue}
                                                             component={RenderRepeatableFields}/>
-                                                        :
-                                                        <Field
+
+                                                    :   <Field
                                                             name={field}
                                                             item={fields[section][field]}
                                                             addTag={this._addTag}
@@ -88,6 +107,7 @@ class Basic extends Component {
                                                             uploadFile={this._uploadFile}
                                                             removeArrValue={this._removeArrValue}
                                                             component={RenderField}
+                                                            fieldValue={ basicValues[field] ? basicValues[field] : ''}
                                                             validate={[fields[section][field].required ? required : notRequred]}/>
                                                     }
                                                 </div>
