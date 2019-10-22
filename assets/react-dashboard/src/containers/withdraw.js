@@ -56,7 +56,7 @@ class Withdraw extends Component {
         }
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>Withdraw</h3>
                 <div className="wpcf-dashboard-content-inner">
                     { withdraw.data.length ?

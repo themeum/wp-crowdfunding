@@ -60,7 +60,7 @@ class CampaignReport extends Component {
         };
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 { (this.props.campaign.name) ?
                     <h4>Showing Report for {(this.props.campaign.name)} <button onClick={ () => this.props.onClickBack({id:'',name:''}) }>Back</button></h4>
                     :

@@ -2,6 +2,7 @@
 	--wpcf-font-family: 'Roboto', sans-serif;
     --wpcf-primary-text-color: #787993;
     --wpcf-primary-color: #3060c5;
+    --wpcf-heading-color: #25265e;
     --wpcf-border-color: #dcdce4;
 }
 
@@ -23,6 +24,6 @@ $sidebar_width: 255px;
 }
 
 .wpcf-dashboard-content{
-    flex: 1 0 calc(100% - $sidebar_width);
-    max-width: calc(100% - $sidebar_width);
+    flex: 1 0 calc(100% - #{$sidebar_width});
+    max-width: calc(100% - #{$sidebar_width});
 }

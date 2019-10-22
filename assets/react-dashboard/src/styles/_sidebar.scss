@@ -9,10 +9,19 @@
             width: 65px;
             height: 65px;
             border-radius: 50%;
+            margin-bottom: 14px;
+            display: block;
         }
         h4{
             font-size: 21px;
-            margin: 0;
+            margin: 0 0 4px;
+            color: var(--wpcf-heading-color);
+            font-weight: 400;
+        }
+        span{
+            font-size: 14px;
+            color: #adaecf;
+            display: block;
         }
     }
     .wpcf-dashboard-permalinks{
@@ -20,22 +29,29 @@
         padding: 20px 0 20px;
         list-style: none;
         font-size: 16px;
+        > li:last-child{
+            margin-top: auto;
+        }
         li{
+            position: relative;
             a{
                 line-height: 30px;
                 padding: 10px 30px;
                 display: flex;
                 align-items: center;
                 color: var(--wpcf-primary-text-color);
-                &:hover{
-                    background: #f2f6ff;
-                    color: var(--wpcf-primary-color);
-                }
                 span.wpcf-icon{
                     flex: 0 0 20px;
                     text-align: center;
                     font-size: 17px;
                     margin-right: 19px;
+                }
+                span.wpcf-float-icon{
+                    margin-left: auto;
+                }
+                &:hover{
+                    background: #f2f6ff;
+                    color: var(--wpcf-primary-color);
                 }
             }
             ul{
@@ -43,10 +59,19 @@
                 padding: 0;
                 margin: 0;
                 font-size: 14px;
+                display: none;
                 li a{
                     padding-left: 63px;
                     padding-top: 5px;
                     padding-bottom: 5px;
+                }
+            }
+            &.collapse {
+                > a{
+                    color: var(--wpcf-primary-color);
+                }
+                > ul{
+                    display: block;
                 }
             }
         }

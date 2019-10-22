@@ -52,7 +52,7 @@ class InvestedCampaigns extends Component {
         const campaignData = this.getCampaignData();
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>My Campaigns</h3>
                 <div>
                     <span onClick={ e => this.onClickFilter(e) }>Running</span>

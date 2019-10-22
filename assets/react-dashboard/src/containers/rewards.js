@@ -53,7 +53,7 @@ class Rewards extends Component {
         const rewardsData = this.getRewardsData();
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>Rewards</h3>
                 <div>
                     <span className={ (filterValue==''? 'active' : '') } onClick={ e => this.onClickFilter( '' ) }>All</span>

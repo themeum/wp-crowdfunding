@@ -24,9 +24,9 @@ class Admin_Menu {
             $button_text_color  = get_option( 'wpneo_button_text_color' );
             $text_hover_color   = get_option( 'wpneo_button_text_hover_color' );
             $custom_css         = get_option( 'wpneo_custom_css' );
-    
+
             $style = '';
-    
+
             if( $button_bg ){
                 $style .= '.wpneo_donate_button, 
                             #wpneo-tab-reviews .submit,
@@ -50,7 +50,7 @@ class Admin_Menu {
                             .btn-style1,#wpneo-tab-reviews .submit,.dashboard-head-date input[type="submit"],
                             .wp-crowd-btn-primary, .wpneo_withdraw_button,.wpneo-dashboard-head-left ul li.active,
                             .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current{ background-color:'.$button_bg.'; color:'.$button_text_color.'; }';
-    
+
                 $style .= '.wpneo_donate_button:hover, 
                             #wpneo-tab-reviews .submit:hover,
                             .wpneo-edit-btn:hover,
@@ -72,7 +72,7 @@ class Admin_Menu {
                             .wp-crowd-btn-primary:hover,
                             .wpneo_withdraw_button:hover{ background-color:'.$button_bg_hover.'; color:'.$text_hover_color.'; }';
             }
-    
+
             if( $color_scheme ){
                 $style .=  '#neo-progressbar > div,
                             ul.wpneo-crowdfunding-update li:hover span.round-circle,
@@ -119,32 +119,32 @@ class Admin_Menu {
                             #wpneo_crowdfunding_modal_message td a:hover{
                                 color: rgba('.$color_scheme.','.$color_scheme.','.$color_scheme.',0.95);
                             }';
-    
+
                 list($r, $g, $b) = sscanf( $color_scheme, "#%02x%02x%02x" );
                 $style .=  '.tab-rewards-wrapper .overlay { background: rgba('.$r.','.$g.','.$b.',.95); }';
             }
-    
+
             if( $custom_css ){ $style .= $custom_css; }
-    
+
             $output = '<style type="text/css"> '.$style.' </style>';
             echo $output;
         }
     }
-    
-    
+
+
 
     /**
      * Crowdfunding Menu Option Page
      */
     public function register_menu_page(){
-        add_menu_page( 
+        add_menu_page(
             'Crowdfunding',
             'Crowdfunding',
             'manage_options',
             'wpcf-crowdfunding',
             '',
-            'dashicons-admin-multisite', 
-            null 
+            'dashicons-admin-multisite',
+            null
         );
 
         $addon_pro =  __('Add-ons', 'wp-crowdfunding');
@@ -206,7 +206,7 @@ class Admin_Menu {
         }
 
         // $screen = get_current_screen();
-        // print_r( $screen );   
+        // print_r( $screen );
         if (wpcf_function()->post('wpneo_settings_page_nonce_field')){
             echo '<div class="notice notice-success is-dismissible">';
                 echo '<p>'.__( "Settings have been Saved.", "wp-crowdfunding" ).'</p>';
@@ -249,7 +249,7 @@ class Admin_Menu {
      * Add menu settings action
      */
     public function save_menu_settings() {
-        
+
         if (wpcf_function()->post('wpneo_settings_page_nonce_field') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
 
             $current_tab = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_admin_tab'));
@@ -265,7 +265,7 @@ class Admin_Menu {
 
                     $campaign_status = sanitize_text_field(wpcf_function()->post('wpneo_default_campaign_status'));
                     wpcf_function()->update_text('wpneo_default_campaign_status', $campaign_status);
-                    
+
                     $edit_status = sanitize_text_field(wpcf_function()->post('wpneo_campaign_edit_status'));
                     wpcf_function()->update_text('wpneo_campaign_edit_status', $edit_status);
 
@@ -432,6 +432,9 @@ class Admin_Menu {
 
                 // Style Settings
                 if ( $current_tab == 'tab_style' ){
+
+                    $styling = sanitize_text_field(wpcf_function()->post('wpcf_enable_google_fonts'));
+                    wpcf_function()->update_checkbox( 'wpcf_enable_google_fonts', $styling);
 
                     $styling = sanitize_text_field(wpcf_function()->post('wpneo_enable_color_styling'));
                     wpcf_function()->update_checkbox( 'wpneo_enable_color_styling', $styling);

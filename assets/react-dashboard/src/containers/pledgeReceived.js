@@ -51,7 +51,7 @@ class PledgeReceived extends Component {
         const { total_goal, total_raised, total_available, receiver_percent, orders } = pledge.data;
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>Pledge Recieved</h3>
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-info-cards">

@@ -43,7 +43,7 @@ class API_Dashboard {
         $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
-        
+
         register_rest_route( $namespace, '/campaigns-report', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'report') ),
         ));
@@ -107,7 +107,7 @@ class API_Dashboard {
         if( !wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce') ) {
             return array( 'success' => 0, 'msg' => 'Invalid nonce!' );
         } */
-        
+
         $campaign_id                            = isset($_GET['campaign_id']) ? sanitize_text_field($_GET['campaign_id']) : '';
         $query_range_args['date_range']         = isset($_GET['date_range']) ? sanitize_text_field($_GET['date_range']) : '';
         $query_range_args['date_range_from']    = isset($_GET['date_range_from']) ? sanitize_text_field($_GET['date_range_from']) : '';
@@ -124,7 +124,7 @@ class API_Dashboard {
         $format             = array();
         $label              = array();
         $pledges            = array();
-        
+
         if( !empty($campaign_id) ) {
             $campaign_ids       = array( $campaign_id );
             $total_goals        = get_post_meta($campaign_id, '_nf_funding_goal', true);
@@ -133,7 +133,7 @@ class API_Dashboard {
             $campaign_ids       = $campaigns_info->campaign_ids;
             $total_goals        = $campaigns_info->total_goals;
         }
-        
+
         $order_ids__            = wpcf_function()->get_order_ids_by_product_ids($campaign_ids);
 
         if ($from_time < $to_time) {
@@ -176,7 +176,7 @@ class API_Dashboard {
                         $order_ids      = explode(',', $result->order_ids);
                         $total_backed   += count( $order_ids );
                         $backers_amount += $wpdb->get_var("(SELECT SUM(meta_value) from $wpdb->postmeta where post_id IN({$result->order_ids}) and meta_key = '_order_total' )");
-                    
+
                         foreach($order_ids as $order_id) {
                             //Get order details for table listing
                             $order      = wc_get_order( $order_id );
@@ -215,7 +215,7 @@ class API_Dashboard {
             'format'        => $format,
             'label'         => $label,
             'fundRaised'    => wc_price( $fund_raised ),
-            'raisedPercent' => round( ($fund_raised*100) / $total_goals, 2),
+            'raisedPercent' => $total_goals > 0 ? round( ($fund_raised*100) / $total_goals, 2) : 0,
             'totalBacked'   => $total_backed,
             'pledges'       => $pledges
         );
@@ -291,6 +291,8 @@ class API_Dashboard {
         $profile_image_id = get_user_meta( $user_id, 'profile_image_id', true );
         $data = array(
             'username'          => $user->user_login,
+            'display_name'          => $user->display_name,
+            'user_email'          => $user->user_email,
             'first_name'        => isset($user->first_name) ? $user->first_name : '',
             'last_name'         => isset($user->last_name) ? $user->last_name : '',
             'profile_image'     => get_avatar_url( $user_id ),
@@ -368,7 +370,7 @@ class API_Dashboard {
         ));
 
         $invested_campaign_ids = array_unique( $invested_campaign_ids );
-    
+
         $data = array();
         if( !empty( $invested_campaign_ids ) ) {
             $query = array(
@@ -417,7 +419,7 @@ class API_Dashboard {
                 WHERE       woim.meta_key='_product_id'
                             AND woim.meta_value IN ( {$campaign_ids} )
                 ORDER BY    oi.order_id DESC
-                " 
+                "
             );
         }
         //Get customers orders with injecting details
@@ -772,7 +774,7 @@ class API_Dashboard {
             );
         } else {
             $response = array(
-                'success' => 0, 
+                'success' => 0,
                 'msg' => __('You are not eligible to make this withdraw', 'wp-crowdfunding-pro')
             );
         }
@@ -845,7 +847,7 @@ class API_Dashboard {
         $total_withdraw = 0;
         $request_items = array();
         if ($withdraw_query->have_posts()) {
-            while( $withdraw_query->have_posts() ) { 
+            while( $withdraw_query->have_posts() ) {
                 $withdraw_query->the_post();
                 $request_status = get_post_meta( get_the_ID(),'withdraw_request_status',true );
                 $request_amount = get_post_meta( get_the_ID(),'wpneo_wallet_withdrawal_amount',true );
@@ -860,8 +862,8 @@ class API_Dashboard {
             }
         }
         return (object) [
-            'total_withdraw' => $total_withdraw, 
-            'request_items'  => $request_items 
+            'total_withdraw' => $total_withdraw,
+            'request_items'  => $request_items
         ];
     }
 
@@ -886,7 +888,7 @@ class API_Dashboard {
             $response_data[$key] = sanitize_text_field( $value );
         }
         $response = array(
-            'success'   => 1, 
+            'success'   => 1,
             'data'      => $response_data
         );
         return rest_ensure_response( $response );
@@ -964,7 +966,7 @@ class API_Dashboard {
 				),
 			),
         );
-        
+
         foreach( $withdraw_methods as $key => $method ) {
             if( !in_array($key, $saved_methods) ) {
                 unset( $withdraw_methods[$key] ); //remove method if not set from admin
@@ -1001,7 +1003,7 @@ class API_Dashboard {
         $saved_data = array( 'key' => $json_params['key'], 'data' => $data );
         update_user_meta( $user_id, 'wpcf_user_withdraw_account', json_encode($saved_data) );
         $response = array(
-            'success'   => 1, 
+            'success'   => 1,
             'data'      => $saved_data
         );
         return rest_ensure_response( $response );
@@ -1038,7 +1040,7 @@ class API_Dashboard {
                 $image_id       = $reward['wpneo_rewards_image_field'];
                 $reward_image   = ($image_id) ? wp_get_attachment_image_src($image_id)[0] : wc_placeholder_img_src();
                 $reward_title   = (isset($reward['wpneo_rewards_title'])) ? $reward['wpneo_rewards_title'] : '';
-                
+
                 $end_month      = $reward['wpneo_rewards_endmonth'];
                 $end_year       = $reward['wpneo_rewards_endyear'];
 

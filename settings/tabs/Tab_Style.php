@@ -9,6 +9,16 @@ defined( 'ABSPATH' ) || exit;
                     'top_line'  => 'true',
                     ),
 
+
+                // #Load Plugin Fonts
+                array(
+                    'id'        => 'wpcf_enable_google_fonts',
+                    'type'      => 'checkbox',
+                    'value'     => 'true',
+                    'label'     => __('Load google fonts','wp-crowdfunding'),
+                    'desc'      => __('Load google fonts for crowdfunding dashboard','wp-crowdfunding'),
+                ),
+
                 // #Enable Color Scheme
                 array(
                     'id'        => 'wpneo_enable_color_styling',
@@ -17,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
                     'label'     => __('Enable Color Styling','wp-crowdfunding'),
                     'desc'      => __('Enable color styling option for custom color layout.','wp-crowdfunding'),
                     ),
-    
+
                 // #Button Background Color
                 array(
                     'id'        => 'wpneo_color_scheme',
@@ -44,7 +54,7 @@ defined( 'ABSPATH' ) || exit;
                     'desc'      => __('Select button background hover color.','wp-crowdfunding'),
                     'value'     => '#2554ec',
                     ),
-                
+
                 // #Button Text Color
                 array(
                     'id'        => 'wpneo_button_text_color',
@@ -62,17 +72,17 @@ defined( 'ABSPATH' ) || exit;
                     'desc'      => __('Select button text hover color.','wp-crowdfunding'),
                     'value'     => '#fff',
                     ),
-                
+
                 // #Custom CSS
                 array(
                     'id'        => 'wpneo_custom_css',
                     'type'      => 'textarea',
                     'label'     => __('Custom CSS','wp-crowdfunding'),
-                    'desc'      => __('Put custom CSS here.','wp-crowdfunding'),  
+                    'desc'      => __('Put custom CSS here.','wp-crowdfunding'),
                     'value'     => '',
                     ),
-                
-                
+
+
                 // #Save Function
                 array(
                     'id'        => 'wpneo_crowdfunding_admin_tab',
