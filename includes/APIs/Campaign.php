@@ -123,6 +123,7 @@ class API_Campaign {
                     'title'         => __("Campaign Catagory *", "wp-crowdfunding"),
                     'desc'          => __("Choose the Category That Most closely aligns with your project", "wp-crowdfunding"),
                     'placeholder'   => __("Select Catagory", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'options'       => $res_categories,
                     'required'      => true,
@@ -133,6 +134,7 @@ class API_Campaign {
                     'title'         => __("Campaign Sub- Catagory", "wp-crowdfunding"),
                     'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
                     'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'options'       => array(),
                     'required'      => false,
@@ -142,22 +144,26 @@ class API_Campaign {
                     'type'          => 'radio',
                     'title'         => __("Raising Money For *", "wp-crowdfunding"),
                     'desc'          => __("Estimated Shipping Date Rewards to be Recieved", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'options'       => array(
                         array(
                             'value' => 'individual',
                             'label' => __("Individual", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
+                            'class' => '',
                         ),
                         array(
                             'value' => 'business',
                             'label' => __("Business", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
+                            'class' => '',
                         ),
                         array(
                             'value' => 'non-profit',
                             'label' => __("Non-Profit", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
+                            'class' => '',
                         )
                     ),
                     'required'      => true,
@@ -168,6 +174,7 @@ class API_Campaign {
                     'title'         => __("Country *","wp-crowdfunding"),
                     'desc'          => __("", "wp-crowdfunding"),
                     'placeholder'   => __("Select Country", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'options'       => $res_countries,
                     'required'      => false,
@@ -178,6 +185,7 @@ class API_Campaign {
                     'title'         => __("State *","wp-crowdfunding"),
                     'desc'          => __("", "wp-crowdfunding"),
                     'placeholder'   => __("Select State", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'options'       => array(),
                     'required'      => true,
@@ -191,6 +199,7 @@ class API_Campaign {
                     'title'         => __("Campaign Title *", "wp-crowdfunding"),
                     'desc'          => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'placeholder'   => __("", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'required'      => true,
                     'show'          => true,
@@ -200,6 +209,7 @@ class API_Campaign {
                     'title'         => __("Campaign Sub-Title", "wp-crowdfunding"),
                     'desc'          => __("Use Words People Might Search For..", "wp-crowdfunding"),
                     'placeholder'   => __("", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'required'      => false,
                     'show'          => true,
@@ -209,6 +219,7 @@ class API_Campaign {
                     'title'         => __("Campaign Description *", "wp-crowdfunding"),
                     'desc'          => __("Keep It Short. Just Small Brief About your Project", "wp-crowdfunding"),
                     'placeholder'   => __("", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'required'      => true,
                     'show'          => true,
@@ -218,6 +229,7 @@ class API_Campaign {
                     'title'         => __("Tags", "wp-crowdfunding"),
                     'desc'          => __("Reach a more specific community by also choosing right Tags. Max Tag : 20", "wp-crowdfunding"),
                     'placeholder'   => __("", "wp-crowdfunding"),
+                    'class'         => '',
                     'value'         => '',
                     'options'       => $this->get_form_tags(),
                     'required'      => false,
@@ -240,6 +252,7 @@ class API_Campaign {
                         ),
                     ),
                     'value'     => '',
+                    'class'         => '',
                     'open_first_item' => true,
                     'required'  => false,
                     'show'      => true,
@@ -249,6 +262,7 @@ class API_Campaign {
                     'title'     => __("Video Upload", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'button'    => '<i class="fa fa-file"/> '.__('Upload Video', 'wp-crowdfunding'),
+                    'class'     => '',
                     'multiple'  => true,
                     'required'  => false,
                     'show'      => true
@@ -258,6 +272,7 @@ class API_Campaign {
                     'title'     => __("Image Upload *","wp-crowdfunding"),
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
+                    'class'     => '',
                     'value'     => '',
                     'multiple'  => true,
                     'required'  => true,
@@ -267,6 +282,7 @@ class API_Campaign {
                     'type'      => 'range',
                     'title'     => __("Funding Goals *", "wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing", "wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => 30000,
                     'minVal'    => 1,
                     'maxVal'    => 5000000,
@@ -277,17 +293,20 @@ class API_Campaign {
                     'type'      => 'radio',
                     'title'     => __("Funding Type *","wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => '',
                     'options'   => array(
                         array(
                             'value' => 'fixed_funding',
                             'label' => __("Fixed Funding", "wp-crowdfunding"),
                             'desc'  => __("Accept All or Nothing", "wp-crowdfunding"),
+                            'class' => '',
                         ),
                         array(
                             'value' => 'flexible_funding',
                             'label' => __("Flexible Funding", "wp-crowdfunding"),
                             'desc'  => __("Accept if doesnot meet goal", "wp-crowdfunding"),
+                            'class' => '',
                         )
                     ),
                     'required'  => true,
@@ -297,22 +316,26 @@ class API_Campaign {
                     'type'      => 'radio',
                     'title'     => __("Goal Type *","wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => '',
                     'options'   => array(
                         array(
                             'value' => 'target_goal',
                             'label' => __("Target Goal", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
+                            'class' => '',
                         ),
                         array(
                             'value' => 'target_date',
                             'label' => __("Target Date", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
+                            'class' => '',
                         ),
                         array(
                             'value' => 'never_end',
                             'label' => __("Campaign Never End", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
+                            'class' => '',
                         )
                     ),
                     'required'  => false,
@@ -322,18 +345,19 @@ class API_Campaign {
                     'type'          => 'form_group',
                     'title'         => __("Specific Date & Time", "wp-crowdfunding"),
                     'desc'          => __("Max Campaign Duration 60 Days", "wp-crowdfunding"),
+                    'class'         => '',
                     'fields' => array(
                         'start_date' => array(
                             'type'          => 'date',
-                            'class'         => 'col-md-6',
                             'placeholder'   => __("-form-", "wp-crowdfunding"),
+                            'class'         => 'col-md-6',
                             'value'         => '',
                             'required'      => true
                         ),
                         'end_date' => array(
                             'type'          => 'date',
-                            'class'         => 'col-md-6',
                             'placeholder'   => __("-to-", "wp-crowdfunding"),
+                            'class'         => 'col-md-6',
                             'value'         => '',
                             'required'      => true
                         )
@@ -344,6 +368,7 @@ class API_Campaign {
                     'type'      => 'range',
                     'title'     => __("Amount Range *","wp-crowdfunding"),
                     'desc'      => __("You can Fixed a Maximum and Minimum Amount", "wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => '',
                     'minVal'    => 1,
                     'maxVal'    => 5000000,
@@ -354,6 +379,7 @@ class API_Campaign {
                     'type'      => 'text',
                     'title'     => __("Recommended Amount *","wp-crowdfunding"),
                     'desc'      => __("You can Fixed a Maximum Amount","wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => '',
                     'required'  => true,
                     'show'      => true,
@@ -365,11 +391,13 @@ class API_Campaign {
                     'type'      => 'checkbox',
                     'title'     => __("Contributor Table", "wp-crowdfunding"),
                     'desc'      => __("You can make contributors table", "wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => '',
                     'options'   => array(
                         array(
                             'value' => 1,
                             'label' => __("Show contributor table on campaign single page", "wp-crowdfunding"),
+                            'class' => '',
                         )
                     ),
                     'required'  => false,
@@ -377,8 +405,9 @@ class API_Campaign {
                 ),
                 'anonymity' => array(
                     'type'      => 'checkbox',
-                    'title' => __("Contributor Anonymity", "wp-crowdfunding"),
-                    'desc' => __("You can make contributors anonymus visitors will not see the backers", "wp-crowdfunding"),
+                    'title'     => __("Contributor Anonymity", "wp-crowdfunding"),
+                    'desc'      => __("You can make contributors anonymus visitors will not see the backers", "wp-crowdfunding"),
+                    'class'     => '',
                     'value'     => '',
                     'options'   => array(
                         array(
@@ -678,6 +707,7 @@ class API_Campaign {
                 'title'         => __("Title *", "wp-crowdfunding"),
                 'desc'          => __("Briefly describe this reward.", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
+                'class'         => '',
                 'value'         => '',
                 'required'      => true,
                 'show'          => true
@@ -687,6 +717,7 @@ class API_Campaign {
                 'title'         => __("Pledge Amount *", "wp-crowdfunding"),
                 'desc'          => __("Briefly describe this reward.", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
+                'class'         => '',
                 'value'         => '',
                 'required'      => true,
                 'show'          => true
@@ -696,6 +727,7 @@ class API_Campaign {
                 'title'     => __("Rewards Image *","wp-crowdfunding"),
                 'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                 'button'    => '<i class="fa fa-plus"/> '.__('Add Image', 'wp-crowdfunding'),
+                'class'     => '',
                 'value'     => '',
                 'multiple'  => false,
                 'required'  => true,
@@ -706,6 +738,7 @@ class API_Campaign {
                 'title'         => __("Rewards Description *", "wp-crowdfunding"),
                 'desc'          => __("Keep It Short. Just Small Brief About your Project", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
+                'class'         => '',
                 'value'         => '',
                 'required'      => true,
                 'show'          => true,
@@ -714,11 +747,12 @@ class API_Campaign {
                 'type'          => 'form_group',
                 'title'         => __("Estimate Delivery *", "wp-crowdfunding"),
                 'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
+                'class'         => '',
                 'fields' => array(
                     'end_month' => array(
                         'type'          => 'select',
-                        'class'         => 'col-md-7',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
+                        'class'         => 'col-md-7',
                         'value'         => '',
                         'options'       => $month_list,
                         'required'      => true,
@@ -726,8 +760,8 @@ class API_Campaign {
                     ),
                     'end_year' => array(
                         'type'          => 'select',
-                        'class'         => 'col-md-5',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
+                        'class'         => 'col-md-5',
                         'value'         => '',
                         'options'       => $year_list,
                         'required'      => true,
@@ -740,10 +774,12 @@ class API_Campaign {
                 'title'     => __("Rewards Item *", "wp-crowdfunding"),
                 'desc'      => __("Be Specific About What are Included in the Perks", "wp-crowdfunding"),
                 'button'    => '<i class="fa fa-plus"/> '.__('Add More Item', 'wp-crowdfunding'),
+                'class'     => '',
                 'fields'    => array(
                     'name' => array(
                         'type'          => 'text',
                         'placeholder'   => __("", "wp-crowdfunding"),
+                        'class'         => '',
                         'required'      => true,
                         'show'          => true,
                     ),
@@ -758,6 +794,7 @@ class API_Campaign {
                 'title'         => __("Total Number of Rewards *", "wp-crowdfunding"),
                 'desc'          => __("", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
+                'class'         => '',
                 'value'         => '',
                 'required'      => true,
                 'show'          => true
@@ -794,6 +831,7 @@ class API_Campaign {
                 'title'         => __("Email *", "wp-crowdfunding"),
                 'desc'          => __("", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
+                'class'         => '',
                 'value'         => '',
                 'required'      => true,
                 'show'          => true
@@ -803,6 +841,7 @@ class API_Campaign {
                 'title'         => __("Collaborator Name", "wp-crowdfunding"),
                 'desc'          => __("", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
+                'class'         => '',
                 'value'         => '',
                 'required'      => false,
                 'show'          => true
@@ -811,11 +850,13 @@ class API_Campaign {
                 'type'      => 'checkbox',
                 'title'     => __("If you Want to Show Contributor List", "wp-crowdfunding"),
                 'desc'      => __("", "wp-crowdfunding"),
+                'class'     => '',
                 'value'     => '',
                 'options'   => array(
                     array(
                         'value' => 1,
                         'label' => __("Give Permission to Manage Campaign", "wp-crowdfunding"),
+                        'class' => '',
                     )
                 ),
                 'required'  => false,
@@ -825,11 +866,13 @@ class API_Campaign {
                 'type'      => 'checkbox',
                 'title'     => __("If you Want to Show Contributor List", "wp-crowdfunding"),
                 'desc'      => __("", "wp-crowdfunding"),
+                'class'     => '',
                 'value'     => '',
                 'options'   => array(
                     array(
                         'value' => 1,
                         'label' => __("Give Permission to Edit Campaign", "wp-crowdfunding"),
+                        'class' => '',
                     )
                 ),
                 'required'  => false,

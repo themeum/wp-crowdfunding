@@ -33,7 +33,6 @@ export default (props) => {
                                     key={field}
                                     name={`${name}[${selectedItem}].${field}`}
                                     item={rewardFields[key].fields[field]}
-                                    className={rewardFields[key].fields[field].class}
                                     uploadFile={props.uploadFile}
                                     removeArrValue={props.removeArrValue}
                                     component={RenderField}

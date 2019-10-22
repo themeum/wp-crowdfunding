@@ -30,10 +30,6 @@ final class Crowdfunding {
 		require_once WPCF_DIR_PATH.'includes/compatibility/Functions.php'; //require file for compatibility
 		require_once WPCF_DIR_PATH.'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH.'settings/Admin_Menu.php';
-
-		require_once WPCF_DIR_PATH.'includes/REST_API.php';
-		//new \WPCF\REST_API();
-
 		new settings\Admin_Menu();
 	}
 

@@ -9,35 +9,33 @@ const defaultProps = {
     onChangeSelect: () => {},
     uploadFile: () => {},
     removeArrValue: () => {},
-    className: '',
-    fieldValue: ''
+    fieldValue: '',
 };
 
 export default (_props) => {
     const props = {...defaultProps, ..._props};
-    const { input, meta: { touched, error }, item, addTag, onChangeSelect, uploadFile, removeArrValue, className, fieldValue} = props;
+    const { input, meta: { touched, error }, item, addTag, onChangeSelect, uploadFile, removeArrValue, fieldValue} = props;
     
-    console.log(fieldValue);
     switch (item.type) {
         case 'text':
         case 'email':
         case 'number':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     <input {...input} type={item.type} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
         case 'textarea':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     <textarea {...input} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
         case 'select':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     <select {...input} onChange={(e) => { input.onChange(e); onChangeSelect(e); }}>
                         <option value="">{item.placeholder}</option>
                         {item.options.map((option, index) =>
@@ -49,10 +47,10 @@ export default (_props) => {
             );
         case 'radio':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     {item.options.map((option, index) =>
                         <label key={index} className="radio-inline">
-                            <input {...input} type={item.type} value={option.value}/> {option.label} <span>{option.desc}</span>
+                            <input {...input} onChange={(e) => { input.onChange(e); if(input.name==`basic.goal_type`) {props.onChangeGoalType(e)} }} type={item.type} value={option.value}/> {option.label} <span>{option.desc}</span>
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -60,7 +58,7 @@ export default (_props) => {
             );
         case 'checkbox':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     {item.options.map((option, index) =>
                         <label key={index} className="checkbox-inline">
                             <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label}
@@ -71,7 +69,7 @@ export default (_props) => {
             );
         case 'tags':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     {input.value && input.value.map( (item, index) =>
                         <div key={index} onClick={() => removeArrValue(index, input.name, input.value)}>{item.label}</div>
                     )}
@@ -86,7 +84,7 @@ export default (_props) => {
                                 e.target.value = '';
                             }
                         }} />
-                    <div className={className}>
+                    <div className={item.class}>
                         {item.options.map((tag, index) =>
                             <span key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</span>
                         )}
@@ -96,7 +94,7 @@ export default (_props) => {
         case 'image':
         case 'video':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     <div className="wpcf-form-attachments">
                         {input.value && input.value.map( (item, index) =>
                             <div key={index}>{item.name} <span onClick={() => removeArrValue(index, input.name, input.value)} className="fa fa-times"/></div>
@@ -108,7 +106,7 @@ export default (_props) => {
             );
         case 'range':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     <InputRange
                         minValue={item.minVal}
                         maxValue={item.maxVal}
@@ -119,7 +117,7 @@ export default (_props) => {
             );
         case 'date':
             return (
-                <div className={className}>
+                <div className={item.class}>
                     <DatePicker
                         name={input.name}
                         value={input.value}
