@@ -38,9 +38,23 @@ class Base {
         add_filter('admin_footer_text',                 array($this, 'admin_footer_text'), 2); // Footer Text, Asking Rating
         add_action('wp_ajax_wpcf_rated',                array($this, 'admin_footer_text_rated'));
         add_filter('plugin_action_links_'.WPCF_BASENAME,array($this, 'settings_link' ), 10, 5);
+        add_filter('wp_head', array($this, 'wpcf_static_style'));
     }
 
-    
+
+    public function wpcf_static_style() {
+        $skeletonBg = WPCF_DIR_URL.'assets/images/skeleton.gif';
+        echo "
+            <style>
+                .skeleton-parent > *,
+                .skeleton-bg{
+                    background-image: url($skeletonBg);
+                }
+            </style>
+        ";
+    }
+
+
     public function media_pluggable(){
         if (is_user_logged_in()){
             if(is_admin()){
@@ -118,9 +132,10 @@ class Base {
      * @frontend
      */
     public function frontend_script(){
+
         wp_enqueue_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/crowdfunding-front.css', false, WPCF_VERSION );
         wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
-        
+
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
         wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
@@ -128,10 +143,6 @@ class Base {
         wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
         wp_enqueue_media();
     }
-
-
-
-
 
 
 
