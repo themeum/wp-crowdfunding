@@ -84,7 +84,7 @@ class MyCampaigns extends Component {
         const campaignData = this.getCampaignData();
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>My Campaigns</h3>
                 <div>
                     <span className={ (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</span>

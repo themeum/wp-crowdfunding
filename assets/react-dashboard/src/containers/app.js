@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, HashRouter, Route, Link } from "react-router-dom";
+import {HashRouter, Route, NavLink } from "react-router-dom";
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userAction';
 import CampaignReport from './campaignReport';
@@ -19,7 +19,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         const basePath = WPCF.dashboard_url.replace(window.location.origin, '');
-        this.state = { basePath };
+        this.state = { 
+            basePath,
+            myCampainsCollapse: false,
+            userSettingsCollapse: false
+        };
         this.logout = this.logout.bind(this);
     }
 
@@ -62,22 +66,55 @@ class App extends Component {
                             <span>{data.user_email}</span>
                         </div>
                         <ul className="wpcf-dashboard-permalinks">
-                            <li><Link to="/"><span className="fas fa-home wpcf-icon" />Dashboard</Link></li>
-                            <li><Link to="/profile"><span className="far fa-user wpcf-icon" />My Profile</Link>
+                            <li><NavLink exact activeClassName="is-active" to="/"><span className="fas fa-home wpcf-icon" />Dashboard</NavLink></li>
+                            <li><NavLink activeClassName="is-active" to="/profile"><span className="far fa-user wpcf-icon" />My Profile</NavLink>
                             </li>
-                            <li><Link to="/my-campaigns"><span class="far fa-paper-plane wpcf-icon" />My Campaigns</Link>
-                                <ul className="wpcf-dashboard-sub-permalinks">
-                                    <li><Link to="/invested-campaigns">Invested Campaigns</Link></li>
-                                    <li><Link to="/pledge-received">Pledge Received</Link></li>
-                                    <li><Link to="/bookmark-campaigns">Bookmarks</Link></li>
-                                    <li><Link to="/order">Order</Link></li>
-                                    <li><Link to="/withdraw">Withdraw</Link></li>
+                            <li className={(this.state.myCampainsCollapse ? 'collapse' : 'collapsed')}>
+                                <a 
+                                    href="javascript:void(0)"
+                                    onClick={
+                                        () => {
+                                            this.setState({
+                                                myCampainsCollapse : !this.state.myCampainsCollapse
+                                            })
+                                        }
+                                    } 
+                                >
+                                    <span className="far fa-paper-plane wpcf-icon" />
+                                    Campaigns
+                                    <span className={"wpcf-float-icon fas fa-angle-" + (this.state.myCampainsCollapse ? 'up' : 'down')} />
+                                </a>
+                                <ul className=" wpcf-dashboard-sub-permalinks">
+                                    <li><NavLink activeClassName="is-active" to="/my-campaigns">My Campaigns</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/invested-campaigns">Invested Campaigns</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/pledge-received">Pledge Received</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/bookmark-campaigns">Bookmarks</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/order">Order</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/withdraw">Withdraw</NavLink></li>
                                 </ul>
                             </li>
-                            <li><Link to="/settings/profile"><span className="wpcf-icon fas fa-sliders-h"></span>User Settings</Link></li>
-                            <li><Link to="/settings/withdraw">Withdraw Method</Link></li>
-                            <li><Link to="/rewards">Rewards</Link></li>
-                            <li><a href="javascript:void(0)" onClick={this.logout}>Logout</a></li>
+                            <li><NavLink activeClassName="is-active" to="/rewards"><span className="fas fa-gift wpcf-icon"></span>Rewards</NavLink></li>
+                            <li className={(this.state.userSettingsCollapse ? 'collapse' : 'collapsed')}>
+                                <a 
+                                    href="javascript:void(0)"
+                                    onClick={
+                                        () => {
+                                            this.setState({
+                                                userSettingsCollapse : !this.state.userSettingsCollapse
+                                            })
+                                        }
+                                    } 
+                                >
+                                    <span className="wpcf-icon fas fa-sliders-h"></span>
+                                    User Settings
+                                    <span className={"wpcf-float-icon fas fa-angle-" + (this.state.userSettingsCollapse ? 'up' : 'down')} />
+                                </a>
+                                <ul className=" wpcf-dashboard-sub-permalinks">
+                                    <li><NavLink activeClassName="is-active" to="/settings/profile">Profile Settings</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/settings/withdraw">Withdraw Method</NavLink></li>
+                                </ul>
+                            </li>
+                            <li><a href="javascript:void(0)" onClick={this.logout}><span className="wpcf-icon fas fa-sign-out-alt"></span>Logout</a></li>
                         </ul>
                     </div>
                     <div className="wpcf-dashboard-content">
@@ -94,9 +131,9 @@ class App extends Component {
                         <Route path="/bookmark-campaigns" component={BookmarkCampaigns} />
                         <Route path="/order" component={Order} />
                         <Route path="/withdraw" component={Withdraw} />
+                        <Route path="/rewards" component={Rewards} />
                         <Route path="/settings/profile" component={ProfileSettings} />
                         <Route path="/settings/withdraw" component={WithdrawMethodSettings} />
-                        <Route path="/rewards" component={Rewards} />
                     </div>
                 </HashRouter>
             </div>

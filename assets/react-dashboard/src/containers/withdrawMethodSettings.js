@@ -44,7 +44,7 @@ class WithdrawMethodSettings extends Component {
         };
 
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>Select a withdraw method</h3>
                 <div className="wpcf-dashboard-content-inner">
                 { Object.keys(data.methods).length ?

@@ -37,7 +37,7 @@ class BookmarkCampaigns extends Component {
         const { pageOfItems } = this.state;
         
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>Bookmarks</h3>
                 <div className="wpcf-dashboard-content-inner">
                     { campaign.data.length ?

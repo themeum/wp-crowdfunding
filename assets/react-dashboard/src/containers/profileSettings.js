@@ -67,7 +67,7 @@ class ProfileSettings extends Component {
         }
 
         return (
-            <div className="wpcf-dashboard-content">
+            <div>
                 <h3>Profile</h3>
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-profile">
