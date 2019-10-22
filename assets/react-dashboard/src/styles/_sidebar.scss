@@ -1,7 +1,8 @@
 
+@import "sidebar.skeleton";
+
 .wpcf-dashboard-sidebar{
-    border-left: 1px solid var(--wpcf-border-color);
-    border-right: 1px solid var(--wpcf-border-color);
+    border: 1px solid var(--wpcf-border-color);
     .wpcf-dashboard-profile{
         padding: 15px 30px 30px;
         border-bottom: 1px solid var(--wpcf-border-color);
@@ -26,11 +27,21 @@
     }
     .wpcf-dashboard-permalinks{
         margin: 0;
-        padding: 20px 0 20px;
+        padding: 20px 0 0;
         list-style: none;
         font-size: 16px;
+        flex-grow: 1;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        > li:nth-last-child(2){
+            margin-bottom: 90px;
+        }
         > li:last-child{
             margin-top: auto;
+            a{
+                color: var(--wpcf-primary-color);
+            }
         }
         li{
             position: relative;
@@ -40,6 +51,7 @@
                 display: flex;
                 align-items: center;
                 color: var(--wpcf-primary-text-color);
+                text-decoration: none !important;
                 span.wpcf-icon{
                     flex: 0 0 20px;
                     text-align: center;

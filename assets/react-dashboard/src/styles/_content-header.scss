@@ -1,0 +1,15 @@
+.wpcf-content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    .wpcf-btn{
+        margin-left: auto;
+    }
+}
+
+.wpcf-content-heading{
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--wpcf-heading-color);
+}

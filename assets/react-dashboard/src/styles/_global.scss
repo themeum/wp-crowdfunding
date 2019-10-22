@@ -17,6 +17,7 @@ $sidebar_width: 255px;
 .wpcf-dashboard-container{
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 .wpcf-dashboard-sidebar{
     flex: 0 0 $sidebar_width;
@@ -26,4 +27,6 @@ $sidebar_width: 255px;
 .wpcf-dashboard-content{
     flex: 1 0 calc(100% - #{$sidebar_width});
     max-width: calc(100% - #{$sidebar_width});
+    padding-left: 30px;
+    padding-top: 30px;
 }

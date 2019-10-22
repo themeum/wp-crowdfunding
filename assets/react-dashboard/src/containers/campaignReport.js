@@ -5,6 +5,7 @@ import DatePicker from '../components/datePicker';
 import LineGraph from '../components/lineGraph';
 import PledgeReports from '../components/pledgeReports';
 import ExportCSV from '../components/exportCSV';
+import Header from './contentHeader'
 
 class CampaignReport extends Component {
 	constructor (props) {
@@ -61,30 +62,27 @@ class CampaignReport extends Component {
         
         return (
             <div>
-                { (this.props.campaign.name) ?
-                    <h4>Showing Report for {(this.props.campaign.name)} <button onClick={ () => this.props.onClickBack({id:'',name:''}) }>Back</button></h4>
-                    :
-                    <h3>Dashboard</h3>
-                }
+                <Header title={this.props.campaign.name ? ( "Showing Report for " + this.props.campaign.name ) : "Dashboard"}>
+                    {this.props.campaign.name && (
+                        <button className="wpcf-btn wpcf-link-btn" onClick={ () => this.props.onClickBack({id:'',name:''}) }>
+                            <span className="wpcf-icon fas fa-long-arrow-alt-left"></span>
+                            Go Back My Campaigns
+                        </button>
+                    )}
+                </Header>
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-info-cards">
                         <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span>Fund Raised</span>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: fundRaised}} />
-                            </p>
+                            <span>Fund Raised</span>
+                            <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: fundRaised}} />
                         </div>
                         <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span>Funded</span>
-                                <span className="wpcf-dashboard-info-val">{raisedPercent}%</span>
-                            </p>
+                            <span>Funded</span>
+                            <span className="wpcf-dashboard-info-val">{raisedPercent}%</span>
                         </div>
                         <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span>Total Backed</span>
-                                <span className="wpcf-dashboard-info-val">{ totalBacked }</span>
-                            </p>
+                            <span>Total Backed</span>
+                            <span className="wpcf-dashboard-info-val">{ totalBacked }</span>
                         </div>
                     </div>
 

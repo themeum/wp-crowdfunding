@@ -1,0 +1,35 @@
+.wpcf-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    font-size: 16px;
+    position: relative;
+    transition: 300ms;
+    &:not(.wpcf-link-btn){
+        line-height: 26px;
+        height: 40px;
+        padding: 0 25px;
+        background: var(--wpcf-primary-color);
+        border: 1px solid var(--wpcf-primary-color);
+        color: #fff;
+    }
+    &.wpcf-link-btn{
+        color: var(--wpcf-primary-color);
+        padding: 0;
+        background: none;
+        border: none;
+    }
+    &.wpcf-round{
+        border-radius: 30px;
+    }
+    &:hover{
+        filter: brightness(1.1);
+    }
+    .wpcf-icon:not(.wpcf-icon-right){
+        margin-right: 12px;
+    }
+    .wpcf-icon-right{
+        margin-left: 12px;
+    }
+}

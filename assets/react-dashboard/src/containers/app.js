@@ -50,8 +50,23 @@ class App extends Component {
         const { loading, data } = this.props.user;
         if (loading) {
             return (
-                <div>
-                    Loading...
+                <div className="wpcf-dashboard-container is-skeleton">
+                    <div className="wpcf-dashboard-sidebar">
+                        <div className="wpcf-dashboard-profile skeleton-parent">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <ul className="wpcf-dashboard-permalinks skeleton-parent">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div className="wpcf-dashboard-content"></div>
                 </div>
             )
         };
@@ -118,11 +133,6 @@ class App extends Component {
                         </ul>
                     </div>
                     <div className="wpcf-dashboard-content">
-                        <div className="wpcf-dashboard-header-button">
-                            <a className="wpcf-btn bordered-btn" href="#">
-                                <i className="wpcf-icon-checkbox-pen-outline"></i> &nbsp; Create Campaign
-                            </a>
-                        </div>
                         <Route path="/" exact component={CampaignReport} />
                         <Route path="/profile" component={Profile} />
                         <Route path="/my-campaigns" component={MyCampaigns} />

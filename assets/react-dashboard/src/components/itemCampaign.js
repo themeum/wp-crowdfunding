@@ -2,6 +2,7 @@ import React from 'react';
 
 export default (props) => {
     const { data } = props;
+    console.log(data)
     return (
         <div className="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
             <div className="wpneo-listing-img">
@@ -17,7 +18,7 @@ export default (props) => {
 
             <div className="wpneo-listing-content clearfix">
                 <div className="wpneo-admin-title float-left">
-                    <h4><a href="<?php  echo get_permalink(); ?> ">{ data.title }</a></h4>
+                    <h4><a href={data.permalink}>{ data.title }</a></h4>
                     <p className="wpneo-author">by <a href="javascript:void(0)">{ data.author_name }</a> </p>
                     <div className="wpneo-location">
                         <i className="wpneo-icon wpneo-icon-location"></i>
