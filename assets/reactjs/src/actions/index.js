@@ -55,7 +55,7 @@ export const fetchTeamFields = () => dispatch => {
     .catch( error => console.log(error) );
 }
 
-//FETCH FORM TAGS
+//FETCH SUB CATEGORIES BY CATEGORY
 export const FETCH_SUB_CATEGORIES_COMPLETE = 'fetch_sub_categories_complete';
 export const fetchSubCategories = (id) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/sub-categories?id=${id}`;
@@ -66,8 +66,7 @@ export const fetchSubCategories = (id) => dispatch => {
     .catch( error => console.log(error) );
 }
 
-
-//FETCH FORM TAGS
+//FETCH STATES BY CODE
 export const FETCH_STATES_COMPLETE = 'fetch_states_complete';
 export const fetchStates = (code) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/states?code=${code}`;

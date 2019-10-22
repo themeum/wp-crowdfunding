@@ -9,15 +9,12 @@ class DatePicker extends Component {
     }
     
     componentDidMount() {
-        const { name, onChange, format } = this.props;
+        const { onChange, format } = this.props;
         const inputRef = this.inputRef.current;
         $(inputRef).datepicker({
             dateFormat: format,
             onSelect: value => {
-                const obj = {
-                    target: { name, value}
-                }
-                onChange( obj );
+                onChange( value );
             }
         });
     }
