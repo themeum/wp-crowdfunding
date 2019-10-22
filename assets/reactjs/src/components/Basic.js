@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { required, notRequred, uploadFiles, removeArrValue } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import { fetchSubCategories, fetchStates } from '../actions';
+import { fetchSubCategories, fetchStates, fieldShowHide } from '../actions';
 import RenderField from './fields/Single';
 import RenderRepeatableFields from './fields/Repeatable';
 import PreviewBasic from './preview/Basic';
@@ -16,15 +16,10 @@ class Basic extends Component {
         super(props);
         this.state = { sectionActive: 0 };
         this._onChangeSelect = this._onChangeSelect.bind(this);
+        this._onChangeGoalType = this._onChangeGoalType.bind(this);
         this._addTag = this._addTag.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
-    }
-
-    componentDidUpdate() {
-        const { formValues } =  this.props;
-        const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
-        //input.name== `${basicSeciton}.goal_type` && fieldValue=="target_date" &&
     }
 
     _onChangeSelect(e) {
@@ -36,6 +31,13 @@ class Basic extends Component {
             this.props.fetchStates(value);
             this.props.changeFieldValue(formName, `${sectionName}.state`, null);
         }
+    }
+
+    _onChangeGoalType(e) {
+        const { value } = e.target;
+        const field = 'media.if_target_date';
+        const show = (value=='target_date') ? true : false;
+        this.props.fieldShowHide(field, show);
     }
 
     _addTag(tag, field, selectedTags) {
@@ -74,7 +76,7 @@ class Basic extends Component {
                                         </div>
                                         <div className='wpcf-accordion-details' style={ index == sectionActive ? { display: 'block' } : { display: 'none' } } >
                                             {Object.keys(fields[section]).map( field =>
-                                                <div key={field} className='wpcf-form-field' style={{ display: field.show ? 'block' : 'none' }}>
+                                                <div key={field} className='wpcf-form-field' style={{ display: fields[section][field].show ? 'block' : 'none' }}>
                                                     <div className='wpcf-field-title'>{fields[section][field].title}</div>
                                                     <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
 
@@ -84,8 +86,7 @@ class Basic extends Component {
                                                                 <Field
                                                                     key={key}
                                                                     name={key}
-                                                                    item={fields[section][field].fields[field]}
-                                                                    className={fields[section][field].fields[key].class}
+                                                                    item={fields[section][field].fields[key]}
                                                                     component={RenderField}
                                                                     validate={[fields[section][field].fields[key].required ? required : notRequred]}/>
                                                             )}
@@ -104,10 +105,10 @@ class Basic extends Component {
                                                             item={fields[section][field]}
                                                             addTag={this._addTag}
                                                             onChangeSelect={this._onChangeSelect}
+                                                            onChangeGoalType={this._onChangeGoalType}
                                                             uploadFile={this._uploadFile}
                                                             removeArrValue={this._removeArrValue}
                                                             component={RenderField}
-                                                            fieldValue={ basicValues[field] ? basicValues[field] : ''}
                                                             validate={[fields[section][field].required ? required : notRequred]}/>
                                                     }
                                                 </div>
@@ -146,6 +147,7 @@ const mapDispatchToProps = dispatch => {
         changeFieldValue,
         fetchSubCategories,
         fetchStates,
+        fieldShowHide
     }, dispatch);
 }
 

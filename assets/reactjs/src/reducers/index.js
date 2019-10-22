@@ -6,6 +6,7 @@ import {
     FETCH_FORM_TEAM_FIELDS_COMPLETE,
     FETCH_SUB_CATEGORIES_COMPLETE,
     FETCH_STATES_COMPLETE,
+    FIELD_SHOW_HIDE,
 } from "../actions";
 
 export default function(state = { loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{} }, action ) {
@@ -55,7 +56,20 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 ...state,
                 formFields,
             };
-        default: 
+        case FIELD_SHOW_HIDE:
+            const fFields = {...state.formFields};
+            let { field, show } = action.payload;
+            field = multiIndex(fFields, field);
+            field.show = show;
+            return {
+                ...state,
+                formFields: fFields,
+            };
+        default:
             return state;
     }
+}
+
+const multiIndex = (obj, is) => {
+    return is.length ? multiIndex(obj[is[0]], is.slice(1)) : obj;
 }

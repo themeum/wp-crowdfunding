@@ -79,6 +79,13 @@ export const fetchStates = (code) => dispatch => {
 }
 
 
+//FORM FIELD SHOW HIDE
+export const FIELD_SHOW_HIDE = 'field_show_hide';
+export const fieldShowHide = (field, show) => dispatch => {
+    field = field.split('.');
+    dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
+}
+
 //Submit Campaign
 export const submitCampaign = values => {
     console.log(values);
