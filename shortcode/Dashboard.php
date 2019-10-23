@@ -40,7 +40,8 @@ class Dashboard {
                 'assets'        => WPCF_DIR_URL.'assets/',
                 'ajax_url'      => admin_url( 'admin-ajax.php' ),
                 'rest_url'      => rest_url( $api_namespace ),
-                'nonce'         => wp_create_nonce( 'wpcf_api_nonce' )
+                'nonce'         => wp_create_nonce( 'wpcf_api_nonce' ),
+                'wc_currency_symbol' => get_woocommerce_currency_symbol()
             ) );
         }
 

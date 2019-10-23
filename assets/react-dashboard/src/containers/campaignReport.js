@@ -59,7 +59,7 @@ class CampaignReport extends Component {
                 </div>
             )
         };
-        
+
         return (
             <div>
                 <Header title={this.props.campaign.name ? ( "Showing Report for " + this.props.campaign.name ) : "Dashboard"}>
@@ -74,7 +74,7 @@ class CampaignReport extends Component {
                     <div className="wpcf-dashboard-info-cards">
                         <div className="wpcf-dashboard-info-card">
                             <span>Fund Raised</span>
-                            <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: fundRaised}} />
+                            <span className="wpcf-dashboard-info-val" >{WPCF.wc_currency_symbol + fundRaised}</span>
                         </div>
                         <div className="wpcf-dashboard-info-card">
                             <span>Funded</span>

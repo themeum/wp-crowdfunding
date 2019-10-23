@@ -1,1 +1,6 @@
-.wpcf-dashboard-info-cards{}
+.wpcf-dashboard-info-cards{
+    display: flex;
+    .wpcf-dashboard-info-card{
+        width: 28%;
+    }
+}

@@ -214,7 +214,7 @@ class API_Dashboard {
             'csv'           => $csv,
             'format'        => $format,
             'label'         => $label,
-            'fundRaised'    => wc_price( $fund_raised ),
+            'fundRaised'    => $fund_raised,
             'raisedPercent' => $total_goals > 0 ? round( ($fund_raised*100) / $total_goals, 2) : 0,
             'totalBacked'   => $total_backed,
             'pledges'       => $pledges
