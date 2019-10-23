@@ -17,8 +17,6 @@ export default (props) => {
                             key={key}
                             name={`${field}.${key}`}
                             item={item.fields[key]}
-                            uploadFile={props.uploadFile}
-                            removeArrValue={props.removeArrValue}
                             component={RenderField}
                             validate={[item.fields[key].required ? required : notRequred]}/>
                     )}

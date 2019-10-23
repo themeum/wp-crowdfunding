@@ -56,8 +56,8 @@ class API_Campaign {
             register_rest_route( $namespace, '/team-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
             ));
-            register_rest_route( $namespace, '/form-saved-data', array(
-                array( 'methods' => $method_creatable, 'callback' => array($this, 'form_saved_data') ),
+            register_rest_route( $namespace, '/save-campaign', array(
+                array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
             ));
         });
     }
@@ -881,6 +881,25 @@ class API_Campaign {
         );
 
         return array_merge($default_fields, $fields);
+    }
+
+
+    /**
+     * Save campagin data
+     * @since     2.1.0
+     * @access    public
+     * @param     {object}  request
+     * @return    [array]   mixed
+     */
+    function save_campaign( \WP_REST_Request $request ) {
+        $json_params = $request->get_json_params();
+        echo "<pre>";
+        print_r($json_params);
+
+        return rest_ensure_response(array(
+            'success'   => 0,
+            'msg'       => __('Amount must be greater than 0', 'wp-crowdfunding-pro')
+        ));
     }
 
 }

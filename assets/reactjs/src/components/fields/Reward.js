@@ -44,8 +44,6 @@ export default (props) => {
                         <FieldArray
                             name={`${name}[${selectedItem}].${key}`}
                             item={rewardFields[key]}
-                            uploadFile={uploadFile}
-                            removeArrValue={removeArrValue}
                             component={RenderRepeatableFields}/>
                     :
                         <Field

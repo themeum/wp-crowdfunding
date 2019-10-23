@@ -72,47 +72,48 @@ class Basic extends Component {
                                 {Object.keys(fields).map( (section, index) =>
                                     <div key={section} className='wpcf-accordion'>
                                         <div className={`wpcf-accordion-title ${index == sectionActive ? 'active' : ''}`} onClick={ () => this.setState({sectionActive:index}) }>
-                                            {section.replace('_', ' ')}
+                                            { section.replace('_', ' ') }
                                         </div>
-                                        <div className='wpcf-accordion-details' style={ index == sectionActive ? { display: 'block' } : { display: 'none' } } >
+                                        <div className='wpcf-accordion-details' style={{ display: (index==sectionActive) ? 'block' : 'none' }}>
                                             {Object.keys(fields[section]).map( field =>
-                                                <div key={field} className='wpcf-form-field' style={{ display: fields[section][field].show ? 'block' : 'none' }}>
-                                                    <div className='wpcf-field-title'>{fields[section][field].title}</div>
-                                                    <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
+                                                fields[section][field].show && (
+                                                    <div key={field} className='wpcf-form-field'>
+                                                        <div className='wpcf-field-title'>{fields[section][field].title}</div>
+                                                        <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
 
-                                                    { fields[section][field].type == 'form_group' ?
-                                                        <div className="form-group">
-                                                            {Object.keys(fields[section][field].fields).map( key =>
-                                                                <Field
-                                                                    key={key}
-                                                                    name={key}
-                                                                    item={fields[section][field].fields[key]}
-                                                                    component={RenderField}
-                                                                    validate={[fields[section][field].fields[key].required ? required : notRequred]}/>
-                                                            )}
-                                                        </div>
+                                                        { fields[section][field].type == 'form_group' ?
+                                                            <div className="form-group">
+                                                                {Object.keys(fields[section][field].fields).map( key =>
+                                                                    <Field
+                                                                        key={key}
+                                                                        name={key}
+                                                                        item={fields[section][field].fields[key]}
+                                                                        fieldValue={basicValues[key] ? basicValues[key] : ''}
+                                                                        component={RenderField}
+                                                                        validate={[fields[section][field].fields[key].required ? required : notRequred]}/>
+                                                                )}
+                                                            </div>
 
-                                                    : fields[section][field].type == 'repeatable' ?
-                                                        <FieldArray
-                                                            name={field}
-                                                            item={fields[section][field]}
-                                                            uploadFile={this._uploadFile}
-                                                            removeArrValue={this._removeArrValue}
-                                                            component={RenderRepeatableFields}/>
+                                                        : fields[section][field].type == 'repeatable' ?
+                                                            <FieldArray
+                                                                name={field}
+                                                                item={fields[section][field]}
+                                                                component={RenderRepeatableFields}/>
 
-                                                    :   <Field
-                                                            name={field}
-                                                            item={fields[section][field]}
-                                                            addTag={this._addTag}
-                                                            onChangeSelect={this._onChangeSelect}
-                                                            onChangeGoalType={this._onChangeGoalType}
-                                                            uploadFile={this._uploadFile}
-                                                            removeArrValue={this._removeArrValue}
-                                                            component={RenderField}
-                                                            validate={[fields[section][field].required ? required : notRequred]}/>
-                                                    }
-                                                </div>
-                                            )}
+                                                        :   <Field
+                                                                name={field}
+                                                                item={fields[section][field]}
+                                                                addTag={this._addTag}
+                                                                onChangeSelect={this._onChangeSelect}
+                                                                onChangeGoalType={this._onChangeGoalType}
+                                                                uploadFile={this._uploadFile}
+                                                                removeArrValue={this._removeArrValue}
+                                                                fieldValue={basicValues[field] ? basicValues[field] : ''}
+                                                                component={RenderField}
+                                                                validate={[fields[section][field].required ? required : notRequred]}/>
+                                                        }
+                                                    </div>
+                                                ))}
                                         </div>
                                     </div>
                                 )}
@@ -127,7 +128,12 @@ class Basic extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title">Preview</div>
-                        <PreviewBasic data={basicValues}/>
+                        { sectionActive==2 ?
+                            <PreviewBasic data={basicValues}/>
+                        :   <div>
+                                Nothing to See here
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

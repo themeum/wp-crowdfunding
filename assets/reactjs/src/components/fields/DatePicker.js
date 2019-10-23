@@ -11,13 +11,14 @@ class DatePicker extends Component {
     componentDidMount() {
         const { onChange, format } = this.props;
         const inputRef = this.inputRef.current;
-        $(inputRef).datepicker({
+        jQuery(inputRef).datepicker({
             dateFormat: format,
             onSelect: value => {
                 onChange( value );
             }
         });
     }
+    
     render() {
         const { name, value, placeholder } = this.props;
         return (
