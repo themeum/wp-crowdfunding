@@ -58,6 +58,7 @@ class Team extends Component {
 								</div>
 							</div>
 						</div>
+						
 						<div className="wpcf-team-members">
 							<h3>Team Members</h3>
 							{team && team.map((item, index) =>

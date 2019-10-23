@@ -89,8 +89,8 @@ class Basic extends Component {
                                                                         name={key}
                                                                         item={fields[section][field].fields[key]}
                                                                         fieldValue={basicValues[key] ? basicValues[key] : ''}
-                                                                        component={RenderField}
-                                                                        validate={[fields[section][field].fields[key].required ? required : notRequred]}/>
+                                                                        validate={[fields[section][field].fields[key].required ? required : notRequred]}
+                                                                        component={RenderField}/>
                                                                 )}
                                                             </div>
 
@@ -109,8 +109,8 @@ class Basic extends Component {
                                                                 uploadFile={this._uploadFile}
                                                                 removeArrValue={this._removeArrValue}
                                                                 fieldValue={basicValues[field] ? basicValues[field] : ''}
-                                                                component={RenderField}
-                                                                validate={[fields[section][field].required ? required : notRequred]}/>
+                                                                validate={[fields[section][field].required ? required : notRequred]}
+                                                                component={RenderField}/>
                                                         }
                                                     </div>
                                                 ))}

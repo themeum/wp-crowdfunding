@@ -17,8 +17,8 @@ export default (props) => {
                             key={key}
                             name={`${field}.${key}`}
                             item={item.fields[key]}
-                            component={RenderField}
-                            validate={[item.fields[key].required ? required : notRequred]}/>
+                            validate={[item.fields[key].required ? required : notRequred]}
+                            component={RenderField}/>
                     )}
                     { index !== 0 &&
                         <span onClick={() => fields.remove(index)} className="fa fa-times"/>

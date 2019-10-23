@@ -35,8 +35,8 @@ export default (props) => {
                                     item={rewardFields[key].fields[field]}
                                     uploadFile={props.uploadFile}
                                     removeArrValue={props.removeArrValue}
-                                    component={RenderField}
-                                    validate={[rewardFields[key].fields[field].required ? required : notRequred]}/>
+                                    validate={[rewardFields[key].fields[field].required ? required : notRequred]}
+                                    component={RenderField}/>
                             )}
                         </div>
 
@@ -51,8 +51,8 @@ export default (props) => {
                             item={rewardFields[key]}
                             uploadFile={uploadFile}
                             removeArrValue={removeArrValue}
-                            component={RenderField}
-                            validate={[rewardFields[key].required ? required : notRequred]}/>
+                            validate={[rewardFields[key].required ? required : notRequred]}
+                            component={RenderField}/>
                     }
                 </div>
             )}
