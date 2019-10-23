@@ -120,7 +120,7 @@ export default (_props) => {
                     <DatePicker
                         name={input.name}
                         value={input.value}
-                        onChange={input.onChange} 
+                        onChange={input.onChange}
                         placeholder={item.placeholder}
                         format="yy-mm-dd"
                     />

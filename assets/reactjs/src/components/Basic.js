@@ -69,51 +69,58 @@ class Basic extends Component {
                     <form onSubmit={handleSubmit}>
                         <FormSection name={sectionName}>
                             <div className='wpcf-accordion-wrapper'>
-                                {Object.keys(fields).map( (section, index) =>
+                            {Object.keys(fields).map( (section, index) =>
                                     <div key={section} className='wpcf-accordion'>
                                         <div className={`wpcf-accordion-title ${index == sectionActive ? 'active' : ''}`} onClick={ () => this.setState({sectionActive:index}) }>
                                             { section.replace('_', ' ') }
                                         </div>
                                         <div className='wpcf-accordion-details' style={{ display: (index==sectionActive) ? 'block' : 'none' }}>
-                                            {Object.keys(fields[section]).map( field =>
-                                                fields[section][field].show && (
-                                                    <div key={field} className='wpcf-form-field'>
-                                                        <div className='wpcf-field-title'>{fields[section][field].title}</div>
-                                                        <div className='wpcf-field-desc'>{fields[section][field].desc}</div>
+                                            {Object.keys(fields[section]).map( key => {
+                                                const field = fields[section][key];
+                                                if(field.show) {
+                                                    return (
+                                                        <div key={key} className='wpcf-form-field'>
+                                                            <div className='wpcf-field-title'>{field.title}</div>
+                                                            <div className='wpcf-field-desc'>{field.desc}</div>
 
-                                                        { fields[section][field].type == 'form_group' ?
-                                                            <div className="form-group">
-                                                                {Object.keys(fields[section][field].fields).map( key =>
-                                                                    <Field
-                                                                        key={key}
-                                                                        name={key}
-                                                                        item={fields[section][field].fields[key]}
-                                                                        fieldValue={basicValues[key] ? basicValues[key] : ''}
-                                                                        validate={[fields[section][field].fields[key].required ? required : notRequred]}
-                                                                        component={RenderField}/>
-                                                                )}
-                                                            </div>
+                                                            { field.type == 'form_group' ?
+                                                                <div className="form-group">
+                                                                    {Object.keys(field.fields).map( key => {
+                                                                        const gField = field.fields[key];
+                                                                        return (
+                                                                            <Field
+                                                                                key={key}
+                                                                                name={key}
+                                                                                item={gField}
+                                                                                fieldValue={basicValues[key]? basicValues[key] : ''}
+                                                                                validate={[gField.required ? required : notRequred]}
+                                                                                component={RenderField}/>
+                                                                            )
+                                                                    })}
+                                                                </div>
 
-                                                        : fields[section][field].type == 'repeatable' ?
-                                                            <FieldArray
-                                                                name={field}
-                                                                item={fields[section][field]}
-                                                                component={RenderRepeatableFields}/>
+                                                            : field.type == 'repeatable' ?
+                                                                <FieldArray
+                                                                    name={key}
+                                                                    item={field}
+                                                                    component={RenderRepeatableFields}/>
 
-                                                        :   <Field
-                                                                name={field}
-                                                                item={fields[section][field]}
-                                                                addTag={this._addTag}
-                                                                onChangeSelect={this._onChangeSelect}
-                                                                onChangeGoalType={this._onChangeGoalType}
-                                                                uploadFile={this._uploadFile}
-                                                                removeArrValue={this._removeArrValue}
-                                                                fieldValue={basicValues[field] ? basicValues[field] : ''}
-                                                                validate={[fields[section][field].required ? required : notRequred]}
-                                                                component={RenderField}/>
-                                                        }
-                                                    </div>
-                                                ))}
+                                                            :   <Field
+                                                                    name={key}
+                                                                    item={field}
+                                                                    addTag={this._addTag}
+                                                                    onChangeSelect={this._onChangeSelect}
+                                                                    onChangeGoalType={this._onChangeGoalType}
+                                                                    uploadFile={this._uploadFile}
+                                                                    removeArrValue={this._removeArrValue}
+                                                                    fieldValue={basicValues[key] ? basicValues[key] : ''}
+                                                                    validate={[field.required ? required : notRequred]}
+                                                                    component={RenderField}/>
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                            })}
                                         </div>
                                     </div>
                                 )}

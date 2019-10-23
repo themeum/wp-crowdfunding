@@ -22,40 +22,48 @@ export default (props) => {
                     )}
                 </div>
             }
-            {Object.keys(rewardFields).map( key =>
-                <div key={key} className='wpcf-form-field'>
-                    <div className='wpcf-field-title'>{rewardFields[key].title}</div>
-                    <div className='wpcf-field-desc'>{rewardFields[key].desc}</div>
-                    { rewardFields[key].type == 'form_group' ?
-                        <div className="form-group">
-                            {Object.keys(rewardFields[key].fields).map( field =>
-                                <Field
-                                    key={field}
-                                    name={`${name}[${selectedItem}].${field}`}
-                                    item={rewardFields[key].fields[field]}
-                                    uploadFile={props.uploadFile}
-                                    removeArrValue={props.removeArrValue}
-                                    validate={[rewardFields[key].fields[field].required ? required : notRequred]}
-                                    component={RenderField}/>
-                            )}
-                        </div>
+            {Object.keys(rewardFields).map( key => {
+                const field = rewardFields[key];
+                const fname = `${name}[${selectedItem}].${key}`;
+                return (
+                    <div key={key} className='wpcf-form-field'>
+                        <div className='wpcf-field-title'>{field.title}</div>
+                        <div className='wpcf-field-desc'>{field.desc}</div>
+                        { field.type == 'form_group' ?
+                            <div className="form-group">
+                                {Object.keys(field.fields).map( key => {
+                                    const gField = field.fields[key];
+                                    const gName = `${name}[${selectedItem}].${key}`;
+                                    return (
+                                        <Field
+                                            key={key}
+                                            name={gName}
+                                            item={gField}
+                                            uploadFile={props.uploadFile}
+                                            removeArrValue={props.removeArrValue}
+                                            validate={[gField.required ? required : notRequred]}
+                                            component={RenderField}/>
+                                    )
+                                })}
+                            </div>
 
-                    : rewardFields[key].type == 'repeatable' ?
-                        <FieldArray
-                            name={`${name}[${selectedItem}].${key}`}
-                            item={rewardFields[key]}
-                            component={RenderRepeatableFields}/>
-                    :
-                        <Field
-                            name={`${name}[${selectedItem}].${key}`}
-                            item={rewardFields[key]}
-                            uploadFile={uploadFile}
-                            removeArrValue={removeArrValue}
-                            validate={[rewardFields[key].required ? required : notRequred]}
-                            component={RenderField}/>
-                    }
-                </div>
-            )}
+                        : field.type == 'repeatable' ?
+                            <FieldArray
+                                item={field}
+                                name={fname}
+                                component={RenderRepeatableFields}/>
+                        :
+                            <Field
+                                item={field}
+                                name={fname}
+                                uploadFile={uploadFile}
+                                removeArrValue={removeArrValue}
+                                validate={[field.required ? required : notRequred]}
+                                component={RenderField}/>
+                        }
+                    </div>
+                )
+            })}
         </div>
     )
 }
