@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Field, FieldArray } from 'redux-form';
-import { required, notRequred  } from '../../Helper';
+import { required  } from '../../Helper';
 import RenderField from './Single';
 import RenderRepeatableFields from './Repeatable';
 
@@ -25,6 +25,7 @@ export default (props) => {
             {Object.keys(rewardFields).map( key => {
                 const field = rewardFields[key];
                 const fname = `${name}[${selectedItem}].${key}`;
+                const validate = field.required ? [required] : [];
                 return (
                     <div key={key} className='wpcf-form-field'>
                         <div className='wpcf-field-title'>{field.title}</div>
@@ -34,6 +35,7 @@ export default (props) => {
                                 {Object.keys(field.fields).map( key => {
                                     const gField = field.fields[key];
                                     const gName = `${name}[${selectedItem}].${key}`;
+                                    const gValidate = gField.required ? [required] : [];
                                     return (
                                         <Field
                                             key={key}
@@ -41,7 +43,7 @@ export default (props) => {
                                             item={gField}
                                             uploadFile={props.uploadFile}
                                             removeArrValue={props.removeArrValue}
-                                            validate={[gField.required ? required : notRequred]}
+                                            validate={gValidate}
                                             component={RenderField}/>
                                     )
                                 })}
@@ -58,7 +60,7 @@ export default (props) => {
                                 name={fname}
                                 uploadFile={uploadFile}
                                 removeArrValue={removeArrValue}
-                                validate={[field.required ? required : notRequred]}
+                                validate={validate}
                                 component={RenderField}/>
                         }
                     </div>

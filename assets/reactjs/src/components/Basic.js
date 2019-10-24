@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { required, notRequred, uploadFiles, removeArrValue } from '../Helper';
+import { required, uploadFiles, removeArrValue } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
 import { fetchSubCategories, fetchStates, fieldShowHide } from '../actions';
 import RenderField from './fields/Single';
@@ -49,8 +49,13 @@ class Basic extends Component {
     }
 
     _uploadFile(type, field, sFiles, multiple) {
+        const { formValues: { basic } } =  this.props;
+        let media = [ ...basic.media ];
         uploadFiles(type, sFiles, multiple).then( (files) => {
             this.props.changeFieldValue(formName, field, files);
+
+            media.push(files);
+            this.props.changeFieldValue(formName, `${sectionName}.media`, media);
         });
     }
 
@@ -77,6 +82,7 @@ class Basic extends Component {
                                         <div className='wpcf-accordion-details' style={{ display: (index==sectionActive) ? 'block' : 'none' }}>
                                             {Object.keys(fields[section]).map( key => {
                                                 const field = fields[section][key];
+                                                const validate = field.required ? [required] : [];
                                                 if(field.show) {
                                                     return (
                                                         <div key={key} className='wpcf-form-field'>
@@ -87,13 +93,14 @@ class Basic extends Component {
                                                                 <div className="form-group">
                                                                     {Object.keys(field.fields).map( key => {
                                                                         const gField = field.fields[key];
+                                                                        const gValidate = gField.required ? [required] : [];
                                                                         return (
                                                                             <Field
                                                                                 key={key}
                                                                                 name={key}
                                                                                 item={gField}
                                                                                 fieldValue={basicValues[key]? basicValues[key] : ''}
-                                                                                validate={[gField.required ? required : notRequred]}
+                                                                                validate={gValidate}
                                                                                 component={RenderField}/>
                                                                             )
                                                                     })}
@@ -114,7 +121,7 @@ class Basic extends Component {
                                                                     uploadFile={this._uploadFile}
                                                                     removeArrValue={this._removeArrValue}
                                                                     fieldValue={basicValues[key] ? basicValues[key] : ''}
-                                                                    validate={[field.required ? required : notRequred]}
+                                                                    validate={validate}
                                                                     component={RenderField}/>
                                                             }
                                                         </div>
@@ -151,7 +158,7 @@ class Basic extends Component {
 const mapStateToProps = state => ({
     fields: state.data.formFields,
     formValues: getFormValues(formName)(state),
-    initialValues: { basic: {goal: 1, amount_range: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] }
+    initialValues: { basic: {media:[], goal: 1, amount_range: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] }
 });
 
 const mapDispatchToProps = dispatch => {
