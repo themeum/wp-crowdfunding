@@ -20,6 +20,7 @@ class Campaign_Submit_Form {
             wp_localize_script( 'wpcf-campaign-script', 'WPCF', array (
                 'assets'        => WPCF_DIR_URL.'assets/',
                 'rest_url'      => rest_url( $api_namespace ),
+                'currency'      => get_woocommerce_currency_symbol(),
                 'nonce'         => wp_create_nonce( 'wpcf_form_nonce' )
             ) );
         }

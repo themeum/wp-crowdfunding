@@ -104,14 +104,15 @@ export default (_props) => {
                 </div>
             );
         case 'range':
+            const rangeVal = (typeof fieldValue == 'object') ? `${fieldValue.min} - ${fieldValue.max}` : fieldValue;
             return (
                 <div className={item.class}>
                     <InputRange
                         minValue={item.minVal}
                         maxValue={item.maxVal}
                         value={input.value}
-                        onChange={input.onChange} />
-                    <div className="">{}</div>
+                        onChange={input.onChange}/>
+                    <div>{rangeVal} <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/></div>
                 </div>
             );
         case 'date':
