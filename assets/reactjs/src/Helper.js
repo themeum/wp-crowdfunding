@@ -1,5 +1,5 @@
 export const required = value => value ? undefined : 'Required';
-export const isYoutubeUrl = value => value && getYotubeVideoID(value) ? undefined : 'Url not valid';
+export const isYoutubeUrl = value => !value ? undefined : value && getYotubeVideoID(value) ? undefined : 'Url not valid';
 
 export const uploadFiles = (type, sFiles, multiple) => {
     return new Promise((resolve, reject) => {

@@ -263,6 +263,7 @@ class API_Campaign {
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
                     'button'    => '<i class="fa fa-file"/> '.__('Upload Video', 'wp-crowdfunding'),
                     'class'     => '',
+                    'is_media'  => true,
                     'multiple'  => true,
                     'required'  => false,
                     'show'      => true
@@ -274,6 +275,7 @@ class API_Campaign {
                     'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
                     'class'     => '',
                     'value'     => '',
+                    'is_media'  => true,
                     'multiple'  => true,
                     'required'  => true,
                     'show'      => true

@@ -17,9 +17,10 @@ class Basic extends Component {
         this.state = { sectionActive: 0 };
         this._onChangeSelect = this._onChangeSelect.bind(this);
         this._onChangeGoalType = this._onChangeGoalType.bind(this);
-        this._addTag = this._addTag.bind(this);
-        this._uploadFile = this._uploadFile.bind(this);
+        this._onChangeVideoLink = this._onChangeVideoLink.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
+        this._uploadFile = this._uploadFile.bind(this);
+        this._addTag = this._addTag.bind(this);
     }
 
     _onChangeSelect(e) {
@@ -40,28 +41,48 @@ class Basic extends Component {
         this.props.fieldShowHide(field, show);
     }
 
+    _onChangeVideoLink(e) {
+        const { value } = e.target;
+        const { formValues: { basic } } =  this.props;
+        let media = [ ...basic.media ];
+    }
+
+    _removeArrValue(index, field, values) {
+        values = removeArrValue(values, index);
+        this.props.changeFieldValue(formName, field, values);
+    }
+
+    _uploadFile(type, field, sFiles, multiple, is_media) {
+        const { formValues: { basic } } =  this.props;
+        let media = [ ...basic.media ];
+        uploadFiles(type, sFiles, multiple).then( (files) => {
+            this.props.changeFieldValue(formName, field, files);
+            if(is_media) {
+                console.log('media', media);
+                console.log('files', files);
+                files.map((item, i) => {
+                    const index = media.findIndex(i => i.id === item.id);
+                    if(index === -1) {
+                        media.push(item);
+                    }
+                })
+                media.map((item, i) => {
+                    const index = files.findIndex(i => i.id === item.id);
+                    if(index === -1) {
+                        media.splice(i, 1)
+                    }
+                })
+                this.props.changeFieldValue(formName, `${sectionName}.media`, media);
+            }
+        });
+    }
+
     _addTag(tag, field, selectedTags) {
         selectedTags = [...selectedTags];
         if( selectedTags.findIndex( item => item.value == tag.value) === -1 ) {
             selectedTags.push(tag);
             this.props.changeFieldValue(formName, field, [...selectedTags]);
         }
-    }
-
-    _uploadFile(type, field, sFiles, multiple) {
-        const { formValues: { basic } } =  this.props;
-        let media = [ ...basic.media ];
-        uploadFiles(type, sFiles, multiple).then( (files) => {
-            this.props.changeFieldValue(formName, field, files);
-
-            media.push(files);
-            this.props.changeFieldValue(formName, `${sectionName}.media`, media);
-        });
-    }
-
-    _removeArrValue(index, field, values) {
-        values = removeArrValue(values, index);
-        this.props.changeFieldValue(formName, field, values);
     }
 
     render() {
@@ -99,7 +120,7 @@ class Basic extends Component {
                                                                                 key={key}
                                                                                 name={key}
                                                                                 item={gField}
-                                                                                fieldValue={basicValues[key]? basicValues[key] : ''}
+                                                                                fieldValue={basicValues[key] || ''}
                                                                                 validate={gValidate}
                                                                                 component={RenderField}/>
                                                                             )
@@ -110,6 +131,7 @@ class Basic extends Component {
                                                                 <FieldArray
                                                                     name={key}
                                                                     item={field}
+                                                                    onChangeVideoLink={this._onChangeVideoLink}
                                                                     component={RenderRepeatableFields}/>
 
                                                             :   <Field
@@ -120,7 +142,7 @@ class Basic extends Component {
                                                                     onChangeGoalType={this._onChangeGoalType}
                                                                     uploadFile={this._uploadFile}
                                                                     removeArrValue={this._removeArrValue}
-                                                                    fieldValue={basicValues[key] ? basicValues[key] : ''}
+                                                                    fieldValue={basicValues[key] || ''}
                                                                     validate={validate}
                                                                     component={RenderField}/>
                                                             }
