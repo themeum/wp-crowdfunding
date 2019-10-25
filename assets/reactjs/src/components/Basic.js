@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { required, uploadFiles, removeArrValue } from '../Helper';
+import { required, getYotubeVideoID, uploadFiles, removeArrValue } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
 import { fetchSubCategories, fetchStates, fieldShowHide } from '../actions';
 import RenderField from './fields/Single';
@@ -17,7 +17,7 @@ class Basic extends Component {
         this.state = { sectionActive: 0 };
         this._onChangeSelect = this._onChangeSelect.bind(this);
         this._onChangeGoalType = this._onChangeGoalType.bind(this);
-        this._onChangeVideoLink = this._onChangeVideoLink.bind(this);
+        this._onBlurVideoLink = this._onBlurVideoLink.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
         this._addTag = this._addTag.bind(this);
@@ -41,36 +41,42 @@ class Basic extends Component {
         this.props.fieldShowHide(field, show);
     }
 
-    _onChangeVideoLink(e) {
-        const { value } = e.target;
-        const { formValues: { basic } } =  this.props;
-        let media = [ ...basic.media ];
+    _onBlurVideoLink() {
+        const files = [];
+        const type = 'video_link';
+        const { formValues: {basic: {video_link} } } =  this.props;
+        video_link.map( i => {
+            const id = getYotubeVideoID(i.src);
+            if(id) {
+                const item = {
+                    id: id,
+                    type: type,
+                    src: i.src,
+                    thumb: `https://img.youtube.com/vi/${id}/default.jpg`,
+                };
+                files.push(item);
+            }
+        });
+        setTimeout(() => {
+            this.addMediaFile(files);
+            this.removeMediaFile('video_link', files);
+        }, 300)
     }
 
-    _removeArrValue(index, field, values) {
+    _removeArrValue(type, index, field, values, is_media) {
         values = removeArrValue(values, index);
         this.props.changeFieldValue(formName, field, values);
+        if( is_media ) {
+            this.removeMediaFile(type, values);
+        }
     }
 
     _uploadFile(type, field, sFiles, multiple, is_media) {
-        const { formValues: { basic } } =  this.props;
-        let media = [ ...basic.media ];
         uploadFiles(type, sFiles, multiple).then( (files) => {
             this.props.changeFieldValue(formName, field, files);
-            if(is_media) {
-                files.map((item, i) => {
-                    const index = media.findIndex(i => i.id === item.id && i.type === type);
-                    if(index === -1) {
-                        media.push(item);
-                    }
-                });
-                media.map((item, i) => {
-                    const index = files.findIndex(i => i.id === item.id && i.type === type);
-                    if(index === -1) {
-                        media.splice(i, 1);
-                    }
-                });
-                this.props.changeFieldValue(formName, `${sectionName}.media`, media);
+            if( is_media ) {
+                this.addMediaFile(files);
+                this.removeMediaFile(type, files);
             }
         });
     }
@@ -81,6 +87,31 @@ class Basic extends Component {
             selectedTags.push(tag);
             this.props.changeFieldValue(formName, field, [...selectedTags]);
         }
+    }
+
+    addMediaFile(files) {
+        const { formValues: { basic }, changeFieldValue } =  this.props;
+        let media = [ ...basic.media ];
+        files.map((item) => {
+            const index = media.findIndex(i => i.id === item.id);
+            if(index === -1) {
+                media.push(item); //add files in media store which is not added before
+            }
+        });
+        changeFieldValue(formName, `${sectionName}.media`, media);
+    }
+
+    removeMediaFile(type, files) {
+        const { formValues: { basic }, changeFieldValue } =  this.props;
+        let media = [ ...basic.media ];
+        media.filter((item) => item.type === type).map((item, i) => {
+            const index = files.findIndex(i => i.id === item.id);
+            if(index === -1) {
+                const mIndex = media.findIndex(i => i.id === item.id);
+                media.splice(mIndex, 1); //remove files from media store which is unselected
+            }
+        });
+        changeFieldValue(formName, `${sectionName}.media`, media);
     }
 
     render() {
@@ -129,7 +160,7 @@ class Basic extends Component {
                                                                 <FieldArray
                                                                     name={key}
                                                                     item={field}
-                                                                    onChangeVideoLink={this._onChangeVideoLink}
+                                                                    onBlurVideoLink={this._onBlurVideoLink}
                                                                     component={RenderRepeatableFields}/>
 
                                                             :   <Field

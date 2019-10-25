@@ -7,14 +7,14 @@ const defaultProps = {
     addTag: () => {},
     uploadFile: () => {},
     onChangeSelect: () => {},
-    onChangeVideoLink: () => {},
+    onBlurVideoLink: () => {},
     removeArrValue: () => {},
     fieldValue: '',
 };
 
 export default (_props) => {
     const props = {...defaultProps, ..._props};
-    const { input, meta: { touched, error }, item, addTag, onChangeSelect, onChangeVideoLink, uploadFile, removeArrValue, fieldValue} = props;
+    const { input, meta: { touched, error }, item, addTag, onChangeSelect, onBlurVideoLink, uploadFile, removeArrValue, fieldValue} = props;
     
     switch (item.type) {
         case 'text':
@@ -23,7 +23,7 @@ export default (_props) => {
             is_media
             return (
                 <div className={item.class}>
-                    <input {...input} type={item.type} onChange={(e) => { input.onChange(e); onChangeVideoLink(e); }} placeholder={item.placeholder} />
+                    <input {...input} type={item.type} onBlur={(e) => { input.onBlur(e); onBlurVideoLink(e); }} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
@@ -99,7 +99,7 @@ export default (_props) => {
                 <div className={item.class}>
                     <div className="wpcf-form-attachments">
                         {input.value && input.value.map( (item, index) =>
-                            <div key={index}>{item.name} <span onClick={() => removeArrValue(index, input.name, input.value, is_media)} className="fa fa-times"/></div>
+                            <div key={index}>{item.name} <span onClick={() => removeArrValue(item.type, index, input.name, input.value, is_media)} className="fa fa-times"/></div>
                         )}
                     </div>
                     <button type="button" dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(item.type, input.name, input.value, item.multiple, is_media)}/>
