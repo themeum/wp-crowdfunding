@@ -40,7 +40,7 @@ class Reward extends Component {
 		this.props.changeFieldValue(formName, sectionName, rewards);
 	}
 
-    _removeArrValue(index, field, values) {
+    _removeArrValue(type, index, field, values) {
         values = removeArrValue(values, index);
         this.props.changeFieldValue(formName, field, values);
 	}

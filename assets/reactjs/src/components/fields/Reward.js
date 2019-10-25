@@ -9,7 +9,7 @@ export default (props) => {
     const [ changeType, setChangeType ] = useState(false);
     return (
         <div className="">
-            { rewards[selectedItem] &&
+            {rewards[selectedItem] &&
                 <div className='wpcf-form-field'>
                     <div className='wpcf-field-title'>
                         {rewardTypes[rewards[selectedItem].type].title}

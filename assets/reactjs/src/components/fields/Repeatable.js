@@ -5,6 +5,7 @@ import RenderField from './Single';
 
 export default (props) => {
     const { fields, item } = props;
+    const onBlurVideoLink = ( typeof props.onBlurVideoLink !== 'undefined') ? props.onBlurVideoLink : ()=>{};
     if(fields.length == 0 && item.open_first_item) {
         fields.push({});
     }
@@ -14,9 +15,9 @@ export default (props) => {
                 <div key={index}>
                     {Object.keys(item.fields).map( key => {
                         const name = `${field}.${key}`;
-                        const sItem = item.fields[key];
-                        const fieldName = field.split('[');
+                        const rItem = item.fields[key];
                         const validate = item.required ? [required] : [];
+                        const fieldName = field.split('[');
                         if(fieldName[0] == 'video_link') {
                             validate.push(isYoutubeUrl);
                         }
@@ -24,13 +25,14 @@ export default (props) => {
                             <Field
                                 key={key}
                                 name={name}
-                                item={sItem}
+                                item={rItem}
+                                onBlurVideoLink={onBlurVideoLink}
                                 validate={validate}
                                 component={RenderField}/>
                         )
                     })}
                     { index !== 0 &&
-                        <span onClick={() => fields.remove(index)} className="fa fa-times"/>
+                        <span onClick={() => {fields.remove(index); setTimeout(() => { onBlurVideoLink() }, 300);}} className="fa fa-times"/>
                     }
                 </div>
             ))}
