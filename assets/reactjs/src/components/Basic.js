@@ -58,20 +58,18 @@ class Basic extends Component {
         uploadFiles(type, sFiles, multiple).then( (files) => {
             this.props.changeFieldValue(formName, field, files);
             if(is_media) {
-                console.log('media', media);
-                console.log('files', files);
                 files.map((item, i) => {
-                    const index = media.findIndex(i => i.id === item.id);
+                    const index = media.findIndex(i => i.id === item.id && i.type === type);
                     if(index === -1) {
                         media.push(item);
                     }
-                })
+                });
                 media.map((item, i) => {
-                    const index = files.findIndex(i => i.id === item.id);
+                    const index = files.findIndex(i => i.id === item.id && i.type === type);
                     if(index === -1) {
-                        media.splice(i, 1)
+                        media.splice(i, 1);
                     }
-                })
+                });
                 this.props.changeFieldValue(formName, `${sectionName}.media`, media);
             }
         });
