@@ -95,8 +95,7 @@ class Story extends Component {
 															key={index+i}
 															edit={this._editItem}
 															upload={this._upload}
-															name={`${sectionName}[${index}][${i}].value`}
-														/>
+															name={`${sectionName}[${index}][${i}].value`}/>
 													)}
 												</div>
 												{ data && data.length==2 &&

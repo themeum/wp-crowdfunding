@@ -7,9 +7,11 @@ import {
     FETCH_SUB_CATEGORIES_COMPLETE,
     FETCH_STATES_COMPLETE,
     FIELD_SHOW_HIDE,
+    SAVE_CAMPAIGN_PENDING,
+    SAVE_CAMPAIGN_COMPLETE
 } from "../actions";
 
-export default function(state = { loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{} }, action ) {
+export default function(state = { loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false, saveDate:{} }, action ) {
     switch( action.type ) {
         
         case FETCH_REQUEST_PENDING:
@@ -18,6 +20,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 loading: true,
                 loaded: false,
             };
+
         case FETCH_FORM_FIELDS_COMPLETE:
             return {
                 ...state,
@@ -25,6 +28,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 loaded: true,
                 formFields: action.payload,
             };
+
         case FETCH_FORM_STORY_TOOLS_COMPLETE:
             return {
                 ...state,
@@ -32,6 +36,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 loaded: true,
                 storyTools: action.payload,
             };
+
         case FETCH_FORM_REWARD_FIELDS_COMPLETE:
             return {
                 ...state,
@@ -40,6 +45,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 rewardTypes: action.payload.types,
                 rewardFields: action.payload.fields,
             };
+
         case FETCH_FORM_TEAM_FIELDS_COMPLETE:
             return {
                 ...state,
@@ -47,6 +53,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 loaded: true,
                 teamFields: action.payload,
             };
+
         case FETCH_SUB_CATEGORIES_COMPLETE:
         case FETCH_STATES_COMPLETE:
             const res = action.payload;
@@ -56,6 +63,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
                 ...state,
                 formFields,
             };
+
         case FIELD_SHOW_HIDE:
             const fFields = {...state.formFields};
             let { field, show } = action.payload;
@@ -64,6 +72,18 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
             return {
                 ...state,
                 formFields: fFields,
+            };
+
+        case SAVE_CAMPAIGN_PENDING:
+            return {
+                ...state,
+                saveReq:true,
+            };
+            
+        case SAVE_CAMPAIGN_COMPLETE:
+            return {
+                ...state,
+                saveDate: action.payload,
             };
         default:
             return state;

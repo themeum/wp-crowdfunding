@@ -1,13 +1,12 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import DatePicker from './DatePicker';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
-import DatePicker from './DatePicker';
 
 const defaultProps = {
     addTag: () => {},
-    onChangeSelect: () => {},
     uploadFile: () => {},
+    onChangeSelect: () => {},
     removeArrValue: () => {},
     fieldValue: '',
 };
@@ -50,7 +49,7 @@ export default (_props) => {
                 <div className={item.class}>
                     {item.options.map((option, index) =>
                         <label key={index} className="radio-inline">
-                            <input {...input} onChange={(e) => { input.onChange(e); if(input.name==`basic.goal_type`) {props.onChangeGoalType(e)} }} type={item.type} value={option.value}/> {option.label} <span>{option.desc}</span>
+                            <input {...input} onChange={(e) => { input.onChange(e); if(input.name==`basic.goal_type`) {props.onChangeGoalType(e)} }} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -105,14 +104,15 @@ export default (_props) => {
                 </div>
             );
         case 'range':
+            const rangeVal = (typeof fieldValue == 'object') ? `${fieldValue.min} - ${fieldValue.max}` : fieldValue;
             return (
                 <div className={item.class}>
                     <InputRange
                         minValue={item.minVal}
                         maxValue={item.maxVal}
                         value={input.value}
-                        onChange={input.onChange} />
-                    <div className="">{}</div>
+                        onChange={input.onChange}/>
+                    <div>{rangeVal} <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/></div>
                 </div>
             );
         case 'date':
@@ -121,7 +121,7 @@ export default (_props) => {
                     <DatePicker
                         name={input.name}
                         value={input.value}
-                        onChange={input.onChange} 
+                        onChange={input.onChange}
                         placeholder={item.placeholder}
                         format="yy-mm-dd"
                     />

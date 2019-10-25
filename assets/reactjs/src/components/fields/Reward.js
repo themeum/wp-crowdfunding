@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Field, FieldArray } from 'redux-form';
-import { required, notRequred  } from '../../Helper';
+import { required  } from '../../Helper';
 import RenderField from './Single';
 import RenderRepeatableFields from './Repeatable';
 
@@ -22,42 +22,50 @@ export default (props) => {
                     )}
                 </div>
             }
-            {Object.keys(rewardFields).map( key =>
-                <div key={key} className='wpcf-form-field'>
-                    <div className='wpcf-field-title'>{rewardFields[key].title}</div>
-                    <div className='wpcf-field-desc'>{rewardFields[key].desc}</div>
-                    { rewardFields[key].type == 'form_group' ?
-                        <div className="form-group">
-                            {Object.keys(rewardFields[key].fields).map( field =>
-                                <Field
-                                    key={field}
-                                    name={`${name}[${selectedItem}].${field}`}
-                                    item={rewardFields[key].fields[field]}
-                                    uploadFile={props.uploadFile}
-                                    removeArrValue={props.removeArrValue}
-                                    component={RenderField}
-                                    validate={[rewardFields[key].fields[field].required ? required : notRequred]}/>
-                            )}
-                        </div>
+            {Object.keys(rewardFields).map( key => {
+                const field = rewardFields[key];
+                const fname = `${name}[${selectedItem}].${key}`;
+                const validate = field.required ? [required] : [];
+                return (
+                    <div key={key} className='wpcf-form-field'>
+                        <div className='wpcf-field-title'>{field.title}</div>
+                        <div className='wpcf-field-desc'>{field.desc}</div>
+                        { field.type == 'form_group' ?
+                            <div className="form-group">
+                                {Object.keys(field.fields).map( key => {
+                                    const gField = field.fields[key];
+                                    const gName = `${name}[${selectedItem}].${key}`;
+                                    const gValidate = gField.required ? [required] : [];
+                                    return (
+                                        <Field
+                                            key={key}
+                                            name={gName}
+                                            item={gField}
+                                            uploadFile={props.uploadFile}
+                                            removeArrValue={props.removeArrValue}
+                                            validate={gValidate}
+                                            component={RenderField}/>
+                                    )
+                                })}
+                            </div>
 
-                    : rewardFields[key].type == 'repeatable' ?
-                        <FieldArray
-                            name={`${name}[${selectedItem}].${key}`}
-                            item={rewardFields[key]}
-                            uploadFile={uploadFile}
-                            removeArrValue={removeArrValue}
-                            component={RenderRepeatableFields}/>
-                    :
-                        <Field
-                            name={`${name}[${selectedItem}].${key}`}
-                            item={rewardFields[key]}
-                            uploadFile={uploadFile}
-                            removeArrValue={removeArrValue}
-                            component={RenderField}
-                            validate={[rewardFields[key].required ? required : notRequred]}/>
-                    }
-                </div>
-            )}
+                        : field.type == 'repeatable' ?
+                            <FieldArray
+                                item={field}
+                                name={fname}
+                                component={RenderRepeatableFields}/>
+                        :
+                            <Field
+                                item={field}
+                                name={fname}
+                                uploadFile={uploadFile}
+                                removeArrValue={removeArrValue}
+                                validate={validate}
+                                component={RenderField}/>
+                        }
+                    </div>
+                )
+            })}
         </div>
     )
 }

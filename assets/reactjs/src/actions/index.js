@@ -6,7 +6,6 @@ const headers = {
 //COMMON STATE
 export const FETCH_REQUEST_PENDING = 'FETCH_REQUEST_PENDING';
 
-
 //FETCH FORM BASIC FIELDS
 export const FETCH_FORM_FIELDS_COMPLETE = 'FETCH_FORM_FIELDS_COMPLETE';
 export const fetchFormFields = () => dispatch => {
@@ -85,7 +84,17 @@ export const fieldShowHide = (field, show) => dispatch => {
     dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
 }
 
-//Submit Campaign
-export const submitCampaign = values => {
-    console.log(values);
+
+//SAVE CAMPAIGN
+export const SAVE_CAMPAIGN_PENDING = 'save_campaign_pending';
+export const SAVE_CAMPAIGN_COMPLETE = 'save_campaign_complete';
+
+export const saveCampaign = ( data ) => dispatch => {
+    dispatch({ type: SAVE_CAMPAIGN_PENDING });
+    const fetchURL = `${WPCF.rest_url}/save-campaign`;
+    const option = { method: 'POST', body: JSON.stringify(data), headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload => dispatch( {type: SAVE_CAMPAIGN_COMPLETE, payload} ) )
+    .catch( error => console.log(error) );
 }

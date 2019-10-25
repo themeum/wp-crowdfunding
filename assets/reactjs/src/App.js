@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
-import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields } from './actions';
+import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields, saveCampaign } from './actions';
 import TabBar from './components/TabBar';
 import Basic from './components/Basic';
 import Story from './components/Story';
@@ -18,7 +18,6 @@ class App extends Component {
 		this._prevStep = this._prevStep.bind(this);
 		this._nextStep = this._nextStep.bind(this);
 		this._onSave = this._onSave.bind(this);
-		this._onSubmit = this._onSubmit.bind(this);
     }
     
     componentDidMount() {
@@ -36,13 +35,10 @@ class App extends Component {
 		this.setState({ current: this.state.current+1 })
 	}
 
-	_onSave() {
-		const { formValues } = this.props;
-		console.log( formValues );
-	}
-
-	_onSubmit(values) {
-		console.log( values );
+	_onSave(submit) {
+		let { formValues } = this.props;
+		formValues.submit = submit;
+		this.props.saveCampaign(formValues);
 	}
 
 	render() {
@@ -62,8 +58,8 @@ class App extends Component {
 						<div className="wpcf-form-edit-panel">
 							<span>Setup New Campaign</span>
 							<span>Last Edit was on 01 july</span>
-							<button onClick={this._onSave}>Save</button>
-							<button onClick={this._onSubmit} disabled={current<3}>Submit</button>
+							<button onClick={() => this._onSave(false)}>Save</button>
+							<button onClick={() => this._onSave(true)} disabled={current<3}>Submit</button>
 						</div>
 					</div>
 				</div>
@@ -115,7 +111,8 @@ const mapDispatchToProps = dispatch => {
         fetchFormStoryTools,
         fetchRewardFields,
 		fetchTeamFields,
-		getFormValues
+		getFormValues,
+		saveCampaign,
     }, dispatch);
 }
 

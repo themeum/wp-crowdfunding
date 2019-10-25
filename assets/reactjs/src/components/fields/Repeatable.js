@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { required, notRequred  } from '../../Helper';
+import { required, isYoutubeUrl  } from '../../Helper';
 import RenderField from './Single';
 
 export default (props) => {
@@ -12,16 +12,23 @@ export default (props) => {
         <div className="">
             {fields.map((field, index) => (
                 <div key={index}>
-                    {Object.keys(item.fields).map( key =>
-                        <Field
-                            key={key}
-                            name={`${field}.${key}`}
-                            item={item.fields[key]}
-                            uploadFile={props.uploadFile}
-                            removeArrValue={props.removeArrValue}
-                            component={RenderField}
-                            validate={[item.fields[key].required ? required : notRequred]}/>
-                    )}
+                    {Object.keys(item.fields).map( key => {
+                        const name = `${field}.${key}`;
+                        const sItem = item.fields[key];
+                        const fieldName = field.split('[');
+                        const validate = item.required ? [required] : [];
+                        if(fieldName[0] == 'video_link') {
+                            validate.push(isYoutubeUrl);
+                        }
+                        return (
+                            <Field
+                                key={key}
+                                name={name}
+                                item={sItem}
+                                validate={validate}
+                                component={RenderField}/>
+                        )
+                    })}
                     { index !== 0 &&
                         <span onClick={() => fields.remove(index)} className="fa fa-times"/>
                     }
