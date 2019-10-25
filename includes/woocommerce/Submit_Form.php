@@ -122,7 +122,7 @@ class Submit_Form {
                 $tag = explode( ',',$tag );
                 wp_set_object_terms( $post_id , $tag, 'product_tag',true );
             }
-            wp_set_object_terms( $post_id , 'crowdfunding', 'product_type',true );
+            wp_set_object_terms( $post_id , 'crowdfunding', 'product_type', true );
 
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
