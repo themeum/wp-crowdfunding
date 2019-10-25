@@ -5,6 +5,7 @@ import CampaignReport from '../containers/campaignReport';
 import ItemCampaign from '../components/itemCampaign';
 import CampaignUpdate from '../components/campaignUpdate';
 import Pagination from '../components/pagination';
+import Header from '../components/contentHeader';
 
 class MyCampaigns extends Component {
 	constructor (props) {
@@ -56,7 +57,7 @@ class MyCampaigns extends Component {
 	render() {
         const { campaign } = this.props;
         const { pageOfItems, filterValue, campaignReport, campaignId, updates } = this.state;
-        if( campaign.loading ) { 
+        if( campaign.loading ) {
             return (
                 <div>
                     Loading...
@@ -66,7 +67,7 @@ class MyCampaigns extends Component {
 
         if( campaignReport.id ) {
             return (
-                <CampaignReport 
+                <CampaignReport
                     campaign={ campaignReport }
                     onClickBack={ this.onClickReport }/>
             );
@@ -80,25 +81,25 @@ class MyCampaigns extends Component {
                     onClickUpdates={ this.onClickUpdates }/>
             );
         }
-       
+
         const campaignData = this.getCampaignData();
-        
+
         return (
             <div>
-                <h3>My Campaigns</h3>
-                <div>
-                    <span className={ (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</span>
-                    <span className={ (filterValue=='pending'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Pending</span>
-                    <span className={ (filterValue=='draft'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Draft</span>
-                    <span className={ (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</span>
+                <Header title={"My Campaigns"}></Header>
+                <div className='wpcf-mycampaign-filter-group wpcf-btn-group'>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='pending'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Pending</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='draft'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Draft</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</button>
                 </div>
                 <div className="wpcf-dashboard-content-inner">
                     { campaignData.length ?
                         <div>
                             { pageOfItems.map( (item, index) =>
-                                <ItemCampaign 
-                                    key={index} 
-                                    data={ item } 
+                                <ItemCampaign
+                                    key={index}
+                                    data={ item }
                                     onClickReport={ this.onClickReport }
                                     onClickUpdates={ this.onClickUpdates }/>
                             ) }
@@ -112,7 +113,7 @@ class MyCampaigns extends Component {
                             Campaign not found
                         </div>
                     }
-                        
+
                 </div>
             </div>
         )

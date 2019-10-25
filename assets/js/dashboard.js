@@ -207,7 +207,7 @@ module.exports = _inheritsLoose;
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
 // Module
-exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color); }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: flex-start; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px);\n  padding-left: 30px;\n  padding-top: 30px; }\n\n.wpcf-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  text-decoration: none !important;\n  font-size: 16px;\n  position: relative;\n  transition: 300ms; }\n  .wpcf-btn:not(.wpcf-link-btn) {\n    line-height: 26px;\n    height: 40px;\n    padding: 0 25px;\n    background: var(--wpcf-primary-color);\n    border: 1px solid var(--wpcf-primary-color);\n    color: #fff; }\n  .wpcf-btn.wpcf-link-btn {\n    color: var(--wpcf-primary-color);\n    padding: 0;\n    background: none;\n    border: none; }\n  .wpcf-btn.wpcf-round {\n    border-radius: 30px; }\n  .wpcf-btn:hover {\n    filter: brightness(1.1); }\n  .wpcf-btn .wpcf-icon:not(.wpcf-icon-right) {\n    margin-right: 12px; }\n  .wpcf-btn .wpcf-icon-right {\n    margin-left: 12px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:first-child {\n  height: 65px;\n  width: 65px;\n  display: block;\n  border-radius: 50%;\n  margin-bottom: 14px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(2) {\n  display: block;\n  height: 25px;\n  width: 60%;\n  margin-bottom: 8px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(3) {\n  display: block;\n  height: 20px;\n  width: 100%; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar li {\n  margin: 10px 30px;\n  height: 30px; }\n\n.wpcf-dashboard-sidebar {\n  border: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: #adaecf;\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 0;\n    list-style: none;\n    font-size: 16px;\n    flex-grow: 1;\n    min-height: 600px;\n    display: flex;\n    flex-direction: column; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:nth-last-child(2) {\n      margin-bottom: 90px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child a {\n        color: var(--wpcf-primary-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color);\n        text-decoration: none !important; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.collapse > ul {\n        display: block; }\n\n.wpcf-dashboard-info-cards {\n  display: flex; }\n  .wpcf-dashboard-info-cards .wpcf-dashboard-info-card {\n    width: 28%; }\n\n.wpcf-content-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px 0; }\n  .wpcf-content-header .wpcf-btn {\n    margin-left: auto; }\n\n.wpcf-content-heading {\n  font-size: 21px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color); }\n", "",{"version":3,"sources":["/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_global.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_btn.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_sidebar.skeleton.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_sidebar.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_dashboard.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_content-header.scss"],"names":[],"mappings":"AAAA;EACC,wCAAmB;EAChB,kCAA0B;EAC1B,6BAAqB;EACrB,6BAAqB;EACrB,4BAAoB,EAAA;;AAMxB;EACI,oCAAoC;EACpC,qCAAqC,EAAA;;AAGzC;EACI,aAAa;EACb,eAAe;EACf,uBAAuB,EAAA;;AAE3B;EACI,eAdiB;EAejB,gBAfiB,EAAA;;AAkBrB;EACI,4BAAwC;EACxC,6BAAyC;EACzC,kBAAkB;EAClB,iBAAiB,EAAA;;AC9BrB;EACI,oBAAoB;EACpB,mBAAmB;EACnB,uBAAuB;EACvB,gCAAgC;EAChC,eAAe;EACf,kBAAkB;EAClB,iBAAiB,EAAA;EAPrB;IASQ,iBAAiB;IACjB,YAAY;IACZ,eAAe;IACf,qCAAqC;IACrC,2CAA2C;IAC3C,WAAW,EAAA;EAdnB;IAiBQ,gCAAgC;IAChC,UAAU;IACV,gBAAgB;IAChB,YAAY,EAAA;EApBpB;IAuBQ,mBAAmB,EAAA;EAvB3B;IA0BQ,uBAAuB,EAAA;EA1B/B;IA6BQ,kBAAkB,EAAA;EA7B1B;IAgCQ,iBAAiB,EAAA;;AChCzB;EAIe,YAAY;EACZ,WAAW;EACX,cAAc;EACd,kBAAkB;EAClB,mBAAmB,EAAA;;AARlC;EAWe,cAAc;EACd,YAAY;EACZ,UAAU;EACV,kBAAkB,EAAA;;AAdjC;EAiBe,cAAc;EACd,YAAY;EACZ,WAAW,EAAA;;AAnB1B;EAsBe,iBAAiB;EACjB,YAAY,EAAA;;ACpB3B;EACI,0CAA0C,EAAA;EAD9C;IAGQ,uBAAuB;IACvB,iDAAiD,EAAA;IAJzD;MAMY,WAAW;MACX,YAAY;MACZ,kBAAkB;MAClB,mBAAmB;MACnB,cAAc,EAAA;IAV1B;MAaY,eAAe;MACf,eAAe;MACf,gCAAgC;MAChC,gBAAgB,EAAA;IAhB5B;MAmBY,eAAe;MACf,cAAc;MACd,cAAc,EAAA;EArB1B;IAyBQ,SAAS;IACT,iBAAiB;IACjB,gBAAgB;IAChB,eAAe;IACf,YAAY;IACZ,iBAAiB;IACjB,aAAa;IACb,sBAAsB,EAAA;IAhC9B;MAkCY,mBAAmB,EAAA;IAlC/B;MAqCY,gBAAgB,EAAA;MArC5B;QAuCgB,gCAAgC,EAAA;IAvChD;MA2CY,kBAAkB,EAAA;MA3C9B;QA6CgB,iBAAiB;QACjB,kBAAkB;QAClB,aAAa;QACb,mBAAmB;QACnB,qCAAqC;QACrC,gCAAgC,EAAA;QAlDhD;UAoDoB,cAAc;UACd,kBAAkB;UAClB,eAAe;UACf,kBAAkB,EAAA;QAvDtC;UA0DoB,iBAAiB,EAAA;QA1DrC;UA6DoB,mBAAmB;UACnB,gCAAgC,EAAA;MA9DpD;QAkEgB,gBAAgB;QAChB,UAAU;QACV,SAAS;QACT,eAAe;QACf,aAAa,EAAA;QAtE7B;UAwEoB,kBAAkB;UAClB,gBAAgB;UAChB,mBAAmB,EAAA;MA1EvC;QA+EoB,gCAAgC,EAAA;MA/EpD;QAkFoB,cAAc,EAAA;;ACrFlC;EACI,aAAa,EAAA;EADjB;IAGQ,UAAU,EAAA;;ACHlB;EACI,aAAa;EACb,mBAAmB;EACnB,8BAA8B;EAC9B,eAAe,EAAA;EAJnB;IAMQ,iBAAiB,EAAA;;AAIzB;EACI,eAAe;EACf,gBAAgB;EAChB,gCAAgC,EAAA","file":"style.scss","sourcesContent":[":root{\n\t--wpcf-font-family: 'Roboto', sans-serif;\n    --wpcf-primary-text-color: #787993;\n    --wpcf-primary-color: #3060c5;\n    --wpcf-heading-color: #25265e;\n    --wpcf-border-color: #dcdce4;\n}\n\n$sidebar_width: 255px;\n\n\n#wpcf-dashboard{\n    font-family: var(--wpcf-font-family);\n    color: var(--wpcf-primary-text-color);\n}\n\n.wpcf-dashboard-container{\n    display: flex;\n    flex-wrap: wrap;\n    align-items: flex-start;\n}\n.wpcf-dashboard-sidebar{\n    flex: 0 0 $sidebar_width;\n    max-width: $sidebar_width;\n}\n\n.wpcf-dashboard-content{\n    flex: 1 0 calc(100% - #{$sidebar_width});\n    max-width: calc(100% - #{$sidebar_width});\n    padding-left: 30px;\n    padding-top: 30px;\n}\n",".wpcf-btn{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    text-decoration: none !important;\n    font-size: 16px;\n    position: relative;\n    transition: 300ms;\n    &:not(.wpcf-link-btn){\n        line-height: 26px;\n        height: 40px;\n        padding: 0 25px;\n        background: var(--wpcf-primary-color);\n        border: 1px solid var(--wpcf-primary-color);\n        color: #fff;\n    }\n    &.wpcf-link-btn{\n        color: var(--wpcf-primary-color);\n        padding: 0;\n        background: none;\n        border: none;\n    }\n    &.wpcf-round{\n        border-radius: 30px;\n    }\n    &:hover{\n        filter: brightness(1.1);\n    }\n    .wpcf-icon:not(.wpcf-icon-right){\n        margin-right: 12px;\n    }\n    .wpcf-icon-right{\n        margin-left: 12px;\n    }\n}",".wpcf-dashboard-container{\n    &.is-skeleton{\n\t   .wpcf-dashboard-sidebar{\n           span:first-child{\n               height: 65px;\n               width: 65px;\n               display: block;\n               border-radius: 50%;\n               margin-bottom: 14px;\n           }\n           span:nth-child(2){\n               display: block;\n               height: 25px;\n               width: 60%;\n               margin-bottom: 8px;\n           }\n           span:nth-child(3){\n               display: block;\n               height: 20px;\n               width: 100%;\n           }\n           li{\n               margin: 10px 30px;\n               height: 30px;\n           }\n\n       }\n    }\n}\n","\n@import \"sidebar.skeleton\";\n\n.wpcf-dashboard-sidebar{\n    border: 1px solid var(--wpcf-border-color);\n    .wpcf-dashboard-profile{\n        padding: 15px 30px 30px;\n        border-bottom: 1px solid var(--wpcf-border-color);\n        img{\n            width: 65px;\n            height: 65px;\n            border-radius: 50%;\n            margin-bottom: 14px;\n            display: block;\n        }\n        h4{\n            font-size: 21px;\n            margin: 0 0 4px;\n            color: var(--wpcf-heading-color);\n            font-weight: 400;\n        }\n        span{\n            font-size: 14px;\n            color: #adaecf;\n            display: block;\n        }\n    }\n    .wpcf-dashboard-permalinks{\n        margin: 0;\n        padding: 20px 0 0;\n        list-style: none;\n        font-size: 16px;\n        flex-grow: 1;\n        min-height: 600px;\n        display: flex;\n        flex-direction: column;\n        > li:nth-last-child(2){\n            margin-bottom: 90px;\n        }\n        > li:last-child{\n            margin-top: auto;\n            a{\n                color: var(--wpcf-primary-color);\n            }\n        }\n        li{\n            position: relative;\n            a{\n                line-height: 30px;\n                padding: 10px 30px;\n                display: flex;\n                align-items: center;\n                color: var(--wpcf-primary-text-color);\n                text-decoration: none !important;\n                span.wpcf-icon{\n                    flex: 0 0 20px;\n                    text-align: center;\n                    font-size: 17px;\n                    margin-right: 19px;\n                }\n                span.wpcf-float-icon{\n                    margin-left: auto;\n                }\n                &:hover{\n                    background: #f2f6ff;\n                    color: var(--wpcf-primary-color);\n                }\n            }\n            ul{\n                list-style: none;\n                padding: 0;\n                margin: 0;\n                font-size: 14px;\n                display: none;\n                li a{\n                    padding-left: 63px;\n                    padding-top: 5px;\n                    padding-bottom: 5px;\n                }\n            }\n            &.collapse {\n                > a{\n                    color: var(--wpcf-primary-color);\n                }\n                > ul{\n                    display: block;\n                }\n            }\n        }\n    }\n  }\n",".wpcf-dashboard-info-cards{\n    display: flex;\n    .wpcf-dashboard-info-card{\n        width: 28%;\n    }\n}",".wpcf-content-header{\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 20px 0;\n    .wpcf-btn{\n        margin-left: auto;\n    }\n}\n\n.wpcf-content-heading{\n    font-size: 21px;\n    font-weight: 400;\n    color: var(--wpcf-heading-color);\n}"]}]);
+exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4;\n  --wpcf-success-color: #00A92F; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color); }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: flex-start; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px);\n  padding-left: 30px;\n  padding-top: 30px; }\n\n.wpcf-btn-group {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: -10px; }\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px; }\n    .wpcf-btn-group .wpcf-btn:not(:last-child) {\n      margin-right: 10px; }\n\n.wpcf-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  text-decoration: none !important;\n  font-size: 16px;\n  position: relative;\n  transition: 300ms; }\n  .wpcf-btn:not(.wpcf-link-btn) {\n    line-height: 26px;\n    height: 40px;\n    padding: 0 25px;\n    background: var(--wpcf-primary-color);\n    border: 1px solid var(--wpcf-primary-color);\n    color: #fff; }\n  .wpcf-btn.wpcf-btn-secondary {\n    background-color: var(--wpcf-primary-text-color);\n    border-color: var(--wpcf-primary-text-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-link-btn {\n    color: var(--wpcf-primary-color);\n    padding: 0;\n    background: none;\n    border: none; }\n  .wpcf-btn.wpcf-btn-outline {\n    background: transparent;\n    border: 1px solid var(--wpcf-primary-color);\n    color: var(--wpcf-primary-color); }\n    .wpcf-btn.wpcf-btn-outline:hover {\n      background-color: var(--wpcf-primary-color);\n      color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-success-btn {\n      color: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-success-btn:hover {\n        background-color: var(--wpcf-success-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary {\n      border-color: var(--wpcf-border-color);\n      background: #ffffff;\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary.active, .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary:hover {\n        border-color: var(--wpcf-primary-color);\n        color: var(--wpcf-primary-color); }\n  .wpcf-btn.wpcf-btn-round {\n    border-radius: 30px; }\n  .wpcf-btn .wpcf-icon:not(.wpcf-icon-right) {\n    margin-right: 12px; }\n  .wpcf-btn .wpcf-icon-right {\n    margin-left: 12px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:first-child {\n  height: 65px;\n  width: 65px;\n  display: block;\n  border-radius: 50%;\n  margin-bottom: 14px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(2) {\n  display: block;\n  height: 25px;\n  width: 60%;\n  margin-bottom: 8px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(3) {\n  display: block;\n  height: 20px;\n  width: 100%; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar li {\n  margin: 10px 30px;\n  height: 30px; }\n\n.wpcf-dashboard-sidebar {\n  border: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: #adaecf;\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 0;\n    list-style: none;\n    font-size: 16px;\n    flex-grow: 1;\n    min-height: 600px;\n    display: flex;\n    flex-direction: column; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:nth-last-child(2) {\n      margin-bottom: 90px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child a {\n        color: var(--wpcf-primary-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color);\n        text-decoration: none !important; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > ul {\n        display: block; }\n\n.wpcf-dashboard-info-cards {\n  display: flex;\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .wpcf-dashboard-info-cards .wpcf-dashboard-info-card {\n    padding: 18px 25px 25px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 8px;\n    color: #ADAECF;\n    flex: 1 0 calc(24% - 20px);\n    max-width: calc(24% - 20px);\n    margin-left: 20px;\n    font-weight: 400; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card h3 {\n      font-size: 32px;\n      margin-bottom: 3px;\n      color: var(--wpcf-primary-color);\n      font-weight: 400; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card:first-child {\n      flex: 1 0 calc(28% - 20px);\n      max-width: calc(28% - 20px); }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success {\n      background: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color);\n      color: #ffffff; }\n      .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success h3 {\n        color: #ffffff; }\n\n.wpcf-report-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n\n.wpcf-report-filter span,\n.wpcf-report-filter input {\n  height: 45px;\n  padding: 0 20px;\n  border: 1px solid var(--wpcf-border-color);\n  border-radius: 30px;\n  margin-right: 12px;\n  color: var(--wpcf-primary-text-color); }\n  .wpcf-report-filter span::placeholder,\n  .wpcf-report-filter input::placeholder {\n    color: var(--wpcf-primary-text-color); }\n\n.wpcf-report-filter input {\n  width: 140px; }\n\n.wpcf-report-filter span {\n  display: inline-flex;\n  padding: 0;\n  position: relative; }\n  .wpcf-report-filter span select {\n    border: none;\n    background: transparent;\n    min-width: 160px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n    color: var(--wpcf-primary-text-color);\n    padding: 0 20px !important;\n    line-height: 45px;\n    height: 45px; }\n  .wpcf-report-filter span::after {\n    position: absolute;\n    content: '\\f078';\n    font-weight: 900;\n    font-family: 'Font Awesome 5 Free';\n    top: 50%;\n    right: 20px;\n    transform: translateY(-50%);\n    font-size: 14px; }\n\n.wpcf-content-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px 0; }\n  .wpcf-content-header .wpcf-btn {\n    margin-left: auto; }\n\n.wpcf-content-heading {\n  font-size: 21px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  line-height: 24px;\n  margin-bottom: 20px; }\n\n.wpcf-mycampaign-filter-group {\n  margin-bottom: 20px; }\n", "",{"version":3,"sources":["/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_global.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_btn.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_sidebar.skeleton.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_sidebar.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_dashboard.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_content-header.scss","/Applications/MAMP/htdocs/plugins/crowdfunding/wp-content/plugins/wp-crowdfunding/assets/react-dashboard/src/styles/_my-campaign.scss"],"names":[],"mappings":"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","file":"style.scss","sourcesContent":[":root{\n\t--wpcf-font-family: 'Roboto', sans-serif;\n    --wpcf-primary-text-color: #787993;\n    --wpcf-primary-color: #3060c5;\n    --wpcf-heading-color: #25265e;\n    --wpcf-border-color: #dcdce4;\n    --wpcf-success-color: #00A92F;\n}\n\n$sidebar_width: 255px;\n\n\n#wpcf-dashboard{\n    font-family: var(--wpcf-font-family);\n    color: var(--wpcf-primary-text-color);\n}\n\n.wpcf-dashboard-container{\n    display: flex;\n    flex-wrap: wrap;\n    align-items: flex-start;\n}\n.wpcf-dashboard-sidebar{\n    flex: 0 0 $sidebar_width;\n    max-width: $sidebar_width;\n}\n\n.wpcf-dashboard-content{\n    flex: 1 0 calc(100% - #{$sidebar_width});\n    max-width: calc(100% - #{$sidebar_width});\n    padding-left: 30px;\n    padding-top: 30px;\n}\n",".wpcf-btn-group{\n    display: flex;\n    flex-wrap: wrap;\n    margin-top: -10px;\n    .wpcf-btn{\n        margin-top: 10px;\n        &:not(:last-child){\n            margin-right: 10px;\n        }\n    }\n}\n.wpcf-btn{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    text-decoration: none !important;\n    font-size: 16px;\n    position: relative;\n    transition: 300ms;\n    &:not(.wpcf-link-btn){\n        line-height: 26px;\n        height: 40px;\n        padding: 0 25px;\n        background: var(--wpcf-primary-color);\n        border: 1px solid var(--wpcf-primary-color);\n        color: #fff;\n    }\n    \n    &.wpcf-btn-secondary{\n        background-color: var(--wpcf-primary-text-color);\n        border-color: var(--wpcf-primary-text-color);\n        color: #ffffff;\n    }\n    \n    &.wpcf-link-btn{\n        color: var(--wpcf-primary-color);\n        padding: 0;\n        background: none;\n        border: none;\n    }\n    \n    &.wpcf-btn-outline{\n        background: transparent;\n        border: 1px solid var(--wpcf-primary-color);\n        color: var(--wpcf-primary-color);\n        &:hover{\n            background-color: var(--wpcf-primary-color);\n            color: #ffffff;\n        }\n        &.wpcf-success-btn{\n            color: var(--wpcf-success-color);\n            border-color: var(--wpcf-success-color);\n            &:hover{\n                background-color: var(--wpcf-success-color);\n                color: #ffffff;\n            }\n        }\n        &.wpcf-btn-secondary{\n            border-color: var(--wpcf-border-color);\n            background: #ffffff;\n            color: var(--wpcf-primary-text-color);\n            &.active,\n            &:hover{\n                border-color: var(--wpcf-primary-color);\n                color: var(--wpcf-primary-color);\n            }\n        }\n    }\n    \n    &.wpcf-btn-round{\n        border-radius: 30px;\n    }\n    .wpcf-icon:not(.wpcf-icon-right){\n        margin-right: 12px;\n    }\n    .wpcf-icon-right{\n        margin-left: 12px;\n    }\n}\n",".wpcf-dashboard-container{\n    &.is-skeleton{\n\t   .wpcf-dashboard-sidebar{\n           span:first-child{\n               height: 65px;\n               width: 65px;\n               display: block;\n               border-radius: 50%;\n               margin-bottom: 14px;\n           }\n           span:nth-child(2){\n               display: block;\n               height: 25px;\n               width: 60%;\n               margin-bottom: 8px;\n           }\n           span:nth-child(3){\n               display: block;\n               height: 20px;\n               width: 100%;\n           }\n           li{\n               margin: 10px 30px;\n               height: 30px;\n           }\n\n       }\n    }\n}\n","\n@import \"sidebar.skeleton\";\n\n.wpcf-dashboard-sidebar{\n    border: 1px solid var(--wpcf-border-color);\n    .wpcf-dashboard-profile{\n        padding: 15px 30px 30px;\n        border-bottom: 1px solid var(--wpcf-border-color);\n        img{\n            width: 65px;\n            height: 65px;\n            border-radius: 50%;\n            margin-bottom: 14px;\n            display: block;\n        }\n        h4{\n            font-size: 21px;\n            margin: 0 0 4px;\n            color: var(--wpcf-heading-color);\n            font-weight: 400;\n        }\n        span{\n            font-size: 14px;\n            color: #adaecf;\n            display: block;\n        }\n    }\n    .wpcf-dashboard-permalinks{\n        margin: 0;\n        padding: 20px 0 0;\n        list-style: none;\n        font-size: 16px;\n        flex-grow: 1;\n        min-height: 600px;\n        display: flex;\n        flex-direction: column;\n        > li:nth-last-child(2){\n            margin-bottom: 90px;\n        }\n        > li:last-child{\n            margin-top: auto;\n            a{\n                color: var(--wpcf-primary-color);\n            }\n        }\n        li{\n            position: relative;\n            a{\n                line-height: 30px;\n                padding: 10px 30px;\n                display: flex;\n                align-items: center;\n                color: var(--wpcf-primary-text-color);\n                text-decoration: none !important;\n                span.wpcf-icon{\n                    flex: 0 0 20px;\n                    text-align: center;\n                    font-size: 17px;\n                    margin-right: 19px;\n                }\n                span.wpcf-float-icon{\n                    margin-left: auto;\n                }\n                &:hover{\n                    background: #f2f6ff;\n                    color: var(--wpcf-primary-color);\n                }\n            }\n            ul{\n                list-style: none;\n                padding: 0;\n                margin: 0;\n                font-size: 14px;\n                display: none;\n                li a{\n                    padding-left: 63px;\n                    padding-top: 5px;\n                    padding-bottom: 5px;\n                }\n            }\n            &.wpcf-collapse {\n                > a{\n                    color: var(--wpcf-primary-color);\n                }\n                > ul{\n                    display: block;\n                }\n            }\n        }\n    }\n  }\n",".wpcf-dashboard-info-cards{\n    display: flex;\n    margin-bottom: 20px;\n    margin-left: -20px;\n    .wpcf-dashboard-info-card{\n        padding: 18px 25px 25px;\n        border: 1px solid var(--wpcf-border-color);\n        border-radius: 8px;\n        color: #ADAECF;\n        flex: 1 0 calc(24% - 20px);\n        max-width: calc(24% - 20px);\n        margin-left: 20px;\n        font-weight: 400;\n        h3{\n            font-size: 32px;\n            margin-bottom: 3px;\n            color: var(--wpcf-primary-color);\n            font-weight: 400;\n        }\n        &:first-child{\n            flex: 1 0 calc(28% - 20px);\n            max-width: calc(28% - 20px);\n        }\n        &.wpcf-info-success{\n            background: var(--wpcf-success-color);\n            border-color: var(--wpcf-success-color);\n            color: #ffffff;\n            h3{\n                color: #ffffff;\n            }\n        }\n    }\n}\n\n.wpcf-report-header{\n    display: flex;\n    justify-content: space-between;\n    margin-bottom: 20px;\n}\n\n.wpcf-report-filter{\n    span,\n    input{\n        height: 45px;\n        padding: 0 20px;\n        border: 1px solid var(--wpcf-border-color);\n        border-radius: 30px;\n        margin-right: 12px;\n        color: var(--wpcf-primary-text-color);\n        &::placeholder{\n            color: var(--wpcf-primary-text-color);\n        }\n    }\n    input{\n        width: 140px;\n    }\n    span{\n        display: inline-flex;\n        padding: 0;\n        position: relative;\n        select{\n            border: none;\n            background: transparent;\n            min-width: 160px;\n            -webkit-appearance: none;\n            -moz-appearance:    none;\n            appearance:         none;\n            color: var(--wpcf-primary-text-color);\n            padding: 0 20px !important;\n            line-height: 45px;\n            height: 45px;\n        }\n        &::after{\n            position: absolute;\n            content: '\\f078';\n            font-weight: 900;\n            font-family: 'Font Awesome 5 Free';\n            top: 50%;\n            right: 20px;\n            transform: translateY(-50%);\n            font-size: 14px;\n        }\n    }\n    \n}\n",".wpcf-content-header{\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 20px 0;\n    .wpcf-btn{\n        margin-left: auto;\n    }\n}\n\n.wpcf-content-heading{\n    font-size: 21px;\n    font-weight: 400;\n    color: var(--wpcf-heading-color);\n    line-height: 24px;\n    margin-bottom: 20px;\n}\n",".wpcf-mycampaign-filter-group{\n\tmargin-bottom: 20px;\n}\n"]}]);
 
 
 /***/ }),
@@ -32582,6 +32582,74 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./src/components/contentHeader.js":
+/*!*****************************************!*\
+  !*** ./src/components/contentHeader.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return contentHeader; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var contentHeader =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(contentHeader, _Component);
+
+  function contentHeader() {
+    _classCallCheck(this, contentHeader);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(contentHeader).apply(this, arguments));
+  }
+
+  _createClass(contentHeader, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-content-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-content-header-left"
+      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "wpcf-btn wpcf-btn-round",
+        href: "#"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "wpcf-icon fas fa-plus"
+      }), "Create Campaign")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "wpcf-content-heading"
+      }, this.props.title));
+    }
+  }]);
+
+  return contentHeader;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
 /***/ "./src/components/datePicker.js":
 /*!**************************************!*\
   !*** ./src/components/datePicker.js ***!
@@ -32702,6 +32770,7 @@ function exportToCsv(data, file_name) {
   var data = props.data,
       file_name = props.file_name;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-success-btn",
     onClick: function onClick(e) {
       return exportToCsv(data, file_name);
     }
@@ -32724,26 +32793,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   var data = props.data;
-  console.log(data);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix"
+    className: ""
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpneo-listing-img"
+    className: ""
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
     title: data.title,
     dangerouslySetInnerHTML: {
       __html: data.thumbnail
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "overlay"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "wp-crowd-btn wp-crowd-btn-primary",
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: data.permalink
-  }, "View"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpneo-listing-content clearfix"
+  }, "View")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: ""
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpneo-admin-title float-left"
+    className: ""
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: data.permalink
   }, data.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -32756,9 +32821,7 @@ __webpack_require__.r(__webpack_exports__);
     className: "wpneo-icon wpneo-icon-location"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-desc"
-  }, data.location))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpneo-admin-location float-right"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, data.location))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "javascript:void(0)",
     onClick: function onClick() {
       return props.onClickReport({
@@ -32766,45 +32829,33 @@ __webpack_require__.r(__webpack_exports__);
         name: data.title
       });
     }
-  }, "Report")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Report"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "javascript:void(0)",
     onClick: function onClick() {
       return props.onClickUpdates(data.id, data.updates);
     }
-  }, "Update")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Update"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
     className: "wp-crowd-btn wp-crowd-btn-primary"
-  }, "Edit"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpneo-clearfix"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Edit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-percent-rund-wrap"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "crowdfound-pie-chart",
-    "data-size": "60",
     "data-percent": data.raised_percent
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "sppb-chart-percent"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.raised_percent))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "crowdfound-fund-raised"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.raised_percent))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-desc",
     dangerouslySetInnerHTML: {
       __html: data.total_raised
     }
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-name"
-  }, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "crowdfound-funding-goal"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-desc",
     dangerouslySetInnerHTML: {
       __html: data.funding_goal
     }
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-name"
-  }, "Funding Goal")), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "crowdfound-time-remaining"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Funding Goal")), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-desc"
   }, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpneo-meta-name"
@@ -33446,7 +33497,7 @@ function getStatusColor(status) {
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   var pledges = props.pledges;
 
-  if (pledges.length === 0) {
+  if (typeof pledges == "undefined" || pledges.length === 0) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Data not found");
   }
 
@@ -34763,7 +34814,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_lineGraph__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/lineGraph */ "./src/components/lineGraph.js");
 /* harmony import */ var _components_pledgeReports__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pledgeReports */ "./src/components/pledgeReports.js");
 /* harmony import */ var _components_exportCSV__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/exportCSV */ "./src/components/exportCSV.js");
-/* harmony import */ var _contentHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./contentHeader */ "./src/containers/contentHeader.js");
+/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -34875,13 +34926,14 @@ function (_Component) {
           raisedPercent = _this$props$report$da.raisedPercent,
           totalBacked = _this$props$report$da.totalBacked,
           pledges = _this$props$report$da.pledges;
+      var campaign = this.props.report.data.campaign;
 
       if (loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading...");
       }
 
       ;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_contentHeader__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_7__["default"], {
         title: this.props.campaign.name ? "Showing Report for " + this.props.campaign.name : "Dashboard"
       }, this.props.campaign.name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "wpcf-btn wpcf-link-btn",
@@ -34898,30 +34950,26 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-cards"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-info-card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "wpcf-dashboard-info-card wpcf-info-success"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "wpcf-dashboard-info-val"
-      }, WPCF.wc_currency_symbol + fundRaised)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, WPCF.wc_currency_symbol + fundRaised.toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Funded"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "wpcf-dashboard-info-val"
-      }, raisedPercent, "%")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, raisedPercent, "%"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Funded")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Total Backed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "wpcf-dashboard-info-val"
-      }, totalBacked))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "filter"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        id: "date_range",
-        name: "date_range",
-        value: query_args.date_range,
-        onChange: this._onChange
-      }, Object.keys(option_params).map(function (key) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          key: key,
-          value: key
-        }, " ", option_params[key], " ");
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, totalBacked), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Total Backed")), Object.keys(campaign).length > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-dashboard-info-card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "wpcf-dashboard-info-val"
+      }, campaign.is_started ? campaign.days_remaining : campaign.days_until_launch), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Days ", campaign.is_started ? "to go" : "Until Launch"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-report-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-report-filter"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
         name: "date_range_from",
         value: query_args.date_range_from,
         onChange: function onChange(e) {
@@ -34937,10 +34985,22 @@ function (_Component) {
         },
         placeholder: "To",
         format: "yy-mm-dd"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_exportCSV__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "date_range",
+        name: "date_range",
+        value: query_args.date_range,
+        onChange: this._onChange
+      }, Object.keys(option_params).map(function (key) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: key,
+          value: key
+        }, " ", option_params[key], " ");
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-report-export-btn"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_exportCSV__WEBPACK_IMPORTED_MODULE_6__["default"], {
         data: csv,
         file_name: "campaigns-report"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_lineGraph__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_lineGraph__WEBPACK_IMPORTED_MODULE_4__["default"], {
         format: format,
         label: label
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pledgeReports__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -34967,74 +35027,6 @@ CampaignReport.defaultProps = {
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
   fetchCampaignsReport: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__["fetchCampaignsReport"]
 })(CampaignReport));
-
-/***/ }),
-
-/***/ "./src/containers/contentHeader.js":
-/*!*****************************************!*\
-  !*** ./src/containers/contentHeader.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return contentHeader; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-var contentHeader =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(contentHeader, _Component);
-
-  function contentHeader() {
-    _classCallCheck(this, contentHeader);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(contentHeader).apply(this, arguments));
-  }
-
-  _createClass(contentHeader, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-content-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-content-header-left"
-      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "wpcf-btn wpcf-round",
-        href: "#"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "wpcf-icon fas fa-plus"
-      }), "Create Campaign")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "wpcf-content-heading"
-      }, this.props.title));
-    }
-  }]);
-
-  return contentHeader;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
 
 /***/ }),
 
@@ -35212,6 +35204,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
 /* harmony import */ var _components_campaignUpdate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/campaignUpdate */ "./src/components/campaignUpdate.js");
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
+/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35229,6 +35222,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -35350,23 +35344,27 @@ function (_Component) {
       }
 
       var campaignData = this.getCampaignData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "My Campaigns"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: filterValue == 'running' ? 'active' : '',
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        title: "My Campaigns"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-mycampaign-filter-group wpcf-btn-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue == 'running' ? 'active' : ''),
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
         }
-      }, "Running"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: filterValue == 'pending' ? 'active' : '',
+      }, "Running"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue == 'pending' ? 'active' : ''),
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
         }
-      }, "Pending"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: filterValue == 'draft' ? 'active' : '',
+      }, "Pending"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue == 'draft' ? 'active' : ''),
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
         }
-      }, "Draft"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: filterValue == 'completed' ? 'active' : '',
+      }, "Draft"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue == 'completed' ? 'active' : ''),
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
         }

@@ -2,22 +2,16 @@ import React from 'react';
 
 export default (props) => {
     const { data } = props;
-    console.log(data)
+
     return (
-        <div className="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
-            <div className="wpneo-listing-img">
+        <div className="">
+            <div className="">
                 <a href="#" title={ data.title } dangerouslySetInnerHTML={{__html: data.thumbnail}} />
-                <div className="overlay">
-                    <div>
-                        <div>
-                            <a className="wp-crowd-btn wp-crowd-btn-primary" href={ data.permalink }>View</a>
-                        </div>
-                    </div>
-                </div>
+                <a href={ data.permalink }>View</a>
             </div>
 
-            <div className="wpneo-listing-content clearfix">
-                <div className="wpneo-admin-title float-left">
+            <div className="">
+                <div className="">
                     <h4><a href={data.permalink}>{ data.title }</a></h4>
                     <p className="wpneo-author">by <a href="javascript:void(0)">{ data.author_name }</a> </p>
                     <div className="wpneo-location">
@@ -25,27 +19,27 @@ export default (props) => {
                         <div className="wpneo-meta-desc">{ data.location }</div>
                     </div>
                 </div>
-                <div className="wpneo-admin-location float-right">
-                <span><a href="javascript:void(0)" onClick={ () => props.onClickReport( {id: data.id, name: data.title} ) }>Report</a></span>
-                    <span><a href="javascript:void(0)" onClick={ () => props.onClickUpdates( data.id, data.updates ) }>Update</a></span>
-                    <span><a href="#" className="wp-crowd-btn wp-crowd-btn-primary">Edit</a></span>
+                <div>
+                    <a href="javascript:void(0)" onClick={ () => props.onClickReport( {id: data.id, name: data.title} ) }>Report</a>
+                    <a href="javascript:void(0)" onClick={ () => props.onClickUpdates( data.id, data.updates ) }>Update</a>
+                    <a href="#" className="wp-crowd-btn wp-crowd-btn-primary">Edit</a>
                 </div>
-                <div className="wpneo-clearfix"></div>
+
                 <div className="wpneo-percent-rund-wrap">
-                    <div className="crowdfound-pie-chart" data-size="60" data-percent={ data.raised_percent }>
-                        <div className="sppb-chart-percent"><span>{ data.raised_percent }</span></div>
+                    <div data-percent={ data.raised_percent }>
+                        <div><span>{ data.raised_percent }</span></div>
                     </div>
-                    <div className="crowdfound-fund-raised">
+                    <div>
                         <div className="wpneo-meta-desc" dangerouslySetInnerHTML={{__html: data.total_raised}}/>
                         <div className="wpneo-meta-name">Fund Raised</div>
                     </div>
-                    <div className="crowdfound-funding-goal">
+                    <div>
                         <div className="wpneo-meta-desc" dangerouslySetInnerHTML={{__html: data.funding_goal}}/>
                         <div className="wpneo-meta-name">Funding Goal</div>
                     </div>
 
                     { ( data.end_method !== 'never_end' ) &&
-                        <div className="crowdfound-time-remaining">
+                        <div>
                             <div className="wpneo-meta-desc">{ ( data.is_started ) ? data.days_remaining :  data.days_until_launch }</div>
                             <div className="wpneo-meta-name">Days { ( data.is_started ) ? "to go" :  "Until Launch" }</div>
                         </div>

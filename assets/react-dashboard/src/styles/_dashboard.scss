@@ -1,6 +1,85 @@
 .wpcf-dashboard-info-cards{
     display: flex;
+    margin-bottom: 20px;
+    margin-left: -20px;
     .wpcf-dashboard-info-card{
-        width: 28%;
+        padding: 18px 25px 25px;
+        border: 1px solid var(--wpcf-border-color);
+        border-radius: 8px;
+        color: #ADAECF;
+        flex: 1 0 calc(24% - 20px);
+        max-width: calc(24% - 20px);
+        margin-left: 20px;
+        font-weight: 400;
+        h3{
+            font-size: 32px;
+            margin-bottom: 3px;
+            color: var(--wpcf-primary-color);
+            font-weight: 400;
+        }
+        &:first-child{
+            flex: 1 0 calc(28% - 20px);
+            max-width: calc(28% - 20px);
+        }
+        &.wpcf-info-success{
+            background: var(--wpcf-success-color);
+            border-color: var(--wpcf-success-color);
+            color: #ffffff;
+            h3{
+                color: #ffffff;
+            }
+        }
     }
+}
+
+.wpcf-report-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.wpcf-report-filter{
+    span,
+    input{
+        height: 45px;
+        padding: 0 20px;
+        border: 1px solid var(--wpcf-border-color);
+        border-radius: 30px;
+        margin-right: 12px;
+        color: var(--wpcf-primary-text-color);
+        &::placeholder{
+            color: var(--wpcf-primary-text-color);
+        }
+    }
+    input{
+        width: 140px;
+    }
+    span{
+        display: inline-flex;
+        padding: 0;
+        position: relative;
+        select{
+            border: none;
+            background: transparent;
+            min-width: 160px;
+            -webkit-appearance: none;
+            -moz-appearance:    none;
+            appearance:         none;
+            color: var(--wpcf-primary-text-color);
+            padding: 0 20px !important;
+            line-height: 45px;
+            height: 45px;
+        }
+        &::after{
+            position: absolute;
+            content: '\f078';
+            font-weight: 900;
+            font-family: 'Font Awesome 5 Free';
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+    }
+    
 }

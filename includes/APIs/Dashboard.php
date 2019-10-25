@@ -124,10 +124,16 @@ class API_Dashboard {
         $format             = array();
         $label              = array();
         $pledges            = array();
+        $campaign           = array();
 
         if( !empty($campaign_id) ) {
             $campaign_ids       = array( $campaign_id );
             $total_goals        = get_post_meta($campaign_id, '_nf_funding_goal', true);
+            $campaign           = array(
+                'is_started'        => wpcf_function()->is_campaign_started($campaign_id),
+                'days_remaining'    => wpcf_function()->get_date_remaining($campaign_id),
+                'days_until_launch' => wpcf_function()->days_until_launch($campaign_id)
+            );
         } else {
             $campaigns_info     = $this->user_campaign_ids_with_total_goals();
             $campaign_ids       = $campaigns_info->campaign_ids;
@@ -217,8 +223,11 @@ class API_Dashboard {
             'fundRaised'    => $fund_raised,
             'raisedPercent' => $total_goals > 0 ? round( ($fund_raised*100) / $total_goals, 2) : 0,
             'totalBacked'   => $total_backed,
-            'pledges'       => $pledges
+            'pledges'       => $pledges,
+            'campaign'      => $campaign
         );
+
+
         return rest_ensure_response( $response );
     }
 

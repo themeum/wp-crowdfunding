@@ -5,13 +5,13 @@ import DatePicker from '../components/datePicker';
 import LineGraph from '../components/lineGraph';
 import PledgeReports from '../components/pledgeReports';
 import ExportCSV from '../components/exportCSV';
-import Header from './contentHeader'
+import Header from '../components/contentHeader'
 
 class CampaignReport extends Component {
 	constructor (props) {
         super(props);
 		this.state  = {
-            query_args: { 
+            query_args: {
                 date_range: 'last_7_days',
                 campaign_id: (this.props.campaign.id) ? this.props.campaign.id : ''
             },
@@ -51,7 +51,9 @@ class CampaignReport extends Component {
 	render () {
         const { query_args, option_params } = this.state;
         const { loading, data:{ csv, format, label, fundRaised, raisedPercent, totalBacked, pledges } } = this.props.report;
-        
+        const {campaign} = this.props.report.data
+
+
         if (loading) {
             return (
                 <div>
@@ -59,6 +61,8 @@ class CampaignReport extends Component {
                 </div>
             )
         };
+
+
 
         return (
             <div>
@@ -72,42 +76,59 @@ class CampaignReport extends Component {
                 </Header>
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-info-cards">
-                        <div className="wpcf-dashboard-info-card">
+                        <div className="wpcf-dashboard-info-card wpcf-info-success">
+                            <h3 className="wpcf-dashboard-info-val" >{WPCF.wc_currency_symbol + fundRaised.toFixed(2)}</h3>
                             <span>Fund Raised</span>
-                            <span className="wpcf-dashboard-info-val" >{WPCF.wc_currency_symbol + fundRaised}</span>
                         </div>
                         <div className="wpcf-dashboard-info-card">
+                            <h3 className="wpcf-dashboard-info-val">{raisedPercent}%</h3>
                             <span>Funded</span>
-                            <span className="wpcf-dashboard-info-val">{raisedPercent}%</span>
                         </div>
                         <div className="wpcf-dashboard-info-card">
+                            <h3 className="wpcf-dashboard-info-val">{ totalBacked }</h3>
                             <span>Total Backed</span>
-                            <span className="wpcf-dashboard-info-val">{ totalBacked }</span>
+                        </div>
+
+                        {
+                            Object.keys(campaign).length > 0 && (
+                                <div className="wpcf-dashboard-info-card">
+                                    <h3 className="wpcf-dashboard-info-val">{ ( campaign.is_started ) ? campaign.days_remaining :  campaign.days_until_launch }</h3>
+                                    <span>Days { ( campaign.is_started ) ? "to go" :  "Until Launch" }</span>
+                                </div>
+                            )
+                        }
+
+                    </div>
+
+                    <div className="wpcf-report-header">
+                        <div className="wpcf-report-filter">
+                            <DatePicker
+                                name="date_range_from"
+                                value={query_args.date_range_from}
+                                onChange={ e => this._onChange(e) }
+                                placeholder="From"
+                                format="yy-mm-dd"
+                            />
+                            <DatePicker
+                                name="date_range_to"
+                                value={query_args.date_range_to}
+                                onChange={ e => this._onChange(e) }
+                                placeholder="To"
+                                format="yy-mm-dd"
+                            />
+                            <span>
+                                <select id="date_range" name="date_range" value={query_args.date_range} onChange={ this._onChange }>
+                                    { Object.keys( option_params ).map( key =>
+                                        <option key={key} value={key}> {option_params[key]} </option>
+                                    )}
+                                </select>
+                            </span>
+                        </div>
+                        <div className="wpcf-report-export-btn">
+                            <ExportCSV data={csv} file_name="campaigns-report"/>
                         </div>
                     </div>
 
-                    <div className="filter">
-                        <select id="date_range" name="date_range" value={query_args.date_range} onChange={ this._onChange }>
-                            { Object.keys( option_params ).map( key => 
-                                <option key={key} value={key}> {option_params[key]} </option>
-                            )}
-                        </select>
-                        <DatePicker
-                            name="date_range_from"
-                            value={query_args.date_range_from}
-                            onChange={ e => this._onChange(e) }
-                            placeholder="From"
-                            format="yy-mm-dd"
-                        />
-                        <DatePicker
-                            name="date_range_to"
-                            value={query_args.date_range_to}
-                            onChange={ e => this._onChange(e) }
-                            placeholder="To"
-                            format="yy-mm-dd"
-                        />
-                    </div>
-                    <ExportCSV data={csv} file_name="campaigns-report"/>
                     <LineGraph format={ format } label={ label }/>
                     <hr />
                     <PledgeReports pledges={pledges} />

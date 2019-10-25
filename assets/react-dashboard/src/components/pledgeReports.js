@@ -14,11 +14,11 @@ function getStatusColor(status) {
 
 export default (props) => {
     const { pledges } = props;
-    
-    if( pledges.length === 0 ) {
+
+    if( typeof pledges == "undefined" || pledges.length === 0 ) {
         return <div>Data not found</div>
     }
-    
+
     return (
         <div className="wpcf-dashboard-info-table-wrap">
             <table className="wpcf-dashboard-info-table">

@@ -31,7 +31,7 @@ $the_query = new WP_Query( $args );
         ob_start();
 ?>
         <div class="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
-            
+
             <div class="wpneo-listing-img">
                 <a href="<?php echo get_permalink(); ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
                 <div class="overlay">
@@ -48,9 +48,9 @@ $the_query = new WP_Query( $args );
                 <div class="wpneo-admin-title float-left">
                     <!-- title -->
                     <h4><a href="<?php  echo get_permalink(); ?> "><?php echo get_the_title(); ?></a></h4>
-                    
+
                     <!-- author -->
-                    <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 
+                    <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?>
                         <a href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
                     </p>
 
@@ -71,7 +71,7 @@ $the_query = new WP_Query( $args );
                             $operation_btn .= '<span><a href="'.$permalink_update.'">'.__("Update", "wp-crowdfunding").'</a></span>';
                             $operation_btn .= '<span><a href="' . $permalink_edit . '" class="wp-crowd-btn wp-crowd-btn-primary">' . __("Edit", "wp-crowdfunding") . '</a></span>';
                         }
-                        
+
                     if (get_post_status() == 'draft'){
 	                    $operation_btn .='<span class="wp-crowd-btn wpneo-campaign-status">['.__("Draft", "wp-crowdfunding").']</span>';
                     }
@@ -81,7 +81,7 @@ $the_query = new WP_Query( $args );
                 </div>
                 <div class="wpneo-clearfix"></div>
                 <div class="wpneo-percent-rund-wrap">
-                    
+
                     <!-- percent -->
                     <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
                     <div class="crowdfound-pie-chart" data-size="60" data-percent="<?php echo $raised_percent; ?>">
@@ -89,7 +89,7 @@ $the_query = new WP_Query( $args );
                     </div>
 
                     <!-- fund-raised -->
-                    <?php 
+                    <?php
                     $raised_percent = wpcf_function()->get_fund_raised_percent_format();
                     $raised = 0;
                     $total_raised = wpcf_function()->get_total_fund();

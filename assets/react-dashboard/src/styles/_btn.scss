@@ -1,3 +1,14 @@
+.wpcf-btn-group{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -10px;
+    .wpcf-btn{
+        margin-top: 10px;
+        &:not(:last-child){
+            margin-right: 10px;
+        }
+    }
+}
 .wpcf-btn{
     display: inline-flex;
     align-items: center;
@@ -14,17 +25,50 @@
         border: 1px solid var(--wpcf-primary-color);
         color: #fff;
     }
+    
+    &.wpcf-btn-secondary{
+        background-color: var(--wpcf-primary-text-color);
+        border-color: var(--wpcf-primary-text-color);
+        color: #ffffff;
+    }
+    
     &.wpcf-link-btn{
         color: var(--wpcf-primary-color);
         padding: 0;
         background: none;
         border: none;
     }
-    &.wpcf-round{
-        border-radius: 30px;
+    
+    &.wpcf-btn-outline{
+        background: transparent;
+        border: 1px solid var(--wpcf-primary-color);
+        color: var(--wpcf-primary-color);
+        &:hover{
+            background-color: var(--wpcf-primary-color);
+            color: #ffffff;
+        }
+        &.wpcf-success-btn{
+            color: var(--wpcf-success-color);
+            border-color: var(--wpcf-success-color);
+            &:hover{
+                background-color: var(--wpcf-success-color);
+                color: #ffffff;
+            }
+        }
+        &.wpcf-btn-secondary{
+            border-color: var(--wpcf-border-color);
+            background: #ffffff;
+            color: var(--wpcf-primary-text-color);
+            &.active,
+            &:hover{
+                border-color: var(--wpcf-primary-color);
+                color: var(--wpcf-primary-color);
+            }
+        }
     }
-    &:hover{
-        filter: brightness(1.1);
+    
+    &.wpcf-btn-round{
+        border-radius: 30px;
     }
     .wpcf-icon:not(.wpcf-icon-right){
         margin-right: 12px;

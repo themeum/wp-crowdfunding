@@ -16,6 +16,6 @@ function exportToCsv(data, file_name) {
 export default (props) => {
     const { data, file_name } = props;
     return (
-        <button onClick={e => exportToCsv(data, file_name)}>Download CSV</button>
+        <button className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-success-btn" onClick={e => exportToCsv(data, file_name)}>Download CSV</button>
     )
 };

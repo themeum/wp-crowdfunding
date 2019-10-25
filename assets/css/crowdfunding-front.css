@@ -90,13 +90,13 @@
     font-weight: 400;
     text-transform: capitalize;
 }
-#wpneofrontenddata button:hover, 
-#wpneofrontenddata button:focus, 
-#wpneofrontenddata input[type="button"]:hover, 
-#wpneofrontenddata input[type="button"]:focus, 
-#wpneofrontenddata input[type="reset"]:hover, 
-#wpneofrontenddata input[type="reset"]:focus, 
-#wpneofrontenddata input[type="submit"]:hover, 
+#wpneofrontenddata button:hover,
+#wpneofrontenddata button:focus,
+#wpneofrontenddata input[type="button"]:hover,
+#wpneofrontenddata input[type="button"]:focus,
+#wpneofrontenddata input[type="reset"]:hover,
+#wpneofrontenddata input[type="reset"]:focus,
+#wpneofrontenddata input[type="submit"]:hover,
 #wpneofrontenddata input[type="submit"]:focus {
     background: #18ce43;
 }
@@ -145,7 +145,7 @@
     line-height: 20px;
 }
 .wp-crowd-new-campaign {
-   float: right; 
+   float: right;
    margin-top: 7px;
 }
 
@@ -414,7 +414,7 @@
     font-size: 14px;
 }
 .dashboard-head-right ul {
-    display: inline-block;  
+    display: inline-block;
     padding: 0;
     margin: 0;
 }
@@ -547,7 +547,7 @@ textarea[disabled], html input[disabled]{
     font-size: 14px;
     border: 1px solid #eee;
     width: 100%;
-    padding: 10px 15px; 
+    padding: 10px 15px;
     height: 36px !important;
     margin-bottom: 0 !important;
 }
@@ -840,6 +840,7 @@ input[type="button"].removeCampaignRewards:hover{
 /* ******************************************* */
 /* ************** Listing Page *************** */
 /* ******************************************* */
+/*
 .wpneo-listings-dashboard{
     clear: both;
     margin: 0 0 10px 0;
@@ -914,8 +915,8 @@ input[type="button"].removeCampaignRewards:hover{
     background-color: #000;
     color: #ffffff;
     padding: 10px 20px;
-    /*position: absolute;
-    right: 40px;*/
+    !*position: absolute;
+    right: 40px;*!
 }
 .profile-form-img {
     width: 232px;
@@ -1010,6 +1011,7 @@ input[type="button"].removeCampaignRewards:hover{
     border: none;
     box-shadow: none;
 }
+*/
 
 /** Update Form Css */
 #wpneo-dashboard-form input[type="text"], #wpneo-dashboard-form input[type="email"], #wpneo-dashboard-form input[type="url"], #wpneo-dashboard-form input[type="password"], #wpneo-dashboard-form input[type="search"], #wpneo-dashboard-form input[type="tel"], #wpneo-dashboard-form input[type="number"], #wpneo-dashboard-form textarea {
@@ -1080,7 +1082,7 @@ input[type="button"].removeCampaignRewards:hover{
 }
 
 @media print
-{    
+{
     .no-print, .no-print *
     {
         display: none !important;
@@ -1108,7 +1110,7 @@ input[type="button"].removeCampaignRewards:hover{
     color: #686C8B;
     font-size: 14px;
 }
-.wpneo-modal-wrapper h1, .wpneo-modal-wrapper h2, .wpneo-modal-wrapper h3, 
+.wpneo-modal-wrapper h1, .wpneo-modal-wrapper h2, .wpneo-modal-wrapper h3,
 .wpneo-modal-wrapper h4, .wpneo-modal-wrapper h5, .wpneo-modal-wrapper h6 {
     font-weight: 500;
 }
@@ -1320,7 +1322,7 @@ table.stripe-table thead tr th {
 }
 
 table.stripe-table>tbody>:nth-child(odd) {
-    background: none; 
+    background: none;
 }
 
 table.stripe-table thead tr th,
@@ -1387,7 +1389,7 @@ table.stripe-table td {
 .label-default{ background: none;}
 
 .stripe-table  a.label-default {
-    color: #686C8B; 
+    color: #686C8B;
     box-shadow: 0 0 0 0 currentColor;
     transition: 400ms;
 }
@@ -1460,7 +1462,7 @@ table.stripe-table td {
 /* ******* Preset ******* */
 /* ****************************** */
 
-.wpneo_donate_button, 
+.wpneo_donate_button,
 #wpneo-tab-reviews .submit,
 .wpneo-edit-btn,
 .wpneo-image-upload.float-right,
@@ -1481,7 +1483,7 @@ input[type="button"].wpneo-image-upload,
 .btn-style1,#wpneo-tab-reviews .submit,.dashboard-head-date input[type="submit"],
 .wp-crowd-btn-primary, .wpneo_withdraw_button,.wpneo-dashboard-head-left ul li.active,
 .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current{ background-color:#1adc68; color:#fff; }
-.wpneo_donate_button:hover, 
+.wpneo_donate_button:hover,
 #wpneo-tab-reviews .submit:hover,
 .wpneo-edit-btn:hover,
 .wpneo-image-upload.float-right:hover,
@@ -1546,7 +1548,7 @@ a.wpneo-fund-modal-btn.wpneo-link-style1,.wpneo-tabs-menu li.wpneo-current a,
     color: rgba(#1adc68,#1adc68,#1adc68,0.95);
 }.tab-rewards-wrapper .overlay {
     background: rgba(26,220,104,.95);
-} 
+}
 
  /**
  Campaign Single Page
@@ -1626,12 +1628,12 @@ ul.wpcf_predefined_pledge_amount li a{
         right: 10px;
         top: 15px;
     }
-    .crowdfound-fund-raised, 
-    .crowdfound-funding-goal, 
+    .crowdfound-fund-raised,
+    .crowdfound-funding-goal,
     .crowdfound-time-remaining {
         margin-left: 10px;
         font-size: 12px;
-    }   
+    }
     .wpneo-modal-content {
         margin: 10% auto 0;
         max-width: 60%;
