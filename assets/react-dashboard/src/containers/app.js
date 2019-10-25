@@ -84,7 +84,7 @@ class App extends Component {
                             <li><NavLink exact activeClassName="is-active" to="/"><span className="fas fa-home wpcf-icon" />Dashboard</NavLink></li>
                             <li><NavLink activeClassName="is-active" to="/profile"><span className="far fa-user wpcf-icon" />My Profile</NavLink>
                             </li>
-                            <li className={(this.state.myCampainsCollapse ? 'collapse' : 'collapsed')}>
+                            <li className={(this.state.myCampainsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
                                 <a 
                                     href="javascript:void(0)"
                                     onClick={
@@ -109,7 +109,7 @@ class App extends Component {
                                 </ul>
                             </li>
                             <li><NavLink activeClassName="is-active" to="/rewards"><span className="fas fa-gift wpcf-icon"></span>Rewards</NavLink></li>
-                            <li className={(this.state.userSettingsCollapse ? 'collapse' : 'collapsed')}>
+                            <li className={(this.state.userSettingsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
                                 <a 
                                     href="javascript:void(0)"
                                     onClick={

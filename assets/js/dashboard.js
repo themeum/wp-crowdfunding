@@ -34514,7 +34514,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "far fa-user wpcf-icon"
       }), "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: this.state.myCampainsCollapse ? 'collapse' : 'collapsed'
+        className: this.state.myCampainsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "javascript:void(0)",
         onClick: function onClick() {
@@ -34552,7 +34552,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "fas fa-gift wpcf-icon"
       }), "Rewards")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: this.state.userSettingsCollapse ? 'collapse' : 'collapsed'
+        className: this.state.userSettingsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "javascript:void(0)",
         onClick: function onClick() {
