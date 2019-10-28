@@ -1,4 +1,6 @@
 import React, {Fragment} from 'react';
+import CircleProgress from "./circleProgress";
+import decodeEntities from "../helpers/decodeEntities"
 
 export default (props) => {
     const { data } = props;
@@ -7,51 +9,66 @@ export default (props) => {
         <div className="wpcf-campaign-item">
             <a
                 className="wpcf-campaign-thumbnail"
-                title={ data.title }
+                title={ decodeEntities(data.title) }
                 href={ data.permalink }
                 dangerouslySetInnerHTML={{__html: data.thumbnail}}
             />
 
             <div className="wpcf-campaign-content">
-
-                <div className="wpcf-campaign-content-links">
-                    <a href="javascript:void(0)" onClick={ () => props.onClickReport( {id: data.id, name: data.title} ) }>Report</a>
-                    <a href="javascript:void(0)" onClick={ () => props.onClickUpdates( data.id, data.updates ) }>Update</a>
-                    <a href="#" className="wp-crowd-btn wp-crowd-btn-primary">Edit</a>
+                <div className="wpcf-campaign-heading">
+                    <h3 className="wpcf-campaign-title">
+                        <a href={data.permalink}>{decodeEntities(data.title)}</a>
+                    </h3>
+                    <div className="wpcf-campaign-links">
+                        <button aria-label="Report" title="Report"  onClick={ () => props.onClickReport( {id: data.id, name: data.title} ) }>
+                            <span className="fas fa-chart-bar"></span>
+                        </button>
+                        <button aria-label="Edit" title="Edit" onClick={ () => props.onClickUpdates( data.id, data.updates ) }>
+                            <i className="far fa-edit"></i>
+                        </button>
+                        <button aria-label="Delete" title="Delete">
+                            <span className="fas fa-trash-alt"></span>
+                        </button>
+                    </div>
                 </div>
-
-                <h3><a href={data.permalink}>{ data.title }</a></h3>
                 <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
-                <div className="wpneo-location">
-                    <i className="wpneo-icon wpneo-icon-location"></i>
-                    <div className="wpneo-meta-desc">{ data.location }</div>
-                </div>
 
-                <div className="wpneo-percent-rund-wrap">
-                    <div data-percent={ data.raised_percent }>
-                        <div><span>{ data.raised_percent }</span></div>
-                    </div>
-                    <div>
-                        <div className="wpneo-meta-desc" dangerouslySetInnerHTML={{__html: data.total_raised}}/>
-                        <div className="wpneo-meta-name">Fund Raised</div>
-                    </div>
-                    <div>
-                        <div className="wpneo-meta-desc" dangerouslySetInnerHTML={{__html: data.funding_goal}}/>
-                        <div className="wpneo-meta-name">Funding Goal</div>
-                    </div>
-
-                    { ( data.end_method !== 'never_end' ) &&
-                        <div>
-                            <div className="wpneo-meta-desc">{ ( data.is_started ) ? data.days_remaining :  data.days_until_launch }</div>
-                            <div className="wpneo-meta-name">Days { ( data.is_started ) ? "to go" :  "Until Launch" }</div>
+                <div className="wpcf-campaign-infos">
+                    <div className="wpcf-campaign-info">
+                        <div className="wpcf-campaign-raised">
+                            <CircleProgress size={50} thickness={3} percent={Math.round(data.raised_percent)}/>
+                            <span className="wpcf-raised-percent">{ Math.round(data.raised_percent) }%</span>
                         </div>
-                    }
+                    </div>
+                    <div className="wpcf-campaign-info">
+                        <h5>
+                            <span>{WPCF.wc_currency_symbol + data.total_raised}</span>
+                            <span>Fund Raised</span>
+                        </h5>
+                    </div>
+                    <div className="wpcf-campaign-info">
+                        <h5>
+                            <span>{WPCF.wc_currency_symbol + data.funding_goal}</span>
+                            <span>Funding Goal</span>
+                        </h5>
+                    </div>
+
+
+                    {( data.end_method !== 'never_end' ) && (
+                        <div className="wpcf-campaign-info">
+                            <h5>
+                                <span>{ ( data.is_started ) ? data.days_remaining :  data.days_until_launch }</span>
+                                <span>Days { ( data.is_started ) ? "to go" :  "Until Launch" }</span>
+                            </h5>
+                        </div>
+                    )}
 
                     { props.pledge &&
-                        <div className="">
-                            <span><a href="#">Pledge More</a></span>
-                        </div>
+                    <div  className="wpcf-campaign-info">
+                        <span><a href="#">Pledge More</a></span>
+                    </div>
                     }
+
                 </div>
             </div>
         </div>
