@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 export default class contentHeader extends Component {
     render() {
         return (
-            <div>
+            <Fragment>
                 <div className="wpcf-content-header">
                     <div className="wpcf-content-header-left">
                         {this.props.children}
@@ -14,7 +14,7 @@ export default class contentHeader extends Component {
                     </a>
                 </div>
                 <h3 className="wpcf-content-heading">{this.props.title}</h3>
-            </div>
+            </Fragment>
         )
     }
 }

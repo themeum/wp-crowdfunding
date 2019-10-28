@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchMyCampaigns } from '../actions/campaignAction';
 import CampaignReport from '../containers/campaignReport';
@@ -85,7 +85,7 @@ class MyCampaigns extends Component {
         const campaignData = this.getCampaignData();
 
         return (
-            <div>
+            <Fragment>
                 <Header title={"My Campaigns"}></Header>
                 <div className='wpcf-mycampaign-filter-group wpcf-btn-group'>
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</button>
@@ -95,7 +95,7 @@ class MyCampaigns extends Component {
                 </div>
                 <div className="wpcf-dashboard-content-inner">
                     { campaignData.length ?
-                        <div>
+                        <Fragment>
                             { pageOfItems.map( (item, index) =>
                                 <ItemCampaign
                                     key={index}
@@ -108,14 +108,14 @@ class MyCampaigns extends Component {
                                 pageSize={ 5 }
                                 filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
-                        </div>
-                    :   <div>
+                        </Fragment>
+                    :   <Fragment>
                             Campaign not found
-                        </div>
+                        </Fragment>
                     }
 
                 </div>
-            </div>
+            </Fragment>
         )
 	}
 }
