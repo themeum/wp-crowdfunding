@@ -23,7 +23,7 @@ export default (_props) => {
             is_media
             return (
                 <div className={item.class}>
-                    <input {...input} type={item.type} onBlur={(e) => { input.onBlur(e); onBlurVideoLink(e); }} placeholder={item.placeholder} />
+                    <input {...input} type={item.type} onBlur={(e) => onBlurVideoLink(e)} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
