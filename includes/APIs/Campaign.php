@@ -141,7 +141,7 @@ class API_Campaign {
                     'required'      => false,
                     'show'          => true
                 ),
-                'types' => array(
+                'type' => array(
                     'type'          => 'radio',
                     'title'         => __("Raising Money For *", "wp-crowdfunding"),
                     'desc'          => __("Estimated Shipping Date Rewards to be Recieved", "wp-crowdfunding"),
@@ -895,27 +895,117 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function save_campaign( \WP_REST_Request $request ) {
-        $json_params = $request->get_json_params();
-        echo "<pre>";
-        print_r($json_params);
-
-
-
         $user_id = $this->current_user_id;
+        $json_params = $request->get_json_params();
+        $basic = $json_params['basic'];
+        $story = $json_params['story'];
+        $rewards = $json_params['rewards'];
+        $team = $json_params['team'];
+
         $campaign = array(
             'post_type'		=>'product',
-            'post_title'    => $title,
-            'post_content'  => $description,
-            'post_excerpt'  => $short_description,
+            'post_title'    => $basic['title'],
+            'post_content'  => json_encode($story),
+            'post_excerpt'  => $basic['short_desc'],
             'post_author'   => $user_id,
         );
         
         do_action('wpcf_before_campaign_submit_action');
 
+        if(isset($_POST['edit_form'])) {
+            //Prevent if unauthorised access
+            $user_campaign_ids = $this->get_user_campaign_ids();
+            $campaign['ID'] = $_POST['edit_post_id'];
+
+            $campaign_status = get_option('wpneo_campaign_edit_status', 'pending');
+            $campaign['post_status'] = $campaign_status;
+
+            if ( !in_array($campaign['ID'], $user_campaign_ids) ) {
+                header('Content-Type: application/json');
+                echo json_encode(array('success' => 0, 'msg' => 'Unauthorized action'));
+                exit;
+            }
+            $post_id = wp_update_post( $campaign );
+        } else {
+            $campaign['post_status'] = get_option( 'wpneo_default_campaign_status' );
+            $post_id = wp_insert_post( $campaign );
+            if ($post_id) {
+                WC()->mailer(); // load email classes
+                do_action('wpcf_after_campaign_email',$post_id);
+            }
+        }
+
+        if ($post_id) {
+            if( $basic['category'] != '' ){
+                wp_set_object_terms( $post_id , $basic['category'], 'product_cat', true );
+            }
+            if($basic['tag']) {
+                wp_set_object_terms( $post_id , $basic['tag'], 'product_tag', true );
+            }
+            wp_set_object_terms( $post_id , 'crowdfunding', 'product_type', true );
+
+            wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
+            wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($start_date));
+            wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($end_date));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($min_price));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($max_price));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
+            wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
+            wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
+            wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($type));
+            wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
+            wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($contributor_show));
+            wpcf_function()->update_meta($post_id, 'wpneo_campaigner_paypal_id', esc_attr($paypal));
+            wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($country));
+            wpcf_function()->update_meta($post_id, '_nf_location', esc_html($location));
+
+            //Saved repeatable rewards
+            if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
+                $data             = array();
+                $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
+                $description      = $_POST['wpneo_rewards_description'];
+                $endmonth         = $_POST['wpneo_rewards_endmonth'];
+                $endyear          = $_POST['wpneo_rewards_endyear'];
+                $item_limit       = $_POST['wpneo_rewards_item_limit'];
+                $image_field      = $_POST['wpneo_rewards_image_field'];
+                $field_number     = count($pladge_amount);
+                for ($i = 0; $i < $field_number; $i++) {
+                    if (!empty($pladge_amount[$i])) {
+                        $data[] = array(
+                            'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
+                            'wpneo_rewards_description'     => esc_html($description[$i]),
+                            'wpneo_rewards_endmonth'        => esc_html($endmonth[$i]),
+                            'wpneo_rewards_endyear'         => esc_html($endyear[$i]),
+                            'wpneo_rewards_item_limit'      => esc_html($item_limit[$i]),
+                            'wpneo_rewards_image_field'     => esc_html($image_field[$i]),
+                        );
+                    }
+                }
+                $data_json = json_encode($data,JSON_UNESCAPED_UNICODE);
+                wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
+            }
+        }
+
+        $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
         return rest_ensure_response(array(
-            'success'   => 0,
-            'msg'       => __('Amount must be greater than 0', 'wp-crowdfunding-pro')
+            'success'   => 1,
+            'message'   => __('Campaign successfully submitted', 'wp-crowdfunding-pro'),
+            'redirect'  => $redirect,
         ));
+    }
+
+    /**
+     * Get user campaign ids
+     * @since     2.1.0
+     * @access    public
+     * @return    array
+     */
+    public function get_user_campaign_ids() {
+        global $wpdb;
+        $user_id = $this->current_user_id;
+        $user_product_ids = $wpdb->get_col("select ID from {$wpdb->posts} WHERE post_author = {$user_id} AND post_type = 'product' ");
+        return $user_product_ids;
     }
 
 }
@@ -978,7 +1068,7 @@ new API_Campaign();
             )
 
         [category] => 20
-        [types] => individual
+        [type] => individual
         [sub_category] => 23
         [country] => BD
         [state] => BD-14
