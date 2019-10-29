@@ -25,6 +25,13 @@
         border: 1px solid var(--wpcf-primary-color);
         color: #fff;
     }
+    &.wpcf-btn-sm{
+        font-size: 14px;
+        padding-left: 15px;
+        padding-right: 15px;
+        line-height: 17px;
+        height: 35px;
+    }
     
     &.wpcf-btn-secondary{
         background-color: var(--wpcf-primary-text-color);

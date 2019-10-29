@@ -1,37 +1,40 @@
-import React, { Component } from 'react';
+import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { fetchInvestedCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
+import Header from "../components/contentHeader";
 
 class InvestedCampaigns extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            filterValue: 'running'
-        };
-        this.onChangePage = this.onChangePage.bind(this);
+
+    state = {
+        pageOfItems: [],
+        filterValue: 'running',
+        campaignReport: { id: '', name: '' },
     }
 
-    componentDidMount() {
+    componentDidMount () {
         const { loaded } = this.props.campaign;
         if( !loaded ) {
             this.props.fetchInvestedCampaigns();
         }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickFilter(e) {
+    onClickReport = (campaignReport) => {
+        this.setState({ campaignReport });
+    }
+
+    onClickFilter = (e) => {
         e.preventDefault();
         const filterValue = e.target.innerText.toLowerCase();
         this.setState({ filterValue });
     }
 
-    getCampaignData() {
+    getCampaignData = () =>  {
         const { filterValue } = this.state;
         const { campaign } = this.props;
         const filterData = campaign.data.filter( item => item.status == filterValue );
@@ -40,7 +43,7 @@ class InvestedCampaigns extends Component {
 
 	render() {
         const { campaign } = this.props;
-        if( campaign.loading ) { 
+        if( campaign.loading ) {
             return (
                 <div>
                     Loading...
@@ -49,25 +52,26 @@ class InvestedCampaigns extends Component {
         };
 
         const { pageOfItems, filterValue } = this.state;
+
         const campaignData = this.getCampaignData();
-        
+
         return (
-            <div>
-                <h3>My Campaigns</h3>
-                <div>
-                    <span onClick={ e => this.onClickFilter(e) }>Running</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Pending</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Draft</span>
-                    <span onClick={ e => this.onClickFilter(e) }>Completed</span>
+            <Fragment>
+                <Header title={"Invested Campaigns"}></Header>
+                <div className="wpcf-mycampaign-filter-group wpcf-btn-group">
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</button>
                 </div>
-                <div className="wpcf-dashboard-content-inner">
+                <div className="wpcf-dashboard-content-inners">
                     { campaignData.length ?
                         <div>
                             { pageOfItems.map( (item, index) =>
-                                <ItemCampaign 
+                                <ItemCampaign
                                     key={index}
                                     data={ item }
-                                    pledge={ true }/>
+                                    pledge={ true }
+                                    invested={true}
+                                />
                             ) }
                             <Pagination
                                 items={ campaignData }
@@ -79,9 +83,9 @@ class InvestedCampaigns extends Component {
                             Campaign not found
                         </div>
                     }
-                        
+
                 </div>
-            </div>
+            </Fragment>
         )
 	}
 }

@@ -128,9 +128,7 @@ class CampaignReport extends Component {
                             <ExportCSV data={csv} file_name="campaigns-report"/>
                         </div>
                     </div>
-
                     <LineGraph format={ format } label={ label }/>
-                    <hr />
                     <PledgeReports pledges={pledges} />
                 </div>
             </div>

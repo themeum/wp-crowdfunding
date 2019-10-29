@@ -14,6 +14,8 @@ $sidebar_width: 255px;
 #wpcf-dashboard{
     font-family: var(--wpcf-font-family);
     color: var(--wpcf-primary-text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .wpcf-dashboard-container{

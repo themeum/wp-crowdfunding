@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import CircleProgress from "./circleProgress";
 import decodeEntities from "../helpers/decodeEntities"
 
-export default (props) => {
+const ItemCampaign = (props) => {
     const { data } = props;
 
     return (
@@ -15,11 +15,11 @@ export default (props) => {
             />
 
             <div className="wpcf-campaign-content">
-                <div className="wpcf-campaign-heading">
+                <div className={"wpcf-campaign-heading" + (props.invested !== true ? "" : "wpcf-has-not-campaign-link")}>
                     <h3 className="wpcf-campaign-title">
                         <a href={data.permalink}>{decodeEntities(data.title)}</a>
                     </h3>
-                    <div className="wpcf-campaign-links">
+                    {props.invested !== true && <div className="wpcf-campaign-links">
                         <button aria-label="Report" title="Report"  onClick={ () => props.onClickReport( {id: data.id, name: data.title} ) }>
                             <span className="fas fa-chart-bar"></span>
                         </button>
@@ -29,7 +29,7 @@ export default (props) => {
                         <button aria-label="Delete" title="Delete">
                             <span className="fas fa-trash-alt"></span>
                         </button>
-                    </div>
+                    </div>}
                 </div>
                 <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
 
@@ -65,7 +65,7 @@ export default (props) => {
 
                     { props.pledge &&
                     <div  className="wpcf-campaign-info">
-                        <span><a href="#">Pledge More</a></span>
+                        <a className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm" href={data.permalink}>Pledge More</a>
                     </div>
                     }
 
@@ -74,3 +74,9 @@ export default (props) => {
         </div>
     )
 };
+
+ItemCampaign.defaultProps = {
+    invested: false
+}
+
+export default ItemCampaign

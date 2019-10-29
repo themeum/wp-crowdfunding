@@ -8,18 +8,12 @@ import Pagination from '../components/pagination';
 import Header from '../components/contentHeader';
 
 class MyCampaigns extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            filterValue: 'running',
-            campaignReport: { id: '', name: '' },
-            campaignId: '',
-            updates: [],
-        };
-        this.onChangePage = this.onChangePage.bind(this);
-        this.onClickReport = this.onClickReport.bind(this);
-        this.onClickUpdates = this.onClickUpdates.bind(this);
+    state = {
+        pageOfItems: [],
+        filterValue: 'running',
+        campaignReport: { id: '', name: '' },
+        campaignId: '',
+        updates: [],
     }
 
     componentDidMount() {
@@ -29,25 +23,25 @@ class MyCampaigns extends Component {
         }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickFilter(e) {
+    onClickFilter = (e) => {
         e.preventDefault();
         const filterValue = e.target.innerText.toLowerCase();
         this.setState({ filterValue });
     }
 
-    onClickReport(campaignReport) {
+    onClickReport = (campaignReport) => {
         this.setState({ campaignReport });
     }
 
-    onClickUpdates(campaignId, updates) {
+    onClickUpdates = (campaignId, updates) => {
         this.setState({ campaignId, updates });
     }
 
-    getCampaignData() {
+    getCampaignData = () => {
         const { filterValue } = this.state;
         const { campaign } = this.props;
         const filterData = campaign.data.filter( item => item.status == filterValue );

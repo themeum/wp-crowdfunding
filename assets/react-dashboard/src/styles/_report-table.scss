@@ -1,0 +1,31 @@
+.wpcf-report-table{
+	border: 1px solid var(--wpcf-border-color);
+	margin-bottom: 30px;
+	border-radius: 4px;
+	overflow: hidden;
+	border-spacing: 0;
+	border-collapse: separate;
+	thead{
+		tr{
+			th,
+			td{
+				background: #F5F5FA !important;
+				border: none !important;
+			}
+		}
+	}
+	tbody{
+		tr{
+			th, td{
+				background: #ffffff !important;
+				border: none !important;
+			}
+			&:nth-child(even){
+				th, td{
+					background: #F5F5FA !important;
+					border: none !important;
+				}
+			}
+		}
+	}
+}

@@ -7,10 +7,10 @@ class LineGraph extends Component {
         super(props);
         this.chartRef = React.createRef();
       }
-    
+
     componentDidMount() {
         const chartRef = this.chartRef.current.getContext("2d");
-        
+
         new Chart(chartRef, {
             type: "line",
             data: {
@@ -48,7 +48,7 @@ class LineGraph extends Component {
     }
     render() {
         return (
-            <div className="">
+            <div className="wpcf-report-line-graph">
                 <canvas
                     id="lineChart"
                     ref={this.chartRef}
