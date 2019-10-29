@@ -930,8 +930,8 @@ class API_Campaign {
             $campaign['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $campaign );
             if ($post_id) {
-                WC()->mailer(); // load email classes
-                do_action('wpcf_after_campaign_email',$post_id);
+                WC()->mailer(); //load email classes
+                do_action('wpcf_after_campaign_email', $post_id);
             }
         }
 
@@ -953,7 +953,6 @@ class API_Campaign {
             wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
             wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
             wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
-            wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($type));
             wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
             wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($contributor_show));
             wpcf_function()->update_meta($post_id, 'wpneo_campaigner_paypal_id', esc_attr($paypal));

@@ -59,7 +59,7 @@ class Basic extends Component {
         });
         setTimeout(() => {
             this.addMediaFile(files);
-            this.removeMediaFile('video_link', files);
+            this.removeMediaFile(type, files);
         }, 300)
     }
 
