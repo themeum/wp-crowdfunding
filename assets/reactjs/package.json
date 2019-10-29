@@ -23,7 +23,7 @@
     "start": "webpack --watch",
     "dev": "webpack --watch --mode development",
     "test": "standard && node my-tests.js",
-    "build": "NODE_ENV=production webpack --config ./webpack.production.config.js"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@tinymce/tinymce-react": "^3.3.2",
