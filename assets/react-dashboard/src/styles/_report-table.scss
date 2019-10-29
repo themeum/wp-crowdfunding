@@ -5,12 +5,27 @@
 	overflow: hidden;
 	border-spacing: 0;
 	border-collapse: separate;
+	tr{
+		th, td{
+			padding: 15px 20px;
+			line-height: 20px;
+			&:first-child{
+				padding-left: 30px;
+			}
+			&:last-child{
+				padding-right: 30px;
+			}
+		}
+	}
 	thead{
 		tr{
 			th,
 			td{
+				color: var(--wpcf-heading-color);
 				background: #F5F5FA !important;
 				border: none !important;
+				font-size: 16px;
+				font-weight: 500;
 			}
 		}
 	}

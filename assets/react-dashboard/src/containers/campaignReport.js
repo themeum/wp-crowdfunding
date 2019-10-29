@@ -50,8 +50,7 @@ class CampaignReport extends Component {
 
 	render () {
         const { query_args, option_params } = this.state;
-        const { loading, data:{ csv, format, label, fundRaised, raisedPercent, totalBacked, pledges } } = this.props.report;
-        const {campaign} = this.props.report.data
+        const { loading, data:{ csv, format, label, fundRaised, raisedPercent, totalBacked, pledges, campaign } } = this.props.report;
 
 
         if (loading) {

@@ -27,7 +27,7 @@ export default (props) => {
                 <td>Country</td>
                 <td>Date</td>
                 <td>Pledged</td>
-                <td>(%)</td>
+                <td>Pledged (%)</td>
                 <td>Status</td>
                 <td>Email</td>
             </tr>

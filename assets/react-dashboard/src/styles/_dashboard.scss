@@ -7,10 +7,9 @@
         border: 1px solid var(--wpcf-border-color);
         border-radius: 8px;
         color: var(--wpcf-light-text-color);
-        flex: 1 0 calc(24% - 20px);
-        max-width: calc(24% - 20px);
         margin-left: 20px;
         font-weight: 400;
+        flex-grow: 1;
         h3{
             font-size: 32px;
             margin-bottom: 3px;
@@ -18,8 +17,7 @@
             font-weight: 400;
         }
         &:first-child{
-            flex: 1 0 calc(28% - 20px);
-            max-width: calc(28% - 20px);
+            min-width: 28%;
         }
         &.wpcf-info-success{
             background: var(--wpcf-success-color);
