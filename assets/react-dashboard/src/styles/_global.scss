@@ -18,6 +18,10 @@ $sidebar_width: 255px;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
 }
+#wpcf-dashboard img{
+    max-width: 100%;
+    height: auto;
+}
 
 .wpcf-dashboard-container{
     display: flex;
