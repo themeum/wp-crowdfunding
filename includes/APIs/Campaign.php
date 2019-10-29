@@ -936,7 +936,7 @@ class API_Campaign {
         }
 
         if ($post_id) {
-            if( $basic['category'] != '' ){
+            if( $basic['category'] != '' ) {
                 wp_set_object_terms( $post_id , $basic['category'], 'product_cat', true );
             }
             if($basic['tag']) {
