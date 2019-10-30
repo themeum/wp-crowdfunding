@@ -904,9 +904,9 @@ class API_Campaign {
 
         $campaign = array(
             'post_type'		=>'product',
-            'post_title'    => $basic['title'],
+            'post_title'    => sanitize_text_field($basic['title']),
             'post_content'  => json_encode($story),
-            'post_excerpt'  => $basic['short_desc'],
+            'post_excerpt'  => sanitize_text_field($basic['short_desc']),
             'post_author'   => $user_id,
         );
         
@@ -946,11 +946,16 @@ class API_Campaign {
 
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
-            wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($start_date));
-            wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($end_date));
-            wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($min_price));
-            wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($max_price));
-            wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
+
+            wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($basic['goal_type']));
+            if( isset($basic['goal_type']) && $basic['goal_type'] == 'target_date') {
+                wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($basic['start_date']));
+                wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($basic['end_date']));
+            }
+
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($basic['amount_range']['min']));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($basic['amount_range']['max']));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($basic['recommended']));
             wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
             wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
             wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
