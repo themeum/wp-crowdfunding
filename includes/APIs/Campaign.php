@@ -281,7 +281,7 @@ class API_Campaign {
                     'required'  => true,
                     'show'      => true
                 ),
-                'goal' => array(
+                'funding_goal' => array(
                     'type'      => 'range',
                     'title'     => __("Funding Goals *", "wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing", "wp-crowdfunding"),
@@ -367,7 +367,7 @@ class API_Campaign {
                     ),
                     'show' => false,
                 ),
-                'amount_range' => array(
+                'pledge_amount' => array(
                     'type'      => 'range',
                     'title'     => __("Amount Range *","wp-crowdfunding"),
                     'desc'      => __("You can Fixed a Maximum and Minimum Amount", "wp-crowdfunding"),
@@ -387,10 +387,19 @@ class API_Campaign {
                     'required'  => true,
                     'show'      => true,
                 ),
+                'predefined_amount' => array(
+                    'type'      => 'text',
+                    'title'     => __("Predefined Pledge Amount","wp-crowdfunding"),
+                    'desc'      => __("Predefined amount allow you to place the amount in donate box by click, price should separated by comma (,), example: 10,20,30,40","wp-crowdfunding"),
+                    'class'     => '',
+                    'value'     => '',
+                    'required'  => false,
+                    'show'      => true,
+                ),
             ),
             // Contributor
             'contributor' => array(
-                'table' => array(
+                'contributor_table' => array(
                     'type'      => 'checkbox',
                     'title'     => __("Contributor Table", "wp-crowdfunding"),
                     'desc'      => __("You can make contributors table", "wp-crowdfunding"),
@@ -406,7 +415,7 @@ class API_Campaign {
                     'required'  => false,
                     'show'      => true,
                 ),
-                'anonymity' => array(
+                'contributor_anonymity' => array(
                     'type'      => 'checkbox',
                     'title'     => __("Contributor Anonymity", "wp-crowdfunding"),
                     'desc'      => __("You can make contributors anonymus visitors will not see the backers", "wp-crowdfunding"),
@@ -897,6 +906,8 @@ class API_Campaign {
     function save_campaign( \WP_REST_Request $request ) {
         $user_id = $this->current_user_id;
         $json_params = $request->get_json_params();
+        $post_id = $json_params['post_id'];
+        $submit = $json_params['submit'];
         $basic = $json_params['basic'];
         $story = $json_params['story'];
         $rewards = $json_params['rewards'];
@@ -905,25 +916,27 @@ class API_Campaign {
         $campaign = array(
             'post_type'		=>'product',
             'post_title'    => sanitize_text_field($basic['title']),
-            'post_content'  => json_encode($story),
             'post_excerpt'  => sanitize_text_field($basic['short_desc']),
+            'post_content'  => json_encode($story),
             'post_author'   => $user_id,
         );
-        
+
         do_action('wpcf_before_campaign_submit_action');
 
-        if(isset($_POST['edit_form'])) {
+        if($post_id) {
             //Prevent if unauthorised access
             $user_campaign_ids = $this->get_user_campaign_ids();
             $campaign['ID'] = $_POST['edit_post_id'];
 
-            $campaign_status = get_option('wpneo_campaign_edit_status', 'pending');
+            $campaign_status = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';
             $campaign['post_status'] = $campaign_status;
 
             if ( !in_array($campaign['ID'], $user_campaign_ids) ) {
-                header('Content-Type: application/json');
-                echo json_encode(array('success' => 0, 'msg' => 'Unauthorized action'));
-                exit;
+                $response = array(
+                    'success' => 0,
+                    'message' => __('Unauthorized action', 'wp-crowdfunding'),
+                );
+                return rest_ensure_response($response);
             }
             $post_id = wp_update_post( $campaign );
         } else {
@@ -944,8 +957,26 @@ class API_Campaign {
             }
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type', true );
 
+            $media = $basic['media'];
+            $image_id = '';
+            $video_src = '';
+            foreach($media as $m) {
+                if($m['type'] == 'image') {
+                    $image_id = $m['id'];
+                    break;
+                }
+            }
+            foreach($media as $m) {
+                if($m['type'] == 'video' || $m['type'] == 'video_link') {
+                    $video_src =  $m['src'];
+                    break;
+                }
+            }
+
+
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
-            wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video_src));
+            wpcf_function()->update_meta($post_id, 'wpneo_media', esc_url(json_encode($media)));
 
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($basic['goal_type']));
             if( isset($basic['goal_type']) && $basic['goal_type'] == 'target_date') {
@@ -953,50 +984,45 @@ class API_Campaign {
                 wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($basic['end_date']));
             }
 
-            wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($basic['amount_range']['min']));
-            wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($basic['amount_range']['max']));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($basic['pledge_amount']['min']));
+            wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($basic['pledge_amount']['max']));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($basic['recommended']));
-            wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
-            wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
-            wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
-            wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($contributor_show));
-            wpcf_function()->update_meta($post_id, 'wpneo_campaigner_paypal_id', esc_attr($paypal));
-            wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($country));
-            wpcf_function()->update_meta($post_id, '_nf_location', esc_html($location));
+            wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($basic['predefined_amount']));
+            wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($basic['funding_goal']));
+            wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($basic['contributor_table']));
+            wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($basic['contributor_anonymity']));
+            wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($basic['country']));
+            //wpcf_function()->update_meta($post_id, '_nf_location', esc_html($location));
 
             //Saved repeatable rewards
-            if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
-                $data             = array();
-                $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
-                $description      = $_POST['wpneo_rewards_description'];
-                $endmonth         = $_POST['wpneo_rewards_endmonth'];
-                $endyear          = $_POST['wpneo_rewards_endyear'];
-                $item_limit       = $_POST['wpneo_rewards_item_limit'];
-                $image_field      = $_POST['wpneo_rewards_image_field'];
-                $field_number     = count($pladge_amount);
-                for ($i = 0; $i < $field_number; $i++) {
-                    if (!empty($pladge_amount[$i])) {
-                        $data[] = array(
-                            'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
-                            'wpneo_rewards_description'     => esc_html($description[$i]),
-                            'wpneo_rewards_endmonth'        => esc_html($endmonth[$i]),
-                            'wpneo_rewards_endyear'         => esc_html($endyear[$i]),
-                            'wpneo_rewards_item_limit'      => esc_html($item_limit[$i]),
-                            'wpneo_rewards_image_field'     => esc_html($image_field[$i]),
-                        );
-                    }
+            if ($rewards && is_array($rewards)) {
+                $data = array();
+                foreach( $rewards as $reward ) {
+                    $reward_image = ($reward['image'] && is_array($reward['image'])) ? $reward['image'][0]['id'] : '';
+                    $data[] = array(
+                        'wpneo_rewards_pladge_amount'   => intval( $reward['amount'] ),
+                        'wpneo_rewards_type'            => esc_html( $reward['type'] ),
+                        'wpneo_rewards_title'           => esc_html( $reward['title'] ),
+                        'wpneo_rewards_description'     => esc_html( $reward['description'] ),
+                        'wpneo_rewards_endmonth'        => esc_html( $reward['end_month'] ),
+                        'wpneo_rewards_endyear'         => esc_html( $reward['end_year'] ),
+                        'wpneo_rewards_item_limit'      => esc_html( $reward['no_of_items'] ),
+                        'wpneo_rewards_image_field'     => esc_html( $reward_image ),
+                        'wpneo_rewards_items'           => esc_html( $reward['rewards_items'] ),
+                    );
                 }
-                $data_json = json_encode($data,JSON_UNESCAPED_UNICODE);
+                $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
                 wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
             }
         }
 
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
-        return rest_ensure_response(array(
+        $response = array(
             'success'   => 1,
-            'message'   => __('Campaign successfully submitted', 'wp-crowdfunding-pro'),
+            'message'   => __('Campaign successfully submitted', 'wp-crowdfunding'),
             'redirect'  => $redirect,
-        ));
+        );
+        return rest_ensure_response($response);
     }
 
     /**
