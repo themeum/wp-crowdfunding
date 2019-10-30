@@ -17,6 +17,9 @@ class Profile extends Component {
 
 	render() {
         const { loading, data } = this.props.user;
+
+        console.log(this.props)
+
         if( loading ) {
             return (
                 <div>
@@ -35,12 +38,12 @@ class Profile extends Component {
                             <img className="profile-form-img" src={ data.profile_image } alt="Profile Image" />
                         </div>
                         <div className="wpcf-myprofile-name-email">
-                            <h4>{ data.profile_email1 }</h4>
-                            { data.display_name }
+                            <h4>{ data.display_name }</h4>
+                            <span>{ data.user_name }</span>
                         </div>
                         <div className="wpcf-myprofile-country">
                             <h4>Country</h4>
-                            { data.profile_country }
+                            <span>{ data.profile_country }</span>
                         </div>
                     </div>
 
@@ -51,30 +54,6 @@ class Profile extends Component {
                             <li><strong>City: </strong> { data.profile_city }</li>
                             <li><strong>Postal Code: </strong> { data.profile_post_code }</li>
                         </ul>
-                    </div>
-
-                    <div>
-                        <img className="profile-form-img" src={ data.profile_image } alt="Profile Image" />
-                        <p>{ data.profile_email1 } </p>
-                        <p>{ data.profile_country } </p>
-                    </div>
-                    <div className="wpcf-dashboard-profile">
-                        <div className="wpcf-dashboard-profile-item">
-                            <p>Username</p>
-                            <p>{ data.username }</p>
-                        </div>
-                        <div className="wpcf-dashboard-profile-item">
-                            <p>Address</p>
-                            <p>{data.profile_address}</p>
-                        </div>
-                        <div className="wpcf-dashboard-profile-item">
-                            <p>City</p>
-                            <p>{data.profile_city}</p>
-                        </div>
-                        <div className="wpcf-dashboard-profile-item">
-                            <p>Postal Code</p>
-                            <p>{data.profile_post_code}</p>
-                        </div>
                     </div>
                 </div>
             </div>
