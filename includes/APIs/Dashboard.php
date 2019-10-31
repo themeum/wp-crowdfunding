@@ -538,15 +538,17 @@ class API_Dashboard {
         $data = array();
         if ( $wp_query->have_posts() ) : global $post; $i = 0;
             while ( $wp_query->have_posts() ) : $wp_query->the_post();
+                $campaign_id    = get_the_id();
                 $total_raised   = wpcf_function()->get_total_fund();
                 $total_raised   = ($total_raised) ? $total_raised : 0;
                 $funding_goal   = get_post_meta($post->ID, '_nf_funding_goal', true);
-                $end_method     = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
-                $updates        = get_post_meta(get_the_id(), 'wpneo_campaign_updates', true);
+                $end_method     = get_post_meta($campaign_id, 'wpneo_campaign_end_method', true);
+                $updates        = get_post_meta($campaign_id, 'wpneo_campaign_updates', true);
                 $data[$i]       = array(
-                    'id'                => get_the_id(),
+                    'id'                => $campaign_id,
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
+                    'edit_link'         => add_query_arg(array('action'=>'edit', 'postid'=>$campaign_id), get_permalink()),
                     'thumbnail'         => woocommerce_get_product_thumbnail(),
                     'author_name'       => wpcf_function()->get_author_name(),
                     'location'          => wpcf_function()->campaign_location(),

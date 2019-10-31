@@ -973,7 +973,6 @@ class API_Campaign {
                 }
             }
 
-
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video_src));
             wpcf_function()->update_meta($post_id, 'wpneo_media', esc_url(json_encode($media)));
