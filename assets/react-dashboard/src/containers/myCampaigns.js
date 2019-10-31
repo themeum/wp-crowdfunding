@@ -94,8 +94,19 @@ class MyCampaigns extends Component {
                                 <ItemCampaign
                                     key={index}
                                     data={ item }
-                                    onClickReport={ this.onClickReport }
-                                    onClickUpdates={ this.onClickUpdates }/>
+                                >
+                                    <div className="wpcf-campaign-links">
+                                        <button aria-label="Report" title="Report"  onClick={ () => this.onClickReport( {id: item.id, name: item.title} ) }>
+                                            <span className="fas fa-chart-bar"></span>
+                                        </button>
+                                        <button aria-label="Edit" title="Edit" onClick={ () => this.onClickUpdates( item.id, item.updates ) }>
+                                            <i className="far fa-edit"></i>
+                                        </button>
+                                        <button aria-label="Delete" title="Delete">
+                                            <span className="fas fa-trash-alt"></span>
+                                        </button>
+                                    </div>
+                                </ItemCampaign>
                             ) }
                             <Pagination
                                 items={ campaignData }

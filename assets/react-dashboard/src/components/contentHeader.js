@@ -9,7 +9,7 @@ export default class contentHeader extends Component {
                     <div className="wpcf-content-header-left">
                         {this.props.children}
                     </div>
-                    <a className="wpcf-btn wpcf-btn-round" href="#">
+                    <a className="wpcf-btn wpcf-btn-round" href={WPCF.create_campaign_url}>
                         <span className="wpcf-icon fas fa-plus"></span>
                         Create Campaign
                     </a>

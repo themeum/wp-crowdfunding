@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import CircleProgress from "./circleProgress";
 import decodeEntities from "../helpers/decodeEntities"
 
+
 const ItemCampaign = (props) => {
     const { data } = props;
 
@@ -19,17 +20,7 @@ const ItemCampaign = (props) => {
                     <h3 className="wpcf-campaign-title">
                         <a href={data.permalink}>{decodeEntities(data.title)}</a>
                     </h3>
-                    {props.invested !== true && <div className="wpcf-campaign-links">
-                        <button aria-label="Report" title="Report"  onClick={ () => props.onClickReport( {id: data.id, name: data.title} ) }>
-                            <span className="fas fa-chart-bar"></span>
-                        </button>
-                        <button aria-label="Edit" title="Edit" onClick={ () => props.onClickUpdates( data.id, data.updates ) }>
-                            <i className="far fa-edit"></i>
-                        </button>
-                        <button aria-label="Delete" title="Delete">
-                            <span className="fas fa-trash-alt"></span>
-                        </button>
-                    </div>}
+                    {props.childern }
                 </div>
                 <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
 

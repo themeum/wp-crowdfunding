@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchPledgeReceived } from '../actions/campaignAction';
 import Pagination from '../components/pagination';
 import ItemPledgeReceived from '../components/itemPledgeReceived';
 import PledgeDetails from '../components/pledgeDetails';
+import Header from '../components/contentHeader';
 
 class PledgeReceived extends Component {
 	constructor (props) {
@@ -39,7 +40,7 @@ class PledgeReceived extends Component {
 
 	render() {
         const { pledge } = this.props;
-        if( pledge.loading ) { 
+        if( pledge.loading ) {
             return (
                 <div>
                     Loading...
@@ -49,35 +50,29 @@ class PledgeReceived extends Component {
 
         const { pageOfItems, openModal, modalData } = this.state;
         const { total_goal, total_raised, total_available, receiver_percent, orders } = pledge.data;
-        
+
         return (
             <div>
-                <h3>Pledge Recieved</h3>
+                <Header title="Pledge Recieved" />
                 <div className="wpcf-dashboard-content-inner">
-                    <div className="wpcf-dashboard-info-cards">
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_raised}}></span>
-                                <span>Fund Raised</span>
-                            </p>
+                    <div className="wpcf-pledge-received-cards">
+                        <div className="wpcf-pledge-received-card">
+                            <h4 className="wpcf-dashboard-info-val">{WPCF.wc_currency_symbol + total_raised}</h4>
+                            <span>Fund Raised</span>
                         </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_goal}}></span>
-                                <span>Goal</span>
-                            </p>
+                        <div className="wpcf-pledge-received-card">
+                            <h4 className="wpcf-dashboard-info-val">{WPCF.wc_currency_symbol + total_goal}</h4>
+                            <span>Goal</span>
                         </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: total_available}}></span>
-                                <span>Available</span>
-                            </p>
+                        <div className="wpcf-pledge-received-card">
+                            <h4 className="wpcf-dashboard-info-val">{WPCF.wc_currency_symbol + total_available}</h4>
+                            <span>Available</span>
                         </div>
                     </div>
 
                     { orders.length ?
-                        <div className="wpcf-dashboard-info-table-wrap">
-                            <table className="wpcf-dashboard-info-table">
+                        <Fragment>
+                            <table className="wpcf-report-table">
                                 <thead>
                                     <tr>
                                         <td>Name</td>
@@ -104,18 +99,18 @@ class PledgeReceived extends Component {
                                 pageSize={ 5 }
                                 onChangePage={ this.onChangePage } />
 
-                            { openModal && 
-                                <PledgeDetails 
+                            { openModal &&
+                                <PledgeDetails
                                     data={ modalData }
                                     onClickModalClose={ this.onClickModalClose }/>
                             }
-                        </div>
+                        </Fragment>
 
                     :   <div>
                             Data not found
                         </div>
                     }
-                        
+
                 </div>
             </div>
         )

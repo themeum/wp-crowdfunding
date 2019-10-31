@@ -10,7 +10,6 @@
 
 $sidebar_width: 255px;
 
-
 #wpcf-dashboard{
     font-family: var(--wpcf-font-family);
     color: var(--wpcf-primary-text-color);
@@ -38,4 +37,13 @@ $sidebar_width: 255px;
     max-width: calc(100% - #{$sidebar_width});
     padding-left: 30px;
     padding-top: 30px;
+}
+
+a{
+    color: var(--wpcf-primary-color);
+    &:hover,
+    &:focus,
+    &:active{
+        color: var(--wpcf-primary-color);
+    }
 }

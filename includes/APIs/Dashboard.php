@@ -495,9 +495,9 @@ class API_Dashboard {
         }
 
         $response_data = array(
-            'total_goal'        => wc_price( $total_goals ),
-            'total_raised'      => wc_price( $total_raised ),
-            'total_available'   => wc_price( $total_goals - $total_raised ),
+            'total_goal'        => $total_goals,
+            'total_raised'      => $total_raised,
+            'total_available'   => $total_goals - $total_raised,
             'receiver_percent'  => $receiver_percent ? $receiver_percent : '',
             'orders'            => $customer_orders,
         );
