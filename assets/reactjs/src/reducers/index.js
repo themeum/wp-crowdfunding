@@ -11,7 +11,7 @@ import {
     SAVE_CAMPAIGN_COMPLETE
 } from "../actions";
 
-export default function(state = { loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false, saveDate:{} }, action ) {
+export default function(state = { postId:0, loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false, saveDate:{} }, action ) {
     switch( action.type ) {
         
         case FETCH_REQUEST_PENDING:
@@ -83,6 +83,7 @@ export default function(state = { loading: true, loaded: false, formFields:{}, r
         case SAVE_CAMPAIGN_COMPLETE:
             return {
                 ...state,
+                postId,
                 saveDate: action.payload,
             };
         default:

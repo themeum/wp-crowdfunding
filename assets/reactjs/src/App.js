@@ -25,6 +25,7 @@ class App extends Component {
         this.props.fetchFormStoryTools();
         this.props.fetchRewardFields();
         this.props.fetchTeamFields();
+        //this.props.fetchFormValues();
     }
 
 	_prevStep() {
@@ -36,8 +37,9 @@ class App extends Component {
 	}
 
 	_onSave(submit) {
-		let { formValues } = this.props;
-		formValues.submit = submit;
+		let { formValues, postId } = this.props;
+		formValues.postId = postId; //inject submit value with form values
+		formValues.submit = submit; //inject submit value with form values
 		this.props.saveCampaign(formValues);
 	}
 
@@ -101,6 +103,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
+    postId: state.data.postId,
     loading: state.data.loading,
 	formValues: getFormValues(formName)(state),
 });
