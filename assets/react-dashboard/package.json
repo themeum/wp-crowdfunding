@@ -22,7 +22,7 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "start": "webpack --open --config webpack.dev.js",
+    "start": "webpack --watch --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "test": "standard && node my-tests.js"
   },
