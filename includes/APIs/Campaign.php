@@ -54,8 +54,8 @@ class API_Campaign {
             register_rest_route( $namespace, '/reward-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
             ));
-            register_rest_route( $namespace, '/team-fields', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
+            register_rest_route( $namespace, '/form-values', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
             ));
             register_rest_route( $namespace, '/save-campaign', array(
                 array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
@@ -540,9 +540,9 @@ class API_Campaign {
         $query = new \WP_Query( $arg );
         while ( $query->have_posts() ) {
             $query->the_post();
-            $posttags = get_the_terms( get_the_ID(), 'product_tag' );
-            if ($posttags) {
-                foreach($posttags as $tag) {
+            $post_tags = get_the_terms( get_the_ID(), 'product_tag' );
+            if ($post_tags) {
+                foreach($post_tags as $tag) {
                     if( !in_array($tag->slug, $uniqeTags) ) {
                         $data[] = array(
                             'value' => $tag->slug,
@@ -895,6 +895,82 @@ class API_Campaign {
         return array_merge($default_fields, $fields);
     }
 
+    
+    /**
+     * Get campagin form data
+     * @since     2.1.0
+     * @access    public
+     * @param     {object}  request
+     * @return    [array]   mixed
+     */
+    function get_form_values( \WP_REST_Request $request ) {
+        $json_params = $request->get_json_params();
+        $post_id = $json_params['post_id'];
+
+        $category = get_the_category( $post_id );
+
+        $tags = [];
+        $post_tags = get_the_terms( $post_id, 'product_tag' );
+        if ($post_tags) {
+            foreach($post_tags as $tag) {
+                $tags[] = array(
+                    'value' => $tag->slug,
+                    'label' => $tag->name
+                );
+            }
+        }
+        
+        /* $image_id = '';
+        $video_src = '';
+        foreach($media as $m) {
+            if($m['type'] == 'image') {
+                $image_id = $m['id'];
+                break;
+            }
+        } */
+        $media = get_post_meta($post_id, 'wpneo_media', true);
+
+        /* wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video_src));
+
+        wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($basic['goal_type']));
+        if( isset($basic['goal_type']) && $basic['goal_type'] == 'target_date') {
+            wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($basic['start_date']));
+            wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($basic['end_date']));
+        }
+
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($basic['pledge_amount']['min']));
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($basic['pledge_amount']['max']));
+        wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($basic['recommended']));
+        wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($basic['predefined_amount']));
+        wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($basic['funding_goal']));
+        wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($basic['contributor_table']));
+        wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($basic['contributor_anonymity']));
+        wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($basic['country']));
+        //wpcf_function()->update_meta($post_id, '_nf_location', esc_html($location));
+
+        //Saved repeatable rewards
+        if ($rewards && is_array($rewards)) {
+            $data = array();
+            foreach( $rewards as $reward ) {
+                $reward_image = ($reward['image'] && is_array($reward['image'])) ? $reward['image'][0]['id'] : '';
+                $data[] = array(
+                    'wpneo_rewards_pladge_amount'   => intval( $reward['amount'] ),
+                    'wpneo_rewards_type'            => esc_html( $reward['type'] ),
+                    'wpneo_rewards_title'           => esc_html( $reward['title'] ),
+                    'wpneo_rewards_description'     => esc_html( $reward['description'] ),
+                    'wpneo_rewards_endmonth'        => esc_html( $reward['end_month'] ),
+                    'wpneo_rewards_endyear'         => esc_html( $reward['end_year'] ),
+                    'wpneo_rewards_item_limit'      => esc_html( $reward['no_of_items'] ),
+                    'wpneo_rewards_image_field'     => esc_html( $reward_image ),
+                    'wpneo_rewards_items'           => esc_html( $reward['rewards_items'] ),
+                );
+            }
+            $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
+            wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
+        } */
+    }
+
 
     /**
      * Save campagin data
@@ -926,10 +1002,8 @@ class API_Campaign {
         if($post_id) {
             //Prevent if unauthorised access
             $user_campaign_ids = $this->get_user_campaign_ids();
-            $campaign['ID'] = $_POST['edit_post_id'];
-
-            $campaign_status = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';
-            $campaign['post_status'] = $campaign_status;
+            $campaign['ID'] = $post_id;
+            $campaign['post_status'] = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';;
 
             if ( !in_array($campaign['ID'], $user_campaign_ids) ) {
                 $response = array(
@@ -938,13 +1012,13 @@ class API_Campaign {
                 );
                 return rest_ensure_response($response);
             }
-            $post_id = wp_update_post( $campaign );
+            wp_update_post( $campaign ); //update post
         } else {
             $campaign['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $campaign );
             if ($post_id) {
-                WC()->mailer(); //load email classes
-                do_action('wpcf_after_campaign_email', $post_id);
+                /* WC()->mailer(); //load email classes
+                do_action('wpcf_after_campaign_email', $post_id); */
             }
         }
 
@@ -953,7 +1027,8 @@ class API_Campaign {
                 wp_set_object_terms( $post_id , $basic['category'], 'product_cat', true );
             }
             if($basic['tag']) {
-                wp_set_object_terms( $post_id , $basic['tag'], 'product_tag', true );
+                $tags = array_column($basic['tag'], 'label');
+                wp_set_object_terms( $post_id , $tags, 'product_tag', true );
             }
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type', true );
 
