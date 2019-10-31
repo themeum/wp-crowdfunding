@@ -70,7 +70,6 @@ class InvestedCampaigns extends Component {
                                     key={index}
                                     data={ item }
                                     pledge={ true }
-                                    invested={true}
                                 />
                             ) }
                             <Pagination

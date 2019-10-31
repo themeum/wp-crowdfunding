@@ -102,6 +102,7 @@ class MyCampaigns extends Component {
                                         <button aria-label="Edit" title="Edit" onClick={ () => this.onClickUpdates( item.id, item.updates ) }>
                                             <i className="far fa-edit"></i>
                                         </button>
+                                        {/*TODO: Need Button Working*/}
                                         <button aria-label="Delete" title="Delete">
                                             <span className="fas fa-trash-alt"></span>
                                         </button>

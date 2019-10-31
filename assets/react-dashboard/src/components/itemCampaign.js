@@ -6,6 +6,8 @@ import decodeEntities from "../helpers/decodeEntities"
 const ItemCampaign = (props) => {
     const { data } = props;
 
+    console.log(props)
+
     return (
         <div className="wpcf-campaign-item">
             <a
@@ -20,7 +22,7 @@ const ItemCampaign = (props) => {
                     <h3 className="wpcf-campaign-title">
                         <a href={data.permalink}>{decodeEntities(data.title)}</a>
                     </h3>
-                    {props.childern }
+                        {props.children }
                 </div>
                 <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
 

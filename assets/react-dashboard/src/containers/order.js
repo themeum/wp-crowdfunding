@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchOrders } from '../actions/orderAction';
 import Pagination from '../components/pagination';
 import ItemOrder from '../components/itemOrder';
 import OrderDetails from '../components/orderDetails';
+import Header from "../components/contentHeader";
 
 class Order extends Component {
 	constructor (props) {
@@ -61,7 +62,7 @@ class Order extends Component {
         }
         if( searchText ) {
             filterData = order.data.filter( item =>
-                ( item.details.billing.first_name.toLowerCase().search( searchText.toLowerCase()) !== -1 ) || 
+                ( item.details.billing.first_name.toLowerCase().search( searchText.toLowerCase()) !== -1 ) ||
                 ( item.details.billing.last_name.toLowerCase().search( searchText.toLowerCase()) !== -1 )
             );
         }
@@ -70,7 +71,7 @@ class Order extends Component {
 
 	render() {
         const { order } = this.props;
-        if( order.loading ) { 
+        if( order.loading ) {
             return (
                 <div>
                     Loading...
@@ -80,53 +81,57 @@ class Order extends Component {
 
         const { pageOfItems, filterValue, searchText, orderDetails } = this.state;
         const orderData = this.getOrderData();
-        
+
         if( orderDetails ) {
             return (
                 <OrderDetails data={ orderDetails } onClickBack={ this.onClickDetails }/>
             )
         }
-        
+
         return (
             <div>
-                <h3>Order</h3>
+                <Header title={"Order"}></Header>
                 <div className="wpcf-dashboard-content-inner">
-                    <div className="wpcf-dashboard-info-cards">
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val">{this.geOrderLength()}</span>
-                                <span>Total Order</span>
-                            </p>
+
+                    <div className="wpcf-pledge-received-cards">
+                        <div className="wpcf-pledge-received-card">
+                            <h4 className="wpcf-dashboard-info-val">{this.geOrderLength()}</h4>
+                            <span>Total Order</span>
                         </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val">{ this.geOrderLength( 'pending' ) }</span>
-                                <span>Pending Order</span>
-                            </p>
+                        <div className="wpcf-pledge-received-card">
+                            <h4 className="wpcf-dashboard-info-val">{ this.geOrderLength( 'pending' ) }</h4>
+                            <span>Pending Order</span>
                         </div>
-                        <div className="wpcf-dashboard-info-card">
-                            <p>
-                                <span className="wpcf-dashboard-info-val">{ this.geOrderLength( 'completed' ) }</span>
-                                <span>Completed Order</span>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div className="wpcf-dashboard-search">
-                        <div>
-                            <input name="searchText" onChange={ (e) => this.onChangeInput( 'searchText', e.target.value ) } value={ searchText } />
-                        </div>
-                        <div>
-                            <span className={ (filterValue=='pending' ? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Pending</span>
-                            <span className={ (filterValue=='processing'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Processing</span>
-                            <span className={ (filterValue=='cancelled'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Cancelled</span>
-                            <span className={ (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</span>
+                        <div className="wpcf-pledge-received-card">
+                            <h4 className="wpcf-dashboard-info-val">{ this.geOrderLength( 'completed' ) }</h4>
+                            <span>Completed Order</span>
                         </div>
                     </div>
 
+                    <div className="wpcf-dashboard-search">
+                        <div>
+                            {/*TODO: Cannot search with product id || Payment || Fulfillment*/}
+                            <input name="searchText" placeholder="Search" onChange={ (e) => this.onChangeInput( 'searchText', e.target.value ) } value={ searchText } />
+                        </div>
+                        <div>
+                            {/*TODO: CSV Button need working*/}
+                            <button className="wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-success-btn wpcf-btn-sm">Download CSV</button>
+                        </div>
+
+                    </div>
+
+
+                    <div className='wpcf-mycampaign-filter-group wpcf-btn-group'>
+                        <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='pending' ? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Pending</button>
+                        <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='processing'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Processing</button>
+                        <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='cancelled'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Cancelled</button>
+                        <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</button>
+                    </div>
+
+
                     { orderData.length ?
-                        <div className="wpcf-dashboard-info-table-wrap">
-                            <table className="wpcf-dashboard-info-table">
+                        <Fragment>
+                            <table className="wpcf-report-table">
                                 <thead>
                                     <tr>
                                         <td>Order</td>
@@ -153,13 +158,13 @@ class Order extends Component {
                                 pageSize={ 5 }
                                 filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
-                        </div>
+                        </Fragment>
 
                     :   <div>
                             Data not found
                         </div>
                     }
-                        
+
                 </div>
             </div>
         )

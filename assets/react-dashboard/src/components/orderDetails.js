@@ -1,60 +1,89 @@
 import React from 'react';
+import Header from "./contentHeader";
+import decodeEntities from "../helpers/decodeEntities";
 
 export default (props) => {
     const { data, data:{ billing, line_items } } = props;
     return (
-        <div className="wpcf-dashboard-content">
-            <a href="javascript:void(0)" onClick={ () => props.onClickBack( '' ) }>Go Back Order List</a>
-            <h3>Order #{ data.id }</h3>
-            <p>Created { data.formatted_c_date }</p>
+        <div>
+            <Header title={"Order #" + data.id} subtitle={"Created " + data.formatted_c_date}>
+                <button className="wpcf-btn wpcf-link-btn" onClick={ () => props.onClickBack( '' ) }>
+                    <span className="wpcf-icon fas fa-long-arrow-alt-left"></span>
+                    Go Back Order
+                </button>
+            </Header>
+
             <div className="wpcf-dashboard-content-inner">
-                <div>
-                    <h5>Order Details</h5>
-                    <div>
-                        <p>{ billing.first_name+' '+billing.last_name }</p>
-                        <p>{ (line_items.length) ? line_items[0].product_name : '' }</p>
-                        <p dangerouslySetInnerHTML={{__html: 'Pledged '+data.total}} />
-                    </div>
-                    <div>
-                        <p>Payment Status</p>
-                        <p>{ data.status_name }</p>
-                        <p>{ data.formatted_oc_date }</p>
-                    </div>
-                    <div>
-                        <p>Fulfillment</p>
-                        <p>{ data.fulfillment }</p>
+
+                <div className="wpcf-dashboard-item-wraper">
+                    <h5 className="wpcf-billing-details-title">Order Details</h5>
+                    <div className="wpcf-order-details">
+                        <div>
+                            <h5>{ billing.first_name+' '+billing.last_name }</h5>
+                            <span>{ (line_items.length) ? line_items[0].product_name : '' }</span>
+                            <strong dangerouslySetInnerHTML={{__html: 'Pledged '+data.total}}></strong>
+                        </div>
+                        <div>
+                            <h5>Payment Status</h5>
+                            <strong>{ data.status_name }</strong>
+                            <span>{ data.formatted_oc_date }</span>
+                        </div>
+                        <div>
+                            <h5>Fulfillment</h5>
+                            <strong>{data.fulfillment}</strong>
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    <h5>Billing Details</h5>
-                    <div>
-                        <p>First Name</p>
-                        <p>{ billing.first_name }</p>
+                <div className="wpcf-dashboard-item-wraper ">
+                    <h5 className="wpcf-billing-details-title">Billing Details</h5>
+                    <div className="wpcf-dashboard-row">
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>First Name</span>
+                                <strong>{ billing.first_name }</strong>
+                            </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Last Name</span>
+                                <strong>{ billing.last_name }</strong>
+                            </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Company</span>
+                                <strong>{ billing.company }</strong>
+                            </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Country</span>
+                                <strong>{ billing.country_name }</strong>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p>Last Name</p>
-                        <p>{ billing.last_name }</p>
+                    <div className="wpcf-dashboard-row">
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Address</span>
+                                <strong dangerouslySetInnerHTML={{__html: data.formatted_b_addr}}></strong>
+                            </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Post Code</span>
+                                <strong>{ billing.postcode }</strong>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p>Company</p>
-                        <p>{ billing.company }</p>
-                    </div>
-                    <div>
-                        <p>Country</p>
-                        <p>{ billing.country_name }</p>
-                    </div>
-                    <div>
-                        <p>Address</p>
-                        <p>{ data.formatted_b_addr }</p>
-                    </div>
-                    <div>
-                        <p>Zip Code</p>
-                        <p>{ billing.postcode }</p>
-                    </div>
-                    <div>
-                        <p>Note</p>
-                        <p>{ data.customer_note }</p>
+                    <div className="wpcf-dashboard-row">
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Note</span>
+                                <strong>{ data.customer_note }</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

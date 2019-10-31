@@ -1,0 +1,24 @@
+
+.wpcf-billing-details-title{
+	font-size: 14px;
+	color: var(--wpcf-primary-text-color);
+	font-weight: 400;
+	margin: 0 0 25px;
+}
+
+.wpcf-order-details{
+	display: flex;
+	> div{
+		h5,
+		span,
+		strong{
+			display: block;
+		}
+		&:not(:last-child){
+			margin-right: 80px;
+		}
+		span > *{
+			display: inline;
+		}
+	}
+}

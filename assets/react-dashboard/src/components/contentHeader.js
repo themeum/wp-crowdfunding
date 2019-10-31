@@ -14,7 +14,8 @@ export default class contentHeader extends Component {
                         Create Campaign
                     </a>
                 </div>
-                <h3 className="wpcf-content-heading">{decodeEntities(this.props.title)}</h3>
+                {this.props.title && <h3 className="wpcf-content-heading">{decodeEntities(this.props.title)}</h3>}
+                {this.props.subtitle && <h4 className="wpcf-content-subheading">{this.props.subtitle}</h4>}
             </Fragment>
         )
     }

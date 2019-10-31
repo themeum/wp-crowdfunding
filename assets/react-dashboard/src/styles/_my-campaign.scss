@@ -36,14 +36,10 @@
 		}
 	}
 	.wpcf-campaign-heading{
-		position: relative;
-		&:not(.wpcf-has-not-campaign-link){
-			padding-right: 100px;
-		}
+		display: flex;
+		justify-content: space-between;
 		.wpcf-campaign-links{
-			position: absolute;
-			top: 0;
-			right: 0;
+			white-space: nowrap;
 			button{
 				border: none;
 				padding: 0;
@@ -51,11 +47,9 @@
 				background: none;
 				color: var(--wpcf-light-text-color);
 				transition: 300ms;
-				&:not(:first-child){
-					margin-left: 12px;
-				}
+				padding-left: 12px;
 				&:not(:last-child){
-					margin-right: 12px;
+					padding-right: 12px;
 				}
 				&:hover{
 					color: var(--wpcf-primary-color);

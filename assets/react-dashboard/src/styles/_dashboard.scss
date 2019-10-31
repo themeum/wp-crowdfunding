@@ -88,3 +88,26 @@
     margin-bottom: 30px;
     border-radius: 4px;
 }
+
+.wpcf-dashboard-item-wraper{
+    border: 1px solid var(--wpcf-border-color);
+    padding: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.wpcf-dashboard-search{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    input{
+        height: 35px;
+        border: 1px solid var(--wpcf-border-color);
+        border-radius: 30px;
+        padding-left: 20px;
+        &::placeholder{
+            color: #DCDCE4;
+            opacity: 1;
+        }
+    }
+}

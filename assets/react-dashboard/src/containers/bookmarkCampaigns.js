@@ -26,7 +26,7 @@ class BookmarkCampaigns extends Component {
 
 	render() {
         const { campaign } = this.props;
-        if( campaign.loading ) { 
+        if( campaign.loading ) {
             return (
                 <div>
                     Loading...
@@ -35,7 +35,7 @@ class BookmarkCampaigns extends Component {
         };
 
         const { pageOfItems } = this.state;
-        
+
         return (
             <div>
                 <h3>Bookmarks</h3>
@@ -43,9 +43,16 @@ class BookmarkCampaigns extends Component {
                     { campaign.data.length ?
                         <div>
                             { pageOfItems.map( (item, index) =>
-                                <ItemCampaign 
-                                    key={index} 
-                                    data={ item } />
+                                <ItemCampaign
+                                    key={index}
+                                    data={ item } >
+                                    <div className="wpcf-campaign-links">
+                                        {/*TODO: Need Button Working*/}
+                                        <button aria-label="Remove Bookmark" title="Remove Bookmark">
+                                            <span className="fas fa-trash-alt"></span>
+                                        </button>
+                                    </div>
+                                </ItemCampaign>
                             ) }
                             <Pagination
                                 items={ campaign.data }
@@ -56,7 +63,7 @@ class BookmarkCampaigns extends Component {
                             Campaign not found
                         </div>
                     }
-                        
+
                 </div>
             </div>
         )

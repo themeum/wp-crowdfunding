@@ -23,7 +23,7 @@ export default (props) => {
             <td>{ details.formatted_c_date }</td>
             <td style={ {color: getStatusColor(details.status)} }>{ details.status_name }</td>
             <td style={ {color: getStatusColor(details.fulfillment)} }>{ details.fulfillment }</td>
-            <td><span onClick={ () => props.onClickDetails( details ) }> Details </span></td>
+            <td><a href="javascript:" onClick={ () => props.onClickDetails( details ) }> <i>Details</i> </a></td>
         </tr>
     )
 };
