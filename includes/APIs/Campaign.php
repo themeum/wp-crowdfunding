@@ -930,6 +930,20 @@ class API_Campaign {
         } */
         $media = get_post_meta($post_id, 'wpneo_media', true);
 
+        if( !$media ) {
+            $media = array();
+            $image = get_post_meta($post_id, '_thumbnail_id', true);
+            $video_link = get_post_meta($post_id, 'wpneo_funding_video', true);
+            if($image) {
+                
+                array_push($media);
+            }
+            if($video_link) {
+                $video_id = $this->extractVideoID($video_link);
+
+            }
+        }
+
         /* wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
         wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video_src));
 
@@ -1110,6 +1124,22 @@ class API_Campaign {
         $user_id = $this->current_user_id;
         $user_product_ids = $wpdb->get_col("select ID from {$wpdb->posts} WHERE post_author = {$user_id} AND post_type = 'product' ");
         return $user_product_ids;
+    }
+
+    /**
+     * Get video id from url
+     * @since     2.1.0
+     * @access    public
+     * @return    array
+     */
+    public function extractVideoID($url) {
+        
+        preg_match_all("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", $url, $matches);
+        if ( $matches[0] && strlen($matches[0]) == 11 ){
+            return $matches[0];
+        } else {
+            return false;
+        }
     }
 
 }
