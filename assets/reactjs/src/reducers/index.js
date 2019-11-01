@@ -5,7 +5,7 @@ import {
     FETCH_FORM_REWARD_FIELDS_COMPLETE,
     FETCH_FORM_TEAM_FIELDS_COMPLETE,
     FETCH_SUB_CATEGORIES_COMPLETE,
-    FETCH_STATES_COMPLETE,
+    //FETCH_STATES_COMPLETE,
     FIELD_SHOW_HIDE,
     SAVE_CAMPAIGN_PENDING,
     SAVE_CAMPAIGN_COMPLETE
@@ -55,7 +55,7 @@ export default function(state = { postId:0, loading: true, loaded: false, formFi
             };
 
         case FETCH_SUB_CATEGORIES_COMPLETE:
-        case FETCH_STATES_COMPLETE:
+        //case FETCH_STATES_COMPLETE:
             const res = action.payload;
             let formFields = {...state.formFields};
             formFields[res.section][res.field].options = res.options;

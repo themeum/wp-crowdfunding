@@ -28,10 +28,10 @@ class Basic extends Component {
         if(name == `${sectionName}.category`) {
             this.props.fetchSubCategories(value);
             this.props.changeFieldValue(formName, `${sectionName}.sub_category`, null);
-        } else if(name == `${sectionName}.country`) {
+        }/*  else if(name == `${sectionName}.country`) {
             this.props.fetchStates(value);
             this.props.changeFieldValue(formName, `${sectionName}.state`, null);
-        }
+        } */
     }
 
     _onChangeGoalType(e) {

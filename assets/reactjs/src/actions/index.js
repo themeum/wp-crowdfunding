@@ -66,7 +66,7 @@ export const fetchSubCategories = (id) => dispatch => {
 }
 
 //FETCH STATES BY CODE
-export const FETCH_STATES_COMPLETE = 'fetch_states_complete';
+/* export const FETCH_STATES_COMPLETE = 'fetch_states_complete';
 export const fetchStates = (code) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/states?code=${code}`;
     const option = { method: 'GET', headers };
@@ -74,7 +74,7 @@ export const fetchStates = (code) => dispatch => {
     .then( response =>  response.json() )
     .then( payload =>  dispatch( {type: FETCH_STATES_COMPLETE, payload} ) )
     .catch( error => console.log(error) );
-}
+} */
 
 
 //FORM FIELD SHOW HIDE
