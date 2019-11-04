@@ -5,13 +5,16 @@ import {
     FETCH_FORM_REWARD_FIELDS_COMPLETE,
     FETCH_FORM_TEAM_FIELDS_COMPLETE,
     FETCH_SUB_CATEGORIES_COMPLETE,
-    FETCH_STATES_COMPLETE,
+    FETCH_FORM_VALUES_COMPLETE,
+    //FETCH_STATES_COMPLETE,
     FIELD_SHOW_HIDE,
     SAVE_CAMPAIGN_PENDING,
     SAVE_CAMPAIGN_COMPLETE
 } from "../actions";
 
-export default function(state = { postId:0, loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false, saveDate:{} }, action ) {
+const initialValues = { basic: {media:[], goal: 1, amount_range: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] };
+
+export default function(state = { postId:0, saveDate:'', initialValues, loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false }, action ) {
     switch( action.type ) {
         
         case FETCH_REQUEST_PENDING:
@@ -38,12 +41,13 @@ export default function(state = { postId:0, loading: true, loaded: false, formFi
             };
 
         case FETCH_FORM_REWARD_FIELDS_COMPLETE:
+            const { types, fields } = action.payload
             return {
                 ...state,
                 loading: false,
                 loaded: true,
-                rewardTypes: action.payload.types,
-                rewardFields: action.payload.fields,
+                rewardTypes: types,
+                rewardFields: fields,
             };
 
         case FETCH_FORM_TEAM_FIELDS_COMPLETE:
@@ -55,13 +59,19 @@ export default function(state = { postId:0, loading: true, loaded: false, formFi
             };
 
         case FETCH_SUB_CATEGORIES_COMPLETE:
-        case FETCH_STATES_COMPLETE:
+        //case FETCH_STATES_COMPLETE:
             const res = action.payload;
             let formFields = {...state.formFields};
             formFields[res.section][res.field].options = res.options;
             return {
                 ...state,
                 formFields,
+            };
+
+        case FETCH_FORM_VALUES_COMPLETE:
+            return {
+                ...state,
+                initialValues: action.payload,
             };
 
         case FIELD_SHOW_HIDE:
@@ -81,10 +91,11 @@ export default function(state = { postId:0, loading: true, loaded: false, formFi
             };
             
         case SAVE_CAMPAIGN_COMPLETE:
+            const { postId, saveDate } = action.payload;
             return {
                 ...state,
                 postId,
-                saveDate: action.payload,
+                saveDate,
             };
         default:
             return state;

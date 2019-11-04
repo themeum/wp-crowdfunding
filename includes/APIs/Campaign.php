@@ -48,14 +48,17 @@ class API_Campaign {
             register_rest_route( $namespace, '/sub-categories', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
             ));
-            register_rest_route( $namespace, '/states', array(
+            /* register_rest_route( $namespace, '/states', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
-            ));
+            )); */
             register_rest_route( $namespace, '/reward-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
             ));
             register_rest_route( $namespace, '/team-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
+            ));
+            register_rest_route( $namespace, '/form-values', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
             ));
             register_rest_route( $namespace, '/save-campaign', array(
                 array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
@@ -141,7 +144,7 @@ class API_Campaign {
                     'required'      => false,
                     'show'          => true
                 ),
-                'type' => array(
+                'campaign_type' => array(
                     'type'          => 'radio',
                     'title'         => __("Raising Money For *", "wp-crowdfunding"),
                     'desc'          => __("Estimated Shipping Date Rewards to be Recieved", "wp-crowdfunding"),
@@ -181,15 +184,13 @@ class API_Campaign {
                     'required'      => false,
                     'show'          => true,
                 ),
-                'state' => array(
-                    'type'          => 'select',
-                    'title'         => __("State *","wp-crowdfunding"),
-                    'desc'          => __("", "wp-crowdfunding"),
-                    'placeholder'   => __("Select State", "wp-crowdfunding"),
+                'location' => array(
+                    'type'          => 'text',
+                    'title'         => __("Location","wp-crowdfunding"),
+                    'desc'          => __("Put the campaign location here", "wp-crowdfunding"),
+                    'placeholder'   => __("", "wp-crowdfunding"),
                     'class'         => '',
-                    'value'         => '',
-                    'options'       => array(),
-                    'required'      => true,
+                    'required'      => false,
                     'show'          => true,
                 ),
             ),
@@ -540,9 +541,9 @@ class API_Campaign {
         $query = new \WP_Query( $arg );
         while ( $query->have_posts() ) {
             $query->the_post();
-            $posttags = get_the_terms( get_the_ID(), 'product_tag' );
-            if ($posttags) {
-                foreach($posttags as $tag) {
+            $post_tags = get_the_terms( get_the_ID(), 'product_tag' );
+            if ($post_tags) {
+                foreach($post_tags as $tag) {
                     if( !in_array($tag->slug, $uniqeTags) ) {
                         $data[] = array(
                             'value' => $tag->slug,
@@ -564,7 +565,7 @@ class API_Campaign {
      * @access    public
      * @return    [array]   mixed
      */
-    function get_states() {
+    /* function get_states() {
         $code = $_GET['code'];
         $country = new \WC_Countries();
         $states = $country->get_states($code);
@@ -583,7 +584,7 @@ class API_Campaign {
             'options' => $options,
         );
         return rest_ensure_response( $response );
-    }
+    } */
 
 
     /**
@@ -895,6 +896,160 @@ class API_Campaign {
         return array_merge($default_fields, $fields);
     }
 
+    
+    /**
+     * Get campagin form data
+     * @since     2.1.0
+     * @access    public
+     * @param     {object}  request
+     * @return    [array]   mixed
+     */
+    function get_form_values( \WP_REST_Request $request ) {
+        $json_params = $request->get_json_params();
+        $post_id = $json_params['id'];
+        
+        $media = get_post_meta($post_id, 'wpneo_media', true);
+        if( !$media ) { //If empty media then set data from prev fields
+            $media = array();
+            $image_id = get_post_meta($post_id, '_thumbnail_id', true);
+            if($image_id) {
+                $thumb = wp_get_attachment_image_src( $image_id );
+                $main_img = wp_get_attachment_image_src( $image_id, 'full' );
+                $image_name = get_the_title($image_id);
+                $image = array(
+                    'id'    => $image_id,
+                    'type'  => 'image',
+                    'src'   => $main_img[0],
+                    'name'  => $image_name,
+                    'thumb' => $thumb[0],
+                );
+                array_push($media, $image);
+            }
+            $video_link = get_post_meta($post_id, 'wpneo_funding_video', true);
+            if($video_link) {
+                $video_id = $this->extractVideoID($video_link);
+                if($video_id) {
+                    $video = array(
+                        'id'    => $video_id,
+                        'type'  => 'video_link',
+                        'src'   => $video_link,
+                        'thumb' => "https://img.youtube.com/vi/{$video_id}/default.jpg",
+                    );
+                }
+                array_push($media, $video);
+            }
+        }
+
+        $image = array();
+        $video = array();
+        $video_link = array();
+        foreach($media as $m) {
+            if($m['type'] == 'image') {
+                array_push($image, $m);
+            } else if($m['type'] == 'video') {
+                array_push($video, $m);
+            } else if($m['type'] == 'video_link') {
+                array_push($video_link, $m);
+            }
+        }
+
+        $category_id = '';
+        $cat_terms = get_the_terms( $post_id, 'product_cat' );
+        foreach ( $cat_terms as $term ) {
+            $category_id = $term->id;
+        }
+
+        $tags = [];
+        $post_tags = get_the_terms( $post_id, 'product_tag' );
+        if ($post_tags) {
+            foreach($post_tags as $tag) {
+                $tags[] = array(
+                    'value' => $tag->slug,
+                    'label' => $tag->name
+                );
+            }
+        }
+
+        $story = get_the_content(null, null, $post_id);
+        $res_story = json_decode($story, true);
+        if($res_story==null) {
+            $res_story = array(
+                array(
+                    array(
+                        'type'  => 'text',
+                        'value' => $story
+                    ),
+                )
+            );
+        }
+
+        $rewards = json_decode(get_post_meta($post_id, '_nf_funding_goal', true), true);
+        $res_rewards = array();
+        if ($rewards && is_array($rewards)) {
+            foreach( $rewards as $reward ) {
+                $image_id = $reward->wpneo_rewards_image_field;
+                if($image_id) {
+                    $thumb = wp_get_attachment_image_src( $image_id );
+                    $main_img = wp_get_attachment_image_src( $image_id, 'full' );
+                    $image_name = get_the_title($image_id);
+                    $image = array(
+                        'id'    => $image_id,
+                        'type'  => 'image',
+                        'src'   => $main_img[0],
+                        'name'  => $image_name,
+                        'thumb' => $thumb[0],
+                    );
+                }
+                $res_rewards[] = array(
+                    'amount'        => $reward->wpneo_rewards_pladge_amount,
+                    'type'          => $reward->wpneo_rewards_type,
+                    'title'         => $reward->wpneo_rewards_title,
+                    'description'   => $reward->wpneo_rewards_description,
+                    'end_month'     => $reward->wpneo_rewards_endmonth,
+                    'end_year'      => $reward->wpneo_rewards_endyear,
+                    'no_of_items'   => $reward->wpneo_rewards_item_limit,
+                    'image'         => array($image),
+                    'rewards_items' => $reward->wpneo_rewards_items
+                );
+            }
+        }
+
+        $response = array(
+            'basic' => array(
+                'media'         => $media,
+                'funding_goal'  => get_post_meta($post_id, '_nf_funding_goal', true),
+                'amount_range'  => Array(
+                    'min'       => get_post_meta($post_id, 'wpneo_funding_minimum_price', true),
+                    'max'       => get_post_meta($post_id, 'wpneo_campaign_type', true),
+                ),
+                'image'         => $image,
+                'video'         => $video,
+                'video_link'    => $video_link,
+                'tags'          => $tags,
+                'category'      => $category_id,
+                'sub_category'  => $category_id,
+                'campaign_type' => get_post_meta($post_id, 'wpneo_campaign_type', true),
+                'country'       => get_post_meta($post_id, 'wpneo_country', true),
+                'location'      => get_post_meta($post_id, '_nf_location', true),
+                'title'         => get_the_title($post_id),
+                'short_desc'    => get_the_excerpt($post_id),
+                'subtitle'      => get_post_meta($post_id, 'wpneo_subtitle', true),
+                'fund_type'     => get_post_meta($post_id, 'wpneo_fund_type', true),
+                'goal_type'     => get_post_meta($post_id, 'wpneo_campaign_end_method', true),
+                'start_date'    => get_post_meta($post_id, '_nf_duration_start', true),
+                'end_date'      => get_post_meta($post_id, '_nf_duration_end', true),
+                'recommended'   => get_post_meta($post_id, '_nf_location', true),
+                'predefined_amount'     => get_post_meta($post_id, 'wpcf_predefined_pledge_amount', true),
+                'contributor_table'     => get_post_meta($post_id, 'wpneo_show_contributor_table', true),
+                'contributor_anonymity' => get_post_meta($post_id, 'wpneo_mark_contributors_as_anonymous', true),
+            ),
+            'story' => $res_story,
+            'rewards' => $res_rewards,
+            'team' => '',
+        );
+        return rest_ensure_response($response);
+    }
+
 
     /**
      * Save campagin data
@@ -926,10 +1081,8 @@ class API_Campaign {
         if($post_id) {
             //Prevent if unauthorised access
             $user_campaign_ids = $this->get_user_campaign_ids();
-            $campaign['ID'] = $_POST['edit_post_id'];
-
-            $campaign_status = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';
-            $campaign['post_status'] = $campaign_status;
+            $campaign['ID'] = $post_id;
+            $campaign['post_status'] = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';;
 
             if ( !in_array($campaign['ID'], $user_campaign_ids) ) {
                 $response = array(
@@ -938,13 +1091,13 @@ class API_Campaign {
                 );
                 return rest_ensure_response($response);
             }
-            $post_id = wp_update_post( $campaign );
+            wp_update_post( $campaign ); //update post
         } else {
             $campaign['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $campaign );
             if ($post_id) {
-                WC()->mailer(); //load email classes
-                do_action('wpcf_after_campaign_email', $post_id);
+                /* WC()->mailer(); //load email classes
+                do_action('wpcf_after_campaign_email', $post_id); */
             }
         }
 
@@ -953,7 +1106,8 @@ class API_Campaign {
                 wp_set_object_terms( $post_id , $basic['category'], 'product_cat', true );
             }
             if($basic['tag']) {
-                wp_set_object_terms( $post_id , $basic['tag'], 'product_tag', true );
+                $tags = array_column($basic['tag'], 'label');
+                wp_set_object_terms( $post_id , $tags, 'product_tag', true );
             }
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type', true );
 
@@ -983,6 +1137,8 @@ class API_Campaign {
                 wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($basic['end_date']));
             }
 
+            wpcf_function()->update_meta($post_id, 'wpneo_subtitle', esc_attr($basic['subtitle']));
+            wpcf_function()->update_meta($post_id, 'wpneo_campaign_type', esc_attr($basic['campaign_type']));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', esc_attr($basic['pledge_amount']['min']));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($basic['pledge_amount']['max']));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($basic['recommended']));
@@ -991,7 +1147,7 @@ class API_Campaign {
             wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($basic['contributor_table']));
             wpcf_function()->update_meta($post_id, 'wpneo_mark_contributors_as_anonymous', esc_attr($basic['contributor_anonymity']));
             wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($basic['country']));
-            //wpcf_function()->update_meta($post_id, '_nf_location', esc_html($location));
+            wpcf_function()->update_meta($post_id, '_nf_location', esc_html($basic['location']));
 
             //Saved repeatable rewards
             if ($rewards && is_array($rewards)) {
@@ -1035,6 +1191,21 @@ class API_Campaign {
         $user_id = $this->current_user_id;
         $user_product_ids = $wpdb->get_col("select ID from {$wpdb->posts} WHERE post_author = {$user_id} AND post_type = 'product' ");
         return $user_product_ids;
+    }
+
+    /**
+     * Get video id from url
+     * @since     2.1.0
+     * @access    public
+     * @return    array
+     */
+    public function extractVideoID($url) {
+        preg_match_all("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", $url, $matches);
+        if ( $matches[0] && strlen($matches[0]) == 11 ){
+            return $matches[0];
+        } else {
+            return false;
+        }
     }
 
 }

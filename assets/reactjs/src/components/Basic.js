@@ -28,10 +28,10 @@ class Basic extends Component {
         if(name == `${sectionName}.category`) {
             this.props.fetchSubCategories(value);
             this.props.changeFieldValue(formName, `${sectionName}.sub_category`, null);
-        } else if(name == `${sectionName}.country`) {
+        }/*  else if(name == `${sectionName}.country`) {
             this.props.fetchStates(value);
             this.props.changeFieldValue(formName, `${sectionName}.state`, null);
-        }
+        } */
     }
 
     _onChangeGoalType(e) {
@@ -208,8 +208,7 @@ class Basic extends Component {
 
 const mapStateToProps = state => ({
     fields: state.data.formFields,
-    formValues: getFormValues(formName)(state),
-    initialValues: { basic: {media:[], goal: 1, amount_range: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] }
+    formValues: getFormValues(formName)(state)
 });
 
 const mapDispatchToProps = dispatch => {
