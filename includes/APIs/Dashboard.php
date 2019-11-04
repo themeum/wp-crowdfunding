@@ -536,6 +536,7 @@ class API_Dashboard {
     private function fetch_campaigns( $query ) {
         $wp_query = new \WP_Query( $query );
         $data = array();
+        $wpcf_form =  get_permalink(get_option('wpneo_form_page_id'));
         if ( $wp_query->have_posts() ) : global $post; $i = 0;
             while ( $wp_query->have_posts() ) : $wp_query->the_post();
                 $campaign_id    = get_the_id();
@@ -548,7 +549,7 @@ class API_Dashboard {
                     'id'                => $campaign_id,
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
-                    'edit_link'         => add_query_arg(array('action'=>'edit', 'postid'=>$campaign_id), get_permalink()),
+                    'edit_link'         => add_query_arg(array('action'=>'edit', 'postid'=>$campaign_id), $wpcf_form),
                     'thumbnail'         => woocommerce_get_product_thumbnail(),
                     'author_name'       => wpcf_function()->get_author_name(),
                     'location'          => wpcf_function()->campaign_location(),
