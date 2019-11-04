@@ -54,8 +54,10 @@ class ProfileEditForm extends Component {
                 }
                 <div className="wpcf-form-group">
                     <label>Profile Picture</label>
-                    <img className="" src={ profile_image } style={{ maxWidth: "200px" }}/>
-                    <button onClick={ this.changeImage }>Edit</button>
+                    <div className="wpcf-profile-photo-edit">
+                        <img className="" src={ profile_image } style={{ maxWidth: "200px" }}/>
+                        <button aria-label="Edit" onClick={ this.changeImage }><span className="fas fa-pen"></span></button>
+                    </div>
                 </div>
                 <div className="wpcf-form-group">
                     <label htmlFor="wpcfp_username">Username</label>
@@ -95,7 +97,7 @@ class ProfileEditForm extends Component {
                     <label htmlFor="wpcfp_post_code">Postal Code</label>
                     <input type="text" id="wpcfp_post_code" name="profile_post_code" value={ profile_post_code } onChange={ this.onChangeValue }/>
                 </div>
-                <h3>Password</h3>
+                <h3 className="wpcf-form-title">Password</h3>
                 <div className="wpcf-form-group">
                     <label htmlFor="wpcfp_new_pass">New Password</label>
                     <input type="password" id="wpcfp_new_pass" name="new_pass" value={ new_pass || '' } onChange={ this.onChangeValue }/>
@@ -104,8 +106,10 @@ class ProfileEditForm extends Component {
                     <label htmlFor="wpcfp_retype_pass">Retype Password</label>
                     <input type="password" id="wpcfp_retype_pass" name="retype_pass" value={ retype_pass || '' } onChange={ this.onChangeValue }/>
                 </div>
-                <button type="button" onClick={ this.props.toggleEdit }>Cancel</button>
-                <button type="submit">Save</button>
+                <div className="wpcf-profile-submit wpcf-btn-group">
+                    <button type="button" className="wpcf-btn wpcf-btn-round wpcf-btn-outline" onClick={ this.props.toggleEdit }>Cancel</button>
+                    <button type="submit" className="wpcf-btn wpcf-btn-round"><i className="fas fa-save icon-left"></i> Save</button>
+                </div>
             </form>
         )
 	}

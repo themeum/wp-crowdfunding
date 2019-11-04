@@ -1,0 +1,13 @@
+.wpcf-reward-item{
+	display: flex;
+	//flex-wrap: wrap;
+	border: 1px solid var(--wpcf-border-color);
+	padding: 30px;
+	&:not(:last-child){
+		margin-bottom: 30px;
+	}
+	.wpcf-reward-thumbnail{
+		max-width: 190px;
+		flex-basis: 190px;
+	}
+}

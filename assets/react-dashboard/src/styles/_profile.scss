@@ -99,4 +99,45 @@
 	}
 }
 
-//.wpcf-connected-social-form
+.wpcf-social-title{
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--wpcf-heading-color);
+	margin: 0 0 30px;
+}
+
+.wpcf-form-title{
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--wpcf-heading-color);
+	margin: 30px 0 15px;
+}
+
+.wpcf-social-submit{
+	text-align: right;
+}
+
+.wpcf-profile-photo-edit{
+	position: relative;
+	img{
+		border-radius: 50%;
+	}
+	button{
+		position: absolute;
+		border: none;
+		background: var(--wpcf-warning-color);
+		top: 4px;
+		right: 4px;
+		height: 24px;
+		width: 24px;
+		line-height: 23px;
+		color: #fff;
+		font-size: 12px;
+		border-radius: 50%;
+	}
+}
+
+.wpcf-profile-submit{
+	margin-top: 60px;
+	justify-content: flex-end;
+}

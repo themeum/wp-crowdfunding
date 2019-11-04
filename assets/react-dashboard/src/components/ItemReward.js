@@ -1,37 +1,38 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 export default (props) => {
     const { data } = props;
     return (
-        <div className="">
-            <div className="thumbnail">
+        <div className="wpcf-reward-item">
+
+            <div className="wpcf-reward-thumbnail">
                 <img src={data.image} alt={data.title} />
             </div>
-            <div className="content">
-                <div>{ data.title }</div>
-                <p>{ data.description }</p>
-            </div>
-            <div className="content">
+            <div className="wpcf-reward-content">
+                <h5>{ data.title }</h5>
                 <div>{ data.endmonth+' '+data.endyear }</div>
                 <p>Estimate Delivery Date</p>
             </div>
-            <div className="perks">
-                <p>Perks about to end</p>
-                <div>
-                    <p>{data.interval.d}</p>
-                    <p>Days</p>
-                </div>
-                <div>
-                    <p>{data.interval.h}</p>
-                    <p>Hrs</p>
-                </div>
-                <div>
-                    <p>{data.interval.i}</p>
-                    <p>Min</p>
-                </div>
-                <div>
-                    <p>{data.interval.s}</p>
-                    <p>Sec</p>
+
+            <div className="wpcf-reward-perks-wrap">
+                <h6>Perks about to end</h6>
+                <div className="wpcf-reward-perks">
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{data.interval.d}</h6>
+                        <span>Days</span>
+                    </div>
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{data.interval.h}</h6>
+                        <span>Hrs</span>
+                    </div>
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{data.interval.i}</h6>
+                        <span>Min</span>
+                    </div>
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{data.interval.s}</h6>
+                        <span>Sec</span>
+                    </div>
                 </div>
             </div>
         </div>

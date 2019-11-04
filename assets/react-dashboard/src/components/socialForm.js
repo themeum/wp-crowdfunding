@@ -48,8 +48,8 @@ class SocialForm extends Component {
                         <input type="text" id="wpcf_profile_pinterest" name="profile_pinterest" value={ profile_pinterest } placeholder="www.pinterest.com/wp-crowdfunding" onChange={ this.onChangeInput }/>
                     </div>
                 </div>
-                <div className="wpcf">
-                    <button className="wpcf-btn wpcf-btn-round" type="submit">Save</button>
+                <div className="wpcf-social-submit">
+                    <button className="wpcf-btn wpcf-btn-round" type="submit"><span className="fas fa-save icon-left"></span> Save</button>
                 </div>
             </form>
         )

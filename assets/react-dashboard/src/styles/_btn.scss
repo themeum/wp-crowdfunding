@@ -17,6 +17,9 @@
     font-size: 16px;
     position: relative;
     transition: 300ms;
+    .icon-left{
+        margin-right: 6px;
+    }
     &:not(.wpcf-link-btn){
         line-height: 26px;
         height: 40px;

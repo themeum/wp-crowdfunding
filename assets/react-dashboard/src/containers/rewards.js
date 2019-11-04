@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchRewards } from '../actions/campaignAction';
 import ItemReward from '../components/itemReward';
 import Pagination from '../components/pagination';
+import Header from "../components/header";
 
 class Rewards extends Component {
 	constructor (props) {
@@ -41,7 +42,7 @@ class Rewards extends Component {
 
 	render() {
         const { reward } = this.props;
-        if( reward.loading ) { 
+        if( reward.loading ) {
             return (
                 <div>
                     Loading...
@@ -51,22 +52,23 @@ class Rewards extends Component {
 
         const { pageOfItems, filterValue } = this.state;
         const rewardsData = this.getRewardsData();
-        
+
         return (
             <div>
-                <h3>Rewards</h3>
-                <div>
-                    <span className={ (filterValue==''? 'active' : '') } onClick={ e => this.onClickFilter( '' ) }>All</span>
-                    <span className={ (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter( 'completed' ) }>Completed</span>
-                    <span className={ (filterValue=='remain'? 'active' : '') } onClick={ e => this.onClickFilter( 'remain' ) }>Remain</span>
-                    <span className={ (filterValue=='about_to_end'? 'active' : '') } onClick={ e => this.onClickFilter( 'about_to_end' ) }>About To End</span>
+                <Header title={"Rewards"}></Header>
+                <div className='wpcf-mycampaign-filter-group wpcf-btn-group'>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue==''? 'active' : '') } onClick={ e => this.onClickFilter('') }>All</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter('completed') }>Completed</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='remain'? 'active' : '') } onClick={ e => this.onClickFilter('remain') }>Remain</button>
+                    <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='about_to_end'? 'active' : '') } onClick={ e => this.onClickFilter('about_to_end') }>About To End</button>
                 </div>
+
                 <div className="wpcf-dashboard-content-inner">
                     { rewardsData.length ?
-                        <div>
+                        <div className="wpcf-rewards">
                             { pageOfItems.map( (item, index) =>
-                                <ItemReward 
-                                    key={index} 
+                                <ItemReward
+                                    key={index}
                                     data={ item } />
                             ) }
                             <Pagination
@@ -79,7 +81,7 @@ class Rewards extends Component {
                             Reward not found
                         </div>
                     }
-                        
+
                 </div>
             </div>
         )

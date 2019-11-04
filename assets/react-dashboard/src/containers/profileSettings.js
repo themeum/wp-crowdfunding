@@ -100,7 +100,8 @@ class ProfileSettings extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="wpcf-dashboard-item-wraper wpcf-myprofile-deactive">
+
+                    {/*<div className="wpcf-dashboard-item-wraper wpcf-myprofile-deactive">
                         <div>
                             <h5>Deactivated your Account</h5>
                             <div className="wpcf-myprofile-country">
@@ -117,7 +118,8 @@ class ProfileSettings extends Component {
                         <div>
                             <button className="wpcf-btn wpcf-btn-outline wpcf-btn-success wpcf-btn-round">Yes</button>
                         </div>
-                    </div>
+                    </div>*/}
+
                     <SocialForm data={ data } onClickSaveData={ this.onClickSaveData }/>
                 </div>
             </Fragment>
