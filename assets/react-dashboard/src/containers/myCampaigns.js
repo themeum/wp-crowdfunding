@@ -102,9 +102,9 @@ class MyCampaigns extends Component {
                                         <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates( item.id, item.updates ) }>
                                             <i className="fas fa-sync"></i>
                                         </button>
-                                        <button aria-label="Edit" title="Edit">
+                                        <a href={item.edit_link} aria-label="Edit" title="Edit">
                                             <i className="far fa-edit"></i>
-                                        </button>
+                                        </a>
                                         {/*TODO: Need Button Working*/}
                                         <button aria-label="Delete" title="Delete">
                                             <span className="fas fa-trash-alt"></span>
