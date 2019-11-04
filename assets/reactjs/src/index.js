@@ -18,8 +18,11 @@ const store = createStore( rootReducer, compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
 ));
 
+const formNode = document.getElementById('wpcf-campaign-form');
+const postId = formNode.getAttribute('postId');
+
 ReactDOM.render(
-    <Provider store={ store }>
-        <App />
-    </Provider>, document.getElementById('wpcf-live-form')
+    <Provider store={store}>
+        <App postId={postId}/>
+    </Provider>, formNode
 );

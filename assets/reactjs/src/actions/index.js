@@ -77,6 +77,18 @@ export const fetchStates = (code) => dispatch => {
 } */
 
 
+//FETCH FORM VALUES BY CAMPAIGN ID
+export const FETCH_FORM_VALUES_COMPLETE = 'fetch_form_values_complete';
+export const fetchFormValues = (id) => dispatch => {
+    const fetchURL = `${WPCF.rest_url}/form-values?id=${id}`;
+    const option = { method: 'GET', headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload =>  dispatch( {type: FETCH_FORM_VALUES_COMPLETE, payload} ) )
+    .catch( error => console.log(error) );
+}
+
+
 //FORM FIELD SHOW HIDE
 export const FIELD_SHOW_HIDE = 'field_show_hide';
 export const fieldShowHide = (field, show) => dispatch => {

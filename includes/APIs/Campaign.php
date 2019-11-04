@@ -54,6 +54,9 @@ class API_Campaign {
             register_rest_route( $namespace, '/reward-fields', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
             ));
+            register_rest_route( $namespace, '/team-fields', array(
+                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
+            ));
             register_rest_route( $namespace, '/form-values', array(
                 array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
             ));
@@ -903,7 +906,7 @@ class API_Campaign {
      */
     function get_form_values( \WP_REST_Request $request ) {
         $json_params = $request->get_json_params();
-        $post_id = $json_params['post_id'];
+        $post_id = $json_params['id'];
         
         $media = get_post_meta($post_id, 'wpneo_media', true);
         if( !$media ) { //If empty media then set data from prev fields

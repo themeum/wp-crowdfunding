@@ -30,7 +30,7 @@ class Campaign_Submit_Form {
     function campaign_form_callback($atts) {
         $action = ( isset($_GET['action']) ) ? $_GET['action'] : 0;
         $postid = ( isset($_GET['postid']) ) ? $_GET['postid'] : 0;
-        return "<div id='wpcf-live-form' action='".$action."' postid='".$postid."'></div>";
+        return "<div id='wpcf-campaign-form' postId='".$postid."'></div>";
     }
 
     // Shortcode for Forntend Submission Form

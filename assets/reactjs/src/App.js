@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getFormValues } from 'redux-form';
+import { reduxForm, getFormValues } from 'redux-form';
 import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields, saveCampaign } from './actions';
 import TabBar from './components/TabBar';
 import Basic from './components/Basic';
@@ -24,8 +24,11 @@ class App extends Component {
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
         this.props.fetchRewardFields();
-        this.props.fetchTeamFields();
-        //this.props.fetchFormValues();
+		this.props.fetchTeamFields();
+		
+		if(this.props.postId) {
+			this.props.fetchFormValues();
+		}
     }
 
 	_prevStep() {
@@ -106,6 +109,7 @@ const mapStateToProps = state => ({
     postId: state.data.postId,
     loading: state.data.loading,
 	formValues: getFormValues(formName)(state),
+	initialValues: state.data.initialValues,
 });
 
 const mapDispatchToProps = dispatch => {
@@ -119,4 +123,6 @@ const mapDispatchToProps = dispatch => {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+    form: formName,
+})(App));
