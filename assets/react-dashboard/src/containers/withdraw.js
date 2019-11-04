@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchWithdraws, fetchWithdrawMethods } from '../actions/withdrawAction';
 import Pagination from '../components/pagination';
 import ItemWithdraw from '../components/itemWithdraw';
 import WithdrawDetails from '../components/withdrawDetails';
+import Header from '../components/header';
 
 class Withdraw extends Component {
 	constructor (props) {
@@ -36,7 +37,7 @@ class Withdraw extends Component {
 
 	render() {
         const { withdraw, methods } = this.props;
-        if( withdraw.loading || methods.loading ) { 
+        if( withdraw.loading || methods.loading ) {
             return (
                 <div>
                     Loading...
@@ -54,44 +55,43 @@ class Withdraw extends Component {
                     onClickBack={ this.onClickWithdrawDetails }/>
             );
         }
-        
+
         return (
             <div>
-                <h3>Withdraw</h3>
+                <Header title={"Withdraw"}/>
                 <div className="wpcf-dashboard-content-inner">
                     { withdraw.data.length ?
-                        <div className="wpcf-dashboard-info-table-wrap">
-                            <table className="wpcf-dashboard-info-table">
-                                <thead>
-                                    <tr>
-                                        <td>Project</td>
-                                        <td>Goal Complete</td>
-                                        <td>Available Currency</td>
-                                        <td>Available to Withdraw</td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { pageOfItems.map( (item, index) =>
-                                        <ItemWithdraw
-                                            key={index}
-                                            data={ item }
-                                            onClickWithdrawDetails={ this.onClickWithdrawDetails } />
-                                    ) }
-                                </tbody>
-                            </table>
+                           <Fragment>
+                               <table className="wpcf-report-table">
+                                   <thead>
+                                   <tr>
+                                       <td>Project</td>
+                                       <td>Goal Complete</td>
+                                       <td>Available Currency</td>
+                                       <td>Available to Withdraw</td>
+                                       <td></td>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   { pageOfItems.map( (item, index) =>
+                                       <ItemWithdraw
+                                           key={index}
+                                           data={ item }
+                                           onClickWithdrawDetails={ this.onClickWithdrawDetails } />
+                                   ) }
+                                   </tbody>
+                               </table>
 
-                            <Pagination
-                                items={ withdraw.data }
-                                pageSize={ 5 }
-                                onChangePage={ this.onChangePage } />
-                        </div>
-
+                               <Pagination
+                                   items={ withdraw.data }
+                                   pageSize={ 5 }
+                                   onChangePage={ this.onChangePage } />
+                           </Fragment>
                     :   <div>
                             Data not found
                         </div>
                     }
-                        
+
                 </div>
             </div>
         )

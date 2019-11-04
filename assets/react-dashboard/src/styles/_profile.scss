@@ -5,6 +5,7 @@
 	align-items: center;
 	border-radius: 4px;
 	margin-bottom: 20px;
+	position: relative;
 	.wpcf-myprofile-avatar {
 		flex: 0 0 auto;
 		margin-right: 30px;
@@ -15,29 +16,16 @@
 	.wpcf-myprofile-data{
 		flex-grow: 1;
 		display: inline-flex;
+		align-items: flex-start;
+		.wpcf-profile-edit-btn{
+			margin-left: auto;
+			padding: 0;
+			border: none;
+			font-size: 12px;
+			color: var(--wpcf-primary-text-color);
+		}
 		.wpcf-myprofile-country{
 			margin-left: 60px;
-		}
-		
-		.wpcf-myprofile-name-email,
-		.wpcf-myprofile-country{
-			h4{
-				font-size: 18px;
-				font-weight: 500;
-				color: var(--wpcf-heading-color);
-				margin: 0 0 16px;
-				line-height: 18px;
-			}
-			span{
-				display: flex;
-				align-items: center;
-				font-size: 14px;
-				font-weight: 400;
-				line-height: 20px;
-				img{
-					margin-right: 11px;
-				}
-			}
 		}
 		
 		.wpcf-myprofile-name-email span{
@@ -45,6 +33,28 @@
 			color: var(--wpcf-heading-color);
 		}
 		
+	}
+}
+
+
+.wpcf-myprofile-name-email,
+.wpcf-myprofile-country{
+	h4{
+		font-size: 18px;
+		font-weight: 500;
+		color: var(--wpcf-heading-color);
+		margin: 0 0 16px;
+		line-height: 18px;
+	}
+	span{
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 20px;
+		img{
+			margin-right: 11px;
+		}
 	}
 }
 
@@ -76,3 +86,17 @@
 		}
 	}
 }
+
+.wpcf-myprofile-deactive{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	h5{
+		font-size: 16px;
+		font-weight: 400;
+		color: var(--wpcf-heading-color);
+		margin: 0 0 15px;
+	}
+}
+
+//.wpcf-connected-social-form

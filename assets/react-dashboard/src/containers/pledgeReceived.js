@@ -4,7 +4,7 @@ import { fetchPledgeReceived } from '../actions/campaignAction';
 import Pagination from '../components/pagination';
 import ItemPledgeReceived from '../components/itemPledgeReceived';
 import PledgeDetails from '../components/pledgeDetails';
-import Header from '../components/contentHeader';
+import Header from '../components/header';
 
 class PledgeReceived extends Component {
 	constructor (props) {

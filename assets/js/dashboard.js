@@ -207,7 +207,7 @@ module.exports = _inheritsLoose;
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-light-text-color: #ADAECF;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4;\n  --wpcf-success-color: #00A92F; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  font-size: 14px; }\n\n#wpcf-dashboard img {\n  max-width: 100%;\n  height: auto; }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: flex-start; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px);\n  padding-left: 30px;\n  padding-top: 30px; }\n\na {\n  color: var(--wpcf-primary-color); }\n  a:hover, a:focus, a:active {\n    color: var(--wpcf-primary-color); }\n\n.wpcf-btn-group {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: -10px; }\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px; }\n    .wpcf-btn-group .wpcf-btn:not(:last-child) {\n      margin-right: 10px; }\n\n.wpcf-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  text-decoration: none !important;\n  font-size: 16px;\n  position: relative;\n  transition: 300ms; }\n  .wpcf-btn:not(.wpcf-link-btn) {\n    line-height: 26px;\n    height: 40px;\n    padding: 0 25px;\n    background: var(--wpcf-primary-color);\n    border: 1px solid var(--wpcf-primary-color);\n    color: #fff; }\n  .wpcf-btn.wpcf-btn-sm {\n    font-size: 14px;\n    padding-left: 15px;\n    padding-right: 15px;\n    line-height: 17px;\n    height: 35px; }\n  .wpcf-btn.wpcf-btn-secondary {\n    background-color: var(--wpcf-primary-text-color);\n    border-color: var(--wpcf-primary-text-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-link-btn {\n    color: var(--wpcf-primary-color);\n    padding: 0;\n    background: none;\n    border: none; }\n  .wpcf-btn.wpcf-btn-outline {\n    background: transparent;\n    border: 1px solid var(--wpcf-primary-color);\n    color: var(--wpcf-primary-color); }\n    .wpcf-btn.wpcf-btn-outline:hover {\n      background-color: var(--wpcf-primary-color);\n      color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-success-btn {\n      color: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-success-btn:hover {\n        background-color: var(--wpcf-success-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary {\n      border-color: var(--wpcf-border-color);\n      background: #ffffff;\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary.active, .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary:hover {\n        border-color: var(--wpcf-primary-color);\n        color: var(--wpcf-primary-color); }\n  .wpcf-btn.wpcf-btn-round {\n    border-radius: 30px; }\n  .wpcf-btn .wpcf-icon:not(.wpcf-icon-right) {\n    margin-right: 12px; }\n  .wpcf-btn .wpcf-icon-right {\n    margin-left: 12px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:first-child {\n  height: 65px;\n  width: 65px;\n  display: block;\n  border-radius: 50%;\n  margin-bottom: 14px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(2) {\n  display: block;\n  height: 25px;\n  width: 60%;\n  margin-bottom: 8px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(3) {\n  display: block;\n  height: 20px;\n  width: 100%; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar li {\n  margin: 10px 30px;\n  height: 30px; }\n\n.wpcf-dashboard-sidebar {\n  border: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: var(--wpcf-light-text-color);\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 0;\n    list-style: none;\n    font-size: 16px;\n    flex-grow: 1;\n    min-height: 600px;\n    display: flex;\n    flex-direction: column; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:nth-last-child(2) {\n      margin-bottom: 90px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child a {\n        color: var(--wpcf-primary-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color);\n        text-decoration: none !important; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a.is-active {\n          color: var(--wpcf-primary-color); }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > ul {\n        display: block; }\n\n.wpcf-dashboard-info-cards {\n  display: flex;\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .wpcf-dashboard-info-cards .wpcf-dashboard-info-card {\n    padding: 18px 25px 25px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 8px;\n    color: var(--wpcf-light-text-color);\n    margin-left: 20px;\n    font-weight: 400;\n    flex-grow: 1; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card h3 {\n      font-size: 32px;\n      margin-bottom: 3px;\n      color: var(--wpcf-primary-color);\n      font-weight: 400; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card:first-child {\n      min-width: 28%; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success {\n      background: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color);\n      color: #ffffff; }\n      .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success h3 {\n        color: #ffffff; }\n\n.wpcf-report-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n\n.wpcf-report-filter span,\n.wpcf-report-filter input {\n  height: 45px;\n  padding: 0 20px;\n  border: 1px solid var(--wpcf-border-color);\n  border-radius: 30px;\n  margin-right: 12px;\n  color: var(--wpcf-primary-text-color); }\n  .wpcf-report-filter span::placeholder,\n  .wpcf-report-filter input::placeholder {\n    color: var(--wpcf-primary-text-color); }\n\n.wpcf-report-filter input {\n  width: 140px; }\n\n.wpcf-report-filter span {\n  display: inline-flex;\n  padding: 0;\n  position: relative; }\n  .wpcf-report-filter span select {\n    border: none;\n    background: transparent;\n    min-width: 160px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n    color: var(--wpcf-primary-text-color);\n    padding: 0 20px !important;\n    line-height: 45px;\n    height: 45px; }\n  .wpcf-report-filter span::after {\n    position: absolute;\n    content: '\\f078';\n    font-weight: 900;\n    font-family: 'Font Awesome 5 Free';\n    top: 50%;\n    right: 20px;\n    transform: translateY(-50%);\n    font-size: 14px; }\n\n.wpcf-report-line-graph {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 25px;\n  margin-bottom: 30px;\n  border-radius: 4px; }\n\n.wpcf-dashboard-item-wraper {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n\n.wpcf-dashboard-search {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n  .wpcf-dashboard-search input {\n    height: 35px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 30px;\n    padding-left: 20px; }\n    .wpcf-dashboard-search input::placeholder {\n      color: #DCDCE4;\n      opacity: 1; }\n\n.wpcf-content-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px 0; }\n  .wpcf-content-header .wpcf-btn {\n    margin-left: auto; }\n\n.wpcf-content-heading {\n  font-size: 21px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  line-height: 24px;\n  margin-bottom: 20px; }\n\n.wpcf-content-subheading {\n  color: var(--wpcf-primary-text-color);\n  margin-bottom: 25px;\n  font-size: 14px;\n  font-weight: 400; }\n\n.wpcf-mycampaign-filter-group {\n  margin-bottom: 20px; }\n\n.wpcf-campaign-item {\n  display: flex;\n  align-items: center;\n  padding: 30px;\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 20px;\n  border-radius: 4px; }\n  .wpcf-campaign-item a.wpcf-campaign-thumbnail {\n    max-width: 170px;\n    flex: 1 0 170px;\n    margin-right: 30px; }\n    .wpcf-campaign-item a.wpcf-campaign-thumbnail img {\n      display: block;\n      border: 1px solid var(--wpcf-border-color); }\n  .wpcf-campaign-item .wpcf-campaign-content {\n    flex-grow: 1; }\n  .wpcf-campaign-item .wpcf-campaign-title {\n    font-size: 21px;\n    margin: 0 0 5px;\n    font-weight: 400;\n    line-height: 28px; }\n    .wpcf-campaign-item .wpcf-campaign-title a {\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-campaign-item .wpcf-campaign-title a:hover {\n        color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-heading {\n    display: flex;\n    justify-content: space-between; }\n    .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links {\n      white-space: nowrap; }\n      .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button {\n        border: none;\n        padding: 0;\n        margin: 0;\n        background: none;\n        color: var(--wpcf-light-text-color);\n        transition: 300ms;\n        padding-left: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:not(:last-child) {\n          padding-right: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:hover {\n          color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-author {\n    font-size: 16px;\n    font-weight: 400;\n    margin: 0 0 5px; }\n    .wpcf-campaign-item .wpcf-campaign-author a {\n      color: var(--wpcf-primary-color); }\n\n.wpcf-campaign-infos {\n  display: flex;\n  align-items: center;\n  margin-left: -20px;\n  flex-wrap: wrap; }\n  .wpcf-campaign-infos .wpcf-campaign-info > h5 {\n    font-weight: 400;\n    margin: 0;\n    font-size: 14px;\n    color: var(--wpcf-light-text-color); }\n    .wpcf-campaign-infos .wpcf-campaign-info > h5 span:first-child {\n      font-size: 16px;\n      font-weight: 500;\n      color: var(--wpcf-success-color);\n      display: block;\n      margin-bottom: 2px; }\n  .wpcf-campaign-infos .wpcf-campaign-info {\n    margin-left: 20px;\n    margin-top: 15px; }\n  .wpcf-campaign-infos .wpcf-campaign-raised {\n    position: relative; }\n    .wpcf-campaign-infos .wpcf-campaign-raised .wpcf-raised-percent {\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, -50%);\n      font-size: 14px;\n      color: var(--wpcf-success-color); }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-myprofile-primary-info {\n  display: flex;\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-avatar {\n    flex: 0 0 auto;\n    margin-right: 30px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-avatar img {\n      border-radius: 50%; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-data {\n    flex-grow: 1;\n    display: inline-flex; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country {\n      margin-left: 60px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email h4,\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country h4 {\n      font-size: 18px;\n      font-weight: 500;\n      color: var(--wpcf-heading-color);\n      margin: 0 0 16px;\n      line-height: 18px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email span,\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country span {\n      display: flex;\n      align-items: center;\n      font-size: 14px;\n      font-weight: 400;\n      line-height: 20px; }\n      .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email span img,\n      .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country span img {\n        margin-right: 11px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email span {\n      font-size: 16px;\n      color: var(--wpcf-heading-color); }\n\n.wpcf-myprofile-additional-info {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n  .wpcf-myprofile-additional-info ul {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    color: var(--wpcf-heading-color); }\n    .wpcf-myprofile-additional-info ul li {\n      display: flex;\n      align-items: center; }\n      .wpcf-myprofile-additional-info ul li strong {\n        font-size: 16px;\n        font-weight: 500;\n        min-width: 155px; }\n      .wpcf-myprofile-additional-info ul li:not(:last-child) {\n        margin-bottom: 30px; }\n      .wpcf-myprofile-additional-info ul li i {\n        color: #D6D6E7; }\n\n.wpcf-pledge-received-cards {\n  display: flex;\n  padding: 30px;\n  background: var(--wpcf-success-color);\n  color: #fff;\n  min-height: 130px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 30px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card h4 {\n    font-size: 32px;\n    line-height: 43px;\n    color: #ffffff;\n    margin: 0; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card:not(:last-child) {\n    margin-right: 60px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card span {\n    font-size: 16px; }\n\n.wpcf-billing-details-title {\n  font-size: 14px;\n  color: var(--wpcf-primary-text-color);\n  font-weight: 400;\n  margin: 0 0 25px; }\n\n.wpcf-order-details {\n  display: flex; }\n  .wpcf-order-details > div h5,\n  .wpcf-order-details > div span,\n  .wpcf-order-details > div strong {\n    display: block; }\n  .wpcf-order-details > div:not(:last-child) {\n    margin-right: 80px; }\n  .wpcf-order-details > div span > * {\n    display: inline; }\n", ""]);
+exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-light-text-color: #ADAECF;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4;\n  --wpcf-success-color: #00A92F;\n  --wpcf-warning-color: #e8710d;\n  --wpcf-danger-color: #c91818; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  font-size: 14px; }\n\n#wpcf-dashboard img {\n  max-width: 100%;\n  height: auto; }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: flex-start; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px);\n  padding-left: 30px;\n  padding-top: 30px; }\n\na {\n  color: var(--wpcf-primary-color); }\n  a:hover, a:focus, a:active {\n    color: var(--wpcf-primary-color); }\n\n.wpcf-btn-group {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: -10px; }\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px; }\n    .wpcf-btn-group .wpcf-btn:not(:last-child) {\n      margin-right: 10px; }\n\n.wpcf-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  text-decoration: none !important;\n  font-size: 16px;\n  position: relative;\n  transition: 300ms; }\n  .wpcf-btn:not(.wpcf-link-btn) {\n    line-height: 26px;\n    height: 40px;\n    padding: 0 25px;\n    background: var(--wpcf-primary-color);\n    border: 1px solid var(--wpcf-primary-color);\n    color: #fff; }\n  .wpcf-btn.wpcf-btn-sm {\n    font-size: 14px;\n    padding-left: 15px;\n    padding-right: 15px;\n    line-height: 17px;\n    height: 35px; }\n  .wpcf-btn.wpcf-btn-secondary {\n    background-color: var(--wpcf-primary-text-color);\n    border-color: var(--wpcf-primary-text-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-success-btn, .wpcf-btn.wpcf-btn-success {\n    background-color: var(--wpcf-success-color);\n    border-color: var(--wpcf-success-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-link-btn {\n    color: var(--wpcf-primary-color);\n    padding: 0;\n    background: none;\n    border: none; }\n  .wpcf-btn.wpcf-btn-outline {\n    background: transparent;\n    border: 1px solid var(--wpcf-primary-color);\n    color: var(--wpcf-primary-color); }\n    .wpcf-btn.wpcf-btn-outline:hover {\n      background-color: var(--wpcf-primary-color);\n      color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-success, .wpcf-btn.wpcf-btn-outline.wpcf-success-btn {\n      color: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-success:hover, .wpcf-btn.wpcf-btn-outline.wpcf-success-btn:hover {\n        background-color: var(--wpcf-success-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary {\n      border-color: var(--wpcf-border-color);\n      background: #ffffff;\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary.active, .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary:hover {\n        border-color: var(--wpcf-primary-color);\n        color: var(--wpcf-primary-color); }\n  .wpcf-btn.wpcf-btn-round {\n    border-radius: 30px; }\n  .wpcf-btn .wpcf-icon:not(.wpcf-icon-right) {\n    margin-right: 12px; }\n  .wpcf-btn .wpcf-icon-right {\n    margin-left: 12px; }\n\n.wpcf-btn-group {\n  margin-top: -10px;\n  margin-left: -10px; }\n  .wpcf-btn-group button,\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px;\n    margin-left: 10px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:first-child {\n  height: 65px;\n  width: 65px;\n  display: block;\n  border-radius: 50%;\n  margin-bottom: 14px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(2) {\n  display: block;\n  height: 25px;\n  width: 60%;\n  margin-bottom: 8px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(3) {\n  display: block;\n  height: 20px;\n  width: 100%; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar li {\n  margin: 10px 30px;\n  height: 30px; }\n\n.wpcf-dashboard-sidebar {\n  border: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: var(--wpcf-light-text-color);\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 0;\n    list-style: none;\n    font-size: 16px;\n    flex-grow: 1;\n    min-height: 600px;\n    display: flex;\n    flex-direction: column; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:nth-last-child(2) {\n      margin-bottom: 90px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child a {\n        color: var(--wpcf-primary-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color);\n        text-decoration: none !important; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a.is-active {\n          color: var(--wpcf-primary-color); }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > ul {\n        display: block; }\n\n.wpcf-dashboard-info-cards {\n  display: flex;\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .wpcf-dashboard-info-cards .wpcf-dashboard-info-card {\n    padding: 18px 25px 25px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 8px;\n    color: var(--wpcf-light-text-color);\n    margin-left: 20px;\n    font-weight: 400;\n    flex-grow: 1; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card h3 {\n      font-size: 32px;\n      margin-bottom: 3px;\n      color: var(--wpcf-primary-color);\n      font-weight: 400; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card:first-child {\n      min-width: 28%; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success {\n      background: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color);\n      color: #ffffff; }\n      .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success h3 {\n        color: #ffffff; }\n\n.wpcf-report-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n\n.wpcf-report-filter span,\n.wpcf-report-filter input {\n  height: 45px;\n  padding: 0 20px;\n  border: 1px solid var(--wpcf-border-color);\n  border-radius: 30px;\n  margin-right: 12px;\n  color: var(--wpcf-primary-text-color); }\n  .wpcf-report-filter span::placeholder,\n  .wpcf-report-filter input::placeholder {\n    color: var(--wpcf-primary-text-color); }\n\n.wpcf-report-filter input {\n  width: 140px; }\n\n.wpcf-report-filter span {\n  display: inline-flex;\n  padding: 0;\n  position: relative; }\n  .wpcf-report-filter span select {\n    border: none;\n    background: transparent;\n    min-width: 160px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n    color: var(--wpcf-primary-text-color);\n    padding: 0 20px !important;\n    line-height: 45px;\n    height: 45px; }\n  .wpcf-report-filter span::after {\n    position: absolute;\n    content: '\\f078';\n    font-weight: 900;\n    font-family: 'Font Awesome 5 Free';\n    top: 50%;\n    right: 20px;\n    transform: translateY(-50%);\n    font-size: 14px; }\n\n.wpcf-report-line-graph {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 25px;\n  margin-bottom: 30px;\n  border-radius: 4px; }\n\n.wpcf-dashboard-item-wraper {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n\n.wpcf-dashboard-search {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n  .wpcf-dashboard-search input {\n    height: 35px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 30px;\n    padding-left: 20px; }\n    .wpcf-dashboard-search input::placeholder {\n      color: #DCDCE4;\n      opacity: 1; }\n\n.wpcf-content-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px 0; }\n  .wpcf-content-header .wpcf-btn {\n    margin-left: auto; }\n\n.wpcf-content-heading {\n  font-size: 21px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  line-height: 24px;\n  margin-bottom: 20px; }\n\n.wpcf-content-subheading {\n  color: var(--wpcf-primary-text-color);\n  margin-bottom: 25px;\n  font-size: 14px;\n  font-weight: 400; }\n\n.wpcf-mycampaign-filter-group {\n  margin-bottom: 20px; }\n\n.wpcf-campaign-item {\n  display: flex;\n  align-items: center;\n  padding: 30px;\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 20px;\n  border-radius: 4px; }\n  .wpcf-campaign-item a.wpcf-campaign-thumbnail {\n    max-width: 170px;\n    flex: 1 0 170px;\n    margin-right: 30px; }\n    .wpcf-campaign-item a.wpcf-campaign-thumbnail img {\n      display: block;\n      border: 1px solid var(--wpcf-border-color); }\n  .wpcf-campaign-item .wpcf-campaign-content {\n    flex-grow: 1; }\n  .wpcf-campaign-item .wpcf-campaign-title {\n    font-size: 21px;\n    margin: 0 0 5px;\n    font-weight: 400;\n    line-height: 28px; }\n    .wpcf-campaign-item .wpcf-campaign-title a {\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-campaign-item .wpcf-campaign-title a:hover {\n        color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-heading {\n    display: flex;\n    justify-content: space-between; }\n    .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links {\n      white-space: nowrap; }\n      .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button {\n        border: none;\n        padding: 0;\n        margin: 0;\n        background: none;\n        color: var(--wpcf-light-text-color);\n        transition: 300ms;\n        padding-left: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:not(:last-child) {\n          padding-right: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:hover {\n          color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-author {\n    font-size: 16px;\n    font-weight: 400;\n    margin: 0 0 5px; }\n    .wpcf-campaign-item .wpcf-campaign-author a {\n      color: var(--wpcf-primary-color); }\n\n.wpcf-campaign-infos {\n  display: flex;\n  align-items: center;\n  margin-left: -20px;\n  flex-wrap: wrap; }\n  .wpcf-campaign-infos .wpcf-campaign-info > h5 {\n    font-weight: 400;\n    margin: 0;\n    font-size: 14px;\n    color: var(--wpcf-light-text-color); }\n    .wpcf-campaign-infos .wpcf-campaign-info > h5 span:first-child {\n      font-size: 16px;\n      font-weight: 500;\n      color: var(--wpcf-success-color);\n      display: block;\n      margin-bottom: 2px; }\n  .wpcf-campaign-infos .wpcf-campaign-info {\n    margin-left: 20px;\n    margin-top: 15px; }\n  .wpcf-campaign-infos .wpcf-campaign-raised {\n    position: relative; }\n    .wpcf-campaign-infos .wpcf-campaign-raised .wpcf-raised-percent {\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, -50%);\n      font-size: 14px;\n      color: var(--wpcf-success-color); }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-myprofile-primary-info {\n  display: flex;\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 20px;\n  position: relative; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-avatar {\n    flex: 0 0 auto;\n    margin-right: 30px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-avatar img {\n      border-radius: 50%; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-data {\n    flex-grow: 1;\n    display: inline-flex;\n    align-items: flex-start; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-profile-edit-btn {\n      margin-left: auto;\n      padding: 0;\n      border: none;\n      font-size: 12px;\n      color: var(--wpcf-primary-text-color); }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country {\n      margin-left: 60px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email span {\n      font-size: 16px;\n      color: var(--wpcf-heading-color); }\n\n.wpcf-myprofile-name-email h4,\n.wpcf-myprofile-country h4 {\n  font-size: 18px;\n  font-weight: 500;\n  color: var(--wpcf-heading-color);\n  margin: 0 0 16px;\n  line-height: 18px; }\n\n.wpcf-myprofile-name-email span,\n.wpcf-myprofile-country span {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 20px; }\n  .wpcf-myprofile-name-email span img,\n  .wpcf-myprofile-country span img {\n    margin-right: 11px; }\n\n.wpcf-myprofile-additional-info {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n  .wpcf-myprofile-additional-info ul {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    color: var(--wpcf-heading-color); }\n    .wpcf-myprofile-additional-info ul li {\n      display: flex;\n      align-items: center; }\n      .wpcf-myprofile-additional-info ul li strong {\n        font-size: 16px;\n        font-weight: 500;\n        min-width: 155px; }\n      .wpcf-myprofile-additional-info ul li:not(:last-child) {\n        margin-bottom: 30px; }\n      .wpcf-myprofile-additional-info ul li i {\n        color: #D6D6E7; }\n\n.wpcf-myprofile-deactive {\n  display: flex;\n  align-items: center;\n  justify-content: space-between; }\n  .wpcf-myprofile-deactive h5 {\n    font-size: 16px;\n    font-weight: 400;\n    color: var(--wpcf-heading-color);\n    margin: 0 0 15px; }\n\n.wpcf-pledge-received-cards {\n  display: flex;\n  padding: 30px;\n  background: var(--wpcf-success-color);\n  color: #fff;\n  min-height: 130px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 30px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card h4 {\n    font-size: 32px;\n    line-height: 43px;\n    color: #ffffff;\n    margin: 0; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card:not(:last-child) {\n    margin-right: 60px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card span {\n    font-size: 16px; }\n\n.wpcf-billing-details-title {\n  font-size: 14px;\n  color: var(--wpcf-primary-text-color);\n  font-weight: 400;\n  margin: 0 0 25px; }\n\n.wpcf-order-details {\n  display: flex; }\n  .wpcf-order-details > div h5,\n  .wpcf-order-details > div span,\n  .wpcf-order-details > div strong {\n    display: block; }\n  .wpcf-order-details > div:not(:last-child) {\n    margin-right: 80px; }\n  .wpcf-order-details > div span > * {\n    display: inline; }\n  .wpcf-order-details .wpcf-order-details-item h5 {\n    font-size: 14px;\n    color: var(--wpcf-primary-text-color);\n    font-weight: 400; }\n  .wpcf-order-details .wpcf-order-details-item strong {\n    color: var(--wpcf-success-color);\n    font-weight: 400; }\n    .wpcf-order-details .wpcf-order-details-item strong * {\n      display: inline; }\n  .wpcf-order-details .wpcf-order-details-item > *:nth-child(3) {\n    margin-top: 12px; }\n  .wpcf-order-details .wpcf-order-details-name-item h5 {\n    font-size: 18px;\n    line-height: 24px;\n    color: var(--wpcf-heading-color);\n    font-weight: 500;\n    margin: 0 0 14px; }\n  .wpcf-order-details .wpcf-order-details-name-item span {\n    color: var(--wpcf-heading-color); }\n  .wpcf-order-details .wpcf-order-details-name-item span, .wpcf-order-details .wpcf-order-details-name-item strong {\n    font-size: 16px; }\n  .wpcf-order-details .wpcf-order-details-name-item strong *,\n  .wpcf-order-details .wpcf-order-details-name-item strong {\n    color: var(--wpcf-success-color); }\n\n.wpcf-dashboard-row {\n  display: flex; }\n  .wpcf-dashboard-row .wpcf-dashboard-col {\n    flex-grow: 1; }\n\n.wpcf-dashboard-item-wraper .wpcf-dashboard-row {\n  margin-top: 30px; }\n  .wpcf-dashboard-item-wraper .wpcf-dashboard-row .wpcf-dashboard-col {\n    max-width: 280px;\n    margin-right: 40px; }\n\n.wpcf-order-details-item strong,\n.wpcf-order-details-item span {\n  display: block;\n  font-weight: 400; }\n\n.wpcf-order-details-item strong {\n  font-size: 16px;\n  margin-top: 16px;\n  color: var(--wpcf-heading-color);\n  line-height: 1.71; }\n\n.withdraw-method-select-wrap {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin: 0 -15px 40px; }\n  .withdraw-method-select-wrap input[type=\"radio\"] {\n    display: none; }\n\n.withdraw-method-select-wrap .withdraw-method-select {\n  -webkit-box-flex: 1;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  padding: 0 15px;\n  margin-bottom: 30px; }\n\n.withdraw-method-select-wrap .withdraw-method-select label {\n  display: block;\n  padding: 20px;\n  margin: 0;\n  cursor: pointer;\n  overflow: hidden;\n  border: 1px solid #DCDFE5;\n  border-radius: 4px;\n  position: relative; }\n  .withdraw-method-select-wrap .withdraw-method-select label > span {\n    display: block; }\n\n.withdraw-method-select-wrap .withdraw-method-select label.active {\n  border-color: #4bd863;\n  -webkit-box-shadow: 0 0 0 1px #4bd863;\n  box-shadow: 0 0 0 1px #4bd863; }\n\n.withdraw-method-select-wrap .withdraw-method-select label:after {\n  content: '\\e90f';\n  position: absolute;\n  right: -1px;\n  top: -1px;\n  border: 1px solid #DCDFE5;\n  height: 22px;\n  width: 22px;\n  text-align: center;\n  line-height: 22px;\n  color: transparent; }\n\n.withdraw-method-select-wrap .withdraw-method-select label.active:after {\n  color: #fff;\n  background: #4bd863;\n  border-color: #4bd863;\n  font-family: 'tutor' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  font-size: 13px; }\n\n.withdraw-method-select-wrap .withdraw-method-select p {\n  margin: 0; }\n\n.withdraw-method-select-wrap .withdraw-method-select label > p {\n  font-size: 20px;\n  font-weight: 600;\n  color: var(--tutor-primary-color); }\n\n.withdraw-method-select-wrap .withdraw-method-select label span {\n  color: #B0B6C8;\n  font-weight: 400; }\n\n.withdraw-method-field-wrap {\n  display: flex; }\n  .withdraw-method-field-wrap label {\n    min-width: 155px; }\n  .withdraw-method-field-wrap textarea {\n    max-width: 360px; }\n\n.withdraw-method-form {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin: 0 -15px; }\n\n.withdraw-method-form > div {\n  -webkit-box-flex: 1;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  min-width: 100%;\n  padding: 0 15px 20px; }\n\n@media (max-width: 480px) {\n  .withdraw-method-form > div {\n    width: 100%; } }\n\n.withdraw-method-form > div.withdraw-account-save-btn-wrap {\n  width: 100%; }\n\n.withdraw-form-field-amount input[type='text'],\n.withdraw-method-forms-wrap .withdraw-method-form input:not([type=\"submit\"]):not([type=\"radio\"]):not([type=\"checkbox\"]),\n.withdraw-method-forms-wrap .withdraw-method-form textarea {\n  border: 1px solid var(--wpcf-border-color);\n  display: block;\n  width: 100%;\n  background: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border-radius: 4px; }\n\nlabel[for=\"tutor_withdraw_amount\"] {\n  margin-bottom: 7px;\n  display: block; }\n\n.withdraw-form-field-amount input[type='text'] {\n  margin-bottom: 10px;\n  height: 35px; }\n\n.withdraw-method-forms-wrap .withdraw-method-form input:not([type=\"submit\"]):not([type=\"radio\"]):not([type=\"checkbox\"]):focus,\n.withdraw-method-forms-wrap .withdraw-method-form textarea:focus {\n  border-color: var(--tutor-primary-color);\n  outline: none; }\n\n.withdraw-method-forms-wrap .withdraw-method-form textarea {\n  min-height: 80px; }\n\n.withdraw-method-forms-wrap .withdraw-method-form label {\n  color: #989EAF;\n  margin-bottom: 8px;\n  display: block; }\n\n.withdraw-method-forms-wrap .withdraw-method-form .withdraw-field-desc {\n  font-size: 12px;\n  margin: 5px 0 0;\n  font-style: italic; }\n\n.wpcf-withdraw-method-input {\n  position: relative; }\n\n#wpcf_withdraw_amount {\n  height: 55px;\n  width: 320px;\n  appearance: none;\n  -moz-appearance: textfield; }\n  #wpcf_withdraw_amount::-webkit-outer-spin-button, #wpcf_withdraw_amount::-webkit-inner-spin-button {\n    -webkit-appearance: none;\n    margin: 0; }\n\ninput[type=number] {\n  -moz-appearance: textfield;\n  /* Firefox */ }\n\n#wpcf_withdraw_amount + span {\n  position: absolute;\n  right: 0;\n  top: 0;\n  padding: 0 22px;\n  line-height: 55px;\n  border-left: 1px solid var(--wpcf-border-color);\n  cursor: pointer; }\n\n.wpcf-form-group {\n  display: flex; }\n  .wpcf-form-group:not(:last-child) {\n    margin-bottom: 15px; }\n  .wpcf-form-group label {\n    flex-grow: 1;\n    flex-basis: 180px;\n    max-width: 180px;\n    font-size: 14px;\n    color: var(--wpcf-heading-color); }\n  .wpcf-form-group input:not([type=\"submit\"]),\n  .wpcf-form-group .wpcf-input,\n  .wpcf-form-group textarea,\n  .wpcf-form-group select {\n    flex-grow: 1;\n    max-width: 375px;\n    flex-basis: 375px;\n    border: 1px solid var(--wpcf-border-color);\n    padding: 0 15px;\n    border-radius: 4px;\n    transition: 300ms;\n    height: 35px;\n    line-height: 35px; }\n    .wpcf-form-group input:not([type=\"submit\"]):focus,\n    .wpcf-form-group .wpcf-input:focus,\n    .wpcf-form-group textarea:focus,\n    .wpcf-form-group select:focus {\n      border-color: var(--wpcf-primary-color); }\n", ""]);
 
 
 /***/ }),
@@ -26087,7 +26087,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32644,78 +32644,6 @@ CircleProgress.defaultProps = {
 
 /***/ }),
 
-/***/ "./src/components/contentHeader.js":
-/*!*****************************************!*\
-  !*** ./src/components/contentHeader.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return contentHeader; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-var contentHeader =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(contentHeader, _Component);
-
-  function contentHeader() {
-    _classCallCheck(this, contentHeader);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(contentHeader).apply(this, arguments));
-  }
-
-  _createClass(contentHeader, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-content-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-content-header-left"
-      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "wpcf-btn wpcf-btn-round",
-        href: WPCF.create_campaign_url
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "wpcf-icon fas fa-plus"
-      }), "Create Campaign")), this.props.title && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "wpcf-content-heading"
-      }, Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_1__["default"])(this.props.title)), this.props.subtitle && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "wpcf-content-subheading"
-      }, this.props.subtitle));
-    }
-  }]);
-
-  return contentHeader;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
-
-/***/ }),
-
 /***/ "./src/components/datePicker.js":
 /*!**************************************!*\
   !*** ./src/components/datePicker.js ***!
@@ -32842,6 +32770,78 @@ function exportToCsv(data, file_name) {
     }
   }, "Download CSV");
 });
+
+/***/ }),
+
+/***/ "./src/components/header.js":
+/*!**********************************!*\
+  !*** ./src/components/header.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return header; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var header =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(header, _Component);
+
+  function header() {
+    _classCallCheck(this, header);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(header).apply(this, arguments));
+  }
+
+  _createClass(header, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-content-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-content-header-left"
+      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "wpcf-btn wpcf-btn-round",
+        href: WPCF.create_campaign_url
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "wpcf-icon fas fa-plus"
+      }), "Create Campaign")), this.props.title && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "wpcf-content-heading"
+      }, Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_1__["default"])(this.props.title)), this.props.subtitle && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "wpcf-content-subheading"
+      }, this.props.subtitle));
+    }
+  }]);
+
+  return header;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
 
 /***/ }),
 
@@ -33093,7 +33093,8 @@ __webpack_require__.r(__webpack_exports__);
     dangerouslySetInnerHTML: {
       __html: data.total_receivable
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-sm",
     onClick: function onClick() {
       return props.onClickWithdrawDetails(data);
     }
@@ -33225,17 +33226,36 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _contentHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./contentHeader */ "./src/components/contentHeader.js");
-/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
 
 
+
+function getStatusColor(status) {
+  switch (status.toLowerCase()) {
+    case 'cancelled':
+    case 'failed':
+    case 'refunded':
+      return 'var(--wpcf-danger-color)';
+
+    case 'on hold':
+    case 'onhold':
+      return 'var(--wpcf-warning-color)';
+
+    case 'completed':
+    case 'done':
+      return 'var(--wpcf-success-color)';
+
+    default:
+      return 'var(--wpcf-primary-color)';
+  }
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   var data = props.data,
       _props$data = props.data,
       billing = _props$data.billing,
       line_items = _props$data.line_items;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_contentHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: "Order #" + data.id,
     subtitle: "Created " + data.formatted_c_date
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -33253,47 +33273,57 @@ __webpack_require__.r(__webpack_exports__);
     className: "wpcf-billing-details-title"
   }, "Order Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, billing.first_name + ' ' + billing.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, line_items.length ? line_items[0].product_name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item wpcf-order-details-name-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, billing.first_name + ' ' + billing.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, line_items.length ? line_items[0].product_name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
     dangerouslySetInnerHTML: {
       __html: 'Pledged ' + data.total
     }
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Payment Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.status_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.formatted_oc_date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Fulfillment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.fulfillment)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-dashboard-item-wraper "
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Payment Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+    style: {
+      color: getStatusColor(data.status_name)
+    }
+  }, data.status_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.formatted_oc_date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Fulfillment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+    style: {
+      color: getStatusColor(data.fulfillment)
+    }
+  }, data.fulfillment)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-item-wraper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
     className: "wpcf-billing-details-title"
   }, "Billing Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, billing.first_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.first_name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.first_name))), billing.last_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.last_name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.last_name))), billing.company && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.company))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.company))), billing.country_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.country_name)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-row"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, console.log(data.formatted_b_addr), data.formatted_b_addr && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
-    dangerouslySetInnerHTML: {
-      __html: data.formatted_b_addr
-    }
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.formatted_b_addr.replace(/<br\/>/g, ", ")))), billing.postcode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Post Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.postcode)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Post Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.postcode)))), data.customer_note && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
@@ -33767,7 +33797,7 @@ function (_Component) {
         style: {
           maxWidth: "200px"
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.changeImage
       }, "Edit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-form-group"
@@ -33968,6 +33998,10 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.onSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-dashboard-item-wraper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "wpcf-social-title"
+      }, "Connected Social Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "wpcf_profile_facebook"
@@ -34033,9 +34067,12 @@ function (_Component) {
         value: profile_pinterest,
         placeholder: "www.pinterest.com/wp-crowdfunding",
         onChange: this.onChangeInput
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-btn wpcf-btn-round",
         type: "submit"
-      }, "Save"));
+      }, "Save")));
     }
   }]);
 
@@ -34060,6 +34097,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_withdrawAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/withdrawAction */ "./src/actions/withdrawAction.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -34083,6 +34121,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -34178,9 +34217,9 @@ function (_Component) {
           withdraw_message = _this$state.withdraw_message,
           withdraw_method = _this$state.withdraw_method,
           errorMsg = _this$state.errorMsg;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, data.campaign_title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        title: data.campaign_title
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, withdraw.request_items.length > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-table-wrap"
@@ -34231,26 +34270,27 @@ function (_Component) {
         className: "withdraw-method-field-wrap"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "wpcf_withdraw_amount"
-      }, "Amount"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Amount"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-withdraw-method-input"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "wpcf_withdraw_amount",
         type: "number",
         name: "withdraw_amount",
         value: withdraw_amount,
         onChange: this.onChangeInput,
         required: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, WPCF.wc_currency_symbol), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "withdraw-field-desc"
       }, "Remain Amount ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         dangerouslySetInnerHTML: {
           __html: withdraw.balance
         }
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "withdraw-method-field-wrap"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "wpcf_withdraw_message"
-      }, "Message"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Message"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "wpcf_withdraw_message",
-        type: "textarea",
         name: "withdraw_message",
         value: withdraw_message,
         onChange: this.onChangeInput
@@ -34282,13 +34322,14 @@ function (_Component) {
           to: "/settings/withdraw"
         }, "Change info")));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "withdraw-account-save-btn-wrap"
+        className: "withdraw-account-save-btn-wrap wpcf-btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
-        className: "wpcf-btn",
+        className: "wpcf-btn wpcf-success-btn",
         disabled: methods == null
       }, "Confirm Withdrawal"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
+        className: "wpcf-btn wpcf-btn-outline",
         onClick: function onClick() {
           return onClickBack('');
         }
@@ -34929,7 +34970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_lineGraph__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/lineGraph */ "./src/components/lineGraph.js");
 /* harmony import */ var _components_pledgeReports__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pledgeReports */ "./src/components/pledgeReports.js");
 /* harmony import */ var _components_exportCSV__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/exportCSV */ "./src/components/exportCSV.js");
-/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -35048,7 +35089,7 @@ function (_Component) {
       }
 
       ;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
         title: this.props.campaign.name ? "Showing Report for " + this.props.campaign.name : "Dashboard"
       }, this.props.campaign.name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "wpcf-btn wpcf-link-btn",
@@ -35160,7 +35201,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
 /* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
-/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35259,7 +35300,7 @@ function (_Component) {
           pageOfItems = _this$state.pageOfItems,
           filterValue = _this$state.filterValue;
       var campaignData = this.getCampaignData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_5__["default"], {
         title: "Invested Campaigns"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-mycampaign-filter-group wpcf-btn-group"
@@ -35322,7 +35363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
 /* harmony import */ var _components_campaignUpdate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/campaignUpdate */ "./src/components/campaignUpdate.js");
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
-/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35449,7 +35490,7 @@ function (_Component) {
       }
 
       var campaignData = this.getCampaignData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
         title: "My Campaigns"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-mycampaign-filter-group wpcf-btn-group"
@@ -35493,11 +35534,16 @@ function (_Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "fas fa-chart-bar"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          "aria-label": "Edit",
-          title: "Edit",
+          "aria-label": "Updates",
+          title: "Updates",
           onClick: function onClick() {
             return _this2.onClickUpdates(item.id, item.updates);
           }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-sync"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          "aria-label": "Edit",
+          title: "Edit"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "far fa-edit"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -35546,7 +35592,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
 /* harmony import */ var _components_itemOrder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemOrder */ "./src/components/itemOrder.js");
 /* harmony import */ var _components_orderDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/orderDetails */ "./src/components/orderDetails.js");
-/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -35697,7 +35743,7 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_6__["default"], {
         title: "Order"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -35796,7 +35842,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
 /* harmony import */ var _components_itemPledgeReceived__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemPledgeReceived */ "./src/components/itemPledgeReceived.js");
 /* harmony import */ var _components_pledgeDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pledgeDetails */ "./src/components/pledgeDetails.js");
-/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35898,7 +35944,7 @@ function (_Component) {
           total_available = _pledge$data.total_available,
           receiver_percent = _pledge$data.receiver_percent,
           orders = _pledge$data.orders;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_6__["default"], {
         title: "Pledge Recieved"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -35963,7 +36009,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_userAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/userAction */ "./src/actions/userAction.js");
-/* harmony import */ var _components_contentHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/contentHeader */ "./src/components/contentHeader.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 /* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -36030,7 +36076,7 @@ function (_Component) {
 
       ;
       console.log(countries);
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_contentHeader__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
         title: "My Profile"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -36093,6 +36139,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_userAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/userAction */ "./src/actions/userAction.js");
 /* harmony import */ var _components_profileEditForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/profileEditForm */ "./src/components/profileEditForm.js");
 /* harmony import */ var _components_socialForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/socialForm */ "./src/components/socialForm.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
+/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36110,6 +36158,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -36187,8 +36237,10 @@ function (_Component) {
       var _this$props$user2 = this.props.user,
           loading = _this$props$user2.loading,
           data = _this$props$user2.data;
+      var cLoading = this.props.countries.loading;
+      var countries = this.props.countries.data;
 
-      if (loading) {
+      if (loading || cLoading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading...");
       }
 
@@ -36203,24 +36255,56 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        title: "Profile"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-profile"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-myprofile-primary-info"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-myprofile-avatar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-form-img",
         src: data.profile_image,
         alt: "Profile Image"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, data.first_name + ' ' + data.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, data.profile_email1)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Country "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, data.country_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-myprofile-data"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-myprofile-name-email"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, data.display_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.user_email)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-myprofile-country"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Country"), data.profile_country ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: WPCF.assets + "images/flags/" + data.profile_country + ".png",
+        alt: ""
+      }), Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_6__["default"])(countries[data.profile_country])) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        style: {
+          color: "#D6D6E7"
+        }
+      }, "Not added")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-profile-edit-btn",
+        "aria-label": "Edit Profile",
         onClick: this.toggleEdit
-      }, "Edit"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-profile"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Deactivated your Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, data.country_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Yes"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-profile"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Connected Social Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_socialForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "fas fa-pen"
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-dashboard-item-wraper wpcf-myprofile-deactive"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Deactivated your Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-myprofile-country"
+      }, data.profile_country ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: WPCF.assets + "images/flags/" + data.profile_country + ".png",
+        alt: ""
+      }), Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_6__["default"])(countries[data.profile_country])) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        style: {
+          color: "#D6D6E7"
+        }
+      }, "Country not added"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "wpcf-btn wpcf-btn-outline wpcf-btn-success wpcf-btn-round"
+      }, "Yes"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_socialForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: data,
         onClickSaveData: this.onClickSaveData
-      }))));
+      })));
     }
   }]);
 
@@ -36421,6 +36505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
 /* harmony import */ var _components_itemWithdraw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemWithdraw */ "./src/components/itemWithdraw.js");
 /* harmony import */ var _components_withdrawDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/withdrawDetails */ "./src/components/withdrawDetails.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36438,6 +36523,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -36521,12 +36607,12 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Withdraw"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        title: "Withdraw"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
-      }, withdraw.data.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-dashboard-info-table-wrap"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-        className: "wpcf-dashboard-info-table"
+      }, withdraw.data.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "wpcf-report-table"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Project"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Goal Complete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Available Currency"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Available to Withdraw"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, pageOfItems.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemWithdraw__WEBPACK_IMPORTED_MODULE_4__["default"], {
           key: index,

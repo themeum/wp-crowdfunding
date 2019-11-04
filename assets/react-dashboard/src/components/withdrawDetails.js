@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { postWithdrawRequest } from '../actions/withdrawAction';
+import Header from "./header";
 
 class WithdrawDetails extends Component {
     constructor(props) {
@@ -58,8 +59,8 @@ class WithdrawDetails extends Component {
         const { withdraw_amount, withdraw_message, withdraw_method, errorMsg } = this.state;
 
         return (
-            <div className="wpcf-dashboard-content">
-                <h3>{data.campaign_title}</h3>
+            <Fragment>
+                <Header title={data.campaign_title}/>
                 <div className="wpcf-dashboard-content-inner">
                     {withdraw.request_items.length > 0 &&
                         <div className="wpcf-dashboard-info-table-wrap">
@@ -79,7 +80,7 @@ class WithdrawDetails extends Component {
                                             <td dangerouslySetInnerHTML={{ __html: item.title }} />
                                             <td dangerouslySetInnerHTML={{ __html: item.amount }} />
                                             <td> {item.method} </td>
-                                            <td> 
+                                            <td>
                                                 { item.status == 'paid' ?
                                                     <span className="label-success">Paid</span>
                                                 :   <span className="label-warning">Not Paid</span>
@@ -114,17 +115,20 @@ class WithdrawDetails extends Component {
                             }
                             <div className="withdraw-method-field-wrap">
                                 <label htmlFor="wpcf_withdraw_amount">Amount</label>
-                                <input id="wpcf_withdraw_amount" type="number" name="withdraw_amount" value={ withdraw_amount } onChange={ this.onChangeInput } required/>
-                                <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{ __html: withdraw.balance }} /></p>
+                                <div className="wpcf-withdraw-method-input">
+                                    <input id="wpcf_withdraw_amount" type="number" name="withdraw_amount" value={ withdraw_amount } onChange={ this.onChangeInput } required/>
+                                    <span>{WPCF.wc_currency_symbol}</span>
+                                    <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{ __html: withdraw.balance }} /></p>
+                                </div>
                             </div>
                             <div className="withdraw-method-field-wrap">
                                 <label htmlFor="wpcf_withdraw_message">Message</label>
-                                <input id="wpcf_withdraw_message" type="textarea" name="withdraw_message" value={ withdraw_message } onChange={ this.onChangeInput }/>
+                                <textarea id="wpcf_withdraw_message" name="withdraw_message" value={ withdraw_message } onChange={ this.onChangeInput }/>
                             </div>
                             <div className="withdraw-method-select-wrap">
-                                { 
+                                {
                                     (methods == null) ?
-                                        <Link to="/settings/withdraw">Setup withdraw methods</Link> 
+                                        <Link to="/settings/withdraw">Setup withdraw methods</Link>
                                     :
                                         Object.keys( methods.data ).map( (key) =>
                                         <div key={ key } className="withdraw-method-select">
@@ -137,14 +141,14 @@ class WithdrawDetails extends Component {
                                         </div>
                                 )}
                             </div>
-                            <div className="withdraw-account-save-btn-wrap">
-                                <button type="submit" className="wpcf-btn" disabled={(methods == null)}>Confirm Withdrawal</button>
-                                <button type="button" onClick={() => onClickBack('')}> Back </button>
+                            <div className="withdraw-account-save-btn-wrap wpcf-btn-group">
+                                <button type="submit" className="wpcf-btn wpcf-success-btn" disabled={(methods == null)}>Confirm Withdrawal</button>
+                                <button type="button" className="wpcf-btn wpcf-btn-outline" onClick={() => onClickBack('')}> Back </button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }

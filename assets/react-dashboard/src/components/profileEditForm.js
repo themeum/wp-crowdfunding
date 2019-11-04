@@ -55,7 +55,7 @@ class ProfileEditForm extends Component {
                 <div className="wpcf-form-group">
                     <label>Profile Picture</label>
                     <img className="" src={ profile_image } style={{ maxWidth: "200px" }}/>
-                    <span onClick={ this.changeImage }>Edit</span>
+                    <button onClick={ this.changeImage }>Edit</button>
                 </div>
                 <div className="wpcf-form-group">
                     <label htmlFor="wpcfp_username">Username</label>

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import decodeEntities from "../helpers/decodeEntities"
 
-export default class contentHeader extends Component {
+export default class header extends Component {
     render() {
         return (
             <Fragment>

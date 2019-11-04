@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser, saveUserData, fetchCountries } from '../actions/userAction';
 import ProfileEditForm from '../components/profileEditForm';
 import SocialForm from '../components/socialForm';
+import Header from '../components/header';
+import decodeEntities from "../helpers/decodeEntities";
 
 class ProfileSettings extends Component {
 	constructor (props) {
@@ -47,8 +49,10 @@ class ProfileSettings extends Component {
 	render() {
         const { profileEdit } = this.state;
         const { loading, data } = this.props.user;
-        
-        if( loading ) { 
+        const cLoading = this.props.countries.loading;
+        const countries = this.props.countries.data;
+
+        if( loading || cLoading ) {
             return (
                 <div>
                     Loading...
@@ -58,49 +62,65 @@ class ProfileSettings extends Component {
 
         if( profileEdit ) {
             return(
-                <ProfileEditForm 
+                <ProfileEditForm
                     data={ data }
                     countries={ this.props.countries.data }
-                    toggleEdit={ this.toggleEdit } 
+                    toggleEdit={ this.toggleEdit }
                     onClickSaveData={ this.onClickSaveData }/>
             );
         }
 
         return (
-            <div>
-                <h3>Profile</h3>
+            <Fragment>
+                <Header title="Profile" />
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-profile">
-                        <div>
-                            <img className="profile-form-img" src={ data.profile_image } alt="Profile Image" />
-                        </div>
-                        <div>
-                            <p>{data.first_name+' '+data.last_name}</p>
-                            <p>{data.profile_email1}</p>
-                        </div>
-                        <div>
-                            <p> Country </p>
-                            <p>{data.country_name}</p>
-                        </div>
-                        <div>
-                            <span onClick={ this.toggleEdit }>Edit</span>
+                        <div className="wpcf-myprofile-primary-info">
+                            <div className="wpcf-myprofile-avatar">
+                                <img className="profile-form-img" src={ data.profile_image } alt="Profile Image" />
+                            </div>
+                            <div className="wpcf-myprofile-data">
+                                <div className="wpcf-myprofile-name-email">
+                                    <h4>{ data.display_name }</h4>
+                                    <span>{ data.user_email }</span>
+                                </div>
+                                <div className="wpcf-myprofile-country">
+                                    <h4>Country</h4>
+
+                                    {
+                                        data.profile_country ? (
+                                            <span>
+                                                <img src={WPCF.assets + "images/flags/" + data.profile_country + ".png"} alt=""/>
+                                                {decodeEntities(countries[data.profile_country])}
+                                            </span>
+                                        ) : <i style={{color: "#D6D6E7"}}>Not added</i>
+                                    }
+                                </div>
+                                <button className="wpcf-profile-edit-btn" aria-label="Edit Profile" onClick={ this.toggleEdit }><span className="fas fa-pen"></span></button>
+                            </div>
                         </div>
                     </div>
-                    <div className="wpcf-dashboard-profile">
+                    <div className="wpcf-dashboard-item-wraper wpcf-myprofile-deactive">
                         <div>
-                            <p>Deactivated your Account</p>
-                            <p>{data.country_name}</p>
+                            <h5>Deactivated your Account</h5>
+                            <div className="wpcf-myprofile-country">
+                                {
+                                    data.profile_country ? (
+                                        <span>
+                                            <img src={WPCF.assets + "images/flags/" + data.profile_country + ".png"} alt=""/>
+                                            {decodeEntities(countries[data.profile_country])}
+                                        </span>
+                                    ) : <i style={{color: "#D6D6E7"}}>Country not added</i>
+                                }
+                            </div>
                         </div>
                         <div>
-                            <button>Yes</button>
+                            <button className="wpcf-btn wpcf-btn-outline wpcf-btn-success wpcf-btn-round">Yes</button>
                         </div>
                     </div>
-                    <div className="wpcf-dashboard-profile">
-                        <h2>Connected Social Account</h2>
-                        <SocialForm data={ data } onClickSaveData={ this.onClickSaveData }/>
-                    </div>
+                    <SocialForm data={ data } onClickSaveData={ this.onClickSaveData }/>
                 </div>
-            </div>
+            </Fragment>
         )
 	}
 }

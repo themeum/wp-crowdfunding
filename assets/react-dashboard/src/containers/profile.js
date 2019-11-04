@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {fetchUser, fetchCountries} from '../actions/userAction';
-import Header from '../components/contentHeader'
+import Header from '../components/header'
 import decodeEntities from "../helpers/decodeEntities";
 
 class Profile extends Component {

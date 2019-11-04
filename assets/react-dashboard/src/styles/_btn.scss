@@ -39,6 +39,13 @@
         color: #ffffff;
     }
     
+    &.wpcf-success-btn,
+    &.wpcf-btn-success{
+        background-color: var(--wpcf-success-color);
+        border-color: var(--wpcf-success-color);
+        color: #ffffff;
+    }
+    
     &.wpcf-link-btn{
         color: var(--wpcf-primary-color);
         padding: 0;
@@ -54,6 +61,7 @@
             background-color: var(--wpcf-primary-color);
             color: #ffffff;
         }
+        &.wpcf-btn-success,
         &.wpcf-success-btn{
             color: var(--wpcf-success-color);
             border-color: var(--wpcf-success-color);
@@ -82,5 +90,15 @@
     }
     .wpcf-icon-right{
         margin-left: 12px;
+    }
+}
+
+.wpcf-btn-group{
+    margin-top: -10px;
+    margin-left: -10px;
+    button,
+    .wpcf-btn{
+        margin-top: 10px;
+        margin-left: 10px;
     }
 }

@@ -4,7 +4,7 @@ import { fetchOrders } from '../actions/orderAction';
 import Pagination from '../components/pagination';
 import ItemOrder from '../components/itemOrder';
 import OrderDetails from '../components/orderDetails';
-import Header from "../components/contentHeader";
+import Header from "../components/header";
 
 class Order extends Component {
 	constructor (props) {
@@ -107,7 +107,6 @@ class Order extends Component {
                             <span>Completed Order</span>
                         </div>
                     </div>
-
                     <div className="wpcf-dashboard-search">
                         <div>
                             {/*TODO: Cannot search with product id || Payment || Fulfillment*/}

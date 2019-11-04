@@ -5,7 +5,7 @@ import CampaignReport from '../containers/campaignReport';
 import ItemCampaign from '../components/itemCampaign';
 import CampaignUpdate from '../components/campaignUpdate';
 import Pagination from '../components/pagination';
-import Header from '../components/contentHeader';
+import Header from '../components/header';
 
 class MyCampaigns extends Component {
     state = {
@@ -99,7 +99,10 @@ class MyCampaigns extends Component {
                                         <button aria-label="Report" title="Report"  onClick={ () => this.onClickReport( {id: item.id, name: item.title} ) }>
                                             <span className="fas fa-chart-bar"></span>
                                         </button>
-                                        <button aria-label="Edit" title="Edit" onClick={ () => this.onClickUpdates( item.id, item.updates ) }>
+                                        <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates( item.id, item.updates ) }>
+                                            <i className="fas fa-sync"></i>
+                                        </button>
+                                        <button aria-label="Edit" title="Edit">
                                             <i className="far fa-edit"></i>
                                         </button>
                                         {/*TODO: Need Button Working*/}

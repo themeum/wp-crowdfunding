@@ -5,7 +5,7 @@ import DatePicker from '../components/datePicker';
 import LineGraph from '../components/lineGraph';
 import PledgeReports from '../components/pledgeReports';
 import ExportCSV from '../components/exportCSV';
-import Header from '../components/contentHeader'
+import Header from '../components/header'
 
 class CampaignReport extends Component {
 	constructor (props) {

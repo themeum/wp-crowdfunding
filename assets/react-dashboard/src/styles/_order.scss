@@ -21,4 +21,70 @@
 			display: inline;
 		}
 	}
+	
+	.wpcf-order-details-item{
+		h5{
+			font-size: 14px;
+			color: var(--wpcf-primary-text-color);
+			font-weight: 400;
+		}
+		strong{
+			color: var(--wpcf-success-color);
+			font-weight: 400;
+			*{
+				display: inline;
+			}
+		}
+		> *:nth-child(3){
+			margin-top: 12px;
+		}
+	}
+	.wpcf-order-details-name-item{
+		h5{
+			font-size: 18px;
+			line-height: 24px;
+			color: var(--wpcf-heading-color);
+			font-weight: 500;
+			margin: 0 0 14px;
+		}
+		span{
+			color: var(--wpcf-heading-color);
+		}
+		span, strong{
+			font-size: 16px;
+		}
+		strong *,
+		strong{
+			color: var(--wpcf-success-color);
+		}
+	}
+}
+
+.wpcf-dashboard-row{
+	display: flex;
+	.wpcf-dashboard-col{
+		flex-grow: 1;
+	}
+}
+
+.wpcf-dashboard-item-wraper .wpcf-dashboard-row{
+	margin-top: 30px;
+	.wpcf-dashboard-col{
+		max-width: 280px;
+		margin-right: 40px;
+	}
+}
+
+.wpcf-order-details-item{
+	strong,
+	span{
+		display: block;
+		font-weight: 400;
+	}
+	strong{
+		font-size: 16px;
+		margin-top: 16px;
+		color: var(--wpcf-heading-color);
+		line-height: 1.71;
+	}
 }

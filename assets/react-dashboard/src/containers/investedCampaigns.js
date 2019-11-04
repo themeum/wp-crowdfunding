@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchInvestedCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
-import Header from "../components/contentHeader";
+import Header from "../components/header";
 
 class InvestedCampaigns extends Component {
 
