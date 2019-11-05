@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import reduxThunk from 'redux-thunk';
-import App from './App';
 import reducers from './reducers';
+import { setPostId } from './actions';
+import App from './App';
 import './styles/style.scss';
 
 const rootReducer = combineReducers({
@@ -23,6 +24,6 @@ const postId = parseInt( formNode.getAttribute('postId') );
 
 ReactDOM.render(
     <Provider store={store}>
-        <App postId={postId}/>
+        <App editPostId={postId}/>
     </Provider>, formNode
 );

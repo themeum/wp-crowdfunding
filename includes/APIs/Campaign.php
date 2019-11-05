@@ -996,7 +996,7 @@ class API_Campaign {
         /* echo "<pre>";
         print_r($res_rewards); */
 
-        $response = array(
+        $values = array(
             'basic' => array(
                 'media'         => $media,
                 'funding_goal'  => (float) get_post_meta($post_id, '_nf_funding_goal', true),
@@ -1029,6 +1029,13 @@ class API_Campaign {
             'story' => $res_story,
             'rewards' => $res_rewards,
             'team' => '',
+        );
+
+        $modified_date = get_the_modified_date('F j', $post_id);
+        $response = array(
+            'postId'    => $post_id,
+            'saveDate'  => $modified_date,
+            'values'    => $values,
         );
         return rest_ensure_response($response);
     }
@@ -1194,199 +1201,3 @@ class API_Campaign {
 }
 
 new API_Campaign();
-
-
-
-
-
-/*
-[basic] => Array
-    (
-        [media] => Array
-            (
-                [0] => Array
-                    (
-                        [id] => jdvdkGwodAY
-                        [type] => video_link
-                        [src] => https://youtu.be/jdvdkGwodAY
-                        [thumb] => https://img.youtube.com/vi/jdvdkGwodAY/default.jpg
-                    )
-
-                [1] => Array
-                    (
-                        [id] => 20
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1.jpg
-                        [name] => Image-from-iOS-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1-150x150.jpg
-                    )
-
-                [2] => Array
-                    (
-                        [id] => 19
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [name] => 61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1-150x150.jpg
-                    )
-
-            )
-
-        [goal] => 33307
-        [amount_range] => Array
-            (
-                [min] => 1
-                [max] => 5000000
-            )
-
-        [video_link] => Array
-            (
-                [0] => Array
-                    (
-                        [src] => https://youtu.be/jdvdkGwodAY
-                    )
-
-            )
-
-        [category] => 20
-        [type] => individual
-        [sub_category] => 23
-        [country] => BD
-        [state] => BD-14
-        [title] => Campaign Title
-        [subtitle] => Campaign Sub-Title
-        [short_desc] => Campaign Description
-        [tags] => Array
-            (
-                [0] => Array
-                    (
-                        [value] => tag1
-                        [label] => Tag1
-                    )
-
-                [1] => Array
-                    (
-                        [value] => tag2
-                        [label] => Tag2
-                    )
-
-            )
-
-        [image] => Array
-            (
-                [0] => Array
-                    (
-                        [id] => 20
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1.jpg
-                        [name] => Image-from-iOS-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1-150x150.jpg
-                    )
-
-                [1] => Array
-                    (
-                        [id] => 19
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [name] => 61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1-150x150.jpg
-                    )
-
-            )
-
-        [fund_type] => fixed_funding
-        [goal_type] => target_date
-        [start_date] => 2019-10-25
-        [end_date] => 2019-11-22
-        [recommended] => 1000
-        [table] => 1
-        [anonymity] => 1
-    )
-
-[story] => Array
-    (
-        [0] => Array
-            (
-                [0] => Array
-                    (
-                        [type] => text
-                        [value] => <h1 style="text-align: center;">Campaign</h1>
-<p style="text-align: center;">Paragraph text...</p>
-                    )
-
-            )
-
-        [1] => Array
-            (
-                [0] => Array
-                    (
-                        [type] => image
-                        [value] => Array
-                            (
-                                [0] => Array
-                                    (
-                                        [id] => 129
-                                        [type] => image
-                                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/08/46492082_2271536482916815_6132729797039620096_o.jpg
-                                        [name] => 46492082_2271536482916815_6132729797039620096_o.jpg
-                                        [mime] => image/jpeg
-                                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/08/46492082_2271536482916815_6132729797039620096_o-150x150.jpg
-                                    )
-
-                            )
-
-                    )
-
-            )
-
-    )
-
-[rewards] => Array
-    (
-        [0] => Array
-            (
-                [type] => 0
-                [rewards_items] => Array
-                    (
-                        [0] => Array
-                            (
-                                [name] => item
-                            )
-
-                    )
-
-                [title] => Reward title
-                [amount] => hello
-                [image] => Array
-                    (
-                        [0] => Array
-                            (
-                                [id] => 19
-                                [type] => image
-                                [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1.jpg
-                                [name] => 61430404_2177917752277288_5112094423315906560_o-1.jpg
-                                [mime] => image/jpeg
-                                [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1-150x150.jpg
-                            )
-
-                    )
-
-                [description] => hello
-                [end_month] => jan
-                [end_year] => 2019
-                [no_of_items] => 3
-            )
-
-    )
-
-[team] => Array
-    (
-    )
-
-[submit] => 
-
-*/
