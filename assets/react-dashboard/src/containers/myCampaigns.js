@@ -63,7 +63,8 @@ class MyCampaigns extends Component {
             return (
                 <CampaignReport
                     campaign={ campaignReport }
-                    onClickBack={ this.onClickReport }/>
+                    onClickBack={ this.onClickReport }
+                />
             );
         }
 
@@ -72,7 +73,8 @@ class MyCampaigns extends Component {
                 <CampaignUpdate
                     updates={ updates }
                     campaignId={ campaignId }
-                    onClickUpdates={ this.onClickUpdates }/>
+                    onClickUpdates={ this.onClickUpdates }
+                />
             );
         }
 

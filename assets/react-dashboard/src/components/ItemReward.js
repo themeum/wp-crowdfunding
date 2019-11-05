@@ -15,7 +15,7 @@ export default (props) => {
             </div>
 
             <div className="wpcf-reward-perks-wrap">
-                <h6>Perks about to end</h6>
+                <h5>Perks about to end</h5>
                 <div className="wpcf-reward-perks">
                     <div className="wpcf-reward-perk-item">
                         <h6>{data.interval.d}</h6>

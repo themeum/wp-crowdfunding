@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { saveCampaignUpdates } from '../actions/campaignAction';
 import DatePicker from '../components/datePicker';
+import Header from "../components/header";
 
 class CampaignUpdate extends Component {
     constructor(props) {
@@ -51,39 +52,45 @@ class CampaignUpdate extends Component {
     render() {
         const { updates } = this.state;
         return (
-            <div className="wpcf-dashboard-content">
-                <h3>Updates</h3>
+            <Fragment>
+                <Header title={"Updates"}>
+                    <button className="wpcf-btn wpcf-link-btn" onClick={ () => this.props.onClickUpdates( '', '' ) }>
+                        <span className="wpcf-icon fas fa-long-arrow-alt-left"></span>
+                        Go Back My Campaigns
+                    </button>
+                </Header>
                 <div className="wpcf-dashboard-content-inner">
-                    <div className="withdraw-method-forms-wrap">
-                        <form className="withdraw-method-form" onSubmit={ this.onSubmitUpates }>
-                            { updates.length > 0 && 
-                                updates.map( ( item, index ) =>
-                                    <div key={index} className="">
-                                        <DatePicker name="date" value={item.date} onChange={ e => this.onChangeInput(e, index) } format="yy-mm-dd"
-                                        />
-                                        <div className="">
-                                            <label>Update Title:</label>
-                                            <input type="text"name="title" value={ item.title } onChange={ (e) => this.onChangeInput(e, index) } required/>
-                                        </div>
-                                        <div className="">
-                                            <label>Update Details:</label>
-                                            <input type="textarea" name="details" value={ item.details } onChange={ (e) => this.onChangeInput(e, index) } required/>
-                                        </div>
-                                        <button type="button" onClick={ () => this.removeItem(index) }>Remove</button>
+                    <form onSubmit={ this.onSubmitUpates }>
+                        { updates.length > 0 &&
+                            updates.map( ( item, index ) =>
+                                <div key={index} className="wpcf-dashboard-item-wraper">
+                                    <div className="wpcf-form-group">
+                                        <label>Date: </label>
+                                        <DatePicker placeholder="2040/12/16" name="date" value={item.date} onChange={ e => this.onChangeInput(e, index) } format="yy-mm-dd"/>
                                     </div>
-                            )}
+                                    <div className="wpcf-form-group">
+                                        <label>Update Title:</label>
+                                        <input placeholder="Update Title" type="text"name="title" value={ item.title } onChange={ (e) => this.onChangeInput(e, index) } required/>
+                                    </div>
+                                    <div className="wpcf-form-group">
+                                        <label>Update Details:</label>
+                                        <textarea placeholder="Update description" name="details" onChange={ (e) => this.onChangeInput(e, index) } required>{ item.details }</textarea>
+                                    </div>
+                                    <button className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-danger wpcf-btn-sm" type="button" onClick={ () => this.removeItem(index) }>
+                                        <span className="far fa-trash-alt wpcf-icon"></span> Remove</button>
+                                </div>
+                        )}
 
-                            <button type="button" onClick={ this.addItem }>Add Update</button>
-                            
 
-                            <div className="withdraw-account-save-btn-wrap">
-                                <button type="submit" className="wpcf-btn">Save Updates</button>
-                                <button type="button" onClick={() => this.props.onClickUpdates( '', '' )}> Back </button>
-                            </div>
-                        </form>
-                    </div>
+
+                        <div className="wpcf-update-btn-group wpcf-btn-group">
+                            <button type="button" className="wpcf-btn wpcf-btn-round" onClick={ this.addItem }><span className="wpcf-icon fas fa-plus"></span> Add Update</button>
+                            <button style={{marginLeft: 'auto'}} type="button" className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-warning" onClick={() => this.props.onClickUpdates( '', '' )}> Back </button>
+                            <button type="submit" className="wpcf-btn wpcf-btn-round wpcf-btn-success"><span className="wpcf-icon far fa-save"></span>Save Updates</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }

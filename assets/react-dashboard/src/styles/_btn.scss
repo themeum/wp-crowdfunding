@@ -49,6 +49,19 @@
         color: #ffffff;
     }
     
+    &.wpcf-danger-btn,
+    &.wpcf-btn-danger{
+        background-color: var(--wpcf-danger-color);
+        border-color: var(--wpcf-danger-color);
+        color: #ffffff;
+    }
+    &.wpcf-warning-btn,
+    &.wpcf-btn-warning{
+        background-color: var(--wpcf-warning-color);
+        border-color: var(--wpcf-warning-color);
+        color: #ffffff;
+    }
+    
     &.wpcf-link-btn{
         color: var(--wpcf-primary-color);
         padding: 0;
@@ -70,6 +83,24 @@
             border-color: var(--wpcf-success-color);
             &:hover{
                 background-color: var(--wpcf-success-color);
+                color: #ffffff;
+            }
+        }
+        &.wpcf-btn-danger,
+        &.wpcf-danger-btn{
+            color: var(--wpcf-danger-color);
+            border-color: var(--wpcf-danger-color);
+            &:hover{
+                background-color: var(--wpcf-danger-color);
+                color: #ffffff;
+            }
+        }
+        &.wpcf-btn-warning,
+        &.wpcf-warning-btn{
+            color: var(--wpcf-warning-color);
+            border-color: var(--wpcf-warning-color);
+            &:hover{
+                background-color: var(--wpcf-warning-color);
                 color: #ffffff;
             }
         }

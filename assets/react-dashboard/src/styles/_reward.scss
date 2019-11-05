@@ -9,5 +9,56 @@
 	.wpcf-reward-thumbnail{
 		max-width: 190px;
 		flex-basis: 190px;
+		flex-grow: 1;
+		border: 1px solid #f7f7f7;
+		img{
+			display: block;
+		}
 	}
+	.wpcf-reward-content{
+		flex-grow: 1;
+		margin-left: 20px;
+	}
+	.wpcf-reward-perks-wrap{
+		flex-grow: 0;
+		flex-basis: auto;
+		margin-left: auto;
+		padding-left: 20px;
+		h5{
+			font-weight: 400;
+			font-size: 14px;
+			color: var(--wpcf-primary-text-color);
+			margin: 0 0 16px;
+		}
+		.wpcf-reward-perks{
+			display: flex;
+			.wpcf-reward-perk-item{
+				margin: 0 20px;
+				position: relative;
+				&:first-child{
+					margin-left: 0;
+				}
+				&:last-child{
+					margin-right: 0;
+				}
+				h6{
+					position: relative;
+					font-size: 16px;
+					padding: 5px;
+					color: var(--wpcf-primary-color);
+					background: #f2f6ff;
+					min-width: 28px;
+					text-align: center;
+				}
+				&:not(:first-child) h6::after{
+					content: ":";
+					position: absolute;
+					left: -22px;
+					top: calc(50% - 2px);
+					transform: translateY(-50%);
+				}
+			}
+		}
+	}
+	
 }
