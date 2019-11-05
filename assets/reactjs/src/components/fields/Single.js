@@ -72,10 +72,10 @@ export default (_props) => {
             return (
                 <div className={item.class}>
                     {input.value && input.value.map( (item, index) =>
-                        <div key={index} onClick={() => removeArrValue(index, input.name, input.value)}>{item.label}</div>
+                        <div key={index} onClick={() => removeArrValue('tag', index, input.name, input.value)}>{item.label}</div>
                     )}
                     <input 
-                        type='text' 
+                        type='text'
                         onKeyDown={(e) => {
                             if (e.keyCode === 13) {
                                 e.preventDefault();
@@ -84,7 +84,8 @@ export default (_props) => {
                                 addTag(tag, input.name, input.value);
                                 e.target.value = '';
                             }
-                        }} />
+                        }}
+                        placeholder={item.placeholder}/>
                     <div className={item.class}>
                         {item.options.map((tag, index) =>
                             <span key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</span>

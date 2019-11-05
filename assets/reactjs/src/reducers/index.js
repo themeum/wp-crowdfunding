@@ -12,7 +12,7 @@ import {
     SAVE_CAMPAIGN_COMPLETE
 } from "../actions";
 
-const initialValues = { basic: {media:[], goal: 1, amount_range: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] };
+const initialValues = { basic: {media:[], funding_goal: 1, pledge_amount: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] };
 
 export default function(state = { postId:0, saveDate:'', initialValues, loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false }, action ) {
     switch( action.type ) {
