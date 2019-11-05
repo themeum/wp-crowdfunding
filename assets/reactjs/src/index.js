@@ -19,7 +19,7 @@ const store = createStore( rootReducer, compose(
 ));
 
 const formNode = document.getElementById('wpcf-campaign-form');
-const postId = formNode.getAttribute('postId');
+const postId = parseInt( formNode.getAttribute('postId') );
 
 ReactDOM.render(
     <Provider store={store}>
