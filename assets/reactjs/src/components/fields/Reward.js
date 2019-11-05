@@ -12,7 +12,9 @@ export default (props) => {
             {rewards[selectedItem] &&
                 <div className='wpcf-form-field'>
                     <div className='wpcf-field-title'>
-                        {rewardTypes[rewards[selectedItem].type].title}
+                        {(rewards[selectedItem].type) && 
+                            rewardTypes[rewards[selectedItem].type].title
+                        }
                         <span onClick={() => setChangeType(true)}>Change</span>
                     </div>
                     { changeType && rewardTypes.map((item, index) =>

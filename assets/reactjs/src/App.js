@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
-import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields, saveCampaign } from './actions';
+import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields, fetchFormValues, saveCampaign } from './actions';
 import TabBar from './components/TabBar';
 import Basic from './components/Basic';
 import Story from './components/Story';
@@ -21,13 +21,14 @@ class App extends Component {
     }
     
     componentDidMount() {
+		const { postId } = this.props;
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
         this.props.fetchRewardFields();
 		this.props.fetchTeamFields();
-		
-		if(this.props.postId) {
-			this.props.fetchFormValues();
+
+		if(postId) {
+			this.props.fetchFormValues(postId);
 		}
     }
 
@@ -106,7 +107,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-    postId: state.data.postId,
+	//postId: state.data.postId,
     loading: state.data.loading,
 	formValues: getFormValues(formName)(state),
 	initialValues: state.data.initialValues,
@@ -119,10 +120,12 @@ const mapDispatchToProps = dispatch => {
         fetchRewardFields,
 		fetchTeamFields,
 		getFormValues,
+		fetchFormValues,
 		saveCampaign,
     }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-    form: formName,
+	form: formName,
+	enableReinitialize: true,
 })(App));

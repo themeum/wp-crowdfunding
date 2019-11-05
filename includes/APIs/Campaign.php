@@ -904,9 +904,8 @@ class API_Campaign {
      * @param     {object}  request
      * @return    [array]   mixed
      */
-    function get_form_values( \WP_REST_Request $request ) {
-        $json_params = $request->get_json_params();
-        $post_id = $json_params['id'];
+    function get_form_values() {
+        $post_id = $_GET['id'];
         
         $media = get_post_meta($post_id, 'wpneo_media', true);
         if( !$media ) { //If empty media then set data from prev fields
@@ -956,8 +955,11 @@ class API_Campaign {
         $category_id = '';
         $cat_terms = get_the_terms( $post_id, 'product_cat' );
         foreach ( $cat_terms as $term ) {
-            $category_id = $term->id;
+            $category_id = $term->term_id;
         }
+
+       /*  echo "<pre>";
+        print_r($cat_terms); */
 
         $tags = [];
         $post_tags = get_the_terms( $post_id, 'product_tag' );
@@ -983,44 +985,52 @@ class API_Campaign {
             );
         }
 
-        $rewards = json_decode(get_post_meta($post_id, '_nf_funding_goal', true), true);
+        $rewards = get_post_meta($post_id, 'wpneo_reward', true);
+        $rewards = json_decode(stripslashes($rewards), true);
+
+        
         $res_rewards = array();
-        if ($rewards && is_array($rewards)) {
+        if ($rewards) {
             foreach( $rewards as $reward ) {
-                $image_id = $reward->wpneo_rewards_image_field;
+                $image = array();
+                $image_id = $reward['wpneo_rewards_image_field'];
                 if($image_id) {
                     $thumb = wp_get_attachment_image_src( $image_id );
                     $main_img = wp_get_attachment_image_src( $image_id, 'full' );
                     $image_name = get_the_title($image_id);
-                    $image = array(
+                    $m = array(
                         'id'    => $image_id,
                         'type'  => 'image',
                         'src'   => $main_img[0],
                         'name'  => $image_name,
                         'thumb' => $thumb[0],
                     );
+                    array_push($image, $m);
                 }
                 $res_rewards[] = array(
-                    'amount'        => $reward->wpneo_rewards_pladge_amount,
-                    'type'          => $reward->wpneo_rewards_type,
-                    'title'         => $reward->wpneo_rewards_title,
-                    'description'   => $reward->wpneo_rewards_description,
-                    'end_month'     => $reward->wpneo_rewards_endmonth,
-                    'end_year'      => $reward->wpneo_rewards_endyear,
-                    'no_of_items'   => $reward->wpneo_rewards_item_limit,
-                    'image'         => array($image),
-                    'rewards_items' => $reward->wpneo_rewards_items
+                    'amount'        => $reward['wpneo_rewards_pladge_amount'],
+                    'type'          => isset($reward['wpneo_rewards_type']) ? $reward['wpneo_rewards_type'] : '',
+                    'title'         => isset($reward['wpneo_rewards_title']) ? $reward['wpneo_rewards_title'] : '',
+                    'description'   => $reward['wpneo_rewards_description'],
+                    'end_month'     => $reward['wpneo_rewards_endmonth'],
+                    'end_year'      => $reward['wpneo_rewards_endyear'],
+                    'no_of_items'   => $reward['wpneo_rewards_item_limit'],
+                    'image'         => $image,
+                    'rewards_items' => isset($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
                 );
             }
         }
+
+        /* echo "<pre>";
+        print_r($res_rewards); */
 
         $response = array(
             'basic' => array(
                 'media'         => $media,
                 'funding_goal'  => get_post_meta($post_id, '_nf_funding_goal', true),
-                'amount_range'  => Array(
+                'pledge_amount' => Array(
                     'min'       => get_post_meta($post_id, 'wpneo_funding_minimum_price', true),
-                    'max'       => get_post_meta($post_id, 'wpneo_campaign_type', true),
+                    'max'       => get_post_meta($post_id, 'wpneo_funding_maximum_price', true),
                 ),
                 'image'         => $image,
                 'video'         => $video,
@@ -1038,7 +1048,7 @@ class API_Campaign {
                 'goal_type'     => get_post_meta($post_id, 'wpneo_campaign_end_method', true),
                 'start_date'    => get_post_meta($post_id, '_nf_duration_start', true),
                 'end_date'      => get_post_meta($post_id, '_nf_duration_end', true),
-                'recommended'   => get_post_meta($post_id, '_nf_location', true),
+                'recommended'   => get_post_meta($post_id, 'wpneo_funding_recommended_price', true),
                 'predefined_amount'     => get_post_meta($post_id, 'wpcf_predefined_pledge_amount', true),
                 'contributor_table'     => get_post_meta($post_id, 'wpneo_show_contributor_table', true),
                 'contributor_anonymity' => get_post_meta($post_id, 'wpneo_mark_contributors_as_anonymous', true),
