@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchBookmarkCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
+import Skeleton from "../components/skeleton";
 
 class BookmarkCampaigns extends Component {
 	constructor (props) {
@@ -28,9 +29,7 @@ class BookmarkCampaigns extends Component {
         const { campaign } = this.props;
         if( campaign.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 

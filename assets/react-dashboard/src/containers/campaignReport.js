@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampaignsReport } from '../actions/campaignAction';
 import DatePicker from '../components/datePicker';
@@ -6,11 +6,12 @@ import LineGraph from '../components/lineGraph';
 import PledgeReports from '../components/pledgeReports';
 import ExportCSV from '../components/exportCSV';
 import Header from '../components/header'
+import Skeleton from '../components/skeleton'
 
 class CampaignReport extends Component {
-	constructor (props) {
+    constructor (props) {
         super(props);
-		this.state  = {
+        this.state  = {
             query_args: {
                 date_range: 'last_7_days',
                 campaign_id: (this.props.campaign.id) ? this.props.campaign.id : ''
@@ -48,16 +49,14 @@ class CampaignReport extends Component {
         this.setState( { query_args } );
     }
 
-	render () {
+    render () {
         const { query_args, option_params } = this.state;
         const { loading, data:{ csv, format, label, fundRaised, raisedPercent, totalBacked, pledges, campaign } } = this.props.report;
 
 
         if (loading) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 
@@ -131,8 +130,8 @@ class CampaignReport extends Component {
                     <PledgeReports pledges={pledges} />
                 </div>
             </div>
-		)
-	}
+        )
+    }
 }
 
 const mapStateToProps = state => ({

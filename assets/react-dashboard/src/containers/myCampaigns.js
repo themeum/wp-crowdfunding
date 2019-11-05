@@ -6,6 +6,7 @@ import ItemCampaign from '../components/itemCampaign';
 import CampaignUpdate from '../components/campaignUpdate';
 import Pagination from '../components/pagination';
 import Header from '../components/header';
+import Skeleton from '../components/skeleton'
 
 class MyCampaigns extends Component {
     state = {
@@ -53,9 +54,7 @@ class MyCampaigns extends Component {
         const { pageOfItems, filterValue, campaignReport, campaignId, updates } = this.state;
         if( campaign.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 

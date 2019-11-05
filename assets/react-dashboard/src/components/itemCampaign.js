@@ -6,8 +6,6 @@ import decodeEntities from "../helpers/decodeEntities"
 const ItemCampaign = (props) => {
     const { data } = props;
 
-    console.log(props)
-
     return (
         <div className="wpcf-campaign-item">
             <a

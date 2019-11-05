@@ -5,6 +5,7 @@ import Pagination from '../components/pagination';
 import ItemOrder from '../components/itemOrder';
 import OrderDetails from '../components/orderDetails';
 import Header from "../components/header";
+import Skeleton from "../components/skeleton";
 
 class Order extends Component {
 	constructor (props) {
@@ -73,9 +74,7 @@ class Order extends Component {
         const { order } = this.props;
         if( order.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 

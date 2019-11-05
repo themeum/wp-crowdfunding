@@ -5,6 +5,7 @@ import ProfileEditForm from '../components/profileEditForm';
 import SocialForm from '../components/socialForm';
 import Header from '../components/header';
 import decodeEntities from "../helpers/decodeEntities";
+import Skeleton from "../components/skeleton";
 
 class ProfileSettings extends Component {
 	constructor (props) {
@@ -54,9 +55,7 @@ class ProfileSettings extends Component {
 
         if( loading || cLoading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             );
         };
 

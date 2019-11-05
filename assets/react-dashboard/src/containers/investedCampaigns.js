@@ -4,6 +4,7 @@ import { fetchInvestedCampaigns } from '../actions/campaignAction';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
 import Header from "../components/header";
+import Skeleton from "../components/skeleton";
 
 class InvestedCampaigns extends Component {
 
@@ -45,9 +46,7 @@ class InvestedCampaigns extends Component {
         const { campaign } = this.props;
         if( campaign.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 

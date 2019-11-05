@@ -4,6 +4,7 @@ import { fetchRewards } from '../actions/campaignAction';
 import ItemReward from '../components/itemReward';
 import Pagination from '../components/pagination';
 import Header from "../components/header";
+import Skeleton from "../components/skeleton";
 
 class Rewards extends Component {
 	constructor (props) {
@@ -44,9 +45,7 @@ class Rewards extends Component {
         const { reward } = this.props;
         if( reward.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 

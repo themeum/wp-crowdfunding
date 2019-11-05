@@ -5,6 +5,7 @@ import Pagination from '../components/pagination';
 import ItemPledgeReceived from '../components/itemPledgeReceived';
 import PledgeDetails from '../components/pledgeDetails';
 import Header from '../components/header';
+import Skeleton from "../components/skeleton";
 
 class PledgeReceived extends Component {
 	constructor (props) {
@@ -42,9 +43,8 @@ class PledgeReceived extends Component {
         const { pledge } = this.props;
         if( pledge.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+
+                <Skeleton />
             )
         };
 

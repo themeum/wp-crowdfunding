@@ -5,6 +5,7 @@ import Pagination from '../components/pagination';
 import ItemWithdraw from '../components/itemWithdraw';
 import WithdrawDetails from '../components/withdrawDetails';
 import Header from '../components/header';
+import Skeleton from "../components/skeleton";
 
 class Withdraw extends Component {
 	constructor (props) {
@@ -39,9 +40,7 @@ class Withdraw extends Component {
         const { withdraw, methods } = this.props;
         if( withdraw.loading || methods.loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             )
         };
 
