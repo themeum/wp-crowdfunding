@@ -46,9 +46,11 @@ class Base {
         $skeletonBg = WPCF_DIR_URL.'assets/images/skeleton.gif';
         echo "
             <style>
+                .skeleton-table th > *,
+                .skeleton-table td > *,
                 .skeleton-parent > *,
                 .skeleton-bg{
-                    background-image: url($skeletonBg);
+                    background: url($skeletonBg) !important;
                 }
             </style>
         ";

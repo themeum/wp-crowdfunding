@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchWithdrawMethods, saveWithdrawAccount } from '../actions/withdrawAction';
 import WithdrawMethodForm from '../components/withdrawMethodForm';
+import Skeleton from "../components/skeleton";
 
 class WithdrawMethodSettings extends Component {
 	constructor (props) {
@@ -34,12 +35,10 @@ class WithdrawMethodSettings extends Component {
 
 	render() {
         const { loading, data } = this.props.withdrawMethod;
-        
+
         if( loading ) {
             return (
-                <div>
-                    Loading...
-                </div>
+                <Skeleton />
             );
         };
 
@@ -58,7 +57,7 @@ class WithdrawMethodSettings extends Component {
                         Data not found
                     </div>
                 }
-                </div>    
+                </div>
             </div>
         )
 	}
