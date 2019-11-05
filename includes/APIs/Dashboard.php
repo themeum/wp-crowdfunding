@@ -15,6 +15,13 @@ defined( 'ABSPATH' ) || exit;
 
 class API_Dashboard {
     /**
+     * current logged user id
+     * @since   2.1.0
+     * @access  private
+     */
+    private $current_user_id;
+
+    /**
      * @constructor
      * @since 2.1.0
      */
