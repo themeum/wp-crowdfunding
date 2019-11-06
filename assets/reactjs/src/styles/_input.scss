@@ -1,0 +1,38 @@
+.wpcf-form-group{
+	display: flex;
+	&:not(:last-child){
+		margin-bottom: 15px;
+	}
+	label{
+		flex-grow: 1;
+		flex-basis: 180px;
+		max-width: 180px;
+		font-size: 14px;
+		color: var(--wpcf-heading-color);
+	}
+	input:not([type="submit"]),
+	.wpcf-input,
+	textarea,
+	select{
+		flex-grow: 1;
+		max-width: 375px;
+		flex-basis: 375px;
+		border: 1px solid var(--wpcf-border-color);
+		padding: 0 15px;
+		border-radius: 4px;
+		transition: 300ms;
+		height: 35px;
+		line-height: 35px;
+		&:focus{
+			border-color: var(--wpcf-primary-color);
+		}
+	}
+	
+	textarea{
+		height: 160px;
+		resize: none;
+		line-height: 26px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+}
