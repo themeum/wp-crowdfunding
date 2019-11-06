@@ -47,10 +47,25 @@
 	.wpcf-radio-inline{
 		display: inline-flex;
 		padding: 10px 15px;
-		border: 1px solid var(--wpcf-border-color);
-		margin-left: 7px;
+		margin: 0 0 0 7px;
+		align-items: center;
+		position: relative;
+		cursor: pointer;
 		input{
-			margin: 0;
+			margin: 0 8px 0 0;
+			~ span{
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				top: 0;
+				left: 0;
+				border: 1px solid var(--wpcf-border-color);
+				border-radius: 6px;
+				transition: 200ms;
+			}
+			&:checked ~ span{
+				border-color: var(--wpcf-primary-color);
+			}
 		}
 	}
 }

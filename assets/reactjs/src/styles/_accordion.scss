@@ -1,22 +1,20 @@
 .wpcf-accordion-wrapper{
 	.wpcf-accordion{
-		border: 1px solid var(--wpcf-border-color);
 		margin-bottom: 15px;
 		border-radius: 4px;
+		overflow: hidden;
 		.wpcf-accordion-title{
 			padding: 20px 30px;
 			background: #F5F5FA;
 			font-size: 16px;
 			font-weight: 500;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;
-			margin: -1px -1px 0;
 			&.active{
 				color: #fff;
 				background: var(--wpcf-heading-color);
 			}
 		}
 		.wpcf-accordion-details{
+			border: 1px solid var(--wpcf-border-color);
 			padding: 30px;
 		}
 	}
