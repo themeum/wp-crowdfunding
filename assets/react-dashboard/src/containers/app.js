@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import React, { Component } from 'react';
 import {HashRouter, Route, NavLink } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -81,8 +82,8 @@ class App extends Component {
                             <span>{data.user_email}</span>
                         </div>
                         <ul className="wpcf-dashboard-permalinks">
-                            <li><NavLink exact activeClassName="is-active" to="/"><span className="fas fa-home wpcf-icon" />Dashboard</NavLink></li>
-                            <li><NavLink activeClassName="is-active" to="/profile"><span className="far fa-user wpcf-icon" />My Profile</NavLink>
+                            <li><NavLink exact activeClassName="is-active" to="/"><span className="fas fa-home wpcf-icon"/>{ __('Dashboard', 'wp-crowdfunding') }</NavLink></li>
+                            <li><NavLink activeClassName="is-active" to="/profile"><span className="far fa-user wpcf-icon"/>{ __('My Profile', 'wp-crowdfunding') }</NavLink>
                             </li>
                             <li className={(this.state.myCampainsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
                                 <a 
@@ -96,19 +97,19 @@ class App extends Component {
                                     } 
                                 >
                                     <span className="far fa-paper-plane wpcf-icon" />
-                                    Campaigns
+                                    { __('Campaigns', 'wp-crowdfunding') }
                                     <span className={"wpcf-float-icon fas fa-angle-" + (this.state.myCampainsCollapse ? 'up' : 'down')} />
                                 </a>
                                 <ul className=" wpcf-dashboard-sub-permalinks">
-                                    <li><NavLink activeClassName="is-active" to="/my-campaigns">My Campaigns</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/invested-campaigns">Invested Campaigns</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/pledge-received">Pledge Received</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/bookmark-campaigns">Bookmarks</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/order">Order</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/withdraw">Withdraw</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/my-campaigns">{ __('My Campaigns', 'wp-crowdfunding') }</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/invested-campaigns">{ __('Invested Campaigns', 'wp-crowdfunding') }</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/pledge-received">{ __('Pledge Received', 'wp-crowdfunding') }</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/bookmark-campaigns">{ __('Bookmarks', 'wp-crowdfunding') }</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/order">{ __('Order', 'wp-crowdfunding') }</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/withdraw">{ __('Withdraw', 'wp-crowdfunding') }</NavLink></li>
                                 </ul>
                             </li>
-                            <li><NavLink activeClassName="is-active" to="/rewards"><span className="fas fa-gift wpcf-icon"></span>Rewards</NavLink></li>
+                            <li><NavLink activeClassName="is-active" to="/rewards"><span className="fas fa-gift wpcf-icon"></span>{ __('Rewards', 'wp-crowdfunding') }</NavLink></li>
                             <li className={(this.state.userSettingsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
                                 <a 
                                     href="javascript:void(0)"
@@ -121,15 +122,15 @@ class App extends Component {
                                     } 
                                 >
                                     <span className="wpcf-icon fas fa-sliders-h"></span>
-                                    User Settings
+                                    { __('User Settings', 'wp-crowdfunding') }
                                     <span className={"wpcf-float-icon fas fa-angle-" + (this.state.userSettingsCollapse ? 'up' : 'down')} />
                                 </a>
                                 <ul className=" wpcf-dashboard-sub-permalinks">
-                                    <li><NavLink activeClassName="is-active" to="/settings/profile">Profile Settings</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/settings/withdraw">Withdraw Method</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/settings/profile">{ __('Profile Settings', 'wp-crowdfunding') }</NavLink></li>
+                                    <li><NavLink activeClassName="is-active" to="/settings/withdraw">{ __('Withdraw Method', 'wp-crowdfunding') }</NavLink></li>
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)" onClick={this.logout}><span className="wpcf-icon fas fa-sign-out-alt"></span>Logout</a></li>
+                            <li><a href="javascript:void(0)" onClick={this.logout}><span className="wpcf-icon fas fa-sign-out-alt"></span>{ __('Logout', 'wp-crowdfunding') }</a></li>
                         </ul>
                     </div>
                     <div className="wpcf-dashboard-content">
