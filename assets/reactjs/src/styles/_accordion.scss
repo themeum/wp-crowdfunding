@@ -8,6 +8,13 @@
 			background: #F5F5FA;
 			font-size: 16px;
 			font-weight: 500;
+			border-top-left-radius: 4px;
+			border-top-right-radius: 4px;
+			margin: -1px -1px 0;
+			&.active{
+				color: #fff;
+				background: var(--wpcf-heading-color);
+			}
 		}
 		.wpcf-accordion-details{
 			padding: 30px;
