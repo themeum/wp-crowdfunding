@@ -905,8 +905,8 @@ class API_Campaign {
                         'src'   => $video_link,
                         'thumb' => "https://img.youtube.com/vi/{$video_id}/default.jpg",
                     );
+                    array_push($media, $video);
                 }
-                array_push($media, $video);
             }
         }
 
@@ -1217,8 +1217,8 @@ class API_Campaign {
      */
     public function extractVideoID($url) {
         preg_match_all("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", $url, $matches);
-        if ( $matches[0] && strlen($matches[0]) == 11 ){
-            return $matches[0];
+        if ( $matches[0][0] && strlen($matches[0][0]) == 11 ){
+            return $matches[0][0];
         } else {
             return false;
         }
