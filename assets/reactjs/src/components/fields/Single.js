@@ -6,7 +6,6 @@ import 'react-input-range/lib/css/index.css';
 const defaultProps = {
     addTag: () => {},
     uploadFile: () => {},
-    onChangeSelect: () => {},
     onBlurVideoLink: () => {},
     removeArrValue: () => {},
     fieldValue: '',
@@ -14,7 +13,7 @@ const defaultProps = {
 
 export default (_props) => {
     const props = {...defaultProps, ..._props};
-    const { input, meta: { touched, error }, item, addTag, onChangeSelect, onBlurVideoLink, uploadFile, removeArrValue, fieldValue} = props;
+    const { input, meta: { touched, error }, item, addTag, onBlurVideoLink, uploadFile, removeArrValue, fieldValue} = props;
     
     switch (item.type) {
         case 'text':
@@ -37,7 +36,7 @@ export default (_props) => {
         case 'select':
             return (
                 <div className={item.class}>
-                    <select {...input} onChange={(e) => { input.onChange(e); onChangeSelect(e); }}>
+                    <select {...input}>
                         <option value="">{item.placeholder}</option>
                         {item.options.map((option, index) =>
                             <option key={index} value={option.value} dangerouslySetInnerHTML={{ __html: option.label }}/>
@@ -51,7 +50,7 @@ export default (_props) => {
                 <div className={item.class}>
                     {item.options.map((option, index) =>
                         <label key={index} className="radio-inline">
-                            <input {...input} onChange={(e) => { input.onChange(e); if(input.name==`basic.goal_type`) {props.onChangeGoalType(e)} }} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
+                            <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}

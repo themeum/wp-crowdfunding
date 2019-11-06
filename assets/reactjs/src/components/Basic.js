@@ -15,23 +15,13 @@ class Basic extends Component {
     constructor(props) {
         super(props);
         this.state = { sectionActive: 0 };
-        this._onChangeSelect = this._onChangeSelect.bind(this);
-        this._onChangeGoalType = this._onChangeGoalType.bind(this);
         this._onBlurVideoLink = this._onBlurVideoLink.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
         this._addTag = this._addTag.bind(this);
     }
 
-    /* componentDidUpdate() {
-        const { formValues: {basic} } =  this.props;
-        if(basic.goal_type) {
-            const value = basic.goal_type;
-            this._onChangeGoalType({target:{value}});
-        }
-    } */
-
-    /* componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         const { formValues: {basic: curVal} } =  this.props;
         const { formValues: {basic: prevVal} } = prevProps;
         if( curVal.category && curVal.category !== prevVal.category) {
@@ -42,27 +32,7 @@ class Basic extends Component {
             const field = 'media.if_target_date';
             const show = (curVal.goal_type=='target_date') ? true : false;
             this.props.fieldShowHide(field, show);
-            console.log("prev", prevVal.goal_type);
-            console.log("cur", curVal.goal_type);
         }
-    } */
-
-    _onChangeSelect(e) {
-        const { name, value } = e.target;
-        if(name == `${sectionName}.category`) {
-            this.props.fetchSubCategories(value);
-            this.props.changeFieldValue(formName, `${sectionName}.sub_category`, null);
-        }/*  else if(name == `${sectionName}.country`) {
-            this.props.fetchStates(value);
-            this.props.changeFieldValue(formName, `${sectionName}.state`, null);
-        } */
-    }
-
-    _onChangeGoalType(e) {
-        const { value } = e.target;
-        const field = 'media.if_target_date';
-        const show = (value=='target_date') ? true : false;
-        this.props.fieldShowHide(field, show);
     }
 
     _onBlurVideoLink() {
