@@ -78,8 +78,10 @@ export const fetchStates = (code) => dispatch => {
 
 
 //FETCH FORM VALUES BY CAMPAIGN ID
+export const FETCH_FORM_VALUES_PENDING = 'fetch_form_values_pending';
 export const FETCH_FORM_VALUES_COMPLETE = 'fetch_form_values_complete';
 export const fetchFormValues = (id) => dispatch => {
+    dispatch({ type: FETCH_FORM_VALUES_PENDING });
     const fetchURL = `${WPCF.rest_url}/form-values?id=${id}`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )

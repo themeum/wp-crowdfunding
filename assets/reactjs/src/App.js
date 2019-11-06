@@ -21,15 +21,18 @@ class App extends Component {
     }
 
     componentDidMount() {
-		const { editPostId } = this.props;
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
         this.props.fetchRewardFields();
 		this.props.fetchTeamFields();
-		if(editPostId) {
+	}
+	
+	componentDidUpdate() {
+		const { editPostId, data } = this.props;
+		if(editPostId && data.loaded) {
 			this.props.fetchFormValues(editPostId);
 		}
-    }
+	}
 
 	_prevStep() {
 		this.setState({ current: this.state.current-1 })
@@ -40,14 +43,14 @@ class App extends Component {
 	}
 
 	_onSave(submit) {
-		let { formValues, postId } = this.props;
-		formValues.postId = postId; //inject submit value with form values
+		let { formValues, data } = this.props;
 		formValues.submit = submit; //inject submit value with form values
+		formValues.postId = data.postId; //inject submit value with form values
 		this.props.saveCampaign(formValues);
 	}
 
 	render() {
-		const { saveDate, loading } = this.props;
+		const { saveDate, loading } = this.props.data;
         const { current } = this.state;
 
         if(loading) {
@@ -102,9 +105,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-	postId: state.data.postId,
-	saveDate: state.data.saveDate,
-    loading: state.data.loading,
+	data: state.data,
 	formValues: getFormValues(formName)(state),
 	initialValues: state.data.initialValues,
 });

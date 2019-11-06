@@ -5,6 +5,7 @@ import {
     FETCH_FORM_REWARD_FIELDS_COMPLETE,
     FETCH_FORM_TEAM_FIELDS_COMPLETE,
     FETCH_SUB_CATEGORIES_COMPLETE,
+    FETCH_FORM_VALUES_PENDING,
     FETCH_FORM_VALUES_COMPLETE,
     //FETCH_STATES_COMPLETE,
     FIELD_SHOW_HIDE,
@@ -14,7 +15,7 @@ import {
 
 const initialValues = { basic: {media:[], funding_goal: 1, pledge_amount: {min: 1, max: 5000000}}, story:[], rewards:[], team:[] };
 
-export default function(state = { postId:0, saveDate:'', initialValues, loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, saveReq:false }, action ) {
+export default function(state = { postId:0, saveDate:'', initialValues, loading: true, loaded: false, formFields:{}, rewardTypes:{}, rewardFields:{}, valReceived:true, saveReq:false }, action ) {
     switch( action.type ) {
         
         case FETCH_REQUEST_PENDING:
@@ -67,9 +68,16 @@ export default function(state = { postId:0, saveDate:'', initialValues, loading:
                 formFields,
             };
 
+        case FETCH_FORM_VALUES_PENDING:
+            return {
+                ...state,
+                valReceived: false
+            };
+
         case FETCH_FORM_VALUES_COMPLETE:
             return {
                 ...state,
+                valReceived: true,
                 postId: action.payload.postId,
                 saveDate: action.payload.saveDate,
                 initialValues: action.payload.values
