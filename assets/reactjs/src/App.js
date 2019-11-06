@@ -21,16 +21,15 @@ class App extends Component {
     }
 
     componentDidMount() {
+		const { editPostId } = this.props;
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
         this.props.fetchRewardFields();
 		this.props.fetchTeamFields();
-	}
-	
-	componentDidUpdate() {
-		const { editPostId, data } = this.props;
-		if(editPostId && data.loaded) {
-			this.props.fetchFormValues(editPostId);
+		if(editPostId) {
+			setTimeout(() => {
+				this.props.fetchFormValues(editPostId);
+			}, 150);
 		}
 	}
 
