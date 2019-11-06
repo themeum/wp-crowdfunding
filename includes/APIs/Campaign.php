@@ -15,11 +15,17 @@ defined( 'ABSPATH' ) || exit;
 
 class API_Campaign {
     /**
+     * current logged user id
+     * @since   2.1.0
+     * @access  private
+     */
+    private $current_user_id;
+
+    /**
      * @constructor
      * @since 2.1.0
      */
     function __construct() {
-        $this->current_user_id = get_current_user_id();
         add_action( 'init', array( $this, 'init_rest_api') );
         add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
         add_filter( 'wpcf_form_story_tools', array( $this, 'form_story_tools') );
@@ -34,38 +40,47 @@ class API_Campaign {
      * @access  public
      */
     function init_rest_api() {
-        add_action( 'rest_api_init', function() {
-            $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
-            $method_readable = \WP_REST_Server::READABLE;
-            $method_creatable = \WP_REST_Server::CREATABLE;
-
-            register_rest_route( $namespace, '/form-fields', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
-            ));
-            register_rest_route( $namespace, '/story-tools', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_story_tools') ),
-            ));
-            register_rest_route( $namespace, '/sub-categories', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
-            ));
-            /* register_rest_route( $namespace, '/states', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
-            )); */
-            register_rest_route( $namespace, '/reward-fields', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
-            ));
-            register_rest_route( $namespace, '/team-fields', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
-            ));
-            register_rest_route( $namespace, '/form-values', array(
-                array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
-            ));
-            register_rest_route( $namespace, '/save-campaign', array(
-                array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
-            ));
-        });
+        $this->current_user_id = get_current_user_id();
+        if( $this->current_user_id ) {
+            add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
+        }
     }
 
+    /**
+     * Register rest api routes
+     * @since   2.1.0
+     * @access  public
+     */
+    function register_rest_api() {
+        $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
+        $method_readable = \WP_REST_Server::READABLE;
+        $method_creatable = \WP_REST_Server::CREATABLE;
+
+        register_rest_route( $namespace, '/form-fields', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
+        ));
+        register_rest_route( $namespace, '/story-tools', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_story_tools') ),
+        ));
+        register_rest_route( $namespace, '/sub-categories', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
+        ));
+        /* register_rest_route( $namespace, '/states', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
+        )); */
+        register_rest_route( $namespace, '/reward-fields', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
+        ));
+        register_rest_route( $namespace, '/team-fields', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
+        ));
+        register_rest_route( $namespace, '/form-values', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
+        ));
+        register_rest_route( $namespace, '/save-campaign', array(
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
+        ));
+    }
 
     /**
      * Get campaign form fields
@@ -106,7 +121,7 @@ class API_Campaign {
         foreach($categories as $category) {
             $res_categories[] = array(
                 'label' => $category->name,
-                'value' => $category->term_id
+                'value' => $category->slug
             );
         }
 
@@ -595,29 +610,19 @@ class API_Campaign {
      * @access    public
      * @return    [array]   mixed
      */
-    function get_subcategories($id) {
-        $cat_args = array(
-            'taxonomy'      => 'product_cat',
-            'hide_empty'    => false,
-            'parent'        => $id
-        );
-        //Get is Crowdfunding Categories only
-        $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
-        if ('true' === $is_only_crowdfunding_categories){
-            $cat_args['meta_query'] = array(
-                array(
-                    'key' => '_marked_as_crowdfunding',
-                    'value' => '1'
-                )
-            );
-        }
+    function get_subcategories($slug) {
+        $taxonomy = 'product_cat';
+        // Get the product category (parent) WP_Term object
+        $parent = get_term_by( 'slug', $slug, $taxonomy );
+        // Get an array of the subcategories IDs (children IDs)
+        $children_ids = get_term_children( $parent->term_id, $taxonomy );
         $data = array();
-        $categories = get_terms($cat_args);
-        foreach($categories as $category) {
+        foreach($children_ids as $children_id){
+            $term = get_term( $children_id, $taxonomy ); // WP_Term object
             $data[] = array(
-                'label' => $category->name,
-                'value' => $category->term_id
-            ); 
+                'label' => $term->name,
+                'value' => $term->slug
+            );
         }
         return $data;
     }
@@ -924,13 +929,18 @@ class API_Campaign {
             }
         }
 
-        $category_id = '';
+        $category = '';
+        $sub_category = '';
         $cat_terms = get_the_terms( $post_id, 'product_cat' );
         foreach ( $cat_terms as $term ) {
-            $category_id = $term->term_id;
+            if($term->parent) {
+                $sub_category = $term->slug;
+            } else {
+                $category = $term->slug;
+            }
         }
 
-       /*  echo "<pre>";
+        /* echo "<pre>";
         print_r($cat_terms); */
 
         $tags = [];
@@ -996,7 +1006,7 @@ class API_Campaign {
         /* echo "<pre>";
         print_r($res_rewards); */
 
-        $response = array(
+        $values = array(
             'basic' => array(
                 'media'         => $media,
                 'funding_goal'  => (float) get_post_meta($post_id, '_nf_funding_goal', true),
@@ -1008,8 +1018,8 @@ class API_Campaign {
                 'video'         => $video,
                 'video_link'    => $video_link,
                 'tags'          => $tags,
-                'category'      => $category_id,
-                'sub_category'  => $category_id,
+                'category'      => $category,
+                'sub_category'  => $sub_category,
                 'campaign_type' => get_post_meta($post_id, 'wpneo_campaign_type', true),
                 'country'       => get_post_meta($post_id, 'wpneo_country', true),
                 'location'      => get_post_meta($post_id, '_nf_location', true),
@@ -1030,6 +1040,13 @@ class API_Campaign {
             'rewards' => $res_rewards,
             'team' => '',
         );
+
+        $modified_date = get_the_modified_date('F j', $post_id);
+        $response = array(
+            'postId'    => $post_id,
+            'saveDate'  => $modified_date,
+            'values'    => $values,
+        );
         return rest_ensure_response($response);
     }
 
@@ -1044,7 +1061,7 @@ class API_Campaign {
     function save_campaign( \WP_REST_Request $request ) {
         $user_id = $this->current_user_id;
         $json_params = $request->get_json_params();
-        $post_id = $json_params['post_id'];
+        $post_id = $json_params['postId'];
         $submit = $json_params['submit'];
         $basic = $json_params['basic'];
         $story = $json_params['story'];
@@ -1059,13 +1076,13 @@ class API_Campaign {
             'post_author'   => $user_id,
         );
 
-        do_action('wpcf_before_campaign_submit_action');
+        //do_action('wpcf_before_campaign_submit_action');
 
         if($post_id) {
             //Prevent if unauthorised access
             $user_campaign_ids = $this->get_user_campaign_ids();
             $campaign['ID'] = $post_id;
-            $campaign['post_status'] = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';;
+            $campaign['post_status'] = ($submit) ? get_option('wpneo_campaign_edit_status', 'pending') : 'draft';
 
             if ( !in_array($campaign['ID'], $user_campaign_ids) ) {
                 $response = array(
@@ -1085,13 +1102,20 @@ class API_Campaign {
         }
 
         if ($post_id) {
+            $tags = array();
+            $category = array();
             if( $basic['category'] != '' ) {
-                wp_set_object_terms( $post_id , $basic['category'], 'product_cat', true );
+                array_push($category, $basic['category']);
+            }
+            if( $basic['sub_category'] != '' ) {
+                array_push($category, $basic['sub_category']);
             }
             if($basic['tag']) {
                 $tags = array_column($basic['tag'], 'label');
-                wp_set_object_terms( $post_id , $tags, 'product_tag', true );
             }
+            //Update object terms
+            wp_set_object_terms( $post_id , $tags, 'product_tag' );
+            wp_set_object_terms( $post_id , $category, 'product_cat' );
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type', true );
 
             $media = $basic['media'];
@@ -1154,12 +1178,18 @@ class API_Campaign {
             }
         }
 
-        $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
-        $response = array(
-            'success'   => 1,
-            'message'   => __('Campaign successfully submitted', 'wp-crowdfunding'),
-            'redirect'  => $redirect,
-        );
+        if($submit) {
+            $response = array(
+                'success'   => 1,
+                'message'   => __('Campaign successfully submitted', 'wp-crowdfunding'),
+                'redirect'  => get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign'
+            );
+        } else {
+            $response = array(
+                'postId'    => $post_id,
+                'saveDate'  => get_the_modified_date('F j', $post_id)
+            );
+        }
         return rest_ensure_response($response);
     }
 
@@ -1194,199 +1224,3 @@ class API_Campaign {
 }
 
 new API_Campaign();
-
-
-
-
-
-/*
-[basic] => Array
-    (
-        [media] => Array
-            (
-                [0] => Array
-                    (
-                        [id] => jdvdkGwodAY
-                        [type] => video_link
-                        [src] => https://youtu.be/jdvdkGwodAY
-                        [thumb] => https://img.youtube.com/vi/jdvdkGwodAY/default.jpg
-                    )
-
-                [1] => Array
-                    (
-                        [id] => 20
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1.jpg
-                        [name] => Image-from-iOS-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1-150x150.jpg
-                    )
-
-                [2] => Array
-                    (
-                        [id] => 19
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [name] => 61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1-150x150.jpg
-                    )
-
-            )
-
-        [goal] => 33307
-        [amount_range] => Array
-            (
-                [min] => 1
-                [max] => 5000000
-            )
-
-        [video_link] => Array
-            (
-                [0] => Array
-                    (
-                        [src] => https://youtu.be/jdvdkGwodAY
-                    )
-
-            )
-
-        [category] => 20
-        [type] => individual
-        [sub_category] => 23
-        [country] => BD
-        [state] => BD-14
-        [title] => Campaign Title
-        [subtitle] => Campaign Sub-Title
-        [short_desc] => Campaign Description
-        [tags] => Array
-            (
-                [0] => Array
-                    (
-                        [value] => tag1
-                        [label] => Tag1
-                    )
-
-                [1] => Array
-                    (
-                        [value] => tag2
-                        [label] => Tag2
-                    )
-
-            )
-
-        [image] => Array
-            (
-                [0] => Array
-                    (
-                        [id] => 20
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1.jpg
-                        [name] => Image-from-iOS-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/Image-from-iOS-1-150x150.jpg
-                    )
-
-                [1] => Array
-                    (
-                        [id] => 19
-                        [type] => image
-                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [name] => 61430404_2177917752277288_5112094423315906560_o-1.jpg
-                        [mime] => image/jpeg
-                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1-150x150.jpg
-                    )
-
-            )
-
-        [fund_type] => fixed_funding
-        [goal_type] => target_date
-        [start_date] => 2019-10-25
-        [end_date] => 2019-11-22
-        [recommended] => 1000
-        [table] => 1
-        [anonymity] => 1
-    )
-
-[story] => Array
-    (
-        [0] => Array
-            (
-                [0] => Array
-                    (
-                        [type] => text
-                        [value] => <h1 style="text-align: center;">Campaign</h1>
-<p style="text-align: center;">Paragraph text...</p>
-                    )
-
-            )
-
-        [1] => Array
-            (
-                [0] => Array
-                    (
-                        [type] => image
-                        [value] => Array
-                            (
-                                [0] => Array
-                                    (
-                                        [id] => 129
-                                        [type] => image
-                                        [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/08/46492082_2271536482916815_6132729797039620096_o.jpg
-                                        [name] => 46492082_2271536482916815_6132729797039620096_o.jpg
-                                        [mime] => image/jpeg
-                                        [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/08/46492082_2271536482916815_6132729797039620096_o-150x150.jpg
-                                    )
-
-                            )
-
-                    )
-
-            )
-
-    )
-
-[rewards] => Array
-    (
-        [0] => Array
-            (
-                [type] => 0
-                [rewards_items] => Array
-                    (
-                        [0] => Array
-                            (
-                                [name] => item
-                            )
-
-                    )
-
-                [title] => Reward title
-                [amount] => hello
-                [image] => Array
-                    (
-                        [0] => Array
-                            (
-                                [id] => 19
-                                [type] => image
-                                [src] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1.jpg
-                                [name] => 61430404_2177917752277288_5112094423315906560_o-1.jpg
-                                [mime] => image/jpeg
-                                [thumb] => http://10.0.1.47:8888/wordpress/wp-content/uploads/2019/07/61430404_2177917752277288_5112094423315906560_o-1-150x150.jpg
-                            )
-
-                    )
-
-                [description] => hello
-                [end_month] => jan
-                [end_year] => 2019
-                [no_of_items] => 3
-            )
-
-    )
-
-[team] => Array
-    (
-    )
-
-[submit] => 
-
-*/

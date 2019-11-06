@@ -41,13 +41,12 @@ export default function(state = { postId:0, saveDate:'', initialValues, loading:
             };
 
         case FETCH_FORM_REWARD_FIELDS_COMPLETE:
-            const { types, fields } = action.payload
             return {
                 ...state,
                 loading: false,
                 loaded: true,
-                rewardTypes: types,
-                rewardFields: fields,
+                rewardTypes: action.payload.types,
+                rewardFields: action.payload.fields,
             };
 
         case FETCH_FORM_TEAM_FIELDS_COMPLETE:
@@ -71,7 +70,9 @@ export default function(state = { postId:0, saveDate:'', initialValues, loading:
         case FETCH_FORM_VALUES_COMPLETE:
             return {
                 ...state,
-                initialValues: action.payload,
+                postId: action.payload.postId,
+                saveDate: action.payload.saveDate,
+                initialValues: action.payload.values
             };
 
         case FIELD_SHOW_HIDE:
@@ -91,11 +92,10 @@ export default function(state = { postId:0, saveDate:'', initialValues, loading:
             };
             
         case SAVE_CAMPAIGN_COMPLETE:
-            const { postId, saveDate } = action.payload;
             return {
                 ...state,
-                postId,
-                saveDate,
+                postId: action.payload.postId,
+                saveDate: action.payload.saveDate,
             };
         default:
             return state;

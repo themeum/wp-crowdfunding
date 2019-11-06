@@ -21,13 +21,13 @@ class App extends Component {
     }
     
     componentDidMount() {
-		const { postId } = this.props;
+		const { editPostId } = this.props;
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
         this.props.fetchRewardFields();
 		this.props.fetchTeamFields();
-		if(postId) {
-			this.props.fetchFormValues(postId);
+		if(editPostId) {
+			this.props.fetchFormValues(editPostId);
 		}
     }
 
@@ -40,14 +40,14 @@ class App extends Component {
 	}
 
 	_onSave(submit) {
-		let { formValues, sPostId } = this.props;
-		formValues.postId = sPostId; //inject submit value with form values
+		let { formValues, postId } = this.props;
+		formValues.postId = postId; //inject submit value with form values
 		formValues.submit = submit; //inject submit value with form values
 		this.props.saveCampaign(formValues);
 	}
 
 	render() {
-		const { loading } = this.props;
+		const { saveDate, loading } = this.props;
         const { current } = this.state;
 		
         if(loading) {
@@ -62,7 +62,7 @@ class App extends Component {
 					<div className='wpcf-form-wrapper'>
 						<div className="wpcf-form-edit-panel">
 							<span>Setup New Campaign</span>
-							<span>Last Edit was on 01 july</span>
+							<span>Last Edit was on {saveDate}</span>
 							<button onClick={() => this._onSave(false)}>Save</button>
 							<button onClick={() => this._onSave(true)} disabled={current<3}>Submit</button>
 						</div>
@@ -106,14 +106,15 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-	sPostId: state.data.postId,
+	postId: state.data.postId,
+	saveDate: state.data.saveDate,
     loading: state.data.loading,
 	formValues: getFormValues(formName)(state),
 	initialValues: state.data.initialValues,
 });
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ 
+    return bindActionCreators({
         fetchFormFields,
         fetchFormStoryTools,
         fetchRewardFields,
