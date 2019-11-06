@@ -20,10 +20,9 @@ export default (_props) => {
         case 'text':
         case 'email':
         case 'number':
-            is_media
             return (
                 <div className={item.class}>
-                    <input {...input} type={item.type} onBlur={(e) => onBlurVideoLink(e)} placeholder={item.placeholder} />
+                    <input {...input} type={item.type}/>
                     {touched && error && <span>{error}</span>}
                 </div>
             );
@@ -51,7 +50,7 @@ export default (_props) => {
                 <div className={item.class + "wpcf-inline-radio-group"}>
                     {item.options.map((option, index) =>
                         <label key={index} className="wpcf-radio-inline">
-                            <input {...input} onChange={(e) => { input.onChange(e); if(input.name==`basic.goal_type`) {props.onChangeGoalType(e)} }} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
+                            <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
