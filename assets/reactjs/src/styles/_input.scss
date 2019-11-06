@@ -1,28 +1,32 @@
 .wpcf-form-group{
-	display: flex;
+	max-width: 400px;
 	&:not(:last-child){
-		margin-bottom: 15px;
+		margin-bottom: 30px;
 	}
-	label{
-		flex-grow: 1;
-		flex-basis: 180px;
-		max-width: 180px;
+	label:not(.wpcf-radio-inline){
 		font-size: 14px;
 		color: var(--wpcf-heading-color);
+		line-height: 19px;
+		display: block;
+		margin: 0 0 4px;
 	}
-	input:not([type="submit"]),
+	p{
+		font-size: 12px;
+		line-height: 16px;
+		color: var(--wpcf-light-text-color);
+		margin: 0 0 12px;
+	}
+	input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]),
 	.wpcf-input,
 	textarea,
 	select{
-		flex-grow: 1;
-		max-width: 375px;
-		flex-basis: 375px;
 		border: 1px solid var(--wpcf-border-color);
 		padding: 0 15px;
 		border-radius: 4px;
 		transition: 300ms;
 		height: 35px;
 		line-height: 35px;
+		width: 100%;
 		&:focus{
 			border-color: var(--wpcf-primary-color);
 		}
@@ -34,5 +38,16 @@
 		line-height: 26px;
 		padding-top: 10px;
 		padding-bottom: 10px;
+	}
+}
+
+.wpcf-inline-radio-group{
+	display: flex;
+	margin-left: -7px;
+	.wpcf-radio-inline{
+		display: inline-flex;
+		padding: 10px 15px;
+		border: 1px solid var(--wpcf-border-color);
+		margin-left: 7px;
 	}
 }

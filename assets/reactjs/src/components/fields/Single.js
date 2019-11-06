@@ -15,7 +15,7 @@ const defaultProps = {
 export default (_props) => {
     const props = {...defaultProps, ..._props};
     const { input, meta: { touched, error }, item, addTag, onChangeSelect, onBlurVideoLink, uploadFile, removeArrValue, fieldValue} = props;
-    
+
     switch (item.type) {
         case 'text':
         case 'email':
@@ -48,9 +48,9 @@ export default (_props) => {
             );
         case 'radio':
             return (
-                <div className={item.class}>
+                <div className={item.class + "wpcf-inline-radio-group"}>
                     {item.options.map((option, index) =>
-                        <label key={index} className="radio-inline">
+                        <label key={index} className="wpcf-radio-inline">
                             <input {...input} onChange={(e) => { input.onChange(e); if(input.name==`basic.goal_type`) {props.onChangeGoalType(e)} }} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
                         </label>
                     )}
@@ -74,7 +74,7 @@ export default (_props) => {
                     {input.value && input.value.map( (item, index) =>
                         <div key={index} onClick={() => removeArrValue('tag', index, input.name, input.value)}>{item.label}</div>
                     )}
-                    <input 
+                    <input
                         type='text'
                         onKeyDown={(e) => {
                             if (e.keyCode === 13) {

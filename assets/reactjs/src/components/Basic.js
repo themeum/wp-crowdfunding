@@ -159,9 +159,9 @@ class Basic extends Component {
                                                 const validate = field.required ? [required] : [];
                                                 if(field.show) {
                                                     return (
-                                                        <div key={key} className='wpcf-form-field'>
-                                                            <div className='wpcf-field-title'>{field.title}</div>
-                                                            <div className='wpcf-field-desc'>{field.desc}</div>
+                                                        <div key={key} className='wpcf-form-group'>
+                                                            <label className='wpcf-field-title'>{field.title}</label>
+                                                            <p className='wpcf-field-desc'>{field.desc}</p>
 
                                                             { field.type == 'form_group' ?
                                                                 <div className="form-group">
@@ -209,7 +209,7 @@ class Basic extends Component {
                             </div>
                         </FormSection>
 
-                        <PageControl 
+                        <PageControl
                             current={current}
                             prevStep={prevStep}/>
                     </form>
