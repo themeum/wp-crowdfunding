@@ -22,7 +22,7 @@ export default (_props) => {
         case 'number':
             return (
                 <div className={item.class}>
-                    <input {...input} type={item.type}/>
+                    <input {...input} type={item.type} onBlur={(e) => onBlurVideoLink(e)} placeholder={item.placeholder} />
                     {touched && error && <span>{error}</span>}
                 </div>
             );
