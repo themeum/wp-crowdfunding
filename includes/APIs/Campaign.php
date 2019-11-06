@@ -528,11 +528,6 @@ class API_Campaign {
                     'field'     => 'slug',
                     'terms'     => 'crowdfunding',
                 ),
-                /* array(
-                    'taxonomy' => 'product_cat',
-                    'field'    => 'slug',
-                    'terms'    => array( esc_attr($_GET['cat']) ),
-                ), */
             ),
             'post_status'=> 'publish'
         );
@@ -553,7 +548,6 @@ class API_Campaign {
                 }
             }
         }
-
         return $data;
     }
 
@@ -929,8 +923,9 @@ class API_Campaign {
             }
         }
 
-        $category = '';
-        $sub_category = '';
+        $category = false;
+        $sub_category = false;
+        $sub_categories = false;
         $cat_terms = get_the_terms( $post_id, 'product_cat' );
         foreach ( $cat_terms as $term ) {
             if($term->parent) {
@@ -940,8 +935,14 @@ class API_Campaign {
             }
         }
 
-        /* echo "<pre>";
-        print_r($cat_terms); */
+        if($sub_category) {
+            $options = $this->get_subcategories($category);
+            $sub_categories = array(
+                'section' => 'campaign_info',
+                'field' => 'sub_category',
+                'options' => $options,
+            );
+        }
 
         $tags = [];
         $post_tags = get_the_terms( $post_id, 'product_tag' );
@@ -1043,9 +1044,10 @@ class API_Campaign {
 
         $modified_date = get_the_modified_date('F j', $post_id);
         $response = array(
-            'postId'    => $post_id,
-            'saveDate'  => $modified_date,
-            'values'    => $values,
+            'postId'            => $post_id,
+            'saveDate'          => $modified_date,
+            'values'            => $values,
+            'sub_categories'    => $sub_categories,
         );
         return rest_ensure_response($response);
     }
@@ -1145,6 +1147,7 @@ class API_Campaign {
             }
 
             wpcf_function()->update_meta($post_id, 'wpneo_subtitle', esc_attr($basic['subtitle']));
+            wpcf_function()->update_meta($post_id, 'wpneo_fund_type', esc_attr($basic['fund_type']));
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_type', esc_attr($basic['campaign_type']));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_minimum_price', (int) esc_attr($basic['pledge_amount']['min']));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', (int) esc_attr($basic['pledge_amount']['max']));

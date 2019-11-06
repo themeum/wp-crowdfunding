@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { required, getYotubeVideoID, uploadFiles, removeArrValue } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
-import { fetchSubCategories, fetchStates, fieldShowHide } from '../actions';
+import { fetchSubCategories, fieldShowHide } from '../actions';
 import RenderField from './fields/Single';
 import RenderRepeatableFields from './fields/Repeatable';
 import PreviewBasic from './preview/Basic';
@@ -22,6 +22,30 @@ class Basic extends Component {
         this._uploadFile = this._uploadFile.bind(this);
         this._addTag = this._addTag.bind(this);
     }
+
+    /* componentDidUpdate() {
+        const { formValues: {basic} } =  this.props;
+        if(basic.goal_type) {
+            const value = basic.goal_type;
+            this._onChangeGoalType({target:{value}});
+        }
+    } */
+
+    /* componentDidUpdate(prevProps) {
+        const { formValues: {basic: curVal} } =  this.props;
+        const { formValues: {basic: prevVal} } = prevProps;
+        if( curVal.category && curVal.category !== prevVal.category) {
+            this.props.fetchSubCategories(curVal.category);
+            this.props.changeFieldValue(formName, `${sectionName}.sub_category`, null);
+        }
+        if( curVal.goal_type && curVal.goal_type !== prevVal.goal_type) {
+            const field = 'media.if_target_date';
+            const show = (curVal.goal_type=='target_date') ? true : false;
+            this.props.fieldShowHide(field, show);
+            console.log("prev", prevVal.goal_type);
+            console.log("cur", curVal.goal_type);
+        }
+    } */
 
     _onChangeSelect(e) {
         const { name, value } = e.target;
@@ -216,7 +240,6 @@ const mapDispatchToProps = dispatch => {
         getFormValues,
         changeFieldValue,
         fetchSubCategories,
-        fetchStates,
         fieldShowHide
     }, dispatch);
 }
