@@ -5,12 +5,12 @@ defined( 'ABSPATH' ) || exit;
 
 
 class Campaign_Submit_Form {
-    
+
     public function __construct() {
-        add_action('wp_enqueue_scripts',    array($this, 'campaign_form_assets')); 
+        add_action('wp_enqueue_scripts',    array($this, 'campaign_form_assets'));
         add_shortcode('wpcf_form',          array($this, 'campaign_form_callback'));
     }
-    
+
     function campaign_form_assets() {
         $api_namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $page_id = get_option('wpneo_form_page_id');
@@ -30,7 +30,7 @@ class Campaign_Submit_Form {
     function campaign_form_callback($atts) {
         $action = ( isset($_GET['action']) ) ? $_GET['action'] : 0;
         $postid = ( isset($_GET['postid']) ) ? $_GET['postid'] : 0;
-        return "<div id='wpcf-campaign-form' postId='".$postid."'></div>";
+        return "<div id='wpcf-campaign-builder' postId='".$postid."'></div>";
     }
 
     // Shortcode for Forntend Submission Form
@@ -378,7 +378,7 @@ class Campaign_Submit_Form {
         $html .= '</div>';
         $html .= '</div>';
 
-        
+
         // Clone Field
         $reward = stripslashes($reward);
         $reward_data_array = json_decode($reward, true);
@@ -584,7 +584,7 @@ class Campaign_Submit_Form {
         }
 
         $html .= '</div>';
-        
+
         // Clone Field
         $html .= $edit_form;
         $html .= $edit_id;

@@ -1,0 +1,16 @@
+.wpcf-accordion-wrapper{
+	.wpcf-accordion{
+		border: 1px solid var(--wpcf-border-color);
+		margin-bottom: 15px;
+		border-radius: 4px;
+		.wpcf-accordion-title{
+			padding: 20px 30px;
+			background: #F5F5FA;
+			font-size: 16px;
+			font-weight: 500;
+		}
+		.wpcf-accordion-details{
+			padding: 30px;
+		}
+	}
+}

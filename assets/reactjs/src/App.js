@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, Fragment} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
@@ -19,7 +19,7 @@ class App extends Component {
 		this._nextStep = this._nextStep.bind(this);
 		this._onSave = this._onSave.bind(this);
     }
-    
+
     componentDidMount() {
         this.props.fetchFormFields();
         this.props.fetchFormStoryTools();
@@ -52,58 +52,54 @@ class App extends Component {
 	render() {
 		const { saveDate, loading } = this.props.data;
         const { current } = this.state;
-		
+
         if(loading) {
             return (
                 <div>Loading...</div>
             )
 		}
-		
-		return (
-			<div>
-				<div style={ {borderBottom: '1px solid #dcdce4'} }>
-					<div className='wpcf-form-wrapper'>
-						<div className="wpcf-form-edit-panel">
-							<span>Setup New Campaign</span>
-							<span>Last Edit was on {saveDate}</span>
-							<button onClick={() => this._onSave(false)}>Save</button>
-							<button onClick={() => this._onSave(true)} disabled={current<3}>Submit</button>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div className='wpcf-form-wrapper'>
-						<TabBar 
-							steps={steps}
-							current={current}/>
 
-						{ current == 0 && 
-							<Basic
-								current={current}
-								prevStep={this._prevStep}
-								onSubmit={this._nextStep}/> 
-						}
-						{ current == 1 && 
-							<Story
-								current={current}
-								prevStep={this._prevStep}
-								onSubmit={this._nextStep}/> 
-						}
-						{ current == 2 && 
-							<Reward
-								current={current}
-								prevStep={this._prevStep}
-								onSubmit={this._nextStep}/> 
-						}
-						{ current == 3 && 
-							<Team
-								current={current}
-								prevStep={this._prevStep}
-								onSubmit={this._onSubmit}/> 
-						}
+		return (
+			<Fragment>
+				<div className='wpcf-campaign-header'>
+					<h3>Setup New Campaign</h3>
+					<div className="wpcf-campaign-header-right">
+						{saveDate && <span>Last Edit was on {saveDate}</span>}
+						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
+						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={current<3}>Submit</button>
 					</div>
 				</div>
-			</div>
+				<div className='wpcf-campaign-body'>
+					<TabBar
+						steps={steps}
+						current={current}/>
+
+					{ current == 0 &&
+					<Basic
+						current={current}
+						prevStep={this._prevStep}
+						onSubmit={this._nextStep}/>
+					}
+					{ current == 1 &&
+					<Story
+						current={current}
+						prevStep={this._prevStep}
+						onSubmit={this._nextStep}/>
+					}
+					{ current == 2 &&
+					<Reward
+						current={current}
+						prevStep={this._prevStep}
+						onSubmit={this._nextStep}/>
+					}
+					{ current == 3 &&
+					<Team
+						current={current}
+						prevStep={this._prevStep}
+						onSubmit={this._onSubmit}/>
+					}
+				</div>
+			</Fragment>
 		)
 	}
 }

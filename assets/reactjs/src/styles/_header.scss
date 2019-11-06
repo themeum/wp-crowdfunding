@@ -1,0 +1,79 @@
+.wpcf-campaign-header{
+	padding: 20px 0;
+	border-bottom: 1px solid var(--wpcf-border-color);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	h3{
+		margin: 0;
+		font-size: 21px;
+		line-height: 24px;
+		color: var(--wpcf-primary-text-color);
+		font-weight: 400;
+	}
+	.wpcf-campaign-header-right{
+		display: inline-flex;
+		align-items: center;
+		.wpcf-btn{
+			margin-left: 10px;
+		}
+	}
+}
+
+// tabs
+
+.wpcf-form-tabs-menu{
+	display: flex;
+	border-bottom: 1px solid var(--wpcf-border-color);
+	margin-bottom: 30px;
+	button{
+		flex-grow: 1;
+		flex-basis: 25%;
+		max-width: 25%;
+		padding: 30px 20px 20px;
+		border: none;
+		align-items: center;
+		display: inline-flex;
+		font-size: 16px;
+		justify-content: center;
+		position: relative;
+		color: var(--wpcf-primary-text-color);
+		&:focus{
+			outline: 1px dotted;
+			outline-offset: -1px;
+		}
+		span{
+			height: 35px;
+			width: 35px;
+			border: 2px solid var(--wpcf-border-color);
+			border-radius: 50%;
+			text-align: center;
+			line-height: 31px;
+			font-size: 18px;
+			margin-right: 10px;
+			color: var(--wpcf-primary-text-color);
+		}
+		
+		&.prev span{
+			border-color: var(--wpcf-success-color);
+		}
+		
+		&:hover,
+		&.active,
+		&:hover span,
+		&.active span{
+			color: var(--wpcf-heading-color);
+		}
+		&.active::after{
+			height: 4px;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+			background: var(--wpcf-success-color);
+			position: absolute;
+			content: '';
+			border-top-right-radius: 10px;
+			border-top-left-radius: 10px;
+		}
+	}
+}

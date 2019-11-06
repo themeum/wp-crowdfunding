@@ -1,0 +1,19 @@
+:root{
+	--wpcf-font-family: 'Roboto', sans-serif;
+	--wpcf-primary-text-color: #787993;
+	--wpcf-light-text-color: #ADAECF;
+	--wpcf-primary-color: #3060c5;
+	--wpcf-heading-color: #25265e;
+	--wpcf-border-color: #dcdce4;
+	--wpcf-success-color: #00A92F;
+	--wpcf-warning-color: #e8710d;
+	--wpcf-danger-color: #c91818;
+}
+
+#wpcf-campaign-builder{
+	font-family: var(--wpcf-font-family);
+	color: var(--wpcf-primary-text-color);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 14px;
+}
