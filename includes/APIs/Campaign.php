@@ -1042,7 +1042,7 @@ class API_Campaign {
             'team' => '',
         );
 
-        $modified_date = get_the_modified_date('F j', $post_id);
+        $modified_date = get_the_modified_date('F j, Y', $post_id);
         $response = array(
             'postId'            => $post_id,
             'saveDate'          => $modified_date,
@@ -1183,14 +1183,15 @@ class API_Campaign {
 
         if($submit) {
             $response = array(
-                'success'   => 1,
+                'submit'    => 1,
                 'message'   => __('Campaign successfully submitted', 'wp-crowdfunding'),
-                'redirect'  => get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign'
+                'redirect'  => get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'#/my-campaigns'
             );
         } else {
             $response = array(
+                'submit'    => 0,
                 'postId'    => $post_id,
-                'saveDate'  => get_the_modified_date('F j', $post_id)
+                'saveDate'  => get_the_modified_date('F j, Y', $post_id)
             );
         }
         return rest_ensure_response($response);

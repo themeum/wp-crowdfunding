@@ -33,6 +33,14 @@ class App extends Component {
 		}
 	}
 
+	componentDidUpdate() {
+		const { submit, submitData } = this.props.data;
+		if(submit) {
+			alert(submitData.message);
+			location.href = submitData.redirect;
+		}
+	}
+
 	_prevStep() {
 		this.setState({ current: this.state.current-1 })
 	}
@@ -95,7 +103,7 @@ class App extends Component {
 					<Team
 						current={current}
 						prevStep={this._prevStep}
-						onSubmit={this._onSubmit}/>
+						onSubmit={() => this._onSave(true)}/>
 					}
 				</div>
 			</Fragment>

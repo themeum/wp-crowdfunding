@@ -76,7 +76,6 @@ export const fetchStates = (code) => dispatch => {
     .catch( error => console.log(error) );
 } */
 
-
 //FETCH FORM VALUES BY CAMPAIGN ID
 export const FETCH_FORM_VALUES_PENDING = 'fetch_form_values_pending';
 export const FETCH_FORM_VALUES_COMPLETE = 'fetch_form_values_complete';
@@ -103,7 +102,6 @@ export const fieldShowHide = (field, show) => dispatch => {
     field = field.split('.');
     dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
 }
-
 
 //SAVE CAMPAIGN
 export const SAVE_CAMPAIGN_PENDING = 'save_campaign_pending';
