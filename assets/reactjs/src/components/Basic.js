@@ -24,7 +24,8 @@ class Basic extends Component {
     componentDidUpdate(prevProps) {
         const { formValues: {basic: curVal} } =  this.props;
         const { formValues: {basic: prevVal} } = prevProps;
-        if( curVal.category && curVal.category !== prevVal.category) {
+        if( curVal.category && prevVal.category &&
+            (curVal.category !== prevVal.category)) {
             this.props.fetchSubCategories(curVal.category);
             this.props.changeFieldValue(formName, `${sectionName}.sub_category`, null);
         }
@@ -32,6 +33,7 @@ class Basic extends Component {
             const field = 'media.if_target_date';
             const show = (curVal.goal_type=='target_date') ? true : false;
             this.props.fieldShowHide(field, show);
+            this.forceUpdate();
         }
     }
 
@@ -118,7 +120,7 @@ class Basic extends Component {
                     <form onSubmit={handleSubmit}>
                         <FormSection name={sectionName}>
                             <div className='wpcf-accordion-wrapper'>
-                            {Object.keys(fields).map( (section, index) =>
+                                {Object.keys(fields).map( (section, index) =>
                                     <div key={section} className='wpcf-accordion'>
                                         <div className={`wpcf-accordion-title ${index == sectionActive ? 'active' : ''}`} onClick={ () => this.setState({sectionActive:index}) }>
                                             { section.replace('_', ' ') }
