@@ -17,6 +17,7 @@
 	font-size: 16px;
 	position: relative;
 	transition: 300ms;
+	font-weight: 500;
 	.icon-left{
 		margin-right: 6px;
 	}
@@ -125,6 +126,13 @@
 	.wpcf-icon-right{
 		margin-left: 12px;
 	}
+	
+	&[disabled]{
+		background: #DCDCE4;
+		border-color: #DCDCE4;
+		color: var(--wpcf-light-text-color);
+	}
+	
 }
 
 .wpcf-btn-group{

@@ -14,12 +14,12 @@ const rootReducer = combineReducers({
 	form: reduxFormReducer
   });
 
-const store = createStore( rootReducer, compose( 
-    applyMiddleware( reduxThunk ), 
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
+const store = createStore( rootReducer, compose(
+    applyMiddleware( reduxThunk ),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ));
 
-const formNode = document.getElementById('wpcf-campaign-form');
+const formNode = document.getElementById('wpcf-campaign-builder');
 const postId = parseInt( formNode.getAttribute('postId') );
 
 ReactDOM.render(
