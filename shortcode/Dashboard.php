@@ -63,6 +63,9 @@ class Dashboard {
      * @return    {html}    mixed
      */
     function dashboard_callback($attr) {
+        if ( !is_user_logged_in() ) {
+            auth_redirect();
+        }
         return '<div id="wpcf-dashboard"></div>';
     }
 

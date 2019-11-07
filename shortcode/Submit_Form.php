@@ -30,6 +30,9 @@ class Campaign_Submit_Form {
     function campaign_form_callback($atts) {
         $action = ( isset($_GET['action']) ) ? $_GET['action'] : 0;
         $postid = ( isset($_GET['postid']) ) ? $_GET['postid'] : 0;
+        if ( !is_user_logged_in() ) {
+            auth_redirect();
+        }
         return "<div id='wpcf-campaign-builder' postId='".$postid."'></div>";
     }
 
