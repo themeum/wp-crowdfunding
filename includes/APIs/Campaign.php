@@ -879,6 +879,7 @@ class API_Campaign {
         $post_id = $_GET['id'];
         
         $media = get_post_meta($post_id, 'wpneo_media', true);
+        $media = json_decode($media, true);
         if( !$media ) { //If empty media then set data from prev fields
             $media = array();
             $image_id = get_post_meta($post_id, '_thumbnail_id', true);
@@ -955,14 +956,16 @@ class API_Campaign {
             }
         }
 
-        $story = get_the_content(null, null, $post_id);
-        $res_story = json_decode($story, true);
+        $res_story = get_post_meta($post_id, 'wpneo_story', true);
+        $res_story = sanitize_text_field(stripslashes($res_story));
+        $res_story = json_decode($res_story, true);
         if($res_story==null) {
+            $content = get_the_content(null, null, $post_id);
             $res_story = array(
                 array(
                     array(
                         'type'  => 'text',
-                        'value' => $story
+                        'value' => str_replace('"','\'', $content)
                     ),
                 )
             );
@@ -970,7 +973,6 @@ class API_Campaign {
 
         $rewards = get_post_meta($post_id, 'wpneo_reward', true);
         $rewards = json_decode(stripslashes($rewards), true);
-
         
         $res_rewards = array();
         if ($rewards) {
@@ -1003,9 +1005,6 @@ class API_Campaign {
                 );
             }
         }
-
-        /* echo "<pre>";
-        print_r($res_rewards); */
 
         $values = array(
             'basic' => array(
@@ -1070,11 +1069,23 @@ class API_Campaign {
         $rewards = $json_params['rewards'];
         $team = $json_params['team'];
 
+        if($story) {
+            foreach($story as $key => $st) {
+                foreach($st as $index => $s) {
+                    $s['value'] = str_replace('"','\'', $s['value']);
+                    $st[$index] = $s;
+                }
+                $story[$key] = $st;
+            }
+        }
+
+        /* print_r($story);
+        die(); */
+
         $campaign = array(
             'post_type'		=>'product',
             'post_title'    => sanitize_text_field($basic['title']),
             'post_excerpt'  => sanitize_text_field($basic['short_desc']),
-            'post_content'  => json_encode($story),
             'post_author'   => $user_id,
         );
 
@@ -1138,7 +1149,8 @@ class API_Campaign {
 
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video_src));
-            wpcf_function()->update_meta($post_id, 'wpneo_media', esc_url(json_encode($media)));
+            wpcf_function()->update_meta($post_id, 'wpneo_media', json_encode($media));
+            wpcf_function()->update_meta($post_id, 'wpneo_story', json_encode($story));
 
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($basic['goal_type']));
             if( isset($basic['goal_type']) && $basic['goal_type'] == 'target_date') {
