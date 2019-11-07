@@ -16,6 +16,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size: 14px;
+	img{
+		max-width: 100%;
+	}
 }
 
 #wpcf-campaign-builder *{
