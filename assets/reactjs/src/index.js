@@ -12,7 +12,7 @@ import './styles/style.scss';
 const rootReducer = combineReducers({
 	data: reducers,
 	form: reduxFormReducer
-  });
+});
 
 const store = createStore( rootReducer, compose(
     applyMiddleware( reduxThunk ),

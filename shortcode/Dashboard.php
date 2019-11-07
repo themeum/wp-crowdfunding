@@ -63,6 +63,9 @@ class Dashboard {
      * @return    {html}    mixed
      */
     function dashboard_callback($attr) {
+        if ( !is_user_logged_in() ) {
+            auth_redirect();
+        }
         return '<div id="wpcf-dashboard"></div>';
     }
 
@@ -72,7 +75,7 @@ class Dashboard {
      * @since 2.1.0
      * @return string Google fonts URL for the plugin.
      */
-    public function google_fonts() {
+    function google_fonts() {
         $google_fonts = apply_filters(
             'wpcf_google_font_families', array(
                 'roboto' => 'Roboto:300,400,400i,500,500i,700',
