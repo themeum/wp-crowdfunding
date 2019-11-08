@@ -19,8 +19,10 @@ class Team extends Component {
 	}
 
 	_addMember() {
-		let { formValues: {team} } = this.props;
-		team = [ ...team ]; team.push({});
+		const { selectedItem } = this.state;
+		const { formValues } = this.props;
+		const team = [ ...formValues.team ];
+
 		this.props.changeFieldValue(formName, sectionName, team);
 		this.setState({selectedItem: team.length-1});
 	}
@@ -43,7 +45,7 @@ class Team extends Component {
 						<div className="wpcf-accordion-wrapper">
 							<div className="wpcf-accordion">
 								<div className="wpcf-accordion-title active">
-									Create Rewards
+									Team Settings
 								</div>
 								<div className='wpcf-accordion-details'>
 									<form>
@@ -53,12 +55,13 @@ class Team extends Component {
 											teamFields={teamFields}
 											selectedItem={selectedItem}
 											component={RenderTeamFields}/>
+											
 										<button type="button" onClick={() => this._addMember()}><span className="fa fa-plus"/> Add More Member</button>
 									</form>
 								</div>
 							</div>
 						</div>
-						
+					
 						<div className="wpcf-team-members">
 							<h3>Team Members</h3>
 							{team && team.map((item, index) =>

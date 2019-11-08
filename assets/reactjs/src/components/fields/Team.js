@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Field } from 'redux-form';
-import { required  } from '../../Helper';
+import { required, isEmail  } from '../../Helper';
 import RenderField from './Single';
 
 export default (props) => {
@@ -13,6 +13,9 @@ export default (props) => {
                 const fName = `${name}[${selectedItem}].${key}`;
                 const value = values.length && values[selectedItem] ? values[selectedItem][key] : '';
                 const validate = field.required ? [required] : [];
+                if(field.type=='email') {
+                    validate.push(isEmail);
+                }
                 return (
                     <div key={key} className='wpcf-form-field'>
                         <div className='wpcf-field-title'>{field.title}</div>

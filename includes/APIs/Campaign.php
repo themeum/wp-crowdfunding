@@ -820,7 +820,7 @@ class API_Campaign {
                 'desc'          => __("", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
                 'class'         => '',
-                'required'      => true,
+                'required'      => false,
                 'show'          => true
             ),
             'name' => array(
@@ -957,7 +957,7 @@ class API_Campaign {
         }
 
         $res_story = get_post_meta($post_id, 'wpneo_story', true);
-        $res_story = sanitize_text_field(stripslashes($res_story));
+        $res_story = stripslashes($res_story);
         $res_story = json_decode($res_story, true);
         if($res_story==null) {
             $content = get_the_content(null, null, $post_id);
@@ -965,7 +965,7 @@ class API_Campaign {
                 array(
                     array(
                         'type'  => 'text',
-                        'value' => str_replace('"','\'', $content)
+                        'value' => str_replace('"', "'", $content)
                     ),
                 )
             );
@@ -1072,7 +1072,7 @@ class API_Campaign {
         if($story) {
             foreach($story as $key => $st) {
                 foreach($st as $index => $s) {
-                    $s['value'] = str_replace('"','\'', $s['value']);
+                    $s['value'] = str_replace('"', "'", $s['value']);
                     $st[$index] = $s;
                 }
                 $story[$key] = $st;
@@ -1185,10 +1185,10 @@ class API_Campaign {
                         'wpneo_rewards_endyear'         => esc_html( $reward['end_year'] ),
                         'wpneo_rewards_item_limit'      => esc_html( $reward['no_of_items'] ),
                         'wpneo_rewards_image_field'     => esc_html( $reward_image ),
-                        'wpneo_rewards_items'           => esc_html( $reward['rewards_items'] ),
+                        'wpneo_rewards_items'           => $reward['rewards_items'],
                     );
                 }
-                $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
+                $data_json = json_encode($data);
                 wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
             }
         }
@@ -1236,7 +1236,6 @@ class API_Campaign {
             return false;
         }
     }
-
 }
 
 new API_Campaign();
