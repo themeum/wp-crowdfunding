@@ -203,7 +203,7 @@ class Basic extends Component {
 }
 
 const mapStateToProps = state => ({
-    fields: state.data.formFields,
+    fields: state.data.basic_fields,
     formValues: getFormValues(formName)(state)
 });
 

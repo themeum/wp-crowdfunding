@@ -59,21 +59,12 @@ class API_Campaign {
         register_rest_route( $namespace, '/form-fields', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
         ));
-        register_rest_route( $namespace, '/story-tools', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_story_tools') ),
-        ));
         register_rest_route( $namespace, '/sub-categories', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
         ));
         /* register_rest_route( $namespace, '/states', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
         )); */
-        register_rest_route( $namespace, '/reward-fields', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
-        ));
-        register_rest_route( $namespace, '/team-fields', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
-        ));
         register_rest_route( $namespace, '/form-values', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
         ));
@@ -89,7 +80,19 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_basic_fields() {
-        $response = apply_filters( 'wpcf_form_basic_fields', [] );
+        $basic_fields = apply_filters( 'wpcf_form_basic_fields', [] );
+        $story_tools = apply_filters( 'wpcf_form_story_tools', [] );
+        $reward_types = apply_filters( 'wpcf_form_reward_types', [] );
+        $reward_fields = apply_filters( 'wpcf_form_reward_fields', [] );
+        $team_fields = apply_filters( 'wpcf_form_team_fields', [] );
+        
+        $response = array(
+            'basic_fields' => $basic_fields,
+            'story_tools' => $story_tools,
+            'reward_types' => $reward_types,
+            'reward_fields' => $reward_fields,
+            'team_fields' => $team_fields,
+        );
         return rest_ensure_response( $response );
     }
 
@@ -446,18 +449,6 @@ class API_Campaign {
 
 
     /**
-     * Get campaign form story tools
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_story_tools() {
-        $response = apply_filters( 'wpcf_form_story_tools', [] );
-        return rest_ensure_response( $response );
-    }
-
-
-    /**
      * Default team fields
      * @since     2.1.0
      * @access    public
@@ -651,22 +642,6 @@ class API_Campaign {
         return array_merge($default_fields, $fields);
     }
 
-
-    /**
-     * Get campaign form fields
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_reward_fields() {
-        $response = array(
-            'types' => apply_filters( 'wpcf_form_reward_types', [] ),
-            'fields' => apply_filters( 'wpcf_form_reward_fields', [] )
-        );
-        return rest_ensure_response( $response );
-    }
-
-
     /**
      * Default reward fields
      * @since     2.1.0
@@ -791,19 +766,6 @@ class API_Campaign {
 
         return array_merge($default_fields, $fields);
     }
-
-
-    /**
-     * Get campaign team fields
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_team_fields() {
-        $response = apply_filters( 'wpcf_form_team_fields', [] );
-        return rest_ensure_response( $response );
-    }
-
 
     /**
      * Default team fields

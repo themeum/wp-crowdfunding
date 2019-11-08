@@ -91,7 +91,7 @@ class Team extends Component {
 }
 
 const mapStateToProps = state => ({
-    teamFields: state.data.teamFields,
+    teamFields: state.data.team_fields,
     formValues: getFormValues(formName)(state)
 });
 

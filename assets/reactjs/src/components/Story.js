@@ -135,7 +135,7 @@ class Story extends Component {
 }
 
 const mapStateToProps = state => ({
-    tools: state.data.storyTools,
+    tools: state.data.story_tools,
 	formValues: getFormValues(formName)(state)
 });
 

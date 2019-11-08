@@ -144,8 +144,8 @@ class Reward extends Component {
 }
 
 const mapStateToProps = state => ({
-    rewardTypes: state.data.rewardTypes,
-	rewardFields: state.data.rewardFields,
+    rewardTypes: state.data.reward_types,
+	rewardFields: state.data.reward_fields,
 	formValues: getFormValues(formName)(state)
 });
 

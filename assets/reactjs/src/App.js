@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
-import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields, fetchFormValues, saveCampaign } from './actions';
+import { fetchFormFields, fetchFormValues, saveCampaign } from './actions';
 import TabBar from './components/TabBar';
 import Basic from './components/Basic';
 import Story from './components/Story';
@@ -23,13 +23,10 @@ class App extends Component {
     componentDidMount() {
 		const { editPostId } = this.props;
         this.props.fetchFormFields();
-        this.props.fetchFormStoryTools();
-        this.props.fetchRewardFields();
-		this.props.fetchTeamFields();
 		if(editPostId) {
 			setTimeout(() => {
 				this.props.fetchFormValues(editPostId);
-			}, 150);
+			}, 300);
 		}
 	}
 
@@ -120,11 +117,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         fetchFormFields,
-        fetchFormStoryTools,
-        fetchRewardFields,
-		fetchTeamFields,
-		getFormValues,
 		fetchFormValues,
+		getFormValues,
 		saveCampaign,
     }, dispatch);
 }
