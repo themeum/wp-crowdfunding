@@ -37,7 +37,7 @@ class Team extends Component {
 
 	render() {
 		const { selectedItem } = this.state;
-		const { teamFields, formValues: {team}, handleSubmit, current, prevStep } = this.props;
+		const { teamFields, formValues: {team}, handleSubmit, current, prevStep, lastStep } = this.props;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
@@ -74,9 +74,10 @@ class Team extends Component {
 							)}
 						</div>
 						
-						<PageControl 
-							current={current}
-							prevStep={prevStep}/>
+						<PageControl
+                            current={current}
+                            prevStep={prevStep}
+                            lastStep={lastStep}/>
 					</form>
 				</div>
 				<div className='col-md-5'>

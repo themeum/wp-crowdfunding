@@ -10,7 +10,7 @@ import Reward from './components/Reward';
 import Team from './components/Team';
 
 const formName = "campaignForm";
-const steps = ["Campaign Basics", "Story", "Rewards", "Team"];
+const components = { basic:Basic, story:Story, reward:Reward, team:Team };
 class App extends Component {
 	constructor (props) {
 		super(props);
@@ -18,7 +18,8 @@ class App extends Component {
 		this._prevStep = this._prevStep.bind(this);
 		this._nextStep = this._nextStep.bind(this);
 		this._onSave = this._onSave.bind(this);
-    }
+	}
+	
 
     componentDidMount() {
 		const { editPostId } = this.props;
@@ -54,7 +55,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { saveDate, loading } = this.props.data;
+		const { loading, steps, saveDate } = this.props.data;
         const { current } = this.state;
 
         if(loading) {
@@ -62,6 +63,8 @@ class App extends Component {
                 <div>Loading...</div>
             )
 		}
+
+		const formSteps = Object.keys(steps);
 
 		return (
 			<Fragment>
@@ -77,31 +80,21 @@ class App extends Component {
 					<TabBar
 						steps={steps}
 						current={current}/>
-
-					{ current == 0 &&
-					<Basic
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={this._nextStep}/>
-					}
-					{ current == 1 &&
-					<Story
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={this._nextStep}/>
-					}
-					{ current == 2 &&
-					<Reward
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={this._nextStep}/>
-					}
-					{ current == 3 &&
-					<Team
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={() => this._onSave(true)}/>
-					}
+						
+					{formSteps.map( (key, index) => {
+						const FormComponent = components[key];
+						const lastStep = index+1==formSteps.length;
+						if(index==current) {
+							return (
+								<FormComponent
+									key={index}
+									current={current}
+									lastStep={lastStep}
+									prevStep={() => this._prevStep()}
+									onSubmit={lastStep ? () => this._onSave(true) : this._nextStep}/>
+							);
+						}
+					})}
 				</div>
 			</Fragment>
 		)

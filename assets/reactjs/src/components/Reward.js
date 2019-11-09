@@ -69,7 +69,7 @@ class Reward extends Component {
 
 	render() {
 		const { openForm, selectedType, selectedItem } = this.state;
-		const { rewardTypes, rewardFields, formValues: {rewards}, handleSubmit, current, prevStep } = this.props;
+		const { rewardTypes, rewardFields, formValues: {rewards}, handleSubmit, current, prevStep, lastStep } = this.props;
 		const { options: months } = rewardFields.estimate_delivery.fields.end_month;
 		return (
 			<div className="row">
@@ -124,9 +124,10 @@ class Reward extends Component {
 							</div>
 						</div>
 
-						<PageControl 
-							current={current}
-							prevStep={prevStep}/>
+						<PageControl
+                            current={current}
+                            prevStep={prevStep}
+                            lastStep={lastStep}/>
 					</form>
 				</div>
 				<div className='col-md-5'>

@@ -27,6 +27,7 @@ class API_Campaign {
      */
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
+        add_filter( 'wpcf_form_steps', array( $this, 'form_steps') );
         add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
         add_filter( 'wpcf_form_story_tools', array( $this, 'form_story_tools') );
         add_filter( 'wpcf_form_reward_types', array( $this, 'form_reward_types') );
@@ -80,20 +81,39 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_basic_fields() {
-        $basic_fields = apply_filters( 'wpcf_form_basic_fields', [] );
-        $story_tools = apply_filters( 'wpcf_form_story_tools', [] );
-        $reward_types = apply_filters( 'wpcf_form_reward_types', [] );
-        $reward_fields = apply_filters( 'wpcf_form_reward_fields', [] );
-        $team_fields = apply_filters( 'wpcf_form_team_fields', [] );
+        $steps          = apply_filters( 'wpcf_form_steps', [] );
+        $basic_fields   = apply_filters( 'wpcf_form_basic_fields', [] );
+        $story_tools    = apply_filters( 'wpcf_form_story_tools', [] );
+        $reward_types   = apply_filters( 'wpcf_form_reward_types', [] );
+        $reward_fields  = apply_filters( 'wpcf_form_reward_fields', [] );
+        $team_fields    = apply_filters( 'wpcf_form_team_fields', [] );
         
         $response = array(
-            'basic_fields' => $basic_fields,
-            'story_tools' => $story_tools,
-            'reward_types' => $reward_types,
+            'steps'         => $steps,
+            'basic_fields'  => $basic_fields,
+            'story_tools'   => $story_tools,
+            'reward_types'  => $reward_types,
             'reward_fields' => $reward_fields,
-            'team_fields' => $team_fields,
+            'team_fields'   => $team_fields,
         );
         return rest_ensure_response( $response );
+    }
+
+    /**
+     * Default form steps
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   fields
+     * @return    [array]   mixed
+     */
+    function form_steps($steps = []) {
+        $default_steps = array(
+            'basic'     => __("Campaign Basics", "wp-crowdfunding"),
+            'story'     => __("Story", "wp-crowdfunding"),
+            'reward'    => __("Rewards", "wp-crowdfunding"),
+            'team'      => __("Team", "wp-crowdfunding"),
+        );
+        return array_merge($default_steps, $steps);
     }
 
     /**

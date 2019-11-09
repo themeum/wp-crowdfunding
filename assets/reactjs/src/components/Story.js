@@ -64,7 +64,7 @@ class Story extends Component {
     }
 
 	render() {
-		const { tools, formValues: {story}, handleSubmit, current, prevStep } = this.props;
+		const { tools, formValues: {story}, handleSubmit, current, prevStep, lastStep } = this.props;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
@@ -118,9 +118,10 @@ class Story extends Component {
 							</div>
 						</div>
 						
-						<PageControl 
+						<PageControl
                             current={current}
-                            prevStep={prevStep}/>
+                            prevStep={prevStep}
+                            lastStep={lastStep}/>
 					</form>
 				</div>
 				<div className='col-md-5'>
