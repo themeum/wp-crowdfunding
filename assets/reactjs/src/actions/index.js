@@ -67,6 +67,15 @@ export const fieldShowHide = (field, show) => dispatch => {
     dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
 }
 
+//FETCH REGISTERD USER BY EMAIL
+export const fetchUser = (email) => {
+    const fetchURL = `${WPCF.rest_url}/fetch-user`;
+    const option = { method: 'POST', body: JSON.stringify({email}), headers };
+    fetch( fetchURL, option )
+    .then( response => { return response.json() } )
+    .catch( error => console.log(error) );
+}
+
 //SAVE CAMPAIGN
 export const SAVE_CAMPAIGN_PENDING = 'save_campaign_pending';
 export const SAVE_CAMPAIGN_COMPLETE = 'save_campaign_complete';
@@ -76,7 +85,7 @@ export const saveCampaign = ( data ) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/save-campaign`;
     const option = { method: 'POST', body: JSON.stringify(data), headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
+    .then( response => response.json() )
     .then( payload => dispatch( {type: SAVE_CAMPAIGN_COMPLETE, payload} ) )
     .catch( error => console.log(error) );
 }

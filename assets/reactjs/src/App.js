@@ -50,7 +50,7 @@ class App extends Component {
 	_onSave(submit) {
 		let { formValues, data } = this.props;
 		formValues.submit = submit; //inject submit value with form values
-		formValues.postId = data.postId; //inject submit value with form values
+		formValues.postId = data.postId; //inject postid value with form values
 		this.props.saveCampaign(formValues);
 	}
 
@@ -65,6 +65,7 @@ class App extends Component {
 		}
 
 		const formSteps = Object.keys(steps);
+		const lastStep = current+1==formSteps.length;
 
 		return (
 			<Fragment>
@@ -73,7 +74,7 @@ class App extends Component {
 					<div className="wpcf-campaign-header-right">
 						{saveDate && <span>Last Edit was on {saveDate}</span>}
 						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
-						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={current<3}>Submit</button>
+						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={!lastStep}>Submit</button>
 					</div>
 				</div>
 				<div className='wpcf-campaign-body'>
@@ -83,7 +84,6 @@ class App extends Component {
 						
 					{formSteps.map( (key, index) => {
 						const FormComponent = components[key];
-						const lastStep = index+1==formSteps.length;
 						if(index==current) {
 							return (
 								<FormComponent
