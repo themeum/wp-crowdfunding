@@ -62,9 +62,6 @@ class API_Campaign {
         register_rest_route( $namespace, '/sub-categories', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
         ));
-        register_rest_route( $namespace, '/get-user', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_user') ),
-        ));
         /* register_rest_route( $namespace, '/states', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
         )); */
@@ -73,6 +70,9 @@ class API_Campaign {
         ));
         register_rest_route( $namespace, '/save-campaign', array(
             array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
+        ));
+        register_rest_route( $namespace, '/get-user', array(
+            array( 'methods' => "POST", 'callback' => array($this, 'get_user') ),
         ));
     }
 
@@ -639,24 +639,33 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_user(\WP_REST_Request $request) {
+        $user_id = $this->current_user_id;
         $json_params = $request->get_json_params();
-        $email_address = $json_params['email'];
-        $user = get_user_by( 'email', $email_address );
+        $email = $json_params['email'];
+        $user = get_user_by( 'email', $email );
+
+        $response = array(
+            'success' => false,
+            'message' => __('Please enter registered email', 'wp-crowdfunding'),
+            'user' => array('id'=>'', 'name'=>'', 'email'=>$email, 'image'=>'', 'manage'=>false, 'edit'=>false)
+        );
         if ($user) {
-            $response = array(
-                'success' => true,
-                'user' => array(
-                    'id' => $user->ID,
-                    'id' => $user->ID,
-                )
-            );
-        } else {
-            $response = array(
-                'success' => false
-            );
+            if($user_id===$user->ID) {
+                $response['message'] = __('Dont use your own email', 'wp-crowdfunding');
+            } else {
+                $image_id = get_user_meta( $user->ID, 'profile_image_id', true );
+                if ($image_id && $image_id > 0) {
+                    $image = wp_get_attachment_image_src($image_id)[0];
+                } else {
+                    $image = get_avatar_url( $user->ID );
+                }
+                $response = array(
+                    'success' => true,
+                    'message' => '',
+                    'user' => array('id'=>$user->ID, 'name'=>$user->display_name, 'email'=>$email, 'image'=>$image, 'manage'=>false, 'edit'=>false)
+                );
+            }
         }
-        
-        
         return rest_ensure_response( $response );
     }
 
@@ -920,7 +929,6 @@ class API_Campaign {
 
         $rewards = get_post_meta($post_id, 'wpneo_reward', true);
         $rewards = json_decode(stripslashes($rewards), true);
-        
         $res_rewards = array();
         if ($rewards) {
             foreach( $rewards as $reward ) {
@@ -953,11 +961,34 @@ class API_Campaign {
             }
         }
 
+        $team = get_post_meta($post_id, 'wpneo_team_member', true);
+        $team = json_decode(stripslashes($team), true);
+        $res_team = array();
+        if ($team) {
+            foreach( $team as $t ) {
+                $user = get_userdata($t['id']);
+                $m_image_id = get_user_meta( $t['id'], 'profile_image_id', true );
+                if ($m_image_id && $m_image_id > 0) {
+                    $m_image = wp_get_attachment_image_src($m_image_id)[0];
+                } else {
+                    $m_image = get_avatar_url( $t['id'] );
+                }
+                $res_team[] = array(
+                    'id'        => $t['id'],
+                    'name'      => $user->display_name,
+                    'email'     => $t['email'],
+                    'image'     => $m_image,
+                    'manage'    => boolval($t['manage']),
+                    'edit'      => boolval($t['edit'])
+                );
+            }
+        }
+
         $values = array(
             'basic' => array(
                 'media'         => $media,
                 'funding_goal'  => (float) get_post_meta($post_id, '_nf_funding_goal', true),
-                'pledge_amount' => Array(
+                'pledge_amount' => array(
                     'min'       => (int) get_post_meta($post_id, 'wpneo_funding_minimum_price', true),
                     'max'       => (int) get_post_meta($post_id, 'wpneo_funding_maximum_price', true),
                 ),
@@ -985,7 +1016,7 @@ class API_Campaign {
             ),
             'story' => $res_story,
             'rewards' => $res_rewards,
-            'team' => '',
+            'team' => $res_team,
         );
 
         $modified_date = get_the_modified_date('F j, Y', $post_id);
@@ -1025,9 +1056,6 @@ class API_Campaign {
                 $story[$key] = $st;
             }
         }
-
-        /* print_r($story);
-        die(); */
 
         $campaign = array(
             'post_type'		=>'product',
@@ -1118,7 +1146,7 @@ class API_Campaign {
             wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($basic['country']));
             wpcf_function()->update_meta($post_id, '_nf_location', esc_html($basic['location']));
 
-            //Saved repeatable rewards
+            //Save repeatable rewards
             if ($rewards && is_array($rewards)) {
                 $data = array();
                 foreach( $rewards as $reward ) {
@@ -1138,6 +1166,21 @@ class API_Campaign {
                 $data_json = json_encode($data);
                 wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
             }
+        }
+
+        //Save team members
+        if ($team && is_array($team)) {
+            $data = array();
+            foreach( $team as $t ) {
+                $data[] = array(
+                    'id'        => esc_html( $t['id'] ),
+                    'email'     => esc_html( $t['email'] ),
+                    'manage'    => esc_html( $t['manage'] ),
+                    'edit'      => esc_html( $t['edit'] ),
+                );
+            }
+            $data_json = json_encode($data);
+            wpcf_function()->update_meta($post_id, 'wpneo_team_member', $data_json);
         }
 
         if($submit) {
