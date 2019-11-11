@@ -189,13 +189,19 @@ class Basic extends Component {
                 </div>
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
-                        <div className="preview-title">Preview</div>
+                        <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
                         { sectionActive==2 ?
                             <PreviewBasic data={basicValues}/>
-                        :   <div>
-                                Nothing to See here
+                        :   <div className="wpcf-preview-empty">
+                                <div className="wpcf-preview-empty-image">
+                                    <img src={WPCF.assets + "images/no-preview.svg"} alt=""/>
+                                </div>
+                                <span>Nothing to See here</span>
                             </div>
                         }
+                        <div className="wpcf-preview-link">
+                            <a href="javascript:0" target="_blank">Full Preview <span className="fas fa-desktop"></span></a>
+                        </div>
                     </div>
                 </div>
             </div>
