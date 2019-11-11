@@ -112,7 +112,7 @@ class Basic extends Component {
 
     render() {
         const { sectionActive } = this.state;
-        const { fields, formValues, handleSubmit, current, prevStep } =  this.props;
+        const { fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
         return (
             <div className="row">
@@ -183,7 +183,8 @@ class Basic extends Component {
 
                         <PageControl
                             current={current}
-                            prevStep={prevStep}/>
+                            prevStep={prevStep}
+                            lastStep={lastStep}/>
                     </form>
                 </div>
 				<div className='col-md-5'>
@@ -209,7 +210,7 @@ class Basic extends Component {
 }
 
 const mapStateToProps = state => ({
-    fields: state.data.formFields,
+    fields: state.data.basic_fields,
     formValues: getFormValues(formName)(state)
 });
 

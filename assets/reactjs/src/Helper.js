@@ -1,5 +1,6 @@
 export const required = value => value ? undefined : 'Required';
-export const isYoutubeUrl = value => !value ? undefined : value && getYotubeVideoID(value) ? undefined : 'Url not valid';
+export const isYoutubeUrl = value => !value ? undefined : value && getYotubeVideoID(value) ? undefined : 'Invalid video url';
+export const isEmail = value => !value ? undefined : value && validateEmail(value) ? undefined : 'Invalid email address';
 
 export const uploadFiles = (type, sFiles, multiple) => {
     return new Promise((resolve, reject) => {
@@ -42,10 +43,17 @@ export const removeArrValue = (values, index) => {
     return values;
 }
 
-export const getYotubeVideoID = src => {
-    if(!src) return false;
+export const validateEmail = value => {
+    if(value && (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value))) {
+        return true;
+    }
+    return false;
+}
+
+export const getYotubeVideoID = value => {
+    if(!value) return false;
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = src.match(regExp);
+    const match = value.match(regExp);
     if (match && match[2].length == 11) {
         return match[2];
     }

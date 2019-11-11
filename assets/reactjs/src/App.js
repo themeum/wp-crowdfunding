@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
-import { fetchFormFields, fetchFormStoryTools, fetchRewardFields, fetchTeamFields, fetchFormValues, saveCampaign } from './actions';
+import { fetchFormFields, fetchFormValues, saveCampaign } from './actions';
 import TabBar from './components/TabBar';
 import Basic from './components/Basic';
 import Story from './components/Story';
@@ -10,7 +10,7 @@ import Reward from './components/Reward';
 import Team from './components/Team';
 
 const formName = "campaignForm";
-const steps = ["Campaign Basics", "Story", "Rewards", "Team"];
+const components = { basic:Basic, story:Story, reward:Reward, team:Team };
 class App extends Component {
 	constructor (props) {
 		super(props);
@@ -18,18 +18,16 @@ class App extends Component {
 		this._prevStep = this._prevStep.bind(this);
 		this._nextStep = this._nextStep.bind(this);
 		this._onSave = this._onSave.bind(this);
-    }
+	}
+	
 
     componentDidMount() {
 		const { editPostId } = this.props;
         this.props.fetchFormFields();
-        this.props.fetchFormStoryTools();
-        this.props.fetchRewardFields();
-		this.props.fetchTeamFields();
 		if(editPostId) {
 			setTimeout(() => {
 				this.props.fetchFormValues(editPostId);
-			}, 150);
+			}, 300);
 		}
 	}
 
@@ -52,12 +50,12 @@ class App extends Component {
 	_onSave(submit) {
 		let { formValues, data } = this.props;
 		formValues.submit = submit; //inject submit value with form values
-		formValues.postId = data.postId; //inject submit value with form values
+		formValues.postId = data.postId; //inject postid value with form values
 		this.props.saveCampaign(formValues);
 	}
 
 	render() {
-		const { saveDate, loading } = this.props.data;
+		const { loading, steps, saveDate } = this.props.data;
         const { current } = this.state;
 
         if(loading) {
@@ -66,6 +64,9 @@ class App extends Component {
             )
 		}
 
+		const formSteps = Object.keys(steps);
+		const lastStep = current+1==formSteps.length;
+
 		return (
 			<Fragment>
 				<div className='wpcf-campaign-header'>
@@ -73,38 +74,27 @@ class App extends Component {
 					<div className="wpcf-campaign-header-right">
 						{saveDate && <span>Last Edit was on {saveDate}</span>}
 						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
-						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={current<3}>Submit</button>
+						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={!lastStep}>Submit</button>
 					</div>
 				</div>
 				<div className='wpcf-campaign-body'>
 					<TabBar
 						steps={steps}
 						current={current}/>
-
-					{ current == 0 &&
-					<Basic
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={this._nextStep}/>
-					}
-					{ current == 1 &&
-					<Story
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={this._nextStep}/>
-					}
-					{ current == 2 &&
-					<Reward
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={this._nextStep}/>
-					}
-					{ current == 3 &&
-					<Team
-						current={current}
-						prevStep={this._prevStep}
-						onSubmit={() => this._onSave(true)}/>
-					}
+						
+					{formSteps.map( (key, index) => {
+						const FormComponent = components[key];
+						if(index==current) {
+							return (
+								<FormComponent
+									key={index}
+									current={current}
+									lastStep={lastStep}
+									prevStep={() => this._prevStep()}
+									onSubmit={lastStep ? () => this._onSave(true) : this._nextStep}/>
+							);
+						}
+					})}
 				</div>
 			</Fragment>
 		)
@@ -120,11 +110,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         fetchFormFields,
-        fetchFormStoryTools,
-        fetchRewardFields,
-		fetchTeamFields,
-		getFormValues,
 		fetchFormValues,
+		getFormValues,
 		saveCampaign,
     }, dispatch);
 }

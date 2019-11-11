@@ -14,43 +14,7 @@ export const fetchFormFields = () => dispatch => {
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
     .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_FORM_FIELDS_COMPLETE, payload} ) )
-    .catch( error => console.log(error) );
-}
-
-//FETCH FORM STORY TOOLS
-export const FETCH_FORM_STORY_TOOLS_COMPLETE = 'FETCH_FORM_STORY_TOOLS_COMPLETE';
-export const fetchFormStoryTools = () => dispatch => {
-    dispatch({ type: FETCH_REQUEST_PENDING });
-    const fetchURL = `${WPCF.rest_url}/story-tools`;
-    const option = { method: 'GET', headers };
-    fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_FORM_STORY_TOOLS_COMPLETE, payload} ) )
-    .catch( error => console.log(error) );
-}
-
-//FETCH FORM REWARD FIELDS
-export const FETCH_FORM_REWARD_FIELDS_COMPLETE = 'FETCH_FORM_REWARD_FIELDS_COMPLETE';
-export const fetchRewardFields = () => dispatch => {
-    dispatch({ type: FETCH_REQUEST_PENDING });
-    const fetchURL = `${WPCF.rest_url}/reward-fields`;
-    const option = { method: 'GET', headers };
-    fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_FORM_REWARD_FIELDS_COMPLETE, payload} ) )
-    .catch( error => console.log(error) );
-}
-
-//FETCH FORM TEAM FIELDS
-export const FETCH_FORM_TEAM_FIELDS_COMPLETE = 'FETCH_FORM_TEAM_FIELDS_COMPLETE';
-export const fetchTeamFields = () => dispatch => {
-    dispatch({ type: FETCH_REQUEST_PENDING });
-    const fetchURL = `${WPCF.rest_url}/team-fields`;
-    const option = { method: 'GET', headers };
-    fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_FORM_TEAM_FIELDS_COMPLETE, payload} ) )
+    .then( payload => dispatch( {type: FETCH_FORM_FIELDS_COMPLETE, payload}))
     .catch( error => console.log(error) );
 }
 
@@ -103,6 +67,15 @@ export const fieldShowHide = (field, show) => dispatch => {
     dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
 }
 
+//FETCH REGISTERD USER BY EMAIL
+export const fetchUser = (email) => {
+    const fetchURL = `${WPCF.rest_url}/fetch-user`;
+    const option = { method: 'POST', body: JSON.stringify({email}), headers };
+    fetch( fetchURL, option )
+    .then( response => { return response.json() } )
+    .catch( error => console.log(error) );
+}
+
 //SAVE CAMPAIGN
 export const SAVE_CAMPAIGN_PENDING = 'save_campaign_pending';
 export const SAVE_CAMPAIGN_COMPLETE = 'save_campaign_complete';
@@ -112,7 +85,7 @@ export const saveCampaign = ( data ) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/save-campaign`;
     const option = { method: 'POST', body: JSON.stringify(data), headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
+    .then( response => response.json() )
     .then( payload => dispatch( {type: SAVE_CAMPAIGN_COMPLETE, payload} ) )
     .catch( error => console.log(error) );
 }

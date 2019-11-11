@@ -27,6 +27,7 @@ class API_Campaign {
      */
     function __construct() {
         add_action( 'init', array( $this, 'init_rest_api') );
+        add_filter( 'wpcf_form_steps', array( $this, 'form_steps') );
         add_filter( 'wpcf_form_basic_fields', array( $this, 'form_basic_fields') );
         add_filter( 'wpcf_form_story_tools', array( $this, 'form_story_tools') );
         add_filter( 'wpcf_form_reward_types', array( $this, 'form_reward_types') );
@@ -59,21 +60,12 @@ class API_Campaign {
         register_rest_route( $namespace, '/form-fields', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
         ));
-        register_rest_route( $namespace, '/story-tools', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_story_tools') ),
-        ));
         register_rest_route( $namespace, '/sub-categories', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
         ));
         /* register_rest_route( $namespace, '/states', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
         )); */
-        register_rest_route( $namespace, '/reward-fields', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_reward_fields') ),
-        ));
-        register_rest_route( $namespace, '/team-fields', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_team_fields') ),
-        ));
         register_rest_route( $namespace, '/form-values', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
         ));
@@ -89,8 +81,39 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function get_form_basic_fields() {
-        $response = apply_filters( 'wpcf_form_basic_fields', [] );
+        $steps          = apply_filters( 'wpcf_form_steps', [] );
+        $basic_fields   = apply_filters( 'wpcf_form_basic_fields', [] );
+        $story_tools    = apply_filters( 'wpcf_form_story_tools', [] );
+        $reward_types   = apply_filters( 'wpcf_form_reward_types', [] );
+        $reward_fields  = apply_filters( 'wpcf_form_reward_fields', [] );
+        $team_fields    = apply_filters( 'wpcf_form_team_fields', [] );
+        
+        $response = array(
+            'steps'         => $steps,
+            'basic_fields'  => $basic_fields,
+            'story_tools'   => $story_tools,
+            'reward_types'  => $reward_types,
+            'reward_fields' => $reward_fields,
+            'team_fields'   => $team_fields,
+        );
         return rest_ensure_response( $response );
+    }
+
+    /**
+     * Default form steps
+     * @since     2.1.0
+     * @access    public
+     * @param     {array}   fields
+     * @return    [array]   mixed
+     */
+    function form_steps($steps = []) {
+        $default_steps = array(
+            'basic'     => __("Campaign Basics", "wp-crowdfunding"),
+            'story'     => __("Story", "wp-crowdfunding"),
+            'reward'    => __("Rewards", "wp-crowdfunding"),
+            'team'      => __("Team", "wp-crowdfunding"),
+        );
+        return array_merge($default_steps, $steps);
     }
 
     /**
@@ -446,18 +469,6 @@ class API_Campaign {
 
 
     /**
-     * Get campaign form story tools
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_story_tools() {
-        $response = apply_filters( 'wpcf_form_story_tools', [] );
-        return rest_ensure_response( $response );
-    }
-
-
-    /**
      * Default team fields
      * @since     2.1.0
      * @access    public
@@ -651,22 +662,6 @@ class API_Campaign {
         return array_merge($default_fields, $fields);
     }
 
-
-    /**
-     * Get campaign form fields
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_reward_fields() {
-        $response = array(
-            'types' => apply_filters( 'wpcf_form_reward_types', [] ),
-            'fields' => apply_filters( 'wpcf_form_reward_fields', [] )
-        );
-        return rest_ensure_response( $response );
-    }
-
-
     /**
      * Default reward fields
      * @since     2.1.0
@@ -792,19 +787,6 @@ class API_Campaign {
         return array_merge($default_fields, $fields);
     }
 
-
-    /**
-     * Get campaign team fields
-     * @since     2.1.0
-     * @access    public
-     * @return    [array]   mixed
-     */
-    function get_form_team_fields() {
-        $response = apply_filters( 'wpcf_form_team_fields', [] );
-        return rest_ensure_response( $response );
-    }
-
-
     /**
      * Default team fields
      * @since     2.1.0
@@ -820,7 +802,7 @@ class API_Campaign {
                 'desc'          => __("", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
                 'class'         => '',
-                'required'      => true,
+                'required'      => false,
                 'show'          => true
             ),
             'name' => array(
@@ -879,6 +861,7 @@ class API_Campaign {
         $post_id = $_GET['id'];
         
         $media = get_post_meta($post_id, 'wpneo_media', true);
+        $media = json_decode($media, true);
         if( !$media ) { //If empty media then set data from prev fields
             $media = array();
             $image_id = get_post_meta($post_id, '_thumbnail_id', true);
@@ -955,14 +938,16 @@ class API_Campaign {
             }
         }
 
-        $story = get_the_content(null, null, $post_id);
-        $res_story = json_decode($story, true);
+        $res_story = get_post_meta($post_id, 'wpneo_story', true);
+        $res_story = stripslashes($res_story);
+        $res_story = json_decode($res_story, true);
         if($res_story==null) {
+            $content = get_the_content(null, null, $post_id);
             $res_story = array(
                 array(
                     array(
                         'type'  => 'text',
-                        'value' => $story
+                        'value' => str_replace('"', "'", $content)
                     ),
                 )
             );
@@ -970,7 +955,6 @@ class API_Campaign {
 
         $rewards = get_post_meta($post_id, 'wpneo_reward', true);
         $rewards = json_decode(stripslashes($rewards), true);
-
         
         $res_rewards = array();
         if ($rewards) {
@@ -1003,9 +987,6 @@ class API_Campaign {
                 );
             }
         }
-
-        /* echo "<pre>";
-        print_r($res_rewards); */
 
         $values = array(
             'basic' => array(
@@ -1070,11 +1051,23 @@ class API_Campaign {
         $rewards = $json_params['rewards'];
         $team = $json_params['team'];
 
+        if($story) {
+            foreach($story as $key => $st) {
+                foreach($st as $index => $s) {
+                    $s['value'] = str_replace('"', "'", $s['value']);
+                    $st[$index] = $s;
+                }
+                $story[$key] = $st;
+            }
+        }
+
+        /* print_r($story);
+        die(); */
+
         $campaign = array(
             'post_type'		=>'product',
             'post_title'    => sanitize_text_field($basic['title']),
             'post_excerpt'  => sanitize_text_field($basic['short_desc']),
-            'post_content'  => json_encode($story),
             'post_author'   => $user_id,
         );
 
@@ -1138,7 +1131,8 @@ class API_Campaign {
 
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video_src));
-            wpcf_function()->update_meta($post_id, 'wpneo_media', esc_url(json_encode($media)));
+            wpcf_function()->update_meta($post_id, 'wpneo_media', json_encode($media));
+            wpcf_function()->update_meta($post_id, 'wpneo_story', json_encode($story));
 
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($basic['goal_type']));
             if( isset($basic['goal_type']) && $basic['goal_type'] == 'target_date') {
@@ -1173,10 +1167,10 @@ class API_Campaign {
                         'wpneo_rewards_endyear'         => esc_html( $reward['end_year'] ),
                         'wpneo_rewards_item_limit'      => esc_html( $reward['no_of_items'] ),
                         'wpneo_rewards_image_field'     => esc_html( $reward_image ),
-                        'wpneo_rewards_items'           => esc_html( $reward['rewards_items'] ),
+                        'wpneo_rewards_items'           => $reward['rewards_items'],
                     );
                 }
-                $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
+                $data_json = json_encode($data);
                 wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
             }
         }
@@ -1224,7 +1218,6 @@ class API_Campaign {
             return false;
         }
     }
-
 }
 
 new API_Campaign();
