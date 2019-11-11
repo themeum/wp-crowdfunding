@@ -1,3 +1,27 @@
 .wpcf-form-sidebar{
-
+	border: 1px solid var(--wpcf-border-color);
+	.preview-title{
+		padding: 25px 30px;
+		background: var(--wpcf-border-color);
+		color: #535A82;
+		font-weight: 500;
+		font-size: 16px;
+		display: flex;
+		align-items: center;
+		span{
+			font-size: 22px;
+			color: var(--wpcf-primary-color);
+			margin-right: 7px;
+		}
+	}
+	.wpcf-preview-link{
+		a{
+			padding: 20px 30px;
+			background: var(--wpcf-heading-color);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			color: #ffffff;
+		}
+	}
 }
