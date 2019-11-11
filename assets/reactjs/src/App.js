@@ -20,7 +20,6 @@ class App extends Component {
 		this._onSave = this._onSave.bind(this);
 	}
 	
-
     componentDidMount() {
 		const { editPostId } = this.props;
         this.props.fetchFormFields();

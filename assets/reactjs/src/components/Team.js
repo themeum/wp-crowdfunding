@@ -23,11 +23,11 @@ class Team extends Component {
 	}
 
 	_onChange(name, value) {
-		let { member } = this.state;
+		let { member, member:{email} } = this.state;
 		member = Object.assign({}, member, {[name]: value});
 		if(name=='email') {
 			if(isEmail(email) === undefined) {
-				this.props.fetchUser.then( response =>  {
+				this.props.fetchUser(email).then( response =>  {
 					
 				})
 				.catch( error => console.log(error));

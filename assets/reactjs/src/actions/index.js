@@ -69,7 +69,7 @@ export const fieldShowHide = (field, show) => dispatch => {
 
 //FETCH REGISTERD USER BY EMAIL
 export const fetchUser = (email) => {
-    const fetchURL = `${WPCF.rest_url}/fetch-user`;
+    const fetchURL = `${WPCF.rest_url}/get-user`;
     const option = { method: 'POST', body: JSON.stringify({email}), headers };
     fetch( fetchURL, option )
     .then( response => { return response.json() } )

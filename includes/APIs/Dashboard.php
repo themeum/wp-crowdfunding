@@ -307,8 +307,8 @@ class API_Dashboard {
         $profile_image_id = get_user_meta( $user_id, 'profile_image_id', true );
         $data = array(
             'username'          => $user->user_login,
-            'display_name'          => $user->display_name,
-            'user_email'          => $user->user_email,
+            'display_name'      => $user->display_name,
+            'user_email'        => $user->user_email,
             'first_name'        => isset($user->first_name) ? $user->first_name : '',
             'last_name'         => isset($user->last_name) ? $user->last_name : '',
             'profile_image'     => get_avatar_url( $user_id ),

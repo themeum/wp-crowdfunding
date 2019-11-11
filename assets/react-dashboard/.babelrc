@@ -2,8 +2,8 @@
     "presets": ["@babel/preset-env", "@babel/preset-react"],
     "plugins": [
         "transform-class-properties",
-        ["@wordpress/babel-plugin-makepot", { 
+        /* ["@wordpress/babel-plugin-makepot", { 
             "output": "../../languages/wp-crowdfunding-dashboard.pot"
-        }]
+        }] */
     ]
 }
