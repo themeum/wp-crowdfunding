@@ -19,10 +19,10 @@ class App extends Component {
 		this._nextStep = this._nextStep.bind(this);
 		this._onSave = this._onSave.bind(this);
 	}
-	
+
     componentDidMount() {
 		const { editPostId } = this.props;
-        this.props.fetchFormFields();
+        this.props.fetchFormFields( editPostId );
 		if(editPostId) {
 			setTimeout(() => {
 				this.props.fetchFormValues(editPostId);

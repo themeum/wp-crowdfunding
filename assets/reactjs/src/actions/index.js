@@ -19,13 +19,13 @@ export const fetchFormFields = () => dispatch => {
 }
 
 //FETCH SUB CATEGORIES BY CATEGORY
-export const FETCH_SUB_CATEGORIES_COMPLETE = 'fetch_sub_categories_complete';
+export const FETCH_SUB_CATEGORIES_COMPLETE = 'FETCH_SUB_CATEGORIES_COMPLETE';
 export const fetchSubCategories = (id) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/sub-categories?id=${id}`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
     .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_SUB_CATEGORIES_COMPLETE, payload} ) )
+    .then( payload => dispatch( {type: FETCH_SUB_CATEGORIES_COMPLETE, payload} ))
     .catch( error => console.log(error) );
 }
 
@@ -41,8 +41,8 @@ export const fetchStates = (code) => dispatch => {
 } */
 
 //FETCH FORM VALUES BY CAMPAIGN ID
-export const FETCH_FORM_VALUES_PENDING = 'fetch_form_values_pending';
-export const FETCH_FORM_VALUES_COMPLETE = 'fetch_form_values_complete';
+export const FETCH_FORM_VALUES_PENDING = 'FETCH_FORM_VALUES_PENDING';
+export const FETCH_FORM_VALUES_COMPLETE = 'FETCH_FORM_VALUES_COMPLETE';
 export const fetchFormValues = (id) => dispatch => {
     dispatch({ type: FETCH_FORM_VALUES_PENDING });
     const fetchURL = `${WPCF.rest_url}/form-values?id=${id}`;
@@ -61,7 +61,7 @@ export const fetchFormValues = (id) => dispatch => {
 
 
 //FORM FIELD SHOW HIDE
-export const FIELD_SHOW_HIDE = 'field_show_hide';
+export const FIELD_SHOW_HIDE = 'FIELD_SHOW_HIDE';
 export const fieldShowHide = (field, show) => dispatch => {
     field = field.split('.');
     dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
@@ -76,8 +76,8 @@ export const fetchUser = (email) => dispatch => {
 }
 
 //SAVE CAMPAIGN
-export const SAVE_CAMPAIGN_PENDING = 'save_campaign_pending';
-export const SAVE_CAMPAIGN_COMPLETE = 'save_campaign_complete';
+export const SAVE_CAMPAIGN_PENDING = 'SAVE_CAMPAIGN_PENDING';
+export const SAVE_CAMPAIGN_COMPLETE = 'SAVE_CAMPAIGN_COMPLETE';
 
 export const saveCampaign = ( data ) => dispatch => {
     dispatch({ type: SAVE_CAMPAIGN_PENDING });

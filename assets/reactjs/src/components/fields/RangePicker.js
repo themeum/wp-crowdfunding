@@ -12,7 +12,7 @@ class RangePicker extends Component{
         if(typeof value == 'object') {
             option.range = true;
             option.values = [value.min, value.max];
-        } else { 
+        } else {
             option.range = 'min';
             option.value = value;
         }
