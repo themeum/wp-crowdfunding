@@ -9,7 +9,7 @@ class RangePicker extends Component{
         const {min, max, step, value, onChange} = this.props;
         const rangeRef = this.rangeRef.current;
         const option = { step, min, max };
-        (typeof value=='object') ?
+        (typeof value=='object') ? 
             option.values = [value.min, value.max] : option.value = value;
 
         jQuery(rangeRef).slider({ ...option,
