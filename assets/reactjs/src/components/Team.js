@@ -9,53 +9,85 @@ import PageControl from './Control';
 
 const formName = "campaignForm";
 const sectionName = "team";
+const memberFields = { id:'', name:'', email:'', image:'', manage:false, edit:false}
 class Team extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			edit: false,
-			searchingUser:false,
-			member: { id:'', image:'', email:'', name:'', manage_campaign:false, edit_campaign:false}
+			editMember: -1,
+			emailInputMsg: false,
+			member: memberFields
 		}
         this._onChange = this._onChange.bind(this);
         this._addMember = this._addMember.bind(this);
+        this._editMember = this._editMember.bind(this);
+        this._updateMember = this._updateMember.bind(this);
         this._deleteMember = this._deleteMember.bind(this);
 	}
 
 	_onChange(name, value) {
-		let { member } = this.state;
+		const { formValues } = this.props;
+		const team = [ ...formValues.team ];
+		let { member, emailInputMsg, editMember } = this.state;
 		member = Object.assign({}, member, {[name]: value});
 		if(name=='email') {
-			if(isEmail(email) === undefined) {
-				this.props.fetchUser.then( response =>  {
-					
-				})
-				.catch( error => console.log(error));
+			const validateEmail = isEmail(value);
+			if(value && validateEmail == undefined) {
+				const index = team.findIndex(item => item.email === value);
+            	if(index === -1) {
+					emailInputMsg = __('Searching...', 'wp-crowdfunding');
+					this.props.fetchUser(value).then( response => {
+						this.setState({
+							member: response.user, 
+							emailInputMsg: response.message
+						});
+					})
+					.catch( error => console.log(error));
+				} else {
+					emailInputMsg = __('Member already added', 'wp-crowdfunding');
+				}
+				this.setState({emailInputMsg});
+			} else {
+				emailInputMsg = validateEmail;
+			}
+			if(editMember !== -1) {
+				this.setState({editMember:-1});
 			}
 		}
-		this.setState({member});
+		this.setState({member, emailInputMsg});
 	}
 
 	_addMember() {
-		/* const { selectedItem } = this.state;
 		const { formValues } = this.props;
 		const team = [ ...formValues.team ];
-
+		team.push(this.state.member);
 		this.props.changeFieldValue(formName, sectionName, team);
-		this.setState({selectedItem: team.length-1}); */
+		this.setState({member: memberFields});
+	}
+
+	_editMember(index) {
+		const { team } = this.props.formValues;
+		this.setState({member: team[index], editMember: index, emailInputMsg:''});
+	}
+
+	_updateMember() {
+		const { editMember, member } = this.state;
+		const { formValues } = this.props;
+		const team = [ ...formValues.team ];
+		team[editMember] = member;
+		this.props.changeFieldValue(formName, sectionName, team);
+		this.setState({member: memberFields, editMember: -1});
 	}
 	
 	_deleteMember(index) {
-		/* const { formValues: {team} } = this.props;
-		const selectedItem = (index==0) ? 0 : index-1;
+		const { formValues: {team} } = this.props;
 		const values = removeArrValue(team, index);
-		this.setState({selectedItem});
-		this.props.changeFieldValue(formName, sectionName, values); */
+		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
 	render() {
-		const { member: {email, name, manage_campaign, edit_campaign} } = this.state;
 		const { formValues: {team}, handleSubmit, current, prevStep, lastStep } = this.props;
+		const { member: {id, name, email, image, manage, edit}, emailInputMsg, editMember } = this.state;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
@@ -71,7 +103,7 @@ class Team extends Component {
 											<div className='wpcf-field-title'>{ __('Email', 'wp-crowdfunding') }</div>
 											<div className="">
 												<input type="email" value={email} onChange={(e) => this._onChange('email', e.target.value)}/>
-												<span>{isEmail(email)}</span>
+												<span>{emailInputMsg}</span>
 											</div>
 										</div>
 
@@ -83,10 +115,17 @@ class Team extends Component {
 										</div>
 
 										<div className='wpcf-form-field'>
+											<div className='wpcf-field-title'>{ __('Collaborator Image', 'wp-crowdfunding') }</div>
+											<div className="">
+												<img className="profile-form-img" src={(image) ? image : ''} alt="Profile Image" />
+											</div>
+										</div>
+
+										<div className='wpcf-form-field'>
 											<div className='wpcf-field-title'>{ __('If you Want to Show Contributor List', 'wp-crowdfunding') }</div>
 											<div className="">
 												<label className="checkbox-inline">
-													<input type="checkbox" checked={manage_campaign} onChange={(e) => this._onChange('manage_campaign', !manage_campaign)}/>
+													<input type="checkbox" checked={manage} onChange={(e) => this._onChange('manage', !manage)}/>
 													{ __('Give Permission to Manage Campaign', 'wp-crowdfunding') }
 												</label>
 											</div>
@@ -96,13 +135,15 @@ class Team extends Component {
 											<div className='wpcf-field-title'>{ __('If you Want to Show Contributor List', 'wp-crowdfunding') }</div>
 											<div className="">
 												<label className="checkbox-inline">
-													<input type="checkbox" checked={edit_campaign} onChange={(e) => this._onChange('edit_campaign', !edit_campaign)}/>
+													<input type="checkbox" checked={edit} onChange={(e) => this._onChange('edit', !edit)}/>
 													{ __('Give Permission to Edit Campaign', 'wp-crowdfunding') }
 												</label>
 											</div>
 										</div>
-											
-										<button type="button" onClick={() => this._addMember()}><span className="fa fa-plus"/>{ __('Add Member', 'wp-crowdfunding') }</button>
+										{ editMember !== -1 ?
+											<button type="button" onClick={() => this._updateMember()}>{ __('Update Member', 'wp-crowdfunding') }</button> :
+											<button type="button" onClick={() => this._addMember()} disabled={!id}><span className="fa fa-plus"/>{ __('Add Member', 'wp-crowdfunding') }</button>
+										}
 									</form>
 								</div>
 							</div>
@@ -111,11 +152,12 @@ class Team extends Component {
 						<div className="wpcf-team-members">
 							<h3>{ __('Team Members', 'wp-crowdfunding') }</h3>
 							{team && team.map((item, index) =>
-								<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
+								<div key={index} className={`wpcf-reward-item ${(editMember == index) ? 'active':''}`}>
 									<p>{item.name}</p>
 									<p>{item.email}</p>
+									<img className="profile-form-img" src={item.image} alt="Profile Image" />
 									<span className="fa fa-trash" onClick={ () => this._deleteMember(index)}/>
-									<span className="fa fa-pencil" onClick={ () => this.setState({selectedItem:index})}/>
+									<span className="fa fa-pencil" onClick={ () => this._editMember(index)}/>
 								</div>
 							)}
 						</div>

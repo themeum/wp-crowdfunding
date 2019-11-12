@@ -16,7 +16,16 @@
 		color: var(--wpcf-light-text-color);
 		margin: 0 0 12px;
 	}
-	input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]),
+	input[type="text"],
+	input[type="number"],
+	input[type="email"],
+	input[type="password"],
+	input[type="search"],
+	input[type="date"],
+	input[type="time"],
+	input[type="tel"],
+	input[type="url"],
+	input[type="week"],
 	.wpcf-input,
 	textarea,
 	select{
@@ -109,5 +118,30 @@
 //.wpcf-repeatable-parent
 
 .wpcf-repeatable-parent{
-	margin-bottom: 20px;
+	margin-bottom: 15px;
+	position: relative;
+	.wpcf-repeatable-close{
+		opacity: 0;
+		position: absolute;
+		right: 1px;
+		top: 1px;
+		height: 33px;
+		line-height: 33px;
+		width: 35px;
+		text-align: center;
+		cursor: pointer;
+		color: var(--wpcf-primary-text-color);
+		transition: 300ms;
+		background: #ffffff;
+		border-radius: 4px;
+		&:hover{
+			color: var(--wpcf-danger-color);
+		}
+	}
+	&:hover .wpcf-repeatable-close{
+		opacity: 1;
+	}
 }
+
+
+// .input-range

@@ -32,7 +32,7 @@ export default (props) => {
                         )
                     })}
                     { index !== 0 &&
-                        <span onClick={() => {fields.remove(index); setTimeout(() => { onBlurVideoLink() }, 300);}} className="fa fa-times"/>
+                        <span  className="wpcf-repeatable-close fa fa-times" onClick={() => {fields.remove(index); setTimeout(() => { onBlurVideoLink() }, 300);}}/>
                     }
                 </div>
             ))}

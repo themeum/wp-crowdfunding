@@ -1,6 +1,7 @@
-export const required = value => value ? undefined : 'Required';
-export const isYoutubeUrl = value => !value ? undefined : value && getYotubeVideoID(value) ? undefined : 'Invalid video url';
-export const isEmail = value => !value ? undefined : value && validateEmail(value) ? undefined : 'Invalid email address';
+import { __ } from '@wordpress/i18n';
+export const required = value => value ? undefined : __('Please fill the required field', 'wp-crowdfunding');
+export const isYoutubeUrl = value => !value ? undefined : value && getYotubeVideoID(value) ? undefined : __('Invalid video url', 'wp-crowdfunding');
+export const isEmail = value => !value ? undefined : value && validateEmail(value) ? undefined : __('Invalid email address', 'wp-crowdfunding');
 
 export const uploadFiles = (type, sFiles, multiple) => {
     return new Promise((resolve, reject) => {

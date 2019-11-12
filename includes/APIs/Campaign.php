@@ -32,7 +32,6 @@ class API_Campaign {
         add_filter( 'wpcf_form_story_tools', array( $this, 'form_story_tools') );
         add_filter( 'wpcf_form_reward_types', array( $this, 'form_reward_types') );
         add_filter( 'wpcf_form_reward_fields', array( $this, 'form_reward_fields') );
-        add_filter( 'wpcf_form_team_fields', array( $this, 'form_team_fields') );
     }
 
     /**
@@ -72,6 +71,9 @@ class API_Campaign {
         register_rest_route( $namespace, '/save-campaign', array(
             array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
         ));
+        register_rest_route( $namespace, '/get-user', array(
+            array( 'methods' => "POST", 'callback' => array($this, 'get_user') ),
+        ));
     }
 
     /**
@@ -86,15 +88,13 @@ class API_Campaign {
         $story_tools    = apply_filters( 'wpcf_form_story_tools', [] );
         $reward_types   = apply_filters( 'wpcf_form_reward_types', [] );
         $reward_fields  = apply_filters( 'wpcf_form_reward_fields', [] );
-        $team_fields    = apply_filters( 'wpcf_form_team_fields', [] );
-
+        
         $response = array(
             'steps'         => $steps,
             'basic_fields'  => $basic_fields,
             'story_tools'   => $story_tools,
             'reward_types'  => $reward_types,
-            'reward_fields' => $reward_fields,
-            'team_fields'   => $team_fields,
+            'reward_fields' => $reward_fields
         );
         return rest_ensure_response( $response );
     }
@@ -260,7 +260,7 @@ class API_Campaign {
                 'tags' => array(
                     'type'          => 'tags',
                     'title'         => __("Tags", "wp-crowdfunding"),
-                    'desc'          => __("Reach a more specific community by also choosing right tags. Maximum tag count: 20", "wp-crowdfunding"),
+                    'desc'          => __("Reach a more specific community by also choosing right Tags. Max Tag : 20", "wp-crowdfunding"),
                     'placeholder'   => __("Type tag and press enter", "wp-crowdfunding"),
                     'class'         => '',
                     'options'       => $this->get_form_tags(),
@@ -274,7 +274,7 @@ class API_Campaign {
                     'type'      => 'repeatable',
                     'title'     => __("Video", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
-                    'button'    => '<i class="wpcf-icon fa fa-plus"></i>'.__('Add More Link', 'wp-crowdfunding'),
+                    'button'    => '<i class="fa fa-plus"/> '.__('Add More Link', 'wp-crowdfunding'),
                     'fields'    => array(
                         'src' => array(
                             'type'          => 'text',
@@ -292,7 +292,7 @@ class API_Campaign {
                     'type'      => 'video',
                     'title'     => __("Video Upload", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
-                    'button'    => '<i class="wpcf-icon fa fa-file"></i>'.__('Upload Video', 'wp-crowdfunding'),
+                    'button'    => '<i class="fa fa-file"/> '.__('Upload Video', 'wp-crowdfunding'),
                     'class'     => '',
                     'is_media'  => true,
                     'multiple'  => true,
@@ -303,7 +303,7 @@ class API_Campaign {
                     'type'      => 'image',
                     'title'     => __("Image Upload *","wp-crowdfunding"),
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
-                    'button'    => '<i class="wpcf-icon fa fa-plus"></i> '.__('Add More Image', 'wp-crowdfunding'),
+                    'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
                     'class'     => '',
                     'is_media'  => true,
                     'multiple'  => true,
@@ -631,6 +631,43 @@ class API_Campaign {
         }
         return $data;
     }
+    
+    /**
+     * Get user by email
+     * @since     2.1.0
+     * @access    public
+     * @return    [array]   mixed
+     */
+    function get_user(\WP_REST_Request $request) {
+        $user_id = $this->current_user_id;
+        $json_params = $request->get_json_params();
+        $email = $json_params['email'];
+        $user = get_user_by( 'email', $email );
+
+        $response = array(
+            'success' => false,
+            'message' => __('Please enter registered email', 'wp-crowdfunding'),
+            'user' => array('id'=>'', 'name'=>'', 'email'=>$email, 'image'=>'', 'manage'=>false, 'edit'=>false)
+        );
+        if ($user) {
+            if($user_id===$user->ID) {
+                $response['message'] = __('Dont use your own email', 'wp-crowdfunding');
+            } else {
+                $image_id = get_user_meta( $user->ID, 'profile_image_id', true );
+                if ($image_id && $image_id > 0) {
+                    $image = wp_get_attachment_image_src($image_id)[0];
+                } else {
+                    $image = get_avatar_url( $user->ID );
+                }
+                $response = array(
+                    'success' => true,
+                    'message' => '',
+                    'user' => array('id'=>$user->ID, 'name'=>$user->display_name, 'email'=>$email, 'image'=>$image, 'manage'=>false, 'edit'=>false)
+                );
+            }
+        }
+        return rest_ensure_response( $response );
+    }
 
     /**
      * Default form reward types
@@ -640,7 +677,7 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function form_reward_types($fields = []) {
-
+        
         $default_fields = array(
             array(
                 'title'     => __("Giving Thanks", "wp-crowdfunding"),
@@ -690,8 +727,8 @@ class API_Campaign {
         foreach( range(date('Y'), date('Y')+10) as $year ) {
             $year_list[] = array( 'value' => $year, 'label' => __($year, "wp-crowdfunding") );
         }
-
-
+        
+        
         $default_fields = array(
             'title' => array(
                 'type'          => 'text',
@@ -788,69 +825,6 @@ class API_Campaign {
     }
 
     /**
-     * Default team fields
-     * @since     2.1.0
-     * @access    public
-     * @param     {array}   fields
-     * @return    [array]   mixed
-     */
-    function form_team_fields($fields = []) {
-        $default_fields = array(
-            'email' => array(
-                'type'          => 'email',
-                'title'         => __("Email *", "wp-crowdfunding"),
-                'desc'          => __("", "wp-crowdfunding"),
-                'placeholder'   => __("", "wp-crowdfunding"),
-                'class'         => '',
-                'required'      => false,
-                'show'          => true
-            ),
-            'name' => array(
-                'type'          => 'text',
-                'title'         => __("Collaborator Name", "wp-crowdfunding"),
-                'desc'          => __("", "wp-crowdfunding"),
-                'placeholder'   => __("", "wp-crowdfunding"),
-                'class'         => '',
-                'required'      => false,
-                'show'          => true
-            ),
-            'manage_campaign' => array(
-                'type'      => 'checkbox',
-                'title'     => __("If you Want to Show Contributor List", "wp-crowdfunding"),
-                'desc'      => __("", "wp-crowdfunding"),
-                'class'     => '',
-                'options'   => array(
-                    array(
-                        'value' => 1,
-                        'label' => __("Give Permission to Manage Campaign", "wp-crowdfunding"),
-                        'class' => '',
-                    )
-                ),
-                'required'  => false,
-                'show'      => true,
-            ),
-            'edit_campaign' => array(
-                'type'      => 'checkbox',
-                'title'     => __("If you Want to Show Contributor List", "wp-crowdfunding"),
-                'desc'      => __("", "wp-crowdfunding"),
-                'class'     => '',
-                'options'   => array(
-                    array(
-                        'value' => 1,
-                        'label' => __("Give Permission to Edit Campaign", "wp-crowdfunding"),
-                        'class' => '',
-                    )
-                ),
-                'required'  => false,
-                'show'      => true,
-            ),
-        );
-
-        return array_merge($default_fields, $fields);
-    }
-
-
-    /**
      * Get campagin form data
      * @since     2.1.0
      * @access    public
@@ -859,7 +833,7 @@ class API_Campaign {
      */
     function get_form_values() {
         $post_id = $_GET['id'];
-
+        
         $media = get_post_meta($post_id, 'wpneo_media', true);
         $media = json_decode($media, true);
         if( !$media ) { //If empty media then set data from prev fields
@@ -955,7 +929,6 @@ class API_Campaign {
 
         $rewards = get_post_meta($post_id, 'wpneo_reward', true);
         $rewards = json_decode(stripslashes($rewards), true);
-
         $res_rewards = array();
         if ($rewards) {
             foreach( $rewards as $reward ) {
@@ -988,11 +961,34 @@ class API_Campaign {
             }
         }
 
+        $team = get_post_meta($post_id, 'wpneo_team_member', true);
+        $team = json_decode(stripslashes($team), true);
+        $res_team = array();
+        if ($team) {
+            foreach( $team as $t ) {
+                $user = get_userdata($t['id']);
+                $m_image_id = get_user_meta( $t['id'], 'profile_image_id', true );
+                if ($m_image_id && $m_image_id > 0) {
+                    $m_image = wp_get_attachment_image_src($m_image_id)[0];
+                } else {
+                    $m_image = get_avatar_url( $t['id'] );
+                }
+                $res_team[] = array(
+                    'id'        => $t['id'],
+                    'name'      => $user->display_name,
+                    'email'     => $t['email'],
+                    'image'     => $m_image,
+                    'manage'    => boolval($t['manage']),
+                    'edit'      => boolval($t['edit'])
+                );
+            }
+        }
+
         $values = array(
             'basic' => array(
                 'media'         => $media,
                 'funding_goal'  => (float) get_post_meta($post_id, '_nf_funding_goal', true),
-                'pledge_amount' => Array(
+                'pledge_amount' => array(
                     'min'       => (int) get_post_meta($post_id, 'wpneo_funding_minimum_price', true),
                     'max'       => (int) get_post_meta($post_id, 'wpneo_funding_maximum_price', true),
                 ),
@@ -1020,7 +1016,7 @@ class API_Campaign {
             ),
             'story' => $res_story,
             'rewards' => $res_rewards,
-            'team' => '',
+            'team' => $res_team,
         );
 
         $modified_date = get_the_modified_date('F j, Y', $post_id);
@@ -1060,9 +1056,6 @@ class API_Campaign {
                 $story[$key] = $st;
             }
         }
-
-        /* print_r($story);
-        die(); */
 
         $campaign = array(
             'post_type'		=>'product',
@@ -1153,7 +1146,7 @@ class API_Campaign {
             wpcf_function()->update_meta($post_id, 'wpneo_country', esc_attr($basic['country']));
             wpcf_function()->update_meta($post_id, '_nf_location', esc_html($basic['location']));
 
-            //Saved repeatable rewards
+            //Save repeatable rewards
             if ($rewards && is_array($rewards)) {
                 $data = array();
                 foreach( $rewards as $reward ) {
@@ -1173,6 +1166,21 @@ class API_Campaign {
                 $data_json = json_encode($data);
                 wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
             }
+        }
+
+        //Save team members
+        if ($team && is_array($team)) {
+            $data = array();
+            foreach( $team as $t ) {
+                $data[] = array(
+                    'id'        => esc_html( $t['id'] ),
+                    'email'     => esc_html( $t['email'] ),
+                    'manage'    => esc_html( $t['manage'] ),
+                    'edit'      => esc_html( $t['edit'] ),
+                );
+            }
+            $data_json = json_encode($data);
+            wpcf_function()->update_meta($post_id, 'wpneo_team_member', $data_json);
         }
 
         if($submit) {

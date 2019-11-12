@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import DatePicker from './DatePicker';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
+import Range from "./Range";
 
 const defaultProps = {
     addTag: () => {},
@@ -127,11 +128,13 @@ export default (_props) => {
             const rangeVal = (typeof fieldValue == 'object') ? `${fieldValue.min} - ${fieldValue.max}` : fieldValue;
             return (
                 <div className={item.class}>
+                    <Range />
                     <InputRange
                         minValue={item.minVal}
                         maxValue={item.maxVal}
                         value={input.value}
-                        onChange={input.onChange}/>
+                        onChange={input.onChange}
+                    />
                     <div>{rangeVal} <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/></div>
                 </div>
             );
