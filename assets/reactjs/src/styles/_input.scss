@@ -191,11 +191,11 @@
 		top: 50%;
 		margin-top: -9px;
 		&.ui-state-active{
-			border: 3px solid var(--wpcf-primary-color) !important;
+			background: var(--wpcf-success-color);
 		}
 		&.ui-state-focus{
 			outline: none;
-			box-sizing: 0 0 10px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 		}
 	}
 }
