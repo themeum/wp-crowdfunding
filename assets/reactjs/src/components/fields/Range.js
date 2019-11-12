@@ -8,7 +8,7 @@ class Range extends Component{
     }
 
     componentDidMount() {
-        const {onChange, min = 0, max = 100, value = 0, values = [], step = 0} = this.props;
+        const {onChange, min = 0, max = 100, value = 30, values = [20, 40], step = 1} = this.props;
         const inputRef = this.inputRef.current;
         jQuery(inputRef).slider({
             step,
@@ -16,8 +16,7 @@ class Range extends Component{
             max,
             ...(values.length ? {values, range: true} : {value}),
             slide: function (event, ui) {
-                console.log(">>> Event >>>" + event);
-                console.log(">>> UI >>>" + ui);
+                onChange(ui.values.length ? ui.values.length : value)
             }
         });
     }
@@ -25,11 +24,7 @@ class Range extends Component{
     render() {
         const {name} = this.props
         return (
-            <input
-                name={name}
-                type="text"
-                ref={this.inputRef}
-            />
+            <div ref={this.inputRef}></div>
         )
     }
 }

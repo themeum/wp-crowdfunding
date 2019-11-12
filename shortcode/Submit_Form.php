@@ -24,6 +24,7 @@ class Campaign_Submit_Form {
         $page_id = get_option('wpneo_form_page_id');
         if( get_the_ID() && get_the_ID() == $page_id ) {
             wp_enqueue_style( 'wpcf-campaign-style', WPCF_DIR_URL.'assets/css/campaign-form.css', false, WPCF_VERSION );
+//            wp_enqueue_style( 'jquery-ui-base', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css', false, '1.12.1' );
             wp_enqueue_script( 'wpcf-campaign-script', WPCF_DIR_URL.'assets/js/campaign-form.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-slider'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-campaign-script', 'WPCF', array (
                 'assets'        => WPCF_DIR_URL.'assets/',
