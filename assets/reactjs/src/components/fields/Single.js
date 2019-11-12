@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import DatePicker from './DatePicker';
 import RangePicker from "./RangePicker";
 
@@ -127,9 +127,8 @@ export default (_props) => {
                 </div>
             );
         case 'range':
-            const rangeVal = (typeof fieldValue == 'object') ? `${fieldValue.min} - ${fieldValue.max}` : fieldValue;
             return (
-                <div className={item.class}>
+                <div className={'range-picker-parent ' + item.class}>
                     <RangePicker
                         min={item.minVal}
                         max={item.maxVal}
@@ -137,7 +136,20 @@ export default (_props) => {
                         value={input.value}
                         onChange={input.onChange}/>
 
-                    <div>{rangeVal} <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/></div>
+                    <div className={"range-picker-value " + ((typeof fieldValue == 'object') ? 'wpcf-multiple' : 'wpcf-single')}>
+                        {
+                            (typeof fieldValue == 'object') ? (
+                                <Fragment>
+                                    <input type="text" value={fieldValue.min}/>
+                                    <input type="text" value={fieldValue.max}/>
+                                </Fragment>
+                            ) : (
+                                <input type="text" value={fieldValue}/>
+                            )
+                        }
+
+                        <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/>
+                    </div>
                 </div>
             );
         case 'date':

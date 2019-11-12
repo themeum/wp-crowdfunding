@@ -71,7 +71,7 @@ class App extends Component {
 				<div className='wpcf-campaign-header'>
 					<h3>Setup New Campaign</h3>
 					<div className="wpcf-campaign-header-right">
-						{saveDate && <span>Last Edit was on {saveDate}</span>}
+						{saveDate && <span>Last edit was on {saveDate}</span>}
 						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
 						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={!lastStep}>Submit</button>
 					</div>
@@ -80,7 +80,7 @@ class App extends Component {
 					<TabBar
 						steps={steps}
 						current={current}/>
-						
+
 					{formSteps.map( (key, index) => {
 						const FormComponent = components[key];
 						if(index==current) {

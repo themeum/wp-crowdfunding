@@ -182,6 +182,10 @@
 	background: #DCDCE4;
 	height: 6px;
 	position: relative;
+	cursor: pointer;
+	.ui-slider-range{
+		background: var(--wpcf-success-color);
+	}
 	.ui-slider-handle{
 		background: #fff;
 		border: 3px solid var(--wpcf-success-color);
@@ -190,12 +194,58 @@
 		border-radius: 50%;
 		top: 50%;
 		margin-top: -9px;
+		cursor: pointer;
 		&.ui-state-active{
-			border: 3px solid var(--wpcf-primary-color) !important;
+			background: var(--wpcf-success-color);
 		}
 		&.ui-state-focus{
 			outline: none;
-			box-sizing: 0 0 10px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+	}
+}
+
+.wpcf-form-group .range-picker-parent{
+	display: flex;
+	align-items: center;
+	.wpcf-range-picker{
+		flex-grow: 1;
+		margin-right: 15px;
+	}
+	.range-picker-value{
+		position: relative;
+		display: inline-flex;
+		&:not(.wpcf-single)::after{
+			content: '-';
+			position: absolute;
+			left: 50px;
+			top: 50%;
+			transform: translateY(-50%) translateX(-3px);
+			margin-top: -2px;
+		}
+		input{
+			padding: 0 3px 0 6px;
+			border-radius: 0;
+			border: 1px solid var(--wpcf-success-color);
+			border-right: 0;
+			width: 50px;
+			&:first-child{
+				border-radius: 4px 0 0 4px;
+			}
+			+ input{
+				border-left: 0;
+			}
+			&:focus{
+				border-color: var(--wpcf-success-color);
+			}
+		}
+		span{
+			line-height: 35px;
+			height: 35px;
+			padding: 0 10px;
+			border: 1px solid var(--wpcf-success-color);
+			color: var(--wpcf-success-color);
+			border-radius: 0 4px 4px 0;
 		}
 	}
 }
