@@ -88,7 +88,7 @@ class API_Campaign {
         $story_tools    = apply_filters( 'wpcf_form_story_tools', [] );
         $reward_types   = apply_filters( 'wpcf_form_reward_types', [] );
         $reward_fields  = apply_filters( 'wpcf_form_reward_fields', [] );
-        
+
         $response = array(
             'steps'         => $steps,
             'basic_fields'  => $basic_fields,
@@ -274,7 +274,7 @@ class API_Campaign {
                     'type'      => 'repeatable',
                     'title'     => __("Video", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
-                    'button'    => '<i class="fa fa-plus"/> '.__('Add More Link', 'wp-crowdfunding'),
+                    'button'    => '<i class="wpcf-icon fa fa-plus"></i> '.__('Add More Link', 'wp-crowdfunding'),
                     'fields'    => array(
                         'src' => array(
                             'type'          => 'text',
@@ -292,7 +292,7 @@ class API_Campaign {
                     'type'      => 'video',
                     'title'     => __("Video Upload", "wp-crowdfunding"),
                     'desc'      => __("Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.", "wp-crowdfunding"),
-                    'button'    => '<i class="fa fa-file"/> '.__('Upload Video', 'wp-crowdfunding'),
+                    'button'    => '<i class="wpcf-icon fa fa-file"> </i>'.__('Upload Video', 'wp-crowdfunding'),
                     'class'     => '',
                     'is_media'  => true,
                     'multiple'  => true,
@@ -303,7 +303,7 @@ class API_Campaign {
                     'type'      => 'image',
                     'title'     => __("Image Upload *","wp-crowdfunding"),
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
-                    'button'    => '<i class="fa fa-plus"/> '.__('Add More Image', 'wp-crowdfunding'),
+                    'button'    => '<i class="wpcf-icon fa fa-plus"></i>'.__('Add More Image', 'wp-crowdfunding'),
                     'class'     => '',
                     'is_media'  => true,
                     'multiple'  => true,
@@ -631,7 +631,7 @@ class API_Campaign {
         }
         return $data;
     }
-    
+
     /**
      * Get user by email
      * @since     2.1.0
@@ -677,7 +677,7 @@ class API_Campaign {
      * @return    [array]   mixed
      */
     function form_reward_types($fields = []) {
-        
+
         $default_fields = array(
             array(
                 'title'     => __("Giving Thanks", "wp-crowdfunding"),
@@ -727,8 +727,8 @@ class API_Campaign {
         foreach( range(date('Y'), date('Y')+10) as $year ) {
             $year_list[] = array( 'value' => $year, 'label' => __($year, "wp-crowdfunding") );
         }
-        
-        
+
+
         $default_fields = array(
             'title' => array(
                 'type'          => 'text',
@@ -795,7 +795,7 @@ class API_Campaign {
                 'type'      => 'repeatable',
                 'title'     => __("Rewards Item *", "wp-crowdfunding"),
                 'desc'      => __("Be Specific About What are Included in the Perks", "wp-crowdfunding"),
-                'button'    => '<i class="fa fa-plus"/> '.__('Add More Item', 'wp-crowdfunding'),
+                'button'    => '<i class="wpcf-icon fa fa-plus"></i>'.__('Add More Item', 'wp-crowdfunding'),
                 'class'     => '',
                 'fields'    => array(
                     'name' => array(
@@ -833,7 +833,7 @@ class API_Campaign {
      */
     function get_form_values() {
         $post_id = $_GET['id'];
-        
+
         $media = get_post_meta($post_id, 'wpneo_media', true);
         $media = json_decode($media, true);
         if( !$media ) { //If empty media then set data from prev fields

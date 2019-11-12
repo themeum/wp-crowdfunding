@@ -49,7 +49,11 @@ export default (_props) => {
                 <div className={item.class + "wpcf-inline-radio-group"}>
                     {item.options.map((option, index) =>
                         <label key={index} className="wpcf-radio-inline">
-                            <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label && <span>{option.label}</span>} {option.desc && <small>{option.desc}</small>}
+                            <div className="wpcf-radio-inner">
+                                <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/>
+                                {option.label && <span>{option.label}</span>}
+                            </div>
+                            {option.desc && <small>{option.desc}</small>}
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -132,7 +136,7 @@ export default (_props) => {
                         step={item.step}
                         value={input.value}
                         onChange={input.onChange}/>
-                    
+
                     <div>{rangeVal} <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/></div>
                 </div>
             );

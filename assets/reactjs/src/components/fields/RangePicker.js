@@ -9,9 +9,13 @@ class RangePicker extends Component{
         const {min, max, step, value, onChange} = this.props;
         const rangeRef = this.rangeRef.current;
         const option = { step, min, max };
-        (typeof value=='object') ? 
-            option.values = [value.min, value.max] : option.value = value;
-
+        if(typeof value == 'object') {
+            option.range = true;
+            option.values = [value.min, value.max];
+        } else { 
+            option.range = 'min';
+            option.value = value;
+        }
         jQuery(rangeRef).slider({ ...option,
             slide: (e, ui) => {
                 onChange(ui.values ? {min:ui.values[0], max:ui.values[1]} : ui.value);
@@ -21,7 +25,7 @@ class RangePicker extends Component{
 
     render() {
         return (
-            <div ref={this.rangeRef}></div>
+            <div className="wpcf-range-picker" ref={this.rangeRef}></div>
         )
     }
 }

@@ -54,16 +54,28 @@
 	display: flex;
 	margin-left: -7px;
 	flex-wrap: wrap;
+	margin-top: -8px;
 	.wpcf-radio-inline{
-		display: inline-flex;
 		padding: 10px 15px;
-		margin: 0 0 0 7px;
+		margin: 8px 0 0 7px;
 		align-items: center;
 		position: relative;
-		cursor: pointer;
 		flex-wrap: wrap;
+		cursor: pointer;
 		input{
 			margin: 0 8px 0 0;
+			position: static;
+			-webkit-appearance: none;
+			height: 15px;
+			width: 15px;
+			border: 1px solid #DCDCE4;
+			border-radius: 50%;
+			&:checked{
+				border-color: var(--wpcf-success-color);
+			}
+			&:focus{
+				outline: none;
+			}
 			&::after{
 				content: '';
 				position: absolute;
@@ -78,6 +90,26 @@
 			&:checked::after{
 				border-color: var(--wpcf-primary-color);
 			}
+		}
+		div,
+		small{
+			width: 100%;
+			flex-basis: 100%;
+		}
+		
+		small{
+			padding-left: 23px;
+			font-size: 12px;
+			color: var(--wpcf-light-text-color);
+			display: block;
+			line-height: 12px;
+			margin-top: 5px;
+		}
+		
+		.wpcf-radio-inner{
+			display: flex;
+			align-items: center;
+			line-height: 18px;
 		}
 	}
 }
@@ -144,4 +176,26 @@
 }
 
 
-// .input-range
+// .wpcf-range-picker
+
+.wpcf-range-picker{
+	background: #DCDCE4;
+	height: 6px;
+	position: relative;
+	.ui-slider-handle{
+		background: #fff;
+		border: 3px solid var(--wpcf-success-color);
+		height: 18px;
+		width: 18px;
+		border-radius: 50%;
+		top: 50%;
+		margin-top: -9px;
+		&.ui-state-active{
+			border: 3px solid var(--wpcf-primary-color) !important;
+		}
+		&.ui-state-focus{
+			outline: none;
+			box-sizing: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+	}
+}
