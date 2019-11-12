@@ -1,8 +1,6 @@
 
 import React, { Component } from 'react';
-
 class DatePicker extends Component {
-
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
