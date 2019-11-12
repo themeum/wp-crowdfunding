@@ -29,7 +29,9 @@ class Campaign_Submit_Form {
                 'assets'        => WPCF_DIR_URL.'assets/',
                 'rest_url'      => rest_url( $api_namespace ),
                 'currency'      => get_woocommerce_currency_symbol(),
-                'nonce'         => wp_create_nonce( 'wpcf_form_nonce' )
+                'nonce'         => wp_create_nonce( 'wpcf_form_nonce' ),
+                'home_url'      => home_url(),
+                'site_url'      => site_url()
             ) );
         }
     }

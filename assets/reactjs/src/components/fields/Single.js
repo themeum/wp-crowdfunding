@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DatePicker from './DatePicker';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
@@ -13,8 +13,8 @@ const defaultProps = {
 
 export default (_props) => {
     const props = {...defaultProps, ..._props};
-
     const { input, meta: { touched, error }, item, addTag, onBlurVideoLink, uploadFile, removeArrValue, fieldValue} = props;
+    const [allTags, setAllTags] = useState(false);
 
     switch (item.type) {
         case 'text':
@@ -50,7 +50,7 @@ export default (_props) => {
                 <div className={item.class + "wpcf-inline-radio-group"}>
                     {item.options.map((option, index) =>
                         <label key={index} className="wpcf-radio-inline">
-                            <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label} <span>{option.desc}</span>
+                            <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/> {option.label && <span>{option.label}</span>} {option.desc && <small>{option.desc}</small>}
                         </label>
                     )}
                     {touched && error && <span>{error}</span>}
@@ -70,9 +70,11 @@ export default (_props) => {
         case 'tags':
             return (
                 <div className={item.class}>
-                    {input.value && input.value.map( (item, index) =>
-                        <div key={index} onClick={() => removeArrValue('tag', index, input.name, input.value)}>{item.label}</div>
-                    )}
+                    <div className="wpcf-input-tags-btns top-btns">
+                        {input.value && input.value.map( (item, index) =>
+                            <button type="button" key={index} onClick={() => removeArrValue('tag', index, input.name, input.value)}>- {item.label}</button>
+                        )}
+                    </div>
                     <input
                         type='text'
                         onKeyDown={(e) => {
@@ -85,11 +87,21 @@ export default (_props) => {
                             }
                         }}
                         placeholder={item.placeholder}/>
-                    <div className={item.class}>
-                        {item.options.map((tag, index) =>
-                            <span key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</span>
+                    <div className={"wpcf-input-tags-btns " + item.class}>
+                        {(allTags === false ? item.options.slice(0, 3) : item.options).map((tag, index) =>
+                            <button type="button" key={index} onClick={() => addTag(tag, input.name, input.value)}>+ {tag.label}</button>
                         )}
                     </div>
+                    {
+                        item.options.length > 3 && (
+                            allTags === false ? (
+                                <button className="wpcf-input-tags-more" type="button" onClick={() => setAllTags(true)}>Show more</button>
+                            ) : (
+                                <button className="wpcf-input-tags-less" type="button" onClick={() => setAllTags(false)}>Show less</button>
+                            )
+                        )
+                    }
+
                 </div>
             );
         case 'image':
@@ -102,7 +114,12 @@ export default (_props) => {
                             <div key={index}>{item.name} <span onClick={() => removeArrValue(item.type, index, input.name, input.value, is_media)} className="fa fa-times"/></div>
                         )}
                     </div>
-                    <button type="button" dangerouslySetInnerHTML={{ __html: item.button }} onClick={() => uploadFile(item.type, input.name, input.value, item.multiple, is_media)}/>
+                    <button
+                        className="wpcf-btn wpcf-btn-round wpcf-primary-light-btn"
+                        type="button"
+                        dangerouslySetInnerHTML={{ __html: item.button }}
+                        onClick={() => uploadFile(item.type, input.name, input.value, item.multiple, is_media)}
+                    />
                     {touched && error && <span>{error}</span>}
                 </div>
             );

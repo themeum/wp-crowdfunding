@@ -29,6 +29,13 @@
 		border: 1px solid var(--wpcf-primary-color);
 		color: #fff;
 	}
+	
+	&.wpcf-primary-light-btn{
+		color: var(--wpcf-primary-color);
+		background: var(--wpcf-primary-light-color);
+		border-color: var(--wpcf-primary-light-color);
+	}
+	
 	&.wpcf-btn-sm{
 		font-size: 14px;
 		padding-left: 15px;

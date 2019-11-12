@@ -44,6 +44,7 @@
 .wpcf-inline-radio-group{
 	display: flex;
 	margin-left: -7px;
+	flex-wrap: wrap;
 	.wpcf-radio-inline{
 		display: inline-flex;
 		padding: 10px 15px;
@@ -51,6 +52,7 @@
 		align-items: center;
 		position: relative;
 		cursor: pointer;
+		flex-wrap: wrap;
 		input{
 			margin: 0 8px 0 0;
 			&::after{
@@ -64,9 +66,48 @@
 				border-radius: 6px;
 				transition: 200ms;
 			}
-			&:checked ~ span{
+			&:checked::after{
 				border-color: var(--wpcf-primary-color);
 			}
 		}
 	}
+}
+
+.wpcf-input-tags-btns{
+	margin-top: 13px;
+	margin-left: -5px;
+	button{
+		line-height: 30px;
+		padding: 0 15px;
+		color: var(--wpcf-warning-color);
+		background: #FDF1E7;
+		border: none;
+		border-radius: 30px;
+		margin-left: 5px;
+		text-transform: capitalize;
+		margin-top: 7px;
+	}
+	&.top-btns{
+		margin-top: -5px;
+		margin-bottom: 20px;
+		button{
+			color: var(--wpcf-success-color);
+			background: #e9fde6;
+		}
+	}
+}
+
+.wpcf-input-tags-more,
+.wpcf-input-tags-less{
+	margin-top: 20px;
+	padding: 0;
+	border: none;
+	background: none;
+	color: var(--wpcf-primary-color);
+}
+
+//.wpcf-repeatable-parent
+
+.wpcf-repeatable-parent{
+	margin-bottom: 20px;
 }

@@ -12,7 +12,7 @@ export default (props) => {
     return (
         <div className="">
             {fields.map((field, index) => (
-                <div key={index}>
+                <div key={index} className="wpcf-repeatable-parent">
                     {Object.keys(item.fields).map( key => {
                         const name = `${field}.${key}`;
                         const rItem = item.fields[key];
@@ -36,7 +36,7 @@ export default (props) => {
                     }
                 </div>
             ))}
-            <button type="button" dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
+            <button className="wpcf-btn wpcf-btn-round wpcf-primary-light-btn" type="button" dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
         </div>
     )
 }

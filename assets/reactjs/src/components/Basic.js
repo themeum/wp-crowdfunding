@@ -114,6 +114,9 @@ class Basic extends Component {
         const { sectionActive } = this.state;
         const { fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
+
+        const {postId} = this.props._reduxForm.data || 0;
+
         return (
             <div className="row">
                 <div className='col-md-7'>
@@ -200,7 +203,17 @@ class Basic extends Component {
                             </div>
                         }
                         <div className="wpcf-preview-link">
-                            <a href="javascript:0" target="_blank">Full Preview <span className="fas fa-desktop"></span></a>
+                            {postId !== 0 ?
+                                (
+                                    <a href={WPCF.site_url + '?post_type=product&p=' + postId + '&preview=true'} target="_blank">
+                                        Full Preview <span className="fas fa-desktop"></span>
+                                    </a>
+                                ) : (
+                                    <button disabled>
+                                        Full Preview <span className="fas fa-desktop"></span>
+                                    </button>
+                                )
+                            }
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,4 @@
 .wpcf-form-sidebar{
-	border: 1px solid var(--wpcf-border-color);
 	.preview-title{
 		padding: 25px 30px;
 		background: var(--wpcf-border-color);
@@ -8,6 +7,7 @@
 		font-size: 16px;
 		display: flex;
 		align-items: center;
+		border-radius: 4px 4px 0 0;
 		span{
 			font-size: 22px;
 			color: var(--wpcf-primary-color);
@@ -15,6 +15,7 @@
 		}
 	}
 	.wpcf-preview-link{
+		button,
 		a{
 			padding: 20px 30px;
 			background: var(--wpcf-heading-color);
@@ -22,6 +23,75 @@
 			justify-content: space-between;
 			align-items: center;
 			color: #ffffff;
+			border: none;
+			width: 100%;
+			font-size: 16px;
+			border-radius: 0 0 4px 4px;
+			span{
+				font-size: 15px;
+				color: var(--wpcf-light-text-color);
+			}
 		}
 	}
+}
+
+.wpcf-preview-content{
+	border-left: 1px solid var(--wpcf-border-color);
+	border-right: 1px solid var(--wpcf-border-color);
+	min-height: 640px;
+}
+
+.wpcf-preview-empty{
+	padding: 40px 60px;
+	text-align: center;
+	font-size: 16px;
+	@extend .wpcf-preview-content;
+	.wpcf-preview-empty-image{
+		img{
+			display: block;
+		}
+		margin-bottom: 30px;
+	}
+}
+
+
+//preview media
+.wpcf-preview-media-view{
+	overflow: hidden;
+	border-radius: 8px;
+	margin-bottom: 17px;
+}
+.wpcf-preview-media{
+	@extend .wpcf-preview-content;
+	padding: 20px;
+}
+
+.wpcf-thumbnail-view{
+	display: flex;
+	img{
+		height: 60px;
+		width: 25%;
+		object-fit: cover;
+	}
+}
+
+
+// emabaded
+
+.embed-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	overflow: hidden;
+	max-width: 100%;
+}
+.embed-container
+iframe,
+.embed-container object,
+.embed-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }

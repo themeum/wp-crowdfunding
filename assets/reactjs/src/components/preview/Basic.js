@@ -7,7 +7,13 @@ const RenderPreview = (props) => {
     switch (viewItem.type) {
         case 'video_link':
             return (
-                <iframe width="100%" height="300" src={`//www.youtube.com/embed/${getYotubeVideoID(viewItem.src)}`}/>
+            <div className='embed-container' >
+                <iframe
+                    src={`//www.youtube.com/embed/${getYotubeVideoID(viewItem.src)}`}
+                    frameBorder='0'
+                    allowFullScreen
+                />
+            </div>
             );
         case 'video':
             return (
@@ -24,13 +30,13 @@ export default (props) => {
     const { data:{ media } } = props;
     const [ index, setIndex] = useState(0);
     return (
-        <div className="preview-media">
-            <div className="main-view">
+        <div className="wpcf-preview-media">
+            <div className="wpcf-preview-media-view">
                 { media && media.length > 0 &&
                     <RenderPreview items={media} index={index}/>
                 }
             </div>
-            <div className="thumbnails-view">
+            <div className="wpcf-thumbnail-view">
                 {media && media.map( (item, index) =>
                     <img key={index} src={item.thumb} onClick={() => setIndex(index)} alt="Thumbnail"/>
                 )}
