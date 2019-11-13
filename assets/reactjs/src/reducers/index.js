@@ -13,9 +13,9 @@ import {
 
 const initialValues = { basic: {media:[], funding_goal: 1, pledge_amount: {min: 1, max: 50000}}, story:[], rewards:[], team:[] };
 
-export default function(state = { postId:0, saveDate:'', initialValues, loading: true, loaded: false, valReceived:true, saveReq:false, submit:false, submitData:{} }, action ) {
+export default function(state = { postId:0, totalRaised:0, totalBackers:0, saveDate:'', initialValues, loading: true, loaded: false, valReceived:true, saveReq:false, submit:false, submitData:{} }, action ) {
+    
     switch( action.type ) {
-        
         case FETCH_REQUEST_PENDING:
             return {
                 ...state,
@@ -48,12 +48,15 @@ export default function(state = { postId:0, saveDate:'', initialValues, loading:
             };
 
         case FETCH_FORM_VALUES_COMPLETE:
+            const { postId, saveDate, totalRaised, totalBackers, values } = action.payload;
             return {
                 ...state,
                 valReceived: true,
-                postId: action.payload.postId,
-                saveDate: action.payload.saveDate,
-                initialValues: action.payload.values
+                postId,
+                saveDate,
+                totalRaised,
+                totalBackers,
+                initialValues: values
             };
 
         case FIELD_SHOW_HIDE:

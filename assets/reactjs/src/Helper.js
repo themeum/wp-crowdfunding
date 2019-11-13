@@ -64,3 +64,25 @@ export const getYotubeVideoID = value => {
 export const multiIndex = (obj, is) => {
     return is.length ? multiIndex(obj[is[0]], is.slice(1)) : obj;
 }
+
+export const getRaisedPercent = (goal, funded) => {
+    let parcent = 0
+    if (goal > 0 && funded > 0  ) {
+        parcent = parseFloat(funded/goal*100).toFixed(2);
+    }
+    return parcent;
+}
+
+/* export const wc_price = (price=0) => {
+    const currency_symbol = WPCF.currency_symbol ?  WPCF.currency_symbol : '$';
+    const decimals = WPCF.decimals ?  WPCF.decimals : 2;
+    const decimal_separator = WPCF.decimal_separator ?  WPCF.decimal_separator : '.';
+    const thousand_separator = WPCF.thousand_separator ?  WPCF.thousand_separator : ',';
+
+    price = parseFloat(price).toFixed(decimals);
+    price = price.replace(".", decimal_separator);
+    var splitPrice = price.split(decimal_separator);
+    splitPrice[0] = splitPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousand_separator);
+    price = splitPrice.join(decimal_separator);
+    return currency_symbol+price;
+} */

@@ -49,13 +49,7 @@ export const fetchFormValues = (id) => dispatch => {
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
     .then( response =>  response.json() )
-    .then( payload =>  {
-        const sub_categories = payload.sub_categories;
-        if(sub_categories) {
-            dispatch( {type: FETCH_SUB_CATEGORIES_COMPLETE, payload: sub_categories} );
-        }
-        dispatch( {type: FETCH_FORM_VALUES_COMPLETE, payload} );
-    })
+    .then( payload => dispatch( {type: FETCH_FORM_VALUES_COMPLETE, payload}) )
     .catch( error => console.log(error) );
 }
 

@@ -25,24 +25,34 @@ class Basic extends Component {
     }
 
     componentDidMount() {
-        const { fields } =  this.props;
-        
+        const { formValues: {basic} } =  this.props;
+        if( basic.category ) {
+            this.props.fetchSubCategories(basic.category);
+        }
+        if( basic.goal_type ) {
+            this.updateFieldOption();
+        }
     }
 
     componentDidUpdate(prevProps) {
         const { formValues: {basic: curVal} } =  this.props;
         const { formValues: {basic: prevVal} } = prevProps;
-        if( curVal.category && prevVal.category &&
-            (curVal.category !== prevVal.category)) {
+        if( curVal.category && curVal.category !== prevVal.category) {
+            const sub_cat = `${sectionName}.sub_category`;
+            this.props.changeFieldValue(formName, sub_cat, null);
             this.props.fetchSubCategories(curVal.category);
-            this.props.changeFieldValue(formName, `${sectionName}.sub_category`, null);
         }
         if( curVal.goal_type && curVal.goal_type !== prevVal.goal_type) {
-            const field = 'media.if_target_date';
-            const show = (curVal.goal_type=='target_date') ? true : false;
-            this.props.fieldShowHide(field, show);
-            this.forceUpdate();
+            this.updateFieldOption();
         }
+    }
+
+    updateFieldOption() {
+        const { formValues: {basic} } =  this.props;
+        const field = 'media.if_target_date';
+        const show = (basic.goal_type=='target_date') ? true : false;
+        this.props.fieldShowHide(field, show);
+        this.forceUpdate();
     }
 
     _onBlurVideoLink() {
@@ -137,7 +147,7 @@ class Basic extends Component {
 
     render() {
         const { sectionActive } = this.state;
-        const { postId, fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
+        const { postId, totalRaised, totalBackers, fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
 
         return (
@@ -215,7 +225,14 @@ class Basic extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
-                        {sectionActive==2 ? <PreviewBasic data={basicValues}/> : <PreviewEmpty/>}
+                        {sectionActive==2 ? 
+                            <PreviewBasic 
+                                data={basicValues}
+                                raised={totalRaised}
+                                backers={totalBackers}/>
+                        :
+                            <PreviewEmpty/>
+                        }
                         <PreviewLink postId={postId}/>
                     </div>
                 </div>
@@ -227,6 +244,8 @@ class Basic extends Component {
 const mapStateToProps = state => ({
     postId: state.data.postId,
     fields: state.data.basic_fields,
+    totalRaised: state.data.totalRaised,
+    totalBackers: state.data.totalBackers,
     formValues: getFormValues(formName)(state)
 });
 

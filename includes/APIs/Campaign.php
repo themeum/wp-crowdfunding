@@ -882,7 +882,7 @@ class API_Campaign {
 
         $category = false;
         $sub_category = false;
-        $sub_categories = false;
+        //$sub_categories = false;
         $cat_terms = get_the_terms( $post_id, 'product_cat' );
         foreach ( $cat_terms as $term ) {
             if($term->parent) {
@@ -892,14 +892,14 @@ class API_Campaign {
             }
         }
 
-        if($sub_category) {
+        /* if($sub_category) {
             $options = $this->get_subcategories($category);
             $sub_categories = array(
                 'section' => 'campaign_info',
                 'field' => 'sub_category',
                 'options' => $options,
             );
-        }
+        } */
 
         $tags = [];
         $post_tags = get_the_terms( $post_id, 'product_tag' );
@@ -1018,13 +1018,17 @@ class API_Campaign {
             'rewards' => $res_rewards,
             'team' => $res_team,
         );
-
-        $modified_date = get_the_modified_date('F j, Y', $post_id);
+        $modified_date  = get_the_modified_date('F j, Y', $post_id);
+        $total_raised   = wpcf_function()->get_total_fund($post_id);
+        $total_raised   = ($total_raised) ? $total_raised : 0;
+        $total_backers  = wpcf_function()->get_total_backers($post_id);
         $response = array(
             'postId'            => $post_id,
             'saveDate'          => $modified_date,
+            'totalRaised'       => $total_raised,
+            'totalBackers'      => $total_backers,
             'values'            => $values,
-            'sub_categories'    => $sub_categories,
+            //'sub_categories'    => $sub_categories,
         );
         return rest_ensure_response($response);
     }

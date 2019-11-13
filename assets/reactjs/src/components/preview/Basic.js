@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getYotubeVideoID } from '../../Helper';
+import { getYotubeVideoID, getRaisedPercent } from '../../Helper';
 
 const RenderPreview = (props) => {
     const { items, index } = props;
@@ -27,8 +27,10 @@ const RenderPreview = (props) => {
 }
 
 export default (props) => {
-    const { data:{ media } } = props;
+    const { data, data:{ media }, raised, backers } = props;
     const [ index, setIndex] = useState(0);
+    const goal = data['funding_goal'] || 0;
+    const goalType = data['fund_type'] || '';
     return (
         <div className="wpcf-preview-media">
             <div className="wpcf-preview-media-view">
@@ -40,6 +42,10 @@ export default (props) => {
                 {media && media.map( (item, index) =>
                     <img key={index} src={item.thumb} onClick={() => setIndex(index)} alt="Thumbnail"/>
                 )}
+            </div>
+            <div className="">
+                <h3><span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/>{raised} raised by {backers} backers</h3>
+                <p>{getRaisedPercent(goal, raised)}% of <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/>{goal} {goalType && goalType.replace('_', ' ')} <span>30 days Left</span></p>
             </div>
         </div>
     )
