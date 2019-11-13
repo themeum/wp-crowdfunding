@@ -79,10 +79,11 @@ class Story extends Component {
 									<p>Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.</p>
 									<div className="wpcf-story-tools">
 										{ Object.keys(tools).map( key =>
-											<div key={key} className="story-tool-item">
-												<img src={tools[key].name}/>
+											<div key={key} className="wpcf-story-tool-item">
+												{/*<img src={tools[key].name}/>*/}
+												<span className="fas fa-image"></span>
 												<p>{tools[key].name}</p>
-												<i className="fa fa-plus" onClick={() => this._addItem(key)} />
+												<span className="fas fa-plus wpcf-story-add" onClick={() => this._addItem(key)} />
 											</div>
 										)}
 									</div>
@@ -108,9 +109,24 @@ class Story extends Component {
 													</div>
 												}
 												<div className="story-item-control">
-													<span onClick={ () => this._moveItem( index, 'top' ) } className={ ( index == 0 ) && 'item-move-disable' }><i className="fa fa-long-arrow-up"/></span>
-													<span onClick={ () => this._moveItem( index, 'bottom' ) } className={ ( index == story.length-1 ) && 'item-move-disable' }><i className="fa fa-long-arrow-down"/></span>
-													<span onClick={ () => this._removeItem( index ) }><i className="fa fa-trash"/></span>
+													<button
+														type="button"
+														onClick={ () => this._moveItem( index, 'top' ) }
+														className={ ( index == 0 ) && 'item-move-disable' }>
+														<span className="fa fa-long-arrow-up" />
+													</button>
+													<button
+														type="button"
+														onClick={ () => this._moveItem( index, 'bottom' ) }
+														className={ ( index == story.length-1 ) && 'item-move-disable' }>
+														<span className="fa fa-long-arrow-down" />
+													</button>
+													<button
+														type="button"
+														className="wpcf-danger"
+														onClick={ () => this._removeItem( index ) }>
+														<span className="fas fa-trash"></span>
+													</button>
 												</div>
 											</div>
 										)}

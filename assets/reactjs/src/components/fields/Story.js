@@ -19,7 +19,7 @@ const Video = (props) => {
     const { name, data, upload } = props;
     return (
         <div className="story-item-image" onClick={() => upload(name, 'video', [])}>
-            { data.value && data.value.length > 0 ? 
+            { data.value && data.value.length > 0 ?
                 <video controls><source src={data.value[0].src} type={data.value[0].mime}/>Your browser does not support the video tag</video>
             :   <img src={`${WPCF.assets}images/story-default-image.png`}/> }
         </div>

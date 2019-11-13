@@ -478,7 +478,7 @@ class API_Campaign {
     function form_story_tools($tools = []) {
         $default_tools = array(
             'image' => array(
-                'name'  => __("Image", "wp-crowdfunding"),
+                'name'  => __("Add Image", "wp-crowdfunding"),
                 'icon'  => '',
                 'show'  => true
             ),
@@ -1189,7 +1189,7 @@ class API_Campaign {
                     'manage'    => $can_manage,
                     'edit'      => $can_edit,
                 );
-                
+
                 $member_meta = get_user_meta($member_id, $user_access_meta, true);
                 if($member_meta) {
                     $member_meta = json_decode(stripslashes($member_meta), true);
