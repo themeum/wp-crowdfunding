@@ -65,6 +65,7 @@ class Story extends Component {
 
 	render() {
 		const { tools, formValues: {story}, handleSubmit, current, prevStep, lastStep } = this.props;
+		const {postId} = this.props._reduxForm.data || 0;
 		return (
 			<div className="row">
                 <div className='col-md-7'>
@@ -86,7 +87,7 @@ class Story extends Component {
 										)}
 									</div>
 									<div className="wpcf-story-values">
-										{ story.map((data, index) => 
+										{ story.map((data, index) =>
 											<div key={index} className="wpcf-story-item">
 												<div className="story-item-value">
 													{ data && data.map((item, i) =>
@@ -117,7 +118,7 @@ class Story extends Component {
 								</div>
 							</div>
 						</div>
-						
+
 						<PageControl
                             current={current}
                             prevStep={prevStep}
@@ -128,6 +129,19 @@ class Story extends Component {
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title">Preview</div>
                         <PreviewStory data={story}/>
+						<div className="wpcf-preview-link">
+							{postId !== 0 ?
+								(
+									<a href={WPCF.site_url + '?post_type=product&p=' + postId + '&preview=true'} target="_blank">
+										Full Preview <span className="fas fa-desktop"></span>
+									</a>
+								) : (
+									<button disabled>
+										Full Preview <span className="fas fa-desktop"></span>
+									</button>
+								)
+							}
+						</div>
                     </div>
                 </div>
 			</div>
@@ -141,8 +155,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ 
-        getFormValues, 
+    return bindActionCreators({
+        getFormValues,
         changeFieldValue
     }, dispatch);
 }
