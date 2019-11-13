@@ -1,3 +1,4 @@
+import { multiIndex } from '../Helper';
 import { 
     FETCH_REQUEST_PENDING,
     FETCH_FORM_FIELDS_COMPLETE,
@@ -93,8 +94,4 @@ export default function(state = { postId:0, saveDate:'', initialValues, loading:
         default:
             return state;
     }
-}
-
-const multiIndex = (obj, is) => {
-    return is.length ? multiIndex(obj[is[0]], is.slice(1)) : obj;
 }

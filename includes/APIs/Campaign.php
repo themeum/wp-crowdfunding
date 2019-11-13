@@ -1198,7 +1198,7 @@ class API_Campaign {
                     $member_meta = array();
                 }
                 $member_meta[$post_id] = array('manage'=> $can_manage, 'edit'=>$can_edit);
-                update_user_meta($member_id, $user_access_meta, $member_meta); //update usermeta
+                update_user_meta($member_id, $user_access_meta, json_encode($member_meta)); //update usermeta
             }
             wpcf_function()->update_meta($post_id, $post_team_meta, json_encode($curr_team));
         } else {
@@ -1236,7 +1236,7 @@ class API_Campaign {
             if($user_meta) {
                 $user_meta = json_decode(stripslashes($user_meta), true);
                 unset($user_meta[$post_id]); //remove access from campaign
-                update_user_meta($member_id, $user_access_meta, $user_meta); //update usermeta
+                update_user_meta($member_id, $user_access_meta, json_encode($user_meta)); //update usermeta
             }
         }
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { required, getYotubeVideoID, uploadFiles, removeArrValue } from '../Helper';
+import { required, getYotubeVideoID, uploadFiles, removeArrValue, multiIndex } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
 import { fetchSubCategories, fieldShowHide } from '../actions';
 import RenderField from './fields/Single';
@@ -18,6 +18,7 @@ class Basic extends Component {
         super(props);
         this.state = { sectionActive: 0 };
         this._onBlurVideoLink = this._onBlurVideoLink.bind(this);
+        this._onChangeRange = this._onChangeRange.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
         this._addTag = this._addTag.bind(this);
@@ -59,6 +60,19 @@ class Basic extends Component {
             this.addMediaFile(files);
             this.removeMediaFile(type, files);
         }, 300)
+    }
+
+    _onChangeRange(e) {
+        const { formValues } = this.props;
+        const { name, value, attributes } = e.target;
+        const range = attributes.getNamedItem('range').value;
+        let inputValue = parseInt(value) || 0;
+        if(range=='min' || range=='max') {
+            const nameArray = name.split('.');
+            const rangeValue = multiIndex(formValues, nameArray);
+            inputValue = Object.assign({}, rangeValue, {[range]: inputValue});
+        }
+        this.props.changeFieldValue(formName, name, inputValue);
     }
 
     _removeArrValue(type, index, field, values, is_media) {
@@ -166,8 +180,7 @@ class Basic extends Component {
                                                                     name={key}
                                                                     item={field}
                                                                     addTag={this._addTag}
-                                                                    onChangeSelect={this._onChangeSelect}
-                                                                    onChangeGoalType={this._onChangeGoalType}
+                                                                    onChangeRange={this._onChangeRange}
                                                                     uploadFile={this._uploadFile}
                                                                     removeArrValue={this._removeArrValue}
                                                                     fieldValue={basicValues[key] || ''}

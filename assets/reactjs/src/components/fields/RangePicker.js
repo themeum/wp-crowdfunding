@@ -23,6 +23,16 @@ class RangePicker extends Component{
         });
     }
 
+    componentDidUpdate() {
+        let { value } = this.props;
+        let option = 'value';
+        if(typeof value == 'object') {
+            option = 'values';
+            value = [value.min, value.max];
+        }
+        jQuery(this.rangeRef.current).slider( "option", option, value );
+    }
+
     render() {
         return (
             <div className="wpcf-range-picker" ref={this.rangeRef}></div>
