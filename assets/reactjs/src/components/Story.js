@@ -92,12 +92,16 @@ class Story extends Component {
 											<div key={index} className="wpcf-story-item">
 												<div className="story-item-value">
 													{ data && data.map((item, i) =>
-														<RenderStoryItem
-															data={item}
+														<div
 															key={index+i}
-															edit={this._editItem}
-															upload={this._upload}
-															name={`${sectionName}[${index}][${i}].value`}/>
+															className={"wpcf-story-column wpcf-story-column-" + data.length}
+														>
+															<RenderStoryItem
+																data={item}
+																edit={this._editItem}
+																upload={this._upload}
+																name={`${sectionName}[${index}][${i}].value`}/>
+														</div>
 													)}
 												</div>
 												{ data && data.length==2 &&

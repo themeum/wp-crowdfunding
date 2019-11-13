@@ -39,3 +39,23 @@
 		}
 	}
 }
+
+.story-item-value{
+	display: flex;
+	flex-wrap: wrap;
+	.wpcf-story-column{
+		flex-grow: 1;
+		&.wpcf-story-column-1{
+			flex-basis: 100%;
+			max-width: 100%;
+		}
+		&.wpcf-story-column-2{
+			flex-basis: 50%;
+			max-width: 50%;
+		}
+		.story-item-image{
+			height: 100%;
+			background: var(--wpcf-border-color);
+		}
+	}
+}
