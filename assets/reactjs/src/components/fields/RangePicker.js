@@ -24,13 +24,18 @@ class RangePicker extends Component{
     }
 
     componentDidUpdate() {
-        let { value } = this.props;
+        const { max, value } = this.props;
         let option = 'value';
+        let rangeValue = value;
+        let maxValue = value;
         if(typeof value == 'object') {
             option = 'values';
-            value = [value.min, value.max];
+            rangeValue = [value.min, value.max];
+            maxValue = value.max;
         }
-        jQuery(this.rangeRef.current).slider( "option", option, value );
+        maxValue = (maxValue > max) ? maxValue : max;
+        jQuery(this.rangeRef.current).slider( "option", 'max', maxValue );
+        jQuery(this.rangeRef.current).slider( "option", option, rangeValue );
     }
 
     render() {
