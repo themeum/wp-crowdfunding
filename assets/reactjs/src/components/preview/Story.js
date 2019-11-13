@@ -29,13 +29,13 @@ const RenderPreview = (props) => {
 export default (props) => {
     const { data } =  props;
     return (
-        <div className="preview-story">
+        <div className="preview-story wpcf-preview-content">
             { data.map( (item, index) =>
                 <div key={index} className="preview-story-item">
                     <div className="story-item-value">
                         { item && item.map((itm, i) =>
-                            <RenderPreview 
-                                key={index+i} 
+                            <RenderPreview
+                                key={index+i}
                                 data={itm}
                             />
                         )}
