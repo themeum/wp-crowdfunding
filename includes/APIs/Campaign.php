@@ -57,7 +57,7 @@ class API_Campaign {
         $method_creatable = \WP_REST_Server::CREATABLE;
 
         register_rest_route( $namespace, '/form-fields', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_basic_fields') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_fields') ),
         ));
         register_rest_route( $namespace, '/sub-categories', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
@@ -82,7 +82,7 @@ class API_Campaign {
      * @access    public
      * @return    [array]   mixed
      */
-    function get_form_basic_fields() {
+    function get_form_fields() {
         $steps          = apply_filters( 'wpcf_form_steps', [] );
         $basic_fields   = apply_filters( 'wpcf_form_basic_fields', [] );
         $story_tools    = apply_filters( 'wpcf_form_story_tools', [] );

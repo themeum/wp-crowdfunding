@@ -193,11 +193,8 @@ class Basic extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
-                        { sectionActive==2 ?
-                            <PreviewBasic data={basicValues}/>
-                        :   <PreviewEmpty />
-                        }
-                       <PreviewLink postId={postId} />
+                        {sectionActive==2 ? <PreviewBasic data={basicValues}/> : <PreviewEmpty/>}
+                        <PreviewLink postId={postId}/>
                     </div>
                 </div>
             </div>
