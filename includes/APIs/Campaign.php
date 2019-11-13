@@ -961,7 +961,7 @@ class API_Campaign {
             }
         }
 
-        $team = get_post_meta($post_id, 'wpneo_team_member', true);
+        $team = get_post_meta($post_id, 'wpcf_team_member', true);
         $team = json_decode(stripslashes($team), true);
         $res_team = array();
         if ($team) {
@@ -1169,18 +1169,40 @@ class API_Campaign {
         }
 
         //Save team members
-        if ($team && is_array($team)) {
-            $data = array();
+        $post_team_meta = 'wpcf_team_member';
+        $user_access_meta = 'wpcf_campaigns_has_access';
+        $prev_team = get_post_meta($post_id, $post_team_meta, true);
+
+        if($prev_team) {
+            $this->remove_user_campaign_access($post_id, $prev_team); //remove user access
+        }
+
+        if ($team && count($team) > 0) {
+            $curr_team = array();
             foreach( $team as $t ) {
-                $data[] = array(
-                    'id'        => esc_html( $t['id'] ),
+                $member_id = (int) $t['id'];
+                $can_manage = boolval( $t['manage'] );
+                $can_edit = boolval( $t['edit'] );
+                $curr_team[] = array(
+                    'id'        => (int) $t['id'],
                     'email'     => esc_html( $t['email'] ),
-                    'manage'    => esc_html( $t['manage'] ),
-                    'edit'      => esc_html( $t['edit'] ),
+                    'manage'    => $can_manage,
+                    'edit'      => $can_edit,
                 );
+                
+                $member_meta = get_user_meta($member_id, $user_access_meta, true);
+                if($member_meta) {
+                    $member_meta = json_decode(stripslashes($member_meta), true);
+                    $member_meta[$post_id] = array('manage'=> $can_manage, 'edit'=>$can_edit); //add campaign access
+                } else {
+                    $member_meta = array();
+                }
+                $member_meta[$post_id] = array('manage'=> $can_manage, 'edit'=>$can_edit);
+                update_user_meta($member_id, $user_access_meta, $member_meta); //update usermeta
             }
-            $data_json = json_encode($data);
-            wpcf_function()->update_meta($post_id, 'wpneo_team_member', $data_json);
+            wpcf_function()->update_meta($post_id, $post_team_meta, json_encode($curr_team));
+        } else {
+            wpcf_function()->update_meta($post_id, $post_team_meta, ''); //clean post team members
         }
 
         if($submit) {
@@ -1205,7 +1227,27 @@ class API_Campaign {
      * @access    public
      * @return    array
      */
-    public function get_user_campaign_ids() {
+    function remove_user_campaign_access($post_id, $team_member) {
+        $user_access_meta = 'wpcf_campaigns_has_access';
+        $team_member = json_decode(stripslashes($team_member), true);
+        foreach($team_member as $tt) {
+            $member_id = $tt['id'];
+            $user_meta = get_user_meta($member_id, $user_access_meta, true);
+            if($user_meta) {
+                $user_meta = json_decode(stripslashes($user_meta), true);
+                unset($user_meta[$post_id]); //remove access from campaign
+                update_user_meta($member_id, $user_access_meta, $user_meta); //update usermeta
+            }
+        }
+    }
+
+    /**
+     * Get user campaign ids
+     * @since     2.1.0
+     * @access    public
+     * @return    array
+     */
+    function get_user_campaign_ids() {
         global $wpdb;
         $user_id = $this->current_user_id;
         $user_product_ids = $wpdb->get_col("select ID from {$wpdb->posts} WHERE post_author = {$user_id} AND post_type = 'product' ");
@@ -1218,7 +1260,7 @@ class API_Campaign {
      * @access    public
      * @return    array
      */
-    public function extractVideoID($url) {
+    function extractVideoID($url) {
         preg_match_all("#(?<=v=|v\/|vi=|vi\/|youtu.be\/)[a-zA-Z0-9_-]{11}#", $url, $matches);
         if ( $matches[0][0] && strlen($matches[0][0]) == 11 ){
             return $matches[0][0];

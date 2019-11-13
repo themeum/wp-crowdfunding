@@ -5,7 +5,6 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
-import { setPostId } from './actions';
 import App from './App';
 import './styles/style.scss';
 

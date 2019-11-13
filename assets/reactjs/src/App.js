@@ -22,7 +22,7 @@ class App extends Component {
 
     componentDidMount() {
 		const { editPostId } = this.props;
-        this.props.fetchFormFields();
+        this.props.fetchFormFields( editPostId );
 		if(editPostId) {
 			setTimeout(() => {
 				this.props.fetchFormValues(editPostId);

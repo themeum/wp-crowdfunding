@@ -7,6 +7,8 @@ import { fetchSubCategories, fieldShowHide } from '../actions';
 import RenderField from './fields/Single';
 import RenderRepeatableFields from './fields/Repeatable';
 import PreviewBasic from './preview/Basic';
+import PreviewEmpty from './preview/Empty';
+import PreviewLink from './preview/Link';
 import PageControl from './Control';
 
 const formName = "campaignForm";
@@ -112,10 +114,8 @@ class Basic extends Component {
 
     render() {
         const { sectionActive } = this.state;
-        const { fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
+        const { postId, fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
-
-        const {postId} = this.props._reduxForm.data || 0;
 
         return (
             <div className="row">
@@ -195,26 +195,9 @@ class Basic extends Component {
                         <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
                         { sectionActive==2 ?
                             <PreviewBasic data={basicValues}/>
-                        :   <div className="wpcf-preview-empty">
-                                <div className="wpcf-preview-empty-image">
-                                    <img src={WPCF.assets + "images/no-preview.svg"} alt=""/>
-                                </div>
-                                <span>Nothing to See here</span>
-                            </div>
+                        :   <PreviewEmpty />
                         }
-                        <div className="wpcf-preview-link">
-                            {postId !== 0 ?
-                                (
-                                    <a href={WPCF.site_url + '?post_type=product&p=' + postId + '&preview=true'} target="_blank">
-                                        Full Preview <span className="fas fa-desktop"></span>
-                                    </a>
-                                ) : (
-                                    <button disabled>
-                                        Full Preview <span className="fas fa-desktop"></span>
-                                    </button>
-                                )
-                            }
-                        </div>
+                       <PreviewLink postId={postId} />
                     </div>
                 </div>
             </div>
@@ -223,6 +206,7 @@ class Basic extends Component {
 }
 
 const mapStateToProps = state => ({
+    postId: state.data.postId,
     fields: state.data.basic_fields,
     formValues: getFormValues(formName)(state)
 });
