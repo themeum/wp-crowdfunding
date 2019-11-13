@@ -3,7 +3,7 @@ import { Field } from 'redux-form';
 import { required, isYoutubeUrl  } from '../../Helper';
 import RenderField from './Single';
 
-export default (props) => {
+const RenderRepeatableFields = (props) => {
     const { fields, item } = props;
     const onBlurVideoLink = ( typeof props.onBlurVideoLink !== 'undefined') ? props.onBlurVideoLink : ()=>{};
     if(fields.length == 0 && item.open_first_item) {
@@ -40,3 +40,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default RenderRepeatableFields;
