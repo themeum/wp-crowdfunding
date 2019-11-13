@@ -67,12 +67,16 @@ class Basic extends Component {
         const { name, value, attributes } = e.target;
         const range = attributes.getNamedItem('range').value;
         let inputValue = parseInt(value) || 0;
+        let compareRange = true;
         if(range=='min' || range=='max') {
             const nameArray = name.split('.');
             const rangeValue = multiIndex(formValues, nameArray);
+            compareRange = (range=='min') ? inputValue<rangeValue['max'] : inputValue>rangeValue['min'];
             inputValue = Object.assign({}, rangeValue, {[range]: inputValue});
         }
-        this.props.changeFieldValue(formName, name, inputValue);
+        if(compareRange) {
+            this.props.changeFieldValue(formName, name, inputValue);
+        }
     }
 
     _removeArrValue(type, index, field, values, is_media) {
