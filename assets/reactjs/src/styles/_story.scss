@@ -1,0 +1,36 @@
+.wpcf-story-values {
+	.wpcf-story-item {
+		border: 1px dashed #DCDCE4;
+		padding: 19px 9px 9px;
+		margin-bottom: 32px;
+		position: relative;
+		.story-item-control{
+			position: absolute;
+			right: 10px;
+			top: 0;
+			transform: translateY(-50%);
+			button{
+				height: 25px;
+				width: 25px;
+				background: #fff;
+				border: 1px solid var(--wpcf-border-color);
+				margin: 0 2px;
+				border-radius: 50%;
+				font-size: 12px;
+				line-height: 23px;
+				color: var(--wpcf-primary-color);
+				transition: 300ms;
+				text-align: center;
+				&:hover{
+					border-color: var(--wpcf-primary-color);
+				}
+				&.wpcf-danger{
+					color: var(--wpcf-danger-color);
+					&:hover{
+						border-color: var(--wpcf-danger-color);
+					}
+				}
+			}
+		}
+	}
+}
