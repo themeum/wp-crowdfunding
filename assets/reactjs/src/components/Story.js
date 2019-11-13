@@ -112,13 +112,15 @@ class Story extends Component {
 													<button
 														type="button"
 														onClick={ () => this._moveItem( index, 'top' ) }
-														className={ ( index == 0 ) && 'item-move-disable' }>
+														disabled={index === 0}
+
+													>
 														<span className="fa fa-long-arrow-up" />
 													</button>
 													<button
+														disabled={index === story.length-1 }
 														type="button"
-														onClick={ () => this._moveItem( index, 'bottom' ) }
-														className={ ( index == story.length-1 ) && 'item-move-disable' }>
+														onClick={ () => this._moveItem( index, 'bottom' ) } >
 														<span className="fa fa-long-arrow-down" />
 													</button>
 													<button

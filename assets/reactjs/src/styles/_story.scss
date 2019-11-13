@@ -30,6 +30,11 @@
 						border-color: var(--wpcf-danger-color);
 					}
 				}
+				&[disabled]:hover,
+				&[disabled]{
+					border-color: var(--wpcf-border-color);
+					color: var(--wpcf-light-text-color);
+				}
 			}
 		}
 	}
