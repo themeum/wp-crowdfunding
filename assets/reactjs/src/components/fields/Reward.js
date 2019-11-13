@@ -4,7 +4,7 @@ import { required  } from '../../Helper';
 import RenderField from './Single';
 import RenderRepeatableFields from './Repeatable';
 
-export default (props) => {
+const RenderRewardFields = (props) => {
     const { rewards, rewardTypes, onChangeType, selectedItem, rewardFields, uploadFile, removeArrValue, fields:{name} } = props;
     const [ changeType, setChangeType ] = useState(false);
     return (
@@ -71,3 +71,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default RenderRewardFields;

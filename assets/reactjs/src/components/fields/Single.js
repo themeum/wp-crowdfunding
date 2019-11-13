@@ -128,6 +128,7 @@ const RenderField = (_props) => {
                 </div>
             );
         case 'range':
+            const range = (typeof fieldValue == 'object');
             return (
                 <div className={'range-picker-parent ' + item.class}>
                     <RangePicker
@@ -137,18 +138,15 @@ const RenderField = (_props) => {
                         value={input.value}
                         onChange={input.onChange}/>
 
-                    <div className={"range-picker-value " + ((typeof fieldValue == 'object') ? 'wpcf-multiple' : 'wpcf-single')}>
-                        {
-                            (typeof fieldValue == 'object') ? (
-                                <Fragment>
-                                    <input type="text" name={input.name} range="min" value={input.value.min}  onChange={(e) => onChangeRange(e)}/>
-                                    <input type="text" name={input.name} range="max" value={input.value.max}  onChange={(e) => onChangeRange(e)}/>
-                                </Fragment>
-                            ) : (
-                                <input type="text" name={input.name} range="false" value={input.value}  onChange={(e) => onChangeRange(e)}/>
-                            )
-                        }
-
+                    <div className={"range-picker-value " + (range ? 'wpcf-multiple' : 'wpcf-single')}>
+                        {range ? (
+                            <Fragment>
+                                <input type="text" name={input.name} range="min" value={input.value.min}  onChange={(e) => onChangeRange(e)}/>
+                                <input type="text" name={input.name} range="max" value={input.value.max}  onChange={(e) => onChangeRange(e)}/>
+                            </Fragment>
+                        ) : (
+                            <input type="text" name={input.name} range="false" value={input.value}  onChange={(e) => onChangeRange(e)}/>
+                        )}
                         <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/>
                     </div>
                 </div>

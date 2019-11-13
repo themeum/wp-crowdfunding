@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { required, getYotubeVideoID, uploadFiles, removeArrValue, multiIndex } from '../Helper';
 import { FormSection, Field, FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
 import { fetchSubCategories, fieldShowHide } from '../actions';
-import RenderField from './fields/Single';
 import RenderRepeatableFields from './fields/Repeatable';
+import RenderField from './fields/Single';
 import PreviewBasic from './preview/Basic';
 import PreviewEmpty from './preview/Empty';
 import PreviewLink from './preview/Link';
@@ -16,12 +16,17 @@ const sectionName = "basic";
 class Basic extends Component {
     constructor(props) {
         super(props);
-        this.state = { sectionActive: 0 };
+        this.state = { sectionActive: 0, requiredFields: {} };
         this._onBlurVideoLink = this._onBlurVideoLink.bind(this);
         this._onChangeRange = this._onChangeRange.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
         this._addTag = this._addTag.bind(this);
+    }
+
+    componentDidMount() {
+        const { fields } =  this.props;
+        
     }
 
     componentDidUpdate(prevProps) {
