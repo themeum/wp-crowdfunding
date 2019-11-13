@@ -60,3 +60,7 @@ export const getYotubeVideoID = value => {
     }
     return false;
 }
+
+export const multiIndex = (obj, is) => {
+    return is.length ? multiIndex(obj[is[0]], is.slice(1)) : obj;
+}

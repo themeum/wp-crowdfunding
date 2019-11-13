@@ -7,12 +7,13 @@ const defaultProps = {
     uploadFile: () => {},
     onBlurVideoLink: () => {},
     removeArrValue: () => {},
-    fieldValue: '',
+    onChangeRange: () => {},
+    fieldValue: ''
 };
 
-export default (_props) => {
+const RenderField = (_props) => {
     const props = {...defaultProps, ..._props};
-    const { input, meta: { touched, error }, item, addTag, onBlurVideoLink, uploadFile, removeArrValue, fieldValue} = props;
+    const { input, meta: { touched, error }, item, addTag, onBlurVideoLink, onChangeRange, uploadFile, removeArrValue, fieldValue} = props;
     const [allTags, setAllTags] = useState(false);
 
     switch (item.type) {
@@ -140,11 +141,11 @@ export default (_props) => {
                         {
                             (typeof fieldValue == 'object') ? (
                                 <Fragment>
-                                    <input type="text" value={fieldValue.min}/>
-                                    <input type="text" value={fieldValue.max}/>
+                                    <input type="text" name={input.name} range="min" value={input.value.min}  onChange={(e) => onChangeRange(e)}/>
+                                    <input type="text" name={input.name} range="max" value={input.value.max}  onChange={(e) => onChangeRange(e)}/>
                                 </Fragment>
                             ) : (
-                                <input type="text" value={fieldValue}/>
+                                <input type="text" name={input.name} range="false" value={input.value}  onChange={(e) => onChangeRange(e)}/>
                             )
                         }
 
@@ -169,4 +170,6 @@ export default (_props) => {
             return '';
     }
 }
+
+export default RenderField;
 
