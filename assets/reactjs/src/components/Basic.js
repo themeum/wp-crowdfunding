@@ -112,7 +112,7 @@ class Basic extends Component {
 
     render() {
         const { sectionActive } = this.state;
-        const { fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
+        const { postId, fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
 
         return (
@@ -201,7 +201,7 @@ class Basic extends Component {
                             </div>
                         }
                         <div className="wpcf-preview-link">
-                            {this.props.postId ? (
+                            {postId ? (
                                 <a href={WPCF.site_url + '?post_type=product&p=' + postId + '&preview=true'} target="_blank">
                                     Full Preview <span className="fas fa-desktop"></span>
                                 </a>
