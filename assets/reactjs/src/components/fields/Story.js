@@ -5,14 +5,18 @@ import { Editor } from '@tinymce/tinymce-react';
 const Image = (props) => {
     const { name, data, upload } = props;
     let imageVal = [];
-    let imageSrc = `${WPCF.assets}images/story-default-image.png`;
     if(data.value && data.value.length > 0) {
-        imageSrc = data.value[0].src;
+        const imageSrc = data.value[0].src;
         imageVal = data.value;
+        return (
+            <div className="story-item-image" onClick={() => upload(name, 'image', imageVal)}><img src={imageSrc}/></div>
+        );
     }
     return (
-        <div className="story-item-image" onClick={() => upload(name, 'image', imageVal)}><img src={imageSrc}/></div>
-    );
+        <div className="story-item-image" onClick={() => upload(name, 'image', imageVal)}>
+            <span className="fas fa-image"></span>
+        </div>
+    )
 }
 
 const Video = (props) => {
