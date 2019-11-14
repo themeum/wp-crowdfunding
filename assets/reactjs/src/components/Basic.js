@@ -225,8 +225,8 @@ class Basic extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
-                        {sectionActive==2 ? 
-                            <PreviewBasic 
+                        {sectionActive==2 && basicValues.media.length ? 
+                            <PreviewBasic
                                 data={basicValues}
                                 raised={totalRaised}
                                 backers={totalBackers}/>

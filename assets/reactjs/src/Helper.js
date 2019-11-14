@@ -73,16 +73,12 @@ export const getRaisedPercent = (goal, funded) => {
     return parcent;
 }
 
-/* export const wc_price = (price=0) => {
-    const currency_symbol = WPCF.currency_symbol ?  WPCF.currency_symbol : '$';
-    const decimals = WPCF.decimals ?  WPCF.decimals : 2;
-    const decimal_separator = WPCF.decimal_separator ?  WPCF.decimal_separator : '.';
-    const thousand_separator = WPCF.thousand_separator ?  WPCF.thousand_separator : ',';
-
+export const wcPice = (price=0) => {
+    const { symbol, d_separator, t_separator, decimals } = WPCF.currency;
     price = parseFloat(price).toFixed(decimals);
-    price = price.replace(".", decimal_separator);
-    var splitPrice = price.split(decimal_separator);
-    splitPrice[0] = splitPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousand_separator);
-    price = splitPrice.join(decimal_separator);
-    return currency_symbol+price;
-} */
+    price = price.replace(".", d_separator);
+    var splitPrice = price.split(d_separator);
+    splitPrice[0] = splitPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, t_separator);
+    price = splitPrice.join(d_separator);
+    return symbol+price;
+}
