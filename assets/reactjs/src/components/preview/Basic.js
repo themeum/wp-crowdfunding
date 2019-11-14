@@ -55,6 +55,7 @@ const PreviewBasic = (props) => {
             </div>
             <div className="">
                 <h3><span dangerouslySetInnerHTML={{ __html: wcPice(raised) }}/> {__('raised by', 'wp-crowdfunding')} {backers} {__('backers', 'wp-crowdfunding')}</h3>
+
                 <p>{getRaisedPercent(goal, raised)}% of <span dangerouslySetInnerHTML={{ __html: wcPice(goal) }}/> {fundType && fundType.replace('_', ' ')} {goalType == 'target_date' && <span>{diffDays} {__('days Left', 'wp-crowdfunding')}</span>}</p>
             </div>
         </div>
