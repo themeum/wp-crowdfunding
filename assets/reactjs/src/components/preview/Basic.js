@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import React, { useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import { getYotubeVideoID, getRaisedPercent, wcPice } from '../../Helper';
 
 const RenderPreview = (props) => {
@@ -53,10 +53,19 @@ const PreviewBasic = (props) => {
                     <img key={index} src={item.thumb} onClick={() => setIndex(index)} alt="Thumbnail"/>
                 )}
             </div>
-            <div className="">
-                <h3><span dangerouslySetInnerHTML={{ __html: wcPice(raised) }}/> {__('raised by', 'wp-crowdfunding')} {backers} {__('backers', 'wp-crowdfunding')}</h3>
-
-                <p>{getRaisedPercent(goal, raised)}% of <span dangerouslySetInnerHTML={{ __html: wcPice(goal) }}/> {fundType && fundType.replace('_', ' ')} {goalType == 'target_date' && <span>{diffDays} {__('days Left', 'wp-crowdfunding')}</span>}</p>
+            <div className="wpcf-preview-raised-area">
+                <h3><span dangerouslySetInnerHTML={{ __html: wcPice(raised) }}/> {__('raised by', 'wp-crowdfunding')} <span>{backers}</span> {__('backers', 'wp-crowdfunding')}</h3>
+                <div className="wpcf-raised-progress">
+                    <span className="wpcf-raised-percent" style={{width: getRaisedPercent(goal, raised) + '%'}}></span>
+                </div>
+                <div className="wpcf-preview-raised-footer">
+                    <div className="wpcf-preview-raised-left">
+                        <span>{getRaisedPercent(goal, raised)}%</span> of <span dangerouslySetInnerHTML={{ __html: wcPice(goal) }}/> {fundType && fundType.replace('_', ' ')}
+                    </div>
+                    <div className="wpcf-preview-raised-right">
+                        {goalType == 'target_date' && <Fragment>{diffDays} {__('days Left', 'wp-crowdfunding')}</Fragment>}
+                    </div>
+                </div>
             </div>
         </div>
     )
