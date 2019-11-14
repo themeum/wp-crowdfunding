@@ -106,19 +106,17 @@ class Story extends Component {
 												</div>
 												{ data && data.length==2 &&
 													<div className="story-item-swap">
-														<span onClick={ () => this._swapItem( index ) }>
+														<button className='story-item-swap-btn' type="button" onClick={ () => this._swapItem( index ) }>
 															<i className="fa fa-long-arrow-right"/>
 															<i className="fa fa-long-arrow-left"/>
-														</span>
+														</button>
 													</div>
 												}
 												<div className="story-item-control">
 													<button
 														type="button"
 														onClick={ () => this._moveItem( index, 'top' ) }
-														disabled={index === 0}
-
-													>
+														disabled={index === 0}>
 														<span className="fa fa-long-arrow-up" />
 													</button>
 													<button

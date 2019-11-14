@@ -9,11 +9,11 @@ const Image = (props) => {
         const imageSrc = data.value[0].src;
         imageVal = data.value;
         return (
-            <div className="story-item-image" onClick={() => upload(name, 'image', imageVal)}><img src={imageSrc}/></div>
+            <div className="wpcf-story-item-image" onClick={() => upload(name, 'image', imageVal)}><img src={imageSrc}/></div>
         );
     }
     return (
-        <div className="story-item-image" onClick={() => upload(name, 'image', imageVal)}>
+        <div className="wpcf-story-item-image wpcf-empty-image" onClick={() => upload(name, 'image', imageVal)}>
             <span className="fas fa-image"></span>
         </div>
     )

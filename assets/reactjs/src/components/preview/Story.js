@@ -4,9 +4,13 @@ const RenderPreview = (props) => {
     const { data } = props;
     switch (data.type) {
         case 'image':
-            const imageSrc = (data.value && data.value.length > 0) ? data.value[0].src  : `${WPCF.assets}images/story-default-image.png`;
+            if(data.value && data.value.length > 0){
+                return <div className="story-item-image"><img src={data.value[0].src}/></div>
+            }
             return (
-                <div className="story-item-image"><img src={imageSrc}/></div>
+                <div className="wpcf-story-item-image wpcf-empty-image">
+                    <span className="fas fa-image"></span>
+                </div>
             );
         case 'video':
             return (
@@ -34,10 +38,9 @@ const PreviewStory = (props) => {
                 <div key={index} className="preview-story-item">
                     <div className="story-item-value">
                         { item && item.map((itm, i) =>
-                            <RenderPreview
-                                key={index+i}
-                                data={itm}
-                            />
+                            <div key={index+i} className={"wpcf-story-column wpcf-story-column-" + item.length}>
+                                <RenderPreview data={itm}/>
+                            </div>
                         )}
                     </div>
                 </div>
