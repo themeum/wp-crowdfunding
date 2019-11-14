@@ -62,7 +62,6 @@ class Dashboard {
         if('false' !== get_option('wpcf_enable_google_fonts', 'true')){
             wp_enqueue_style('roboto', $this->google_fonts(), array(), WPCF_VERSION);
         }
-
     }
 
     /**

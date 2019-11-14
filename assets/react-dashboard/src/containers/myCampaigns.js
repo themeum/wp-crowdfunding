@@ -92,15 +92,12 @@ class MyCampaigns extends Component {
                     { campaignData.length ?
                         <Fragment>
                             { pageOfItems.map( (item, index) =>
-                                <ItemCampaign
-                                    key={index}
-                                    data={ item }
-                                >
+                                <ItemCampaign key={index} data={item}>
                                     <div className="wpcf-campaign-links">
-                                        <button aria-label="Report" title="Report"  onClick={ () => this.onClickReport( {id: item.id, name: item.title} ) }>
+                                        <button aria-label="Report" title="Report" onClick={ () => this.onClickReport({id:item.id, name:item.title}) }>
                                             <span className="fas fa-chart-bar"></span>
                                         </button>
-                                        <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates( item.id, item.updates ) }>
+                                        <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates(item.id, item.updates) }>
                                             <i className="fas fa-sync"></i>
                                         </button>
                                         <a href={item.edit_link} aria-label="Edit" title="Edit">
