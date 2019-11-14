@@ -28,10 +28,10 @@ class Dashboard {
      * @access  public
      */
     function dashboard_assets() {
-
         //dashboard scripts
         $api_namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $page_id = get_option('wpneo_crowdfunding_dashboard_page_id');
+        $form_page_id = get_option('wpneo_form_page_id');
 
         $currency_symbol = (get_woocommerce_currency_symbol()) ? get_woocommerce_currency_symbol() : '$';
         $decimal_separator = (wc_get_price_decimal_separator()) ? wc_get_price_decimal_separator() : '.';
@@ -44,9 +44,9 @@ class Dashboard {
             wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
                 'site_url'          => site_url(),
                 'rest_url'          => rest_url( $api_namespace ),
-                'create_campaign'   => get_permalink( get_option('wpneo_form_page_id') ),
                 'assets'            => WPCF_DIR_URL.'assets/',
                 'nonce'             => wp_create_nonce( 'wpcf_api_nonce' ),
+                'create_campaign'   => get_permalink( $form_page_id ),
                 'currency'          => array(
                     'symbol'        => $currency_symbol,
                     'd_separator'  	=> $decimal_separator,

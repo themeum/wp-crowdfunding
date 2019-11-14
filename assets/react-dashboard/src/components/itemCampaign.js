@@ -2,7 +2,6 @@ import React from 'react';
 import { decodeEntities, wcPice } from "../helper";
 import CircleProgress from "./circleProgress";
 
-
 const ItemCampaign = props => {
     const { data } = props;
     return (
