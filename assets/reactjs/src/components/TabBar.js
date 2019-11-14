@@ -1,5 +1,6 @@
 import React from "react";
-export default (props) => {
+
+const TabBar = (props) => {
     const { current, steps } = props;
     return (
         <div className="wpcf-form-tabs-menu">
@@ -12,3 +13,5 @@ export default (props) => {
         </div>
     );
 }
+
+export default TabBar;

@@ -26,7 +26,7 @@ const RenderPreview = (props) => {
     }
 }
 
-export default (props) => {
+const PreviewBasic = (props) => {
     const { data, data:{ media }, raised, backers } = props;
     const [ index, setIndex] = useState(0);
     const goal = data['funding_goal'] || 0;
@@ -50,3 +50,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default PreviewBasic;

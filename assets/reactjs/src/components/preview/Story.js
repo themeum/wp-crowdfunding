@@ -26,7 +26,7 @@ const RenderPreview = (props) => {
     }
 }
 
-export default (props) => {
+const PreviewStory = (props) => {
     const { data } =  props;
     return (
         <div className="preview-story wpcf-preview-content">
@@ -45,3 +45,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default PreviewStory;

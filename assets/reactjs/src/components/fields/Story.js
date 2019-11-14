@@ -61,7 +61,7 @@ const TextEditor = (props) => {
     );
 }
 
-export default (props) => {
+const RenderStoryItem = (props) => {
     switch (props.data.type) {
         case 'image':
             return <Image {...props}/>
@@ -75,3 +75,5 @@ export default (props) => {
             return null;
     }
 }
+
+export default RenderStoryItem;

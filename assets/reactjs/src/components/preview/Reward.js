@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => {
+const PreviewReward = (props) => {
     const { months, rewards, selectedItem } = props;
     const getValue = key => {
         return rewards.length > 0 && rewards[selectedItem] ? rewards[selectedItem][key] : '';
@@ -41,3 +41,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default PreviewReward;

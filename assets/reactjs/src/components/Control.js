@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => {
+const Control = (props) => {
     const { current, prevStep, lastStep } = props;
     return (
         <div className="wpcf-form-next-prev">
@@ -9,3 +9,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default Control;
