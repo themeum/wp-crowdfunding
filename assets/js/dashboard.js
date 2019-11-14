@@ -27052,7 +27052,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33934,66 +33934,30 @@ function exportToCsv(data, file_name) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return header; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
 
 
 
+var Header = function Header(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-content-header"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-content-header-left"
+  }, props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "wpcf-btn wpcf-btn-round",
+    href: WPCF.create_campaign
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "wpcf-icon fas fa-plus"
+  }), "Create Campaign")), props.title && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "wpcf-content-heading"
+  }, Object(_helper__WEBPACK_IMPORTED_MODULE_1__["decodeEntities"])(props.title)), props.subtitle && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "wpcf-content-subheading"
+  }, props.subtitle));
+};
 
-var header =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(header, _Component);
-
-  function header() {
-    _classCallCheck(this, header);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(header).apply(this, arguments));
-  }
-
-  _createClass(header, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-content-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wpcf-content-header-left"
-      }, this.props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "wpcf-btn wpcf-btn-round",
-        href: WPCF.create_campaign_url
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "wpcf-icon fas fa-plus"
-      }), "Create Campaign")), this.props.title && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "wpcf-content-heading"
-      }, Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_1__["default"])(this.props.title)), this.props.subtitle && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "wpcf-content-subheading"
-      }, this.props.subtitle));
-    }
-  }]);
-
-  return header;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
+/* harmony default export */ __webpack_exports__["default"] = (Header);
 
 /***/ }),
 
@@ -34008,8 +33972,8 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _circleProgress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./circleProgress */ "./src/components/circleProgress.js");
-/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _circleProgress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./circleProgress */ "./src/components/circleProgress.js");
 
 
 
@@ -34020,7 +33984,7 @@ var ItemCampaign = function ItemCampaign(props) {
     className: "wpcf-campaign-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "wpcf-campaign-thumbnail",
-    title: Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_2__["default"])(data.title),
+    title: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["decodeEntities"])(data.title),
     href: data.permalink,
     dangerouslySetInnerHTML: {
       __html: data.thumbnail
@@ -34033,7 +33997,7 @@ var ItemCampaign = function ItemCampaign(props) {
     className: "wpcf-campaign-title"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: data.permalink
-  }, Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_2__["default"])(data.title))), props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+  }, Object(_helper__WEBPACK_IMPORTED_MODULE_1__["decodeEntities"])(data.title))), props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "wpcf-campaign-author"
   }, "by ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "javascript:void(0)"
@@ -34043,7 +34007,7 @@ var ItemCampaign = function ItemCampaign(props) {
     className: "wpcf-campaign-info"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-campaign-raised"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_circleProgress__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_circleProgress__WEBPACK_IMPORTED_MODULE_2__["default"], {
     size: 50,
     thickness: 3,
     percent: Math.round(data.raised_percent)
@@ -34051,9 +34015,17 @@ var ItemCampaign = function ItemCampaign(props) {
     className: "wpcf-raised-percent"
   }, Math.round(data.raised_percent), "%"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, WPCF.wc_currency_symbol + data.total_raised), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    dangerouslySetInnerHTML: {
+      __html: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["wcPice"])(data.total_raised)
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, WPCF.wc_currency_symbol + data.funding_goal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Funding Goal"))), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    dangerouslySetInnerHTML: {
+      __html: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["wcPice"])(data.funding_goal)
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Funding Goal"))), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-campaign-info"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), props.pledge && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-campaign-info"
@@ -35338,7 +35310,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_withdrawAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/withdrawAction */ "./src/actions/withdrawAction.js");
-/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -35362,6 +35335,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -35458,7 +35432,7 @@ function (_Component) {
           withdraw_message = _this$state.withdraw_message,
           withdraw_method = _this$state.withdraw_method,
           errorMsg = _this$state.errorMsg;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_5__["default"], {
         title: data.campaign_title
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -35520,11 +35494,11 @@ function (_Component) {
         value: withdraw_amount,
         onChange: this.onChangeInput,
         required: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, WPCF.wc_currency_symbol), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, WPCF.currency.symbol), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "withdraw-field-desc"
       }, "Remain Amount ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         dangerouslySetInnerHTML: {
-          __html: withdraw.balance
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_4__["wcPice"])(withdraw.balance)
         }
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "withdraw-method-field-wrap"
@@ -35817,9 +35791,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_userAction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/userAction */ "./src/actions/userAction.js");
-/* harmony import */ var _campaignReport__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./campaignReport */ "./src/containers/campaignReport.js");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./profile */ "./src/containers/profile.js");
-/* harmony import */ var _myCampaigns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./myCampaigns */ "./src/containers/myCampaigns.js");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile */ "./src/containers/profile.js");
+/* harmony import */ var _myCampaigns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./myCampaigns */ "./src/containers/myCampaigns.js");
+/* harmony import */ var _campaignReport__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./campaignReport */ "./src/containers/campaignReport.js");
 /* harmony import */ var _investedCampaigns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./investedCampaigns */ "./src/containers/investedCampaigns.js");
 /* harmony import */ var _pledgeReceived__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pledgeReceived */ "./src/containers/pledgeReceived.js");
 /* harmony import */ var _bookmarkCampaigns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./bookmarkCampaigns */ "./src/containers/bookmarkCampaigns.js");
@@ -35877,9 +35851,7 @@ function (_Component) {
     _classCallCheck(this, App);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
-    var basePath = WPCF.dashboard_url.replace(window.location.origin, '');
     _this.state = {
-      basePath: basePath,
       myCampainsCollapse: false,
       userSettingsCollapse: false
     };
@@ -35913,7 +35885,6 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var basePath = this.state.basePath;
       var _this$props$user = this.props.user,
           loading = _this$props$user.loading,
           data = _this$props$user.data;
@@ -36025,13 +35996,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/",
         exact: true,
-        component: _campaignReport__WEBPACK_IMPORTED_MODULE_5__["default"]
+        component: _campaignReport__WEBPACK_IMPORTED_MODULE_7__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/profile",
-        component: _profile__WEBPACK_IMPORTED_MODULE_6__["default"]
+        component: _profile__WEBPACK_IMPORTED_MODULE_5__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/my-campaigns",
-        component: _myCampaigns__WEBPACK_IMPORTED_MODULE_7__["default"]
+        component: _myCampaigns__WEBPACK_IMPORTED_MODULE_6__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/invested-campaigns",
         component: _investedCampaigns__WEBPACK_IMPORTED_MODULE_8__["default"]
@@ -36210,13 +36181,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
-/* harmony import */ var _components_datePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/datePicker */ "./src/components/datePicker.js");
-/* harmony import */ var _components_lineGraph__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/lineGraph */ "./src/components/lineGraph.js");
-/* harmony import */ var _components_pledgeReports__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pledgeReports */ "./src/components/pledgeReports.js");
-/* harmony import */ var _components_exportCSV__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/exportCSV */ "./src/components/exportCSV.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
-/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
+/* harmony import */ var _components_datePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/datePicker */ "./src/components/datePicker.js");
+/* harmony import */ var _components_lineGraph__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/lineGraph */ "./src/components/lineGraph.js");
+/* harmony import */ var _components_pledgeReports__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pledgeReports */ "./src/components/pledgeReports.js");
+/* harmony import */ var _components_exportCSV__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/exportCSV */ "./src/components/exportCSV.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
+/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -36236,6 +36208,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -36332,11 +36305,11 @@ function (_Component) {
           campaign = _this$props$report$da.campaign;
 
       if (loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_9__["default"], null);
       }
 
       ;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_8__["default"], {
         title: this.props.campaign.name ? "Showing Report for " + this.props.campaign.name : "Dashboard"
       }, this.props.campaign.name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "wpcf-btn wpcf-link-btn",
@@ -36355,8 +36328,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-card wpcf-info-success"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "wpcf-dashboard-info-val"
-      }, WPCF.wc_currency_symbol + fundRaised.toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-dashboard-info-val",
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(fundRaised)
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-info-card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "wpcf-dashboard-info-val"
@@ -36372,7 +36348,7 @@ function (_Component) {
         className: "wpcf-report-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-report-filter"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
         name: "date_range_from",
         value: query_args.date_range_from,
         onChange: function onChange(e) {
@@ -36380,7 +36356,7 @@ function (_Component) {
         },
         placeholder: "From",
         format: "yy-mm-dd"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
         name: "date_range_to",
         value: query_args.date_range_to,
         onChange: function onChange(e) {
@@ -36400,13 +36376,13 @@ function (_Component) {
         }, " ", option_params[key], " ");
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-report-export-btn"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_exportCSV__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_exportCSV__WEBPACK_IMPORTED_MODULE_7__["default"], {
         data: csv,
         file_name: "campaigns-report"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_lineGraph__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_lineGraph__WEBPACK_IMPORTED_MODULE_5__["default"], {
         format: format,
         label: label
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pledgeReports__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pledgeReports__WEBPACK_IMPORTED_MODULE_6__["default"], {
         pledges: pledges
       })));
     }
@@ -36428,7 +36404,7 @@ CampaignReport.defaultProps = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
-  fetchCampaignsReport: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__["fetchCampaignsReport"]
+  fetchCampaignsReport: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["fetchCampaignsReport"]
 })(CampaignReport));
 
 /***/ }),
@@ -37092,12 +37068,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
-/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
-/* harmony import */ var _components_itemPledgeReceived__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemPledgeReceived */ "./src/components/itemPledgeReceived.js");
-/* harmony import */ var _components_pledgeDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pledgeDetails */ "./src/components/pledgeDetails.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
-/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
+/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
+/* harmony import */ var _components_itemPledgeReceived__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/itemPledgeReceived */ "./src/components/itemPledgeReceived.js");
+/* harmony import */ var _components_pledgeDetails__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pledgeDetails */ "./src/components/pledgeDetails.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
+/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37115,6 +37092,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -37186,7 +37164,7 @@ function (_Component) {
       var pledge = this.props.pledge;
 
       if (pledge.loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_7__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
       }
 
       ;
@@ -37200,7 +37178,7 @@ function (_Component) {
           total_available = _pledge$data.total_available,
           receiver_percent = _pledge$data.receiver_percent,
           orders = _pledge$data.orders;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
         title: "Pledge Recieved"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -37209,28 +37187,37 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-pledge-received-card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "wpcf-dashboard-info-val"
-      }, WPCF.wc_currency_symbol + total_raised), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-dashboard-info-val",
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(total_raised)
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-pledge-received-card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "wpcf-dashboard-info-val"
-      }, WPCF.wc_currency_symbol + total_goal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Goal")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-dashboard-info-val",
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(total_goal)
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Goal")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-pledge-received-card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "wpcf-dashboard-info-val"
-      }, WPCF.wc_currency_symbol + total_available), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Available"))), orders.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "wpcf-dashboard-info-val",
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(total_available)
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Available"))), orders.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "wpcf-report-table"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Raised"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Receivable ", receiver_percent && "(".concat(receiver_percent, "%)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Marketplace ", receiver_percent && "(".concat(100 - receiver_percent, "%)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, pageOfItems.map(function (item, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemPledgeReceived__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemPledgeReceived__WEBPACK_IMPORTED_MODULE_5__["default"], {
           key: index,
           data: item,
           onClickDetails: _this2.onClickDetails
         });
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_4__["default"], {
         items: orders,
         pageSize: 5,
         onChangePage: this.onChangePage
-      }), openModal && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pledgeDetails__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), openModal && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pledgeDetails__WEBPACK_IMPORTED_MODULE_6__["default"], {
         data: modalData,
         onClickModalClose: this.onClickModalClose
       })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Data not found")));
@@ -37247,7 +37234,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
-  fetchPledgeReceived: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__["fetchPledgeReceived"]
+  fetchPledgeReceived: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["fetchPledgeReceived"]
 })(PledgeReceived));
 
 /***/ }),
@@ -37265,8 +37252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_userAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/userAction */ "./src/actions/userAction.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
-/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 /* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -37334,7 +37321,7 @@ function (_Component) {
 
       ;
       console.log(countries);
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
         title: "My Profile"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -37355,7 +37342,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Country"), data.profile_country ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: WPCF.assets + "images/flags/" + data.profile_country + ".png",
         alt: ""
-      }), Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_4__["default"])(countries[data.profile_country])) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }), Object(_helper__WEBPACK_IMPORTED_MODULE_3__["decodeEntities"])(countries[data.profile_country])) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         style: {
           color: "#D6D6E7"
         }
@@ -37395,10 +37382,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_userAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/userAction */ "./src/actions/userAction.js");
-/* harmony import */ var _components_profileEditForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/profileEditForm */ "./src/components/profileEditForm.js");
-/* harmony import */ var _components_socialForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/socialForm */ "./src/components/socialForm.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
-/* harmony import */ var _helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/decodeEntities */ "./src/helpers/decodeEntities.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _components_profileEditForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/profileEditForm */ "./src/components/profileEditForm.js");
+/* harmony import */ var _components_socialForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/socialForm */ "./src/components/socialForm.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 /* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -37507,7 +37494,7 @@ function (_Component) {
       ;
 
       if (profileEdit) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_profileEditForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_profileEditForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
           data: data,
           countries: this.props.countries.data,
           toggleEdit: this.toggleEdit,
@@ -37515,7 +37502,7 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_6__["default"], {
         title: "Profile"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -37538,7 +37525,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Country"), data.profile_country ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: WPCF.assets + "images/flags/" + data.profile_country + ".png",
         alt: ""
-      }), Object(_helpers_decodeEntities__WEBPACK_IMPORTED_MODULE_6__["default"])(countries[data.profile_country])) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }), Object(_helper__WEBPACK_IMPORTED_MODULE_3__["decodeEntities"])(countries[data.profile_country])) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         style: {
           color: "#D6D6E7"
         }
@@ -37548,7 +37535,7 @@ function (_Component) {
         onClick: this.toggleEdit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "fas fa-pen"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_socialForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_socialForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
         data: data,
         onClickSaveData: this.onClickSaveData
       })));
@@ -38028,36 +38015,45 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
-/***/ "./src/helpers/decodeEntities.js":
-/*!***************************************!*\
-  !*** ./src/helpers/decodeEntities.js ***!
-  \***************************************/
-/*! exports provided: default */
+/***/ "./src/helper.js":
+/*!***********************!*\
+  !*** ./src/helper.js ***!
+  \***********************/
+/*! exports provided: decodeEntities, wcPice */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var decodeEntities = function () {
-  // this prevents any overhead from creating the object each time
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeEntities", function() { return decodeEntities; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wcPice", function() { return wcPice; });
+var decodeEntities = function decodeEntities(str) {
   var element = document.createElement('div');
 
-  function decodeHTMLEntities(str) {
-    if (str && typeof str === 'string') {
-      // strip script/html tags
-      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-      element.innerHTML = str;
-      str = element.textContent;
-      element.textContent = '';
-    }
-
-    return str;
+  if (str && typeof str === 'string') {
+    // strip script/html tags
+    str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+    str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+    element.innerHTML = str;
+    str = element.textContent;
+    element.textContent = '';
   }
 
-  return decodeHTMLEntities;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (decodeEntities);
+  return str;
+};
+var wcPice = function wcPice() {
+  var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var _WPCF$currency = WPCF.currency,
+      symbol = _WPCF$currency.symbol,
+      d_separator = _WPCF$currency.d_separator,
+      t_separator = _WPCF$currency.t_separator,
+      decimals = _WPCF$currency.decimals;
+  price = parseFloat(price).toFixed(decimals);
+  price = price.replace(".", d_separator);
+  var splitPrice = price.split(d_separator);
+  splitPrice[0] = splitPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, t_separator);
+  price = splitPrice.join(d_separator);
+  return symbol + price;
+};
 
 /***/ }),
 

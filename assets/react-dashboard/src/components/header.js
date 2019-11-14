@@ -1,22 +1,22 @@
-import React, { Component, Fragment } from 'react'
-import decodeEntities from "../helpers/decodeEntities"
+import React, { Fragment } from 'react';
+import { decodeEntities } from "../helper";
 
-export default class header extends Component {
-    render() {
-        return (
-            <Fragment>
-                <div className="wpcf-content-header">
-                    <div className="wpcf-content-header-left">
-                        {this.props.children}
-                    </div>
-                    <a className="wpcf-btn wpcf-btn-round" href={WPCF.create_campaign_url}>
-                        <span className="wpcf-icon fas fa-plus"></span>
-                        Create Campaign
-                    </a>
+const Header = props => {
+    return (
+        <Fragment>
+            <div className="wpcf-content-header">
+                <div className="wpcf-content-header-left">
+                    {props.children}
                 </div>
-                {this.props.title && <h3 className="wpcf-content-heading">{decodeEntities(this.props.title)}</h3>}
-                {this.props.subtitle && <h4 className="wpcf-content-subheading">{this.props.subtitle}</h4>}
-            </Fragment>
-        )
-    }
+                <a className="wpcf-btn wpcf-btn-round" href={WPCF.create_campaign}>
+                    <span className="wpcf-icon fas fa-plus"></span>
+                    Create Campaign
+                </a>
+            </div>
+            {props.title && <h3 className="wpcf-content-heading">{decodeEntities(props.title)}</h3>}
+            {props.subtitle && <h4 className="wpcf-content-subheading">{props.subtitle}</h4>}
+        </Fragment>
+    )
 }
+
+export default Header;

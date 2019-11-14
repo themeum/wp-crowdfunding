@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { wcPice } from "../helper";
 import { fetchPledgeReceived } from '../actions/campaignAction';
 import Pagination from '../components/pagination';
 import ItemPledgeReceived from '../components/itemPledgeReceived';
@@ -57,15 +58,15 @@ class PledgeReceived extends Component {
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-pledge-received-cards">
                         <div className="wpcf-pledge-received-card">
-                            <h4 className="wpcf-dashboard-info-val">{WPCF.wc_currency_symbol + total_raised}</h4>
+                            <h4 className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: wcPice(total_raised)}}/>
                             <span>Fund Raised</span>
                         </div>
                         <div className="wpcf-pledge-received-card">
-                            <h4 className="wpcf-dashboard-info-val">{WPCF.wc_currency_symbol + total_goal}</h4>
+                            <h4 className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: wcPice(total_goal)}}/>
                             <span>Goal</span>
                         </div>
                         <div className="wpcf-pledge-received-card">
-                            <h4 className="wpcf-dashboard-info-val">{WPCF.wc_currency_symbol + total_available}</h4>
+                            <h4 className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: wcPice(total_available)}}/>
                             <span>Available</span>
                         </div>
                     </div>

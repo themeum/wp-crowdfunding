@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser, saveUserData, fetchCountries } from '../actions/userAction';
+import { decodeEntities } from "../helper";
 import ProfileEditForm from '../components/profileEditForm';
 import SocialForm from '../components/socialForm';
 import Header from '../components/header';
-import decodeEntities from "../helpers/decodeEntities";
 import Skeleton from "../components/skeleton";
 
 class ProfileSettings extends Component {

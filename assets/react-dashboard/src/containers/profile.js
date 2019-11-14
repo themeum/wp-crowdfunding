@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchUser, fetchCountries} from '../actions/userAction';
-import Header from '../components/header'
-import decodeEntities from "../helpers/decodeEntities";
-import Skeleton from '../components/skeleton'
+import { fetchUser, fetchCountries } from '../actions/userAction';
+import { decodeEntities } from "../helper";
+import Header from '../components/header';
+import Skeleton from '../components/skeleton';
 
 class Profile extends Component {
 	constructor (props) {

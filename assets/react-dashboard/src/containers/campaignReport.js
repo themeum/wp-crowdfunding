@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { wcPice } from "../helper";
 import { fetchCampaignsReport } from '../actions/campaignAction';
 import DatePicker from '../components/datePicker';
 import LineGraph from '../components/lineGraph';
@@ -75,7 +76,7 @@ class CampaignReport extends Component {
                 <div className="wpcf-dashboard-content-inner">
                     <div className="wpcf-dashboard-info-cards">
                         <div className="wpcf-dashboard-info-card wpcf-info-success">
-                            <h3 className="wpcf-dashboard-info-val" >{WPCF.wc_currency_symbol + fundRaised.toFixed(2)}</h3>
+                            <h3 className="wpcf-dashboard-info-val" dangerouslySetInnerHTML={{__html: wcPice(fundRaised)}}/>
                             <span>Fund Raised</span>
                         </div>
                         <div className="wpcf-dashboard-info-card">
