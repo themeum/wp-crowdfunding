@@ -22,6 +22,12 @@ class Campaign_Submit_Form {
     function campaign_form_assets() {
         $api_namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $page_id = get_option('wpneo_form_page_id');
+
+        $currency_symbol = (get_woocommerce_currency_symbol()) ? get_woocommerce_currency_symbol() : '$';
+        $decimal_separator = (wc_get_price_decimal_separator()) ? wc_get_price_decimal_separator() : '.';
+        $thousand_separator = (wc_get_price_thousand_separator()) ? wc_get_price_thousand_separator() : ',';
+        $decimals = (wc_get_price_decimals()) ? wc_get_price_decimals() : 2;
+
         if( get_the_ID() && get_the_ID() == $page_id ) {
             wp_enqueue_style( 'wpcf-campaign-style', WPCF_DIR_URL.'assets/css/campaign-form.css', false, WPCF_VERSION );
 //            wp_enqueue_style( 'jquery-ui-base', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css', false, '1.12.1' );
@@ -29,10 +35,14 @@ class Campaign_Submit_Form {
             wp_localize_script( 'wpcf-campaign-script', 'WPCF', array (
                 'assets'        => WPCF_DIR_URL.'assets/',
                 'rest_url'      => rest_url( $api_namespace ),
-                'currency'      => get_woocommerce_currency_symbol(),
                 'nonce'         => wp_create_nonce( 'wpcf_form_nonce' ),
-                'home_url'      => home_url(),
-                'site_url'      => site_url()
+                'site_url'      => site_url(),
+                'currency'      => array(
+                    'symbol'        => $currency_symbol,
+                    'd_separator'  	=> $decimal_separator,
+                    't_separator' 	=> $thousand_separator,
+                    'decimals'      => $decimals,
+                )
             ) );
         }
     }

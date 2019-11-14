@@ -147,7 +147,7 @@ const RenderField = (_props) => {
                         ) : (
                             <input type="text" name={input.name} range="false" value={input.value}  onChange={(e) => onChangeRange(e)}/>
                         )}
-                        <span dangerouslySetInnerHTML={{ __html: WPCF.currency }}/>
+                        <span dangerouslySetInnerHTML={{ __html: WPCF.currency.symbol }}/>
                     </div>
                 </div>
             );
