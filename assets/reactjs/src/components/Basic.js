@@ -167,7 +167,7 @@ class Basic extends Component {
                                                 const validate = field.required ? [required] : [];
                                                 if(field.show) {
                                                     return (
-                                                        <div key={key} className='wpcf-form-group'>
+                                                        <div key={key} className={'wpcf-form-group ' + field.class}>
                                                             <label className='wpcf-field-title'>{field.title}</label>
                                                             <p className='wpcf-field-desc'>{field.desc}</p>
 
@@ -225,7 +225,7 @@ class Basic extends Component {
 				<div className='col-md-5'>
                     <div className='wpcf-form-sidebar'>
                         <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
-                        {sectionActive==2 && basicValues.media.length ? 
+                        {sectionActive==2 && basicValues.media.length ?
                             <PreviewBasic
                                 data={basicValues}
                                 raised={totalRaised}

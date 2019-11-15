@@ -347,25 +347,25 @@ class API_Campaign {
                     'type'      => 'radio',
                     'title'     => __("Goal Type *","wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
-                    'class'     => '',
+                    'class'     => 'wpcf-radio-group-alt',
                     'options'   => array(
                         array(
                             'value' => 'target_goal',
                             'label' => __("Target Goal", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
-                            'class' => '',
+                            'class' => 'wpcf-radio-alt',
                         ),
                         array(
                             'value' => 'target_date',
                             'label' => __("Target Date", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
-                            'class' => '',
+                            'class' => 'wpcf-radio-alt',
                         ),
                         array(
                             'value' => 'never_end',
                             'label' => __("Campaign Never End", "wp-crowdfunding"),
                             'desc'  => __("", "wp-crowdfunding"),
-                            'class' => '',
+                            'class' => 'wpcf-radio-alt',
                         )
                     ),
                     'required'  => false,
@@ -375,19 +375,21 @@ class API_Campaign {
                     'type'          => 'form_group',
                     'title'         => __("Specific Date & Time", "wp-crowdfunding"),
                     'desc'          => __("Max Campaign Duration 60 Days", "wp-crowdfunding"),
-                    'class'         => '',
+                    'class'         => 'wpcf-target-date',
                     'fields' => array(
                         'start_date' => array(
+                            'label'          => 'Start Date',
                             'type'          => 'date',
                             'placeholder'   => __("-form-", "wp-crowdfunding"),
-                            'class'         => 'col-md-6',
+                            'class'         => '',
                             'value'         => '',
                             'required'      => true
                         ),
                         'end_date' => array(
+                            'label'          => 'End Date',
                             'type'          => 'date',
                             'placeholder'   => __("-to-", "wp-crowdfunding"),
-                            'class'         => 'col-md-6',
+                            'class'         => '',
                             'value'         => '',
                             'required'      => true
                         )

@@ -47,15 +47,17 @@ const RenderField = (_props) => {
             );
         case 'radio':
             return (
-                <div className={item.class + "wpcf-inline-radio-group"}>
+                <div className={item.class + " wpcf-inline-radio-group"}>
                     {item.options.map((option, index) =>
-                        <label key={index} className="wpcf-radio-inline">
-                            <div className="wpcf-radio-inner">
-                                <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/>
-                                {option.label && <span>{option.label}</span>}
-                            </div>
-                            {option.desc && <small>{option.desc}</small>}
-                        </label>
+                        (
+                            <label key={index} className={"wpcf-radio-inline " + option.class}>
+                                <div className="wpcf-radio-inner">
+                                    <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/>
+                                    {option.label && <span>{option.label}</span>}
+                                </div>
+                                {option.desc && <small>{option.desc}</small>}
+                            </label>
+                        )
                     )}
                     {touched && error && <span>{error}</span>}
                 </div>
@@ -115,7 +117,7 @@ const RenderField = (_props) => {
                 <div className={item.class}>
                     <div className="wpcf-form-attachments">
                         {input.value && input.value.map( (item, index) =>
-                            <div key={index}>{item.name} <span onClick={() => removeArrValue(item.type, index, input.name, input.value, is_media)} className="fa fa-times"/></div>
+                            <div key={index} className="wpcf-form-attachment"><span className="fas fa-file"></span> {item.name} <button onClick={() => removeArrValue(item.type, index, input.name, input.value, is_media)} className="fas fa-times"/></div>
                         )}
                     </div>
                     <button
@@ -153,14 +155,14 @@ const RenderField = (_props) => {
             );
         case 'date':
             return (
-                <div className={item.class}>
+                <div className="wpcf-date-picker">
                     <DatePicker
+                        label={item.label}
                         name={input.name}
                         value={input.value}
                         onChange={input.onChange}
                         placeholder={item.placeholder}
-                        format="yy-mm-dd"
-                    />
+                        format="yy-mm-dd" />
                     {touched && error && <span>{error}</span>}
                 </div>
             )

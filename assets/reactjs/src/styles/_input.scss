@@ -3,6 +3,9 @@
 	&:not(:last-child){
 		margin-bottom: 30px;
 	}
+	&.wpcf-radio-group-alt{
+		margin-bottom: 15px;
+	}
 	label:not(.wpcf-radio-inline){
 		font-size: 14px;
 		color: var(--wpcf-heading-color);
@@ -48,14 +51,35 @@
 		padding-top: 10px;
 		padding-bottom: 10px;
 	}
+	&.wpcf-target-date{
+		.form-group{
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -3.5px;
+			margin-right: -3.5px;
+			.wpcf-date-picker{
+				width: calc(50% - 7px);
+				margin-left: 3.5px;
+				margin-right: 3.5px;
+				label{
+					color: var(--wpcf-primary-text-color);
+				}
+			}
+		}
+	}
 }
 
-.wpcf-inline-radio-group{
+.ui-datepicker{
+	z-index: 2 !important;
+}
+
+
+.wpcf-inline-radio-group:not(.wpcf-radio-group-alt){
 	display: flex;
 	margin-left: -7px;
 	flex-wrap: wrap;
 	margin-top: -8px;
-	.wpcf-radio-inline{
+	.wpcf-radio-inline:not(.wpcf-radio-alt){
 		padding: 10px 15px;
 		margin: 8px 0 0 7px;
 		align-items: center;
@@ -113,6 +137,22 @@
 		}
 	}
 }
+
+.wpcf-inline-radio-group.wpcf-radio-group-alt{
+	margin-top: -10px;
+	margin-left: -20px;
+}
+.wpcf-radio-alt{
+	margin: 10px 0 0 20px;
+	.wpcf-radio-inner{
+		display: inline-flex;
+		align-items: center;
+		input{
+			margin: 0 8px 0 0;
+		}
+	}
+}
+
 
 .wpcf-input-tags-btns{
 	margin-top: 13px;
@@ -194,6 +234,7 @@
 		border-radius: 50%;
 		top: 50%;
 		margin-top: -9px;
+		margin-left: -4px;
 		cursor: pointer;
 		&.ui-state-active{
 			background: var(--wpcf-success-color);

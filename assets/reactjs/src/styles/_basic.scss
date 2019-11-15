@@ -1,0 +1,39 @@
+.wpcf-form-attachments{
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -8px;
+	margin-top: -8px;
+	margin-bottom: 15px;
+	.wpcf-form-attachment{
+		border: 1px solid var(--wpcf-border-color);
+		padding: 10px 33px 10px 15px;
+		border-radius: 4px;
+		position: relative;
+		margin-left: 8px;
+		margin-top: 8px;
+		span{
+			margin-right: 3px;
+			color: var(--wpcf-warning-color);
+		}
+		button{
+			position: absolute;
+			height: 20px;
+			width: 20px;
+			font-size: 9px;
+			text-align: center;
+			line-height: 18px;
+			padding: 0;
+			right: -1px;
+			top: -1px;
+			background: transparent;
+			transition: 300ms;
+			border: 1px solid var(--wpcf-border-color);
+			border-bottom-left-radius: 4px;
+			border-top-right-radius: 4px;
+			&:hover{
+				color: var(--wpcf-danger-color);
+				border-color: var(--wpcf-danger-color);
+			}
+		}
+	}
+}
