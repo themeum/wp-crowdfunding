@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 export const decodeEntities = str => {
     const element = document.createElement('div');
     if(str && typeof str === 'string') {
@@ -20,3 +22,18 @@ export const wcPice = (price=0) => {
     price = splitPrice.join(d_separator);
     return symbol+price;
 }
+
+export const months = {
+    jan: __('January', 'wp-crowdfunding'),
+    feb: __('February', 'wp-crowdfunding'),
+    mar: __('March', 'wp-crowdfunding'),
+    apr: __('April', 'wp-crowdfunding'),
+    may: __('May', 'wp-crowdfunding'),
+    jun: __('June', 'wp-crowdfunding'),
+    jul: __('July', 'wp-crowdfunding'),
+    aug: __('August', 'wp-crowdfunding'),
+    sep: __('September', 'wp-crowdfunding'),
+    oct: __('October', 'wp-crowdfunding'),
+    nov: __('November', 'wp-crowdfunding'),
+    dec: __('December', 'wp-crowdfunding'),
+};

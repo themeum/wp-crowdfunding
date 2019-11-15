@@ -118,8 +118,8 @@ class WithdrawDetails extends Component {
                                 <label htmlFor="wpcf_withdraw_amount">Amount</label>
                                 <div className="wpcf-withdraw-method-input">
                                     <input id="wpcf_withdraw_amount" type="number" name="withdraw_amount" value={ withdraw_amount } onChange={ this.onChangeInput } required/>
-                                    <span>{WPCF.currency.symbol}</span>
-                                    <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{__html: wcPice(withdraw.balance)}}/></p>
+                                    <span dangerouslySetInnerHTML={{__html: WPCF.currency.symbol}}/>
+                                    <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{__html: withdraw.balance}}/></p>
                                 </div>
                             </div>
                             <div className="withdraw-method-field-wrap">

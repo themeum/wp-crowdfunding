@@ -35,8 +35,6 @@ class Profile extends Component {
             )
         };
 
-        console.log(countries)
-
         return (
             <div>
                 <Header title="My Profile" />

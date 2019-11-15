@@ -1066,10 +1066,11 @@ class API_Dashboard {
                 $end_date       = date("Y-m-t 23:59:59", strtotime( $end_year.'-'.$end_month ));
                 $end_date       = new \DateTime($end_date);
                 $current_date   = new \DateTime();
-                $interval       = $end_date->diff($current_date);
 
-                if($current_date < $end_date) {
-                    $status = ($interval->days <= 5) ? 'about_to_end' : 'remain';
+                $seconds = $end_date->getTimestamp() - $current_date->getTimestamp();
+                $days = intval(intval($seconds) / (3600*24));
+                if($seconds > 0) {
+                    $status = ($days <= 80) ? 'about_to_end' : 'remain';
                 } else {
                     $status = 'completed';
                 }
@@ -1084,7 +1085,7 @@ class API_Dashboard {
                     'pladge_amount' => wc_price( $pladge_amount ),
                     'endmonth'      => $end_month,
                     'endyear'       => $end_year,
-                    'interval'      => $interval,
+                    'seconds'       => $seconds,
                     'status'        => $status
                 );
             }

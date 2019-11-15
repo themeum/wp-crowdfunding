@@ -33500,6 +33500,127 @@ var saveWithdrawAccount = function saveWithdrawAccount(data) {
 
 /***/ }),
 
+/***/ "./src/components/Timer.js":
+/*!*********************************!*\
+  !*** ./src/components/Timer.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Timer =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Timer, _Component);
+
+  function Timer() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
+
+    _classCallCheck(this, Timer);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Timer)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      seconds: _this.props.seconds
+    }, _this.getDetails = function () {
+      var seconds = _this.state.seconds;
+      var days = Math.floor(seconds / 24 / 60 / 60);
+      var hoursLeft = Math.floor(seconds - days * 86400);
+      var hours = Math.floor(hoursLeft / 3600);
+      var minutesLeft = Math.floor(hoursLeft - hours * 3600);
+      var minutes = Math.floor(minutesLeft / 60);
+      return {
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds % 60
+      };
+    }, _this.pad = function (n) {
+      return n < 10 ? "0" + n : n;
+    }, _temp));
+  }
+
+  _createClass(Timer, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var seconds = this.state.seconds;
+      this.myInterval = setInterval(function () {
+        if (seconds > 0) {
+          _this2.setState(function (_ref) {
+            var seconds = _ref.seconds;
+            return {
+              seconds: seconds - 1
+            };
+          });
+        } else {
+          clearInterval(_this2.myInterval);
+        }
+      }, 1000);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.myInterval);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var seconds = this.state.seconds;
+      var details = this.getDetails(seconds);
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perks-wrap"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Perks about to end', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perks"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.days)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Days', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.hours)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Hrs', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.minutes)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Min', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.seconds)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Sec', 'wp-crowdfunding')))));
+    }
+  }]);
+
+  return Timer;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Timer);
+
+/***/ }),
+
 /***/ "./src/components/campaignUpdate.js":
 /*!******************************************!*\
   !*** ./src/components/campaignUpdate.js ***!
@@ -33513,8 +33634,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
-/* harmony import */ var _components_datePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/datePicker */ "./src/components/datePicker.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
+/* harmony import */ var _datePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./datePicker */ "./src/components/datePicker.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -33637,7 +33758,7 @@ function (_Component) {
       var _this2 = this;
 
       var updates = this.state.updates;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
         title: "Updates"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "wpcf-btn wpcf-link-btn",
@@ -33656,7 +33777,7 @@ function (_Component) {
           className: "wpcf-dashboard-item-wraper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "wpcf-form-group"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Date: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Date: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
           placeholder: "2040/12/16",
           name: "date",
           value: item.date,
@@ -34171,33 +34292,29 @@ function getStatusColor(status) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _Timer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Timer */ "./src/components/Timer.js");
+
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   var data = props.data;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "wpcf-reward-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "wpcf-reward-thumbnail"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
     src: data.image,
     alt: data.title
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "wpcf-reward-content"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, data.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, data.endmonth + ' ' + data.endyear), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Estimate Delivery Date")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-reward-perks-wrap"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Perks about to end"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-reward-perks"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-reward-perk-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, data.interval.d), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Days")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-reward-perk-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, data.interval.h), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Hrs")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-reward-perk-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, data.interval.i), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Min")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-reward-perk-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, data.interval.s), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Sec")))));
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, data.title || Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('No title', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, data.description || Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('No description', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, _helper__WEBPACK_IMPORTED_MODULE_2__["months"][data.endmonth] + ' ' + data.endyear), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Estimate Delivery Date', 'wp-crowdfunding'))), data.status == 'about_to_end' && data.seconds > 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Timer__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    seconds: data.seconds
+  }));
 });
 
 /***/ }),
@@ -34446,7 +34563,7 @@ function getStatusColor(status) {
     className: "wpcf-order-details-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.country_name)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-row"
-  }, console.log(data.formatted_b_addr), data.formatted_b_addr && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, data.formatted_b_addr && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
@@ -35494,11 +35611,15 @@ function (_Component) {
         value: withdraw_amount,
         onChange: this.onChangeInput,
         required: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, WPCF.currency.symbol), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        dangerouslySetInnerHTML: {
+          __html: WPCF.currency.symbol
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "withdraw-field-desc"
       }, "Remain Amount ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         dangerouslySetInnerHTML: {
-          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_4__["wcPice"])(withdraw.balance)
+          __html: withdraw.balance
         }
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "withdraw-method-field-wrap"
@@ -37320,7 +37441,6 @@ function (_Component) {
       }
 
       ;
-      console.log(countries);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
         title: "My Profile"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -38019,13 +38139,16 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!***********************!*\
   !*** ./src/helper.js ***!
   \***********************/
-/*! exports provided: decodeEntities, wcPice */
+/*! exports provided: decodeEntities, wcPice, months */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeEntities", function() { return decodeEntities; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wcPice", function() { return wcPice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "months", function() { return months; });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
+
 var decodeEntities = function decodeEntities(str) {
   var element = document.createElement('div');
 
@@ -38053,6 +38176,20 @@ var wcPice = function wcPice() {
   splitPrice[0] = splitPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, t_separator);
   price = splitPrice.join(d_separator);
   return symbol + price;
+};
+var months = {
+  jan: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('January', 'wp-crowdfunding'),
+  feb: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('February', 'wp-crowdfunding'),
+  mar: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('March', 'wp-crowdfunding'),
+  apr: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('April', 'wp-crowdfunding'),
+  may: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('May', 'wp-crowdfunding'),
+  jun: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('June', 'wp-crowdfunding'),
+  jul: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('July', 'wp-crowdfunding'),
+  aug: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('August', 'wp-crowdfunding'),
+  sep: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('September', 'wp-crowdfunding'),
+  oct: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('October', 'wp-crowdfunding'),
+  nov: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('November', 'wp-crowdfunding'),
+  dec: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('December', 'wp-crowdfunding')
 };
 
 /***/ }),

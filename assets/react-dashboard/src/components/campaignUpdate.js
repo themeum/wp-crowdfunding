@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { saveCampaignUpdates } from '../actions/campaignAction';
-import DatePicker from '../components/datePicker';
-import Header from "../components/header";
+import DatePicker from './datePicker';
+import Header from "./header";
 
 class CampaignUpdate extends Component {
     constructor(props) {
@@ -80,8 +80,6 @@ class CampaignUpdate extends Component {
                                         <span className="far fa-trash-alt wpcf-icon"></span> Remove</button>
                                 </div>
                         )}
-
-
 
                         <div className="wpcf-update-btn-group wpcf-btn-group">
                             <button type="button" className="wpcf-btn wpcf-btn-round" onClick={ this.addItem }><span className="wpcf-icon fas fa-plus"></span> Add Update</button>

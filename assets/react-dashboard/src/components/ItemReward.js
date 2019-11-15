@@ -1,4 +1,7 @@
-import React, {Fragment} from 'react';
+import { __ } from '@wordpress/i18n';
+import React from 'react';
+import { months } from '../helper';
+import Timer from './Timer';
 
 export default (props) => {
     const { data } = props;
@@ -9,32 +12,15 @@ export default (props) => {
                 <img src={data.image} alt={data.title} />
             </div>
             <div className="wpcf-reward-content">
-                <h5>{ data.title }</h5>
-                <div>{ data.endmonth+' '+data.endyear }</div>
-                <p>Estimate Delivery Date</p>
+                <h5>{ data.title || __( 'No title', 'wp-crowdfunding' ) }</h5>
+                <p>{ data.description || __( 'No description', 'wp-crowdfunding' ) }</p>
+                <div>{ months[data.endmonth]+' '+data.endyear }</div>
+                <p>{ __('Estimate Delivery Date', 'wp-crowdfunding') }</p>
             </div>
 
-            <div className="wpcf-reward-perks-wrap">
-                <h5>Perks about to end</h5>
-                <div className="wpcf-reward-perks">
-                    <div className="wpcf-reward-perk-item">
-                        <h6>{data.interval.d}</h6>
-                        <span>Days</span>
-                    </div>
-                    <div className="wpcf-reward-perk-item">
-                        <h6>{data.interval.h}</h6>
-                        <span>Hrs</span>
-                    </div>
-                    <div className="wpcf-reward-perk-item">
-                        <h6>{data.interval.i}</h6>
-                        <span>Min</span>
-                    </div>
-                    <div className="wpcf-reward-perk-item">
-                        <h6>{data.interval.s}</h6>
-                        <span>Sec</span>
-                    </div>
-                </div>
-            </div>
+            { data.status == 'about_to_end' && data.seconds > 0 &&
+                <Timer seconds={data.seconds}/>
+            }
         </div>
     )
 };

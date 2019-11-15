@@ -94,9 +94,6 @@ export default (props) => {
                     </div>
                     <div className="wpcf-dashboard-row">
                         {
-                            console.log(data.formatted_b_addr)
-                        }
-                        {
                             data.formatted_b_addr &&
                             <div className="wpcf-dashboard-col">
                                 <div className="wpcf-order-details-item">
