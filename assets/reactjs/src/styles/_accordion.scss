@@ -13,10 +13,13 @@
 			text-transform: capitalize;
 			cursor: pointer;
 			width: 100%;
-			border: none;
+			border: 1px solid var(--wpcf-border-color);
+			border-radius: 4px;
 			&.active{
 				color: #fff;
 				background: var(--wpcf-heading-color);
+				border-color: var(--wpcf-heading-color);
+				border-radius: 4px 4px 0 0;
 			}
 			
 			span{
@@ -34,6 +37,8 @@
 		}
 		.wpcf-accordion-details{
 			border: 1px solid var(--wpcf-border-color);
+			border-top: 0;
+			border-radius: 0 0 4px 4px;
 			padding: 30px;
 		}
 	}

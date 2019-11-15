@@ -70,7 +70,7 @@ class App extends Component {
 					<h3>Setup New Campaign</h3>
 					<div className="wpcf-campaign-header-right">
 						{saveDate && <span>Last edit was on {saveDate}</span>}
-						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
+						<button className="wpcf-btn wpcf-btn-round wpcf-btn-outline" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
 						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={!lastStep}>Submit</button>
 					</div>
 				</div>

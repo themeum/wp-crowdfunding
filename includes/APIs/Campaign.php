@@ -742,7 +742,7 @@ class API_Campaign {
                 'show'          => true
             ),
             'amount' => array(
-                'type'          => 'text',
+                'type'          => 'number',
                 'title'         => __("Pledge Amount *", "wp-crowdfunding"),
                 'desc'          => __("Briefly describe this reward.", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),
@@ -754,7 +754,7 @@ class API_Campaign {
                 'type'      => 'image',
                 'title'     => __("Rewards Image *","wp-crowdfunding"),
                 'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
-                'button'    => '<i class="fa fa-plus"/> '.__('Add Image', 'wp-crowdfunding'),
+                'button'    => '<i class="fa fa-plus wpcf-icon"></i> '.__('Add Image', 'wp-crowdfunding'),
                 'class'     => '',
                 'multiple'  => false,
                 'required'  => true,
@@ -773,12 +773,12 @@ class API_Campaign {
                 'type'          => 'form_group',
                 'title'         => __("Estimate Delivery *", "wp-crowdfunding"),
                 'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
-                'class'         => '',
+                'class'         => 'wpcf-estimate-delivery',
                 'fields' => array(
                     'end_month' => array(
                         'type'          => 'select',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
-                        'class'         => 'col-md-7',
+                        'class'         => 'wpcf-input-col',
                         'options'       => $month_list,
                         'required'      => true,
                         'show'          => true
@@ -786,7 +786,7 @@ class API_Campaign {
                     'end_year' => array(
                         'type'          => 'select',
                         'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
-                        'class'         => 'col-md-5',
+                        'class'         => 'wpcf-input-col',
                         'options'       => $year_list,
                         'required'      => true,
                         'show'          => true
@@ -813,7 +813,7 @@ class API_Campaign {
                 'show'      => true,
             ),
             'no_of_items' => array(
-                'type'          => 'text',
+                'type'          => 'number',
                 'title'         => __("Total Number of Rewards *", "wp-crowdfunding"),
                 'desc'          => __("", "wp-crowdfunding"),
                 'placeholder'   => __("", "wp-crowdfunding"),

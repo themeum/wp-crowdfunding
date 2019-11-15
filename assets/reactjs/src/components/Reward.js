@@ -30,7 +30,7 @@ class Reward extends Component {
             this.props.changeFieldValue(formName, field, files);
         });
 	}
-	
+
 	_changeType(e) {
 		const { value } = e.target;
 		const { selectedItem } = this.state;
@@ -44,7 +44,7 @@ class Reward extends Component {
         values = removeArrValue(values, index);
         this.props.changeFieldValue(formName, field, values);
 	}
-	
+
 	_addReward() {
 		const { selectedType } = this.state;
 		let { formValues: {rewards} } = this.props;
@@ -53,11 +53,11 @@ class Reward extends Component {
 		const selectedItem = rewards.length-1;
 		this.setState({ openForm: true, selectedItem});
 	}
- 
+
 	_editReward(index) {
 		this.setState({openForm: true, selectedItem: index})
 	}
-	
+
 	_deleteReward(index) {
 		const { formValues: {rewards} } = this.props;
 		const openForm = (index==0 && rewards.length==1) ? false : true;
@@ -82,17 +82,19 @@ class Reward extends Component {
 								</div>
 								<div className='wpcf-accordion-details'>
 									{ !openForm &&
-										<div>
+										<div className="wpcf-rewards-content">
 											<p>Tell potential contributors more about your campaign. Provide details that will motivate people to contribute. A good pitch is compelling, informative, and easy to digest.</p>
-											{rewardTypes.map((item, index) =>
-												<div
-													key={index}
-													className={`wpcf-reward-type ${(selectedType == index) ? 'active':''}`}
-													onClick={() => this.setState({selectedType: index})}>
-													<img src={item.icon} alt={item.title}/>
-													<p>{item.title}</p>
-												</div>
-											)}
+											<div className="wpcf-rewards-options">
+												{rewardTypes.map((item, index) =>
+													<div
+														key={index}
+														className={`wpcf-rewards-option ${(selectedType == index) ? 'active':''}`}
+														onClick={() => this.setState({selectedType: index})}>
+														<span className="fas fa-shopping-cart"></span>
+														<p>{item.title}</p>
+													</div>
+												)}
+											</div>
 										</div>
 									}
 									{ openForm &&
@@ -105,22 +107,23 @@ class Reward extends Component {
 											onChangeType={this._changeType}
 											uploadFile={this._uploadFile}
 											removeArrValue={this._removeArrValue}
-											component={RenderRewardFields}/>
+											component={RenderRewardFields} />
 									}
 								</div>
 							</div>
 						</div>
 						<div className="wpcf-rewards">
 							<h3>Rewards</h3>
-							{rewards && rewards.map((item, index) =>
-								<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
-									<p>Reward {index+1}</p>
-									<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
-									<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
+							<div className="wpcf-add-reward-lists">
+								{rewards && rewards.map((item, index) =>
+									<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
+										<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
+										<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
+									</div>
+								)}
+								<div className="wpcf-reward-item" onClick={() => this._addReward()}>
+									<span className="fa fa-plus"/>
 								</div>
-							)}
-							<div className="wpcf-reward-item" onClick={() => this._addReward()}>
-								<span className="fa fa-plus"/>
 							</div>
 						</div>
 
@@ -151,7 +154,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ 
+    return bindActionCreators({
         getFormValues,
         changeFieldValue
     }, dispatch);

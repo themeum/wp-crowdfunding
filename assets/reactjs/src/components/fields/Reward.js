@@ -12,7 +12,7 @@ const RenderRewardFields = (props) => {
             {rewards[selectedItem] &&
                 <div className='wpcf-form-field'>
                     <div className='wpcf-field-title'>
-                        {(rewards[selectedItem].type) && 
+                        {(rewards[selectedItem].type) &&
                             rewardTypes[rewards[selectedItem].type].title
                         }
                         <span onClick={() => setChangeType(true)}>Change</span>
@@ -29,9 +29,9 @@ const RenderRewardFields = (props) => {
                 const fname = `${name}[${selectedItem}].${key}`;
                 const validate = field.required ? [required] : [];
                 return (
-                    <div key={key} className='wpcf-form-field'>
-                        <div className='wpcf-field-title'>{field.title}</div>
-                        <div className='wpcf-field-desc'>{field.desc}</div>
+                    <div key={key} className={'wpcf-form-group ' + field.class}>
+                        <label className='wpcf-field-title'>{field.title}</label>
+                        <p className='wpcf-field-desc'>{field.desc}</p>
                         { field.type == 'form_group' ?
                             <div className="form-group">
                                 {Object.keys(field.fields).map( key => {

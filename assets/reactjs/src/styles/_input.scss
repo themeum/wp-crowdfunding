@@ -51,12 +51,14 @@
 		padding-top: 10px;
 		padding-bottom: 10px;
 	}
+	&.wpcf-estimate-delivery,
 	&.wpcf-target-date{
 		.form-group{
 			display: flex;
 			flex-wrap: wrap;
 			margin-left: -3.5px;
 			margin-right: -3.5px;
+			.wpcf-input-col,
 			.wpcf-date-picker{
 				width: calc(50% - 7px);
 				margin-left: 3.5px;
