@@ -116,10 +116,13 @@ class Reward extends Component {
 							<h3>Rewards</h3>
 							<div className="wpcf-add-reward-lists">
 								{rewards && rewards.map((item, index) =>
-									<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
-										<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
-										<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
-									</div>
+									(
+										<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
+											{rewards[index].image.length !== 0 ? console.log(rewards[index].image[0]) : ''}
+											<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
+											<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
+										</div>
+									)
 								)}
 								<div className="wpcf-reward-item" onClick={() => this._addReward()}>
 									<span className="fa fa-plus"/>

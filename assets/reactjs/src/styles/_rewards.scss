@@ -49,13 +49,16 @@
 	.wpcf-add-reward-lists{
 		display: flex;
 		flex-wrap: wrap;
+		margin-left: -15px;
+		margin-top: -15px;
 		.wpcf-reward-item{
 			max-width: 112px;
 			flex-basis: 112px;
 			height: 180px;
 			border: 2px solid var(--wpcf-primary-color);
 			padding: 13px;
-			margin-right: 15px;
+			margin-left: 15px;
+			margin-top: 15px;
 			border-radius: 4px;
 		}
 	}
