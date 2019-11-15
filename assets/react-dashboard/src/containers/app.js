@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import React, { Component } from 'react';
-import {HashRouter, Route, NavLink } from "react-router-dom";
+import { HashRouter, Route, NavLink } from "react-router-dom";
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/userAction';
-import CampaignReport from './campaignReport';
 import Profile from './profile';
 import MyCampaigns from './myCampaigns';
+import CampaignReport from './campaignReport';
 import InvestedCampaigns from './investedCampaigns';
 import PledgeReceived from './pledgeReceived';
 import BookmarkCampaigns from './bookmarkCampaigns';
@@ -19,9 +19,7 @@ import '../styles/style.scss';
 class App extends Component {
     constructor(props) {
         super(props);
-        const basePath = WPCF.dashboard_url.replace(window.location.origin, '');
-        this.state = { 
-            basePath,
+        this.state = {
             myCampainsCollapse: false,
             userSettingsCollapse: false
         };
@@ -47,7 +45,6 @@ class App extends Component {
     }
 
     render() {
-        const { basePath } = this.state;
         const { loading, data } = this.props.user;
         if (loading) {
             return (

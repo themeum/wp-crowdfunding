@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { postWithdrawRequest } from '../actions/withdrawAction';
+import { wcPice } from "../helper";
 import Header from "./header";
 
 class WithdrawDetails extends Component {
@@ -117,8 +118,8 @@ class WithdrawDetails extends Component {
                                 <label htmlFor="wpcf_withdraw_amount">Amount</label>
                                 <div className="wpcf-withdraw-method-input">
                                     <input id="wpcf_withdraw_amount" type="number" name="withdraw_amount" value={ withdraw_amount } onChange={ this.onChangeInput } required/>
-                                    <span>{WPCF.wc_currency_symbol}</span>
-                                    <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{ __html: withdraw.balance }} /></p>
+                                    <span>{WPCF.currency.symbol}</span>
+                                    <p className="withdraw-field-desc">Remain Amount <span dangerouslySetInnerHTML={{__html: wcPice(withdraw.balance)}}/></p>
                                 </div>
                             </div>
                             <div className="withdraw-method-field-wrap">

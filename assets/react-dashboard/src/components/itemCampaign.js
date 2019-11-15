@@ -1,11 +1,9 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import { decodeEntities, wcPice } from "../helper";
 import CircleProgress from "./circleProgress";
-import decodeEntities from "../helpers/decodeEntities"
 
-
-const ItemCampaign = (props) => {
+const ItemCampaign = props => {
     const { data } = props;
-
     return (
         <div className="wpcf-campaign-item">
             <a
@@ -20,7 +18,7 @@ const ItemCampaign = (props) => {
                     <h3 className="wpcf-campaign-title">
                         <a href={data.permalink}>{decodeEntities(data.title)}</a>
                     </h3>
-                        {props.children }
+                    {props.children}
                 </div>
                 <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
 
@@ -33,17 +31,16 @@ const ItemCampaign = (props) => {
                     </div>
                     <div className="wpcf-campaign-info">
                         <h5>
-                            <span>{WPCF.wc_currency_symbol + data.total_raised}</span>
+                            <span dangerouslySetInnerHTML={{__html: wcPice(data.total_raised)}}/>
                             <span>Fund Raised</span>
                         </h5>
                     </div>
                     <div className="wpcf-campaign-info">
                         <h5>
-                            <span>{WPCF.wc_currency_symbol + data.funding_goal}</span>
+                            <span dangerouslySetInnerHTML={{__html: wcPice(data.funding_goal)}}/>
                             <span>Funding Goal</span>
                         </h5>
                     </div>
-
 
                     {( data.end_method !== 'never_end' ) && (
                         <div className="wpcf-campaign-info">
@@ -59,7 +56,6 @@ const ItemCampaign = (props) => {
                         <a className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm" href={data.permalink}>Pledge More</a>
                     </div>
                     }
-
                 </div>
             </div>
         </div>

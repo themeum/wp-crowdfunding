@@ -33,10 +33,10 @@ class Campaign_Submit_Form {
 //            wp_enqueue_style( 'jquery-ui-base', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css', false, '1.12.1' );
             wp_enqueue_script( 'wpcf-campaign-script', WPCF_DIR_URL.'assets/js/campaign-form.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-slider'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-campaign-script', 'WPCF', array (
-                'assets'        => WPCF_DIR_URL.'assets/',
-                'rest_url'      => rest_url( $api_namespace ),
-                'nonce'         => wp_create_nonce( 'wpcf_form_nonce' ),
                 'site_url'      => site_url(),
+                'rest_url'      => rest_url( $api_namespace ),
+                'assets'        => WPCF_DIR_URL.'assets/',
+                'nonce'         => wp_create_nonce( 'wpcf_form_nonce' ),
                 'currency'      => array(
                     'symbol'        => $currency_symbol,
                     'd_separator'  	=> $decimal_separator,
