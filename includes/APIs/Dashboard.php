@@ -60,6 +60,9 @@ class API_Dashboard {
         register_rest_route( $namespace, '/my-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'my_campaigns') ),
         ));
+        register_rest_route( $namespace, '/delete-campaign', array(
+            array( 'methods' => $method_readable, 'callback' => array($this, 'delete_campaign') ),
+        ));
         register_rest_route( $namespace, '/invested-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'invested_campaigns'), ),
         ));
@@ -357,6 +360,46 @@ class API_Dashboard {
         //Fetch all campaigns by query
         $data = $this->fetch_campaigns( $query );
         return rest_ensure_response( $data );
+    }
+
+
+    /**
+     * Delete my campaign and bookmark campaign
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function delete_campaign( \WP_REST_Request $request ) {
+        $user_id = $this->current_user_id;
+        $campaign_id = (int) $request['id'];
+        $bookmark = (int) $request['bookmark'];
+        $response = array(
+            'success'   => false
+        );
+        if($bookmark) {
+            $loved_campaign_ids   = get_user_meta($user_id, 'loved_campaign_ids', true);
+            if($loved_campaign_ids) {
+                $loved_campaign_ids = json_decode( $loved_campaign_ids, true );
+                $index = array_search($campaign_id, $loved_campaign_ids);
+                if($index) {
+                    unset( $loved_campaign_ids[$index] );
+                }
+                update_user_meta($user_id, 'loved_campaign_ids', json_encode($loved_campaign_ids));
+                $response = array(
+                    'success'   => true,
+                    'bookmark'  => true,
+                    'index'     => $index,
+                );
+            }
+        } else {
+            wp_delete_post($campaign_id);
+            $response = array(
+                'success'       => true,
+                'bookmark'      => false,
+                'campaign_id'   => $campaign_id,
+            );
+        }
+        return rest_ensure_response( $response );
     }
 
     /**

@@ -42,6 +42,10 @@ class MyCampaigns extends Component {
         this.setState({ campaignId, updates });
     }
 
+    onClickDelete = (campaignId) => {
+        
+    }
+
     getCampaignData = () => {
         const { filterValue } = this.state;
         const { campaign } = this.props;

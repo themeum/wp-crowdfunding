@@ -23,9 +23,9 @@ class PledgeReceived extends Component {
 
     componentDidMount() {
         const { loaded } = this.props.pledge;
-        if( !loaded ) {
+        //if( !loaded ) {
             this.props.fetchPledgeReceived();
-        }
+        //}
     }
 
     onChangePage(pageOfItems) {

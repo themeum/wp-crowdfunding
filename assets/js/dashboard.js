@@ -32941,7 +32941,7 @@ module.exports = function(originalModule) {
 /*!***************************************!*\
   !*** ./src/actions/campaignAction.js ***!
   \***************************************/
-/*! exports provided: FETCH_CAMPAIGNS_REPORT_PENDING, FETCH_CAMPAIGNS_REPORT_COMPLETE, FETCH_CAMPAIGNS_REPORT_ERROR, fetchCampaignsReport, FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, fetchMyCampaigns, FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR, fetchInvestedCampaigns, FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR, fetchPledgeReceived, FETCH_BOOKMARK_CAMPAIGNS_PENDING, FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, FETCH_BOOKMARK_CAMPAIGNS_ERROR, fetchBookmarkCampaigns, FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR, fetchRewards, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR, saveCampaignUpdates */
+/*! exports provided: FETCH_CAMPAIGNS_REPORT_PENDING, FETCH_CAMPAIGNS_REPORT_COMPLETE, FETCH_CAMPAIGNS_REPORT_ERROR, fetchCampaignsReport, FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, fetchMyCampaigns, DELETE_CAMPAIGN_PENDING, DELETE_CAMPAIGN_COMPLETE, DELETE_CAMPAIGN_ERROR, deleteCampaign, FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR, fetchInvestedCampaigns, FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR, fetchPledgeReceived, FETCH_BOOKMARK_CAMPAIGNS_PENDING, FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, FETCH_BOOKMARK_CAMPAIGNS_ERROR, fetchBookmarkCampaigns, FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR, fetchRewards, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR, saveCampaignUpdates */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32954,6 +32954,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MY_CAMPAIGNS_COMPLETE", function() { return FETCH_MY_CAMPAIGNS_COMPLETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MY_CAMPAIGNS_ERROR", function() { return FETCH_MY_CAMPAIGNS_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMyCampaigns", function() { return fetchMyCampaigns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_PENDING", function() { return DELETE_CAMPAIGN_PENDING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_COMPLETE", function() { return DELETE_CAMPAIGN_COMPLETE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_ERROR", function() { return DELETE_CAMPAIGN_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCampaign", function() { return deleteCampaign; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_PENDING", function() { return FETCH_INVESTED_CAMPAIGNS_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_COMPLETE", function() { return FETCH_INVESTED_CAMPAIGNS_COMPLETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_ERROR", function() { return FETCH_INVESTED_CAMPAIGNS_ERROR; });
@@ -33031,6 +33035,36 @@ var fetchMyCampaigns = function fetchMyCampaigns() {
     })["catch"](function (payload) {
       return dispatch({
         type: FETCH_MY_CAMPAIGNS_ERROR,
+        payload: payload
+      });
+    });
+  };
+}; //DELETE CAMPAINGS
+
+var DELETE_CAMPAIGN_PENDING = 'delete_campaign_pending';
+var DELETE_CAMPAIGN_COMPLETE = 'delete_campaign_complete';
+var DELETE_CAMPAIGN_ERROR = 'delete_campaign_error';
+var deleteCampaign = function deleteCampaign(data) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_CAMPAIGN_PENDING
+    });
+    var fetchURL = "".concat(WPCF.rest_url, "/delete-campaign");
+    var option = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: headers
+    };
+    fetch(fetchURL, option).then(function (response) {
+      return response.json();
+    }).then(function (payload) {
+      return dispatch({
+        type: DELETE_CAMPAIGN_PENDING,
+        payload: payload
+      });
+    })["catch"](function (payload) {
+      return dispatch({
+        type: DELETE_CAMPAIGN_ERROR,
         payload: payload
       });
     });
@@ -36904,7 +36938,7 @@ function (_Component) {
         campaignId: campaignId,
         updates: updates
       });
-    }, _this.getCampaignData = function () {
+    }, _this.onClickDelete = function (campaignId) {}, _this.getCampaignData = function () {
       var filterValue = _this.state.filterValue;
       var campaign = _this.props.campaign;
       var filterData = campaign.data.filter(function (item) {
@@ -37369,11 +37403,9 @@ function (_Component) {
   _createClass(PledgeReceived, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var loaded = this.props.pledge.loaded;
+      var loaded = this.props.pledge.loaded; //if( !loaded ) {
 
-      if (!loaded) {
-        this.props.fetchPledgeReceived();
-      }
+      this.props.fetchPledgeReceived(); //}
     }
   }, {
     key: "onChangePage",
