@@ -23,19 +23,13 @@ const PreviewReward = (props) => {
                         </div>
                     )
                 }
-                <div className="reward-content">
-                    <h3>{getValue('title')}</h3>
-                    <p>{getValue('description')}</p>
-                    <p>Estimate Delivery Date</p>
-                    <p>{getMonthName(getValue('end_month'))} {getValue('end_year')}</p>
-                    <span>
-                        <p>Backers</p>
-                        <p>0</p>
-                    </span>
-                    <span>
-                        <p>Remain</p>
-                        <p>Unlimited</p>
-                    </span>
+                <div className="wpcf-reward-content">
+                    <h3>{ getValue('title') ? getValue('title') : "No title added"} </h3>
+                    <p>{ getValue('description') }</p>
+                    <div className="wpcf-reward-meta">
+                        <h6>Estimate Delivery Date</h6>
+                        <span>{getMonthName(getValue('end_month'))} {getValue('end_year')}</span>
+                    </div>
                 </div>
             </div>
         </div>

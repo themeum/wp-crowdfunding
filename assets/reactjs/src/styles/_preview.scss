@@ -159,4 +159,43 @@ iframe,
 // Reward Preview
 .wpcf-preview-reward{
 	@extend .wpcf-preview-content;
+	padding: 35px;
+}
+
+.wpcf-reward-box{
+	max-width: 285px;
+	border: 1px solid var(--wpcf-border-color);
+	padding: 7px;
+	border-radius: 4px;
+	.wpcf-reward-img.wpcf-placeholder{
+		display: flex;
+		height: 190px;
+		align-items: center;
+		justify-content: center;
+		background: #F5F5FA;
+		color: var(--wpcf-border-color);
+		padding: 21px;
+	}
+	.wpcf-reward-content{
+		padding: 20px 15px 15px;
+		color: #ADAECF;
+		font-size: 14px;
+		h3{
+			font-size: 16px;
+			color: var(--wpcf-heading-color);
+			font-weight: 400;
+			margin: 0 0 11px;
+		}
+		.wpcf-reward-meta{
+			h6{
+				font-size: 12px;
+				color: var(--wpcf-heading-color);
+				font-weight: 400;
+				margin: 0 0 2px;
+			}
+		}
+		p:last-child{
+			margin-bottom: 0;
+		}
+	}
 }
