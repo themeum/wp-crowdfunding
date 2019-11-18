@@ -11,17 +11,17 @@ const PreviewReward = (props) => {
     }
     return (
         <div className="wpcf-preview-reward">
-            <div className="reward-thumb">
-                { getValue('image') &&
-                  rewards[selectedItem].image.length > 0 
-                ?
-                    <div className="reward-img">
-                        <img src={rewards[selectedItem].image[0].src}/>
-                    </div>
-                :
-                    <div className="reward-img">
-                        <span>No Image</span>
-                    </div>
+            <div className="wpcf-reward-box">
+                {
+                    getValue('image') && rewards[selectedItem].image.length > 0 ? (
+                        <div className="wpcf-reward-img">
+                            <img src={rewards[selectedItem].image[0].src}/>
+                        </div>
+                    ) : (
+                        <div className="wpcf-reward-img wpcf-placeholder">
+                            <span>No Image</span>
+                        </div>
+                    )
                 }
                 <div className="reward-content">
                     <h3>{getValue('title')}</h3>

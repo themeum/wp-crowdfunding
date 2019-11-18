@@ -155,3 +155,8 @@ iframe,
 		flex-grow: 1;
 	}
 }
+
+// Reward Preview
+.wpcf-preview-reward{
+	@extend .wpcf-preview-content;
+}

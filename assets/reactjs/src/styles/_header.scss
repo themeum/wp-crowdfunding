@@ -38,6 +38,7 @@
 		justify-content: center;
 		position: relative;
 		color: var(--wpcf-primary-text-color);
+		transition: 300ms;
 		&:focus{
 			outline: 1px dotted;
 			outline-offset: -1px;

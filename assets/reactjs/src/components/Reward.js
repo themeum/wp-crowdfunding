@@ -6,6 +6,7 @@ import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from
 import RenderRewardFields from './fields/Reward';
 import PreviewReward from './preview/Reward';
 import PageControl from './Control';
+import Preview from "./preview/Preview";
 
 const formName = "campaignForm";
 const sectionName = "rewards";
@@ -115,16 +116,28 @@ class Reward extends Component {
 						<div className="wpcf-rewards">
 							<h3>Rewards</h3>
 							<div className="wpcf-add-reward-lists">
-								{rewards && rewards.map((item, index) =>
-									(
-										<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active':''}`}>
-											{rewards[index].image.length !== 0 ? console.log(rewards[index].image[0]) : ''}
-											<span className="fa fa-trash" onClick={ () => this._deleteReward(index)}/>
-											<span className="fa fa-pencil" onClick={ () => this._editReward(index)}/>
-										</div>
-									)
-								)}
-								<div className="wpcf-reward-item" onClick={() => this._addReward()}>
+								{
+									rewards && rewards.map((item, index) => {
+										return (
+											<div key={index} className={`wpcf-reward-item ${(selectedItem == index) ? 'active' : ''}`}>
+												{
+													rewards[index].image !== undefined && rewards[index].image.length !== 0 ? (
+														<img className="wpcf-reward-item-image" src={rewards[index].image[0].src} alt=""/>
+													) : (
+														<span className="wpcf-reward-item-placeholder">No image</span>
+													)
+												}
+												{item.title && <h6>{item.title}</h6>}
+												{item.description && <p>{item.description}</p>}
+												<div className="wpcf-reward-item-overlay">
+													<span className="fa fa-trash" onClick={() => this._deleteReward(index)}/>
+													<span className="fa fa-pencil" onClick={() => this._editReward(index)}/>
+												</div>
+											</div>
+										)
+									})
+								}
+								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._addReward()}>
 									<span className="fa fa-plus"/>
 								</div>
 							</div>
@@ -137,13 +150,12 @@ class Reward extends Component {
 					</form>
 				</div>
 				<div className='col-md-5'>
-                    <div className='wpcf-form-sidebar'>
-                        <div className="preview-title">Preview</div>
+					<Preview title="Preview">
 						<PreviewReward
 							months={months}
 							rewards={rewards}
 							selectedItem={selectedItem}/>
-                    </div>
+					</Preview>
                 </div>
 			</div>
 		)

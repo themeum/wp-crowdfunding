@@ -10,6 +10,7 @@ import PreviewBasic from './preview/Basic';
 import PreviewEmpty from './preview/Empty';
 import PreviewLink from './preview/Link';
 import PageControl from './Control';
+import Preview from "./preview/Preview";
 
 const formName = "campaignForm";
 const sectionName = "basic";
@@ -223,18 +224,16 @@ class Basic extends Component {
                     </form>
                 </div>
 				<div className='col-md-5'>
-                    <div className='wpcf-form-sidebar'>
-                        <div className="preview-title"><span className="fas fa-eye"></span> Preview</div>
-                        {sectionActive==2 && basicValues.media.length ?
+                    <Preview postId={postId} title="Preview">
+                        {sectionActive === 2 && basicValues.media.length ?
                             <PreviewBasic
                                 data={basicValues}
                                 raised={totalRaised}
                                 backers={totalBackers}/>
-                        :
+                            :
                             <PreviewEmpty/>
                         }
-                        <PreviewLink postId={postId}/>
-                    </div>
+                    </Preview>
                 </div>
             </div>
         )

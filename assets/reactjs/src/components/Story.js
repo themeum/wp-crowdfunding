@@ -6,6 +6,7 @@ import { reduxForm, getFormValues, change as changeFieldValue } from 'redux-form
 import RenderStoryItem from './fields/Story';
 import PreviewStory from './preview/Story';
 import PageControl from './Control';
+import Preview from "./preview/Preview";
 
 const formName = "campaignForm";
 const sectionName = "story";
@@ -146,23 +147,9 @@ class Story extends Component {
 					</form>
 				</div>
 				<div className='col-md-5'>
-                    <div className='wpcf-form-sidebar'>
-                        <div className="preview-title">Preview</div>
-                        <PreviewStory data={story}/>
-						<div className="wpcf-preview-link">
-							{postId !== 0 ?
-								(
-									<a href={WPCF.site_url + '?post_type=product&p=' + postId + '&preview=true'} target="_blank">
-										Full Preview <span className="fas fa-desktop"></span>
-									</a>
-								) : (
-									<button disabled>
-										Full Preview <span className="fas fa-desktop"></span>
-									</button>
-								)
-							}
-						</div>
-                    </div>
+					<Preview title="Preview" postId={postId}>
+						<PreviewStory data={story}/>
+					</Preview>
                 </div>
 			</div>
 		)
