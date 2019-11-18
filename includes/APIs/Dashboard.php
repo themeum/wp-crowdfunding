@@ -544,15 +544,26 @@ class API_Dashboard {
         $wp_query = new \WP_Query( $query );
         $data = array();
         $wpcf_form =  get_permalink(get_option('wpneo_form_page_id'));
-        if ( $wp_query->have_posts() ) : global $post; $i = 0;
-            while ( $wp_query->have_posts() ) : $wp_query->the_post();
+
+        if ( $wp_query->have_posts() ) {
+            global $post;
+            while ( $wp_query->have_posts() ) {
+                $wp_query->the_post();
+
                 $campaign_id    = get_the_id();
+
+                $end_date       = get_post_meta($campaign_id, '_nf_duration_end', true);
+                $end_date       = date("Y-m-t 23:59:59", strtotime($end_date));
+                $end_date       = new \DateTime($end_date);
+                $current_date   = new \DateTime();
+                $seconds        = $end_date->getTimestamp() - $current_date->getTimestamp();
+
                 $total_raised   = wpcf_function()->get_total_fund();
                 $total_raised   = ($total_raised) ? $total_raised : 0;
                 $funding_goal   = get_post_meta($post->ID, '_nf_funding_goal', true);
                 $end_method     = get_post_meta($campaign_id, 'wpneo_campaign_end_method', true);
                 $updates        = get_post_meta($campaign_id, 'wpneo_campaign_updates', true);
-                $data[$i]       = array(
+                $data[]       = array(
                     'id'                => $campaign_id,
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
@@ -567,12 +578,12 @@ class API_Dashboard {
                     'is_started'        => wpcf_function()->is_campaign_started(),
                     'days_remaining'    => wpcf_function()->get_date_remaining(),
                     'days_until_launch' => wpcf_function()->days_until_launch(),
+                    'seconds'           => $seconds,
                     'status'            => wpcf_function()->get_campaign_status(),
                     'updates'           => ($updates) ? json_decode($updates, true) :  array()
                 );
-                $i++;
-            endwhile;
-        endif;
+            }
+        }
         return $data;
     }
 
@@ -1075,8 +1086,6 @@ class API_Dashboard {
                     $status = 'completed';
                 }
                 $description    = $reward['wpneo_rewards_description'];
-                $end_string     = (strlen($description) > 150) ? '...' : '';
-                $description    = substr($description, 0, 150).$end_string;
                 $pladge_amount  = $reward['wpneo_rewards_pladge_amount'];
                 $all_reward[]   = array(
                     'title'         => $reward_title,
