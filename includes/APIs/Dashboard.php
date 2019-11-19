@@ -593,7 +593,7 @@ class API_Dashboard {
                 $campaign_id    = get_the_id();
 
                 $end_date       = get_post_meta($campaign_id, '_nf_duration_end', true);
-                $end_date       = date("Y-m-t 23:59:59", strtotime($end_date));
+                $end_date       = date("d-m-Y 23:59:59", strtotime($end_date));
                 $end_date       = new \DateTime($end_date);
                 $current_date   = new \DateTime();
                 $seconds        = $end_date->getTimestamp() - $current_date->getTimestamp();
@@ -603,7 +603,7 @@ class API_Dashboard {
                 $funding_goal   = get_post_meta($post->ID, '_nf_funding_goal', true);
                 $end_method     = get_post_meta($campaign_id, 'wpneo_campaign_end_method', true);
                 $updates        = get_post_meta($campaign_id, 'wpneo_campaign_updates', true);
-                $data[]       = array(
+                $data[]         = array(
                     'id'                => $campaign_id,
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
@@ -666,7 +666,7 @@ class API_Dashboard {
         foreach ( $customer_orders as $customer_order )  {
             $order = wc_get_order( $customer_order );
             $order_details = $order->get_data(); //get order data
-            $order_details['total'] = $order->get_formatted_order_total();
+            $order_details['total'] = $order->get_total();
             $order_details['formatted_b_addr'] = $order->get_formatted_billing_address();
             $order_details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
             $order_details['formatted_oc_date'] = wc_format_datetime($order->get_date_completed());

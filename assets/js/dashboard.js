@@ -34292,7 +34292,8 @@ function (_Component) {
           pledge = _this$props.pledge;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-item"
-      }, data.status == 'running' && data.days_remaining == 1 && this.renderInterval(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+      }, data.status == 'running' && data.end_method == 'target_date' && data.seconds <= 43200 && //If 24hour left
+      this.renderInterval(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
         className: "wpcf-campaign-thumbnail",
         title: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["decodeEntities"])(data.title),
         href: data.permalink,
@@ -34335,7 +34336,7 @@ function (_Component) {
         dangerouslySetInnerHTML: {
           __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(data.funding_goal)
         }
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Funding Goal"))), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Funding Goal"))), data.end_method == 'target_date' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-info"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), pledge && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-info"
@@ -37314,6 +37315,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_orderDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/orderDetails */ "./src/components/orderDetails.js");
 /* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
 /* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var _components_exportCSV__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/exportCSV */ "./src/components/exportCSV.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -37333,6 +37335,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -37407,7 +37410,7 @@ function (_Component) {
 
       if (searchText) {
         filterData = order.data.filter(function (item) {
-          return item.details.billing.first_name.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.last_name.toLowerCase().search(searchText.toLowerCase()) !== -1;
+          return item.details.id.search(searchText) !== -1 || item.details.status.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.first_name.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.last_name.toLowerCase().search(searchText.toLowerCase()) !== -1;
         });
       }
 
@@ -37423,6 +37426,19 @@ function (_Component) {
       if (!loaded) {
         this.props.fetchOrders();
       }
+    }
+  }, {
+    key: "getCsv",
+    value: function getCsv() {
+      var data = this.props.order.data;
+      var csv = [];
+      csv.push(['Order', 'Pledge', 'Date', 'Payment', 'Fulfillment']);
+      data.map(function (item) {
+        var details = item.details;
+        var date = details.formatted_c_date.replace(',', '');
+        csv.push([details.id, details.total, date, details.status, details.fulfillment]);
+      });
+      return csv;
     }
   }, {
     key: "render",
@@ -37477,9 +37493,10 @@ function (_Component) {
           return _this2.onChangeInput('searchText', e.target.value);
         },
         value: searchText
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-success-btn wpcf-btn-sm"
-      }, "Download CSV"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_exportCSV__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        data: this.getCsv(),
+        file_name: "order-list"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-mycampaign-filter-group wpcf-btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue == 'pending' ? 'active' : ''),
