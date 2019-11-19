@@ -1,6 +1,15 @@
-import { FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR } from "../actions/campaignAction";
+import { 
+    FETCH_MY_CAMPAIGNS_PENDING,
+    FETCH_MY_CAMPAIGNS_COMPLETE,
+    FETCH_MY_CAMPAIGNS_ERROR,
+    SAVE_CAMPAIGN_UPDATES_PENDING,
+    SAVE_CAMPAIGN_UPDATES_COMPLETE,
+    SAVE_CAMPAIGN_UPDATES_ERROR,
+    DELETE_CAMPAIGN_PENDING,
+    DELETE_CAMPAIGN_COMPLETE,
+} from "../actions/campaignAction";
 
-export default function(state = { loading: true, loaded: false, saveReq: 'pending', data:[] }, action ) {
+export default function(state = { loading: true, loaded: false, saveReq: 'pending', delReq: 'pending', data:[] }, action ) {
     switch( action.type ) {
         
         case FETCH_MY_CAMPAIGNS_PENDING:
@@ -29,7 +38,7 @@ export default function(state = { loading: true, loaded: false, saveReq: 'pendin
                 saveReq: 'pending',
             };
         case SAVE_CAMPAIGN_UPDATES_COMPLETE:
-            const res = action.payload;
+            let res = action.payload;
             let data = [ ...state.data ];
             if( res.success ) {
                 const index = data.findIndex(item => item.id == res.id);
@@ -52,6 +61,29 @@ export default function(state = { loading: true, loaded: false, saveReq: 'pendin
                 saveReq: 'error',
                 error: action.payload,
             };
+        case DELETE_CAMPAIGN_PENDING:
+            return {
+                ...state,
+                delReq: 'pending',
+            };
+        case DELETE_CAMPAIGN_COMPLETE:
+            res = action.payload;
+            data = [ ...state.data ];
+            if( res.success ) {
+                const index = data.findIndex(item => item.id == res.campaign_id);
+                data.splice(index, 1);
+                return {
+                    ...state,
+                    delReq: 'complete',
+                    data
+                };
+            } else {
+                return {
+                    ...state,
+                    saveReq: 'error',
+                    error: res.msg,
+                };
+            }
         default: 
             return state;
     }

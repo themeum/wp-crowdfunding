@@ -8,11 +8,8 @@ import Header from '../components/header';
 import Skeleton from "../components/skeleton";
 
 class ProfileSettings extends Component {
-	constructor (props) {
-        super(props);
-        this.state = { profileEdit: false };
-        this.toggleEdit = this.toggleEdit.bind(this);
-        this.onClickSaveData = this.onClickSaveData.bind(this);
+	state = { 
+        profileEdit: false
     }
 
     componentDidMount() {
@@ -25,7 +22,7 @@ class ProfileSettings extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const { saveReq, error } = this.props.user;
         if ( saveReq !== prevProps.user.saveReq ) {
             if( saveReq == 'complete' ) {
@@ -37,13 +34,13 @@ class ProfileSettings extends Component {
         }
     }
 
-    toggleEdit() {
+    toggleEdit = () => {
         this.setState({
             profileEdit: !this.state.profileEdit
         });
     }
 
-    onClickSaveData( data ) {
+    onClickSaveData = (data) => {
         this.props.saveUserData( data );
     }
 
@@ -125,7 +122,6 @@ class ProfileSettings extends Component {
         )
 	}
 }
-
 
 const mapStateToProps = state => ({
     user: state.user,

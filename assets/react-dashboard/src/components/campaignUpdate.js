@@ -5,16 +5,12 @@ import DatePicker from './datePicker';
 import Header from "./header";
 
 class CampaignUpdate extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { campaignId: this.props.campaignId, updates: this.props.updates };
-        this.addItem = this.addItem.bind(this);
-        this.removeItem = this.removeItem.bind(this);
-        this.onChangeInput = this.onChangeInput.bind(this);
-        this.onSubmitUpates = this.onSubmitUpates.bind(this);
+    state = { 
+        campaignId: this.props.campaignId, 
+        updates: this.props.updates 
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const { saveReq, error } = this.props.campaign;
         if ( saveReq !== prevProps.campaign.saveReq ) {
             if( saveReq == 'complete' ) {
@@ -26,24 +22,24 @@ class CampaignUpdate extends Component {
         }
     }
 
-    addItem() {
+    addItem = () => {
         const updates = [ ...this.state.updates, { date:'', title:'', details:'' } ];
         this.setState( { updates } );
     }
 
-    removeItem(index) {
+    removeItem = (index) => {
         let updates = [ ...this.state.updates ];
         updates.splice(index, 1);
         this.setState( { updates } );
     }
 
-    onChangeInput(e, index) {
+    onChangeInput = (e, index) => {
         let updates = [ ...this.state.updates ];
         updates[index][e.target.name] = e.target.value;
         this.setState( updates );
     }
 
-    onSubmitUpates(e) {
+    onSubmitUpates = (e) => {
         e.preventDefault();
         let postData = { ...this.state };
         this.props.saveCampaignUpdates( postData );

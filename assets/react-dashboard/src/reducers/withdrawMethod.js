@@ -1,4 +1,11 @@
-import { FETCH_WITHDRAW_METHODS_PENDING, FETCH_WITHDRAW_METHODS_COMPLETE, FETCH_WITHDRAW_METHODS_ERROR, SAVE_WITHDRAW_ACCOUNT_PENDING, SAVE_WITHDRAW_ACCOUNT_COMPLETE, SAVE_WITHDRAW_ACCOUNT_ERROR } from "../actions/withdrawAction";
+import {
+    FETCH_WITHDRAW_METHODS_PENDING,
+    FETCH_WITHDRAW_METHODS_COMPLETE,
+    FETCH_WITHDRAW_METHODS_ERROR,
+    SAVE_WITHDRAW_ACCOUNT_PENDING,
+    SAVE_WITHDRAW_ACCOUNT_COMPLETE,
+    SAVE_WITHDRAW_ACCOUNT_ERROR
+} from "../actions/withdrawAction";
 
 export default function(state = { loading: true, loaded: false, saveReq: 'pending', data:{} }, action ) {
     switch( action.type ) {

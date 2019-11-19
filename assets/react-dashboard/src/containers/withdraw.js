@@ -8,14 +8,9 @@ import Header from '../components/header';
 import Skeleton from "../components/skeleton";
 
 class Withdraw extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            withdrawDetails: ''
-        };
-        this.onChangePage = this.onChangePage.bind(this);
-        this.onClickWithdrawDetails = this.onClickWithdrawDetails.bind(this);
+    state = {
+        pageOfItems: [],
+        withdrawDetails: ''
     }
 
     componentDidMount() {
@@ -28,11 +23,11 @@ class Withdraw extends Component {
         }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickWithdrawDetails( data ) {
+    onClickWithdrawDetails = (data) => {
         this.setState({ withdrawDetails: data });
     }
 

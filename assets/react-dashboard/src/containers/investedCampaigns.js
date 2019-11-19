@@ -7,7 +7,6 @@ import Header from "../components/header";
 import Skeleton from "../components/skeleton";
 
 class InvestedCampaigns extends Component {
-
     state = {
         pageOfItems: [],
         filterValue: 'running',

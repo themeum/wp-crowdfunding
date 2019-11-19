@@ -1,4 +1,8 @@
-import { FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR } from "../actions/campaignAction";
+import {
+    FETCH_INVESTED_CAMPAIGNS_PENDING,
+    FETCH_INVESTED_CAMPAIGNS_COMPLETE,
+    FETCH_INVESTED_CAMPAIGNS_ERROR
+} from "../actions/campaignAction";
 
 export default function(state = { loading: true, loaded: false, data:[] }, action ) {
     switch( action.type ) {

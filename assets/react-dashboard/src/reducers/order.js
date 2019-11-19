@@ -1,4 +1,8 @@
-import { FETCH_ORDERS_PENDING, FETCH_ORDERS_COMPLETE, FETCH_ORDERS_ERROR } from "../actions/orderAction";
+import {
+    FETCH_ORDERS_PENDING,
+    FETCH_ORDERS_COMPLETE,
+    FETCH_ORDERS_ERROR
+} from "../actions/orderAction";
 
 export default function(state = { loading: true, loaded: false, data:[] }, action ) {
     switch( action.type ) {

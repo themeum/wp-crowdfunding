@@ -5,10 +5,12 @@ const defaultProps = {
     filterValue: ""
 }
 class Pagination extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { pager: {} };
+    static defaultProps = {
+        initialPage: 1,
+        filterValue: ""
     }
+    
+    state = { pager: {} };
 
     componentWillMount() {
         if ( this.props.items && this.props.items.length ) {
@@ -24,7 +26,7 @@ class Pagination extends Component {
         }
     }
 
-    setPage(currentPage) {
+    setPage = (currentPage) => {
         var items = this.props.items;
         var pager = this.state.pager;
 
@@ -37,7 +39,7 @@ class Pagination extends Component {
         this.props.onChangePage(pageItems);
     }
 
-    getPager(totalItems, currentPage) {
+    getPager = (totalItems, currentPage) => {
         currentPage = currentPage || 1;
         var pageSize = this.props.pageSize || 10;
         var totalPages = Math.ceil(totalItems / pageSize);
@@ -110,7 +112,5 @@ class Pagination extends Component {
         );
     }
 }
-
-Pagination.defaultProps = defaultProps;
 
 export default Pagination;

@@ -6,18 +6,14 @@ import ItemOrder from '../components/itemOrder';
 import OrderDetails from '../components/orderDetails';
 import Header from "../components/header";
 import Skeleton from "../components/skeleton";
+import ExportCSV from '../components/exportCSV';
 
 class Order extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            filterValue: '',
-            searchText: '',
-            orderDetails: ''
-        };
-        this.onChangePage = this.onChangePage.bind(this);
-        this.onClickDetails = this.onClickDetails.bind(this);
+	state = {
+        pageOfItems: [],
+        filterValue: '',
+        searchText: '',
+        orderDetails: ''
     }
 
     componentDidMount() {
@@ -27,25 +23,25 @@ class Order extends Component {
         }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickDetails( orderDetails ) {
+    onClickDetails = (orderDetails) => {
         this.setState({ orderDetails });
     }
 
-    onClickFilter(e) {
+    onClickFilter = (e) => {
         e.preventDefault();
         const filterValue = e.target.innerText.toLowerCase();
         this.setState({ filterValue });
     }
 
-    onChangeInput( key, value ) {
+    onChangeInput = (key, value) => {
         this.setState({ [key]: value });
     }
 
-    geOrderLength( key ) {
+    geOrderLength = (key) => {
         const { data } = this.props.order;
         let orderLength = data.length;
         if( key ) {
@@ -54,7 +50,7 @@ class Order extends Component {
         return orderLength;
     }
 
-    getOrderData() {
+    getOrderData = () => {
         const { filterValue, searchText } = this.state;
         const { order } = this.props;
         let filterData = order.data;
@@ -63,11 +59,25 @@ class Order extends Component {
         }
         if( searchText ) {
             filterData = order.data.filter( item =>
+                ( item.details.id.search( searchText ) !== -1 ) ||
+                ( item.details.status.toLowerCase().search( searchText.toLowerCase()) !== -1 ) ||
                 ( item.details.billing.first_name.toLowerCase().search( searchText.toLowerCase()) !== -1 ) ||
                 ( item.details.billing.last_name.toLowerCase().search( searchText.toLowerCase()) !== -1 )
             );
         }
         return filterData;
+    }
+
+    getCsv() {
+        const { data } = this.props.order;
+        let csv = [];
+        csv.push(['Order', 'Pledge', 'Date', 'Payment', 'Fulfillment']);
+        data.map( item => {
+            const { details } = item;
+            const date = details.formatted_c_date.replace(',', '');
+            csv.push([details.id, details.total, date, details.status, details.fulfillment]);
+        });
+        return csv;
     }
 
 	render() {
@@ -108,12 +118,10 @@ class Order extends Component {
                     </div>
                     <div className="wpcf-dashboard-search">
                         <div>
-                            {/*TODO: Cannot search with product id || Payment || Fulfillment*/}
                             <input name="searchText" placeholder="Search" onChange={ (e) => this.onChangeInput( 'searchText', e.target.value ) } value={ searchText } />
                         </div>
                         <div>
-                            {/*TODO: CSV Button need working*/}
-                            <button className="wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-success-btn wpcf-btn-sm">Download CSV</button>
+                            <ExportCSV data={this.getCsv()} file_name="order-list"/>
                         </div>
 
                     </div>

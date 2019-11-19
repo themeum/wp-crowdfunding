@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
 class ProfileEditForm extends Component {
-	constructor (props) {
-        super(props);
-        this.state = { ...this.props.data, new_pass: '', retype_pass: '', error: '' };
-        this.changeImage = this.changeImage.bind(this);
-        this.onChangeValue = this.onChangeValue.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+    state = {
+        ...this.props.data,
+        new_pass: '',
+        retype_pass: '',
+        error: ''
+    };
 
-    changeImage() {
+    changeImage = () => {
         wp.media.editor.send.attachment = (props, attachment) => {
             this.setState( {
                 profile_image: attachment.url,
@@ -19,11 +18,11 @@ class ProfileEditForm extends Component {
         wp.media.editor.open();
     }
 
-    onChangeValue(e) {
+    onChangeValue = (e) => {
         this.setState( { [e.target.name]: e.target.value } );
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         const { new_pass, retype_pass } = this.state;
         let postData = this.state;

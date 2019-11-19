@@ -1,4 +1,8 @@
-import { FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR } from "../actions/campaignAction";
+import {
+    FETCH_PLEDGE_RECEIVED_PENDING,
+    FETCH_PLEDGE_RECEIVED_COMPLETE,
+    FETCH_PLEDGE_RECEIVED_ERROR
+} from "../actions/campaignAction";
 
 export default function(state = { loading: true, loaded: false, data:[] }, action ) {
     switch( action.type ) {

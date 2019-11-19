@@ -51,11 +51,16 @@ class ItemCampaign extends Component {
         );
     }
 
+
+
     render() {
         const { data, invested, pledge } = this.props;
         return (
             <div className="wpcf-campaign-item">
-                { data.status == 'running'  && data.days_remaining==1 &&
+                {   data.status == 'running' &&
+                    data.end_method=='target_date' &&
+                    data.seconds <= 43200 && //If 24hour left
+
                     this.renderInterval()
                 }
                 <a
@@ -94,7 +99,7 @@ class ItemCampaign extends Component {
                             </h5>
                         </div>
     
-                        {( data.end_method !== 'never_end' ) && (
+                        {( data.end_method == 'target_date' ) && (
                             <div className="wpcf-campaign-info">
                                 <h5>
                                     <span>{ ( data.is_started ) ? data.days_remaining :  data.days_until_launch }</span>

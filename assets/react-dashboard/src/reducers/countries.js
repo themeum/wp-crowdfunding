@@ -1,4 +1,8 @@
-import { FETCH_COUNTRIES_PENDING, FETCH_COUNTRIES_COMPLETE, FETCH_COUNTRIES_ERROR } from "../actions/userAction";
+import {
+    FETCH_COUNTRIES_PENDING,
+    FETCH_COUNTRIES_COMPLETE,
+    FETCH_COUNTRIES_ERROR
+} from "../actions/userAction";
 
 export default function(state = { loading: true, loaded: false, data:[] }, action ) {
     switch( action.type ) {

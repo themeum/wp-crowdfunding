@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchMyCampaigns } from '../actions/campaignAction';
+import { fetchMyCampaigns, deleteCampaign } from '../actions/campaignAction';
+import { confirmAlert } from '../components/confirmAlert';
 import CampaignReport from '../containers/campaignReport';
 import ItemCampaign from '../components/itemCampaign';
 import CampaignUpdate from '../components/campaignUpdate';
@@ -43,7 +45,23 @@ class MyCampaigns extends Component {
     }
 
     onClickDelete = (campaignId) => {
-        
+        const data = {
+            id: campaignId,
+            bookmark: false
+        }
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.props.deleteCampaign(data)
+                },
+                {
+                    label: 'No'
+                }
+            ]
+        });
     }
 
     getCampaignData = () => {
@@ -107,8 +125,7 @@ class MyCampaigns extends Component {
                                         <a href={item.edit_link} aria-label="Edit" title="Edit">
                                             <i className="far fa-edit"></i>
                                         </a>
-                                        {/*TODO: Need Button Working*/}
-                                        <button aria-label="Delete" title="Delete">
+                                        <button aria-label="Delete" title="Delete" onClick={ () => this.onClickDelete(item.id) }>
                                             <span className="fas fa-trash-alt"></span>
                                         </button>
                                     </div>
@@ -135,4 +152,11 @@ const mapStateToProps = state => ({
     campaign: state.myCampaign
 })
 
-export default connect( mapStateToProps, { fetchMyCampaigns } )(MyCampaigns);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        fetchMyCampaigns,
+        deleteCampaign
+    }, dispatch);
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(MyCampaigns);

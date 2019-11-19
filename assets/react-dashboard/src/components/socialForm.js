@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 
 class SocialForm extends Component {
-	constructor (props) {
-        super(props);
-        this.state = { ...this.props.data };
-        this.onChangeInput = this.onChangeInput.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+    state = { 
+        ...this.props.data
     }
 
-    onChangeInput(e) {
+    onChangeInput = (e) => {
         this.setState( { [e.target.name]: e.target.value } );
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         this.props.onClickSaveData( this.state );
     }

@@ -5,10 +5,6 @@ import WithdrawMethodForm from '../components/withdrawMethodForm';
 import Skeleton from "../components/skeleton";
 
 class WithdrawMethodSettings extends Component {
-	constructor (props) {
-        super(props);
-        this.onClickSaveData = this.onClickSaveData.bind(this);
-    }
 
     componentDidMount() {
         const { withdrawMethod } = this.props;
@@ -29,7 +25,7 @@ class WithdrawMethodSettings extends Component {
         }
     }
 
-    onClickSaveData( selected_method ) {
+    onClickSaveData = (selected_method) => {
         this.props.saveWithdrawAccount( selected_method );
     }
 

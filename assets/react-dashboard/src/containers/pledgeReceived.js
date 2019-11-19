@@ -9,34 +9,28 @@ import Header from '../components/header';
 import Skeleton from "../components/skeleton";
 
 class PledgeReceived extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            openModal: false,
-            modalData: ''
-        };
-        this.onChangePage = this.onChangePage.bind(this);
-        this.onClickDetails = this.onClickDetails.bind(this);
-        this.onClickModalClose = this.onClickModalClose.bind(this);
+	state = {
+        pageOfItems: [],
+        openModal: false,
+        modalData: ''
     }
 
     componentDidMount() {
         const { loaded } = this.props.pledge;
-        //if( !loaded ) {
+        if( !loaded ) {
             this.props.fetchPledgeReceived();
-        //}
+        }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickDetails( data ) {
+    onClickDetails = (data) => {
         this.setState({ openModal: true, modalData: data });
     }
 
-    onClickModalClose() {
+    onClickModalClose = () => {
         this.setState({ openModal: false });
     }
 
@@ -44,7 +38,6 @@ class PledgeReceived extends Component {
         const { pledge } = this.props;
         if( pledge.loading ) {
             return (
-
                 <Skeleton />
             )
         };

@@ -61,7 +61,7 @@ class API_Dashboard {
             array( 'methods' => $method_readable, 'callback' => array($this, 'my_campaigns') ),
         ));
         register_rest_route( $namespace, '/delete-campaign', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'delete_campaign') ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'delete_campaign') ),
         ));
         register_rest_route( $namespace, '/invested-campaigns', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'invested_campaigns'), ),
@@ -372,30 +372,27 @@ class API_Dashboard {
     function delete_campaign( \WP_REST_Request $request ) {
         $user_id = $this->current_user_id;
         $campaign_id = (int) $request['id'];
-        $bookmark = (int) $request['bookmark'];
+        $bookmark = (bool) $request['bookmark'];
         $response = array(
-            'success'   => false
+            'success'   => false,
+            'msg'       => __('Unknown error occurred', 'wp-crowdfunding')
         );
         if($bookmark) {
             $loved_campaign_ids   = get_user_meta($user_id, 'loved_campaign_ids', true);
             if($loved_campaign_ids) {
                 $loved_campaign_ids = json_decode( $loved_campaign_ids, true );
                 $index = array_search($campaign_id, $loved_campaign_ids);
-                if($index) {
-                    unset( $loved_campaign_ids[$index] );
-                }
+                unset( $loved_campaign_ids[$index] );
                 update_user_meta($user_id, 'loved_campaign_ids', json_encode($loved_campaign_ids));
                 $response = array(
-                    'success'   => true,
-                    'bookmark'  => true,
-                    'index'     => $index,
+                    'success'       => true,
+                    'campaign_id'   => $campaign_id,
                 );
             }
         } else {
             wp_delete_post($campaign_id);
             $response = array(
                 'success'       => true,
-                'bookmark'      => false,
                 'campaign_id'   => $campaign_id,
             );
         }
@@ -596,7 +593,7 @@ class API_Dashboard {
                 $campaign_id    = get_the_id();
 
                 $end_date       = get_post_meta($campaign_id, '_nf_duration_end', true);
-                $end_date       = date("Y-m-t 23:59:59", strtotime($end_date));
+                $end_date       = date("d-m-Y 23:59:59", strtotime($end_date));
                 $end_date       = new \DateTime($end_date);
                 $current_date   = new \DateTime();
                 $seconds        = $end_date->getTimestamp() - $current_date->getTimestamp();
@@ -606,7 +603,7 @@ class API_Dashboard {
                 $funding_goal   = get_post_meta($post->ID, '_nf_funding_goal', true);
                 $end_method     = get_post_meta($campaign_id, 'wpneo_campaign_end_method', true);
                 $updates        = get_post_meta($campaign_id, 'wpneo_campaign_updates', true);
-                $data[]       = array(
+                $data[]         = array(
                     'id'                => $campaign_id,
                     'title'             => get_the_title(),
                     'permalink'         => get_permalink(),
@@ -669,7 +666,7 @@ class API_Dashboard {
         foreach ( $customer_orders as $customer_order )  {
             $order = wc_get_order( $customer_order );
             $order_details = $order->get_data(); //get order data
-            $order_details['total'] = $order->get_formatted_order_total();
+            $order_details['total'] = $order->get_total();
             $order_details['formatted_b_addr'] = $order->get_formatted_billing_address();
             $order_details['formatted_c_date'] = wc_format_datetime($order->get_date_created());
             $order_details['formatted_oc_date'] = wc_format_datetime($order->get_date_completed());
