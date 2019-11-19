@@ -59,7 +59,7 @@ class Order extends Component {
         }
         if( searchText ) {
             filterData = order.data.filter( item =>
-                ( item.details.id.search( searchText ) !== -1 ) ||
+                ( item.details.id.toString().search( searchText ) !== -1 ) ||
                 ( item.details.status.toLowerCase().search( searchText.toLowerCase()) !== -1 ) ||
                 ( item.details.billing.first_name.toLowerCase().search( searchText.toLowerCase()) !== -1 ) ||
                 ( item.details.billing.last_name.toLowerCase().search( searchText.toLowerCase()) !== -1 )

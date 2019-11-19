@@ -1,4 +1,5 @@
 import React from 'react';
+import { wcPice } from "../helper";
 
 function getStatusColor(status) {
     switch( status ) {
@@ -19,7 +20,7 @@ export default (props) => {
         <tr>
             <td>#{ details.id }</td>
             <td>{ billing.first_name+' '+billing.last_name }</td>
-            <td dangerouslySetInnerHTML={{__html:details.total}} />
+            <td dangerouslySetInnerHTML={{__html: wcPice(details.total)}} />
             <td>{ details.formatted_c_date }</td>
             <td style={ {color: getStatusColor(details.status)} }>{ details.status_name }</td>
             <td style={ {color: getStatusColor(details.fulfillment)} }>{ details.fulfillment }</td>

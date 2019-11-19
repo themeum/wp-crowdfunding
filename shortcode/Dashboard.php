@@ -39,6 +39,7 @@ class Dashboard {
         $decimals = (wc_get_price_decimals()) ? wc_get_price_decimals() : 2;
         
         if( get_the_ID() && get_the_ID() == $page_id ) {
+            $active_pro = (file_exists(WP_PLUGIN_DIR.'/'.WPCF_PRO_BASENAME) && is_plugin_active(WPCF_PRO_BASENAME));
             wp_enqueue_script( 'chart.bundle.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js', array('jquery'), '', true );
             wp_enqueue_script( 'wpcf-dashboard-script', WPCF_DIR_URL.'assets/js/dashboard.js', array('jquery'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
@@ -47,6 +48,7 @@ class Dashboard {
                 'assets'            => WPCF_DIR_URL.'assets/',
                 'nonce'             => wp_create_nonce( 'wpcf_api_nonce' ),
                 'create_campaign'   => get_permalink( $form_page_id ),
+                'active_pro'        => $active_pro,
                 'currency'          => array(
                     'symbol'        => $currency_symbol,
                     'd_separator'  	=> $decimal_separator,

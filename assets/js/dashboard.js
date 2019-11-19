@@ -34368,6 +34368,8 @@ ItemCampaign.defaultProps = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+
 
 
 function getStatusColor(status) {
@@ -34391,7 +34393,7 @@ function getStatusColor(status) {
       billing = _props$data.details.billing;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "#", details.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, billing.first_name + ' ' + billing.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
     dangerouslySetInnerHTML: {
-      __html: details.total
+      __html: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["wcPice"])(details.total)
     }
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, details.formatted_c_date), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
     style: {
@@ -36387,7 +36389,7 @@ function (_Component) {
       }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Bookmarks', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
         activeClassName: "is-active",
         to: "/order"
-      }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Order', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
+      }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Order', 'wp-crowdfunding'))), WPCF.active_pro && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
         activeClassName: "is-active",
         to: "/withdraw"
       }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Withdraw', 'wp-crowdfunding'))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
@@ -36413,7 +36415,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
         activeClassName: "is-active",
         to: "/settings/profile"
-      }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Profile Settings', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
+      }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Profile Settings', 'wp-crowdfunding'))), WPCF.active_pro && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
         activeClassName: "is-active",
         to: "/settings/withdraw"
       }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Withdraw Method', 'wp-crowdfunding'))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
@@ -36445,7 +36447,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/order",
         component: _order__WEBPACK_IMPORTED_MODULE_11__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }), WPCF.active_pro && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/withdraw",
         component: _withdraw__WEBPACK_IMPORTED_MODULE_12__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
@@ -36454,7 +36456,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/settings/profile",
         component: _profileSettings__WEBPACK_IMPORTED_MODULE_13__["default"]
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }), WPCF.active_pro && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/settings/withdraw",
         component: _withdrawMethodSettings__WEBPACK_IMPORTED_MODULE_14__["default"]
       }))));
@@ -37410,7 +37412,7 @@ function (_Component) {
 
       if (searchText) {
         filterData = order.data.filter(function (item) {
-          return item.details.id.search(searchText) !== -1 || item.details.status.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.first_name.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.last_name.toLowerCase().search(searchText.toLowerCase()) !== -1;
+          return item.details.id.toString().search(searchText) !== -1 || item.details.status.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.first_name.toLowerCase().search(searchText.toLowerCase()) !== -1 || item.details.billing.last_name.toLowerCase().search(searchText.toLowerCase()) !== -1;
         });
       }
 

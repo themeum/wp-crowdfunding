@@ -99,7 +99,7 @@ class App extends Component {
                                     <li><NavLink activeClassName="is-active" to="/pledge-received">{ __('Pledge Received', 'wp-crowdfunding') }</NavLink></li>
                                     <li><NavLink activeClassName="is-active" to="/bookmark-campaigns">{ __('Bookmarks', 'wp-crowdfunding') }</NavLink></li>
                                     <li><NavLink activeClassName="is-active" to="/order">{ __('Order', 'wp-crowdfunding') }</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/withdraw">{ __('Withdraw', 'wp-crowdfunding') }</NavLink></li>
+                                    {WPCF.active_pro && <li><NavLink activeClassName="is-active" to="/withdraw">{ __('Withdraw', 'wp-crowdfunding') }</NavLink></li> }
                                 </ul>
                             </li>
                             <li><NavLink activeClassName="is-active" to="/rewards"><span className="fas fa-gift wpcf-icon"></span>{ __('Rewards', 'wp-crowdfunding') }</NavLink></li>
@@ -120,24 +120,28 @@ class App extends Component {
                                 </a>
                                 <ul className=" wpcf-dashboard-sub-permalinks">
                                     <li><NavLink activeClassName="is-active" to="/settings/profile">{ __('Profile Settings', 'wp-crowdfunding') }</NavLink></li>
-                                    <li><NavLink activeClassName="is-active" to="/settings/withdraw">{ __('Withdraw Method', 'wp-crowdfunding') }</NavLink></li>
+                                    {WPCF.active_pro && <li><NavLink activeClassName="is-active" to="/settings/withdraw">{ __('Withdraw Method', 'wp-crowdfunding') }</NavLink></li>}
                                 </ul>
                             </li>
                             <li><a href="javascript:void(0)" onClick={this.logout}><span className="wpcf-icon fas fa-sign-out-alt"></span>{ __('Logout', 'wp-crowdfunding') }</a></li>
                         </ul>
                     </div>
                     <div className="wpcf-dashboard-content">
-                        <Route path="/" exact component={CampaignReport} />
-                        <Route path="/profile" component={Profile} />
-                        <Route path="/my-campaigns" component={MyCampaigns} />
-                        <Route path="/invested-campaigns" component={InvestedCampaigns} />
-                        <Route path="/pledge-received" component={PledgeReceived} />
-                        <Route path="/bookmark-campaigns" component={BookmarkCampaigns} />
-                        <Route path="/order" component={Order} />
-                        <Route path="/withdraw" component={Withdraw} />
-                        <Route path="/rewards" component={Rewards} />
-                        <Route path="/settings/profile" component={ProfileSettings} />
-                        <Route path="/settings/withdraw" component={WithdrawMethodSettings} />
+                        <Route path="/" exact component={CampaignReport}/>
+                        <Route path="/profile" component={Profile}/>
+                        <Route path="/my-campaigns" component={MyCampaigns}/>
+                        <Route path="/invested-campaigns" component={InvestedCampaigns}/>
+                        <Route path="/pledge-received" component={PledgeReceived}/>
+                        <Route path="/bookmark-campaigns" component={BookmarkCampaigns}/>
+                        <Route path="/order" component={Order}/>
+                        {WPCF.active_pro &&
+                            <Route path="/withdraw" component={Withdraw}/>
+                        }
+                        <Route path="/rewards" component={Rewards}/>
+                        <Route path="/settings/profile" component={ProfileSettings}/>
+                        {WPCF.active_pro &&
+                            <Route path="/settings/withdraw" component={WithdrawMethodSettings}/>
+                        }
                     </div>
                 </HashRouter>
             </div>
