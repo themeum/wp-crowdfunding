@@ -18,7 +18,11 @@
 		line-height: 16px;
 		color: var(--wpcf-light-text-color);
 		margin: 0 0 12px;
+		&.wpcf-field-info{
+			margin-top: 6px;
+		}
 	}
+	
 	input[type="text"]:not(.ui-slider),
 	input[type="number"],
 	input[type="email"],
