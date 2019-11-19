@@ -37,17 +37,24 @@ export const fetchMyCampaigns = () => dispatch => {
 
 //DELETE CAMPAINGS
 export const DELETE_CAMPAIGN_PENDING = 'delete_campaign_pending';
+export const DELETE_BOOKMARK_CAMPAIGN_PENDING = 'delete_bookmark_campaign_pending';
 export const DELETE_CAMPAIGN_COMPLETE = 'delete_campaign_complete';
-export const DELETE_CAMPAIGN_ERROR = 'delete_campaign_error';
+export const DELETE_BOOKMARK_CAMPAIGN_COMPLETE = 'delete_bookmark_campaign_complete';
 
 export const deleteCampaign = (data) => dispatch => {
-    dispatch({ type: DELETE_CAMPAIGN_PENDING });
+    let dispatchPending = DELETE_CAMPAIGN_PENDING
+    let dispatchComplete = DELETE_CAMPAIGN_COMPLETE
+    if(data.bookmark) {
+        dispatchPending = DELETE_BOOKMARK_CAMPAIGN_PENDING
+        dispatchComplete = DELETE_BOOKMARK_CAMPAIGN_COMPLETE
+    }
+    dispatch({ type: dispatchPending });
     const fetchURL = `${WPCF.rest_url}/delete-campaign`;
     const option = { method: 'POST', body: JSON.stringify(data), headers };
     fetch( fetchURL, option )
     .then( response =>  response.json() )
-    .then( payload => dispatch( {type: DELETE_CAMPAIGN_PENDING, payload} ) )
-    .catch( payload => dispatch( {type: DELETE_CAMPAIGN_ERROR, payload} ) );
+    .then( payload => dispatch( {type: dispatchComplete, payload} ) )
+    .catch( error => console.log(error) );
 }
 
 

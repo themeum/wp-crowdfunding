@@ -6,12 +6,7 @@ import Header from '../components/header';
 import Skeleton from '../components/skeleton';
 
 class Profile extends Component {
-	constructor (props) {
-        super(props);
-    }
-
     componentDidMount() {
-
         const { user, countries } = this.props;
         if( !user.loaded ) {
             this.props.fetchUser();
@@ -20,14 +15,12 @@ class Profile extends Component {
         if(!countries.loaded) {
             this.props.fetchCountries();
         }
-
     }
 
 	render() {
         const { loading, data } = this.props.user;
         const cLoading = this.props.countries.loading;
         const countries = this.props.countries.data;
-
 
         if( loading || cLoading ) {
             return (
@@ -77,7 +70,6 @@ class Profile extends Component {
         )
 	}
 }
-
 
 const mapStateToProps = state => ({
     user: state.user,

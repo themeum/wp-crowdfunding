@@ -6,19 +6,14 @@ import { wcPice } from "../helper";
 import Header from "./header";
 
 class WithdrawDetails extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            withdraw_amount: '',
-            withdraw_message: '',
-            withdraw_method: '',
-            errorMsg: '',
-        };
-        this.onChangeInput = this.onChangeInput.bind(this);
-        this.onSubmitWithdrawReq = this.onSubmitWithdrawReq.bind(this);
+    state = {
+        withdraw_amount: '',
+        withdraw_message: '',
+        withdraw_method: '',
+        errorMsg: '',
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const { withdraw, withdraw: { reqStatus } } = this.props;
         if ( reqStatus !== prevProps.withdraw.reqStatus ) {
             if( reqStatus == 'complete' ) {
@@ -37,11 +32,11 @@ class WithdrawDetails extends Component {
         }
     }
 
-    onChangeInput(e) {
+    onChangeInput = (e) => {
         this.setState( { [e.target.name]: e.target.value } );
     }
 
-    onSubmitWithdrawReq(e) {
+    onSubmitWithdrawReq = (e) => {
         e.preventDefault();
         const { campaign_id } = this.props.data;
         const { withdraw_amount } = this.state;

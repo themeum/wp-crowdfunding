@@ -1,4 +1,8 @@
-import { FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR } from "../actions/campaignAction";
+import {
+    FETCH_REWARDS_PENDING,
+    FETCH_REWARDS_COMPLETE,
+    FETCH_REWARDS_ERROR
+} from "../actions/campaignAction";
 
 export default function(state = { loading: true, loaded: false, data:[] }, action ) {
     switch( action.type ) {

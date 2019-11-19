@@ -1050,7 +1050,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-light-text-color: #ADAECF;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4;\n  --wpcf-success-color: #00A92F;\n  --wpcf-warning-color: #e8710d;\n  --wpcf-danger-color: #c91818; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  font-size: 14px; }\n\n#wpcf-dashboard img {\n  max-width: 100%;\n  height: auto; }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: flex-start; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px);\n  padding-left: 30px;\n  padding-top: 30px; }\n\na {\n  color: var(--wpcf-primary-color); }\n  a:hover, a:focus, a:active {\n    color: var(--wpcf-primary-color); }\n\n.wpcf-btn-group {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: -10px; }\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px; }\n    .wpcf-btn-group .wpcf-btn:not(:last-child) {\n      margin-right: 10px; }\n\n.wpcf-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  text-decoration: none !important;\n  font-size: 16px;\n  position: relative;\n  transition: 300ms; }\n  .wpcf-btn .icon-left {\n    margin-right: 6px; }\n  .wpcf-btn:not(.wpcf-link-btn) {\n    line-height: 26px;\n    height: 40px;\n    padding: 0 25px;\n    background: var(--wpcf-primary-color);\n    border: 1px solid var(--wpcf-primary-color);\n    color: #fff; }\n  .wpcf-btn.wpcf-btn-sm {\n    font-size: 14px;\n    padding-left: 15px;\n    padding-right: 15px;\n    line-height: 17px;\n    height: 35px; }\n  .wpcf-btn.wpcf-btn-secondary {\n    background-color: var(--wpcf-primary-text-color);\n    border-color: var(--wpcf-primary-text-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-success-btn, .wpcf-btn.wpcf-btn-success {\n    background-color: var(--wpcf-success-color);\n    border-color: var(--wpcf-success-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-danger-btn, .wpcf-btn.wpcf-btn-danger {\n    background-color: var(--wpcf-danger-color);\n    border-color: var(--wpcf-danger-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-warning-btn, .wpcf-btn.wpcf-btn-warning {\n    background-color: var(--wpcf-warning-color);\n    border-color: var(--wpcf-warning-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-link-btn {\n    color: var(--wpcf-primary-color);\n    padding: 0;\n    background: none;\n    border: none; }\n  .wpcf-btn.wpcf-btn-outline {\n    background: transparent;\n    border: 1px solid var(--wpcf-primary-color);\n    color: var(--wpcf-primary-color); }\n    .wpcf-btn.wpcf-btn-outline:hover {\n      background-color: var(--wpcf-primary-color);\n      color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-success, .wpcf-btn.wpcf-btn-outline.wpcf-success-btn {\n      color: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-success:hover, .wpcf-btn.wpcf-btn-outline.wpcf-success-btn:hover {\n        background-color: var(--wpcf-success-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-danger, .wpcf-btn.wpcf-btn-outline.wpcf-danger-btn {\n      color: var(--wpcf-danger-color);\n      border-color: var(--wpcf-danger-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-danger:hover, .wpcf-btn.wpcf-btn-outline.wpcf-danger-btn:hover {\n        background-color: var(--wpcf-danger-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-warning, .wpcf-btn.wpcf-btn-outline.wpcf-warning-btn {\n      color: var(--wpcf-warning-color);\n      border-color: var(--wpcf-warning-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-warning:hover, .wpcf-btn.wpcf-btn-outline.wpcf-warning-btn:hover {\n        background-color: var(--wpcf-warning-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary {\n      border-color: var(--wpcf-border-color);\n      background: #ffffff;\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary.active, .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary:hover {\n        border-color: var(--wpcf-primary-color);\n        color: var(--wpcf-primary-color); }\n  .wpcf-btn.wpcf-btn-round {\n    border-radius: 30px; }\n  .wpcf-btn .wpcf-icon:not(.wpcf-icon-right) {\n    margin-right: 12px; }\n  .wpcf-btn .wpcf-icon-right {\n    margin-left: 12px; }\n\n.wpcf-btn-group {\n  margin-top: -10px;\n  margin-left: -10px; }\n  .wpcf-btn-group button,\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px;\n    margin-left: 10px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:first-child {\n  height: 65px;\n  width: 65px;\n  display: block;\n  border-radius: 50%;\n  margin-bottom: 14px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(2) {\n  display: block;\n  height: 25px;\n  width: 60%;\n  margin-bottom: 8px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(3) {\n  display: block;\n  height: 20px;\n  width: 100%; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar li {\n  margin: 10px 30px;\n  height: 30px; }\n\n.wpcf-dashboard-sidebar {\n  border: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: var(--wpcf-light-text-color);\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 0;\n    list-style: none;\n    font-size: 16px;\n    flex-grow: 1;\n    min-height: 600px;\n    display: flex;\n    flex-direction: column; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:nth-last-child(2) {\n      margin-bottom: 90px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child a {\n        color: var(--wpcf-primary-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color);\n        text-decoration: none !important; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a.is-active {\n          color: var(--wpcf-primary-color); }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > ul {\n        display: block; }\n\n.wpcf-dashboard-info-cards {\n  display: flex;\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .wpcf-dashboard-info-cards .wpcf-dashboard-info-card {\n    padding: 18px 25px 25px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 8px;\n    color: var(--wpcf-light-text-color);\n    margin-left: 20px;\n    font-weight: 400;\n    flex-grow: 1; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card h3 {\n      font-size: 32px;\n      margin-bottom: 3px;\n      color: var(--wpcf-primary-color);\n      font-weight: 400; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card:first-child {\n      min-width: 28%; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success {\n      background: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color);\n      color: #ffffff; }\n      .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success h3 {\n        color: #ffffff; }\n\n.wpcf-report-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n\n.wpcf-report-filter span,\n.wpcf-report-filter input {\n  height: 45px;\n  padding: 0 20px;\n  border: 1px solid var(--wpcf-border-color);\n  border-radius: 30px;\n  margin-right: 12px;\n  color: var(--wpcf-primary-text-color); }\n  .wpcf-report-filter span::placeholder,\n  .wpcf-report-filter input::placeholder {\n    color: var(--wpcf-primary-text-color); }\n\n.wpcf-report-filter input {\n  width: 140px; }\n\n.wpcf-report-filter span {\n  display: inline-flex;\n  padding: 0;\n  position: relative; }\n  .wpcf-report-filter span select {\n    border: none;\n    background: transparent;\n    min-width: 160px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n    color: var(--wpcf-primary-text-color);\n    padding: 0 20px !important;\n    line-height: 45px;\n    height: 45px; }\n  .wpcf-report-filter span::after {\n    position: absolute;\n    content: '\\f078';\n    font-weight: 900;\n    font-family: 'Font Awesome 5 Free';\n    top: 50%;\n    right: 20px;\n    transform: translateY(-50%);\n    font-size: 14px; }\n\n.wpcf-report-line-graph {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 25px;\n  margin-bottom: 30px;\n  border-radius: 4px; }\n\n.wpcf-dashboard-item-wraper {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n\n.wpcf-dashboard-search {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n  .wpcf-dashboard-search input {\n    height: 35px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 30px;\n    padding-left: 20px; }\n    .wpcf-dashboard-search input::placeholder {\n      color: #DCDCE4;\n      opacity: 1; }\n\n.is-skeleton th,\n.is-skeleton td,\n.is-skeleton .skeleton-bg {\n  color: transparent !important;\n  border-color: transparent !important; }\n\n.wpcf-content-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px 0; }\n  .wpcf-content-header .wpcf-btn {\n    margin-left: auto; }\n\n.wpcf-content-heading {\n  font-size: 21px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  line-height: 24px;\n  margin-bottom: 20px; }\n\n.wpcf-content-subheading {\n  color: var(--wpcf-primary-text-color);\n  margin-bottom: 25px;\n  font-size: 14px;\n  font-weight: 400; }\n\n.wpcf-mycampaign-filter-group {\n  margin-bottom: 20px; }\n\n.wpcf-campaign-item {\n  display: flex;\n  align-items: center;\n  padding: 30px;\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 20px;\n  border-radius: 4px; }\n  .wpcf-campaign-item a.wpcf-campaign-thumbnail {\n    max-width: 170px;\n    flex: 1 0 170px;\n    margin-right: 30px; }\n    .wpcf-campaign-item a.wpcf-campaign-thumbnail img {\n      display: block;\n      border: 1px solid var(--wpcf-border-color); }\n  .wpcf-campaign-item .wpcf-campaign-content {\n    flex-grow: 1; }\n  .wpcf-campaign-item .wpcf-campaign-title {\n    font-size: 21px;\n    margin: 0 0 5px;\n    font-weight: 400;\n    line-height: 28px; }\n    .wpcf-campaign-item .wpcf-campaign-title a {\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-campaign-item .wpcf-campaign-title a:hover {\n        color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-heading {\n    display: flex;\n    justify-content: space-between; }\n    .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links {\n      white-space: nowrap; }\n      .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links a,\n      .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button {\n        border: none;\n        padding: 0;\n        margin: 0;\n        background: none;\n        color: var(--wpcf-light-text-color);\n        transition: 300ms;\n        padding-left: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links a:not(:last-child),\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:not(:last-child) {\n          padding-right: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links a:hover,\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:hover {\n          color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-author {\n    font-size: 16px;\n    font-weight: 400;\n    margin: 0 0 5px; }\n    .wpcf-campaign-item .wpcf-campaign-author a {\n      color: var(--wpcf-primary-color); }\n\n.wpcf-campaign-infos {\n  display: flex;\n  align-items: center;\n  margin-left: -20px;\n  flex-wrap: wrap; }\n  .wpcf-campaign-infos .wpcf-campaign-info > h5 {\n    font-weight: 400;\n    margin: 0;\n    font-size: 14px;\n    color: var(--wpcf-light-text-color); }\n    .wpcf-campaign-infos .wpcf-campaign-info > h5 span:first-child {\n      font-size: 16px;\n      font-weight: 500;\n      color: var(--wpcf-success-color);\n      display: block;\n      margin-bottom: 2px; }\n  .wpcf-campaign-infos .wpcf-campaign-info {\n    margin-left: 20px;\n    margin-top: 15px; }\n  .wpcf-campaign-infos .wpcf-campaign-raised {\n    position: relative; }\n    .wpcf-campaign-infos .wpcf-campaign-raised .wpcf-raised-percent {\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, -50%);\n      font-size: 14px;\n      color: var(--wpcf-success-color); }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-myprofile-primary-info {\n  display: flex;\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 20px;\n  position: relative; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-avatar {\n    flex: 0 0 auto;\n    margin-right: 30px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-avatar img {\n      border-radius: 50%;\n      width: 100px;\n      height: 100px; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-data {\n    flex-grow: 1;\n    display: inline-flex;\n    align-items: flex-start; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-profile-edit-btn {\n      margin-left: auto;\n      padding: 0;\n      border: none;\n      font-size: 12px;\n      color: var(--wpcf-primary-text-color); }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country {\n      margin-left: 60px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email span {\n      font-size: 16px;\n      color: var(--wpcf-heading-color); }\n\n.wpcf-myprofile-name-email h4,\n.wpcf-myprofile-country h4 {\n  font-size: 18px;\n  font-weight: 500;\n  color: var(--wpcf-heading-color);\n  margin: 0 0 16px;\n  line-height: 18px; }\n\n.wpcf-myprofile-name-email span,\n.wpcf-myprofile-country span {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 20px; }\n  .wpcf-myprofile-name-email span img,\n  .wpcf-myprofile-country span img {\n    margin-right: 11px; }\n\n.wpcf-myprofile-additional-info {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n  .wpcf-myprofile-additional-info ul {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    color: var(--wpcf-heading-color); }\n    .wpcf-myprofile-additional-info ul li {\n      display: flex;\n      align-items: center; }\n      .wpcf-myprofile-additional-info ul li strong {\n        font-size: 16px;\n        font-weight: 500;\n        min-width: 155px; }\n      .wpcf-myprofile-additional-info ul li:not(:last-child) {\n        margin-bottom: 30px; }\n      .wpcf-myprofile-additional-info ul li i {\n        color: #D6D6E7; }\n\n.wpcf-myprofile-deactive {\n  display: flex;\n  align-items: center;\n  justify-content: space-between; }\n  .wpcf-myprofile-deactive h5 {\n    font-size: 16px;\n    font-weight: 400;\n    color: var(--wpcf-heading-color);\n    margin: 0 0 15px; }\n\n.wpcf-social-title {\n  font-size: 16px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  margin: 0 0 30px; }\n\n.wpcf-form-title {\n  font-size: 16px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  margin: 30px 0 15px; }\n\n.wpcf-social-submit {\n  text-align: right; }\n\n.wpcf-profile-photo-edit {\n  position: relative; }\n  .wpcf-profile-photo-edit img {\n    border-radius: 50%;\n    width: 100px;\n    height: 100px; }\n  .wpcf-profile-photo-edit button {\n    position: absolute;\n    border: none;\n    background: var(--wpcf-warning-color);\n    top: 4px;\n    right: 4px;\n    height: 24px;\n    width: 24px;\n    line-height: 23px;\n    color: #fff;\n    font-size: 12px;\n    border-radius: 50%; }\n\n.wpcf-profile-submit {\n  margin-top: 60px;\n  justify-content: flex-end; }\n\n.wpcf-pledge-received-cards {\n  display: flex;\n  padding: 30px;\n  background: var(--wpcf-success-color);\n  color: #fff;\n  min-height: 130px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 30px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card h4 {\n    font-size: 32px;\n    line-height: 43px;\n    color: #ffffff;\n    margin: 0; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card:not(:last-child) {\n    margin-right: 60px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card span {\n    font-size: 16px; }\n\n.wpcf-billing-details-title {\n  font-size: 14px;\n  color: var(--wpcf-primary-text-color);\n  font-weight: 400;\n  margin: 0 0 25px; }\n\n.wpcf-order-details {\n  display: flex; }\n  .wpcf-order-details > div h5,\n  .wpcf-order-details > div span,\n  .wpcf-order-details > div strong {\n    display: block; }\n  .wpcf-order-details > div:not(:last-child) {\n    margin-right: 80px; }\n  .wpcf-order-details > div span > * {\n    display: inline; }\n  .wpcf-order-details .wpcf-order-details-item h5 {\n    font-size: 14px;\n    color: var(--wpcf-primary-text-color);\n    font-weight: 400; }\n  .wpcf-order-details .wpcf-order-details-item strong {\n    color: var(--wpcf-success-color);\n    font-weight: 400; }\n    .wpcf-order-details .wpcf-order-details-item strong * {\n      display: inline; }\n  .wpcf-order-details .wpcf-order-details-item > *:nth-child(3) {\n    margin-top: 12px; }\n  .wpcf-order-details .wpcf-order-details-name-item h5 {\n    font-size: 18px;\n    line-height: 24px;\n    color: var(--wpcf-heading-color);\n    font-weight: 500;\n    margin: 0 0 14px; }\n  .wpcf-order-details .wpcf-order-details-name-item span {\n    color: var(--wpcf-heading-color); }\n  .wpcf-order-details .wpcf-order-details-name-item span, .wpcf-order-details .wpcf-order-details-name-item strong {\n    font-size: 16px; }\n  .wpcf-order-details .wpcf-order-details-name-item strong *,\n  .wpcf-order-details .wpcf-order-details-name-item strong {\n    color: var(--wpcf-success-color); }\n\n.wpcf-dashboard-row {\n  display: flex; }\n  .wpcf-dashboard-row .wpcf-dashboard-col {\n    flex-grow: 1; }\n\n.wpcf-dashboard-item-wraper .wpcf-dashboard-row {\n  margin-top: 30px; }\n  .wpcf-dashboard-item-wraper .wpcf-dashboard-row .wpcf-dashboard-col {\n    max-width: 280px;\n    margin-right: 40px; }\n\n.wpcf-order-details-item strong,\n.wpcf-order-details-item span {\n  display: block;\n  font-weight: 400; }\n\n.wpcf-order-details-item strong {\n  font-size: 16px;\n  margin-top: 16px;\n  color: var(--wpcf-heading-color);\n  line-height: 1.71; }\n\n.withdraw-method-select-wrap {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin: 0 -15px 40px; }\n  .withdraw-method-select-wrap input[type=\"radio\"] {\n    display: none; }\n\n.withdraw-method-select-wrap .withdraw-method-select {\n  -webkit-box-flex: 1;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  padding: 0 15px;\n  margin-bottom: 30px; }\n\n.withdraw-method-select-wrap .withdraw-method-select label {\n  display: block;\n  padding: 20px;\n  margin: 0;\n  cursor: pointer;\n  overflow: hidden;\n  border: 1px solid #DCDFE5;\n  border-radius: 4px;\n  position: relative; }\n  .withdraw-method-select-wrap .withdraw-method-select label > span {\n    display: block; }\n\n.withdraw-method-select-wrap .withdraw-method-select label.active {\n  border-color: #4bd863;\n  -webkit-box-shadow: 0 0 0 1px #4bd863;\n  box-shadow: 0 0 0 1px #4bd863; }\n\n.withdraw-method-select-wrap .withdraw-method-select label:after {\n  content: '\\e90f';\n  position: absolute;\n  right: -1px;\n  top: -1px;\n  border: 1px solid #DCDFE5;\n  height: 22px;\n  width: 22px;\n  text-align: center;\n  line-height: 22px;\n  color: transparent; }\n\n.withdraw-method-select-wrap .withdraw-method-select label.active:after {\n  color: #fff;\n  background: #4bd863;\n  border-color: #4bd863;\n  font-family: 'tutor' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  font-size: 13px; }\n\n.withdraw-method-select-wrap .withdraw-method-select p {\n  margin: 0; }\n\n.withdraw-method-select-wrap .withdraw-method-select label > p {\n  font-size: 20px;\n  font-weight: 600;\n  color: var(--tutor-primary-color); }\n\n.withdraw-method-select-wrap .withdraw-method-select label span {\n  color: #B0B6C8;\n  font-weight: 400; }\n\n.withdraw-method-field-wrap {\n  display: flex; }\n  .withdraw-method-field-wrap label {\n    min-width: 155px; }\n  .withdraw-method-field-wrap textarea {\n    max-width: 360px; }\n\n.withdraw-method-form {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin: 0 -15px; }\n\n.withdraw-method-form > div {\n  -webkit-box-flex: 1;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  min-width: 100%;\n  padding: 0 15px 20px; }\n\n@media (max-width: 480px) {\n  .withdraw-method-form > div {\n    width: 100%; } }\n\n.withdraw-method-form > div.withdraw-account-save-btn-wrap {\n  width: 100%; }\n\n.withdraw-form-field-amount input[type='text'],\n.withdraw-method-forms-wrap .withdraw-method-form input:not([type=\"submit\"]):not([type=\"radio\"]):not([type=\"checkbox\"]),\n.withdraw-method-forms-wrap .withdraw-method-form textarea {\n  border: 1px solid var(--wpcf-border-color);\n  display: block;\n  width: 100%;\n  background: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border-radius: 4px; }\n\nlabel[for=\"tutor_withdraw_amount\"] {\n  margin-bottom: 7px;\n  display: block; }\n\n.withdraw-form-field-amount input[type='text'] {\n  margin-bottom: 10px;\n  height: 35px; }\n\n.withdraw-method-forms-wrap .withdraw-method-form input:not([type=\"submit\"]):not([type=\"radio\"]):not([type=\"checkbox\"]):focus,\n.withdraw-method-forms-wrap .withdraw-method-form textarea:focus {\n  border-color: var(--tutor-primary-color);\n  outline: none; }\n\n.withdraw-method-forms-wrap .withdraw-method-form textarea {\n  min-height: 80px; }\n\n.withdraw-method-forms-wrap .withdraw-method-form label {\n  color: #989EAF;\n  margin-bottom: 8px;\n  display: block; }\n\n.withdraw-method-forms-wrap .withdraw-method-form .withdraw-field-desc {\n  font-size: 12px;\n  margin: 5px 0 0;\n  font-style: italic; }\n\n.wpcf-withdraw-method-input {\n  position: relative; }\n\n#wpcf_withdraw_amount {\n  height: 55px;\n  width: 320px;\n  appearance: none;\n  -moz-appearance: textfield; }\n  #wpcf_withdraw_amount::-webkit-outer-spin-button, #wpcf_withdraw_amount::-webkit-inner-spin-button {\n    -webkit-appearance: none;\n    margin: 0; }\n\ninput[type=number] {\n  -moz-appearance: textfield;\n  /* Firefox */ }\n\n#wpcf_withdraw_amount + span {\n  position: absolute;\n  right: 0;\n  top: 0;\n  padding: 0 22px;\n  line-height: 55px;\n  border-left: 1px solid var(--wpcf-border-color);\n  cursor: pointer; }\n\n.wpcf-form-group {\n  display: flex; }\n  .wpcf-form-group:not(:last-child) {\n    margin-bottom: 15px; }\n  .wpcf-form-group label {\n    flex-grow: 1;\n    flex-basis: 180px;\n    max-width: 180px;\n    font-size: 14px;\n    color: var(--wpcf-heading-color); }\n  .wpcf-form-group input:not([type=\"submit\"]),\n  .wpcf-form-group .wpcf-input,\n  .wpcf-form-group textarea,\n  .wpcf-form-group select {\n    flex-grow: 1;\n    max-width: 375px;\n    flex-basis: 375px;\n    border: 1px solid var(--wpcf-border-color);\n    padding: 0 15px;\n    border-radius: 4px;\n    transition: 300ms;\n    height: 35px;\n    line-height: 35px; }\n    .wpcf-form-group input:not([type=\"submit\"]):focus,\n    .wpcf-form-group .wpcf-input:focus,\n    .wpcf-form-group textarea:focus,\n    .wpcf-form-group select:focus {\n      border-color: var(--wpcf-primary-color); }\n  .wpcf-form-group textarea {\n    height: 160px;\n    resize: none;\n    line-height: 26px;\n    padding-top: 10px;\n    padding-bottom: 10px; }\n\n.wpcf-reward-item {\n  display: flex;\n  border: 1px solid var(--wpcf-border-color);\n  padding: 30px; }\n  .wpcf-reward-item:not(:last-child) {\n    margin-bottom: 30px; }\n  .wpcf-reward-item .wpcf-reward-thumbnail {\n    max-width: 190px;\n    flex-basis: 190px;\n    flex-grow: 1;\n    border: 1px solid #f7f7f7; }\n    .wpcf-reward-item .wpcf-reward-thumbnail img {\n      display: block; }\n  .wpcf-reward-item .wpcf-reward-content {\n    flex-grow: 1;\n    margin-left: 20px; }\n  .wpcf-reward-item .wpcf-reward-perks-wrap {\n    flex-grow: 0;\n    flex-basis: auto;\n    margin-left: auto;\n    padding-left: 20px; }\n    .wpcf-reward-item .wpcf-reward-perks-wrap h5 {\n      font-weight: 400;\n      font-size: 14px;\n      color: var(--wpcf-primary-text-color);\n      margin: 0 0 16px; }\n    .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks {\n      display: flex; }\n      .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item {\n        margin: 0 20px;\n        position: relative; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item:first-child {\n          margin-left: 0; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item:last-child {\n          margin-right: 0; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item h6 {\n          position: relative;\n          font-size: 16px;\n          padding: 5px;\n          color: var(--wpcf-primary-color);\n          background: #f2f6ff;\n          min-width: 28px;\n          text-align: center; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item:not(:first-child) h6::after {\n          content: \":\";\n          position: absolute;\n          left: -22px;\n          top: calc(50% - 2px);\n          transform: translateY(-50%); }\n", ""]);
+exports.push([module.i, ":root {\n  --wpcf-font-family: 'Roboto', sans-serif;\n  --wpcf-primary-text-color: #787993;\n  --wpcf-light-text-color: #ADAECF;\n  --wpcf-primary-color: #3060c5;\n  --wpcf-heading-color: #25265e;\n  --wpcf-border-color: #dcdce4;\n  --wpcf-success-color: #00A92F;\n  --wpcf-warning-color: #e8710d;\n  --wpcf-danger-color: #c91818; }\n\n#wpcf-dashboard {\n  font-family: var(--wpcf-font-family);\n  color: var(--wpcf-primary-text-color);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  font-size: 14px; }\n\n#wpcf-dashboard img {\n  max-width: 100%;\n  height: auto; }\n\n.wpcf-dashboard-container {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: flex-start; }\n\n.wpcf-dashboard-sidebar {\n  flex: 0 0 255px;\n  max-width: 255px; }\n\n.wpcf-dashboard-content {\n  flex: 1 0 calc(100% - 255px);\n  max-width: calc(100% - 255px);\n  padding-left: 30px;\n  padding-top: 30px; }\n\na {\n  color: var(--wpcf-primary-color); }\n  a:hover, a:focus, a:active {\n    color: var(--wpcf-primary-color); }\n\n.wpcf-btn-group {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: -10px; }\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px; }\n    .wpcf-btn-group .wpcf-btn:not(:last-child) {\n      margin-right: 10px; }\n\n.wpcf-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  text-decoration: none !important;\n  font-size: 16px;\n  position: relative;\n  transition: 300ms; }\n  .wpcf-btn .icon-left {\n    margin-right: 6px; }\n  .wpcf-btn:not(.wpcf-link-btn) {\n    line-height: 26px;\n    height: 40px;\n    padding: 0 25px;\n    background: var(--wpcf-primary-color);\n    border: 1px solid var(--wpcf-primary-color);\n    color: #fff; }\n  .wpcf-btn.wpcf-btn-sm {\n    font-size: 14px;\n    padding-left: 15px;\n    padding-right: 15px;\n    line-height: 17px;\n    height: 35px; }\n  .wpcf-btn.wpcf-btn-secondary {\n    background-color: var(--wpcf-primary-text-color);\n    border-color: var(--wpcf-primary-text-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-success-btn, .wpcf-btn.wpcf-btn-success {\n    background-color: var(--wpcf-success-color);\n    border-color: var(--wpcf-success-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-danger-btn, .wpcf-btn.wpcf-btn-danger {\n    background-color: var(--wpcf-danger-color);\n    border-color: var(--wpcf-danger-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-warning-btn, .wpcf-btn.wpcf-btn-warning {\n    background-color: var(--wpcf-warning-color);\n    border-color: var(--wpcf-warning-color);\n    color: #ffffff; }\n  .wpcf-btn.wpcf-link-btn {\n    color: var(--wpcf-primary-color);\n    padding: 0;\n    background: none;\n    border: none; }\n  .wpcf-btn.wpcf-btn-outline {\n    background: transparent;\n    border: 1px solid var(--wpcf-primary-color);\n    color: var(--wpcf-primary-color); }\n    .wpcf-btn.wpcf-btn-outline:hover {\n      background-color: var(--wpcf-primary-color);\n      color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-success, .wpcf-btn.wpcf-btn-outline.wpcf-success-btn {\n      color: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-success:hover, .wpcf-btn.wpcf-btn-outline.wpcf-success-btn:hover {\n        background-color: var(--wpcf-success-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-danger, .wpcf-btn.wpcf-btn-outline.wpcf-danger-btn {\n      color: var(--wpcf-danger-color);\n      border-color: var(--wpcf-danger-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-danger:hover, .wpcf-btn.wpcf-btn-outline.wpcf-danger-btn:hover {\n        background-color: var(--wpcf-danger-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-warning, .wpcf-btn.wpcf-btn-outline.wpcf-warning-btn {\n      color: var(--wpcf-warning-color);\n      border-color: var(--wpcf-warning-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-warning:hover, .wpcf-btn.wpcf-btn-outline.wpcf-warning-btn:hover {\n        background-color: var(--wpcf-warning-color);\n        color: #ffffff; }\n    .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary {\n      border-color: var(--wpcf-border-color);\n      background: #ffffff;\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary.active, .wpcf-btn.wpcf-btn-outline.wpcf-btn-secondary:hover {\n        border-color: var(--wpcf-primary-color);\n        color: var(--wpcf-primary-color); }\n  .wpcf-btn.wpcf-btn-round {\n    border-radius: 30px; }\n  .wpcf-btn .wpcf-icon:not(.wpcf-icon-right) {\n    margin-right: 12px; }\n  .wpcf-btn .wpcf-icon-right {\n    margin-left: 12px; }\n\n.wpcf-btn-group {\n  margin-top: -10px;\n  margin-left: -10px; }\n  .wpcf-btn-group button,\n  .wpcf-btn-group .wpcf-btn {\n    margin-top: 10px;\n    margin-left: 10px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:first-child {\n  height: 65px;\n  width: 65px;\n  display: block;\n  border-radius: 50%;\n  margin-bottom: 14px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(2) {\n  display: block;\n  height: 25px;\n  width: 60%;\n  margin-bottom: 8px; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar span:nth-child(3) {\n  display: block;\n  height: 20px;\n  width: 100%; }\n\n.wpcf-dashboard-container.is-skeleton .wpcf-dashboard-sidebar li {\n  margin: 10px 30px;\n  height: 30px; }\n\n.wpcf-dashboard-sidebar {\n  border: 1px solid var(--wpcf-border-color); }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-profile {\n    padding: 15px 30px 30px;\n    border-bottom: 1px solid var(--wpcf-border-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile img {\n      width: 65px;\n      height: 65px;\n      border-radius: 50%;\n      margin-bottom: 14px;\n      display: block; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile h4 {\n      font-size: 21px;\n      margin: 0 0 4px;\n      color: var(--wpcf-heading-color);\n      font-weight: 400; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-profile span {\n      font-size: 14px;\n      color: var(--wpcf-light-text-color);\n      display: block; }\n  .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks {\n    margin: 0;\n    padding: 20px 0 0;\n    list-style: none;\n    font-size: 16px;\n    flex-grow: 1;\n    min-height: 600px;\n    display: flex;\n    flex-direction: column; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:nth-last-child(2) {\n      margin-bottom: 90px; }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child {\n      margin-top: auto; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks > li:last-child a {\n        color: var(--wpcf-primary-color); }\n    .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li {\n      position: relative; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a {\n        line-height: 30px;\n        padding: 10px 30px;\n        display: flex;\n        align-items: center;\n        color: var(--wpcf-primary-text-color);\n        text-decoration: none !important; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-icon {\n          flex: 0 0 20px;\n          text-align: center;\n          font-size: 17px;\n          margin-right: 19px; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a span.wpcf-float-icon {\n          margin-left: auto; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a.is-active {\n          color: var(--wpcf-primary-color); }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li a:hover {\n          background: #f2f6ff;\n          color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul {\n        list-style: none;\n        padding: 0;\n        margin: 0;\n        font-size: 14px;\n        display: none; }\n        .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li ul li a {\n          padding-left: 63px;\n          padding-top: 5px;\n          padding-bottom: 5px; }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > a {\n        color: var(--wpcf-primary-color); }\n      .wpcf-dashboard-sidebar .wpcf-dashboard-permalinks li.wpcf-collapse > ul {\n        display: block; }\n\n.wpcf-dashboard-info-cards {\n  display: flex;\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .wpcf-dashboard-info-cards .wpcf-dashboard-info-card {\n    padding: 18px 25px 25px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 8px;\n    color: var(--wpcf-light-text-color);\n    margin-left: 20px;\n    font-weight: 400;\n    flex-grow: 1; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card h3 {\n      font-size: 32px;\n      margin-bottom: 3px;\n      color: var(--wpcf-primary-color);\n      font-weight: 400; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card:first-child {\n      min-width: 28%; }\n    .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success {\n      background: var(--wpcf-success-color);\n      border-color: var(--wpcf-success-color);\n      color: #ffffff; }\n      .wpcf-dashboard-info-cards .wpcf-dashboard-info-card.wpcf-info-success h3 {\n        color: #ffffff; }\n\n.wpcf-report-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n\n.wpcf-report-filter span,\n.wpcf-report-filter input {\n  height: 45px;\n  padding: 0 20px;\n  border: 1px solid var(--wpcf-border-color);\n  border-radius: 30px;\n  margin-right: 12px;\n  color: var(--wpcf-primary-text-color); }\n  .wpcf-report-filter span::placeholder,\n  .wpcf-report-filter input::placeholder {\n    color: var(--wpcf-primary-text-color); }\n\n.wpcf-report-filter input {\n  width: 140px; }\n\n.wpcf-report-filter span {\n  display: inline-flex;\n  padding: 0;\n  position: relative; }\n  .wpcf-report-filter span select {\n    border: none;\n    background: transparent;\n    min-width: 160px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n    color: var(--wpcf-primary-text-color);\n    padding: 0 20px !important;\n    line-height: 45px;\n    height: 45px; }\n  .wpcf-report-filter span::after {\n    position: absolute;\n    content: '\\f078';\n    font-weight: 900;\n    font-family: 'Font Awesome 5 Free';\n    top: 50%;\n    right: 20px;\n    transform: translateY(-50%);\n    font-size: 14px; }\n\n.wpcf-report-line-graph {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 25px;\n  margin-bottom: 30px;\n  border-radius: 4px; }\n\n.wpcf-dashboard-item-wraper {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n\n.wpcf-dashboard-search {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px; }\n  .wpcf-dashboard-search input {\n    height: 35px;\n    border: 1px solid var(--wpcf-border-color);\n    border-radius: 30px;\n    padding-left: 20px; }\n    .wpcf-dashboard-search input::placeholder {\n      color: #DCDCE4;\n      opacity: 1; }\n\n.is-skeleton th,\n.is-skeleton td,\n.is-skeleton .skeleton-bg {\n  color: transparent !important;\n  border-color: transparent !important; }\n\n.wpcf-content-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 20px 0; }\n  .wpcf-content-header .wpcf-btn {\n    margin-left: auto; }\n\n.wpcf-content-heading {\n  font-size: 21px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  line-height: 24px;\n  margin-bottom: 20px; }\n\n.wpcf-content-subheading {\n  color: var(--wpcf-primary-text-color);\n  margin-bottom: 25px;\n  font-size: 14px;\n  font-weight: 400; }\n\n.wpcf-mycampaign-filter-group {\n  margin-bottom: 20px; }\n\n.wpcf-campaign-item {\n  display: flex;\n  align-items: center;\n  padding: 30px;\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 20px;\n  border-radius: 4px; }\n  .wpcf-campaign-item a.wpcf-campaign-thumbnail {\n    max-width: 170px;\n    flex: 1 0 170px;\n    margin-right: 30px; }\n    .wpcf-campaign-item a.wpcf-campaign-thumbnail img {\n      display: block;\n      border: 1px solid var(--wpcf-border-color); }\n  .wpcf-campaign-item .wpcf-campaign-content {\n    flex-grow: 1; }\n  .wpcf-campaign-item .wpcf-campaign-title {\n    font-size: 21px;\n    margin: 0 0 5px;\n    font-weight: 400;\n    line-height: 28px; }\n    .wpcf-campaign-item .wpcf-campaign-title a {\n      color: var(--wpcf-primary-text-color); }\n      .wpcf-campaign-item .wpcf-campaign-title a:hover {\n        color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-heading {\n    display: flex;\n    justify-content: space-between; }\n    .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links {\n      white-space: nowrap; }\n      .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links a,\n      .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button {\n        border: none;\n        padding: 0;\n        margin: 0;\n        background: none;\n        color: var(--wpcf-light-text-color);\n        transition: 300ms;\n        padding-left: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links a:not(:last-child),\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:not(:last-child) {\n          padding-right: 12px; }\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links a:hover,\n        .wpcf-campaign-item .wpcf-campaign-heading .wpcf-campaign-links button:hover {\n          color: var(--wpcf-primary-color); }\n  .wpcf-campaign-item .wpcf-campaign-author {\n    font-size: 16px;\n    font-weight: 400;\n    margin: 0 0 5px; }\n    .wpcf-campaign-item .wpcf-campaign-author a {\n      color: var(--wpcf-primary-color); }\n\n.wpcf-campaign-infos {\n  display: flex;\n  align-items: center;\n  margin-left: -20px;\n  flex-wrap: wrap; }\n  .wpcf-campaign-infos .wpcf-campaign-info > h5 {\n    font-weight: 400;\n    margin: 0;\n    font-size: 14px;\n    color: var(--wpcf-light-text-color); }\n    .wpcf-campaign-infos .wpcf-campaign-info > h5 span:first-child {\n      font-size: 16px;\n      font-weight: 500;\n      color: var(--wpcf-success-color);\n      display: block;\n      margin-bottom: 2px; }\n  .wpcf-campaign-infos .wpcf-campaign-info {\n    margin-left: 20px;\n    margin-top: 15px; }\n  .wpcf-campaign-infos .wpcf-campaign-raised {\n    position: relative; }\n    .wpcf-campaign-infos .wpcf-campaign-raised .wpcf-raised-percent {\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      transform: translate(-50%, -50%);\n      font-size: 14px;\n      color: var(--wpcf-success-color); }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-report-table {\n  border: 1px solid var(--wpcf-border-color);\n  margin-bottom: 30px;\n  border-radius: 4px;\n  overflow: hidden;\n  border-spacing: 0;\n  border-collapse: separate;\n  color: var(--wpcf-heading-color); }\n  .wpcf-report-table tr th, .wpcf-report-table tr td {\n    padding: 15px 20px;\n    line-height: 20px; }\n    .wpcf-report-table tr th:first-child, .wpcf-report-table tr td:first-child {\n      padding-left: 30px; }\n    .wpcf-report-table tr th:last-child, .wpcf-report-table tr td:last-child {\n      padding-right: 30px; }\n  .wpcf-report-table thead tr th,\n  .wpcf-report-table thead tr td {\n    color: var(--wpcf-heading-color);\n    background: #F5F5FA !important;\n    border: none !important;\n    font-size: 16px;\n    font-weight: 500; }\n  .wpcf-report-table tbody tr th, .wpcf-report-table tbody tr td {\n    background: #ffffff !important;\n    border: none !important; }\n  .wpcf-report-table tbody tr:nth-child(even) th, .wpcf-report-table tbody tr:nth-child(even) td {\n    background: #F5F5FA !important;\n    border: none !important; }\n\n.wpcf-myprofile-primary-info {\n  display: flex;\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 20px;\n  position: relative; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-avatar {\n    flex: 0 0 auto;\n    margin-right: 30px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-avatar img {\n      border-radius: 50%;\n      width: 100px;\n      height: 100px; }\n  .wpcf-myprofile-primary-info .wpcf-myprofile-data {\n    flex-grow: 1;\n    display: inline-flex;\n    align-items: flex-start; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-profile-edit-btn {\n      margin-left: auto;\n      padding: 0;\n      border: none;\n      font-size: 12px;\n      color: var(--wpcf-primary-text-color); }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-country {\n      margin-left: 60px; }\n    .wpcf-myprofile-primary-info .wpcf-myprofile-data .wpcf-myprofile-name-email span {\n      font-size: 16px;\n      color: var(--wpcf-heading-color); }\n\n.wpcf-myprofile-name-email h4,\n.wpcf-myprofile-country h4 {\n  font-size: 18px;\n  font-weight: 500;\n  color: var(--wpcf-heading-color);\n  margin: 0 0 16px;\n  line-height: 18px; }\n\n.wpcf-myprofile-name-email span,\n.wpcf-myprofile-country span {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 20px; }\n  .wpcf-myprofile-name-email span img,\n  .wpcf-myprofile-country span img {\n    margin-right: 11px; }\n\n.wpcf-myprofile-additional-info {\n  border: 1px solid var(--wpcf-border-color);\n  padding: 20px 30px;\n  border-radius: 4px;\n  margin-bottom: 20px; }\n  .wpcf-myprofile-additional-info ul {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    color: var(--wpcf-heading-color); }\n    .wpcf-myprofile-additional-info ul li {\n      display: flex;\n      align-items: center; }\n      .wpcf-myprofile-additional-info ul li strong {\n        font-size: 16px;\n        font-weight: 500;\n        min-width: 155px; }\n      .wpcf-myprofile-additional-info ul li:not(:last-child) {\n        margin-bottom: 30px; }\n      .wpcf-myprofile-additional-info ul li i {\n        color: #D6D6E7; }\n\n.wpcf-myprofile-deactive {\n  display: flex;\n  align-items: center;\n  justify-content: space-between; }\n  .wpcf-myprofile-deactive h5 {\n    font-size: 16px;\n    font-weight: 400;\n    color: var(--wpcf-heading-color);\n    margin: 0 0 15px; }\n\n.wpcf-social-title {\n  font-size: 16px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  margin: 0 0 30px; }\n\n.wpcf-form-title {\n  font-size: 16px;\n  font-weight: 400;\n  color: var(--wpcf-heading-color);\n  margin: 30px 0 15px; }\n\n.wpcf-social-submit {\n  text-align: right; }\n\n.wpcf-profile-photo-edit {\n  position: relative; }\n  .wpcf-profile-photo-edit img {\n    border-radius: 50%;\n    width: 100px;\n    height: 100px; }\n  .wpcf-profile-photo-edit button {\n    position: absolute;\n    border: none;\n    background: var(--wpcf-warning-color);\n    top: 4px;\n    right: 4px;\n    height: 24px;\n    width: 24px;\n    line-height: 23px;\n    color: #fff;\n    font-size: 12px;\n    border-radius: 50%; }\n\n.wpcf-profile-submit {\n  margin-top: 60px;\n  justify-content: flex-end; }\n\n.wpcf-pledge-received-cards {\n  display: flex;\n  padding: 30px;\n  background: var(--wpcf-success-color);\n  color: #fff;\n  min-height: 130px;\n  align-items: center;\n  border-radius: 4px;\n  margin-bottom: 30px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card h4 {\n    font-size: 32px;\n    line-height: 43px;\n    color: #ffffff;\n    margin: 0; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card:not(:last-child) {\n    margin-right: 60px; }\n  .wpcf-pledge-received-cards .wpcf-pledge-received-card span {\n    font-size: 16px; }\n\n.wpcf-billing-details-title {\n  font-size: 14px;\n  color: var(--wpcf-primary-text-color);\n  font-weight: 400;\n  margin: 0 0 25px; }\n\n.wpcf-order-details {\n  display: flex; }\n  .wpcf-order-details > div h5,\n  .wpcf-order-details > div span,\n  .wpcf-order-details > div strong {\n    display: block; }\n  .wpcf-order-details > div:not(:last-child) {\n    margin-right: 80px; }\n  .wpcf-order-details > div span > * {\n    display: inline; }\n  .wpcf-order-details .wpcf-order-details-item h5 {\n    font-size: 14px;\n    color: var(--wpcf-primary-text-color);\n    font-weight: 400; }\n  .wpcf-order-details .wpcf-order-details-item strong {\n    color: var(--wpcf-success-color);\n    font-weight: 400; }\n    .wpcf-order-details .wpcf-order-details-item strong * {\n      display: inline; }\n  .wpcf-order-details .wpcf-order-details-item > *:nth-child(3) {\n    margin-top: 12px; }\n  .wpcf-order-details .wpcf-order-details-name-item h5 {\n    font-size: 18px;\n    line-height: 24px;\n    color: var(--wpcf-heading-color);\n    font-weight: 500;\n    margin: 0 0 14px; }\n  .wpcf-order-details .wpcf-order-details-name-item span {\n    color: var(--wpcf-heading-color); }\n  .wpcf-order-details .wpcf-order-details-name-item span, .wpcf-order-details .wpcf-order-details-name-item strong {\n    font-size: 16px; }\n  .wpcf-order-details .wpcf-order-details-name-item strong *,\n  .wpcf-order-details .wpcf-order-details-name-item strong {\n    color: var(--wpcf-success-color); }\n\n.wpcf-dashboard-row {\n  display: flex; }\n  .wpcf-dashboard-row .wpcf-dashboard-col {\n    flex-grow: 1; }\n\n.wpcf-dashboard-item-wraper .wpcf-dashboard-row {\n  margin-top: 30px; }\n  .wpcf-dashboard-item-wraper .wpcf-dashboard-row .wpcf-dashboard-col {\n    max-width: 280px;\n    margin-right: 40px; }\n\n.wpcf-order-details-item strong,\n.wpcf-order-details-item span {\n  display: block;\n  font-weight: 400; }\n\n.wpcf-order-details-item strong {\n  font-size: 16px;\n  margin-top: 16px;\n  color: var(--wpcf-heading-color);\n  line-height: 1.71; }\n\n.withdraw-method-select-wrap {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin: 0 -15px 40px; }\n  .withdraw-method-select-wrap input[type=\"radio\"] {\n    display: none; }\n\n.withdraw-method-select-wrap .withdraw-method-select {\n  -webkit-box-flex: 1;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  padding: 0 15px;\n  margin-bottom: 30px; }\n\n.withdraw-method-select-wrap .withdraw-method-select label {\n  display: block;\n  padding: 20px;\n  margin: 0;\n  cursor: pointer;\n  overflow: hidden;\n  border: 1px solid #DCDFE5;\n  border-radius: 4px;\n  position: relative; }\n  .withdraw-method-select-wrap .withdraw-method-select label > span {\n    display: block; }\n\n.withdraw-method-select-wrap .withdraw-method-select label.active {\n  border-color: #4bd863;\n  -webkit-box-shadow: 0 0 0 1px #4bd863;\n  box-shadow: 0 0 0 1px #4bd863; }\n\n.withdraw-method-select-wrap .withdraw-method-select label:after {\n  content: '\\e90f';\n  position: absolute;\n  right: -1px;\n  top: -1px;\n  border: 1px solid #DCDFE5;\n  height: 22px;\n  width: 22px;\n  text-align: center;\n  line-height: 22px;\n  color: transparent; }\n\n.withdraw-method-select-wrap .withdraw-method-select label.active:after {\n  color: #fff;\n  background: #4bd863;\n  border-color: #4bd863;\n  font-family: 'tutor' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  font-size: 13px; }\n\n.withdraw-method-select-wrap .withdraw-method-select p {\n  margin: 0; }\n\n.withdraw-method-select-wrap .withdraw-method-select label > p {\n  font-size: 20px;\n  font-weight: 600;\n  color: var(--tutor-primary-color); }\n\n.withdraw-method-select-wrap .withdraw-method-select label span {\n  color: #B0B6C8;\n  font-weight: 400; }\n\n.withdraw-method-field-wrap {\n  display: flex; }\n  .withdraw-method-field-wrap label {\n    min-width: 155px; }\n  .withdraw-method-field-wrap textarea {\n    max-width: 360px; }\n\n.withdraw-method-form {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin: 0 -15px; }\n\n.withdraw-method-form > div {\n  -webkit-box-flex: 1;\n  -ms-flex-positive: 1;\n  flex-grow: 1;\n  min-width: 100%;\n  padding: 0 15px 20px; }\n\n@media (max-width: 480px) {\n  .withdraw-method-form > div {\n    width: 100%; } }\n\n.withdraw-method-form > div.withdraw-account-save-btn-wrap {\n  width: 100%; }\n\n.withdraw-form-field-amount input[type='text'],\n.withdraw-method-forms-wrap .withdraw-method-form input:not([type=\"submit\"]):not([type=\"radio\"]):not([type=\"checkbox\"]),\n.withdraw-method-forms-wrap .withdraw-method-form textarea {\n  border: 1px solid var(--wpcf-border-color);\n  display: block;\n  width: 100%;\n  background: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border-radius: 4px; }\n\nlabel[for=\"tutor_withdraw_amount\"] {\n  margin-bottom: 7px;\n  display: block; }\n\n.withdraw-form-field-amount input[type='text'] {\n  margin-bottom: 10px;\n  height: 35px; }\n\n.withdraw-method-forms-wrap .withdraw-method-form input:not([type=\"submit\"]):not([type=\"radio\"]):not([type=\"checkbox\"]):focus,\n.withdraw-method-forms-wrap .withdraw-method-form textarea:focus {\n  border-color: var(--tutor-primary-color);\n  outline: none; }\n\n.withdraw-method-forms-wrap .withdraw-method-form textarea {\n  min-height: 80px; }\n\n.withdraw-method-forms-wrap .withdraw-method-form label {\n  color: #989EAF;\n  margin-bottom: 8px;\n  display: block; }\n\n.withdraw-method-forms-wrap .withdraw-method-form .withdraw-field-desc {\n  font-size: 12px;\n  margin: 5px 0 0;\n  font-style: italic; }\n\n.wpcf-withdraw-method-input {\n  position: relative; }\n\n#wpcf_withdraw_amount {\n  height: 55px;\n  width: 320px;\n  appearance: none;\n  -moz-appearance: textfield; }\n  #wpcf_withdraw_amount::-webkit-outer-spin-button, #wpcf_withdraw_amount::-webkit-inner-spin-button {\n    -webkit-appearance: none;\n    margin: 0; }\n\ninput[type=number] {\n  -moz-appearance: textfield;\n  /* Firefox */ }\n\n#wpcf_withdraw_amount + span {\n  position: absolute;\n  right: 0;\n  top: 0;\n  padding: 0 22px;\n  line-height: 55px;\n  border-left: 1px solid var(--wpcf-border-color);\n  cursor: pointer; }\n\n.wpcf-form-group {\n  display: flex; }\n  .wpcf-form-group:not(:last-child) {\n    margin-bottom: 15px; }\n  .wpcf-form-group label {\n    flex-grow: 1;\n    flex-basis: 180px;\n    max-width: 180px;\n    font-size: 14px;\n    color: var(--wpcf-heading-color); }\n  .wpcf-form-group input:not([type=\"submit\"]),\n  .wpcf-form-group .wpcf-input,\n  .wpcf-form-group textarea,\n  .wpcf-form-group select {\n    flex-grow: 1;\n    max-width: 375px;\n    flex-basis: 375px;\n    border: 1px solid var(--wpcf-border-color);\n    padding: 0 15px;\n    border-radius: 4px;\n    transition: 300ms;\n    height: 35px;\n    line-height: 35px; }\n    .wpcf-form-group input:not([type=\"submit\"]):focus,\n    .wpcf-form-group .wpcf-input:focus,\n    .wpcf-form-group textarea:focus,\n    .wpcf-form-group select:focus {\n      border-color: var(--wpcf-primary-color); }\n  .wpcf-form-group textarea {\n    height: 160px;\n    resize: none;\n    line-height: 26px;\n    padding-top: 10px;\n    padding-bottom: 10px; }\n\n.wpcf-reward-item {\n  display: flex;\n  border: 1px solid var(--wpcf-border-color);\n  padding: 30px; }\n  .wpcf-reward-item:not(:last-child) {\n    margin-bottom: 30px; }\n  .wpcf-reward-item .wpcf-reward-thumbnail {\n    max-width: 190px;\n    flex-basis: 190px;\n    flex-grow: 1;\n    border: 1px solid #f7f7f7; }\n    .wpcf-reward-item .wpcf-reward-thumbnail img {\n      display: block; }\n  .wpcf-reward-item .wpcf-reward-content {\n    flex-grow: 1;\n    margin-left: 20px; }\n  .wpcf-reward-item .wpcf-reward-perks-wrap {\n    flex-grow: 0;\n    flex-basis: auto;\n    margin-left: auto;\n    padding-left: 20px; }\n    .wpcf-reward-item .wpcf-reward-perks-wrap h5 {\n      font-weight: 400;\n      font-size: 14px;\n      color: var(--wpcf-primary-text-color);\n      margin: 0 0 16px; }\n    .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks {\n      display: flex; }\n      .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item {\n        margin: 0 20px;\n        position: relative; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item:first-child {\n          margin-left: 0; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item:last-child {\n          margin-right: 0; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item h6 {\n          position: relative;\n          font-size: 16px;\n          padding: 5px;\n          color: var(--wpcf-primary-color);\n          background: #f2f6ff;\n          min-width: 28px;\n          text-align: center; }\n        .wpcf-reward-item .wpcf-reward-perks-wrap .wpcf-reward-perks .wpcf-reward-perk-item:not(:first-child) h6::after {\n          content: \":\";\n          position: absolute;\n          left: -22px;\n          top: calc(50% - 2px);\n          transform: translateY(-50%); }\n\nbody.wpcf-confirm-alert-body-element {\n  overflow: hidden; }\n\n.wpcf-confirm-alert-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 99;\n  background: rgba(255, 255, 255, 0.9);\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flex;\n  display: -o-flex;\n  display: flex;\n  justify-content: center;\n  -ms-align-items: center;\n  align-items: center;\n  opacity: 0;\n  -webkit-animation: wpcf-confirm-alert-fadeIn 0.2s 0.1s forwards;\n  -moz-animation: wpcf-confirm-alert-fadeIn 0.2s 0.1s forwards;\n  -o-animation: wpcf-confirm-alert-fadeIn 0.2s 0.1s forwards;\n  animation: wpcf-confirm-alert-fadeIn 0.2s 0.1s forwards; }\n\n.wpcf-confirm-alert-body {\n  font-family: Arial, Helvetica, sans-serif;\n  width: 400px;\n  padding: 30px;\n  text-align: left;\n  background: #fff;\n  border-radius: 10px;\n  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);\n  color: #666; }\n\n.wpcf-confirm-alert-svg {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.wpcf-confirm-alert-body > h1 {\n  margin-top: 0; }\n\n.wpcf-confirm-alert-body > h3 {\n  margin: 0;\n  font-size: 16px; }\n\n.wpcf-confirm-alert-button-group {\n  display: -webkit-flex;\n  display: -moz-flex;\n  display: -ms-flex;\n  display: -o-flex;\n  display: flex;\n  justify-content: flex-start;\n  margin-top: 20px; }\n\n.wpcf-confirm-alert-button-group > button {\n  outline: none;\n  background: #333;\n  border: none;\n  display: inline-block;\n  padding: 6px 18px;\n  color: #eee;\n  margin-right: 10px;\n  border-radius: 5px;\n  font-size: 12px;\n  cursor: pointer; }\n\n@-webkit-keyframes wpcf-confirm-alert-fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n@-moz-keyframes wpcf-confirm-alert-fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n@-o-keyframes wpcf-confirm-alert-fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n@keyframes wpcf-confirm-alert-fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n", ""]);
 
 
 /***/ }),
@@ -32941,7 +32941,7 @@ module.exports = function(originalModule) {
 /*!***************************************!*\
   !*** ./src/actions/campaignAction.js ***!
   \***************************************/
-/*! exports provided: FETCH_CAMPAIGNS_REPORT_PENDING, FETCH_CAMPAIGNS_REPORT_COMPLETE, FETCH_CAMPAIGNS_REPORT_ERROR, fetchCampaignsReport, FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, fetchMyCampaigns, DELETE_CAMPAIGN_PENDING, DELETE_CAMPAIGN_COMPLETE, DELETE_CAMPAIGN_ERROR, deleteCampaign, FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR, fetchInvestedCampaigns, FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR, fetchPledgeReceived, FETCH_BOOKMARK_CAMPAIGNS_PENDING, FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, FETCH_BOOKMARK_CAMPAIGNS_ERROR, fetchBookmarkCampaigns, FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR, fetchRewards, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR, saveCampaignUpdates */
+/*! exports provided: FETCH_CAMPAIGNS_REPORT_PENDING, FETCH_CAMPAIGNS_REPORT_COMPLETE, FETCH_CAMPAIGNS_REPORT_ERROR, fetchCampaignsReport, FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, fetchMyCampaigns, DELETE_CAMPAIGN_PENDING, DELETE_BOOKMARK_CAMPAIGN_PENDING, DELETE_CAMPAIGN_COMPLETE, DELETE_BOOKMARK_CAMPAIGN_COMPLETE, deleteCampaign, FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR, fetchInvestedCampaigns, FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR, fetchPledgeReceived, FETCH_BOOKMARK_CAMPAIGNS_PENDING, FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, FETCH_BOOKMARK_CAMPAIGNS_ERROR, fetchBookmarkCampaigns, FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR, fetchRewards, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR, saveCampaignUpdates */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32955,8 +32955,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MY_CAMPAIGNS_ERROR", function() { return FETCH_MY_CAMPAIGNS_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMyCampaigns", function() { return fetchMyCampaigns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_PENDING", function() { return DELETE_CAMPAIGN_PENDING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_BOOKMARK_CAMPAIGN_PENDING", function() { return DELETE_BOOKMARK_CAMPAIGN_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_COMPLETE", function() { return DELETE_CAMPAIGN_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_ERROR", function() { return DELETE_CAMPAIGN_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_BOOKMARK_CAMPAIGN_COMPLETE", function() { return DELETE_BOOKMARK_CAMPAIGN_COMPLETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCampaign", function() { return deleteCampaign; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_PENDING", function() { return FETCH_INVESTED_CAMPAIGNS_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_COMPLETE", function() { return FETCH_INVESTED_CAMPAIGNS_COMPLETE; });
@@ -33042,12 +33043,21 @@ var fetchMyCampaigns = function fetchMyCampaigns() {
 }; //DELETE CAMPAINGS
 
 var DELETE_CAMPAIGN_PENDING = 'delete_campaign_pending';
+var DELETE_BOOKMARK_CAMPAIGN_PENDING = 'delete_bookmark_campaign_pending';
 var DELETE_CAMPAIGN_COMPLETE = 'delete_campaign_complete';
-var DELETE_CAMPAIGN_ERROR = 'delete_campaign_error';
+var DELETE_BOOKMARK_CAMPAIGN_COMPLETE = 'delete_bookmark_campaign_complete';
 var deleteCampaign = function deleteCampaign(data) {
   return function (dispatch) {
+    var dispatchPending = DELETE_CAMPAIGN_PENDING;
+    var dispatchComplete = DELETE_CAMPAIGN_COMPLETE;
+
+    if (data.bookmark) {
+      dispatchPending = DELETE_BOOKMARK_CAMPAIGN_PENDING;
+      dispatchComplete = DELETE_BOOKMARK_CAMPAIGN_COMPLETE;
+    }
+
     dispatch({
-      type: DELETE_CAMPAIGN_PENDING
+      type: dispatchPending
     });
     var fetchURL = "".concat(WPCF.rest_url, "/delete-campaign");
     var option = {
@@ -33059,14 +33069,11 @@ var deleteCampaign = function deleteCampaign(data) {
       return response.json();
     }).then(function (payload) {
       return dispatch({
-        type: DELETE_CAMPAIGN_PENDING,
+        type: dispatchComplete,
         payload: payload
       });
-    })["catch"](function (payload) {
-      return dispatch({
-        type: DELETE_CAMPAIGN_ERROR,
-        payload: payload
-      });
+    })["catch"](function (error) {
+      return console.log(error);
     });
   };
 }; //INVESTED CAMPAIGNS
@@ -33573,9 +33580,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -33592,26 +33599,56 @@ var CampaignUpdate =
 function (_Component) {
   _inherits(CampaignUpdate, _Component);
 
-  function CampaignUpdate(props) {
-    var _this;
+  function CampaignUpdate() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, CampaignUpdate);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CampaignUpdate).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(CampaignUpdate)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       campaignId: _this.props.campaignId,
       updates: _this.props.updates
-    };
-    _this.addItem = _this.addItem.bind(_assertThisInitialized(_this));
-    _this.removeItem = _this.removeItem.bind(_assertThisInitialized(_this));
-    _this.onChangeInput = _this.onChangeInput.bind(_assertThisInitialized(_this));
-    _this.onSubmitUpates = _this.onSubmitUpates.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.addItem = function () {
+      var updates = [].concat(_toConsumableArray(_this.state.updates), [{
+        date: '',
+        title: '',
+        details: ''
+      }]);
+
+      _this.setState({
+        updates: updates
+      });
+    }, _this.removeItem = function (index) {
+      var updates = _toConsumableArray(_this.state.updates);
+
+      updates.splice(index, 1);
+
+      _this.setState({
+        updates: updates
+      });
+    }, _this.onChangeInput = function (e, index) {
+      var updates = _toConsumableArray(_this.state.updates);
+
+      updates[index][e.target.name] = e.target.value;
+
+      _this.setState(updates);
+    }, _this.onSubmitUpates = function (e) {
+      e.preventDefault();
+
+      var postData = _objectSpread({}, _this.state);
+
+      _this.props.saveCampaignUpdates(postData);
+    }, _temp));
   }
 
   _createClass(CampaignUpdate, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
+    value: function componentDidUpdate(prevProps) {
       var _this$props$campaign = this.props.campaign,
           saveReq = _this$props$campaign.saveReq,
           error = _this$props$campaign.error;
@@ -33625,45 +33662,6 @@ function (_Component) {
           alert(error);
         }
       }
-    }
-  }, {
-    key: "addItem",
-    value: function addItem() {
-      var updates = [].concat(_toConsumableArray(this.state.updates), [{
-        date: '',
-        title: '',
-        details: ''
-      }]);
-      this.setState({
-        updates: updates
-      });
-    }
-  }, {
-    key: "removeItem",
-    value: function removeItem(index) {
-      var updates = _toConsumableArray(this.state.updates);
-
-      updates.splice(index, 1);
-      this.setState({
-        updates: updates
-      });
-    }
-  }, {
-    key: "onChangeInput",
-    value: function onChangeInput(e, index) {
-      var updates = _toConsumableArray(this.state.updates);
-
-      updates[index][e.target.name] = e.target.value;
-      this.setState(updates);
-    }
-  }, {
-    key: "onSubmitUpates",
-    value: function onSubmitUpates(e) {
-      e.preventDefault();
-
-      var postData = _objectSpread({}, this.state);
-
-      this.props.saveCampaignUpdates(postData);
     }
   }, {
     key: "render",
@@ -33827,6 +33825,197 @@ CircleProgress.defaultProps = {
   percent: 0
 };
 /* harmony default export */ __webpack_exports__["default"] = (CircleProgress);
+
+/***/ }),
+
+/***/ "./src/components/confirmAlert.js":
+/*!****************************************!*\
+  !*** ./src/components/confirmAlert.js ***!
+  \****************************************/
+/*! exports provided: default, confirmAlert */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ConfirmDialogue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirmAlert", function() { return confirmAlert; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var ConfirmDialogue =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ConfirmDialogue, _Component);
+
+  function ConfirmDialogue() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
+
+    _classCallCheck(this, ConfirmDialogue);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ConfirmDialogue)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleClickButton = function (button) {
+      if (button.onClick) button.onClick();
+
+      _this.close();
+    }, _this.handleClickOverlay = function (e) {
+      var _this$props = _this.props,
+          closeOnClickOutside = _this$props.closeOnClickOutside,
+          onClickOutside = _this$props.onClickOutside;
+      var isClickOutside = e.target === _this.overlay;
+
+      if (closeOnClickOutside && isClickOutside) {
+        onClickOutside();
+
+        _this.close();
+      }
+    }, _this.close = function () {
+      removeBodyClass();
+      removeElementReconfirm();
+    }, _this.keyboardClose = function (event) {
+      var _this$props2 = _this.props,
+          closeOnEscape = _this$props2.closeOnEscape,
+          onKeypressEscape = _this$props2.onKeypressEscape;
+      var isKeyCodeEscape = event.keyCode === 27;
+
+      if (closeOnEscape && isKeyCodeEscape) {
+        onKeypressEscape(event);
+
+        _this.close();
+      }
+    }, _this.componentDidMount = function () {
+      document.addEventListener('keydown', _this.keyboardClose, false);
+    }, _this.componentWillUnmount = function () {
+      document.removeEventListener('keydown', _this.keyboardClose, false);
+
+      _this.props.willUnmount();
+    }, _temp));
+  }
+
+  _createClass(ConfirmDialogue, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props3 = this.props,
+          title = _this$props3.title,
+          message = _this$props3.message,
+          buttons = _this$props3.buttons,
+          childrenElement = _this$props3.childrenElement;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-confirm-alert-overlay",
+        ref: function ref(dom) {
+          return _this2.overlay = dom;
+        },
+        onClick: this.handleClickOverlay
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-confirm-alert"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-confirm-alert-body"
+      }, title && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, title), message, childrenElement(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wpcf-confirm-alert-button-group"
+      }, buttons.map(function (button, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          key: i,
+          onClick: function onClick() {
+            return _this2.handleClickButton(button);
+          }
+        }, button.label);
+      })))));
+    }
+  }]);
+
+  return ConfirmDialogue;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+ConfirmDialogue.defaultProps = {
+  buttons: [{
+    label: 'Cancel',
+    onClick: function onClick() {
+      return null;
+    }
+  }, {
+    label: 'Confirm',
+    onClick: function onClick() {
+      return null;
+    }
+  }],
+  childrenElement: function childrenElement() {
+    return null;
+  },
+  closeOnClickOutside: true,
+  closeOnEscape: true,
+  willUnmount: function willUnmount() {
+    return null;
+  },
+  onClickOutside: function onClickOutside() {
+    return null;
+  },
+  onKeypressEscape: function onKeypressEscape() {
+    return null;
+  }
+};
+
+
+function createElementReconfirm(properties) {
+  var divTarget = document.getElementById('wpcf-confirm-alert');
+
+  if (divTarget) {
+    // Rerender - the mounted ConfirmDialogue
+    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmDialogue, properties), divTarget);
+  } else {
+    // Mount the ConfirmDialogue component
+    divTarget = document.createElement('div');
+    divTarget.id = 'wpcf-confirm-alert';
+    document.body.appendChild(divTarget);
+    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmDialogue, properties), divTarget);
+  }
+}
+
+function removeElementReconfirm() {
+  var target = document.getElementById('wpcf-confirm-alert');
+  Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["unmountComponentAtNode"])(target);
+  target.parentNode.removeChild(target);
+}
+
+function addBodyClass() {
+  document.body.classList.add('wpcf-confirm-alert-body-element');
+}
+
+function removeBodyClass() {
+  document.body.classList.remove('wpcf-confirm-alert-body-element');
+}
+
+function confirmAlert(properties) {
+  addBodyClass();
+  createElementReconfirm(properties);
+}
 
 /***/ }),
 
@@ -34727,57 +34916,38 @@ var Pagination =
 function (_Component) {
   _inherits(Pagination, _Component);
 
-  function Pagination(props) {
-    var _this;
+  function Pagination() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, Pagination);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Pagination).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Pagination)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       pager: {}
-    };
-    return _this;
-  }
-
-  _createClass(Pagination, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      if (this.props.items && this.props.items.length) {
-        this.setPage(this.props.initialPage);
-      }
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      var changeItem = this.props.items.length !== prevProps.items.length;
-      var changefilter = this.props.filterValue !== prevProps.filterValue;
-
-      if (changeItem || changefilter) {
-        this.setPage(this.props.initialPage);
-      }
-    }
-  }, {
-    key: "setPage",
-    value: function setPage(currentPage) {
-      var items = this.props.items;
-      var pager = this.state.pager;
+    }, _this.setPage = function (currentPage) {
+      var items = _this.props.items;
+      var pager = _this.state.pager;
 
       if (currentPage < 1 || currentPage > pager.totalPages) {
         return;
       }
 
-      pager = this.getPager(items.length, currentPage);
+      pager = _this.getPager(items.length, currentPage);
       var pageItems = items.slice(pager.startIndex, pager.endIndex + 1);
-      this.setState({
+
+      _this.setState({
         pager: pager
       });
-      this.props.onChangePage(pageItems);
-    }
-  }, {
-    key: "getPager",
-    value: function getPager(totalItems, currentPage) {
+
+      _this.props.onChangePage(pageItems);
+    }, _this.getPager = function (totalItems, currentPage) {
       currentPage = currentPage || 1;
-      var pageSize = this.props.pageSize || 10;
+      var pageSize = _this.props.pageSize || 10;
       var totalPages = Math.ceil(totalItems / pageSize);
       var startPage, endPage;
 
@@ -34815,6 +34985,25 @@ function (_Component) {
         endIndex: endIndex,
         pages: pages
       };
+    }, _temp));
+  }
+
+  _createClass(Pagination, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.items && this.props.items.length) {
+        this.setPage(this.props.initialPage);
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      var changeItem = this.props.items.length !== prevProps.items.length;
+      var changefilter = this.props.filterValue !== prevProps.filterValue;
+
+      if (changeItem || changefilter) {
+        this.setPage(this.props.initialPage);
+      }
     }
   }, {
     key: "render",
@@ -34879,7 +35068,10 @@ function (_Component) {
   return Pagination;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-Pagination.defaultProps = defaultProps;
+Pagination.defaultProps = {
+  initialPage: 1,
+  filterValue: ""
+};
 /* harmony default export */ __webpack_exports__["default"] = (Pagination);
 
 /***/ }),
@@ -35034,9 +35226,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -35049,71 +35241,63 @@ var ProfileEditForm =
 function (_Component) {
   _inherits(ProfileEditForm, _Component);
 
-  function ProfileEditForm(props) {
-    var _this;
+  function ProfileEditForm() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, ProfileEditForm);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ProfileEditForm).call(this, props));
-    _this.state = _objectSpread({}, _this.props.data, {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ProfileEditForm)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = _objectSpread({}, _this.props.data, {
       new_pass: '',
       retype_pass: '',
       error: ''
-    });
-    _this.changeImage = _this.changeImage.bind(_assertThisInitialized(_this));
-    _this.onChangeValue = _this.onChangeValue.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(ProfileEditForm, [{
-    key: "changeImage",
-    value: function changeImage() {
-      var _this2 = this;
-
+    }), _this.changeImage = function () {
       wp.media.editor.send.attachment = function (props, attachment) {
-        _this2.setState({
+        _this.setState({
           profile_image: attachment.url,
           profile_image_id: attachment.id
         });
       };
 
       wp.media.editor.open();
-    }
-  }, {
-    key: "onChangeValue",
-    value: function onChangeValue(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(e) {
+    }, _this.onChangeValue = function (e) {
+      _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }, _this.onSubmit = function (e) {
       e.preventDefault();
-      var _this$state = this.state,
+      var _this$state = _this.state,
           new_pass = _this$state.new_pass,
           retype_pass = _this$state.retype_pass;
-      var postData = this.state;
+      var postData = _this.state;
       delete postData.new_pass;
       delete postData.retype_pass;
       delete postData.error;
 
       if (new_pass) {
         if (new_pass !== retype_pass) {
-          this.setState({
+          _this.setState({
             error: "Password doesn't match"
           });
+
           return false;
         }
 
         postData['password'] = new_pass;
       }
 
-      this.props.onClickSaveData(postData);
-      this.setState({
+      _this.props.onClickSaveData(postData);
+
+      _this.setState({
         error: ""
       });
-    }
-  }, {
+    }, _temp));
+  }
+
+  _createClass(ProfileEditForm, [{
     key: "render",
     value: function render() {
       var countries = this.props.countries;
@@ -35429,9 +35613,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -35444,30 +35628,27 @@ var SocialForm =
 function (_Component) {
   _inherits(SocialForm, _Component);
 
-  function SocialForm(props) {
-    var _this;
+  function SocialForm() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, SocialForm);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SocialForm).call(this, props));
-    _this.state = _objectSpread({}, _this.props.data);
-    _this.onChangeInput = _this.onChangeInput.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    return _this;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(SocialForm)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = _objectSpread({}, _this.props.data), _this.onChangeInput = function (e) {
+      _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }, _this.onSubmit = function (e) {
+      e.preventDefault();
+
+      _this.props.onClickSaveData(_this.state);
+    }, _temp));
   }
 
   _createClass(SocialForm, [{
-    key: "onChangeInput",
-    value: function onChangeInput(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(e) {
-      e.preventDefault();
-      this.props.onClickSaveData(this.state);
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
@@ -35599,9 +35780,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -35619,26 +35800,51 @@ var WithdrawDetails =
 function (_Component) {
   _inherits(WithdrawDetails, _Component);
 
-  function WithdrawDetails(props) {
-    var _this;
+  function WithdrawDetails() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, WithdrawDetails);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(WithdrawDetails).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(WithdrawDetails)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       withdraw_amount: '',
       withdraw_message: '',
       withdraw_method: '',
       errorMsg: ''
-    };
-    _this.onChangeInput = _this.onChangeInput.bind(_assertThisInitialized(_this));
-    _this.onSubmitWithdrawReq = _this.onSubmitWithdrawReq.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.onChangeInput = function (e) {
+      _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }, _this.onSubmitWithdrawReq = function (e) {
+      e.preventDefault();
+      var campaign_id = _this.props.data.campaign_id;
+      var withdraw_amount = _this.state.withdraw_amount;
+
+      if (withdraw_amount <= 0) {
+        _this.setState({
+          errorMsg: "Please enter valid amount"
+        });
+
+        return false;
+      }
+
+      var postData = _objectSpread({}, _this.state, {
+        campaign_id: campaign_id
+      });
+
+      delete postData.errorMsg; //remove error msg from postData
+      //Send withdraw request
+
+      _this.props.postWithdrawRequest(postData);
+    }, _temp));
   }
 
   _createClass(WithdrawDetails, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
+    value: function componentDidUpdate(prevProps) {
       var _this$props = this.props,
           withdraw = _this$props.withdraw,
           reqStatus = _this$props.withdraw.reqStatus;
@@ -35659,34 +35865,6 @@ function (_Component) {
           });
         }
       }
-    }
-  }, {
-    key: "onChangeInput",
-    value: function onChangeInput(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }
-  }, {
-    key: "onSubmitWithdrawReq",
-    value: function onSubmitWithdrawReq(e) {
-      e.preventDefault();
-      var campaign_id = this.props.data.campaign_id;
-      var withdraw_amount = this.state.withdraw_amount;
-
-      if (withdraw_amount <= 0) {
-        this.setState({
-          errorMsg: "Please enter valid amount"
-        });
-        return false;
-      }
-
-      var postData = _objectSpread({}, this.state, {
-        campaign_id: campaign_id
-      });
-
-      delete postData.errorMsg; //remove error msg from postData
-      //Send withdraw request
-
-      this.props.postWithdrawRequest(postData);
     }
   }, {
     key: "render",
@@ -35865,9 +36043,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -35880,17 +36058,57 @@ var WithdrawMethodForm =
 function (_Component) {
   _inherits(WithdrawMethodForm, _Component);
 
-  function WithdrawMethodForm(props) {
-    var _this;
+  function WithdrawMethodForm() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, WithdrawMethodForm);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(WithdrawMethodForm).call(this, props));
-    _this.state = _this.getDefaultState();
-    _this.onClickMethod = _this.onClickMethod.bind(_assertThisInitialized(_this));
-    _this.onChangeInput = _this.onChangeInput.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    return _this;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(WithdrawMethodForm)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = _this.getDefaultState(), _this.getDataValue = function (item_name) {
+      var _this$state$selected_ = _this.state.selected_method,
+          key = _this$state$selected_.key,
+          data = _this$state$selected_.data;
+      var itemValue = "";
+
+      if (data.hasOwnProperty(key)) {
+        itemValue = data[key][item_name] || "";
+      }
+
+      return itemValue;
+    }, _this.setDataValue = function (name, val) {
+      var _this$state = _this.state,
+          selected_method = _this$state.selected_method,
+          _this$state$selected_2 = _this$state.selected_method,
+          key = _this$state$selected_2.key,
+          data = _this$state$selected_2.data;
+      selected_method.data = Object.assign({}, data, _defineProperty({}, key, Object.assign({}, data[key], _defineProperty({}, name, val))));
+
+      _this.setState({
+        selected_method: selected_method
+      });
+    }, _this.onClickMethod = function (key) {
+      var _this$state2 = _this.state,
+          methods = _this$state2.methods,
+          selected_method = _this$state2.selected_method;
+      selected_method.key = key;
+
+      _this.setState({
+        selected_method: selected_method
+      });
+
+      _this.setDataValue('method_name', methods[key].method_name);
+    }, _this.onChangeInput = function (e) {
+      _this.setDataValue(e.target.name, e.target.value);
+    }, _this.onSubmit = function (e) {
+      e.preventDefault();
+
+      _this.props.onClickSaveData(_this.state.selected_method);
+    }, _temp));
   }
 
   _createClass(WithdrawMethodForm, [{
@@ -35918,56 +36136,6 @@ function (_Component) {
         methods: methods,
         selected_method: selected_method
       };
-    }
-  }, {
-    key: "getDataValue",
-    value: function getDataValue(item_name) {
-      var _this$state$selected_ = this.state.selected_method,
-          key = _this$state$selected_.key,
-          data = _this$state$selected_.data;
-      var itemValue = "";
-
-      if (data.hasOwnProperty(key)) {
-        itemValue = data[key][item_name] || "";
-      }
-
-      return itemValue;
-    }
-  }, {
-    key: "setDataValue",
-    value: function setDataValue(name, val) {
-      var _this$state = this.state,
-          selected_method = _this$state.selected_method,
-          _this$state$selected_2 = _this$state.selected_method,
-          key = _this$state$selected_2.key,
-          data = _this$state$selected_2.data;
-      selected_method.data = Object.assign({}, data, _defineProperty({}, key, Object.assign({}, data[key], _defineProperty({}, name, val))));
-      this.setState({
-        selected_method: selected_method
-      });
-    }
-  }, {
-    key: "onClickMethod",
-    value: function onClickMethod(key) {
-      var _this$state2 = this.state,
-          methods = _this$state2.methods,
-          selected_method = _this$state2.selected_method;
-      selected_method.key = key;
-      this.setState({
-        selected_method: selected_method
-      });
-      this.setDataValue('method_name', methods[key].method_name);
-    }
-  }, {
-    key: "onChangeInput",
-    value: function onChangeInput(e) {
-      this.setDataValue(e.target.name, e.target.value);
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(e) {
-      e.preventDefault();
-      this.props.onClickSaveData(this.state.selected_method);
     }
   }, {
     key: "render",
@@ -36034,20 +36202,6 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (WithdrawMethodForm);
-/**
-Selected method data format
-selected_method = {
-    key: 'echeck',
-    data: {
-        echeck: {
-            method_name: 'E-Check'
-        ),
-        bank_transfer: {
-            method_name: 'Bank Transfer'
-        )
-    )
-)
- */
 
 /***/ }),
 
@@ -36089,9 +36243,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -36120,18 +36274,30 @@ var App =
 function (_Component) {
   _inherits(App, _Component);
 
-  function App(props) {
-    var _this;
+  function App() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, App);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       myCampainsCollapse: false,
       userSettingsCollapse: false
-    };
-    _this.logout = _this.logout.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.logout = function (e) {
+      e.preventDefault();
+      fetch("".concat(WPCF.rest_url, "/logout")).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res.success) {
+          location.href = res.redirect;
+        }
+      });
+    }, _temp));
   }
 
   _createClass(App, [{
@@ -36142,18 +36308,6 @@ function (_Component) {
       if (!loaded) {
         this.props.fetchUser();
       }
-    }
-  }, {
-    key: "logout",
-    value: function logout(e) {
-      e.preventDefault();
-      fetch("".concat(WPCF.rest_url, "/logout")).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        if (res.success) {
-          location.href = res.redirect;
-        }
-      });
     }
   }, {
     key: "render",
@@ -36332,11 +36486,13 @@ var mapStateToProps = function mapStateToProps(state) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
-/* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
-/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
-/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
+/* harmony import */ var _components_confirmAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/confirmAlert */ "./src/components/confirmAlert.js");
+/* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
+/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
+/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36347,13 +36503,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -36367,17 +36525,41 @@ var BookmarkCampaigns =
 function (_Component) {
   _inherits(BookmarkCampaigns, _Component);
 
-  function BookmarkCampaigns(props) {
-    var _this;
+  function BookmarkCampaigns() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, BookmarkCampaigns);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(BookmarkCampaigns).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(BookmarkCampaigns)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       pageOfItems: []
-    };
-    _this.onChangePage = _this.onChangePage.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.onChangePage = function (pageOfItems) {
+      _this.setState({
+        pageOfItems: pageOfItems
+      });
+    }, _this.onClickDelete = function (campaignId) {
+      var data = {
+        id: campaignId,
+        bookmark: true
+      };
+      Object(_components_confirmAlert__WEBPACK_IMPORTED_MODULE_4__["confirmAlert"])({
+        title: 'Confirm to submit',
+        message: 'Are you sure to do this.',
+        buttons: [{
+          label: 'Yes',
+          onClick: function onClick() {
+            return _this.props.deleteCampaign(data);
+          }
+        }, {
+          label: 'No'
+        }]
+      });
+    }, _temp));
   }
 
   _createClass(BookmarkCampaigns, [{
@@ -36390,19 +36572,14 @@ function (_Component) {
       }
     }
   }, {
-    key: "onChangePage",
-    value: function onChangePage(pageOfItems) {
-      this.setState({
-        pageOfItems: pageOfItems
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var campaign = this.props.campaign;
 
       if (campaign.loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_5__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_7__["default"], null);
       }
 
       ;
@@ -36410,18 +36587,21 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Bookmarks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, campaign.data.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pageOfItems.map(function (item, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_5__["default"], {
           key: index,
           data: item
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "wpcf-campaign-links"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           "aria-label": "Remove Bookmark",
-          title: "Remove Bookmark"
+          title: "Remove Bookmark",
+          onClick: function onClick() {
+            return _this2.onClickDelete(item.id);
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "fas fa-trash-alt"
         }))));
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
         items: campaign.data,
         pageSize: 5,
         onChangePage: this.onChangePage
@@ -36438,9 +36618,14 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
-  fetchBookmarkCampaigns: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__["fetchBookmarkCampaigns"]
-})(BookmarkCampaigns));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return Object(redux__WEBPACK_IMPORTED_MODULE_1__["bindActionCreators"])({
+    fetchBookmarkCampaigns: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["fetchBookmarkCampaigns"],
+    deleteCampaign: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["deleteCampaign"]
+  }, dispatch);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(BookmarkCampaigns));
 
 /***/ }),
 
@@ -36476,9 +36661,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -36500,13 +36685,18 @@ var CampaignReport =
 function (_Component) {
   _inherits(CampaignReport, _Component);
 
-  function CampaignReport(props) {
-    var _this;
+  function CampaignReport() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, CampaignReport);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CampaignReport).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(CampaignReport)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       query_args: {
         date_range: 'last_7_days',
         campaign_id: _this.props.campaign.id ? _this.props.campaign.id : ''
@@ -36519,9 +36709,24 @@ function (_Component) {
         last_6_months: 'Last 6 Months',
         this_year: 'This Year'
       }
-    };
-    _this._onChange = _this._onChange.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this._onChange = function (e) {
+      var _this$state = _this.state,
+          query_args = _this$state.query_args,
+          campaign_id = _this$state.query_args.campaign_id;
+      var _e$target = e.target,
+          name = _e$target.name,
+          value = _e$target.value;
+      query_args = name == "date_range" ? {
+        date_range: value,
+        campaign_id: campaign_id
+      } : Object.assign(query_args, _defineProperty({}, name, value));
+
+      _this.props.fetchCampaignsReport(_this.encodeQueryArgs(query_args));
+
+      _this.setState({
+        query_args: query_args
+      });
+    }, _temp));
   }
 
   _createClass(CampaignReport, [{
@@ -36540,24 +36745,6 @@ function (_Component) {
       }
 
       return args.join('&');
-    }
-  }, {
-    key: "_onChange",
-    value: function _onChange(e) {
-      var _this$state = this.state,
-          query_args = _this$state.query_args,
-          campaign_id = _this$state.query_args.campaign_id;
-      var _e$target = e.target,
-          name = _e$target.name,
-          value = _e$target.value;
-      query_args = name == "date_range" ? {
-        date_range: value,
-        campaign_id: campaign_id
-      } : Object.assign(query_args, _defineProperty({}, name, value));
-      this.props.fetchCampaignsReport(this.encodeQueryArgs(query_args));
-      this.setState({
-        query_args: query_args
-      });
     }
   }, {
     key: "render",
@@ -36666,18 +36853,19 @@ function (_Component) {
   return CampaignReport;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    report: state.campaignsReport
-  };
-};
-
 CampaignReport.defaultProps = {
   campaign: {
     id: '',
     name: ''
   }
 };
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    report: state.campaignsReport
+  };
+};
+
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
   fetchCampaignsReport: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["fetchCampaignsReport"]
 })(CampaignReport));
@@ -36857,14 +37045,16 @@ var mapStateToProps = function mapStateToProps(state) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
-/* harmony import */ var _containers_campaignReport__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/campaignReport */ "./src/containers/campaignReport.js");
-/* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
-/* harmony import */ var _components_campaignUpdate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/campaignUpdate */ "./src/components/campaignUpdate.js");
-/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
-/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
+/* harmony import */ var _components_confirmAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/confirmAlert */ "./src/components/confirmAlert.js");
+/* harmony import */ var _containers_campaignReport__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../containers/campaignReport */ "./src/containers/campaignReport.js");
+/* harmony import */ var _components_itemCampaign__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/itemCampaign */ "./src/components/itemCampaign.js");
+/* harmony import */ var _components_campaignUpdate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/campaignUpdate */ "./src/components/campaignUpdate.js");
+/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/pagination */ "./src/components/pagination.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
+/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36882,6 +37072,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -36938,7 +37130,24 @@ function (_Component) {
         campaignId: campaignId,
         updates: updates
       });
-    }, _this.onClickDelete = function (campaignId) {}, _this.getCampaignData = function () {
+    }, _this.onClickDelete = function (campaignId) {
+      var data = {
+        id: campaignId,
+        bookmark: false
+      };
+      Object(_components_confirmAlert__WEBPACK_IMPORTED_MODULE_4__["confirmAlert"])({
+        title: 'Confirm to submit',
+        message: 'Are you sure to do this.',
+        buttons: [{
+          label: 'Yes',
+          onClick: function onClick() {
+            return _this.props.deleteCampaign(data);
+          }
+        }, {
+          label: 'No'
+        }]
+      });
+    }, _this.getCampaignData = function () {
       var filterValue = _this.state.filterValue;
       var campaign = _this.props.campaign;
       var filterData = campaign.data.filter(function (item) {
@@ -36971,20 +37180,20 @@ function (_Component) {
           updates = _this$state.updates;
 
       if (campaign.loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_10__["default"], null);
       }
 
       ;
 
       if (campaignReport.id) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_campaignReport__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_campaignReport__WEBPACK_IMPORTED_MODULE_5__["default"], {
           campaign: campaignReport,
           onClickBack: this.onClickReport
         });
       }
 
       if (campaignId) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_campaignUpdate__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_campaignUpdate__WEBPACK_IMPORTED_MODULE_7__["default"], {
           updates: updates,
           campaignId: campaignId,
           onClickUpdates: this.onClickUpdates
@@ -36992,7 +37201,7 @@ function (_Component) {
       }
 
       var campaignData = this.getCampaignData();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_9__["default"], {
         title: "My Campaigns"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-mycampaign-filter-group wpcf-btn-group"
@@ -37019,7 +37228,7 @@ function (_Component) {
       }, "Completed")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
       }, campaignData.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, pageOfItems.map(function (item, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_6__["default"], {
           key: index,
           data: item
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -37051,11 +37260,14 @@ function (_Component) {
           className: "far fa-edit"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           "aria-label": "Delete",
-          title: "Delete"
+          title: "Delete",
+          onClick: function onClick() {
+            return _this2.onClickDelete(item.id);
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "fas fa-trash-alt"
         }))));
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_8__["default"], {
         items: campaignData,
         pageSize: 5,
         filterValue: filterValue,
@@ -37073,9 +37285,14 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
-  fetchMyCampaigns: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__["fetchMyCampaigns"]
-})(MyCampaigns));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return Object(redux__WEBPACK_IMPORTED_MODULE_1__["bindActionCreators"])({
+    fetchMyCampaigns: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["fetchMyCampaigns"],
+    deleteCampaign: _actions_campaignAction__WEBPACK_IMPORTED_MODULE_3__["deleteCampaign"]
+  }, dispatch);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(MyCampaigns));
 
 /***/ }),
 
@@ -37109,9 +37326,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -37131,64 +37348,41 @@ var Order =
 function (_Component) {
   _inherits(Order, _Component);
 
-  function Order(props) {
-    var _this;
+  function Order() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, Order);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Order).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Order)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       pageOfItems: [],
       filterValue: '',
       searchText: '',
       orderDetails: ''
-    };
-    _this.onChangePage = _this.onChangePage.bind(_assertThisInitialized(_this));
-    _this.onClickDetails = _this.onClickDetails.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(Order, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var loaded = this.props.order.loaded;
-
-      if (!loaded) {
-        this.props.fetchOrders();
-      }
-    }
-  }, {
-    key: "onChangePage",
-    value: function onChangePage(pageOfItems) {
-      this.setState({
+    }, _this.onChangePage = function (pageOfItems) {
+      _this.setState({
         pageOfItems: pageOfItems
       });
-    }
-  }, {
-    key: "onClickDetails",
-    value: function onClickDetails(orderDetails) {
-      this.setState({
+    }, _this.onClickDetails = function (orderDetails) {
+      _this.setState({
         orderDetails: orderDetails
       });
-    }
-  }, {
-    key: "onClickFilter",
-    value: function onClickFilter(e) {
+    }, _this.onClickFilter = function (e) {
       e.preventDefault();
       var filterValue = e.target.innerText.toLowerCase();
-      this.setState({
+
+      _this.setState({
         filterValue: filterValue
       });
-    }
-  }, {
-    key: "onChangeInput",
-    value: function onChangeInput(key, value) {
-      this.setState(_defineProperty({}, key, value));
-    }
-  }, {
-    key: "geOrderLength",
-    value: function geOrderLength(key) {
-      var data = this.props.order.data;
+    }, _this.onChangeInput = function (key, value) {
+      _this.setState(_defineProperty({}, key, value));
+    }, _this.geOrderLength = function (key) {
+      var data = _this.props.order.data;
       var orderLength = data.length;
 
       if (key) {
@@ -37198,14 +37392,11 @@ function (_Component) {
       }
 
       return orderLength;
-    }
-  }, {
-    key: "getOrderData",
-    value: function getOrderData() {
-      var _this$state = this.state,
+    }, _this.getOrderData = function () {
+      var _this$state = _this.state,
           filterValue = _this$state.filterValue,
           searchText = _this$state.searchText;
-      var order = this.props.order;
+      var order = _this.props.order;
       var filterData = order.data;
 
       if (filterValue) {
@@ -37221,6 +37412,17 @@ function (_Component) {
       }
 
       return filterData;
+    }, _temp));
+  }
+
+  _createClass(Order, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var loaded = this.props.order.loaded;
+
+      if (!loaded) {
+        this.props.fetchOrders();
+      }
     }
   }, {
     key: "render",
@@ -37360,9 +37562,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -37383,51 +37585,45 @@ var PledgeReceived =
 function (_Component) {
   _inherits(PledgeReceived, _Component);
 
-  function PledgeReceived(props) {
-    var _this;
+  function PledgeReceived() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, PledgeReceived);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(PledgeReceived).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(PledgeReceived)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       pageOfItems: [],
       openModal: false,
       modalData: ''
-    };
-    _this.onChangePage = _this.onChangePage.bind(_assertThisInitialized(_this));
-    _this.onClickDetails = _this.onClickDetails.bind(_assertThisInitialized(_this));
-    _this.onClickModalClose = _this.onClickModalClose.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.onChangePage = function (pageOfItems) {
+      _this.setState({
+        pageOfItems: pageOfItems
+      });
+    }, _this.onClickDetails = function (data) {
+      _this.setState({
+        openModal: true,
+        modalData: data
+      });
+    }, _this.onClickModalClose = function () {
+      _this.setState({
+        openModal: false
+      });
+    }, _temp));
   }
 
   _createClass(PledgeReceived, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var loaded = this.props.pledge.loaded; //if( !loaded ) {
+      var loaded = this.props.pledge.loaded;
 
-      this.props.fetchPledgeReceived(); //}
-    }
-  }, {
-    key: "onChangePage",
-    value: function onChangePage(pageOfItems) {
-      this.setState({
-        pageOfItems: pageOfItems
-      });
-    }
-  }, {
-    key: "onClickDetails",
-    value: function onClickDetails(data) {
-      this.setState({
-        openModal: true,
-        modalData: data
-      });
-    }
-  }, {
-    key: "onClickModalClose",
-    value: function onClickModalClose() {
-      this.setState({
-        openModal: false
-      });
+      if (!loaded) {
+        this.props.fetchPledgeReceived();
+      }
     }
   }, {
     key: "render",
@@ -37558,10 +37754,10 @@ var Profile =
 function (_Component) {
   _inherits(Profile, _Component);
 
-  function Profile(props) {
+  function Profile() {
     _classCallCheck(this, Profile);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Profile).call(this, props));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Profile).apply(this, arguments));
   }
 
   _createClass(Profile, [{
@@ -37669,9 +37865,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -37691,18 +37887,26 @@ var ProfileSettings =
 function (_Component) {
   _inherits(ProfileSettings, _Component);
 
-  function ProfileSettings(props) {
-    var _this;
+  function ProfileSettings() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, ProfileSettings);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ProfileSettings).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ProfileSettings)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       profileEdit: false
-    };
-    _this.toggleEdit = _this.toggleEdit.bind(_assertThisInitialized(_this));
-    _this.onClickSaveData = _this.onClickSaveData.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.toggleEdit = function () {
+      _this.setState({
+        profileEdit: !_this.state.profileEdit
+      });
+    }, _this.onClickSaveData = function (data) {
+      _this.props.saveUserData(data);
+    }, _temp));
   }
 
   _createClass(ProfileSettings, [{
@@ -37722,7 +37926,7 @@ function (_Component) {
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
+    value: function componentDidUpdate(prevProps) {
       var _this$props$user = this.props.user,
           saveReq = _this$props$user.saveReq,
           error = _this$props$user.error;
@@ -37736,18 +37940,6 @@ function (_Component) {
           alert(error);
         }
       }
-    }
-  }, {
-    key: "toggleEdit",
-    value: function toggleEdit() {
-      this.setState({
-        profileEdit: !this.state.profileEdit
-      });
-    }
-  }, {
-    key: "onClickSaveData",
-    value: function onClickSaveData(data) {
-      this.props.saveUserData(data);
     }
   }, {
     key: "render",
@@ -37859,9 +38051,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -37880,46 +38072,31 @@ var Rewards =
 function (_Component) {
   _inherits(Rewards, _Component);
 
-  function Rewards(props) {
-    var _this;
+  function Rewards() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, Rewards);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Rewards).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Rewards)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       pageOfItems: [],
       filterValue: ''
-    };
-    _this.onChangePage = _this.onChangePage.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(Rewards, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var loaded = this.props.reward.loaded; //if( !loaded ) {
-
-      this.props.fetchRewards(); //}
-    }
-  }, {
-    key: "onChangePage",
-    value: function onChangePage(pageOfItems) {
-      this.setState({
+    }, _this.onChangePage = function (pageOfItems) {
+      _this.setState({
         pageOfItems: pageOfItems
       });
-    }
-  }, {
-    key: "onClickFilter",
-    value: function onClickFilter(filterValue) {
-      this.setState({
+    }, _this.onClickFilter = function (filterValue) {
+      _this.setState({
         filterValue: filterValue
       });
-    }
-  }, {
-    key: "getRewardsData",
-    value: function getRewardsData() {
-      var filterValue = this.state.filterValue;
-      var reward = this.props.reward;
+    }, _this.getRewardsData = function () {
+      var filterValue = _this.state.filterValue;
+      var reward = _this.props.reward;
       var filterData = reward.data;
 
       if (filterValue) {
@@ -37929,6 +38106,15 @@ function (_Component) {
       }
 
       return filterData;
+    }, _temp));
+  }
+
+  _createClass(Rewards, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var loaded = this.props.reward.loaded; //if( !loaded ) {
+
+      this.props.fetchRewards(); //}
     }
   }, {
     key: "render",
@@ -38031,9 +38217,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -38053,19 +38239,29 @@ var Withdraw =
 function (_Component) {
   _inherits(Withdraw, _Component);
 
-  function Withdraw(props) {
-    var _this;
+  function Withdraw() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, Withdraw);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Withdraw).call(this, props));
-    _this.state = {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Withdraw)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       pageOfItems: [],
       withdrawDetails: ''
-    };
-    _this.onChangePage = _this.onChangePage.bind(_assertThisInitialized(_this));
-    _this.onClickWithdrawDetails = _this.onClickWithdrawDetails.bind(_assertThisInitialized(_this));
-    return _this;
+    }, _this.onChangePage = function (pageOfItems) {
+      _this.setState({
+        pageOfItems: pageOfItems
+      });
+    }, _this.onClickWithdrawDetails = function (data) {
+      _this.setState({
+        withdrawDetails: data
+      });
+    }, _temp));
   }
 
   _createClass(Withdraw, [{
@@ -38082,20 +38278,6 @@ function (_Component) {
       if (!methods.loaded) {
         this.props.fetchWithdrawMethods();
       }
-    }
-  }, {
-    key: "onChangePage",
-    value: function onChangePage(pageOfItems) {
-      this.setState({
-        pageOfItems: pageOfItems
-      });
-    }
-  }, {
-    key: "onClickWithdrawDetails",
-    value: function onClickWithdrawDetails(data) {
-      this.setState({
-        withdrawDetails: data
-      });
     }
   }, {
     key: "render",
@@ -38185,9 +38367,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -38204,14 +38386,20 @@ var WithdrawMethodSettings =
 function (_Component) {
   _inherits(WithdrawMethodSettings, _Component);
 
-  function WithdrawMethodSettings(props) {
-    var _this;
+  function WithdrawMethodSettings() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, WithdrawMethodSettings);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(WithdrawMethodSettings).call(this, props));
-    _this.onClickSaveData = _this.onClickSaveData.bind(_assertThisInitialized(_this));
-    return _this;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(WithdrawMethodSettings)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.onClickSaveData = function (selected_method) {
+      _this.props.saveWithdrawAccount(selected_method);
+    }, _temp));
   }
 
   _createClass(WithdrawMethodSettings, [{
@@ -38239,11 +38427,6 @@ function (_Component) {
           alert(error);
         }
       }
-    }
-  }, {
-    key: "onClickSaveData",
-    value: function onClickSaveData(selected_method) {
-      this.props.saveWithdrawAccount(selected_method);
     }
   }, {
     key: "render",
@@ -38404,6 +38587,14 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -38415,6 +38606,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     loading: true,
     loaded: false,
+    delReq: 'pending',
     data: []
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -38439,6 +38631,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         loaded: false,
         error: action.payload
       });
+
+    case _actions_campaignAction__WEBPACK_IMPORTED_MODULE_0__["DELETE_BOOKMARK_CAMPAIGN_PENDING"]:
+      return _objectSpread({}, state, {
+        delReq: 'pending'
+      });
+
+    case _actions_campaignAction__WEBPACK_IMPORTED_MODULE_0__["DELETE_BOOKMARK_CAMPAIGN_COMPLETE"]:
+      var res = action.payload;
+
+      var data = _toConsumableArray(state.data);
+
+      if (res.success) {
+        var index = data.findIndex(function (item) {
+          return item.id == res.campaign_id;
+        });
+        data.splice(index, 1);
+        return _objectSpread({}, state, {
+          delReq: 'complete',
+          data: data
+        });
+      } else {
+        return _objectSpread({}, state, {
+          saveReq: 'error',
+          error: res.msg
+        });
+      }
 
     default:
       return state;
@@ -38686,6 +38904,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loading: true,
     loaded: false,
     saveReq: 'pending',
+    delReq: 'pending',
     data: []
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -38742,6 +38961,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         saveReq: 'error',
         error: action.payload
       });
+
+    case _actions_campaignAction__WEBPACK_IMPORTED_MODULE_0__["DELETE_CAMPAIGN_PENDING"]:
+      return _objectSpread({}, state, {
+        delReq: 'pending'
+      });
+
+    case _actions_campaignAction__WEBPACK_IMPORTED_MODULE_0__["DELETE_CAMPAIGN_COMPLETE"]:
+      res = action.payload;
+      data = _toConsumableArray(state.data);
+
+      if (res.success) {
+        var _index = data.findIndex(function (item) {
+          return item.id == res.campaign_id;
+        });
+
+        data.splice(_index, 1);
+        return _objectSpread({}, state, {
+          delReq: 'complete',
+          data: data
+        });
+      } else {
+        return _objectSpread({}, state, {
+          saveReq: 'error',
+          error: res.msg
+        });
+      }
 
     default:
       return state;

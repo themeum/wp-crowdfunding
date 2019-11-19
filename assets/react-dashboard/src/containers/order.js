@@ -8,16 +8,11 @@ import Header from "../components/header";
 import Skeleton from "../components/skeleton";
 
 class Order extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            filterValue: '',
-            searchText: '',
-            orderDetails: ''
-        };
-        this.onChangePage = this.onChangePage.bind(this);
-        this.onClickDetails = this.onClickDetails.bind(this);
+	state = {
+        pageOfItems: [],
+        filterValue: '',
+        searchText: '',
+        orderDetails: ''
     }
 
     componentDidMount() {
@@ -27,25 +22,25 @@ class Order extends Component {
         }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickDetails( orderDetails ) {
+    onClickDetails = (orderDetails) => {
         this.setState({ orderDetails });
     }
 
-    onClickFilter(e) {
+    onClickFilter = (e) => {
         e.preventDefault();
         const filterValue = e.target.innerText.toLowerCase();
         this.setState({ filterValue });
     }
 
-    onChangeInput( key, value ) {
+    onChangeInput = (key, value) => {
         this.setState({ [key]: value });
     }
 
-    geOrderLength( key ) {
+    geOrderLength = (key) => {
         const { data } = this.props.order;
         let orderLength = data.length;
         if( key ) {
@@ -54,7 +49,7 @@ class Order extends Component {
         return orderLength;
     }
 
-    getOrderData() {
+    getOrderData = () => {
         const { filterValue, searchText } = this.state;
         const { order } = this.props;
         let filterData = order.data;

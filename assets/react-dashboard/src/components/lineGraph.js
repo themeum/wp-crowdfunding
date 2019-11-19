@@ -2,11 +2,10 @@
 import React, { Component } from 'react';
 
 class LineGraph extends Component {
-
     constructor(props) {
         super(props);
         this.chartRef = React.createRef();
-      }
+    }
 
     componentDidMount() {
         const chartRef = this.chartRef.current.getContext("2d");

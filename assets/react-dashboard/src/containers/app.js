@@ -17,13 +17,9 @@ import Rewards from './rewards';
 import '../styles/style.scss';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            myCampainsCollapse: false,
-            userSettingsCollapse: false
-        };
-        this.logout = this.logout.bind(this);
+    state = {
+        myCampainsCollapse: false,
+        userSettingsCollapse: false
     }
 
     componentDidMount() {
@@ -33,7 +29,7 @@ class App extends Component {
         }
     }
 
-    logout(e) {
+    logout = (e) => {
         e.preventDefault();
         fetch(`${WPCF.rest_url}/logout`)
             .then(res => res.json())

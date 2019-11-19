@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchBookmarkCampaigns } from '../actions/campaignAction';
+import { fetchBookmarkCampaigns, deleteCampaign } from '../actions/campaignAction';
+import { confirmAlert } from '../components/confirmAlert';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
 import Skeleton from "../components/skeleton";
 
 class BookmarkCampaigns extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: []
-        };
-        this.onChangePage = this.onChangePage.bind(this);
+    state = {
+        pageOfItems: []
     }
 
     componentDidMount() {
@@ -21,8 +19,28 @@ class BookmarkCampaigns extends Component {
         }
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
+    }
+
+    onClickDelete = (campaignId) => {
+        const data = {
+            id: campaignId,
+            bookmark: true
+        }
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.props.deleteCampaign(data)
+                },
+                {
+                    label: 'No'
+                }
+            ]
+        });
     }
 
 	render() {
@@ -46,8 +64,7 @@ class BookmarkCampaigns extends Component {
                                     key={index}
                                     data={ item } >
                                     <div className="wpcf-campaign-links">
-                                        {/*TODO: Need Button Working*/}
-                                        <button aria-label="Remove Bookmark" title="Remove Bookmark">
+                                        <button aria-label="Remove Bookmark" title="Remove Bookmark" onClick={ () => this.onClickDelete(item.id) }>
                                             <span className="fas fa-trash-alt"></span>
                                         </button>
                                     </div>
@@ -71,6 +88,13 @@ class BookmarkCampaigns extends Component {
 
 const mapStateToProps = state => ({
     campaign: state.bookmarkCampaign
-})
+});
 
-export default connect( mapStateToProps, { fetchBookmarkCampaigns } )(BookmarkCampaigns);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        fetchBookmarkCampaigns,
+        deleteCampaign
+    }, dispatch);
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )(BookmarkCampaigns);

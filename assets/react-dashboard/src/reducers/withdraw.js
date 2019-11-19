@@ -1,4 +1,11 @@
-import { FETCH_WITHDRAWS_PENDING, FETCH_WITHDRAWS_COMPLETE, FETCH_WITHDRAWS_ERROR, POST_WITHDRAW_REQUEST_PENDING, POST_WITHDRAW_REQUEST_COMPLETE, POST_WITHDRAW_REQUEST_ERROR } from "../actions/withdrawAction";
+import {
+    FETCH_WITHDRAWS_PENDING,
+    FETCH_WITHDRAWS_COMPLETE,
+    FETCH_WITHDRAWS_ERROR,
+    POST_WITHDRAW_REQUEST_PENDING,
+    POST_WITHDRAW_REQUEST_COMPLETE,
+    POST_WITHDRAW_REQUEST_ERROR
+} from "../actions/withdrawAction";
 
 export default function(state = { loading: true, loaded: false, reqStatus: 'pending', data:[] }, action ) {
     switch( action.type ) {

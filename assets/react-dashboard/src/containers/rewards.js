@@ -7,13 +7,9 @@ import Header from "../components/header";
 import Skeleton from "../components/skeleton";
 
 class Rewards extends Component {
-	constructor (props) {
-        super(props);
-        this.state = {
-            pageOfItems: [],
-            filterValue: ''
-        };
-        this.onChangePage = this.onChangePage.bind(this);
+    state = {
+        pageOfItems: [],
+        filterValue: ''
     }
 
     componentDidMount() {
@@ -23,15 +19,15 @@ class Rewards extends Component {
         //}
     }
 
-    onChangePage(pageOfItems) {
+    onChangePage = (pageOfItems) => {
         this.setState({ pageOfItems });
     }
 
-    onClickFilter(filterValue) {
+    onClickFilter = (filterValue) => {
         this.setState({ filterValue });
     }
 
-    getRewardsData() {
+    getRewardsData = () => {
         const { filterValue } = this.state;
         const { reward } = this.props;
         let filterData = reward.data;

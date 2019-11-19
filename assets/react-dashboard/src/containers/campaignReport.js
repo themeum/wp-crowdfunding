@@ -10,24 +10,24 @@ import Header from '../components/header'
 import Skeleton from '../components/skeleton'
 
 class CampaignReport extends Component {
-    constructor (props) {
-        super(props);
-        this.state  = {
-            query_args: {
-                date_range: 'last_7_days',
-                campaign_id: (this.props.campaign.id) ? this.props.campaign.id : ''
-            },
-            option_params: {
-                last_7_days: 'Last Week',
-                last_14_days: 'Last 14 Days',
-                this_month: 'This Month',
-                last_3_months: 'Last 3 Months',
-                last_6_months: 'Last 6 Months',
-                this_year: 'This Year'
-            }
-        };
-        this._onChange = this._onChange.bind(this);
+    static defaultProps = {
+        campaign: { id: '', name: ''}
     }
+    
+    state  = {
+        query_args: {
+            date_range: 'last_7_days',
+            campaign_id: (this.props.campaign.id) ? this.props.campaign.id : ''
+        },
+        option_params: {
+            last_7_days: 'Last Week',
+            last_14_days: 'Last 14 Days',
+            this_month: 'This Month',
+            last_3_months: 'Last 3 Months',
+            last_6_months: 'Last 6 Months',
+            this_year: 'This Year'
+        }
+    };
 
     componentDidMount() {
         let { query_args } = this.state;
@@ -42,7 +42,7 @@ class CampaignReport extends Component {
         return args.join('&');
     }
 
-    _onChange(e) {
+    _onChange = (e) => {
         let { query_args, query_args: {campaign_id} } = this.state;
         const{ name, value } = e.target;
         query_args = (name =="date_range") ? {date_range: value, campaign_id} : Object.assign(query_args, {[name]: value});
@@ -54,14 +54,11 @@ class CampaignReport extends Component {
         const { query_args, option_params } = this.state;
         const { loading, data:{ csv, format, label, fundRaised, raisedPercent, totalBacked, pledges, campaign } } = this.props.report;
 
-
         if (loading) {
             return (
                 <Skeleton />
             )
         };
-
-
 
         return (
             <div>
@@ -138,9 +135,5 @@ class CampaignReport extends Component {
 const mapStateToProps = state => ({
     report: state.campaignsReport
 })
-
-CampaignReport.defaultProps = {
-    campaign: { id: '', name: ''}
-}
 
 export default connect( mapStateToProps, { fetchCampaignsReport } )(CampaignReport);

@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 
 class WithdrawMethodForm extends Component {
-	constructor (props) {
-        super(props);
-        this.state = this.getDefaultState();
-        this.onClickMethod = this.onClickMethod.bind(this);
-        this.onChangeInput = this.onChangeInput.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+	state = this.getDefaultState();
 
     getDefaultState() {
         let { methods, selected_method } = this.props.data; 
@@ -21,7 +15,7 @@ class WithdrawMethodForm extends Component {
         return { methods, selected_method };
     }
 
-    getDataValue( item_name ) {
+    getDataValue = (item_name) => {
         const { key, data } = this.state.selected_method;
         let itemValue = "";
         if( data.hasOwnProperty(key) ) {
@@ -30,24 +24,24 @@ class WithdrawMethodForm extends Component {
         return itemValue;
     }
 
-    setDataValue( name, val ) {
+    setDataValue = (name, val) => {
         let { selected_method, selected_method: {key, data } } = this.state;
         selected_method.data = Object.assign({}, data, { [key]: Object.assign({}, data[key], {[name]: val}) });
         this.setState({ selected_method });
     }
 
-    onClickMethod( key ) {
+    onClickMethod = (key) => {
         let { methods, selected_method } = this.state;
         selected_method.key = key;
         this.setState({ selected_method });
         this.setDataValue( 'method_name', methods[key].method_name );
     }
 
-    onChangeInput(e) {
+    onChangeInput = (e) => {
         this.setDataValue( e.target.name, e.target.value );
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         this.props.onClickSaveData(this.state.selected_method);
     }
@@ -89,18 +83,3 @@ class WithdrawMethodForm extends Component {
 }
 
 export default WithdrawMethodForm;
-
-/**
-Selected method data format
-selected_method = {
-    key: 'echeck',
-    data: {
-        echeck: {
-            method_name: 'E-Check'
-        ),
-        bank_transfer: {
-            method_name: 'Bank Transfer'
-        )
-    )
-)
- */
