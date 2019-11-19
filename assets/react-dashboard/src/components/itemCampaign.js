@@ -1,69 +1,118 @@
-import React from 'react';
-import { decodeEntities, wcPice } from "../helper";
+import { __ } from '@wordpress/i18n';
+import React, { Component } from 'react';
+import { decodeEntities, wcPice, secondsToDetails, pad } from "../helper";
 import CircleProgress from "./circleProgress";
 
-const ItemCampaign = props => {
-    const { data } = props;
-    return (
-        <div className="wpcf-campaign-item">
-            <a
-                className="wpcf-campaign-thumbnail"
-                title={ decodeEntities(data.title) }
-                href={ data.permalink }
-                dangerouslySetInnerHTML={{__html: data.thumbnail}}
-            />
+class ItemCampaign extends Component {
+    state = { seconds: this.props.data.seconds || 0}
 
-            <div className="wpcf-campaign-content">
-                <div className={"wpcf-campaign-heading" + (props.invested !== true ? "" : "wpcf-has-not-campaign-link")}>
-                    <h3 className="wpcf-campaign-title">
-                        <a href={data.permalink}>{decodeEntities(data.title)}</a>
-                    </h3>
-                    {props.children}
-                </div>
-                <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
+    static defaultProps = {
+        invested: false
+    }
 
-                <div className="wpcf-campaign-infos">
-                    <div className="wpcf-campaign-info">
-                        <div className="wpcf-campaign-raised">
-                            <CircleProgress size={50} thickness={3} percent={Math.round(data.raised_percent)}/>
-                            <span className="wpcf-raised-percent">{ Math.round(data.raised_percent) }%</span>
-                        </div>
-                    </div>
-                    <div className="wpcf-campaign-info">
-                        <h5>
-                            <span dangerouslySetInnerHTML={{__html: wcPice(data.total_raised)}}/>
-                            <span>Fund Raised</span>
-                        </h5>
-                    </div>
-                    <div className="wpcf-campaign-info">
-                        <h5>
-                            <span dangerouslySetInnerHTML={{__html: wcPice(data.funding_goal)}}/>
-                            <span>Funding Goal</span>
-                        </h5>
-                    </div>
+    componentDidMount() {
+        const { seconds } = this.state;
+        this.campaignInterval = setInterval(() => {
+            if (seconds > 0) {
+                this.setState(({ seconds }) => ({
+                    seconds: seconds - 1
+                }));
+            } else {
+                clearInterval(this.campaignInterval);
+            }
+        }, 1000);
+    }
 
-                    {( data.end_method !== 'never_end' ) && (
-                        <div className="wpcf-campaign-info">
-                            <h5>
-                                <span>{ ( data.is_started ) ? data.days_remaining :  data.days_until_launch }</span>
-                                <span>Days { ( data.is_started ) ? "to go" :  "Until Launch" }</span>
-                            </h5>
-                        </div>
-                    )}
+    componentWillUnmount() {
+        clearInterval(this.campaignInterval)
+    }
 
-                    { props.pledge &&
-                    <div  className="wpcf-campaign-info">
-                        <a className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm" href={data.permalink}>Pledge More</a>
+    renderInterval() {
+        const { seconds } = this.state;
+        const details = secondsToDetails(seconds);
+        return (
+            <div className="wpcf-reward-perks-wrap">
+                <h5>{ __('Perks about to end', 'wp-crowdfunding') }</h5>
+                <div className="wpcf-reward-perks">
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{ pad(details.hours) }</h6>
+                        <span>{ __('Hrs', 'wp-crowdfunding') }</span>
                     </div>
-                    }
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{ pad(details.minutes) }</h6>
+                        <span>{ __('Min', 'wp-crowdfunding') }</span>
+                    </div>
+                    <div className="wpcf-reward-perk-item">
+                        <h6>{ pad(details.seconds) }</h6>
+                        <span>{ __('Sec', 'wp-crowdfunding') }</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
-};
+        );
+    }
 
-ItemCampaign.defaultProps = {
-    invested: false
+    render() {
+        const { data, invested, pledge } = this.props;
+        return (
+            <div className="wpcf-campaign-item">
+                { data.status == 'running'  && data.days_remaining==1 &&
+                    this.renderInterval()
+                }
+                <a
+                    className="wpcf-campaign-thumbnail"
+                    title={ decodeEntities(data.title) }
+                    href={ data.permalink }
+                    dangerouslySetInnerHTML={{__html: data.thumbnail}}
+                />
+    
+                <div className="wpcf-campaign-content">
+                    <div className={"wpcf-campaign-heading" + (invested !== true ? "" : "wpcf-has-not-campaign-link")}>
+                        <h3 className="wpcf-campaign-title">
+                            <a href={data.permalink}>{decodeEntities(data.title)}</a>
+                        </h3>
+                        {this.props.children}
+                    </div>
+                    <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
+    
+                    <div className="wpcf-campaign-infos">
+                        <div className="wpcf-campaign-info">
+                            <div className="wpcf-campaign-raised">
+                                <CircleProgress size={50} thickness={3} percent={Math.round(data.raised_percent)}/>
+                                <span className="wpcf-raised-percent">{ Math.round(data.raised_percent) }%</span>
+                            </div>
+                        </div>
+                        <div className="wpcf-campaign-info">
+                            <h5>
+                                <span dangerouslySetInnerHTML={{__html: wcPice(data.total_raised)}}/>
+                                <span>Fund Raised</span>
+                            </h5>
+                        </div>
+                        <div className="wpcf-campaign-info">
+                            <h5>
+                                <span dangerouslySetInnerHTML={{__html: wcPice(data.funding_goal)}}/>
+                                <span>Funding Goal</span>
+                            </h5>
+                        </div>
+    
+                        {( data.end_method !== 'never_end' ) && (
+                            <div className="wpcf-campaign-info">
+                                <h5>
+                                    <span>{ ( data.is_started ) ? data.days_remaining :  data.days_until_launch }</span>
+                                    <span>Days { ( data.is_started ) ? "to go" :  "Until Launch" }</span>
+                                </h5>
+                            </div>
+                        )}
+    
+                        { pledge &&
+                        <div  className="wpcf-campaign-info">
+                            <a className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm" href={data.permalink}>Pledge More</a>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default ItemCampaign

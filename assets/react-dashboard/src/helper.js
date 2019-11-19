@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 export const decodeEntities = str => {
     const element = document.createElement('div');
     if(str && typeof str === 'string') {
-        // strip script/html tags
+        //strip script/html tags
         str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
         str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
         element.innerHTML = str;
@@ -37,3 +37,16 @@ export const months = {
     nov: __('November', 'wp-crowdfunding'),
     dec: __('December', 'wp-crowdfunding'),
 };
+
+export const secondsToDetails = (seconds) => {
+    const days        = Math.floor(seconds/24/60/60);
+    const hoursLeft   = Math.floor((seconds) - (days*86400));
+    const hours       = Math.floor(hoursLeft/3600);
+    const minutesLeft = Math.floor((hoursLeft) - (hours*3600));
+    const minutes     = Math.floor(minutesLeft/60);
+    return {days, hours, minutes, seconds: seconds%60};
+}
+
+export const pad = (n) => {
+    return (n < 10 ? "0" + n : n);
+}

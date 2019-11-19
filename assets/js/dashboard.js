@@ -32941,7 +32941,7 @@ module.exports = function(originalModule) {
 /*!***************************************!*\
   !*** ./src/actions/campaignAction.js ***!
   \***************************************/
-/*! exports provided: FETCH_CAMPAIGNS_REPORT_PENDING, FETCH_CAMPAIGNS_REPORT_COMPLETE, FETCH_CAMPAIGNS_REPORT_ERROR, fetchCampaignsReport, FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, fetchMyCampaigns, FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR, fetchInvestedCampaigns, FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR, fetchPledgeReceived, FETCH_BOOKMARK_CAMPAIGNS_PENDING, FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, FETCH_BOOKMARK_CAMPAIGNS_ERROR, fetchBookmarkCampaigns, FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR, fetchRewards, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR, saveCampaignUpdates */
+/*! exports provided: FETCH_CAMPAIGNS_REPORT_PENDING, FETCH_CAMPAIGNS_REPORT_COMPLETE, FETCH_CAMPAIGNS_REPORT_ERROR, fetchCampaignsReport, FETCH_MY_CAMPAIGNS_PENDING, FETCH_MY_CAMPAIGNS_COMPLETE, FETCH_MY_CAMPAIGNS_ERROR, fetchMyCampaigns, DELETE_CAMPAIGN_PENDING, DELETE_CAMPAIGN_COMPLETE, DELETE_CAMPAIGN_ERROR, deleteCampaign, FETCH_INVESTED_CAMPAIGNS_PENDING, FETCH_INVESTED_CAMPAIGNS_COMPLETE, FETCH_INVESTED_CAMPAIGNS_ERROR, fetchInvestedCampaigns, FETCH_PLEDGE_RECEIVED_PENDING, FETCH_PLEDGE_RECEIVED_COMPLETE, FETCH_PLEDGE_RECEIVED_ERROR, fetchPledgeReceived, FETCH_BOOKMARK_CAMPAIGNS_PENDING, FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, FETCH_BOOKMARK_CAMPAIGNS_ERROR, fetchBookmarkCampaigns, FETCH_REWARDS_PENDING, FETCH_REWARDS_COMPLETE, FETCH_REWARDS_ERROR, fetchRewards, SAVE_CAMPAIGN_UPDATES_PENDING, SAVE_CAMPAIGN_UPDATES_COMPLETE, SAVE_CAMPAIGN_UPDATES_ERROR, saveCampaignUpdates */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32954,6 +32954,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MY_CAMPAIGNS_COMPLETE", function() { return FETCH_MY_CAMPAIGNS_COMPLETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MY_CAMPAIGNS_ERROR", function() { return FETCH_MY_CAMPAIGNS_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMyCampaigns", function() { return fetchMyCampaigns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_PENDING", function() { return DELETE_CAMPAIGN_PENDING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_COMPLETE", function() { return DELETE_CAMPAIGN_COMPLETE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CAMPAIGN_ERROR", function() { return DELETE_CAMPAIGN_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCampaign", function() { return deleteCampaign; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_PENDING", function() { return FETCH_INVESTED_CAMPAIGNS_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_COMPLETE", function() { return FETCH_INVESTED_CAMPAIGNS_COMPLETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_INVESTED_CAMPAIGNS_ERROR", function() { return FETCH_INVESTED_CAMPAIGNS_ERROR; });
@@ -33031,6 +33035,36 @@ var fetchMyCampaigns = function fetchMyCampaigns() {
     })["catch"](function (payload) {
       return dispatch({
         type: FETCH_MY_CAMPAIGNS_ERROR,
+        payload: payload
+      });
+    });
+  };
+}; //DELETE CAMPAINGS
+
+var DELETE_CAMPAIGN_PENDING = 'delete_campaign_pending';
+var DELETE_CAMPAIGN_COMPLETE = 'delete_campaign_complete';
+var DELETE_CAMPAIGN_ERROR = 'delete_campaign_error';
+var deleteCampaign = function deleteCampaign(data) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_CAMPAIGN_PENDING
+    });
+    var fetchURL = "".concat(WPCF.rest_url, "/delete-campaign");
+    var option = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: headers
+    };
+    fetch(fetchURL, option).then(function (response) {
+      return response.json();
+    }).then(function (payload) {
+      return dispatch({
+        type: DELETE_CAMPAIGN_PENDING,
+        payload: payload
+      });
+    })["catch"](function (payload) {
+      return dispatch({
+        type: DELETE_CAMPAIGN_ERROR,
         payload: payload
       });
     });
@@ -33497,127 +33531,6 @@ var saveWithdrawAccount = function saveWithdrawAccount(data) {
     });
   };
 };
-
-/***/ }),
-
-/***/ "./src/components/Timer.js":
-/*!*********************************!*\
-  !*** ./src/components/Timer.js ***!
-  \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-var Timer =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Timer, _Component);
-
-  function Timer() {
-    var _getPrototypeOf2;
-
-    var _temp, _this;
-
-    _classCallCheck(this, Timer);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Timer)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      seconds: _this.props.seconds
-    }, _this.getDetails = function () {
-      var seconds = _this.state.seconds;
-      var days = Math.floor(seconds / 24 / 60 / 60);
-      var hoursLeft = Math.floor(seconds - days * 86400);
-      var hours = Math.floor(hoursLeft / 3600);
-      var minutesLeft = Math.floor(hoursLeft - hours * 3600);
-      var minutes = Math.floor(minutesLeft / 60);
-      return {
-        days: days,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds % 60
-      };
-    }, _this.pad = function (n) {
-      return n < 10 ? "0" + n : n;
-    }, _temp));
-  }
-
-  _createClass(Timer, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var seconds = this.state.seconds;
-      this.myInterval = setInterval(function () {
-        if (seconds > 0) {
-          _this2.setState(function (_ref) {
-            var seconds = _ref.seconds;
-            return {
-              seconds: seconds - 1
-            };
-          });
-        } else {
-          clearInterval(_this2.myInterval);
-        }
-      }, 1000);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      clearInterval(this.myInterval);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var seconds = this.state.seconds;
-      var details = this.getDetails(seconds);
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "wpcf-reward-perks-wrap"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Perks about to end', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "wpcf-reward-perks"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "wpcf-reward-perk-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.days)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Days', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "wpcf-reward-perk-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.hours)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Hrs', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "wpcf-reward-perk-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.minutes)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Min', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "wpcf-reward-perk-item"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, this.pad(details.seconds)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Sec', 'wp-crowdfunding')))));
-    }
-  }]);
-
-  return Timer;
-}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (Timer);
 
 /***/ }),
 
@@ -34091,70 +34004,161 @@ var Header = function Header(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
-/* harmony import */ var _circleProgress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./circleProgress */ "./src/components/circleProgress.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+/* harmony import */ var _circleProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./circleProgress */ "./src/components/circleProgress.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
-var ItemCampaign = function ItemCampaign(props) {
-  var data = props.data;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "wpcf-campaign-thumbnail",
-    title: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["decodeEntities"])(data.title),
-    href: data.permalink,
-    dangerouslySetInnerHTML: {
-      __html: data.thumbnail
+
+
+var ItemCampaign =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ItemCampaign, _Component);
+
+  function ItemCampaign() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
+
+    _classCallCheck(this, ItemCampaign);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-content"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-heading" + (props.invested !== true ? "" : "wpcf-has-not-campaign-link")
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-    className: "wpcf-campaign-title"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: data.permalink
-  }, Object(_helper__WEBPACK_IMPORTED_MODULE_1__["decodeEntities"])(data.title))), props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-    className: "wpcf-campaign-author"
-  }, "by ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "javascript:void(0)"
-  }, data.author_name), " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-infos"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-raised"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_circleProgress__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    size: 50,
-    thickness: 3,
-    percent: Math.round(data.raised_percent)
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: "wpcf-raised-percent"
-  }, Math.round(data.raised_percent), "%"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    dangerouslySetInnerHTML: {
-      __html: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["wcPice"])(data.total_raised)
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ItemCampaign)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      seconds: _this.props.data.seconds || 0
+    }, _temp));
+  }
+
+  _createClass(ItemCampaign, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var seconds = this.state.seconds;
+      this.campaignInterval = setInterval(function () {
+        if (seconds > 0) {
+          _this2.setState(function (_ref) {
+            var seconds = _ref.seconds;
+            return {
+              seconds: seconds - 1
+            };
+          });
+        } else {
+          clearInterval(_this2.campaignInterval);
+        }
+      }, 1000);
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fund Raised"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    dangerouslySetInnerHTML: {
-      __html: Object(_helper__WEBPACK_IMPORTED_MODULE_1__["wcPice"])(data.funding_goal)
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.campaignInterval);
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Funding Goal"))), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), props.pledge && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-campaign-info"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm",
-    href: data.permalink
-  }, "Pledge More")))));
-};
+  }, {
+    key: "renderInterval",
+    value: function renderInterval() {
+      var seconds = this.state.seconds;
+      var details = Object(_helper__WEBPACK_IMPORTED_MODULE_2__["secondsToDetails"])(seconds);
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perks-wrap"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Perks about to end', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perks"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.hours)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Hrs', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.minutes)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Min', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.seconds)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Sec', 'wp-crowdfunding')))));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          data = _this$props.data,
+          invested = _this$props.invested,
+          pledge = _this$props.pledge;
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-item"
+      }, data.status == 'running' && data.days_remaining == 1 && this.renderInterval(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        className: "wpcf-campaign-thumbnail",
+        title: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["decodeEntities"])(data.title),
+        href: data.permalink,
+        dangerouslySetInnerHTML: {
+          __html: data.thumbnail
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-content"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-heading" + (invested !== true ? "" : "wpcf-has-not-campaign-link")
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", {
+        className: "wpcf-campaign-title"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        href: data.permalink
+      }, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["decodeEntities"])(data.title))), this.props.children), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
+        className: "wpcf-campaign-author"
+      }, "by ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        href: "javascript:void(0)"
+      }, data.author_name), " "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-infos"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-raised"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_circleProgress__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        size: 50,
+        thickness: 3,
+        percent: Math.round(data.raised_percent)
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "wpcf-raised-percent"
+      }, Math.round(data.raised_percent), "%"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(data.total_raised)
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Fund Raised"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(data.funding_goal)
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Funding Goal"))), data.end_method !== 'never_end' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), pledge && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-campaign-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm",
+        href: data.permalink
+      }, "Pledge More")))));
+    }
+  }]);
+
+  return ItemCampaign;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 ItemCampaign.defaultProps = {
   invested: false
@@ -34296,26 +34300,119 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
-/* harmony import */ var _Timer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Timer */ "./src/components/Timer.js");
+/* harmony import */ var _showMoreText__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./showMoreText */ "./src/components/showMoreText.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function (props) {
-  var data = props.data;
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "wpcf-reward-item"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "wpcf-reward-thumbnail"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-    src: data.image,
-    alt: data.title
-  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "wpcf-reward-content"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, data.title || Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('No title', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, data.description || Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('No description', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, _helper__WEBPACK_IMPORTED_MODULE_2__["months"][data.endmonth] + ' ' + data.endyear), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Estimate Delivery Date', 'wp-crowdfunding'))), data.status == 'about_to_end' && data.seconds > 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Timer__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    seconds: data.seconds
-  }));
-});
+
+
+var ItemReward =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ItemReward, _Component);
+
+  function ItemReward() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
+
+    _classCallCheck(this, ItemReward);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ItemReward)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      seconds: _this.props.data.seconds
+    }, _temp));
+  }
+
+  _createClass(ItemReward, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var seconds = this.state.seconds;
+      this.rewardInterval = setInterval(function () {
+        if (seconds > 0) {
+          _this2.setState(function (_ref) {
+            var seconds = _ref.seconds;
+            return {
+              seconds: seconds - 1
+            };
+          });
+        } else {
+          clearInterval(_this2.rewardInterval);
+        }
+      }, 1000);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.rewardInterval);
+    }
+  }, {
+    key: "renderInterval",
+    value: function renderInterval() {
+      var seconds = this.state.seconds;
+      var details = Object(_helper__WEBPACK_IMPORTED_MODULE_2__["secondsToDetails"])(seconds);
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perks-wrap"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Perks about to end', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perks"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.days)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Days', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.hours)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Hrs', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.minutes)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Min', 'wp-crowdfunding'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-perk-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", null, Object(_helper__WEBPACK_IMPORTED_MODULE_2__["pad"])(details.seconds)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Sec', 'wp-crowdfunding')))));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var seconds = this.state.seconds;
+      var data = this.props.data;
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-item"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-thumbnail"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+        src: data.image,
+        alt: data.title
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "wpcf-reward-content"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, data.title || Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('No title', 'wp-crowdfunding')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_showMoreText__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        length: 100,
+        content: data.description || Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('No description', 'wp-crowdfunding')
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, _helper__WEBPACK_IMPORTED_MODULE_2__["months"][data.endmonth] + ' ' + data.endyear), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Estimate Delivery Date', 'wp-crowdfunding'))), data.status == 'about_to_end' && data.seconds > 0 && this.renderInterval());
+    }
+  }]);
+
+  return ItemReward;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (ItemReward);
 
 /***/ }),
 
@@ -35178,6 +35275,63 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (ProfileEditForm);
+
+/***/ }),
+
+/***/ "./src/components/showMoreText.js":
+/*!****************************************!*\
+  !*** ./src/components/showMoreText.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var ShowMoreText = function ShowMoreText(props) {
+  var length = props.length,
+      content = props.content;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      expand = _useState2[0],
+      setExpand = _useState2[1];
+
+  if (content.length > length) {
+    var className = expand ? 'wpcf-expand' : 'wpcf-collapse';
+    var buttonText = expand ? 'See Less' : 'See More';
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: className
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      dangerouslySetInnerHTML: {
+        __html: content
+      }
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      onClick: function onClick() {
+        return setExpand(!expand);
+      }
+    }, buttonText));
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      dangerouslySetInnerHTML: {
+        __html: content
+      }
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ShowMoreText);
 
 /***/ }),
 
@@ -36784,7 +36938,7 @@ function (_Component) {
         campaignId: campaignId,
         updates: updates
       });
-    }, _this.getCampaignData = function () {
+    }, _this.onClickDelete = function (campaignId) {}, _this.getCampaignData = function () {
       var filterValue = _this.state.filterValue;
       var campaign = _this.props.campaign;
       var filterData = campaign.data.filter(function (item) {
@@ -37249,11 +37403,9 @@ function (_Component) {
   _createClass(PledgeReceived, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var loaded = this.props.pledge.loaded;
+      var loaded = this.props.pledge.loaded; //if( !loaded ) {
 
-      if (!loaded) {
-        this.props.fetchPledgeReceived();
-      }
+      this.props.fetchPledgeReceived(); //}
     }
   }, {
     key: "onChangePage",
@@ -37745,11 +37897,9 @@ function (_Component) {
   _createClass(Rewards, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var loaded = this.props.reward.loaded;
+      var loaded = this.props.reward.loaded; //if( !loaded ) {
 
-      if (!loaded) {
-        this.props.fetchRewards();
-      }
+      this.props.fetchRewards(); //}
     }
   }, {
     key: "onChangePage",
@@ -38139,7 +38289,7 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!***********************!*\
   !*** ./src/helper.js ***!
   \***********************/
-/*! exports provided: decodeEntities, wcPice, months */
+/*! exports provided: decodeEntities, wcPice, months, secondsToDetails, pad */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38147,13 +38297,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeEntities", function() { return decodeEntities; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wcPice", function() { return wcPice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "months", function() { return months; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "secondsToDetails", function() { return secondsToDetails; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pad", function() { return pad; });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
 
 var decodeEntities = function decodeEntities(str) {
   var element = document.createElement('div');
 
   if (str && typeof str === 'string') {
-    // strip script/html tags
+    //strip script/html tags
     str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
     str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
     element.innerHTML = str;
@@ -38190,6 +38342,22 @@ var months = {
   oct: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('October', 'wp-crowdfunding'),
   nov: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('November', 'wp-crowdfunding'),
   dec: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('December', 'wp-crowdfunding')
+};
+var secondsToDetails = function secondsToDetails(seconds) {
+  var days = Math.floor(seconds / 24 / 60 / 60);
+  var hoursLeft = Math.floor(seconds - days * 86400);
+  var hours = Math.floor(hoursLeft / 3600);
+  var minutesLeft = Math.floor(hoursLeft - hours * 3600);
+  var minutes = Math.floor(minutesLeft / 60);
+  return {
+    days: days,
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds % 60
+  };
+};
+var pad = function pad(n) {
+  return n < 10 ? "0" + n : n;
 };
 
 /***/ }),

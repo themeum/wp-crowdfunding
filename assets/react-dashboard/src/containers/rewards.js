@@ -18,9 +18,9 @@ class Rewards extends Component {
 
     componentDidMount() {
         const { loaded } = this.props.reward;
-        if( !loaded ) {
+        //if( !loaded ) {
             this.props.fetchRewards();
-        }
+        //}
     }
 
     onChangePage(pageOfItems) {

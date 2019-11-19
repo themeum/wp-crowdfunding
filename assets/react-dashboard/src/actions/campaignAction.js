@@ -35,6 +35,22 @@ export const fetchMyCampaigns = () => dispatch => {
 }
 
 
+//DELETE CAMPAINGS
+export const DELETE_CAMPAIGN_PENDING = 'delete_campaign_pending';
+export const DELETE_CAMPAIGN_COMPLETE = 'delete_campaign_complete';
+export const DELETE_CAMPAIGN_ERROR = 'delete_campaign_error';
+
+export const deleteCampaign = (data) => dispatch => {
+    dispatch({ type: DELETE_CAMPAIGN_PENDING });
+    const fetchURL = `${WPCF.rest_url}/delete-campaign`;
+    const option = { method: 'POST', body: JSON.stringify(data), headers };
+    fetch( fetchURL, option )
+    .then( response =>  response.json() )
+    .then( payload => dispatch( {type: DELETE_CAMPAIGN_PENDING, payload} ) )
+    .catch( payload => dispatch( {type: DELETE_CAMPAIGN_ERROR, payload} ) );
+}
+
+
 //INVESTED CAMPAIGNS
 export const FETCH_INVESTED_CAMPAIGNS_PENDING = 'fetch_invested_campaigns_pending';
 export const FETCH_INVESTED_CAMPAIGNS_COMPLETE = 'fetch_invested_campaigns_complete';
