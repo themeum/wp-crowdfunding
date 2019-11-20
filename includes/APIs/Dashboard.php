@@ -245,7 +245,7 @@ class API_Dashboard {
      * Get Query range params for report
      * @since     2.1.0
      * @access    public
-     * @param     {array}  range
+     * @param     [array]  range
      * @return    {object} mixed
      */
     function get_query_range_params($range) {
@@ -345,20 +345,39 @@ class API_Dashboard {
      * @return    {json} mixed
      */
     function my_campaigns() {
+        $user_id = $this->current_user_id;
+        $user_has_access = get_user_meta($user_id, 'wpcf_campaigns_has_access', true);
+
+        $tax_query = array(
+            array(
+                'taxonomy' => 'product_type',
+                'field'    => 'slug',
+                'terms'    => 'crowdfunding',
+            )
+        );
+        $access_campaigns = array();
+        if($user_has_access) {
+            $access = json_decode($user_has_access, true);
+            $invested_campaign_ids = array_keys($access);
+            $_query = array(
+                'post_type' => 'product',
+                'post_status' => array( 'pending', 'draft', 'publish' ),
+                'post__in' => $invested_campaign_ids,
+                'tax_query' => $tax_query,
+            );
+            //Fetch all campaigns by query
+            $access_campaigns = $this->fetch_campaigns( $_query, $access );
+        }
+        
         $query = array(
             'post_type' 		=> 'product',
             'post_status'       => array( 'pending', 'draft', 'publish' ),
-            'author'    		=> $this->current_user_id,
-            'tax_query' 		=> array(
-                array(
-                    'taxonomy'  => 'product_type',
-                    'field'     => 'slug',
-                    'terms'     => 'crowdfunding',
-                ),
-            ),
+            'author'    		=> $user_id,
+            'tax_query' 		=> $tax_query,
         );
-        //Fetch all campaigns by query
-        $data = $this->fetch_campaigns( $query );
+        $posted_campaigns = $this->fetch_campaigns($query); //Fetch all campaigns by query
+        $data = array_merge($access_campaigns, $posted_campaigns);
+
         return rest_ensure_response( $data );
     }
 
@@ -406,26 +425,30 @@ class API_Dashboard {
      * @return    {json} mixed
      */
     function invested_campaigns() {
-        global $wpdb;
-        $invested_campaign_ids = $wpdb->get_col($wpdb->prepare(
-            "
-            SELECT      itemmeta.meta_value
-            FROM        " . $wpdb->prefix . "woocommerce_order_itemmeta itemmeta
-            INNER JOIN  " . $wpdb->prefix . "woocommerce_order_items items
-                        ON itemmeta.order_item_id = items.order_item_id
-            INNER JOIN  $wpdb->posts orders
-                        ON orders.ID = items.order_id
-            INNER JOIN  $wpdb->postmeta ordermeta
-                        ON orders.ID = ordermeta.post_id
-            WHERE       itemmeta.meta_key = '_product_id'
-                        AND ordermeta.meta_key = '_customer_user'
-                        AND ordermeta.meta_value = %s
-            ORDER BY    orders.post_date DESC
-            ",
-            $this->current_user_id
-        ));
+        $user_id = $this->current_user_id;
+        $args = array(
+            'customer_id' => $user_id,
+            'status' => 'completed',
+            'orderby' => 'modified',
+            'order' => 'DESC',
+        );
+        $orders = wc_get_orders( $args );
+        $campaigns = array();
+        foreach($orders as $order) {
+            foreach( $order->get_items() as $item_values ) {
+                $item_data = $item_values->get_data();
+                $campaign_id = $item_data['id'];
+                $line_total = $item_data['total'];
+                if (array_key_exists($campaign_id, $campaigns)) {
+                    $line_total += $campaigns[$campaign_id];
+                }
+                $campaigns[$campaign_id] = $line_total;
+            }
+        }
+        $invested_campaign_ids = array_keys( $campaigns );
 
-        $invested_campaign_ids = array_unique( $invested_campaign_ids );
+        /* print_r($invested_campaign_ids);
+        die(); */
 
         $data = array();
         if( !empty( $invested_campaign_ids ) ) {
@@ -443,7 +466,7 @@ class API_Dashboard {
                 ),
             );
             //Fetch all campaigns by query
-            $data = $this->fetch_campaigns( $query );
+            $data = $this->fetch_campaigns( $query, false, $campaigns );
         }
         return rest_ensure_response( $data );
     }
@@ -577,10 +600,10 @@ class API_Dashboard {
      * Fetch campaigns from the query
      * @since     2.1.0
      * @access    private
-     * @param     {array}  query
-     * @return    {array}  mixed
+     * @param     [array]  query
+     * @return    [array]  mixed
      */
-    private function fetch_campaigns( $query ) {
+    private function fetch_campaigns( $query, $access=false, $pledge_amounts=false ) {
         $wp_query = new \WP_Query( $query );
         $data = array();
         $wpcf_form =  get_permalink(get_option('wpneo_form_page_id'));
@@ -620,7 +643,9 @@ class API_Dashboard {
                     'days_until_launch' => wpcf_function()->days_until_launch(),
                     'seconds'           => $seconds,
                     'status'            => wpcf_function()->get_campaign_status(),
-                    'updates'           => ($updates) ? json_decode($updates, true) :  array()
+                    'updates'           => ($updates) ? json_decode($updates, true) :  array(),
+                    'access'            => ($access) ? $access[$campaign_id] : ['manage'=>true],
+                    'p_amount'          => ($pledge_amounts) ? $pledge_amounts[$campaign_id] : 0,
                 );
             }
         }
@@ -638,7 +663,12 @@ class API_Dashboard {
     function save_campaign_updates( \WP_REST_Request $request ) {
         $campaignId = (int) $request['campaignId'];
         $updates    = $request['updates'];
-        update_post_meta( $campaignId, 'wpneo_campaign_updates', json_encode($updates));
+        $data_json = json_encode($updates, JSON_UNESCAPED_UNICODE);
+        $post_update = wpcf_function()->update_meta( $campaignId, 'wpneo_campaign_updates', $data_json );
+        /* if($post_update) {
+            WC()->mailer(); // load email classes
+            do_action('wpcf_campaign_update_email', $campaignId);
+        } */
         $response   = array(
             'success'   => 1,
             'id'        => $campaignId,
@@ -856,7 +886,7 @@ class API_Dashboard {
      * @since     2.1.0
      * @access    private
      * @param     {object}  request
-     * @return    {array}   mixed
+     * @return    [array]   mixed
      */
     private function sold_campaigns( $where_meta ) {
         global $wpdb, $woocommerce;

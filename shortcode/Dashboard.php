@@ -28,6 +28,9 @@ class Dashboard {
      * @access  public
      */
     function dashboard_assets() {
+        if(!is_user_logged_in()){
+            return false;
+        }
         //dashboard scripts
         $api_namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $page_id = get_option('wpneo_crowdfunding_dashboard_page_id');
@@ -74,8 +77,12 @@ class Dashboard {
      * @return    {html}    mixed
      */
     function dashboard_callback($attr) {
-        if ( !is_user_logged_in() ) {
-            auth_redirect();
+        if(!is_user_logged_in()) {
+            $html = '<div class="woocommerce">';
+            $html .= '<div class="woocommerce-info">'.__("Please log in first.","wp-crowdfunding").' <a class="wpneoShowLogin" href="#">'.__("Click here to login.","wp-crowdfunding").'</a></div>';
+            $html .= wpcf_function()->login_form();
+            $html .= '</div>';
+            return $html;
         }
         return '<div id="wpcf-dashboard"></div>';
     }

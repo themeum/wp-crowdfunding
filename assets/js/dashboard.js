@@ -37234,7 +37234,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_6__["default"], {
           key: index,
           data: item
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, item.access.manage ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "wpcf-campaign-links"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           "aria-label": "Report",
@@ -37269,7 +37269,15 @@ function (_Component) {
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "fas fa-trash-alt"
-        }))));
+        }))) : item.access.edit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "wpcf-campaign-links"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: item.edit_link,
+          "aria-label": "Edit",
+          title: "Edit"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "far fa-edit"
+        }))) : '');
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_8__["default"], {
         items: campaignData,
         pageSize: 5,

@@ -115,20 +115,28 @@ class MyCampaigns extends Component {
                         <Fragment>
                             { pageOfItems.map( (item, index) =>
                                 <ItemCampaign key={index} data={item}>
-                                    <div className="wpcf-campaign-links">
-                                        <button aria-label="Report" title="Report" onClick={ () => this.onClickReport({id:item.id, name:item.title}) }>
-                                            <span className="fas fa-chart-bar"></span>
-                                        </button>
-                                        <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates(item.id, item.updates) }>
-                                            <i className="fas fa-sync"></i>
-                                        </button>
-                                        <a href={item.edit_link} aria-label="Edit" title="Edit">
-                                            <i className="far fa-edit"></i>
-                                        </a>
-                                        <button aria-label="Delete" title="Delete" onClick={ () => this.onClickDelete(item.id) }>
-                                            <span className="fas fa-trash-alt"></span>
-                                        </button>
-                                    </div>
+                                    { item.access.manage ? (
+                                        <div className="wpcf-campaign-links">
+                                            <button aria-label="Report" title="Report" onClick={ () => this.onClickReport({id:item.id, name:item.title}) }>
+                                                <span className="fas fa-chart-bar"></span>
+                                            </button>
+                                            <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates(item.id, item.updates) }>
+                                                <i className="fas fa-sync"></i>
+                                            </button>
+                                            <a href={item.edit_link} aria-label="Edit" title="Edit">
+                                                <i className="far fa-edit"></i>
+                                            </a>
+                                            <button aria-label="Delete" title="Delete" onClick={ () => this.onClickDelete(item.id) }>
+                                                <span className="fas fa-trash-alt"></span>
+                                            </button>
+                                        </div>
+                                    ) : item.access.edit ? (
+                                        <div className="wpcf-campaign-links">
+                                            <a href={item.edit_link} aria-label="Edit" title="Edit">
+                                                <i className="far fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    ) : ''}
                                 </ItemCampaign>
                             ) }
                             <Pagination
