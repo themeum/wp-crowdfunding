@@ -76,7 +76,7 @@ class CampaignUpdate extends Component {
                                     </div>
                                     <div className="wpcf-form-group">
                                         <label>Update Details:</label>
-                                        <textarea placeholder="Update description" name="details" onChange={ (e) => this.onChangeInput(e, index) } required>{ item.details }</textarea>
+                                        <textarea name="details" value={ item.details } onChange={ (e) => this.onChangeInput(e, index) } required placeholder="Update description"/>
                                     </div>
                                     <button className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-danger wpcf-btn-sm" type="button" onClick={ () => this.removeItem(index) }>
                                         <span className="far fa-trash-alt wpcf-icon"></span> Remove</button>

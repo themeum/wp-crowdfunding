@@ -11,11 +11,14 @@ class ToastBox extends Component {
 
     componentDidMount() {
         const { timeout } = this.props;
-        setTimeout( () =>  removeElement(), timeout);
+        this.timeout = setTimeout( () => {
+            removeElement();
+        }, timeout );
     }
 
     close = () => {
         removeElement();
+        clearInterval(this.timeout);
     }
 
     render() {
@@ -43,7 +46,7 @@ const createElement = (properties) => {
 }
 
 const removeElement = () => {
-    const target = document.getElementById('wpcf-toast-alert')
+    const target = document.getElementById('wpcf-toast-alert');
     unmountComponentAtNode(target)
     target.parentNode.removeChild(target)
 }

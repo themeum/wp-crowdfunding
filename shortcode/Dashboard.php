@@ -18,8 +18,10 @@ class Dashboard {
      * @since 2.1.0
      */
     function __construct() {
-        add_action( 'wp_enqueue_scripts',    array($this, 'dashboard_assets') );
-        add_shortcode( 'wpcf_dashboard', array( $this, 'dashboard_callback' ) );
+        add_action( 'init', function () {
+            add_action( 'wp_enqueue_scripts',    array($this, 'dashboard_assets') );
+            add_shortcode( 'wpcf_dashboard', array( $this, 'dashboard_callback' ) );
+        });
     }
 
     /**
@@ -49,7 +51,7 @@ class Dashboard {
                 'site_url'          => site_url(),
                 'rest_url'          => rest_url( $api_namespace ),
                 'assets'            => WPCF_DIR_URL.'assets/',
-                'nonce'             => wp_create_nonce( 'wpcf_api_nonce' ),
+                'nonce'             => wp_create_nonce( 'wpcf_dasboard_nonce' ),
                 'create_campaign'   => get_permalink( $form_page_id ),
                 'active_pro'        => $active_pro,
                 'currency'          => array(

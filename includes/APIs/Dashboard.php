@@ -47,12 +47,19 @@ class API_Dashboard {
      * @access  public
      */
     function register_rest_api() {
+        function verify_nonce($token) {
+            return wp_verify_nonce($token, 'wpcf_dasboard_nonce');
+        }
         $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
 
         register_rest_route( $namespace, '/campaigns-report', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'report') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'report'),
+            'permission_callback' => function() {
+                $headers = getallheaders();
+                return $this->verify_nonce($headers['WP-Nonce']);
+            }),
         ));
         register_rest_route( $namespace, '/user-profile', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile') ),
@@ -112,12 +119,6 @@ class API_Dashboard {
      */
     function report() {
         global $wpdb;
-        /* $headers = getallheaders();
-        var_dump(wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce'));
-        if( !wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce') ) {
-            return array( 'success' => 0, 'msg' => 'Invalid nonce!' );
-        } */
-
         $campaign_id                            = isset($_GET['campaign_id']) ? sanitize_text_field($_GET['campaign_id']) : '';
         $query_range_args['date_range']         = isset($_GET['date_range']) ? sanitize_text_field($_GET['date_range']) : '';
         $query_range_args['date_range_from']    = isset($_GET['date_range_from']) ? sanitize_text_field($_GET['date_range_from']) : '';
@@ -1233,6 +1234,24 @@ class API_Dashboard {
             'redirect'  => home_url(),
         );
         return rest_ensure_response( $response );
+    }
+
+    /**
+     * verify_nonce
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function verify_nonce($nonce) {
+		$i     = wp_nonce_tick();
+        $token = wp_get_session_token();
+        $uid = $this->current_user_id;
+		$expected = substr( wp_hash( $i . '|' . 'wpcf_dasboard_nonce' . '|' . $uid . '|' . $token, 'nonce' ), -12, 10 );
+		if ( hash_equals( $expected, $nonce ) ) {
+			return true;
+		} else {
+            return false;
+        }
     }
 }
 

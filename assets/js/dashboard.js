@@ -33716,13 +33716,14 @@ function (_Component) {
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "wpcf-form-group"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Update Details:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-          placeholder: "Update description",
           name: "details",
+          value: item.details,
           onChange: function onChange(e) {
             return _this2.onChangeInput(e, index);
           },
-          required: true
-        }, item.details)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          required: true,
+          placeholder: "Update description"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-danger wpcf-btn-sm",
           type: "button",
           onClick: function onClick() {
@@ -34585,7 +34586,6 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var seconds = this.state.seconds;
       var data = this.props.data;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-reward-item"
@@ -35836,6 +35836,7 @@ function (_Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ToastBox)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.close = function () {
       removeElement();
+      clearInterval(_this.timeout);
     }, _temp));
   }
 
@@ -35843,8 +35844,8 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var timeout = this.props.timeout;
-      setTimeout(function () {
-        return removeElement();
+      this.timeout = setTimeout(function () {
+        removeElement();
       }, timeout);
     }
   }, {
