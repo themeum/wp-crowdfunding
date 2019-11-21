@@ -34288,8 +34288,7 @@ function (_Component) {
     value: function render() {
       var _this$props = this.props,
           data = _this$props.data,
-          invested = _this$props.invested,
-          pledge = _this$props.pledge;
+          invested = _this$props.invested;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-item"
       }, data.status == 'running' && data.end_method == 'target_date' && data.seconds <= 43200 && //If 24hour left
@@ -34338,9 +34337,13 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Funding Goal"))), data.end_method == 'target_date' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-info"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), pledge && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), invested && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-info"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Pledged ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(data.p_amount)
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
         className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm",
         href: data.permalink
       }, "Pledge More")))));
@@ -34467,9 +34470,7 @@ function getStatusColor(status) {
       color: getStatusColor(status),
       textTransform: 'uppercase'
     }
-  }, status_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fa fa-envelope"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, status_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "javascript: void(0)",
     onClick: function onClick() {
       return props.onClickDetails(details);
@@ -34791,6 +34792,7 @@ function getStatusColor(status) {
   var data = props.data,
       _props$data = props.data,
       billing = _props$data.billing,
+      shipping = _props$data.shipping,
       line_items = _props$data.line_items;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: "Order #" + data.id,
@@ -34836,37 +34838,69 @@ function getStatusColor(status) {
     className: "wpcf-dashboard-row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
-  }, billing.first_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.first_name))), billing.last_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.first_name || ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.last_name))), billing.company && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.last_name || ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.company))), billing.country_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.company || ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.country_name)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-dashboard-row"
-  }, data.formatted_b_addr && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-dashboard-col"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.formatted_b_addr.replace(/<br\/>/g, ", ")))), billing.postcode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-dashboard-col"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Post Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.postcode)))), data.customer_note && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.country_name || '')))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-dashboard-col"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-order-details-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Note"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.customer_note)))))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.formatted_b_addr ? data.formatted_b_addr.replace(/<br\/>/g, ", ") : ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Post Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, billing.postcode || '')))), data.customer_note && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Note"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.customer_note))))), shipping.first_name && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-item-wraper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+    className: "wpcf-billing-details-title"
+  }, "Shipping Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "First Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, shipping.first_name || ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Last Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, shipping.last_name || ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, shipping.company || ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, shipping.country_name || '')))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, data.formatted_s_addr ? data.formatted_s_addr.replace(/<br\/>/g, ", ") : ''))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-dashboard-col"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wpcf-order-details-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Post Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, shipping.postcode || '')))))));
 });
 
 /***/ }),
@@ -35182,7 +35216,7 @@ function getStatusColor(status) {
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "wpcf-report-table"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Date"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Pledged"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Pledged (%)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Email"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, pledges.map(function (item, index) {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Country"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Date"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Pledged"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Pledged (%)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Status"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, pledges.map(function (item, index) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
       key: index
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.country), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.date), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
@@ -35194,9 +35228,7 @@ function getStatusColor(status) {
         color: getStatusColor(item.status),
         textTransform: 'uppercase'
       }
-    }, item.status__), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-envelope"
-    })));
+    }, item.status__));
   })));
 });
 
@@ -37011,7 +37043,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: index,
           data: item,
-          pledge: true
+          invested: true
         });
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_4__["default"], {
         items: campaignData,
@@ -37703,7 +37735,7 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Available"))), orders.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "wpcf-report-table"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Raised"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Receivable ", receiver_percent && "(".concat(receiver_percent, "%)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Marketplace ", receiver_percent && "(".concat(100 - receiver_percent, "%)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, pageOfItems.map(function (item, index) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Raised"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Receivable ", receiver_percent && "(".concat(receiver_percent, "%)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Marketplace ", receiver_percent && "(".concat(100 - receiver_percent, "%)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, pageOfItems.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemPledgeReceived__WEBPACK_IMPORTED_MODULE_5__["default"], {
           key: index,
           data: item,
