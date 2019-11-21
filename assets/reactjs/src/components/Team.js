@@ -152,10 +152,10 @@ class Team extends Component {
 							</div>
 						</div>
 
-						<div className="wpcf-team-members">
+						{team && <div className="wpcf-team-members">
 							<h3>{ __('Team Members', 'wp-crowdfunding') }</h3>
 							<div className="wpcf-team-member-items">
-								{team && team.map((item, index) =>
+								{ team.map((item, index) =>
 									<div key={index} className={`wpcf-team-member ${(editMember == index) ? 'active':''}`}>
 										<div className="wpcf-team-avatar">
 											<img className="profile-form-img" src={item.image} alt="Profile Image" />
@@ -172,7 +172,7 @@ class Team extends Component {
 									</div>
 								)}
 							</div>
-						</div>
+						</div> }
 
 						<PageControl
                             current={current}
