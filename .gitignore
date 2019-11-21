@@ -66,9 +66,9 @@ typings/
 assets/js/campaign-form.js
 assets/js/campaign-form.js.map
 assets/css/campaign-form.css
-assets/reactjs/node_modules/
-assets/reactjs/package-lock.json
+assets/react-form/node_modules/
+assets/react-form/package-lock.json
 .idea/
 .vscode/
 .DS_Store
-assets/reactjs/yarn.lock
+assets/react-form/yarn.lock
