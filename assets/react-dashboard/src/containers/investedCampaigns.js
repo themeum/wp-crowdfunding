@@ -13,7 +13,7 @@ class InvestedCampaigns extends Component {
         campaignReport: { id: '', name: '' },
     }
 
-    componentDidMount () {
+    componentDidMount() {
         const { loaded } = this.props.campaign;
         if( !loaded ) {
             this.props.fetchInvestedCampaigns();
@@ -67,7 +67,7 @@ class InvestedCampaigns extends Component {
                                 <ItemCampaign
                                     key={index}
                                     data={ item }
-                                    pledge={ true }
+                                    invested={ true }
                                 />
                             ) }
                             <Pagination

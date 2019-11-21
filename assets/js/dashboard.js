@@ -34288,8 +34288,7 @@ function (_Component) {
     value: function render() {
       var _this$props = this.props,
           data = _this$props.data,
-          invested = _this$props.invested,
-          pledge = _this$props.pledge;
+          invested = _this$props.invested;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-item"
       }, data.status == 'running' && data.end_method == 'target_date' && data.seconds <= 43200 && //If 24hour left
@@ -34338,9 +34337,13 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Funding Goal"))), data.end_method == 'target_date' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-info"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), pledge && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, data.is_started ? data.days_remaining : data.days_until_launch), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Days ", data.is_started ? "to go" : "Until Launch"))), invested && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-campaign-info"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Pledged ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        dangerouslySetInnerHTML: {
+          __html: Object(_helper__WEBPACK_IMPORTED_MODULE_2__["wcPice"])(data.p_amount)
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
         className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm",
         href: data.permalink
       }, "Pledge More")))));
@@ -37011,7 +37014,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_itemCampaign__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: index,
           data: item,
-          pledge: true
+          invested: true
         });
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_pagination__WEBPACK_IMPORTED_MODULE_4__["default"], {
         items: campaignData,

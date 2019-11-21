@@ -358,11 +358,11 @@ class API_Dashboard {
         $access_campaigns = array();
         if($user_has_access) {
             $access = json_decode($user_has_access, true);
-            $invested_campaign_ids = array_keys($access);
+            $accessed_campaign_ids = array_keys($access);
             $_query = array(
                 'post_type' => 'product',
                 'post_status' => array( 'pending', 'draft', 'publish' ),
-                'post__in' => $invested_campaign_ids,
+                'post__in' => $accessed_campaign_ids,
                 'tax_query' => $tax_query,
             );
             //Fetch all campaigns by query
@@ -445,10 +445,7 @@ class API_Dashboard {
                 $campaigns[$campaign_id] = $line_total;
             }
         }
-        $invested_campaign_ids = array_keys( $campaigns );
-
-        /* print_r($invested_campaign_ids);
-        die(); */
+        $invested_campaign_ids = array_keys($campaigns);
 
         $data = array();
         if( !empty( $invested_campaign_ids ) ) {
@@ -456,13 +453,12 @@ class API_Dashboard {
                 'post_type' => 'product',
                 'post_status' => array( 'pending', 'draft', 'publish' ),
                 'post__in' => $invested_campaign_ids,
-                'orderby' => 'post__in',
                 'tax_query' => array(
                     array(
                         'taxonomy' => 'product_type',
                         'field'    => 'slug',
                         'terms'    => 'crowdfunding',
-                    ),
+                    )
                 ),
             );
             //Fetch all campaigns by query
@@ -601,7 +597,7 @@ class API_Dashboard {
      * @since     2.1.0
      * @access    private
      * @param     [array]  query
-     * @return    [array]  mixed
+     * @return    []array  mixed
      */
     private function fetch_campaigns( $query, $access=false, $pledge_amounts=false ) {
         $wp_query = new \WP_Query( $query );

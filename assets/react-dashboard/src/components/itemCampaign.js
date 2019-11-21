@@ -54,7 +54,7 @@ class ItemCampaign extends Component {
 
 
     render() {
-        const { data, invested, pledge } = this.props;
+        const { data, invested } = this.props;
         return (
             <div className="wpcf-campaign-item">
                 {   data.status == 'running' &&
@@ -108,8 +108,9 @@ class ItemCampaign extends Component {
                             </div>
                         )}
     
-                        { pledge &&
+                        { invested &&
                         <div  className="wpcf-campaign-info">
+                            <p>Pledged <span dangerouslySetInnerHTML={{__html: wcPice(data.p_amount)}}/></p>
                             <a className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-sm" href={data.permalink}>Pledge More</a>
                         </div>
                         }
