@@ -32981,7 +32981,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveCampaignUpdates", function() { return saveCampaignUpdates; });
 var headers = {
   'Content-Type': 'application/json',
-  'WP-Nonce': WPCF.nonce //CAMPAINGS REPORTS
+  'WPCF-Nonce': WPCF.nonce //CAMPAINGS REPORTS
 
 };
 var FETCH_CAMPAIGNS_REPORT_PENDING = 'fetch_campaigns_report_pending';

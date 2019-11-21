@@ -36,9 +36,7 @@ class API_Dashboard {
      */
     function init_rest_api() {
         $this->current_user_id = get_current_user_id();
-        if( $this->current_user_id ) {
-            add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
-        }
+        add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
     }
 
     /**
@@ -55,11 +53,7 @@ class API_Dashboard {
         $method_creatable = \WP_REST_Server::CREATABLE;
 
         register_rest_route( $namespace, '/campaigns-report', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'report'),
-            'permission_callback' => function() {
-                $headers = getallheaders();
-                return $this->verify_nonce($headers['WP-Nonce']);
-            }),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'report'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/user-profile', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile') ),
@@ -1237,12 +1231,14 @@ class API_Dashboard {
     }
 
     /**
-     * verify_nonce
+     * check auth
      * @since     2.1.0
      * @access    public
      * @return    {json} mixed
      */
-    function verify_nonce($nonce) {
+    function check_auth() {
+        $headers = getallheaders();
+        $nonce = $headers['WPCF-Nonce'];
 		$i     = wp_nonce_tick();
         $token = wp_get_session_token();
         $uid = $this->current_user_id;
