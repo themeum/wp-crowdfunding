@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { saveCampaignUpdates } from '../actions/campaignAction';
+import ToastAlert from './toastAlert';
 import DatePicker from './datePicker';
 import Header from "./header";
 
@@ -14,10 +15,15 @@ class CampaignUpdate extends Component {
         const { saveReq, error } = this.props.campaign;
         if ( saveReq !== prevProps.campaign.saveReq ) {
             if( saveReq == 'complete' ) {
-                alert( 'data saved' );
-            }
-            if( saveReq == 'error' ) {
-                alert( error );
+                ToastAlert({
+                    type: 'success',
+                    message: 'Data saved'
+                });
+            } else if( saveReq == 'error' ) {
+                ToastAlert({
+                    type: 'error',
+                    message: error
+                });
             }
         }
     }

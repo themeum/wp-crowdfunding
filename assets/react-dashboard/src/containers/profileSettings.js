@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser, saveUserData, fetchCountries } from '../actions/userAction';
 import { decodeEntities } from "../helper";
+import ToastAlert from '../components/toastAlert';
 import ProfileEditForm from '../components/profileEditForm';
 import SocialForm from '../components/socialForm';
 import Header from '../components/header';
@@ -26,10 +27,15 @@ class ProfileSettings extends Component {
         const { saveReq, error } = this.props.user;
         if ( saveReq !== prevProps.user.saveReq ) {
             if( saveReq == 'complete' ) {
-                alert( 'data saved' );
-            }
-            if( saveReq == 'error' ) {
-                alert( error );
+                ToastAlert({
+                    type: 'success',
+                    message: 'Data saved'
+                });
+            } else if( saveReq == 'error' ) {
+                ToastAlert({
+                    type: 'error',
+                    message: error
+                });
             }
         }
     }

@@ -510,7 +510,7 @@ class Functions {
         return 0;
     }
 
-    public function is_reach_target_goal( $post_id ) {
+    public function is_reach_target_goal( $post_id='' ) {
         global $post;
         $postID = ( $post_id ) ? $post_id : $post->ID;
         $funding_goal = get_post_meta($postID, '_nf_funding_goal' , true);

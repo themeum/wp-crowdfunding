@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { render, unmountComponentAtNode } from 'react-dom'
+import { render, unmountComponentAtNode } from 'react-dom';
 
-export default class ConfirmDialogue extends Component {
+class DialogueBox extends Component {
     static defaultProps = {
         buttons: [
             {
@@ -38,7 +38,7 @@ export default class ConfirmDialogue extends Component {
 
     close = () => {
         removeBodyClass();
-        removeElementReconfirm();
+        removeElement();
     }
 
     keyboardClose = event => {
@@ -88,35 +88,33 @@ export default class ConfirmDialogue extends Component {
     }
 }
 
-function createElementReconfirm(properties) {
+const createElement = (properties) => {
     let divTarget = document.getElementById('wpcf-confirm-alert');
     if (divTarget) {
-        // Rerender - the mounted ConfirmDialogue
-        render(<ConfirmDialogue {...properties} />, divTarget)
+        render(<DialogueBox {...properties} />, divTarget)
     } else {
-        // Mount the ConfirmDialogue component
         divTarget = document.createElement('div');
         divTarget.id = 'wpcf-confirm-alert';
         document.body.appendChild(divTarget);
-        render(<ConfirmDialogue {...properties} />, divTarget)
+        render(<DialogueBox {...properties} />, divTarget)
     }
 }
 
-function removeElementReconfirm() {
+const removeElement = () => {
     const target = document.getElementById('wpcf-confirm-alert')
     unmountComponentAtNode(target)
     target.parentNode.removeChild(target)
 }
 
-function addBodyClass() {
+const addBodyClass = () => {
     document.body.classList.add('wpcf-confirm-alert-body-element')
 }
 
-function removeBodyClass() {
+const removeBodyClass = () => {
     document.body.classList.remove('wpcf-confirm-alert-body-element')
 }
 
-export function confirmAlert(properties) {
+export default (properties) => {
     addBodyClass();
-    createElementReconfirm(properties);
+    createElement(properties);
 }

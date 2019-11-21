@@ -436,9 +436,9 @@ class API_Dashboard {
         $campaigns = array();
         foreach($orders as $order) {
             foreach( $order->get_items() as $item_values ) {
-                $item_data = $item_values->get_data();
-                $campaign_id = $item_data['id'];
-                $line_total = $item_data['total'];
+                $item_data      = $item_values->get_data();
+                $campaign_id    = $item_data['product_id'];
+                $line_total     = $item_data['total'];
                 if (array_key_exists($campaign_id, $campaigns)) {
                     $line_total += $campaigns[$campaign_id];
                 }
@@ -700,7 +700,7 @@ class API_Dashboard {
 
             //Get line items
             $line_items = array();
-            foreach ( $order->get_items() as $item_key => $item_values ) {
+            foreach ( $order->get_items() as $item_values ) {
                 $item_data          = $item_values->get_data();
                 $line_items[]       = array(
                     'product_id'    => $item_data['product_id'],
