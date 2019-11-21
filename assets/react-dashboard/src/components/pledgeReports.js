@@ -29,7 +29,7 @@ export default (props) => {
                 <td>Pledged</td>
                 <td>Pledged (%)</td>
                 <td>Status</td>
-                <td>Email</td>
+                {/* <td>Email</td> */}
             </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@ export default (props) => {
                             color: getStatusColor( item.status),
                             textTransform: 'uppercase'
                         }}>{ item.status__ }</td>
-                    <td><i className="fa fa-envelope"></i></td>
+                    {/* <td><i className="fa fa-envelope"></i></td> */}
                 </tr>
             ) }
             </tbody>

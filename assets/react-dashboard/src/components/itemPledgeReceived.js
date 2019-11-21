@@ -21,7 +21,7 @@ export default (props) => {
             <td dangerouslySetInnerHTML={{__html:receivable}} />
             <td dangerouslySetInnerHTML={{__html:marketplace}} />
             <td style={ {color: getStatusColor(status), textTransform: 'uppercase'} }>{ status_name }</td>
-            <td><i className="fa fa-envelope"></i></td>
+            {/* <td><i className="fa fa-envelope"></i></td> */}
             <td><a href="javascript: void(0)" onClick={ () => props.onClickDetails( details ) }> <i>Details</i> </a></td>
         </tr>
     )

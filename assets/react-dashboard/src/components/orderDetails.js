@@ -20,7 +20,7 @@ function getStatusColor(status) {
 }
 
 export default (props) => {
-    const { data, data:{ billing, line_items } } = props;
+    const { data, data:{ billing, shipping, line_items } } = props;
     return (
         <div>
             <Header title={"Order #" + data.id} subtitle={"Created " + data.formatted_c_date}>
@@ -56,61 +56,43 @@ export default (props) => {
                     <h5 className="wpcf-billing-details-title">Billing Details</h5>
                     <div className="wpcf-dashboard-row">
                         <div className="wpcf-dashboard-col">
-                            {
-                                billing.first_name &&
-                                <div className="wpcf-order-details-item">
-                                    <span>First Name</span>
-                                    <strong>{ billing.first_name }</strong>
-                                </div>
-                            }
+                            <div className="wpcf-order-details-item">
+                                <span>First Name</span>
+                                <strong>{ billing.first_name || '' }</strong>
+                            </div>
                         </div>
-                        {
-                            billing.last_name &&
-                            <div className="wpcf-dashboard-col">
-                                <div className="wpcf-order-details-item">
-                                    <span>Last Name</span>
-                                    <strong>{ billing.last_name }</strong>
-                                </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Last Name</span>
+                                <strong>{ billing.last_name || '' }</strong>
                             </div>
-                        }
-                        {
-                            billing.company &&
-                            <div className="wpcf-dashboard-col">
-                                <div className="wpcf-order-details-item">
-                                    <span>Company</span>
-                                    <strong>{ billing.company }</strong>
-                                </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Company</span>
+                                <strong>{ billing.company || '' }</strong>
                             </div>
-                        }
-                        {
-                            billing.country_name &&
-                            <div className="wpcf-dashboard-col">
-                                <div className="wpcf-order-details-item">
-                                    <span>Country</span>
-                                    <strong>{ billing.country_name }</strong>
-                                </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Country</span>
+                                <strong>{ billing.country_name || '' }</strong>
                             </div>
-                        }
+                        </div>
                     </div>
                     <div className="wpcf-dashboard-row">
-                        {
-                            data.formatted_b_addr &&
-                            <div className="wpcf-dashboard-col">
-                                <div className="wpcf-order-details-item">
-                                    <span>Address</span>
-                                    <strong>{data.formatted_b_addr.replace(/<br\/>/g, ", ")}</strong>
-                                </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Address</span>
+                                <strong>{data.formatted_b_addr ? data.formatted_b_addr.replace(/<br\/>/g, ", ") : ''}</strong>
                             </div>
-                        }
-                        {
-                            billing.postcode &&
-                            <div className="wpcf-dashboard-col">
-                                <div className="wpcf-order-details-item">
-                                    <span>Post Code</span>
-                                    <strong>{ billing.postcode }</strong>
-                                </div>
+                        </div>
+                        <div className="wpcf-dashboard-col">
+                            <div className="wpcf-order-details-item">
+                                <span>Post Code</span>
+                                <strong>{ billing.postcode || '' }</strong>
                             </div>
-                        }
+                        </div>
                     </div>
                     {
                         data.customer_note &&
@@ -124,6 +106,52 @@ export default (props) => {
                         </div>
                     }
                 </div>
+
+                { shipping.first_name &&
+                    <div className="wpcf-dashboard-item-wraper">
+                        <h5 className="wpcf-billing-details-title">Shipping Details</h5>
+                        <div className="wpcf-dashboard-row">
+                            <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>First Name</span>
+                                    <strong>{ shipping.first_name || ''}</strong>
+                                </div>
+                            </div>
+                            <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Last Name</span>
+                                    <strong>{ shipping.last_name || '' }</strong>
+                                </div>
+                            </div>
+                            <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Company</span>
+                                    <strong>{ shipping.company || '' }</strong>
+                                </div>
+                            </div>
+                            <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Country</span>
+                                    <strong>{ shipping.country_name || '' }</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="wpcf-dashboard-row">
+                            <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Address</span>
+                                    <strong>{data.formatted_s_addr ? data.formatted_s_addr.replace(/<br\/>/g, ", ") : ''}</strong>
+                                </div>
+                            </div>
+                            <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Post Code</span>
+                                    <strong>{ shipping.postcode || '' }</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     )

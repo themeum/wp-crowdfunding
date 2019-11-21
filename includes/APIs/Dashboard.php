@@ -710,6 +710,11 @@ class API_Dashboard {
             $order_details['line_items'] = $line_items; //Overwrite line items of campaign details
             $order_details['fulfillment'] =  ( wpcf_function()->is_campaign_valid( $line_items[0]['product_id'] ) ) ? 'On Process' : 'Done';
             $order_details['billing']['country_name'] =  WC()->countries->countries[ $order_details['billing']['country'] ];
+
+            if(isset($order_details['shipping'])) {
+                $order_details['formatted_s_addr'] = $order->get_formatted_shipping_address();
+                $order_details['shipping']['country_name'] =  WC()->countries->countries[ $order_details['shipping']['country'] ];
+            }
             //Inject details to cutomer order
             $customer_order->details = $order_details;
         }
