@@ -27,13 +27,13 @@
 }
 
 .wpcf-svg-icon{
-	font-size: 20px;
-	height: auto;
+	font-size: inherit;
+	height: 1em;
 	width: 1em;
-	display: inline-block;
+	display: inline-flex;
 	fill: #ADAECF;
 	svg{
-		display: block;
+		flex-grow: 1;
 		path{
 			fill: inherit;
 		}

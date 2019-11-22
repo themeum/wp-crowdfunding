@@ -67,6 +67,7 @@
 				height: auto;
 			}
 			&.wpcf-empty-image{
+				min-height: 150px;
 				height: 100%;
 				width: 100%;
 				background: var(--wpcf-border-color);

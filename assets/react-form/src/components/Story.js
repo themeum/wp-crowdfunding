@@ -80,11 +80,11 @@ class Story extends Component {
 									<p>Write a Clear, Brief Title that Helps People Quickly Understand the Gist of your Project.</p>
 									<div className="wpcf-story-tools">
 										{ Object.keys(tools).map( key =>
-											<div key={key} className="wpcf-story-tool-item">
+											<div key={key} className="wpcf-story-tool-item" onClick={() => this._addItem(key)}>
 												{/*<img src={tools[key].name}/>*/}
 												<span className="fas fa-image"></span>
 												<p>{tools[key].name}</p>
-												<span className="fas fa-plus wpcf-story-add" onClick={() => this._addItem(key)} />
+												<span className="fas fa-plus wpcf-story-add"/>
 											</div>
 										)}
 									</div>

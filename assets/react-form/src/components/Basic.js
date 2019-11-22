@@ -11,6 +11,7 @@ import PreviewEmpty from './preview/Empty';
 import PreviewLink from './preview/Link';
 import PageControl from './Control';
 import Preview from "./preview/Preview";
+import Icon from "./Icon";
 
 const formName = "campaignForm";
 const sectionName = "basic";
@@ -159,8 +160,10 @@ class Basic extends Component {
                             <div className='wpcf-accordion-wrapper'>
                                 {Object.keys(fields).map( (section, index) =>
                                     <div key={section} className='wpcf-accordion'>
+                                        {/*TODO: __WPCF__ Add wpcf-completed class when required fields are completed */}
                                         <div tabIndex={0} className={`wpcf-accordion-title ${index == sectionActive ? 'active' : ''}`} onClick={ () => this.setState({sectionActive:index}) }>
-                                            <span className="fas fa-check"></span>{ section.replace('_', ' ') }
+                                            <Icon name="check"/>
+                                            { section.replace('_', ' ') }
                                         </div>
                                         <div className='wpcf-accordion-details' style={{ display: (index==sectionActive) ? 'block' : 'none' }}>
                                             {Object.keys(fields[section]).map( key => {

@@ -13,6 +13,7 @@
 		padding: 14px 10px;
 		text-align: center;
 		position: relative;
+		cursor: pointer;
 		p{
 			overflow: hidden;
 			white-space: nowrap;
@@ -32,9 +33,11 @@
 			transform: translate(-50%, 50%);
 			cursor: pointer;
 			color: var(--wpcf-primary-color);
-			&:hover{
-				border-color: var(--wpcf-primary-color);
-			}
+			transition: 300ms;
+		}
+		
+		&:hover span.wpcf-story-add{
+			border-color: var(--wpcf-primary-color);
 		}
 	}
 }

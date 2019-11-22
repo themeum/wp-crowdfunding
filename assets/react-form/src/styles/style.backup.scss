@@ -10,7 +10,6 @@
 	.wpcf-tab-title {
 		width: 25%;
 		text-align: center;
-		padding: 25px;
 		padding: 20px;
 		&.active {
 			border-bottom: 2px solid #19af47;
@@ -18,7 +17,7 @@
 	}
 }
 .wpcf-accordion-wrapper {
-	widows: 100%;
+	width: 100%;
 	background-color: #ffffff;
 	.wpcf-accordion {
 		margin-bottom: 15px;

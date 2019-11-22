@@ -11,9 +11,12 @@
 		position: relative;
 		margin-left: 8px;
 		margin-top: 8px;
-		span{
-			margin-right: 3px;
-			color: var(--wpcf-warning-color);
+		display: inline-flex;
+		align-items: center;
+		> span{
+			margin-right: 9px;
+			fill: var(--wpcf-warning-color);
+			font-size: 16px;
 		}
 		button{
 			position: absolute;
@@ -30,9 +33,16 @@
 			border: 1px solid var(--wpcf-border-color);
 			border-bottom-left-radius: 4px;
 			border-top-right-radius: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			fill: var(--wpcf-primary-color);
+			span{
+				fill: inherit;
+			}
 			&:hover{
-				color: var(--wpcf-danger-color);
-				border-color: var(--wpcf-danger-color);
+				fill: var(--wpcf-warning-color);
+				border-color: var(--wpcf-warning-color);
 			}
 		}
 	}

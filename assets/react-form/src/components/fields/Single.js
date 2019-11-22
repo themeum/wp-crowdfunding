@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import DatePicker from './DatePicker';
 import RangePicker from "./RangePicker";
+import Icon from "../Icon";
 
 const defaultProps = {
     addTag: () => {},
@@ -53,6 +54,7 @@ const RenderField = (_props) => {
                             <label key={index} className={"wpcf-radio-inline " + option.class}>
                                 <div className="wpcf-radio-inner">
                                     <input {...input} type={item.type} value={option.value} checked={option.value==fieldValue}/>
+                                    <Icon name="check"/>
                                     {option.label && <span>{option.label}</span>}
                                 </div>
                                 {option.desc && <small>{option.desc}</small>}
@@ -117,15 +119,24 @@ const RenderField = (_props) => {
                 <div className={item.class}>
                     <div className="wpcf-form-attachments">
                         {input.value && input.value.map( (item, index) =>
-                            <div key={index} className="wpcf-form-attachment"><span className="fas fa-file"></span> {item.name} <button onClick={() => removeArrValue(item.type, index, input.name, input.value, is_media)} className="fas fa-times"/></div>
+                            <div key={index} className="wpcf-form-attachment">
+                                <Icon name="png"/>
+                                {item.name}
+                                <button onClick={() => removeArrValue(item.type, index, input.name, input.value, is_media)}>
+                                    <Icon name="cross"/>
+                                </button>
+                            </div>
                         )}
                     </div>
                     <button
                         className="wpcf-btn wpcf-btn-round wpcf-primary-light-btn"
                         type="button"
-                        dangerouslySetInnerHTML={{ __html: item.button }}
                         onClick={() => uploadFile(item.type, input.name, input.value, item.multiple, is_media)}
-                    />
+                    >
+                        {item.icon && <Icon name={item.icon} className="wpcf-icon"/>}
+                        {item.button}
+
+                    </button>
                     {touched && error && <span>{error}</span>}
                 </div>
             );

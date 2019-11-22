@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { required, isYoutubeUrl  } from '../../Helper';
 import RenderField from './Single';
+import Icon from "../Icon";
 
 const RenderRepeatableFields = (props) => {
     const { fields, item } = props;
@@ -18,7 +19,7 @@ const RenderRepeatableFields = (props) => {
                         const rItem = item.fields[key];
                         const validate = item.required ? [required] : [];
                         const fieldName = field.split('[');
-                        if(fieldName[0] == 'video_link') {
+                        if(fieldName[0] === 'video_link') {
                             validate.push(isYoutubeUrl);
                         }
                         return (
@@ -36,7 +37,7 @@ const RenderRepeatableFields = (props) => {
                     }
                 </div>
             ))}
-            <button className="wpcf-btn wpcf-btn-round wpcf-primary-light-btn" type="button" dangerouslySetInnerHTML={{__html: item.button}} onClick={() => fields.push({})}/>
+            <button className="wpcf-btn wpcf-btn-round wpcf-primary-light-btn" type="button" onClick={() => fields.push({})}>{item.icon && <Icon name={item.icon} className="wpcf-icon"/>} {item.button}</button>
         </div>
     )
 }

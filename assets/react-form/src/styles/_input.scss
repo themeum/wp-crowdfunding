@@ -80,19 +80,25 @@
 }
 
 
-.wpcf-inline-radio-group:not(.wpcf-radio-group-alt){
+.wpcf-radio-inner .wpcf-svg-icon{
+	display: none;
+}
+
+.wpcf-inline-radio-group:not(.wpcf-radio-group-alt) {
 	display: flex;
 	margin-left: -7px;
 	flex-wrap: wrap;
 	margin-top: -8px;
-	.wpcf-radio-inline:not(.wpcf-radio-alt){
+	
+	.wpcf-radio-inline:not(.wpcf-radio-alt) {
 		padding: 10px 15px;
 		margin: 8px 0 0 7px;
 		align-items: center;
 		position: relative;
 		flex-wrap: wrap;
 		cursor: pointer;
-		input{
+		
+		input {
 			margin: 0 8px 0 0;
 			position: static;
 			-webkit-appearance: none;
@@ -100,13 +106,16 @@
 			width: 15px;
 			border: 1px solid #DCDCE4;
 			border-radius: 50%;
-			&:checked{
+			
+			&:checked {
 				border-color: var(--wpcf-success-color);
 			}
-			&:focus{
+			
+			&:focus {
 				outline: none;
 			}
-			&::after{
+			
+			&::after {
 				content: '';
 				position: absolute;
 				height: 100%;
@@ -117,17 +126,23 @@
 				border-radius: 6px;
 				transition: 200ms;
 			}
-			&:checked::after{
-				border-color: var(--wpcf-primary-color);
+			
+			&:checked::after {
+				border-color: var(--wpcf-success-color);
+			}
+			
+			&:checked + .wpcf-svg-icon {
+				fill: var(--wpcf-success-color);
 			}
 		}
+		
 		div,
-		small{
+		small {
 			width: 100%;
 			flex-basis: 100%;
 		}
 		
-		small{
+		small {
 			padding-left: 23px;
 			font-size: 12px;
 			color: var(--wpcf-light-text-color);
@@ -136,10 +151,22 @@
 			margin-top: 5px;
 		}
 		
-		.wpcf-radio-inner{
+		.wpcf-radio-inner {
 			display: flex;
 			align-items: center;
 			line-height: 18px;
+			
+			.wpcf-svg-icon {
+				display: inline-flex !important;
+				font-size: 9px;
+				position: absolute;
+				left: 15px;
+				fill: transparent;
+				top: 11px;
+				height: 15px;
+				width: 15px;
+				padding: 3px;
+			}
 		}
 	}
 }
@@ -269,13 +296,16 @@
 			top: 50%;
 			transform: translateY(-50%) translateX(-3px);
 			margin-top: -2px;
+			margin-left: -4px;
 		}
 		input{
-			padding: 0 3px 0 6px;
+			padding: 0 0 0 6px;
 			border-radius: 0;
 			border: 1px solid var(--wpcf-success-color);
 			border-right: 0;
-			width: 50px;
+			width: 45px;
+			font-size: 12px;
+			height: 30px;
 			&:first-child{
 				border-radius: 4px 0 0 4px;
 			}
@@ -286,9 +316,14 @@
 				border-color: var(--wpcf-success-color);
 			}
 		}
+		&.wpcf-multiple input:first-child{
+			text-align: right;
+			padding-right: 6px;
+			padding-left: 0;
+		}
 		span{
-			line-height: 35px;
-			height: 35px;
+			line-height: 30px;
+			height: 30px;
 			padding: 0 10px;
 			border: 1px solid var(--wpcf-success-color);
 			color: var(--wpcf-success-color);
