@@ -32976,9 +32976,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var headers = {
   'Content-Type': 'application/json',
-  'WPCF-Nonce': WPCF.nonce //CAMPAINGS REPORTS
+  'WPCF-Nonce': WPCF.nonce
+}; //CAMPAINGS REPORTS
 
-};
 var FETCH_CAMPAIGNS_REPORT_PENDING = 'fetch_campaigns_report_pending';
 var FETCH_CAMPAIGNS_REPORT_COMPLETE = 'fetch_campaigns_report_complete';
 var fetchCampaignsReport = function fetchCampaignsReport(args) {
@@ -32992,10 +32992,7 @@ var fetchCampaignsReport = function fetchCampaignsReport(args) {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      var status = response.status,
-          statusText = response.statusText;
-
-      if (status == 200) {
+      if (response.status == 200) {
         response.json().then(function (payload) {
           return dispatch({
             type: FETCH_CAMPAIGNS_REPORT_COMPLETE,
@@ -33003,10 +33000,7 @@ var fetchCampaignsReport = function fetchCampaignsReport(args) {
           });
         });
       } else {
-        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])({
-          status: status,
-          statusText: statusText
-        });
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
       }
     });
   };
@@ -33025,10 +33019,7 @@ var fetchMyCampaigns = function fetchMyCampaigns() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      var status = response.status,
-          statusText = response.statusText;
-
-      if (status == 200) {
+      if (response.status == 200) {
         response.json().then(function (payload) {
           return dispatch({
             type: FETCH_MY_CAMPAIGNS_COMPLETE,
@@ -33036,10 +33027,7 @@ var fetchMyCampaigns = function fetchMyCampaigns() {
           });
         });
       } else {
-        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])({
-          status: status,
-          statusText: statusText
-        });
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
       }
     });
   };
@@ -33069,14 +33057,16 @@ var deleteCampaign = function deleteCampaign(data) {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: dispatchComplete,
-        payload: payload
-      });
-    }).catch(function (error) {
-      return console.log(error);
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: dispatchComplete,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //INVESTED CAMPAIGNS
@@ -33094,12 +33084,16 @@ var fetchInvestedCampaigns = function fetchInvestedCampaigns() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_INVESTED_CAMPAIGNS_COMPLETE,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_INVESTED_CAMPAIGNS_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //PLEDGE RECEIVED
@@ -33117,12 +33111,16 @@ var fetchPledgeReceived = function fetchPledgeReceived() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_PLEDGE_RECEIVED_COMPLETE,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_PLEDGE_RECEIVED_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //BOOKMARK CAMPAIGNS
@@ -33140,12 +33138,16 @@ var fetchBookmarkCampaigns = function fetchBookmarkCampaigns() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_BOOKMARK_CAMPAIGNS_COMPLETE,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_BOOKMARK_CAMPAIGNS_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //CAMPAIGN REWARDS
@@ -33163,12 +33165,16 @@ var fetchRewards = function fetchRewards() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_REWARDS_COMPLETE,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_REWARDS_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //SAVE USER DATA
@@ -33187,12 +33193,16 @@ var saveCampaignUpdates = function saveCampaignUpdates(data) {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: SAVE_CAMPAIGN_UPDATES_COMPLETE,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: SAVE_CAMPAIGN_UPDATES_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 };
@@ -33203,23 +33213,23 @@ var saveCampaignUpdates = function saveCampaignUpdates(data) {
 /*!************************************!*\
   !*** ./src/actions/orderAction.js ***!
   \************************************/
-/*! exports provided: FETCH_ORDERS_PENDING, FETCH_ORDERS_COMPLETE, FETCH_ORDERS_ERROR, fetchOrders */
+/*! exports provided: FETCH_ORDERS_PENDING, FETCH_ORDERS_COMPLETE, fetchOrders */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_ORDERS_PENDING", function() { return FETCH_ORDERS_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_ORDERS_COMPLETE", function() { return FETCH_ORDERS_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_ORDERS_ERROR", function() { return FETCH_ORDERS_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchOrders", function() { return fetchOrders; });
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+
 var headers = {
   'Content-Type': 'application/json',
-  'WPCF-Nonce': WPCF.nonce //ORDERS LIST
+  'WPCF-Nonce': WPCF.nonce
+}; //ORDERS LIST
 
-};
 var FETCH_ORDERS_PENDING = 'fetch_orders_pending';
 var FETCH_ORDERS_COMPLETE = 'fetch_orders_complete';
-var FETCH_ORDERS_ERROR = 'fetch_orders_error';
 var fetchOrders = function fetchOrders() {
   return function (dispatch) {
     dispatch({
@@ -33231,17 +33241,16 @@ var fetchOrders = function fetchOrders() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_ORDERS_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: FETCH_ORDERS_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_ORDERS_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 };
@@ -33252,31 +33261,29 @@ var fetchOrders = function fetchOrders() {
 /*!***********************************!*\
   !*** ./src/actions/userAction.js ***!
   \***********************************/
-/*! exports provided: FETCH_COUNTRIES_PENDING, FETCH_COUNTRIES_COMPLETE, FETCH_COUNTRIES_ERROR, fetchCountries, FETCH_USER_PENDING, FETCH_USER_COMPLETE, FETCH_USER_ERROR, fetchUser, SAVE_USER_DATA_PENDING, SAVE_USER_DATA_COMPLETE, SAVE_USER_DATA_ERROR, saveUserData */
+/*! exports provided: FETCH_COUNTRIES_PENDING, FETCH_COUNTRIES_COMPLETE, fetchCountries, FETCH_USER_PENDING, FETCH_USER_COMPLETE, fetchUser, SAVE_USER_DATA_PENDING, SAVE_USER_DATA_COMPLETE, saveUserData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_COUNTRIES_PENDING", function() { return FETCH_COUNTRIES_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_COUNTRIES_COMPLETE", function() { return FETCH_COUNTRIES_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_COUNTRIES_ERROR", function() { return FETCH_COUNTRIES_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCountries", function() { return fetchCountries; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USER_PENDING", function() { return FETCH_USER_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USER_COMPLETE", function() { return FETCH_USER_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_USER_ERROR", function() { return FETCH_USER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_USER_DATA_PENDING", function() { return SAVE_USER_DATA_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_USER_DATA_COMPLETE", function() { return SAVE_USER_DATA_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_USER_DATA_ERROR", function() { return SAVE_USER_DATA_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveUserData", function() { return saveUserData; });
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+
 var headers = {
   'Content-Type': 'application/json',
-  'WPCF-Nonce': WPCF.nonce //FETCH COUNTRIES
+  'WPCF-Nonce': WPCF.nonce
+}; //FETCH COUNTRIES
 
-};
 var FETCH_COUNTRIES_PENDING = 'fetch_countries_pending';
 var FETCH_COUNTRIES_COMPLETE = 'fetch_countries_complete';
-var FETCH_COUNTRIES_ERROR = 'fetch_countries_error';
 var fetchCountries = function fetchCountries() {
   return function (dispatch) {
     dispatch({
@@ -33288,24 +33295,22 @@ var fetchCountries = function fetchCountries() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_COUNTRIES_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: FETCH_COUNTRIES_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_COUNTRIES_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //FETCH USER DATA
 
 var FETCH_USER_PENDING = 'fetch_user_pending';
 var FETCH_USER_COMPLETE = 'fetch_user_complete';
-var FETCH_USER_ERROR = 'fetch_user_error';
 var fetchUser = function fetchUser() {
   return function (dispatch) {
     dispatch({
@@ -33317,24 +33322,22 @@ var fetchUser = function fetchUser() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_USER_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: FETCH_USER_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_USER_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //SAVE USER DATA
 
 var SAVE_USER_DATA_PENDING = 'save_user_data_pending';
 var SAVE_USER_DATA_COMPLETE = 'save_user_data_complete';
-var SAVE_USER_DATA_ERROR = 'save_user_data_error';
 var saveUserData = function saveUserData(data) {
   return function (dispatch) {
     dispatch({
@@ -33347,17 +33350,16 @@ var saveUserData = function saveUserData(data) {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: SAVE_USER_DATA_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: SAVE_USER_DATA_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: SAVE_USER_DATA_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 };
@@ -33368,35 +33370,32 @@ var saveUserData = function saveUserData(data) {
 /*!***************************************!*\
   !*** ./src/actions/withdrawAction.js ***!
   \***************************************/
-/*! exports provided: FETCH_WITHDRAWS_PENDING, FETCH_WITHDRAWS_COMPLETE, FETCH_WITHDRAWS_ERROR, fetchWithdraws, POST_WITHDRAW_REQUEST_PENDING, POST_WITHDRAW_REQUEST_COMPLETE, POST_WITHDRAW_REQUEST_ERROR, postWithdrawRequest, FETCH_WITHDRAW_METHODS_PENDING, FETCH_WITHDRAW_METHODS_COMPLETE, FETCH_WITHDRAW_METHODS_ERROR, fetchWithdrawMethods, SAVE_WITHDRAW_ACCOUNT_PENDING, SAVE_WITHDRAW_ACCOUNT_COMPLETE, SAVE_WITHDRAW_ACCOUNT_ERROR, saveWithdrawAccount */
+/*! exports provided: FETCH_WITHDRAWS_PENDING, FETCH_WITHDRAWS_COMPLETE, fetchWithdraws, POST_WITHDRAW_REQUEST_PENDING, POST_WITHDRAW_REQUEST_COMPLETE, postWithdrawRequest, FETCH_WITHDRAW_METHODS_PENDING, FETCH_WITHDRAW_METHODS_COMPLETE, fetchWithdrawMethods, SAVE_WITHDRAW_ACCOUNT_PENDING, SAVE_WITHDRAW_ACCOUNT_COMPLETE, saveWithdrawAccount */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_WITHDRAWS_PENDING", function() { return FETCH_WITHDRAWS_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_WITHDRAWS_COMPLETE", function() { return FETCH_WITHDRAWS_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_WITHDRAWS_ERROR", function() { return FETCH_WITHDRAWS_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWithdraws", function() { return fetchWithdraws; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POST_WITHDRAW_REQUEST_PENDING", function() { return POST_WITHDRAW_REQUEST_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POST_WITHDRAW_REQUEST_COMPLETE", function() { return POST_WITHDRAW_REQUEST_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POST_WITHDRAW_REQUEST_ERROR", function() { return POST_WITHDRAW_REQUEST_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postWithdrawRequest", function() { return postWithdrawRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_WITHDRAW_METHODS_PENDING", function() { return FETCH_WITHDRAW_METHODS_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_WITHDRAW_METHODS_COMPLETE", function() { return FETCH_WITHDRAW_METHODS_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_WITHDRAW_METHODS_ERROR", function() { return FETCH_WITHDRAW_METHODS_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchWithdrawMethods", function() { return fetchWithdrawMethods; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_WITHDRAW_ACCOUNT_PENDING", function() { return SAVE_WITHDRAW_ACCOUNT_PENDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_WITHDRAW_ACCOUNT_COMPLETE", function() { return SAVE_WITHDRAW_ACCOUNT_COMPLETE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_WITHDRAW_ACCOUNT_ERROR", function() { return SAVE_WITHDRAW_ACCOUNT_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveWithdrawAccount", function() { return saveWithdrawAccount; });
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
+
 var headers = {
   'Content-Type': 'application/json',
-  'WPCF-Nonce': WPCF.nonce //FETCH USER WITHDRAWS
+  'WPCF-Nonce': WPCF.nonce
+}; //FETCH USER WITHDRAWS
 
-};
 var FETCH_WITHDRAWS_PENDING = 'fetch_withdraws_pending';
 var FETCH_WITHDRAWS_COMPLETE = 'fetch_withdraws_complete';
-var FETCH_WITHDRAWS_ERROR = 'fetch_withdraws_error';
 var fetchWithdraws = function fetchWithdraws() {
   return function (dispatch) {
     dispatch({
@@ -33408,24 +33407,22 @@ var fetchWithdraws = function fetchWithdraws() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_WITHDRAWS_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: FETCH_WITHDRAWS_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_WITHDRAWS_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //POST WITHDRAW REQUEST
 
 var POST_WITHDRAW_REQUEST_PENDING = 'post_withdraw_request_pending';
 var POST_WITHDRAW_REQUEST_COMPLETE = 'post_withdraw_request_complete';
-var POST_WITHDRAW_REQUEST_ERROR = 'post_withdraw_request_error';
 var postWithdrawRequest = function postWithdrawRequest(data) {
   return function (dispatch) {
     dispatch({
@@ -33438,24 +33435,22 @@ var postWithdrawRequest = function postWithdrawRequest(data) {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: POST_WITHDRAW_REQUEST_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: POST_WITHDRAW_REQUEST_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: POST_WITHDRAW_REQUEST_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //FETCH WITHDRAW METHODS
 
 var FETCH_WITHDRAW_METHODS_PENDING = 'fetch_withdraw_methods_pending';
 var FETCH_WITHDRAW_METHODS_COMPLETE = 'fetch_withdraw_methods_complete';
-var FETCH_WITHDRAW_METHODS_ERROR = 'fetch_withdraw_methods_error';
 var fetchWithdrawMethods = function fetchWithdrawMethods() {
   return function (dispatch) {
     dispatch({
@@ -33467,24 +33462,22 @@ var fetchWithdrawMethods = function fetchWithdrawMethods() {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: FETCH_WITHDRAW_METHODS_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: FETCH_WITHDRAW_METHODS_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: FETCH_WITHDRAW_METHODS_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 }; //SAVE WITHDRAW ACCOUNT
 
 var SAVE_WITHDRAW_ACCOUNT_PENDING = 'save_withdraw_account_pending';
 var SAVE_WITHDRAW_ACCOUNT_COMPLETE = 'save_withdraw_account_complete';
-var SAVE_WITHDRAW_ACCOUNT_ERROR = 'save_withdraw_account_error';
 var saveWithdrawAccount = function saveWithdrawAccount(data) {
   return function (dispatch) {
     dispatch({
@@ -33497,17 +33490,16 @@ var saveWithdrawAccount = function saveWithdrawAccount(data) {
       headers: headers
     };
     fetch(fetchURL, option).then(function (response) {
-      return response.json();
-    }).then(function (payload) {
-      return dispatch({
-        type: SAVE_WITHDRAW_ACCOUNT_COMPLETE,
-        payload: payload
-      });
-    }).catch(function (payload) {
-      return dispatch({
-        type: SAVE_WITHDRAW_ACCOUNT_ERROR,
-        payload: payload
-      });
+      if (response.status == 200) {
+        response.json().then(function (payload) {
+          return dispatch({
+            type: SAVE_WITHDRAW_ACCOUNT_COMPLETE,
+            payload: payload
+          });
+        });
+      } else {
+        Object(_helper__WEBPACK_IMPORTED_MODULE_0__["ExceptionHandler"])(response);
+      }
     });
   };
 };
@@ -38920,8 +38912,11 @@ var secondsToDetails = function secondsToDetails(seconds) {
 var pad = function pad(n) {
   return n < 10 ? "0" + n : n;
 };
-var ExceptionHandler = function ExceptionHandler(error) {
-  console.log(error);
+var ExceptionHandler = function ExceptionHandler(res) {
+  if (res.status == 401) {
+    //Unauthorize access
+    location.reload();
+  }
 };
 
 /***/ }),

@@ -1,9 +1,5 @@
 import { ExceptionHandler } from '../helper';
-
-const headers = { 
-    'Content-Type': 'application/json',
-    'WPCF-Nonce': WPCF.nonce
-}
+const headers = { 'Content-Type': 'application/json', 'WPCF-Nonce': WPCF.nonce };
 
 //CAMPAINGS REPORTS
 export const FETCH_CAMPAIGNS_REPORT_PENDING = 'fetch_campaigns_report_pending';
@@ -15,13 +11,12 @@ export const fetchCampaignsReport = (args) => dispatch => {
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
     .then( response => {
-        const { status, statusText } = response;
-        if(status==200) {
+        if(response.status==200) {
             response.json().then( payload => 
                 dispatch( {type: FETCH_CAMPAIGNS_REPORT_COMPLETE, payload})
             );
         } else {
-            ExceptionHandler( {status, statusText} )
+            ExceptionHandler( response )
         }
     });
 }
@@ -37,13 +32,12 @@ export const fetchMyCampaigns = () => dispatch => {
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
     .then( response => {
-        const { status, statusText } = response;
-        if(status==200) {
+        if(response.status==200) {
             response.json().then( payload => 
                 dispatch( {type: FETCH_MY_CAMPAIGNS_COMPLETE, payload})
             );
         } else {
-            ExceptionHandler( {status, statusText} )
+            ExceptionHandler( response )
         }
     });
 }
@@ -66,9 +60,15 @@ export const deleteCampaign = (data) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/delete-campaign`;
     const option = { method: 'POST', body: JSON.stringify(data), headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: dispatchComplete, payload} ) )
-    .catch( error => console.log(error) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: dispatchComplete, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 
@@ -81,8 +81,15 @@ export const fetchInvestedCampaigns = () => dispatch => {
     const fetchURL = `${WPCF.rest_url}/invested-campaigns`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_INVESTED_CAMPAIGNS_COMPLETE, payload} ) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_INVESTED_CAMPAIGNS_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 
@@ -95,8 +102,15 @@ export const fetchPledgeReceived = () => dispatch => {
     const fetchURL = `${WPCF.rest_url}/pledge-received`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_PLEDGE_RECEIVED_COMPLETE, payload} ) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_PLEDGE_RECEIVED_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 
@@ -109,8 +123,15 @@ export const fetchBookmarkCampaigns = () => dispatch => {
     const fetchURL = `${WPCF.rest_url}/bookmark-campaigns`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, payload} ) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_BOOKMARK_CAMPAIGNS_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 
@@ -123,8 +144,15 @@ export const fetchRewards = () => dispatch => {
     const fetchURL = `${WPCF.rest_url}/rewards`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_REWARDS_COMPLETE, payload} ) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_REWARDS_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 
@@ -137,6 +165,13 @@ export const saveCampaignUpdates = ( data ) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/save-campaign-updates`;
     const option = { method: 'POST', body: JSON.stringify(data), headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: SAVE_CAMPAIGN_UPDATES_COMPLETE, payload} ) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: SAVE_CAMPAIGN_UPDATES_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
