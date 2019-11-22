@@ -50,3 +50,7 @@ export const secondsToDetails = (seconds) => {
 export const pad = (n) => {
     return (n < 10 ? "0" + n : n);
 }
+
+export const ExceptionHandler = (error) => {
+    console.log(error);
+}

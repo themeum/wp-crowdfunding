@@ -56,52 +56,52 @@ class API_Dashboard {
             array( 'methods' => $method_readable, 'callback' => array($this, 'report'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/user-profile', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/my-campaigns', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'my_campaigns') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'my_campaigns'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/delete-campaign', array(
-            array( 'methods' => $method_creatable, 'callback' => array($this, 'delete_campaign') ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'delete_campaign'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/invested-campaigns', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'invested_campaigns'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'invested_campaigns'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/pledge-received', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'pledge_received'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'pledge_received'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/bookmark-campaigns', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'bookmark_campaigns'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'bookmark_campaigns'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/save-campaign-updates', array(
-            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign_updates'), ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign_updates'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/orders', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'orders'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'orders'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/withdraws', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'withdraws'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'withdraws'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/withdraw-request', array(
-            array( 'methods' => $method_creatable, 'callback' => array($this, 'withdraw_request'), ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'withdraw_request'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/save-userdata', array(
-            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_user_data'), ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_user_data'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/withdraw-methods', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'withdraw_methods'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'withdraw_methods'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/save-withdraw-account', array(
-            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_withdraw_account'), ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_withdraw_account'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/rewards', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'rewards'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'rewards'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/wc-countries', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries') ),
         ));
         register_rest_route( $namespace, '/logout', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'logout'), ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'logout') ),
         ));
     }
 
@@ -387,10 +387,6 @@ class API_Dashboard {
         $user_id = $this->current_user_id;
         $campaign_id = (int) $request['id'];
         $bookmark = (bool) $request['bookmark'];
-        $response = array(
-            'success'   => false,
-            'msg'       => __('Unknown error occurred', 'wp-crowdfunding')
-        );
         if($bookmark) {
             $loved_campaign_ids   = get_user_meta($user_id, 'loved_campaign_ids', true);
             if($loved_campaign_ids) {
@@ -398,19 +394,11 @@ class API_Dashboard {
                 $index = array_search($campaign_id, $loved_campaign_ids);
                 unset( $loved_campaign_ids[$index] );
                 update_user_meta($user_id, 'loved_campaign_ids', json_encode($loved_campaign_ids));
-                $response = array(
-                    'success'       => true,
-                    'campaign_id'   => $campaign_id,
-                );
             }
         } else {
             wp_delete_post($campaign_id);
-            $response = array(
-                'success'       => true,
-                'campaign_id'   => $campaign_id,
-            );
         }
-        return rest_ensure_response( $response );
+        return rest_ensure_response( $campaign_id );
     }
 
     /**
@@ -661,7 +649,6 @@ class API_Dashboard {
             do_action('wpcf_campaign_update_email', $campaignId);
         } */
         $response   = array(
-            'success'   => 1,
             'id'        => $campaignId,
             'updates'   => $updates,
         );
@@ -973,7 +960,7 @@ class API_Dashboard {
     function save_user_data( \WP_REST_Request $request ) {
         $user_id = $this->current_user_id;
         $json_params = $request->get_json_params();
-        $response_data = array();
+        $response = array();
         if( isset($json_params['password']) ) {
             $password = $json_params['password'];
             unset( $json_params['password'] );
@@ -981,12 +968,8 @@ class API_Dashboard {
         }
         foreach( $json_params as $key => $value ) {
             update_user_meta( $user_id, $key, sanitize_text_field($value) );
-            $response_data[$key] = sanitize_text_field( $value );
+            $response[$key] = sanitize_text_field( $value );
         }
-        $response = array(
-            'success'   => 1,
-            'data'      => $response_data
-        );
         return rest_ensure_response( $response );
     }
 
@@ -1238,16 +1221,15 @@ class API_Dashboard {
      */
     function check_auth() {
         $headers = getallheaders();
-        $nonce = $headers['WPCF-Nonce'];
-		$i     = wp_nonce_tick();
-        $token = wp_get_session_token();
-        $uid = $this->current_user_id;
+        $nonce  = $headers['WPCF-Nonce'];
+		$i      = wp_nonce_tick();
+        $token  = wp_get_session_token();
+        $uid    = $this->current_user_id;
 		$expected = substr( wp_hash( $i . '|' . 'wpcf_dasboard_nonce' . '|' . $uid . '|' . $token, 'nonce' ), -12, 10 );
-		if ( hash_equals( $expected, $nonce ) ) {
+		if( hash_equals($expected, $nonce) ) {
 			return true;
-		} else {
-            return false;
         }
+        return false;
     }
 }
 
