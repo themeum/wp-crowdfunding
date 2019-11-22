@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import App from './containers/app';
-import rootReducer from './reducers';
+import reducer from './reducers';
 
-const store = createStore( rootReducer, compose( 
+const store = createStore( reducer, compose( 
     applyMiddleware( reduxThunk ), 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
 ));

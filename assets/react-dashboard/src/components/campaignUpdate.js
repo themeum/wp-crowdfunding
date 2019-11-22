@@ -12,17 +12,12 @@ class CampaignUpdate extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { saveReq, error } = this.props.campaign;
+        const { saveReq } = this.props.campaign;
         if ( saveReq !== prevProps.campaign.saveReq ) {
             if( saveReq == 'complete' ) {
                 ToastAlert({
                     type: 'success',
                     message: 'Data saved'
-                });
-            } else if( saveReq == 'error' ) {
-                ToastAlert({
-                    type: 'error',
-                    message: error
                 });
             }
         }

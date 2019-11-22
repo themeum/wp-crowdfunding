@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchBookmarkCampaigns, deleteCampaign } from '../actions/campaignAction';
-import { confirmAlert } from '../components/confirmAlert';
+import ConfirmAlert from '../components/confirmAlert';
 import ItemCampaign from '../components/itemCampaign';
 import Pagination from '../components/pagination';
 import Skeleton from "../components/skeleton";
@@ -28,7 +28,7 @@ class BookmarkCampaigns extends Component {
             id: campaignId,
             bookmark: true
         }
-        confirmAlert({
+        ConfirmAlert({
             title: 'Confirm to submit',
             message: 'Are you sure to do this.',
             buttons: [

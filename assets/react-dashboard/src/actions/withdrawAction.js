@@ -1,7 +1,7 @@
 
 const headers = { 
     'Content-Type': 'application/json',
-    'WP-Nonce': WPCF.nonce
+    'WPCF-Nonce': WPCF.nonce
 }
 
 //FETCH USER WITHDRAWS
