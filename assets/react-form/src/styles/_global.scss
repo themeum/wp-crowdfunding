@@ -25,3 +25,17 @@
 #wpcf-campaign-builder *{
 	box-sizing: border-box;
 }
+
+.wpcf-svg-icon{
+	font-size: 20px;
+	height: auto;
+	width: 1em;
+	display: inline-block;
+	fill: #ADAECF;
+	svg{
+		display: block;
+		path{
+			fill: inherit;
+		}
+	}
+}
