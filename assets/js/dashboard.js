@@ -32981,7 +32981,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveCampaignUpdates", function() { return saveCampaignUpdates; });
 var headers = {
   'Content-Type': 'application/json',
-  'WP-Nonce': WPCF.nonce //CAMPAINGS REPORTS
+  'WPCF-Nonce': WPCF.nonce //CAMPAINGS REPORTS
 
 };
 var FETCH_CAMPAIGNS_REPORT_PENDING = 'fetch_campaigns_report_pending';
@@ -33554,8 +33554,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_campaignAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/campaignAction */ "./src/actions/campaignAction.js");
-/* harmony import */ var _datePicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./datePicker */ "./src/components/datePicker.js");
-/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
+/* harmony import */ var _toastAlert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toastAlert */ "./src/components/toastAlert.js");
+/* harmony import */ var _datePicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./datePicker */ "./src/components/datePicker.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./header */ "./src/components/header.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -33587,6 +33588,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -33655,11 +33657,15 @@ function (_Component) {
 
       if (saveReq !== prevProps.campaign.saveReq) {
         if (saveReq == 'complete') {
-          alert('data saved');
-        }
-
-        if (saveReq == 'error') {
-          alert(error);
+          Object(_toastAlert__WEBPACK_IMPORTED_MODULE_3__["default"])({
+            type: 'success',
+            message: 'Data saved'
+          });
+        } else if (saveReq == 'error') {
+          Object(_toastAlert__WEBPACK_IMPORTED_MODULE_3__["default"])({
+            type: 'error',
+            message: error
+          });
         }
       }
     }
@@ -33669,7 +33675,7 @@ function (_Component) {
       var _this2 = this;
 
       var updates = this.state.updates;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header__WEBPACK_IMPORTED_MODULE_5__["default"], {
         title: "Updates"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "wpcf-btn wpcf-link-btn",
@@ -33688,7 +33694,7 @@ function (_Component) {
           className: "wpcf-dashboard-item-wraper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "wpcf-form-group"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Date: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_datePicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Date: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_datePicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
           placeholder: "2040/12/16",
           name: "date",
           value: item.date,
@@ -33710,13 +33716,14 @@ function (_Component) {
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "wpcf-form-group"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Update Details:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-          placeholder: "Update description",
           name: "details",
+          value: item.details,
           onChange: function onChange(e) {
             return _this2.onChangeInput(e, index);
           },
-          required: true
-        }, item.details)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          required: true,
+          placeholder: "Update description"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-danger wpcf-btn-sm",
           type: "button",
           onClick: function onClick() {
@@ -33832,13 +33839,11 @@ CircleProgress.defaultProps = {
 /*!****************************************!*\
   !*** ./src/components/confirmAlert.js ***!
   \****************************************/
-/*! exports provided: default, confirmAlert */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ConfirmDialogue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirmAlert", function() { return confirmAlert; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -33864,23 +33869,23 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var ConfirmDialogue =
+var DialogueBox =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(ConfirmDialogue, _Component);
+  _inherits(DialogueBox, _Component);
 
-  function ConfirmDialogue() {
+  function DialogueBox() {
     var _getPrototypeOf2;
 
     var _temp, _this;
 
-    _classCallCheck(this, ConfirmDialogue);
+    _classCallCheck(this, DialogueBox);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ConfirmDialogue)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleClickButton = function (button) {
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(DialogueBox)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleClickButton = function (button) {
       if (button.onClick) button.onClick();
 
       _this.close();
@@ -33897,7 +33902,7 @@ function (_Component) {
       }
     }, _this.close = function () {
       removeBodyClass();
-      removeElementReconfirm();
+      removeElement();
     }, _this.keyboardClose = function (event) {
       var _this$props2 = _this.props,
           closeOnEscape = _this$props2.closeOnEscape,
@@ -33918,7 +33923,7 @@ function (_Component) {
     }, _temp));
   }
 
-  _createClass(ConfirmDialogue, [{
+  _createClass(DialogueBox, [{
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -33951,10 +33956,10 @@ function (_Component) {
     }
   }]);
 
-  return ConfirmDialogue;
+  return DialogueBox;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-ConfirmDialogue.defaultProps = {
+DialogueBox.defaultProps = {
   buttons: [{
     label: 'Cancel',
     onClick: function onClick() {
@@ -33982,40 +33987,37 @@ ConfirmDialogue.defaultProps = {
   }
 };
 
-
-function createElementReconfirm(properties) {
+var createElement = function createElement(properties) {
   var divTarget = document.getElementById('wpcf-confirm-alert');
 
   if (divTarget) {
-    // Rerender - the mounted ConfirmDialogue
-    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmDialogue, properties), divTarget);
+    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DialogueBox, properties), divTarget);
   } else {
-    // Mount the ConfirmDialogue component
     divTarget = document.createElement('div');
     divTarget.id = 'wpcf-confirm-alert';
     document.body.appendChild(divTarget);
-    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ConfirmDialogue, properties), divTarget);
+    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DialogueBox, properties), divTarget);
   }
-}
+};
 
-function removeElementReconfirm() {
+var removeElement = function removeElement() {
   var target = document.getElementById('wpcf-confirm-alert');
   Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["unmountComponentAtNode"])(target);
   target.parentNode.removeChild(target);
-}
+};
 
-function addBodyClass() {
+var addBodyClass = function addBodyClass() {
   document.body.classList.add('wpcf-confirm-alert-body-element');
-}
+};
 
-function removeBodyClass() {
+var removeBodyClass = function removeBodyClass() {
   document.body.classList.remove('wpcf-confirm-alert-body-element');
-}
+};
 
-function confirmAlert(properties) {
+/* harmony default export */ __webpack_exports__["default"] = (function (properties) {
   addBodyClass();
-  createElementReconfirm(properties);
-}
+  createElement(properties);
+});
 
 /***/ }),
 
@@ -34584,7 +34586,6 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var seconds = this.state.seconds;
       var data = this.props.data;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wpcf-reward-item"
@@ -35780,6 +35781,120 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (SocialForm);
+
+/***/ }),
+
+/***/ "./src/components/toastAlert.js":
+/*!**************************************!*\
+  !*** ./src/components/toastAlert.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var ToastBox =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ToastBox, _Component);
+
+  function ToastBox() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
+
+    _classCallCheck(this, ToastBox);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ToastBox)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.close = function () {
+      removeElement();
+      clearInterval(_this.timeout);
+    }, _temp));
+  }
+
+  _createClass(ToastBox, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var timeout = this.props.timeout;
+      this.timeout = setTimeout(function () {
+        removeElement();
+      }, timeout);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          icon = _this$props.icon,
+          message = _this$props.message,
+          position = _this$props.position;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: position
+      }, icon, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, message), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.close
+      }, "X"));
+    }
+  }]);
+
+  return ToastBox;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+ToastBox.defaultProps = {
+  type: 'info',
+  message: 'Toaster',
+  position: 'right bottom',
+  timeout: 1000
+};
+
+var createElement = function createElement(properties) {
+  var divTarget = document.getElementById('wpcf-toast-alert');
+
+  if (divTarget) {
+    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToastBox, properties), divTarget);
+  } else {
+    divTarget = document.createElement('div');
+    divTarget.id = 'wpcf-toast-alert';
+    document.body.appendChild(divTarget);
+    Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToastBox, properties), divTarget);
+  }
+};
+
+var removeElement = function removeElement() {
+  var target = document.getElementById('wpcf-toast-alert');
+  Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["unmountComponentAtNode"])(target);
+  target.parentNode.removeChild(target);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (function (properties) {
+  createElement(properties);
+});
 
 /***/ }),
 
@@ -37170,7 +37285,7 @@ function (_Component) {
         id: campaignId,
         bookmark: false
       };
-      Object(_components_confirmAlert__WEBPACK_IMPORTED_MODULE_4__["confirmAlert"])({
+      Object(_components_confirmAlert__WEBPACK_IMPORTED_MODULE_4__["default"])({
         title: 'Confirm to submit',
         message: 'Are you sure to do this.',
         buttons: [{
@@ -37181,6 +37296,11 @@ function (_Component) {
         }, {
           label: 'No'
         }]
+        /* childrenElement: () => 
+        <div className="wpcf-campaign-links">
+            <a title="Edit"><i className="far fa-edit"></i></a>
+        </div>, */
+
       });
     }, _this.getCampaignData = function () {
       var filterValue = _this.state.filterValue;
@@ -37910,10 +38030,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_userAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/userAction */ "./src/actions/userAction.js");
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper */ "./src/helper.js");
-/* harmony import */ var _components_profileEditForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/profileEditForm */ "./src/components/profileEditForm.js");
-/* harmony import */ var _components_socialForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/socialForm */ "./src/components/socialForm.js");
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
-/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var _components_toastAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/toastAlert */ "./src/components/toastAlert.js");
+/* harmony import */ var _components_profileEditForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/profileEditForm */ "./src/components/profileEditForm.js");
+/* harmony import */ var _components_socialForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/socialForm */ "./src/components/socialForm.js");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/header */ "./src/components/header.js");
+/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37931,6 +38052,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -37992,11 +38114,15 @@ function (_Component) {
 
       if (saveReq !== prevProps.user.saveReq) {
         if (saveReq == 'complete') {
-          alert('data saved');
-        }
-
-        if (saveReq == 'error') {
-          alert(error);
+          Object(_components_toastAlert__WEBPACK_IMPORTED_MODULE_4__["default"])({
+            type: 'success',
+            message: 'Data saved'
+          });
+        } else if (saveReq == 'error') {
+          Object(_components_toastAlert__WEBPACK_IMPORTED_MODULE_4__["default"])({
+            type: 'error',
+            message: error
+          });
         }
       }
     }
@@ -38011,13 +38137,13 @@ function (_Component) {
       var countries = this.props.countries.data;
 
       if (loading || cLoading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_7__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
       }
 
       ;
 
       if (profileEdit) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_profileEditForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_profileEditForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
           data: data,
           countries: this.props.countries.data,
           toggleEdit: this.toggleEdit,
@@ -38025,7 +38151,7 @@ function (_Component) {
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
         title: "Profile"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-dashboard-content-inner"
@@ -38058,7 +38184,7 @@ function (_Component) {
         onClick: this.toggleEdit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "fas fa-pen"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_socialForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_socialForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
         data: data,
         onClickSaveData: this.onClickSaveData
       })));
@@ -38414,8 +38540,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_withdrawAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/withdrawAction */ "./src/actions/withdrawAction.js");
-/* harmony import */ var _components_withdrawMethodForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/withdrawMethodForm */ "./src/components/withdrawMethodForm.js");
-/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
+/* harmony import */ var _components_toastAlert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/toastAlert */ "./src/components/toastAlert.js");
+/* harmony import */ var _components_withdrawMethodForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/withdrawMethodForm */ "./src/components/withdrawMethodForm.js");
+/* harmony import */ var _components_skeleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/skeleton */ "./src/components/skeleton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38433,6 +38560,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -38472,18 +38600,22 @@ function (_Component) {
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
+    value: function componentDidUpdate(prevProps) {
       var _this$props$withdrawM = this.props.withdrawMethod,
           saveReq = _this$props$withdrawM.saveReq,
           error = _this$props$withdrawM.error;
 
       if (saveReq !== prevProps.withdrawMethod.saveReq) {
         if (saveReq == 'complete') {
-          alert('data saved');
-        }
-
-        if (saveReq == 'error') {
-          alert(error);
+          Object(_components_toastAlert__WEBPACK_IMPORTED_MODULE_3__["default"])({
+            type: 'success',
+            message: 'Data saved'
+          });
+        } else if (saveReq == 'error') {
+          Object(_components_toastAlert__WEBPACK_IMPORTED_MODULE_3__["default"])({
+            type: 'error',
+            message: error
+          });
         }
       }
     }
@@ -38495,7 +38627,7 @@ function (_Component) {
           data = _this$props$withdrawM2.data;
 
       if (loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_skeleton__WEBPACK_IMPORTED_MODULE_5__["default"], null);
       }
 
       ;
@@ -38503,7 +38635,7 @@ function (_Component) {
         className: "wpcf-dashboard-content-inner"
       }, Object.keys(data.methods).length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "wpcf-withdraw-account-set-form"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_withdrawMethodForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_withdrawMethodForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: data,
         onChangeData: this.onChangeData,
         onClickSaveData: this.onClickSaveData

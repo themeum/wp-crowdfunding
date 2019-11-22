@@ -24,7 +24,7 @@ class ItemCampaign extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.campaignInterval)
+        clearInterval(this.campaignInterval);
     }
 
     renderInterval() {
@@ -50,8 +50,6 @@ class ItemCampaign extends Component {
             </div>
         );
     }
-
-
 
     render() {
         const { data, invested } = this.props;

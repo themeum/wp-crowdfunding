@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchWithdrawMethods, saveWithdrawAccount } from '../actions/withdrawAction';
+import ToastAlert from '../components/toastAlert';
 import WithdrawMethodForm from '../components/withdrawMethodForm';
 import Skeleton from "../components/skeleton";
 
@@ -13,14 +14,19 @@ class WithdrawMethodSettings extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const { saveReq, error } = this.props.withdrawMethod;
         if ( saveReq !== prevProps.withdrawMethod.saveReq ) {
             if( saveReq == 'complete' ) {
-                alert( 'data saved' );
-            }
-            if( saveReq == 'error' ) {
-                alert( error );
+                ToastAlert({
+                    type: 'success',
+                    message: 'Data saved'
+                });
+            } else if( saveReq == 'error' ) {
+                ToastAlert({
+                    type: 'error',
+                    message: error
+                });
             }
         }
     }

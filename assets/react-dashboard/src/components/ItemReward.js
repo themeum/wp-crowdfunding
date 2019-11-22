@@ -20,7 +20,7 @@ class ItemReward extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.rewardInterval)
+        clearInterval(this.rewardInterval);
     }
 
     renderInterval() {
@@ -52,7 +52,6 @@ class ItemReward extends Component {
     }
 
     render() {
-        const { seconds } = this.state;
         const { data } = this.props;
         return (
             <div className="wpcf-reward-item">

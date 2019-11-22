@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMyCampaigns, deleteCampaign } from '../actions/campaignAction';
-import { confirmAlert } from '../components/confirmAlert';
+import ConfirmAlert from '../components/confirmAlert';
 import CampaignReport from '../containers/campaignReport';
 import ItemCampaign from '../components/itemCampaign';
 import CampaignUpdate from '../components/campaignUpdate';
@@ -49,7 +49,7 @@ class MyCampaigns extends Component {
             id: campaignId,
             bookmark: false
         }
-        confirmAlert({
+        ConfirmAlert({
             title: 'Confirm to submit',
             message: 'Are you sure to do this.',
             buttons: [
@@ -60,7 +60,11 @@ class MyCampaigns extends Component {
                 {
                     label: 'No'
                 }
-            ]
+            ],
+            /* childrenElement: () => 
+            <div className="wpcf-campaign-links">
+                <a title="Edit"><i className="far fa-edit"></i></a>
+            </div>, */
         });
     }
 

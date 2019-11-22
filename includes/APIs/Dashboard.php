@@ -36,9 +36,7 @@ class API_Dashboard {
      */
     function init_rest_api() {
         $this->current_user_id = get_current_user_id();
-        if( $this->current_user_id ) {
-            add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
-        }
+        add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
     }
 
     /**
@@ -47,12 +45,15 @@ class API_Dashboard {
      * @access  public
      */
     function register_rest_api() {
+        function verify_nonce($token) {
+            return wp_verify_nonce($token, 'wpcf_dasboard_nonce');
+        }
         $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
 
         register_rest_route( $namespace, '/campaigns-report', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'report') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'report'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/user-profile', array(
             array( 'methods' => $method_readable, 'callback' => array($this, 'user_profile') ),
@@ -112,12 +113,6 @@ class API_Dashboard {
      */
     function report() {
         global $wpdb;
-        /* $headers = getallheaders();
-        var_dump(wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce'));
-        if( !wp_verify_nonce($headers['WP-Nonce'], 'wpcf_api_nonce') ) {
-            return array( 'success' => 0, 'msg' => 'Invalid nonce!' );
-        } */
-
         $campaign_id                            = isset($_GET['campaign_id']) ? sanitize_text_field($_GET['campaign_id']) : '';
         $query_range_args['date_range']         = isset($_GET['date_range']) ? sanitize_text_field($_GET['date_range']) : '';
         $query_range_args['date_range_from']    = isset($_GET['date_range_from']) ? sanitize_text_field($_GET['date_range_from']) : '';
@@ -436,9 +431,9 @@ class API_Dashboard {
         $campaigns = array();
         foreach($orders as $order) {
             foreach( $order->get_items() as $item_values ) {
-                $item_data = $item_values->get_data();
-                $campaign_id = $item_data['id'];
-                $line_total = $item_data['total'];
+                $item_data      = $item_values->get_data();
+                $campaign_id    = $item_data['product_id'];
+                $line_total     = $item_data['total'];
                 if (array_key_exists($campaign_id, $campaigns)) {
                     $line_total += $campaigns[$campaign_id];
                 }
@@ -700,7 +695,7 @@ class API_Dashboard {
 
             //Get line items
             $line_items = array();
-            foreach ( $order->get_items() as $item_key => $item_values ) {
+            foreach ( $order->get_items() as $item_values ) {
                 $item_data          = $item_values->get_data();
                 $line_items[]       = array(
                     'product_id'    => $item_data['product_id'],
@@ -1233,6 +1228,26 @@ class API_Dashboard {
             'redirect'  => home_url(),
         );
         return rest_ensure_response( $response );
+    }
+
+    /**
+     * check auth
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function check_auth() {
+        $headers = getallheaders();
+        $nonce = $headers['WPCF-Nonce'];
+		$i     = wp_nonce_tick();
+        $token = wp_get_session_token();
+        $uid = $this->current_user_id;
+		$expected = substr( wp_hash( $i . '|' . 'wpcf_dasboard_nonce' . '|' . $uid . '|' . $token, 'nonce' ), -12, 10 );
+		if ( hash_equals( $expected, $nonce ) ) {
+			return true;
+		} else {
+            return false;
+        }
     }
 }
 
