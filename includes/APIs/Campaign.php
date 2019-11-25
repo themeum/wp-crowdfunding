@@ -305,7 +305,7 @@ class API_Campaign {
                     'title'     => __("Image Upload *","wp-crowdfunding"),
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                     'button'    => __('Add More Image', 'wp-crowdfunding'),
-                    'icon'     => 'png',
+                    'icon'     => 'plus',
                     'is_media'  => true,
                     'multiple'  => true,
                     'required'  => true,
