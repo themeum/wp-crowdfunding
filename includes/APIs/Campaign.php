@@ -758,7 +758,7 @@ class API_Campaign {
                 'button'    => '<i class="fa fa-plus wpcf-icon"></i> '.__('Add Image', 'wp-crowdfunding'),
                 'class'     => '',
                 'multiple'  => false,
-                'required'  => true,
+                'required'  => false,
                 'show'      => true
             ),
             'description' => array(

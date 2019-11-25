@@ -14,9 +14,10 @@ class Reward extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedType: 0,
 			selectedItem: 0,
+			requiredFields: [],
 			openForm: false,
+			validate: false,
 		}
         this._changeType = this._changeType.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
@@ -24,6 +25,27 @@ class Reward extends Component {
         this._addReward = this._addReward.bind(this);
         this._editReward = this._editReward.bind(this);
         this._deleteReward = this._deleteReward.bind(this);
+        this._onClickPlus = this._onClickPlus.bind(this);
+	}
+
+	componentDidMount() {
+		let requiredFields = [];
+		const { rewardFields } = this.props;
+		Object.keys(rewardFields).map( key => {
+			const field = rewardFields[key];
+			if(field.type=='form_group') {
+				Object.keys(field.fields).map( k => {
+					if(field.fields[k].required) {
+						requiredFields.push(k);
+					}
+				});
+			} else {
+				if(field.required) {
+					requiredFields.push(key);
+				}
+			}
+		});
+		this.setState({requiredFields});
 	}
 
 	_uploadFile(type, field, sFiles, multiple) {
@@ -46,10 +68,10 @@ class Reward extends Component {
         this.props.changeFieldValue(formName, field, values);
 	}
 
-	_addReward() {
-		const { selectedType } = this.state;
-		let { formValues: {rewards} } = this.props;
-		rewards = [ ...rewards ]; rewards.push({type:selectedType});
+	_addReward(type) {
+		const { formValues: {rewards} } = this.props;
+		rewards = [ ...rewards ];
+		rewards.push({type}); //push item
 		this.props.changeFieldValue(formName, sectionName, rewards);
 		const selectedItem = rewards.length-1;
 		this.setState({ openForm: true, selectedItem});
@@ -68,8 +90,33 @@ class Reward extends Component {
 		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
+	_onClickPlus() {
+		const { formValues: {rewards} } = this.props;
+		const { selectedItem, requiredFields, openForm } = this.state;
+		const selectedReward = rewards[selectedItem];
+		const rewardFields = Object.keys(selectedReward);
+		if(!openForm) { return false; }
+		let index=0, validate = true;
+		while(index<requiredFields.length) {
+			const reqField = requiredFields[index];
+			if(rewardFields.includes(reqField)) {
+				if(selectedReward[reqField]=='') {
+					validate=false;
+					break;
+				}
+			} else {
+				validate=false;
+				break;
+			}
+			index++;
+		}
+		if(validate) {
+			this.setState({openForm: false});
+		}
+	}
+
 	render() {
-		const { openForm, selectedType, selectedItem } = this.state;
+		const { openForm, selectedItem } = this.state;
 		const { rewardTypes, rewardFields, formValues: {rewards}, handleSubmit, current, prevStep, lastStep } = this.props;
 		const { options: months } = rewardFields.estimate_delivery.fields.end_month;
 		return (
@@ -89,8 +136,8 @@ class Reward extends Component {
 												{rewardTypes.map((item, index) =>
 													<div
 														key={index}
-														className={`wpcf-rewards-option ${(selectedType == index) ? 'active':''}`}
-														onClick={() => this.setState({selectedType: index})}>
+														className="wpcf-rewards-option"
+														onClick={() => this._addReward( item.title )}>
 														<span className="fas fa-shopping-cart"></span>
 														<p>{item.title}</p>
 													</div>
@@ -137,7 +184,7 @@ class Reward extends Component {
 										)
 									})
 								}
-								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._addReward()}>
+								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._onClickPlus()}>
 									<span className="fa fa-plus"/>
 								</div>
 							</div>

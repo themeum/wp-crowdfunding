@@ -13,7 +13,7 @@ const RenderRewardFields = (props) => {
                 <div className='wpcf-selected-reward-type'>
                     <div className='wpcf-field-title'>
                         {(rewards[selectedItem].type) &&
-                            rewardTypes[rewards[selectedItem].type].title
+                            rewards[selectedItem].type
                         }
                         <button type="button" onClick={() => setChangeType(true)}>Change</button>
                     </div>
