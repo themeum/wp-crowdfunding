@@ -959,7 +959,7 @@ class API_Campaign {
                     'end_year'      => $reward['wpneo_rewards_endyear'],
                     'no_of_items'   => $reward['wpneo_rewards_item_limit'],
                     'image'         => $image,
-                    'rewards_items' => isset($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
+                    'rewards_items' => isset($reward['wpneo_rewards_items']) && is_array($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
                 );
             }
         }
