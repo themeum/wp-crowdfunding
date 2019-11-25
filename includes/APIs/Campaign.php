@@ -755,8 +755,9 @@ class API_Campaign {
                 'type'      => 'image',
                 'title'     => __("Rewards Image *","wp-crowdfunding"),
                 'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
-                'button'    => '<i class="fa fa-plus wpcf-icon"></i> '.__('Add Image', 'wp-crowdfunding'),
+                'button'    => __('Add Image', 'wp-crowdfunding'),
                 'class'     => '',
+                'icon'     => 'plus',
                 'multiple'  => false,
                 'required'  => true,
                 'show'      => true
@@ -798,8 +799,9 @@ class API_Campaign {
                 'type'      => 'repeatable',
                 'title'     => __("Rewards Item *", "wp-crowdfunding"),
                 'desc'      => __("Be Specific About What are Included in the Perks", "wp-crowdfunding"),
-                'button'    => '<i class="wpcf-icon fa fa-plus"></i>'.__('Add More Item', 'wp-crowdfunding'),
+                'button'    => __('Add More Item', 'wp-crowdfunding'),
                 'class'     => '',
+                'icon'     => 'plus',
                 'fields'    => array(
                     'name' => array(
                         'type'          => 'text',

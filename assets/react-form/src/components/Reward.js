@@ -140,7 +140,7 @@ class Reward extends Component {
 									})
 								}
 								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._addReward()}>
-									<span className="fa fa-plus"/>
+									<Icon name="plus"/>
 								</div>
 							</div>
 						</div>
