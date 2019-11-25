@@ -684,17 +684,17 @@ class API_Campaign {
         $default_fields = array(
             array(
                 'title'     => __("Giving Thanks", "wp-crowdfunding"),
-                'icon'      => '',
+                'icon'      => 'upload',
                 'show'      => true
             ),
             array(
                 'title'     => __("Digital Goods", "wp-crowdfunding"),
-                'icon'      => '',
+                'icon'      => 'cart',
                 'show'      => true
             ),
             array(
                 'title'     => __("Physical Goods", "wp-crowdfunding"),
-                'icon'      => '',
+                'icon'      => 'cart',
                 'show'      => true
             )
         );

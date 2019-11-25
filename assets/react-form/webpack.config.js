@@ -19,55 +19,33 @@ module.exports = {
       },
       {
         test: /\.(css)$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true,
-              sourceMapEmbed: true
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              sourceMapEmbed: true
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sourceMapEmbed: true
-            }
+        use: [ 'style-loader', {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true
           }
-        ]
+        }, {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+            sourceMapEmbed: true
+          }
+        }]
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true,
-              sourceMapEmbed: true
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              sourceMapEmbed: true
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sourceMapEmbed: true
-            }
+        use: [ 'style-loader', {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true
           }
-        ]
+        }, {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+            sourceMapEmbed: true
+          }
+        }]
       }
     ]
   }
