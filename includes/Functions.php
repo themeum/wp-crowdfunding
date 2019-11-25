@@ -685,8 +685,8 @@ class Functions {
     public function totalBackers(){
         return $this->get_total_backers();
     }
-    public function get_total_backers(){
-        $orders = $this->get_customers_by_product_query();
+    public function get_total_backers($post_id=false) {
+        $orders = $this->get_customers_by_product_query($post_id);
         if ($orders){
             return $orders->post_count;
         }else{
@@ -694,8 +694,8 @@ class Functions {
         }
     }
 
-    public function get_customers_by_product_query(){
-        $order_ids = $this->get_campaign_orders_id_list();
+    public function get_customers_by_product_query($post_id=false) {
+        $order_ids = $this->get_campaign_orders_id_list($post_id);
         if( $order_ids ) {
             $args = array(
                 'post_type'         =>'shop_order',

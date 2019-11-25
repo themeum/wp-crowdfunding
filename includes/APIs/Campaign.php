@@ -959,7 +959,7 @@ class API_Campaign {
                     'end_year'      => $reward['wpneo_rewards_endyear'],
                     'no_of_items'   => $reward['wpneo_rewards_item_limit'],
                     'image'         => $image,
-                    'rewards_items' => isset($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
+                    'rewards_items' => isset($reward['wpneo_rewards_items']) && is_array($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
                 );
             }
         }
@@ -1091,8 +1091,8 @@ class API_Campaign {
             $campaign['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $campaign );
             if ($post_id) {
-                /* WC()->mailer(); //load email classes
-                do_action('wpcf_after_campaign_email', $post_id); */
+                WC()->mailer(); //load email classes
+                do_action('wpcf_after_campaign_email', $post_id);
             }
         }
 
