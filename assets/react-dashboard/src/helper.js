@@ -51,6 +51,8 @@ export const pad = (n) => {
     return (n < 10 ? "0" + n : n);
 }
 
-export const ExceptionHandler = (error) => {
-    console.log(error);
+export const ExceptionHandler = (res) => {
+    if(res.status==401) { //Unauthorize access
+        location.reload();
+    }
 }
