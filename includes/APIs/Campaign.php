@@ -1091,8 +1091,8 @@ class API_Campaign {
             $campaign['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $campaign );
             if ($post_id) {
-                /* WC()->mailer(); //load email classes
-                do_action('wpcf_after_campaign_email', $post_id); */
+                WC()->mailer(); //load email classes
+                do_action('wpcf_after_campaign_email', $post_id);
             }
         }
 
