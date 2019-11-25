@@ -14,9 +14,13 @@
     align-items: center;
     justify-content: center;
     text-decoration: none !important;
-    font-size: 16px;
+    font-size: 14px;
     position: relative;
     transition: 300ms;
+    font-weight: 400;
+    .wpcf-svg-icon{
+        fill: inherit;
+    }
     .icon-left{
         margin-right: 6px;
     }
@@ -27,7 +31,16 @@
         background: var(--wpcf-primary-color);
         border: 1px solid var(--wpcf-primary-color);
         color: #fff;
+        fill: #fff;
     }
+    
+    &.wpcf-primary-light-btn{
+        color: var(--wpcf-primary-color);
+        fill: var(--wpcf-primary-color);
+        background: var(--wpcf-primary-light-color);
+        border-color: var(--wpcf-primary-light-color);
+    }
+    
     &.wpcf-btn-sm{
         font-size: 14px;
         padding-left: 15px;
@@ -40,6 +53,7 @@
         background-color: var(--wpcf-primary-text-color);
         border-color: var(--wpcf-primary-text-color);
         color: #ffffff;
+        fill: #ffffff;
     }
     
     &.wpcf-success-btn,
@@ -47,6 +61,7 @@
         background-color: var(--wpcf-success-color);
         border-color: var(--wpcf-success-color);
         color: #ffffff;
+        fill: #ffffff;
     }
     
     &.wpcf-danger-btn,
@@ -54,16 +69,19 @@
         background-color: var(--wpcf-danger-color);
         border-color: var(--wpcf-danger-color);
         color: #ffffff;
+        fill: #ffffff;
     }
     &.wpcf-warning-btn,
     &.wpcf-btn-warning{
         background-color: var(--wpcf-warning-color);
         border-color: var(--wpcf-warning-color);
         color: #ffffff;
+        fill: #ffffff;
     }
     
     &.wpcf-link-btn{
         color: var(--wpcf-primary-color);
+        fill: var(--wpcf-primary-color);
         padding: 0;
         background: none;
         border: none;
@@ -73,45 +91,55 @@
         background: transparent;
         border: 1px solid var(--wpcf-primary-color);
         color: var(--wpcf-primary-color);
+        fill: var(--wpcf-primary-color);
         &:hover{
             background-color: var(--wpcf-primary-color);
             color: #ffffff;
+            fill: #ffffff;
         }
         &.wpcf-btn-success,
         &.wpcf-success-btn{
             color: var(--wpcf-success-color);
+            fill: var(--wpcf-success-color);
             border-color: var(--wpcf-success-color);
             &:hover{
                 background-color: var(--wpcf-success-color);
                 color: #ffffff;
+                fill: #ffffff;
             }
         }
         &.wpcf-btn-danger,
         &.wpcf-danger-btn{
             color: var(--wpcf-danger-color);
+            fill: var(--wpcf-danger-color);
             border-color: var(--wpcf-danger-color);
             &:hover{
                 background-color: var(--wpcf-danger-color);
                 color: #ffffff;
+                fill: #ffffff;
             }
         }
         &.wpcf-btn-warning,
         &.wpcf-warning-btn{
             color: var(--wpcf-warning-color);
+            fill: var(--wpcf-warning-color);
             border-color: var(--wpcf-warning-color);
             &:hover{
                 background-color: var(--wpcf-warning-color);
                 color: #ffffff;
+                fill: #ffffff;
             }
         }
         &.wpcf-btn-secondary{
             border-color: var(--wpcf-border-color);
             background: #ffffff;
             color: var(--wpcf-primary-text-color);
+            fill: var(--wpcf-primary-text-color);
             &.active,
             &:hover{
                 border-color: var(--wpcf-primary-color);
                 color: var(--wpcf-primary-color);
+                fill: var(--wpcf-primary-color);
             }
         }
     }
@@ -125,6 +153,18 @@
     .wpcf-icon-right{
         margin-left: 12px;
     }
+    
+    .wpcf-icon{
+        font-size: 13px;
+    }
+    
+    &[disabled]{
+        background: #DCDCE4;
+        border-color: #DCDCE4;
+        color: var(--wpcf-light-text-color);
+        fill: var(--wpcf-light-text-color);
+    }
+    
 }
 
 .wpcf-btn-group{
@@ -134,5 +174,47 @@
     .wpcf-btn{
         margin-top: 10px;
         margin-left: 10px;
+    }
+}
+
+
+.wpcf-form-next-prev{
+    display: block;
+    overflow: hidden;
+    margin-top: 30px;
+    button{
+        float: left;
+        border: 1px solid var(--wpcf-border-color);
+        line-height: 26px;
+        padding: 8px 16px;
+        font-size: 14px;
+        color: var(--wpcf-primary-color);
+        fill: var(--wpcf-primary-color);
+        display: inline-flex;
+        align-items: center;
+        &:not(:last-child){
+            border-right: none;
+        }
+        span + span{
+            margin-left: 9px;
+        }
+        &:first-child{
+            border-radius: 4px 0 0 4px;
+        }
+        &:last-child{
+            border-radius: 0 4px 4px 0;
+        }
+        .wpcf-icon{
+            font-size: 18px;
+            fill: inherit;
+        }
+        &[disabled]{
+            color: var(--wpcf-light-text-color);
+            fill: var(--wpcf-light-text-color);
+            span{
+                color: var(--wpcf-light-text-color);
+                fill: var(--wpcf-light-text-color);
+            }
+        }
     }
 }

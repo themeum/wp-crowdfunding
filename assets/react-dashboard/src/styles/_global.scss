@@ -49,3 +49,18 @@ a{
         color: var(--wpcf-primary-color);
     }
 }
+
+.wpcf-svg-icon{
+    font-size: inherit;
+    height: 1em;
+    width: 1em;
+    display: inline-flex;
+    fill: #ADAECF;
+    svg{
+        flex-grow: 1;
+        path{
+            fill: inherit;
+        }
+    }
+}
+

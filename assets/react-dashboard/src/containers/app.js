@@ -15,6 +15,7 @@ import ProfileSettings from './profileSettings';
 import WithdrawMethodSettings from './withdrawMethodSettings';
 import Rewards from './rewards';
 import '../styles/style.scss';
+import Icon from '../components/Icon'
 
 class App extends Component {
     state = {
@@ -75,11 +76,11 @@ class App extends Component {
                             <span>{data.user_email}</span>
                         </div>
                         <ul className="wpcf-dashboard-permalinks">
-                            <li><NavLink exact activeClassName="is-active" to="/"><span className="fas fa-home wpcf-icon"/>{ __('Dashboard', 'wp-crowdfunding') }</NavLink></li>
-                            <li><NavLink activeClassName="is-active" to="/profile"><span className="far fa-user wpcf-icon"/>{ __('My Profile', 'wp-crowdfunding') }</NavLink>
+                            <li><NavLink exact activeClassName="is-active" to="/"><Icon name="home" className="wpcf-icon"/>{ __('Dashboard', 'wp-crowdfunding') }</NavLink></li>
+                            <li><NavLink activeClassName="is-active" to="/profile"><Icon name="user" className="wpcf-icon"/>{ __('My Profile', 'wp-crowdfunding') }</NavLink>
                             </li>
                             <li className={(this.state.myCampainsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
-                                <a 
+                                <a
                                     href="javascript:void(0)"
                                     onClick={
                                         () => {
@@ -87,11 +88,15 @@ class App extends Component {
                                                 myCampainsCollapse : !this.state.myCampainsCollapse
                                             })
                                         }
-                                    } 
+                                    }
                                 >
-                                    <span className="far fa-paper-plane wpcf-icon" />
+                                    <Icon name="plane" className="wpcf-icon"/>
                                     { __('Campaigns', 'wp-crowdfunding') }
-                                    <span className={"wpcf-float-icon fas fa-angle-" + (this.state.myCampainsCollapse ? 'up' : 'down')} />
+
+                                    {
+                                        this.state.myCampainsCollapse ? <Icon className="wpcf-float-icon" name="angleUp"/> : <Icon className="wpcf-float-icon" name="angleDown"/>
+                                    }
+
                                 </a>
                                 <ul className=" wpcf-dashboard-sub-permalinks">
                                     <li><NavLink activeClassName="is-active" to="/my-campaigns">{ __('My Campaigns', 'wp-crowdfunding') }</NavLink></li>
@@ -102,9 +107,9 @@ class App extends Component {
                                     {WPCF.active_pro && <li><NavLink activeClassName="is-active" to="/withdraw">{ __('Withdraw', 'wp-crowdfunding') }</NavLink></li> }
                                 </ul>
                             </li>
-                            <li><NavLink activeClassName="is-active" to="/rewards"><span className="fas fa-gift wpcf-icon"></span>{ __('Rewards', 'wp-crowdfunding') }</NavLink></li>
+                            <li><NavLink activeClassName="is-active" to="/rewards"><Icon name="gift" className="wpcf-icon"/>{ __('Rewards', 'wp-crowdfunding') }</NavLink></li>
                             <li className={(this.state.userSettingsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
-                                <a 
+                                <a
                                     href="javascript:void(0)"
                                     onClick={
                                         () => {
@@ -112,11 +117,14 @@ class App extends Component {
                                                 userSettingsCollapse : !this.state.userSettingsCollapse
                                             })
                                         }
-                                    } 
+                                    }
                                 >
-                                    <span className="wpcf-icon fas fa-sliders-h"></span>
+                                    <Icon name="cog" className="wpcf-icon" />
                                     { __('User Settings', 'wp-crowdfunding') }
-                                    <span className={"wpcf-float-icon fas fa-angle-" + (this.state.userSettingsCollapse ? 'up' : 'down')} />
+
+                                    {
+                                        this.state.userSettingsCollapse ? <Icon className="wpcf-float-icon" name="angleUp"/> : <Icon className="wpcf-float-icon" name="angleDown"/>
+                                    }
                                 </a>
                                 <ul className=" wpcf-dashboard-sub-permalinks">
                                     <li><NavLink activeClassName="is-active" to="/settings/profile">{ __('Profile Settings', 'wp-crowdfunding') }</NavLink></li>
