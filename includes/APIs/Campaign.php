@@ -305,7 +305,7 @@ class API_Campaign {
                     'title'     => __("Image Upload *","wp-crowdfunding"),
                     'desc'      => __("Dimention Should be 560x340px ; Max Size : 5MB","wp-crowdfunding"),
                     'button'    => __('Add More Image', 'wp-crowdfunding'),
-                    'icon'     => 'png',
+                    'icon'     => 'plus',
                     'is_media'  => true,
                     'multiple'  => true,
                     'required'  => true,
@@ -684,17 +684,17 @@ class API_Campaign {
         $default_fields = array(
             array(
                 'title'     => __("Giving Thanks", "wp-crowdfunding"),
-                'icon'      => '',
+                'icon'      => 'upload',
                 'show'      => true
             ),
             array(
                 'title'     => __("Digital Goods", "wp-crowdfunding"),
-                'icon'      => '',
+                'icon'      => 'cart',
                 'show'      => true
             ),
             array(
                 'title'     => __("Physical Goods", "wp-crowdfunding"),
-                'icon'      => '',
+                'icon'      => 'cart',
                 'show'      => true
             )
         );
