@@ -7,6 +7,7 @@ import RenderRewardFields from './fields/Reward';
 import PreviewReward from './preview/Reward';
 import PageControl from './Control';
 import Preview from "./preview/Preview";
+import Icon from './Icon'
 
 const formName = "campaignForm";
 const sectionName = "rewards";
@@ -138,7 +139,7 @@ class Reward extends Component {
 														key={index}
 														className="wpcf-rewards-option"
 														onClick={() => this._addReward( item.title )}>
-														<span className="fas fa-shopping-cart"></span>
+															<Icon name={item.icon}/>
 														<p>{item.title}</p>
 													</div>
 												)}
@@ -177,23 +178,19 @@ class Reward extends Component {
 												{item.title && <h6>{item.title}</h6>}
 												{item.description && <p>{item.description}</p>}
 												<div className="wpcf-reward-item-overlay">
-													<span className="fa fa-trash" onClick={() => this._deleteReward(index)}/>
-													<span className="fa fa-pencil" onClick={() => this._editReward(index)}/>
+													<Icon tabIndex="0" name="delete" onClick={() => this._deleteReward(index)}/>
+													<Icon tabIndex="0" name="pen" onClick={() => this._editReward(index)}/>
 												</div>
 											</div>
 										)
 									})
 								}
 								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._onClickPlus()}>
-									<span className="fa fa-plus"/>
+									<Icon name="plus"/>
 								</div>
 							</div>
 						</div>
-
-						<PageControl
-                            current={current}
-                            prevStep={prevStep}
-                            lastStep={lastStep}/>
+						<PageControl current={current} prevStep={prevStep} lastStep={lastStep} />
 					</form>
 				</div>
 				<div className='col-md-5'>

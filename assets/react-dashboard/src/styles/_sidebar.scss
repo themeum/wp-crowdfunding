@@ -51,22 +51,27 @@
                 display: flex;
                 align-items: center;
                 color: var(--wpcf-primary-text-color);
+                fill: var(--wpcf-primary-text-color);
                 text-decoration: none !important;
                 span.wpcf-icon{
                     flex: 0 0 20px;
                     text-align: center;
                     font-size: 17px;
                     margin-right: 19px;
+                    fill: inherit;
                 }
                 span.wpcf-float-icon{
                     margin-left: auto;
+                    font-size: 12px;
                 }
                 &.is-active{
                     color: var(--wpcf-primary-color);
+                    fill: var(--wpcf-primary-color);
                 }
                 &:hover{
                     background: #f2f6ff;
                     color: var(--wpcf-primary-color);
+                    fill: var(--wpcf-primary-color);
                 }
             }
             ul{
@@ -84,6 +89,7 @@
             &.wpcf-collapse {
                 > a{
                     color: var(--wpcf-primary-color);
+                    fill: var(--wpcf-primary-color);
                 }
                 > ul{
                     display: block;

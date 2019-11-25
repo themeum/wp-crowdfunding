@@ -9,6 +9,7 @@ import PageControl from './Control';
 import Preview from "./preview/Preview";
 import PreviewBasic from "./preview/Basic";
 import PreviewEmpty from "./preview/Empty";
+import Icon from "./Icon"
 
 const formName = "campaignForm";
 const sectionName = "team";
@@ -145,7 +146,7 @@ class Team extends Component {
 										}
 										{ editMember !== -1 ?
 											<button type="button" className="wpcf-btn wpcf-btn-round" onClick={() => this._updateMember()}>{ __('Update Member', 'wp-crowdfunding') }</button> :
-											<button type="button" className="wpcf-btn wpcf-btn-round" onClick={() => this._addMember()} disabled={!id}><span className="fa fa-plus wpcf-icon"/>{ __('Add Member', 'wp-crowdfunding') }</button>
+											<button type="button" className="wpcf-btn wpcf-btn-round" onClick={() => this._addMember()} disabled={!id}><Icon name="plus" className="wpcf-icon"/>{ __('Add Member', 'wp-crowdfunding') }</button>
 										}
 									</form>
 								</div>
