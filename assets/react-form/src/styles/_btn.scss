@@ -206,12 +206,14 @@
 		}
 		.wpcf-icon{
 			font-size: 18px;
+			fill: inherit;
 		}
 		&[disabled]{
 			color: var(--wpcf-light-text-color);
 			fill: var(--wpcf-light-text-color);
 			span{
 				color: var(--wpcf-light-text-color);
+				fill: var(--wpcf-light-text-color);
 			}
 		}
 	}

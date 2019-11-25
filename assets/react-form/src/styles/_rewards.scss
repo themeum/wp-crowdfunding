@@ -26,11 +26,13 @@
 			display: block;
 			margin: 0 auto 20px;
 			color: var(--wpcf-light-text-color);
+			fill: var(--wpcf-light-text-color);
 		}
 		&.active {
 			border-color: var(--wpcf-success-color);
 			span, p{
 				color: var(--wpcf-success-color);
+				fill: var(--wpcf-success-color);
 			}
 		}
 	}
@@ -90,10 +92,12 @@
 				justify-content: center;
 				background: rgba(5, 5, 5, 0.60);
 				color: #fff;
+				fill: #fff;
 				opacity: 0;
 				transition: 300ms;
 				span{
-					font-size: 14px;
+					fill: inherit;
+					font-size: 24px;
 					padding: 4.5px;
 					cursor: pointer;
 				}
