@@ -7,7 +7,6 @@ import { reduxForm,  getFormValues, change as changeFieldValue } from 'redux-for
 import { fetchUser } from '../actions';
 import PageControl from './Control';
 import Preview from "./preview/Preview";
-import PreviewBasic from "./preview/Basic";
 import PreviewEmpty from "./preview/Empty";
 import Icon from "./Icon"
 
@@ -41,12 +40,11 @@ class Team extends Component {
             	if(index === -1) {
 					emailInputMsg = __('Searching...', 'wp-crowdfunding');
 					this.props.fetchUser(value).then( response => {
-						this.setState({
-							member: response.user,
-							emailInputMsg: response.message
-						});
-					})
-					.catch( error => console.log(error));
+						this.setState({ emailInputMsg: response.message });
+						if(response.success) {
+							this.setState({ member: response.user });
+						}
+					});
 				} else {
 					emailInputMsg = __('Member already added', 'wp-crowdfunding');
 				}
@@ -58,6 +56,7 @@ class Team extends Component {
 				this.setState({editMember:-1});
 			}
 		}
+		member.id = null;
 		this.setState({member, emailInputMsg});
 	}
 
@@ -111,8 +110,8 @@ class Team extends Component {
 											</div>
 										</div>
 
-										{
-											id !== "" && <Fragment>
+										{ id && 
+											<Fragment>
 												<div className='wpcf-form-group'>
 													<label className='wpcf-field-title'>{ __('Collaborator Name', 'wp-crowdfunding') }</label>
 													<div>

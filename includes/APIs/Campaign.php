@@ -650,7 +650,6 @@ class API_Campaign {
         $response = array(
             'success' => false,
             'message' => __('Please enter registered email', 'wp-crowdfunding'),
-            'user' => array('id'=>'', 'name'=>'', 'email'=>$email, 'image'=>'', 'manage'=>false, 'edit'=>false)
         );
         if ($user) {
             if($user_id===$user->ID) {
