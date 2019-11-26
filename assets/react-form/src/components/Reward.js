@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { uploadFiles, removeArrValue  } from '../Helper';
-import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
+import { FieldArray, reduxForm, getFormValues, isValid, touch as touchAction, change as changeFieldValue, setSubmitFailed as setSubmitFailedAction } from 'redux-form';
 import RenderRewardFields from './fields/Reward';
 import PreviewReward from './preview/Reward';
 import PageControl from './Control';
@@ -70,8 +70,8 @@ class Reward extends Component {
 	}
 
 	_addReward(type) {
-		const { formValues: {rewards} } = this.props;
-		rewards = [ ...rewards ];
+		const { formValues } = this.props;
+		const rewards = [ ...formValues.rewards ];
 		rewards.push({type}); //push item
 		this.props.changeFieldValue(formName, sectionName, rewards);
 		const selectedItem = rewards.length-1;
@@ -79,7 +79,14 @@ class Reward extends Component {
 	}
 
 	_editReward(index) {
-		this.setState({openForm: true, selectedItem: index})
+		const { valid, touchAction, setSubmitFailedAction } = this.props;
+		if(!valid) {
+			const rewardFieldNames = this.getReqFieldNames();
+			touchAction(formName, ...rewardFieldNames);
+			setSubmitFailedAction(formName, ...rewardFieldNames);
+		} else {
+			this.setState({openForm: true, selectedItem: index});
+		}
 	}
 
 	_deleteReward(index) {
@@ -92,28 +99,30 @@ class Reward extends Component {
 	}
 
 	_onClickPlus() {
-		const { formValues: {rewards} } = this.props;
-		const { selectedItem, requiredFields, openForm } = this.state;
-		const selectedReward = rewards[selectedItem];
-		const rewardFields = Object.keys(selectedReward);
-		if(!openForm) { return false; }
-		let index=0, validate = true;
+		const { openForm } = this.state;
+		const { valid, touchAction, setSubmitFailedAction } = this.props;
+		const rewardFieldNames = this.getReqFieldNames();
+		if(openForm) {
+			touchAction(formName, ...rewardFieldNames);
+			if(valid) {
+				this.setState({openForm: false});
+			} else {
+				setSubmitFailedAction(formName, ...rewardFieldNames);
+			}
+		}
+	}
+
+	getReqFieldNames() {
+		const { selectedItem, requiredFields } = this.state;
+		let index=0;
+		const rewardFieldNames = [];
 		while(index<requiredFields.length) {
 			const reqField = requiredFields[index];
-			if(rewardFields.includes(reqField)) {
-				if(selectedReward[reqField]=='') {
-					validate=false;
-					break;
-				}
-			} else {
-				validate=false;
-				break;
-			}
+			const fieldName = `${sectionName}[${selectedItem}].${reqField}`;
+			rewardFieldNames.push(fieldName);
 			index++;
 		}
-		if(validate) {
-			this.setState({openForm: false});
-		}
+		return rewardFieldNames;
 	}
 
 	render() {
@@ -209,13 +218,16 @@ class Reward extends Component {
 const mapStateToProps = state => ({
     rewardTypes: state.data.reward_types,
 	rewardFields: state.data.reward_fields,
-	formValues: getFormValues(formName)(state)
+	formValues: getFormValues(formName)(state),
+	valid: isValid(formName)(state),
 });
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         getFormValues,
-        changeFieldValue
+		changeFieldValue,
+		touchAction,
+		setSubmitFailedAction
     }, dispatch);
 }
 

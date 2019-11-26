@@ -19,7 +19,7 @@ const RenderRewardFields = (props) => {
                     </div>
                     { changeType && rewardTypes.map((item, index) =>
                         <label key={index}>
-                            <input type='radio' name="type" value={index} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
+                            <input type='radio' name="type" value={item.title} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
                         </label>
                     )}
                 </div>
