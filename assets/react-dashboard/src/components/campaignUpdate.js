@@ -4,11 +4,12 @@ import { saveCampaignUpdates } from '../actions/campaignAction';
 import ToastAlert from './toastAlert';
 import DatePicker from './datePicker';
 import Header from "./header";
+import Icon from './Icon'
 
 class CampaignUpdate extends Component {
-    state = { 
-        campaignId: this.props.campaignId, 
-        updates: this.props.updates 
+    state = {
+        campaignId: this.props.campaignId,
+        updates: this.props.updates
     }
 
     componentDidUpdate(prevProps) {
@@ -52,7 +53,7 @@ class CampaignUpdate extends Component {
             <Fragment>
                 <Header title={"Updates"}>
                     <button className="wpcf-btn wpcf-link-btn" onClick={ () => this.props.onClickUpdates( '', '' ) }>
-                        <span className="wpcf-icon fas fa-long-arrow-alt-left"></span>
+                        <Icon className="wpcf-icon" name="arrowLeft"/>
                         Go Back My Campaigns
                     </button>
                 </Header>
@@ -74,7 +75,7 @@ class CampaignUpdate extends Component {
                                         <textarea name="details" value={ item.details } onChange={ (e) => this.onChangeInput(e, index) } required placeholder="Update description"/>
                                     </div>
                                     <button className="wpcf-btn wpcf-btn-round wpcf-btn-outline wpcf-btn-danger wpcf-btn-sm" type="button" onClick={ () => this.removeItem(index) }>
-                                        <span className="far fa-trash-alt wpcf-icon"></span> Remove</button>
+                                        <Icon className="wpcf-icon" name="trash"/> Remove</button>
                                 </div>
                         )}
 

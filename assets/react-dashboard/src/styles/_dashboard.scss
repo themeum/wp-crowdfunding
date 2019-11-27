@@ -2,6 +2,10 @@
     display: flex;
     margin-bottom: 20px;
     margin-left: -20px;
+    margin-top: -20px;
+    @include media(md){
+        flex-wrap: wrap;
+    }
     .wpcf-dashboard-info-card{
         font-size: 16px;
         padding: 28px 25px 22px;
@@ -11,6 +15,11 @@
         margin-left: 20px;
         font-weight: 400;
         flex-grow: 1;
+        margin-top: 20px;
+        @include media(md){
+            flex-basis: calc(50% - 20px);
+            max-width: calc(50% - 20px);
+        }
         h3{
             font-size: 32px;
             margin-bottom: 2px;
@@ -30,23 +39,32 @@
             }
         }
     }
+    
 }
 
 .wpcf-report-header{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    align-items: center;
+    margin-bottom: 12px;
 }
 
 .wpcf-report-filter{
+    display: flex;
+    align-items: center;
+    margin-left: -12px;
+    > span,
+    > input,
+    > .wpcf-report-export-btn{
+        margin-left: 12px;
+        margin-bottom: 8px;
+    }
+    .wpcf-report-export-btn{
+        margin-left: auto;
+    }
     span,
     input{
         height: 45px;
         padding: 0 20px;
         border: 1px solid var(--wpcf-border-color);
         border-radius: 30px;
-        margin-right: 12px;
         color: var(--wpcf-primary-text-color);
         font-size: 16px;
         &::placeholder{

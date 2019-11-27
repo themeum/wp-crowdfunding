@@ -8,12 +8,13 @@ import PledgeReports from '../components/pledgeReports';
 import ExportCSV from '../components/exportCSV';
 import Header from '../components/header'
 import Skeleton from '../components/skeleton'
+import Icon from '../components/Icon'
 
 class CampaignReport extends Component {
     static defaultProps = {
         campaign: { id: '', name: ''}
     }
-    
+
     state  = {
         query_args: {
             date_range: 'last_7_days',
@@ -65,7 +66,7 @@ class CampaignReport extends Component {
                 <Header title={this.props.campaign.name ? ( "Showing Report for " + this.props.campaign.name ) : "Dashboard"}>
                     {this.props.campaign.name && (
                         <button className="wpcf-btn wpcf-link-btn" onClick={ () => this.props.onClickBack({id:'',name:''}) }>
-                            <span className="wpcf-icon fas fa-long-arrow-alt-left"></span>
+                            <Icon className="wpcf-icon" name="arrowLeft"/>
                             Go Back My Campaigns
                         </button>
                     )}
@@ -119,9 +120,9 @@ class CampaignReport extends Component {
                                     )}
                                 </select>
                             </span>
-                        </div>
-                        <div className="wpcf-report-export-btn">
-                            <ExportCSV data={csv} file_name="campaigns-report"/>
+                            <div className="wpcf-report-export-btn">
+                                <ExportCSV data={csv} file_name="campaigns-report"/>
+                            </div>
                         </div>
                     </div>
                     <LineGraph format={ format } label={ label }/>

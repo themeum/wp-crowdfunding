@@ -39,21 +39,31 @@
 		display: flex;
 		justify-content: space-between;
 		.wpcf-campaign-links{
+			display: flex;
+			align-items: flex-start;
 			white-space: nowrap;
 			a,
 			button{
 				border: none;
 				padding: 0;
+				padding-left: 12px;
+				font-size: 18px;
 				margin: 0;
 				background: none;
 				color: var(--wpcf-light-text-color);
+				fill: var(--wpcf-light-text-color);
 				transition: 300ms;
-				padding-left: 12px;
+				display: inline-flex;
+				align-items: flex-start;
+				.wpcf-svg-icon{
+					fill: inherit;
+				}
 				&:not(:last-child){
 					padding-right: 12px;
 				}
 				&:hover{
 					color: var(--wpcf-primary-color);
+					fill: var(--wpcf-primary-color);
 				}
 			}
 		}

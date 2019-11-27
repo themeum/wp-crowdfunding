@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from "./header";
+import Icon from './Icon'
 
 
 function getStatusColor(status) {
@@ -25,7 +26,7 @@ export default (props) => {
         <div>
             <Header title={"Order #" + data.id} subtitle={"Created " + data.formatted_c_date}>
                 <button className="wpcf-btn wpcf-link-btn" onClick={ () => props.onClickBack( '' ) }>
-                    <span className="wpcf-icon fas fa-long-arrow-alt-left"></span>
+                    <Icon className="wpcf-icon" name="arrowLeft"/>
                     Go Back Order
                 </button>
             </Header>

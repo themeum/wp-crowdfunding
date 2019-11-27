@@ -131,7 +131,7 @@ class App extends Component {
                                     {WPCF.active_pro && <li><NavLink activeClassName="is-active" to="/settings/withdraw">{ __('Withdraw Method', 'wp-crowdfunding') }</NavLink></li>}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)" onClick={this.logout}><span className="wpcf-icon fas fa-sign-out-alt"></span>{ __('Logout', 'wp-crowdfunding') }</a></li>
+                            <li><a href="javascript:void(0)" onClick={this.logout}><Icon name="logout" className="wpcf-icon" />{ __('Logout', 'wp-crowdfunding') }</a></li>
                         </ul>
                     </div>
                     <div className="wpcf-dashboard-content">

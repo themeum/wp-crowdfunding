@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { decodeEntities } from "../helper";
+import Icon from "../components/Icon";
 
 const Header = props => {
     return (
@@ -9,7 +10,7 @@ const Header = props => {
                     {props.children}
                 </div>
                 <a className="wpcf-btn wpcf-btn-round" href={WPCF.create_campaign}>
-                    <span className="wpcf-icon fas fa-plus"></span>
+                    <Icon className="wpcf-icon" name="plus"/>
                     Create Campaign
                 </a>
             </div>

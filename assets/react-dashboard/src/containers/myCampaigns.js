@@ -9,6 +9,7 @@ import CampaignUpdate from '../components/campaignUpdate';
 import Pagination from '../components/pagination';
 import Header from '../components/header';
 import Skeleton from '../components/skeleton'
+import Icon from '../components/Icon'
 
 class MyCampaigns extends Component {
     state = {
@@ -61,7 +62,7 @@ class MyCampaigns extends Component {
                     label: 'No'
                 }
             ],
-            /* childrenElement: () => 
+            /* childrenElement: () =>
             <div className="wpcf-campaign-links">
                 <a title="Edit"><i className="far fa-edit"></i></a>
             </div>, */
@@ -107,7 +108,7 @@ class MyCampaigns extends Component {
 
         return (
             <Fragment>
-                <Header title={"My Campaigns"}></Header>
+                <Header title={"My Campaigns"} />
                 <div className='wpcf-mycampaign-filter-group wpcf-btn-group'>
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</button>
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='pending'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Pending</button>
@@ -122,22 +123,22 @@ class MyCampaigns extends Component {
                                     { item.access.manage ? (
                                         <div className="wpcf-campaign-links">
                                             <button aria-label="Report" title="Report" onClick={ () => this.onClickReport({id:item.id, name:item.title}) }>
-                                                <span className="fas fa-chart-bar"></span>
+                                                <Icon name="graph"/>
                                             </button>
                                             <button aria-label="Updates" title="Updates" onClick={ () => this.onClickUpdates(item.id, item.updates) }>
-                                                <i className="fas fa-sync"></i>
+                                                <Icon name="update"/>
                                             </button>
                                             <a href={item.edit_link} aria-label="Edit" title="Edit">
-                                                <i className="far fa-edit"></i>
+                                                <Icon name="pen"/>
                                             </a>
                                             <button aria-label="Delete" title="Delete" onClick={ () => this.onClickDelete(item.id) }>
-                                                <span className="fas fa-trash-alt"></span>
+                                                <Icon name="trash"/>
                                             </button>
                                         </div>
                                     ) : item.access.edit ? (
                                         <div className="wpcf-campaign-links">
                                             <a href={item.edit_link} aria-label="Edit" title="Edit">
-                                                <i className="far fa-edit"></i>
+                                                <Icon name="pen"/>
                                             </a>
                                         </div>
                                     ) : ''}
