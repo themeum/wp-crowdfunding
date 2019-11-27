@@ -6,9 +6,23 @@
 	border-radius: 4px;
 	margin-bottom: 20px;
 	position: relative;
+	
+	@include media(xs_md){
+		flex-wrap: wrap;
+	}
 	.wpcf-myprofile-avatar {
 		flex: 0 0 auto;
 		margin-right: 30px;
+		@include media(xs_md){
+			flex: 0 0 100%;
+			margin-right: 0px;
+			margin-bottom: 30px;
+		}
+		@include media(xs){
+			flex: 0 0 100%;
+			margin-right: 0px;
+			margin-bottom: 30px;
+		}
 		img{
 			border-radius: 50%;
 			width: 100px;
@@ -19,6 +33,10 @@
 		flex-grow: 1;
 		display: inline-flex;
 		align-items: flex-start;
+		@include media(xs_md){
+			flex-wrap: wrap;
+			margin-right: 0px;
+		}
 		.wpcf-profile-edit-btn{
 			margin-left: auto;
 			padding: 0;
@@ -28,6 +46,11 @@
 		}
 		.wpcf-myprofile-country{
 			margin-left: 60px;
+			@include media(xs_md){
+				margin-left: 0px;
+				margin-top: 30px;
+				flex: 0 0 100%;
+			}
 		}
 		
 		.wpcf-myprofile-name-email span{
@@ -78,6 +101,9 @@
 				font-size: 16px;
 				font-weight: 500;
 				min-width: 155px;
+				@include media(sm){
+					min-width: 120px;
+				}
 			}
 			&:not(:last-child){
 				margin-bottom: 30px;

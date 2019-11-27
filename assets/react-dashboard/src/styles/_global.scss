@@ -11,6 +11,7 @@
 }
 
 $sidebar_width: 255px;
+$sidebar_width_sm: 230px;
 
 #wpcf-dashboard{
     font-family: var(--wpcf-font-family);
@@ -33,6 +34,14 @@ $sidebar_width: 255px;
 .wpcf-dashboard-sidebar{
     flex: 0 0 $sidebar_width;
     max-width: $sidebar_width;
+    @include media(md){
+        flex: 0 0 $sidebar_width_sm;
+        max-width: $sidebar_width_sm;
+    }
+    @include media(xs_sm){
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 
 .wpcf-dashboard-content{
@@ -40,6 +49,18 @@ $sidebar_width: 255px;
     max-width: calc(100% - #{$sidebar_width});
     padding-left: 30px;
     padding-top: 30px;
+    @include media(md){
+        flex: 1 0 calc(100% - #{$sidebar_width_sm});
+        max-width: calc(100% - #{$sidebar_width_sm});
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+    @include media(xs_sm){
+        flex: 1 0 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-top: 20px;
+    }
 }
 
 a{

@@ -115,7 +115,7 @@ class MyCampaigns extends Component {
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='draft'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Draft</button>
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</button>
                 </div>
-                <div className="wpcf-dashboard-content-inner">
+                <div className="wpcf-dashboard-content-inner wpcf-mycampaign">
                     { campaignData.length ?
                         <Fragment>
                             { pageOfItems.map( (item, index) =>
