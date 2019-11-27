@@ -31,7 +31,6 @@ export const uploadFiles = (type, sFiles, multiple) => {
                     mime: file.mime,
                     thumb: (type == 'image') ? file.sizes.thumbnail.url : '',
                 });
-                console.log(file)
             }
             resolve(selectedFiles);
         });

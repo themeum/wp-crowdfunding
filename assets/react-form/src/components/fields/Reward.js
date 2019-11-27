@@ -13,13 +13,13 @@ const RenderRewardFields = (props) => {
                 <div className='wpcf-selected-reward-type'>
                     <div className='wpcf-field-title'>
                         {(rewards[selectedItem].type) &&
-                            rewardTypes[rewards[selectedItem].type].title
+                            rewards[selectedItem].type
                         }
                         <button type="button" onClick={() => setChangeType(true)}>Change</button>
                     </div>
                     { changeType && rewardTypes.map((item, index) =>
                         <label key={index}>
-                            <input type='radio' name="type" value={index} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
+                            <input type='radio' name="type" value={item.title} onClick={(e) => { onChangeType(e); setChangeType(false) }}/> {item.title}
                         </label>
                     )}
                 </div>

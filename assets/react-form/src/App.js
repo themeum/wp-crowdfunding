@@ -62,7 +62,7 @@ class App extends Component {
 		}
 
 		const formSteps = Object.keys(steps);
-		const lastStep = current+1==formSteps.length;
+		const lastStep = current+1==formSteps.length; //is last step
 
 		return (
 			<Fragment>

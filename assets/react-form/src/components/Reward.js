@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { uploadFiles, removeArrValue  } from '../Helper';
-import { FieldArray, reduxForm, getFormValues, change as changeFieldValue } from 'redux-form';
+import { FieldArray, reduxForm, getFormValues, isValid, touch as touchAction, change as changeFieldValue, setSubmitFailed as setSubmitFailedAction } from 'redux-form';
 import RenderRewardFields from './fields/Reward';
 import PreviewReward from './preview/Reward';
 import PageControl from './Control';
@@ -15,9 +15,10 @@ class Reward extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedType: 0,
 			selectedItem: 0,
+			requiredFields: [],
 			openForm: false,
+			validate: false,
 		}
         this._changeType = this._changeType.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
@@ -25,6 +26,27 @@ class Reward extends Component {
         this._addReward = this._addReward.bind(this);
         this._editReward = this._editReward.bind(this);
         this._deleteReward = this._deleteReward.bind(this);
+        this._onClickPlus = this._onClickPlus.bind(this);
+	}
+
+	componentDidMount() {
+		let requiredFields = [];
+		const { rewardFields } = this.props;
+		Object.keys(rewardFields).map( key => {
+			const field = rewardFields[key];
+			if(field.type=='form_group') {
+				Object.keys(field.fields).map( k => {
+					if(field.fields[k].required) {
+						requiredFields.push(k);
+					}
+				});
+			} else {
+				if(field.required) {
+					requiredFields.push(key);
+				}
+			}
+		});
+		this.setState({requiredFields});
 	}
 
 	_uploadFile(type, field, sFiles, multiple) {
@@ -47,17 +69,24 @@ class Reward extends Component {
         this.props.changeFieldValue(formName, field, values);
 	}
 
-	_addReward() {
-		const { selectedType } = this.state;
-		let { formValues: {rewards} } = this.props;
-		rewards = [ ...rewards ]; rewards.push({type:selectedType});
+	_addReward(type) {
+		const { formValues } = this.props;
+		const rewards = [ ...formValues.rewards ];
+		rewards.push({type}); //push item
 		this.props.changeFieldValue(formName, sectionName, rewards);
 		const selectedItem = rewards.length-1;
 		this.setState({ openForm: true, selectedItem});
 	}
 
 	_editReward(index) {
-		this.setState({openForm: true, selectedItem: index})
+		const { valid, touchAction, setSubmitFailedAction } = this.props;
+		if(!valid) {
+			const rewardFieldNames = this.getReqFieldNames();
+			touchAction(formName, ...rewardFieldNames);
+			setSubmitFailedAction(formName, ...rewardFieldNames);
+		} else {
+			this.setState({openForm: true, selectedItem: index});
+		}
 	}
 
 	_deleteReward(index) {
@@ -69,8 +98,35 @@ class Reward extends Component {
 		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
+	_onClickPlus() {
+		const { openForm } = this.state;
+		const { valid, touchAction, setSubmitFailedAction } = this.props;
+		const rewardFieldNames = this.getReqFieldNames();
+		if(openForm) {
+			touchAction(formName, ...rewardFieldNames);
+			if(valid) {
+				this.setState({openForm: false});
+			} else {
+				setSubmitFailedAction(formName, ...rewardFieldNames);
+			}
+		}
+	}
+
+	getReqFieldNames() {
+		const { selectedItem, requiredFields } = this.state;
+		let index=0;
+		const rewardFieldNames = [];
+		while(index<requiredFields.length) {
+			const reqField = requiredFields[index];
+			const fieldName = `${sectionName}[${selectedItem}].${reqField}`;
+			rewardFieldNames.push(fieldName);
+			index++;
+		}
+		return rewardFieldNames;
+	}
+
 	render() {
-		const { openForm, selectedType, selectedItem } = this.state;
+		const { openForm, selectedItem } = this.state;
 		const { rewardTypes, rewardFields, formValues: {rewards}, handleSubmit, current, prevStep, lastStep } = this.props;
 		const { options: months } = rewardFields.estimate_delivery.fields.end_month;
 		return (
@@ -90,10 +146,9 @@ class Reward extends Component {
 												{rewardTypes.map((item, index) =>
 													<div
 														key={index}
-														className={`wpcf-rewards-option ${(selectedType == index) ? 'active':''}`}
-														onClick={() => this.setState({selectedType: index})}>
-														<Icon name={item.icon}/>
-														{/*<span className="fas fa-shopping-cart"></span>*/}
+														className="wpcf-rewards-option"
+														onClick={() => this._addReward( item.title )}>
+															<Icon name={item.icon}/>
 														<p>{item.title}</p>
 													</div>
 												)}
@@ -139,7 +194,7 @@ class Reward extends Component {
 										)
 									})
 								}
-								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._addReward()}>
+								<div className="wpcf-reward-item wpcf-reward-item-empty" onClick={() => this._onClickPlus()}>
 									<Icon name="plus"/>
 								</div>
 							</div>
@@ -163,13 +218,16 @@ class Reward extends Component {
 const mapStateToProps = state => ({
     rewardTypes: state.data.reward_types,
 	rewardFields: state.data.reward_fields,
-	formValues: getFormValues(formName)(state)
+	formValues: getFormValues(formName)(state),
+	valid: isValid(formName)(state),
 });
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         getFormValues,
-        changeFieldValue
+		changeFieldValue,
+		touchAction,
+		setSubmitFailedAction
     }, dispatch);
 }
 

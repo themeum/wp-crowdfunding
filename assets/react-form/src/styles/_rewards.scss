@@ -28,7 +28,7 @@
 			color: var(--wpcf-light-text-color);
 			fill: var(--wpcf-light-text-color);
 		}
-		&.active {
+		&:hover {
 			border-color: var(--wpcf-success-color);
 			span, p{
 				color: var(--wpcf-success-color);
