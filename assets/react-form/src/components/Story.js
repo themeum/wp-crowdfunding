@@ -13,11 +13,13 @@ const sectionName = "story";
 class Story extends Component {
 	constructor(props) {
 		super(props);
+		this.state = { collapseItem:{} };
 		this._addItem = this._addItem.bind(this);
         this._editItem = this._editItem.bind(this);
         this._moveItem = this._moveItem.bind(this);
         this._swapItem = this._swapItem.bind(this);
         this._removeItem = this._removeItem.bind(this);
+        this._collapseItem = this._collapseItem.bind(this);
         this._upload = this._upload.bind(this);
 	}
 
@@ -28,6 +30,13 @@ class Story extends Component {
 			newItem.push({type: item, value:''});
 		});
 		this.props.changeFieldValue(formName, sectionName, [...story, newItem]);
+		//Move to item
+		const node = document.getElementById(`wpcf-page-control`);
+		const rect = node.getBoundingClientRect();
+		window.scrollTo({
+			top: rect.top,
+			behavior: 'smooth'
+		});
 	}
 
 	_editItem(name, value) {
@@ -58,6 +67,13 @@ class Story extends Component {
 		this.props.changeFieldValue(formName, sectionName, values);
 	}
 
+	_collapseItem(index) {
+		let { collapseItem } = this.state;
+		let toggle = collapseItem.hasOwnProperty(index) ? !collapseItem[index] : true;
+		collapseItem = Object.assign({}, collapseItem, { [index]:  toggle});
+		this.setState({collapseItem});
+	}
+
 	_upload(name, type, sFiles) {
         uploadFiles(type, sFiles, false).then( (files) => {
 			this.props.changeFieldValue(formName, name, files);
@@ -65,6 +81,7 @@ class Story extends Component {
     }
 
 	render() {
+		const { collapseItem } = this.state;
 		const { tools, formValues: {story}, handleSubmit, current, prevStep, lastStep } = this.props;
 		const {postId} = this.props._reduxForm.data || 0;
 		return (
@@ -89,52 +106,61 @@ class Story extends Component {
 										)}
 									</div>
 									<div className="wpcf-story-values">
-										{ story.map((data, index) =>
-											<div key={index} className="wpcf-story-item">
-												<div className="story-item-value">
-													{ data && data.map((item, i) =>
-														<div
-															key={index+i}
-															className={"wpcf-story-column wpcf-story-column-" + data.length}
-														>
-															<RenderStoryItem
-																data={item}
-																edit={this._editItem}
-																upload={this._upload}
-																name={`${sectionName}[${index}][${i}].value`}/>
+										{ story.map((data, index) => {
+											const collapse = collapseItem.hasOwnProperty(index) ? collapseItem[index] : false;
+											const className = collapse ? 'wpcf-collapse' : 'wpcf-expand';
+											return(
+												<div key={index} className={`wpcf-story-item ${className}`}>
+													<div className="story-item-value">
+														{ data && data.map((item, i) =>
+															<div
+																key={index+i}
+																className={"wpcf-story-column wpcf-story-column-" + data.length}
+															>
+																<RenderStoryItem
+																	data={item}
+																	edit={this._editItem}
+																	upload={this._upload}
+																	name={`${sectionName}[${index}][${i}].value`}/>
+															</div>
+														)}
+													</div>
+													{ data && data.length==2 &&
+														<div className="story-item-swap">
+															<button className='story-item-swap-btn' type="button" onClick={ () => this._swapItem( index ) }>
+																<i className="fa fa-long-arrow-right"/>
+																<i className="fa fa-long-arrow-left"/>
+															</button>
 														</div>
-													)}
-												</div>
-												{ data && data.length==2 &&
-													<div className="story-item-swap">
-														<button className='story-item-swap-btn' type="button" onClick={ () => this._swapItem( index ) }>
-															<i className="fa fa-long-arrow-right"/>
-															<i className="fa fa-long-arrow-left"/>
+													}
+													<div className="story-item-control">
+														<button
+															type="button"
+															onClick={ () => this._collapseItem( index ) }>
+															C
+														</button>
+														<button
+															type="button"
+															onClick={ () => this._moveItem( index, 'top' ) }
+															disabled={index === 0}>
+															<span className="fa fa-long-arrow-up" />
+														</button>
+														<button
+															disabled={index === story.length-1 }
+															type="button"
+															onClick={ () => this._moveItem( index, 'bottom' ) } >
+															<span className="fa fa-long-arrow-down" />
+														</button>
+														<button
+															type="button"
+															className="wpcf-danger"
+															onClick={ () => this._removeItem( index ) }>
+															<span className="fas fa-trash"></span>
 														</button>
 													</div>
-												}
-												<div className="story-item-control">
-													<button
-														type="button"
-														onClick={ () => this._moveItem( index, 'top' ) }
-														disabled={index === 0}>
-														<span className="fa fa-long-arrow-up" />
-													</button>
-													<button
-														disabled={index === story.length-1 }
-														type="button"
-														onClick={ () => this._moveItem( index, 'bottom' ) } >
-														<span className="fa fa-long-arrow-down" />
-													</button>
-													<button
-														type="button"
-														className="wpcf-danger"
-														onClick={ () => this._removeItem( index ) }>
-														<span className="fas fa-trash"></span>
-													</button>
 												</div>
-											</div>
-										)}
+											)
+										})}
 									</div>
 								</div>
 							</div>
