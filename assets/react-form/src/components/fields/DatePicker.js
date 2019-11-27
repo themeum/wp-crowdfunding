@@ -27,11 +27,16 @@ class DatePicker extends Component {
                     ref={this.inputRef}
                     name={name}
                     defaultValue={value}
-                    placeholder={placeholder || ''}
+                    placeholder={placeholder}
                 />
             </Fragment>
         )
     }
 }
+
+DatePicker.defaultProps = {
+    format: 'dd-mm-yy',
+    placeholder: 'dd-mm-yyyy'
+};
 
 export default DatePicker

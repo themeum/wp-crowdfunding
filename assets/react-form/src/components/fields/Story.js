@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+import Editor from './Editor';
 
 //FIELD TYPES
 const Image = (props) => {
@@ -45,23 +45,9 @@ const TextEditor = (props) => {
     const { name, data, edit } = props;
     return (
         <Editor
-            init={{
-                menubar: false,
-                inline: false,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
-                ],
-                toolbar:
-                    'formatselect | bold italic backcolor | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent'
-            }}
-            initialValue={data.value}
-            onChange={(e) => edit(name, e.target.getContent())}
+            value={data.value}
             className="wpcf-story-texteditor"
-        />
+            onChange={(value) => edit(name, value)}/>
     );
 }
 
