@@ -172,8 +172,7 @@ const RenderField = (_props) => {
                         name={input.name}
                         value={input.value}
                         onChange={input.onChange}
-                        placeholder={item.placeholder}
-                        format="yy-mm-dd" />
+                        placeholder={item.placeholder}/>
                     {touched && error && <span>{error}</span>}
                 </div>
             )

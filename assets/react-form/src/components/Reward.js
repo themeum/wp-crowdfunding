@@ -17,8 +17,7 @@ class Reward extends Component {
 		this.state = {
 			selectedItem: 0,
 			requiredFields: [],
-			openForm: false,
-			validate: false,
+			openForm: false
 		}
         this._changeType = this._changeType.bind(this);
         this._uploadFile = this._uploadFile.bind(this);
