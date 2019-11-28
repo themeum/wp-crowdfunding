@@ -114,11 +114,11 @@ class Basic extends Component {
         this.setState({sectionCompleted});
     }
 
-    updateRequiredFields(goal_type) {
+    updateRequiredFields(gType) {
         const seciton = 'media';
         const { requiredFields } = this.state;
         const fields = ['start_date', 'end_date']
-        if(goal_type=='target_date') {
+        if(gType=='target_date') {
             fields.map(item => {
                 requiredFields[seciton].push(item);
             });

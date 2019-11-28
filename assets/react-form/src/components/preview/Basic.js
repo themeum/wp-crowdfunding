@@ -34,8 +34,9 @@ const PreviewBasic = (props) => {
     const goalType = data['goal_type'] || false;
     const fundType = data['fund_type'] || '';
     let diffDays = 0;
-    let endDate = (goalType == 'target_date' && data['end_date']) ? new Date(data['end_date']) : false;
-    if(endDate) {
+    if(goalType == 'target_date' && data['end_date']) {
+        const dArray = data['end_date'].split('-');
+        const endDate = new Date(dArray[2], dArray[1]-1, dArray[0]);
         const currentDate = new Date();
         const timeDiff = endDate.getTime() - currentDate.getTime();
         diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
