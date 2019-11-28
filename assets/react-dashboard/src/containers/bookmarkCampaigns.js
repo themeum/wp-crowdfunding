@@ -56,7 +56,7 @@ class BookmarkCampaigns extends Component {
         return (
             <div>
                 <h3>Bookmarks</h3>
-                <div className="wpcf-dashboard-content-inner">
+                <div className="wpcf-dashboard-content-inner wpcf-mycampaign">
                     { campaign.data.length ?
                         <div>
                             { pageOfItems.map( (item, index) =>

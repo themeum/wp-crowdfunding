@@ -56,42 +56,50 @@ export default (props) => {
                 <div className="wpcf-dashboard-item-wraper">
                     <h5 className="wpcf-billing-details-title">Billing Details</h5>
                     <div className="wpcf-dashboard-row">
-                        <div className="wpcf-dashboard-col">
-                            <div className="wpcf-order-details-item">
-                                <span>First Name</span>
-                                <strong>{ billing.first_name || '' }</strong>
+                        {
+                            billing.first_name && <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>First Name</span>
+                                    <strong>{ billing.first_name }</strong>
+                                </div>
                             </div>
-                        </div>
-                        <div className="wpcf-dashboard-col">
-                            <div className="wpcf-order-details-item">
-                                <span>Last Name</span>
-                                <strong>{ billing.last_name || '' }</strong>
+                        }
+                        {
+                            billing.last_name && <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Last Name</span>
+                                    <strong>{ billing.last_name  }</strong>
+                                </div>
                             </div>
-                        </div>
-                        <div className="wpcf-dashboard-col">
-                            <div className="wpcf-order-details-item">
-                                <span>Company</span>
-                                <strong>{ billing.company || '' }</strong>
+                        }
+                        {
+                            billing.company && <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Company</span>
+                                    <strong>{ billing.company }</strong>
+                                </div>
                             </div>
-                        </div>
-                        <div className="wpcf-dashboard-col">
-                            <div className="wpcf-order-details-item">
-                                <span>Country</span>
-                                <strong>{ billing.country_name || '' }</strong>
+                        }
+                        {
+                            billing.country_name && <div className="wpcf-dashboard-col">
+                                <div className="wpcf-order-details-item">
+                                    <span>Country</span>
+                                    <strong>{ billing.country_name }</strong>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <div className="wpcf-dashboard-row">
                         <div className="wpcf-dashboard-col">
                             <div className="wpcf-order-details-item">
                                 <span>Address</span>
-                                <strong>{data.formatted_b_addr ? data.formatted_b_addr.replace(/<br\/>/g, ", ") : ''}</strong>
+                                <strong>{data.formatted_b_addr ? data.formatted_b_addr.replace(/<br\/>/g, ", ") : '___'}</strong>
                             </div>
                         </div>
                         <div className="wpcf-dashboard-col">
                             <div className="wpcf-order-details-item">
                                 <span>Post Code</span>
-                                <strong>{ billing.postcode || '' }</strong>
+                                <strong>{ billing.postcode || '___' }</strong>
                             </div>
                         </div>
                     </div>

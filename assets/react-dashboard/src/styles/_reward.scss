@@ -3,6 +3,7 @@
 	//flex-wrap: wrap;
 	border: 1px solid var(--wpcf-border-color);
 	padding: 30px;
+	align-items: center;
 	&:not(:last-child){
 		margin-bottom: 30px;
 	}
@@ -18,6 +19,13 @@
 	.wpcf-reward-content{
 		flex-grow: 1;
 		margin-left: 20px;
+		flex-basis: calc(100% - 210px);
+		max-width: calc(100% - 210px);
+		div:not(.wpcf-expand) .wpcf-reward-content-inner{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 	.wpcf-reward-perks-wrap{
 		flex-grow: 0;

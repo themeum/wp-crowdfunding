@@ -1,21 +1,33 @@
 .wpcf-pledge-received-cards{
 	display: flex;
-	padding: 30px;
+	flex-wrap: wrap;
+	padding: 10px 30px 30px;
 	background: var(--wpcf-success-color);
 	color: #fff;
-	min-height: 130px;
+	//min-height: 130px;
 	align-items: center;
 	border-radius: 4px;
 	margin-bottom: 30px;
+	@include media(md){
+		padding: 10px 15px 20px;
+	}
 	.wpcf-pledge-received-card{
+		margin-top: 20px;
 		h4{
 			font-size: 32px;
 			line-height: 43px;
 			color: #ffffff;
 			margin: 0;
+			@include media(md){
+				font-size: 26px;
+				line-height: 30px;
+			}
 		}
 		&:not(:last-child){
 			margin-right: 60px;
+			@include media(md){
+				margin-right: 30px;
+			}
 		}
 		span{
 			font-size: 16px;

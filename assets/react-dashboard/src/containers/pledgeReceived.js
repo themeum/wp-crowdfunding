@@ -74,7 +74,6 @@ class PledgeReceived extends Component {
                                         <td>Receivable { receiver_percent && `(${receiver_percent}%)` }</td>
                                         <td>Marketplace { receiver_percent && `(${100-receiver_percent}%)` }</td>
                                         <td>Status</td>
-                                        {/* <td>Email</td> */}
                                         <td></td>
                                     </tr>
                                 </thead>

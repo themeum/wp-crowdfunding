@@ -158,11 +158,12 @@
         font-size: 13px;
     }
     
+    &[disabled]:hover,
     &[disabled]{
-        background: #DCDCE4;
-        border-color: #DCDCE4;
-        color: var(--wpcf-light-text-color);
-        fill: var(--wpcf-light-text-color);
+        background: #DCDCE4 !important;
+        border-color: #DCDCE4 !important;
+        color: var(--wpcf-light-text-color) !important;
+        fill: var(--wpcf-light-text-color) !important;
     }
     
 }

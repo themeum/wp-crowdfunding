@@ -1,5 +1,11 @@
 .wpcf-form-group{
 	display: flex;
+	@include media(xs){
+		flex-wrap: wrap;
+	}
+	@include media(md){
+		flex-wrap: wrap;
+	}
 	&:not(:last-child){
 		margin-bottom: 15px;
 	}
@@ -9,6 +15,16 @@
 		max-width: 180px;
 		font-size: 14px;
 		color: var(--wpcf-heading-color);
+		@include media(xs){
+			flex-basis: 100%;
+			max-width: 100%;
+			margin-bottom: 8px;
+		}
+		@include media(md){
+			flex-basis: 100%;
+			max-width: 100%;
+			margin-bottom: 8px;
+		}
 	}
 	input:not([type="submit"]),
 	.wpcf-input,

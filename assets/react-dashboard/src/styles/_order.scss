@@ -8,6 +8,7 @@
 
 .wpcf-order-details{
 	display: flex;
+	flex-wrap: wrap;
 	> div{
 		h5,
 		span,
@@ -16,6 +17,10 @@
 		}
 		&:not(:last-child){
 			margin-right: 80px;
+			@include media(xs){
+				margin-right: 0;
+				margin-bottom: 20px;
+			}
 		}
 		span > *{
 			display: inline;
@@ -62,8 +67,17 @@
 
 .wpcf-dashboard-row{
 	display: flex;
+	@include media(xs){
+		flex-wrap: wrap;
+	}
 	.wpcf-dashboard-col{
 		flex-grow: 1;
+		@include media(xs){
+			flex-basis: 100%;
+			max-width: 100%;
+			margin-right: 0;
+			margin-bottom: 20px;
+		}
 	}
 }
 
@@ -72,6 +86,12 @@
 	.wpcf-dashboard-col{
 		max-width: 280px;
 		margin-right: 40px;
+		@include media(xs){
+			flex-basis: 100%;
+			max-width: 100%;
+			margin-right: 0;
+			margin-bottom: 20px;
+		}
 	}
 }
 
