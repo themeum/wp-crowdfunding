@@ -30,7 +30,7 @@ class Story extends Component {
 			newItem.push({type: item, value:''});
 		});
 		this.props.changeFieldValue(formName, sectionName, [...story, newItem]);
-		//Move to item
+		//Scroll to new item
 		const node = document.getElementById(`wpcf-page-control`);
 		const rect = node.getBoundingClientRect();
 		window.scrollTo({
