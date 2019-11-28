@@ -60,9 +60,9 @@ class InvestedCampaigns extends Component {
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='running'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Running</button>
                     <button className={ "wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary " + (filterValue=='completed'? 'active' : '') } onClick={ e => this.onClickFilter(e) }>Completed</button>
                 </div>
-                <div className="wpcf-dashboard-content-inners">
+                <div className="wpcf-dashboard-content-inner wpcf-mycampaign">
                     { campaignData.length ?
-                        <div>
+                        <Fragment>
                             { pageOfItems.map( (item, index) =>
                                 <ItemCampaign
                                     key={index}
@@ -75,7 +75,7 @@ class InvestedCampaigns extends Component {
                                 pageSize={ 5 }
                                 filterValue={ filterValue }
                                 onChangePage={ this.onChangePage } />
-                        </div>
+                        </Fragment>
                     :   <div>
                             Campaign not found
                         </div>

@@ -8,13 +8,13 @@ const ShowMoreText = (props) => {
         const buttonText = expand ? 'See Less' : 'See More';
         return (
             <div className={className}>
-                <p dangerouslySetInnerHTML={{__html: content}}/>
+                <div className="wpcf-reward-content-inner" dangerouslySetInnerHTML={{__html: content}}/>
                 <span onClick={() => setExpand( !expand )}>{ buttonText }</span>
             </div>
         );
     } else {
         return (
-            <p dangerouslySetInnerHTML={{__html: content}}/>
+            <div dangerouslySetInnerHTML={{__html: content}}/>
         );
     }
 }

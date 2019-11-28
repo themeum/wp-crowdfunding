@@ -6,6 +6,11 @@
 	border-spacing: 0;
 	border-collapse: separate;
 	color: var(--wpcf-heading-color);
+	max-width: 100%;
+	@include media(xs_md){
+		display: block;
+		overflow-x: auto;
+	}
 	tr{
 		th, td{
 			padding: 15px 20px;
@@ -16,9 +21,43 @@
 			&:last-child{
 				padding-right: 30px;
 			}
+			&.status{
+				color: var(--wpcf-primary-color);
+				text-transform: uppercase;
+			}
+			&.cancelled,
+			&.failed{
+				color: var(--wpcf-danger-color);
+			}
+			&.done,
+			&.Done,
+			&.completed{
+				color: var(--wpcf-success-color);
+			}
+		}
+		@include media(xs){
+			display: flex;
+			flex-wrap: wrap;
+			th, td{
+				flex-grow: 1;
+				padding: 10px 14px !important;
+				&:first-child{
+					flex-basis: 100%;
+				}
+			}
+		}
+		.td-title{
+			display: none;
+			@include media(xs){
+				display: block;
+				font-weight: 600;
+			}
 		}
 	}
 	thead{
+		@include media(xs){
+			display: none;
+		}
 		tr{
 			th,
 			td{

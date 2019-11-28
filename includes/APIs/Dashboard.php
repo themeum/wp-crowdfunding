@@ -363,7 +363,7 @@ class API_Dashboard {
             //Fetch all campaigns by query
             $access_campaigns = $this->fetch_campaigns( $_query, $access );
         }
-        
+
         $query = array(
             'post_type' 		=> 'product',
             'post_status'       => array( 'pending', 'draft', 'publish' ),
@@ -749,7 +749,7 @@ class API_Dashboard {
                 'campaign_id'           => $campaign_id,
                 'campaign_title'        => html_entity_decode( $campaign_title ),
                 'total_raised'          => wc_price( $total_raised ),
-                'total_receivable'      => wc_price( $total_receivable ),
+                'total_receivable'      => $total_receivable,
                 'raised_percentage'     => wpcf_function()->get_raised_percent( $campaign_id ),
                 'withdraw'              => array(
                     'request_items'     => $withdraw_details->request_items,
