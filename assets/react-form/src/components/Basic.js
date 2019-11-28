@@ -8,7 +8,6 @@ import RenderRepeatableFields from './fields/Repeatable';
 import RenderField from './fields/Single';
 import PreviewBasic from './preview/Basic';
 import PreviewEmpty from './preview/Empty';
-import PreviewLink from './preview/Link';
 import PageControl from './Control';
 import Preview from "./preview/Preview";
 import Icon from "./Icon";
@@ -18,7 +17,11 @@ const sectionName = "basic";
 class Basic extends Component {
     constructor(props) {
         super(props);
-        this.state = { sectionActive: 0, requiredFields: {} };
+        this.state = {
+            sectionActive: 0,
+            requiredFields: {},
+            sectionCompleted:{},
+        };
         this._onBlurVideoLink = this._onBlurVideoLink.bind(this);
         this._onChangeRange = this._onChangeRange.bind(this);
         this._removeArrValue = this._removeArrValue.bind(this);
@@ -34,10 +37,13 @@ class Basic extends Component {
         if( basic.goal_type ) {
             this.updateFieldOption();
         }
+
+        this.setRequiredFields();
     }
 
     componentDidUpdate(prevProps) {
-        const { formValues: {basic: curVal} } =  this.props;
+        const { requiredFields, sectionCompleted } = this.state;
+        const { formValues: {basic: curVal} } = this.props;
         const { formValues: {basic: prevVal} } = prevProps;
         if( curVal.category && curVal.category !== prevVal.category) {
             const sub_cat = `${sectionName}.sub_category`;
@@ -46,7 +52,85 @@ class Basic extends Component {
         }
         if( curVal.goal_type && curVal.goal_type !== prevVal.goal_type) {
             this.updateFieldOption();
+            this.updateRequiredFields(curVal.goal_type);
         }
+
+        const rFieldsLenght = Object.keys(requiredFields).length;
+        if(rFieldsLenght>0 && Object.keys(sectionCompleted).length>0) {
+            if( JSON.stringify(prevVal) !== JSON.stringify(curVal) ) {
+                this.updateCompleteStatus();
+            }
+        }
+    }
+
+    setRequiredFields() {
+        const { fields } =  this.props;
+        let requiredFields = {};
+        let sectionCompleted = {};
+        Object.keys(fields).map((section) => {
+            sectionCompleted[section] = false;
+            requiredFields[section] = [];
+            Object.keys(fields[section]).map( key => {
+                const field = fields[section][key];
+                if(field.show) {
+                    if(field.type=='form_group') {
+                        Object.keys(field.fields).map( k => {
+                            if(field.fields[k].required) {
+                                requiredFields[section].push(k);
+                            }
+                        });
+                    } else {
+                        if(field.required) {
+                            requiredFields[section].push(key);
+                        }
+                    }
+                }
+            });
+        });
+        this.setState({requiredFields, sectionCompleted});
+        this.updateCompleteStatus({requiredFields, sectionCompleted});
+    }
+
+    updateCompleteStatus(data=false) {
+        const { basic: basicValues } = this.props.formValues;
+        const { requiredFields, sectionCompleted } = (data) ? data : this.state;
+        Object.keys(requiredFields).map(section => {
+            let index = 0;
+            sectionCompleted[section] = true;
+            const fields = requiredFields[section];
+            while(index < fields.length) {
+                if(basicValues.hasOwnProperty(fields[index])) {
+                    if(basicValues[fields[index]] == '') {
+                        sectionCompleted[section] = false;
+                        break;
+                    }
+                } else {
+                    sectionCompleted[section] = false;
+                    break;
+                }
+                index++;
+            }
+        });
+        this.setState({sectionCompleted});
+    }
+
+    updateRequiredFields(goal_type) {
+        const seciton = 'media';
+        const { requiredFields } = this.state;
+        const fields = ['start_date', 'end_date']
+        if(goal_type=='target_date') {
+            fields.map(item => {
+                requiredFields[seciton].push(item);
+            });
+        } else {
+            fields.map(item => {
+                const index = requiredFields[seciton].findIndex(i => i==item);
+                if(index !== -1) {
+                    requiredFields[seciton].splice(index, 1);
+                }
+            });
+        }
+        this.setState({requiredFields});
     }
 
     updateFieldOption() {
@@ -76,7 +160,7 @@ class Basic extends Component {
         setTimeout(() => {
             this.addMediaFile(files);
             this.removeMediaFile(type, files);
-        }, 300)
+        }, 300);
     }
 
     _onChangeRange(e) {
@@ -148,7 +232,7 @@ class Basic extends Component {
     }
 
     render() {
-        const { sectionActive } = this.state;
+        const { sectionActive, sectionCompleted } = this.state;
         const { postId, totalRaised, totalBackers, fields, formValues, handleSubmit, current, prevStep, lastStep } =  this.props;
         const basicValues = (formValues && formValues.hasOwnProperty(sectionName)) ? formValues[sectionName] : {};
 
@@ -158,65 +242,69 @@ class Basic extends Component {
                     <form onSubmit={handleSubmit}>
                         <FormSection name={sectionName}>
                             <div className='wpcf-accordion-wrapper'>
-                                {Object.keys(fields).map( (section, index) =>
-                                    <div key={section} className='wpcf-accordion'>
-                                        {/*TODO: __WPCF__ Add wpcf-completed class when required fields are completed */}
-                                        <div tabIndex={0} className={`wpcf-accordion-title ${index == sectionActive ? 'active' : ''}`} onClick={ () => this.setState({sectionActive:index}) }>
-                                            <Icon name="check"/>
-                                            { section.replace('_', ' ') }
+                                {Object.keys(fields).map( (section, index) => {
+                                    const sectionName = section.replace('_', ' ');
+                                    const activeClass = (index == sectionActive) ? ' active' : '';
+                                    const completedClass = (sectionCompleted.hasOwnProperty(section) && sectionCompleted[section])  ? ' wpcf-completed' : '';
+                                    return(
+                                        <div key={section} className='wpcf-accordion'>
+                                            <div tabIndex={0} className={`wpcf-accordion-title${activeClass}${completedClass}`} onClick={ () => this.setState({sectionActive:index}) }>
+                                                <Icon name="check"/>
+                                                {sectionName}
+                                            </div>
+                                            <div className='wpcf-accordion-details' style={{ display: (index==sectionActive) ? 'block' : 'none' }}>
+                                                {Object.keys(fields[section]).map( key => {
+                                                    const field = fields[section][key];
+                                                    const validate = field.required ? [required] : [];
+                                                    if(field.show) {
+                                                        return (
+                                                            <div key={key} className={'wpcf-form-group ' + field.class}>
+                                                                <label className='wpcf-field-title'>{field.title}</label>
+                                                                <p className='wpcf-field-desc'>{field.desc}</p>
+
+                                                                { field.type == 'form_group' ?
+                                                                    <div className="form-group">
+                                                                        {Object.keys(field.fields).map( key => {
+                                                                            const gField = field.fields[key];
+                                                                            const gValidate = gField.required ? [required] : [];
+                                                                            return (
+                                                                                <Field
+                                                                                    key={key}
+                                                                                    name={key}
+                                                                                    item={gField}
+                                                                                    fieldValue={basicValues[key] || ''}
+                                                                                    validate={gValidate}
+                                                                                    component={RenderField}/>
+                                                                                )
+                                                                        })}
+                                                                    </div>
+
+                                                                : field.type == 'repeatable' ?
+                                                                    <FieldArray
+                                                                        name={key}
+                                                                        item={field}
+                                                                        onBlurVideoLink={this._onBlurVideoLink}
+                                                                        component={RenderRepeatableFields}/>
+
+                                                                :   <Field
+                                                                        name={key}
+                                                                        item={field}
+                                                                        addTag={this._addTag}
+                                                                        onChangeRange={this._onChangeRange}
+                                                                        uploadFile={this._uploadFile}
+                                                                        removeArrValue={this._removeArrValue}
+                                                                        fieldValue={basicValues[key] || ''}
+                                                                        validate={validate}
+                                                                        component={RenderField}/>
+                                                                }
+                                                            </div>
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
                                         </div>
-                                        <div className='wpcf-accordion-details' style={{ display: (index==sectionActive) ? 'block' : 'none' }}>
-                                            {Object.keys(fields[section]).map( key => {
-                                                const field = fields[section][key];
-                                                const validate = field.required ? [required] : [];
-                                                if(field.show) {
-                                                    return (
-                                                        <div key={key} className={'wpcf-form-group ' + field.class}>
-                                                            <label className='wpcf-field-title'>{field.title}</label>
-                                                            <p className='wpcf-field-desc'>{field.desc}</p>
-
-                                                            { field.type == 'form_group' ?
-                                                                <div className="form-group">
-                                                                    {Object.keys(field.fields).map( key => {
-                                                                        const gField = field.fields[key];
-                                                                        const gValidate = gField.required ? [required] : [];
-                                                                        return (
-                                                                            <Field
-                                                                                key={key}
-                                                                                name={key}
-                                                                                item={gField}
-                                                                                fieldValue={basicValues[key] || ''}
-                                                                                validate={gValidate}
-                                                                                component={RenderField}/>
-                                                                            )
-                                                                    })}
-                                                                </div>
-
-                                                            : field.type == 'repeatable' ?
-                                                                <FieldArray
-                                                                    name={key}
-                                                                    item={field}
-                                                                    onBlurVideoLink={this._onBlurVideoLink}
-                                                                    component={RenderRepeatableFields}/>
-
-                                                            :   <Field
-                                                                    name={key}
-                                                                    item={field}
-                                                                    addTag={this._addTag}
-                                                                    onChangeRange={this._onChangeRange}
-                                                                    uploadFile={this._uploadFile}
-                                                                    removeArrValue={this._removeArrValue}
-                                                                    fieldValue={basicValues[key] || ''}
-                                                                    validate={validate}
-                                                                    component={RenderField}/>
-                                                            }
-                                                        </div>
-                                                    )
-                                                }
-                                            })}
-                                        </div>
-                                    </div>
-                                )}
+                                    )
+                                })}
                             </div>
                         </FormSection>
 

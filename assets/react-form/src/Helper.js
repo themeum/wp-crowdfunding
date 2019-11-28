@@ -73,7 +73,7 @@ export const getRaisedPercent = (goal, funded) => {
     return parcent;
 }
 
-export const wcPice = (price=0) => {
+export const wcPrice = (price=0) => {
     const { symbol, d_separator, t_separator, decimals } = WPCF.currency;
     price = parseFloat(price).toFixed(decimals);
     price = price.replace(".", d_separator);

@@ -215,7 +215,7 @@ class API_Campaign {
                     'placeholder'   => __("Select Country", "wp-crowdfunding"),
                     'class'         => '',
                     'options'       => $res_countries,
-                    'required'      => false,
+                    'required'      => true,
                     'show'          => true,
                 ),
                 'location' => array(
