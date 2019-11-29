@@ -844,14 +844,16 @@ class API_Campaign {
             $media = array();
             $image_id = get_post_meta($post_id, '_thumbnail_id', true);
             if($image_id) {
-                $thumb = wp_get_attachment_image_src( $image_id );
-                $main_img = wp_get_attachment_image_src( $image_id, 'full' );
-                $image_name = get_the_title($image_id);
+                $name       = get_the_title($image_id);
+                $thumb      = wp_get_attachment_image_src( $image_id );
+                $main_img   = wp_get_attachment_image_src( $image_id, 'full' );
+                $filetype   = wp_check_filetype($thumb[0]);
+                $image_name = strlen($name)>10 ? substr($name, 0, 10).'...' : $name.'.';
                 $image = array(
                     'id'    => $image_id,
                     'type'  => 'image',
                     'src'   => $main_img[0],
-                    'name'  => $image_name,
+                    'name'  => $image_name.$filetype['ext'],
                     'thumb' => $thumb[0],
                 );
                 array_push($media, $image);
@@ -939,14 +941,16 @@ class API_Campaign {
                 $image = array();
                 $image_id = $reward['wpneo_rewards_image_field'];
                 if($image_id) {
-                    $thumb = wp_get_attachment_image_src( $image_id );
-                    $main_img = wp_get_attachment_image_src( $image_id, 'full' );
-                    $image_name = get_the_title($image_id);
+                    $name       = get_the_title($image_id);
+                    $thumb      = wp_get_attachment_image_src( $image_id );
+                    $main_img   = wp_get_attachment_image_src( $image_id, 'full' );
+                    $filetype   = wp_check_filetype($thumb[0]);
+                    $image_name = strlen($name)>10 ? substr($name, 0, 10).'...' : $name.'.';
                     $m = array(
                         'id'    => $image_id,
                         'type'  => 'image',
                         'src'   => $main_img[0],
-                        'name'  => $image_name,
+                        'name'  => $image_name.$filetype['ext'],
                         'thumb' => $thumb[0],
                     );
                     array_push($image, $m);

@@ -23,12 +23,14 @@ export const uploadFiles = (type, sFiles, multiple) => {
             let selectedFiles = [];
             for(let i = 0; i < length; i++) {
                 const file = files[i].changed;
+                const name = file.name;
+                const fileName = (name.length>10) ? name.substr(0, 10)+'...' : name+'.';
                 selectedFiles.push({
                     id: files[i].id,
                     type: file.type,
                     src: file.url,
-                    name: file.filename,
                     mime: file.mime,
+                    name: fileName+file.subtype,
                     thumb: (type == 'image') ? file.sizes.thumbnail.url : '',
                 });
             }
