@@ -7,13 +7,14 @@ import {
     FETCH_FORM_VALUES_COMPLETE,
     //FETCH_STATES_COMPLETE,
     FIELD_SHOW_HIDE,
+    VALIDATE_RECAPTCHA,
     SAVE_CAMPAIGN_PENDING,
     SAVE_CAMPAIGN_COMPLETE
 } from "../actions";
 
 const initialValues = { basic: {media:[], funding_goal: 1, pledge_amount: {min: 1, max: 50000}}, story:[], rewards:[], team:[] };
 
-export default function(state = { postId:0, totalRaised:0, totalBackers:0, saveDate:'', initialValues, loading: true, loaded: false, valReceived:true, saveReq:false, submit:false, submitData:{} }, action ) {
+export default function(state = { postId:0, totalRaised:0, totalBackers:0, saveDate:'', initialValues, loading: true, loaded: false, valReceived:true, saveReq:false, submit:false, submitData:{}, validateRecaptcha: false }, action ) {
     
     switch( action.type ) {
         case FETCH_REQUEST_PENDING:
@@ -67,6 +68,12 @@ export default function(state = { postId:0, totalRaised:0, totalBackers:0, saveD
             return {
                 ...state,
                 basic_fields,
+            };
+
+        case VALIDATE_RECAPTCHA:
+            return {
+                ...state,
+                validateRecaptcha: action.payload,
             };
 
         case SAVE_CAMPAIGN_PENDING:

@@ -45,6 +45,7 @@ class App extends Component {
 	}
 
 	_onSave(submit) {
+		console.log('save');
 		let { formValues, data } = this.props;
 		formValues.submit = submit; //inject submit value with form values
 		formValues.postId = data.postId; //inject postid value with form values
@@ -52,7 +53,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { loading, steps, saveDate } = this.props.data;
+		const { loading, steps, saveDate, recaptcha, validateRecaptcha } = this.props.data;
         const { current } = this.state;
 
         if(loading) {
@@ -63,7 +64,6 @@ class App extends Component {
 
 		const formSteps = Object.keys(steps);
 		const lastStep = current+1==formSteps.length; //is last step
-
 		return (
 			<Fragment>
 				<div className='wpcf-campaign-header'>
@@ -71,7 +71,7 @@ class App extends Component {
 					<div className="wpcf-campaign-header-right">
 						{saveDate && <span>Last edit was on {saveDate}</span>}
 						<button className="wpcf-btn wpcf-btn-round wpcf-btn-outline" onClick={() => this._onSave(false)}><i className="far fa-save wpcf-icon"></i> Save</button>
-						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={!lastStep}>Submit</button>
+						<button className="wpcf-btn wpcf-btn-round" onClick={() => this._onSave(true)} disabled={(recaptcha && !validateRecaptcha) || !lastStep}>Submit</button>
 					</div>
 				</div>
 				<div className='wpcf-campaign-body'>
@@ -102,6 +102,8 @@ const mapStateToProps = state => ({
 	data: state.data,
 	formValues: getFormValues(formName)(state),
 	initialValues: state.data.initialValues,
+	recaptcha: state.data.recaptcha,
+	validateRecaptcha: state.data.validateRecaptcha,
 });
 
 const mapDispatchToProps = dispatch => {

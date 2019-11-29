@@ -41,9 +41,7 @@ class API_Campaign {
      */
     function init_rest_api() {
         $this->current_user_id = get_current_user_id();
-        if( $this->current_user_id ) {
-            add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
-        }
+        add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
     }
 
     /**
@@ -57,22 +55,25 @@ class API_Campaign {
         $method_creatable = \WP_REST_Server::CREATABLE;
 
         register_rest_route( $namespace, '/form-fields', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_fields') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_fields'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/sub-categories', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'sub_categories'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         /* register_rest_route( $namespace, '/states', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_states') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_states'), 'permission_callback' => array($this, 'check_auth') ),
         )); */
         register_rest_route( $namespace, '/form-values', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'get_form_values'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/save-campaign', array(
-            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign') ),
+            array( 'methods' => $method_creatable, 'callback' => array($this, 'save_campaign'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/get-user', array(
-            array( 'methods' => "POST", 'callback' => array($this, 'get_user') ),
+            array( 'methods' => "POST", 'callback' => array($this, 'get_user'), 'permission_callback' => array($this, 'check_auth') ),
+        ));
+        register_rest_route( $namespace, '/check-recaptcha', array(
+            array( 'methods' => "POST", 'callback' => array($this, 'check_recaptcha'), 'permission_callback' => array($this, 'check_auth') ),
         ));
     }
 
@@ -88,13 +89,22 @@ class API_Campaign {
         $story_tools    = apply_filters( 'wpcf_form_story_tools', [] );
         $reward_types   = apply_filters( 'wpcf_form_reward_types', [] );
         $reward_fields  = apply_filters( 'wpcf_form_reward_fields', [] );
+        
+        
+        $recaptcha = false;
+        if(get_option('wpneo_enable_recaptcha_campaign_submit_page') == 'true') {
+            $recaptcha = array(
+                'siteKey' => get_option('wpneo_recaptcha_site_key')
+            );
+        }
 
         $response = array(
             'steps'         => $steps,
             'basic_fields'  => $basic_fields,
             'story_tools'   => $story_tools,
             'reward_types'  => $reward_types,
-            'reward_fields' => $reward_fields
+            'reward_fields' => $reward_fields,
+            'recaptcha'     => $recaptcha,
         );
         return rest_ensure_response( $response );
     }
@@ -1059,6 +1069,8 @@ class API_Campaign {
         $rewards = $json_params['rewards'];
         $team = $json_params['team'];
 
+        //do_action('wpcf_before_campaign_submit_action');
+
         if($story) {
             foreach($story as $key => $st) {
                 foreach($st as $index => $s) {
@@ -1075,8 +1087,6 @@ class API_Campaign {
             'post_excerpt'  => sanitize_text_field($basic['short_desc']),
             'post_author'   => $user_id,
         );
-
-        //do_action('wpcf_before_campaign_submit_action');
 
         if($post_id) {
             //Prevent if unauthorised access
@@ -1220,12 +1230,14 @@ class API_Campaign {
         if($submit) {
             $response = array(
                 'submit'    => 1,
+                'success'   => 1,
                 'message'   => __('Campaign successfully submitted', 'wp-crowdfunding'),
                 'redirect'  => get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'#/my-campaigns'
             );
         } else {
             $response = array(
                 'submit'    => 0,
+                'success'   => 1,
                 'postId'    => $post_id,
                 'saveDate'  => get_the_modified_date('F j, Y', $post_id)
             );
@@ -1279,6 +1291,51 @@ class API_Campaign {
         } else {
             return false;
         }
+    }
+
+    /**
+     * check auth
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function check_auth() {
+        $headers = getallheaders();
+        $nonce  = $headers['WPCF-Nonce'];
+		$i      = wp_nonce_tick();
+        $token  = wp_get_session_token();
+        $uid    = $this->current_user_id;
+		$expected = substr( wp_hash( $i . '|' . 'wpcf_form_nonce' . '|' . $uid . '|' . $token, 'nonce' ), -12, 10 );
+		if( hash_equals($expected, $nonce) ) {
+			return true;
+        }
+        return false;
+    }
+
+    /**
+     * check recaptcha
+     * @since     2.1.0
+     * @access    public
+     * @return    {json} mixed
+     */
+    function check_recaptcha( \WP_REST_Request $request ) {
+        $json_params = $request->get_json_params();
+        $response_key = $json_params['response_key'];
+        $secret_key = get_option('wpneo_recaptcha_secret_key');
+        $response = true;
+        
+        $recaptcha_response = wp_remote_post('https://www.google.com/recaptcha/api/siteverify', array(
+            'method' => 'POST',
+            'body' => array(
+                'secret' => $secret_key,
+                'response' => $response_key
+            ),
+        ));
+        $recaptcha = json_decode($recaptcha_response['body']);
+        if (!$recaptcha->success) {
+            $response = false;
+        }
+        return rest_ensure_response($response);
     }
 }
 

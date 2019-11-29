@@ -84,3 +84,9 @@ export const wcPrice = (price=0) => {
     price = splitPrice.join(d_separator);
     return symbol+price;
 }
+
+export const ExceptionHandler = (res) => {
+    if(res.status==401) { //Unauthorize access
+        location.reload();
+    }
+}

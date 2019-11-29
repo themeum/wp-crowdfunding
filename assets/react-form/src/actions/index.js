@@ -1,7 +1,5 @@
-const headers = { 
-    'Content-Type': 'application/json',
-    'WP-Nonce': WPCF.nonce
-}
+import { ExceptionHandler } from '../Helper';
+const headers = { 'Content-Type': 'application/json', 'WPCF-Nonce': WPCF.nonce };
 
 //COMMON STATE
 export const FETCH_REQUEST_PENDING = 'FETCH_REQUEST_PENDING';
@@ -13,9 +11,15 @@ export const fetchFormFields = () => dispatch => {
     const fetchURL = `${WPCF.rest_url}/form-fields`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_FORM_FIELDS_COMPLETE, payload}))
-    .catch( error => console.log(error) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_FORM_FIELDS_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 //FETCH SUB CATEGORIES BY CATEGORY
@@ -24,9 +28,15 @@ export const fetchSubCategories = (id) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/sub-categories?id=${id}`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_SUB_CATEGORIES_COMPLETE, payload} ))
-    .catch( error => console.log(error) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_SUB_CATEGORIES_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 //FETCH STATES BY CODE
@@ -35,9 +45,15 @@ export const fetchStates = (code) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/states?code=${code}`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload =>  dispatch( {type: FETCH_STATES_COMPLETE, payload} ) )
-    .catch( error => console.log(error) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_STATES_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 } */
 
 //FETCH FORM VALUES BY CAMPAIGN ID
@@ -48,9 +64,15 @@ export const fetchFormValues = (id) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/form-values?id=${id}`;
     const option = { method: 'GET', headers };
     fetch( fetchURL, option )
-    .then( response =>  response.json() )
-    .then( payload => dispatch( {type: FETCH_FORM_VALUES_COMPLETE, payload}) )
-    .catch( error => console.log(error) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: FETCH_FORM_VALUES_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }
 
 
@@ -61,11 +83,40 @@ export const fieldShowHide = (field, show) => dispatch => {
     dispatch({ type: FIELD_SHOW_HIDE, payload:{field, show} });
 }
 
+
+//FORM FIELD SHOW HIDE
+export const VALIDATE_RECAPTCHA = 'VALIDATE_RECAPTCHA';
+export const validateRecaptcha = (response_key) => dispatch => {
+    if(!response_key) {
+        dispatch( {type: VALIDATE_RECAPTCHA, payload: false});
+        return false;
+    }
+    const data = { response_key };
+    const fetchURL = `${WPCF.rest_url}/check-recaptcha`;
+    const option = { method: 'POST', body: JSON.stringify(data), headers };
+    fetch( fetchURL, option )
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload =>
+                dispatch( {type: VALIDATE_RECAPTCHA, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
+}
+
 //FETCH REGISTERD USER BY EMAIL
 export const fetchUser = (email) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/get-user`;
     const option = { method: 'POST', body: JSON.stringify({email}), headers };
-    const user = fetch( fetchURL, option ).then( response => response.json());
+    const user = fetch( fetchURL, option ).then( response => {
+        if(response.status==200) {
+            return response.json();
+        } else {
+            ExceptionHandler( response )
+        }
+    });
     return user;
 }
 
@@ -78,7 +129,13 @@ export const saveCampaign = ( data ) => dispatch => {
     const fetchURL = `${WPCF.rest_url}/save-campaign`;
     const option = { method: 'POST', body: JSON.stringify(data), headers };
     fetch( fetchURL, option )
-    .then( response => response.json() )
-    .then( payload => dispatch( {type: SAVE_CAMPAIGN_COMPLETE, payload} ) )
-    .catch( error => console.log(error) );
+    .then( response => {
+        if(response.status==200) {
+            response.json().then( payload => 
+                dispatch( {type: SAVE_CAMPAIGN_COMPLETE, payload})
+            );
+        } else {
+            ExceptionHandler( response )
+        }
+    });
 }

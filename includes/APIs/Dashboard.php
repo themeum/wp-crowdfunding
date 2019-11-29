@@ -45,10 +45,7 @@ class API_Dashboard {
      * @access  public
      */
     function register_rest_api() {
-        function verify_nonce($token) {
-            return wp_verify_nonce($token, 'wpcf_dasboard_nonce');
-        }
-        $namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
+        $namespace = WPCF_API_NAMESPACE.WPCF_API_VERSION;
         $method_readable = \WP_REST_Server::READABLE;
         $method_creatable = \WP_REST_Server::CREATABLE;
 
@@ -1130,7 +1127,7 @@ class API_Dashboard {
                 $seconds = $end_date->getTimestamp() - $current_date->getTimestamp();
                 $days = intval(intval($seconds) / (3600*24));
                 if($seconds > 0) {
-                    $status = ($days <= 80) ? 'about_to_end' : 'remain';
+                    $status = ($days <= 5) ? 'about_to_end' : 'remain';
                 } else {
                     $status = 'completed';
                 }
