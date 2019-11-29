@@ -84,6 +84,9 @@
 			.wpcf-reward-perk-item{
 				margin: 0 20px;
 				position: relative;
+				@include media(xs_md){
+					margin: 0 10px;
+				}
 				&:first-child{
 					margin-left: 0;
 				}
@@ -105,6 +108,9 @@
 					left: -22px;
 					top: calc(50% - 2px);
 					transform: translateY(-50%);
+					@include media(xs_md){
+						margin: 0 -2px;
+					}
 				}
 			}
 		}
