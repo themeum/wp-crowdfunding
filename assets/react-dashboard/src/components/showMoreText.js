@@ -4,12 +4,12 @@ const ShowMoreText = (props) => {
     const { length, content } = props;
     const [ expand, setExpand ] = useState(false);
     if( content.length > length ) {
-        const className = expand ? 'wpcf-expand' : 'wpcf-collapse';
+        const className = expand ? 'wpcf-expand wpcf-showmore' : 'wpcf-collapse wpcf-showmore';
         const buttonText = expand ? 'See Less' : 'See More';
         return (
             <div className={className}>
                 <div className="wpcf-reward-content-inner" dangerouslySetInnerHTML={{__html: content}}/>
-                <span onClick={() => setExpand( !expand )}>{ buttonText }</span>
+                <span tabIndex="0" onClick={() => setExpand( !expand )}>{ buttonText }</span>
             </div>
         );
     } else {

@@ -1,9 +1,9 @@
 .wpcf-reward-item{
 	display: flex;
-	//flex-wrap: wrap;
 	border: 1px solid var(--wpcf-border-color);
 	padding: 30px;
 	align-items: center;
+	flex-wrap: wrap;
 	&:not(:last-child){
 		margin-bottom: 30px;
 	}
@@ -18,15 +18,56 @@
 	}
 	.wpcf-reward-content{
 		flex-grow: 1;
-		margin-left: 20px;
 		flex-basis: calc(100% - 210px);
 		max-width: calc(100% - 210px);
-		div:not(.wpcf-expand) .wpcf-reward-content-inner{
+		display: flex;
+		flex-wrap: wrap;
+		.wpcf-reward-content-left{
+			padding-left: 20px;
+			flex-basis: 100%;
+			max-width: 100%;
+			h5{
+				font-size: 16px;
+				font-weight: 400;
+				color: var(--wpcf-heading-color);
+			}
+		}
+		&.has-timer .wpcf-reward-content-left{
+			flex-basis: calc(100% - 260px);
+			max-width: calc(100% - 260px);
+			@include media(xs_lg){
+				max-width: 100%;
+				flex-basis: 100%;
+			}
+		}
+		.wpcf-reward-content-right{
+			margin-left: auto;
+			@include media(xs_lg){
+				margin-left: 0;
+				margin-top: 20px;
+			}
+		}
+		.wpcf-showmore:not(.wpcf-expand) .wpcf-reward-content-inner{
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
+		.wpcf-showmore span[tabindex]{
+			font-size: 12px;
+			color: var(--wpcf-primary-color);
+		}
 	}
+	
+	.wpcf-reward-date{
+		font-size: 12px;
+		h6{
+			font-size: 18px;
+			color: var(--wpcf-primary-color);
+			margin: 20px 0 4px;
+			font-weight: 500;
+		}
+	}
+	
 	.wpcf-reward-perks-wrap{
 		flex-grow: 0;
 		flex-basis: auto;

@@ -108,7 +108,7 @@ class Story extends Component {
 									<div className="wpcf-story-values">
 										{ story.map((data, index) => {
 											const collapse = collapseItem.hasOwnProperty(index) ? collapseItem[index] : false;
-											const className = collapse ? 'wpcf-collapse' : 'wpcf-expand';
+											const className = collapse ? 'wpcf-collapse wpcf-showmore' : 'wpcf-expand wpcf-showmore';
 											return(
 												<div key={index} className={`wpcf-story-item ${className}`}>
 													<div className="story-item-value">
