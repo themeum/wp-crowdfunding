@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchWithdrawMethods, saveWithdrawAccount } from '../actions/withdrawAction';
 import ToastAlert from '../components/toastAlert';
 import WithdrawMethodForm from '../components/withdrawMethodForm';
 import Skeleton from "../components/skeleton";
+import Header from '../components/header'
+import Icon from '../components/Icon'
 
 class WithdrawMethodSettings extends Component {
 
@@ -45,8 +47,10 @@ class WithdrawMethodSettings extends Component {
         };
 
         return (
-            <div>
-                <h3>Select a withdraw method</h3>
+            <Fragment>
+
+                <Header title="Select a withdraw method"/>
+
                 <div className="wpcf-dashboard-content-inner">
                 { Object.keys(data.methods).length ?
                     <div id="wpcf-withdraw-account-set-form">
@@ -60,7 +64,7 @@ class WithdrawMethodSettings extends Component {
                     </div>
                 }
                 </div>
-            </div>
+            </Fragment>
         )
 	}
 }

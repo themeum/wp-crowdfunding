@@ -77,8 +77,7 @@ class App extends Component {
                         </div>
                         <ul className="wpcf-dashboard-permalinks">
                             <li><NavLink exact activeClassName="is-active" to="/"><Icon name="home" className="wpcf-icon"/>{ __('Dashboard', 'wp-crowdfunding') }</NavLink></li>
-                            <li><NavLink activeClassName="is-active" to="/profile"><Icon name="user" className="wpcf-icon"/>{ __('My Profile', 'wp-crowdfunding') }</NavLink>
-                            </li>
+                            <li><NavLink activeClassName="is-active" to="/profile"><Icon name="user" className="wpcf-icon"/>{ __('My Profile', 'wp-crowdfunding') }</NavLink></li>
                             <li className={(this.state.myCampainsCollapse ? 'wpcf-collapse' : 'wpcf-collapsed')}>
                                 <a
                                     href="javascript:void(0)"

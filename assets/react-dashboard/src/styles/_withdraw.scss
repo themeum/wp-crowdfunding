@@ -33,35 +33,33 @@
 }
 
 .withdraw-method-select-wrap .withdraw-method-select label.active {
-    border-color: #4bd863;
-    -webkit-box-shadow: 0 0 0 1px #4bd863;
-    box-shadow: 0 0 0 1px #4bd863
+    border-color: var(--wpcf-success-color);
+    background: var(--wpcf-success-color);
 }
 
-.withdraw-method-select-wrap .withdraw-method-select label:after {
+.withdraw-method-select-wrap .withdraw-method-select label span.wpcf-svg-icon  {
     content: '\e90f';
     position: absolute;
     right: -1px;
     top: -1px;
     border: 1px solid #DCDFE5;
-    height: 22px;
-    width: 22px;
+    height: 20px;
+    width: 20px;
     text-align: center;
-    line-height: 22px;
-    color: transparent
+    color: transparent;
+    padding: 2.5px 3px;
+    display: flex;
+    align-items: center;
+    fill: #DCDFE5;
+    border-radius: 0 6px 0 6px;
 }
 
-.withdraw-method-select-wrap .withdraw-method-select label.active:after {
-    color: #fff;
-    background: #4bd863;
-    border-color: #4bd863;
-    font-family: 'tutor' !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
+.withdraw-method-select-wrap .withdraw-method-select label.active span.wpcf-svg-icon  {
+    fill: var(--wpcf-success-color);
+    background: #ffffff;
+    border-color: #ffffff;
     text-transform: none;
-    font-size: 13px
+    font-size: 13px;
 }
 
 .withdraw-method-select-wrap .withdraw-method-select p {
@@ -73,120 +71,14 @@
     font-weight: 600;
     color: var(--tutor-primary-color)
 }
+.withdraw-method-select-wrap .withdraw-method-select label.active>p{
+    color: #fff;
+}
 
 .withdraw-method-select-wrap .withdraw-method-select label span {
     color: #B0B6C8;
     font-weight: 400
 }
-
-.withdraw-method-field-wrap{
-    display: flex;
-    label{
-        min-width: 155px;
-    }
-    textarea{
-        max-width: 360px;
-    }
-}
-
-.withdraw-method-form {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin: 0 -15px
-}
-
-.withdraw-method-form>div {
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    min-width: 100%;
-    padding: 0 15px 20px
-}
-
-@media (max-width: 480px) {
-    .withdraw-method-form>div {
-        width: 100%
-    }
-}
-
-.withdraw-method-form>div.withdraw-account-save-btn-wrap {
-    width: 100%
-}
-
-.withdraw-form-field-amount input[type='text'],
-.withdraw-method-forms-wrap .withdraw-method-form input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]),
-.withdraw-method-forms-wrap .withdraw-method-form textarea {
-    border: 1px solid var(--wpcf-border-color);
-    display: block;
-    width: 100%;
-    background: transparent;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 4px
-}
-
-label[for="tutor_withdraw_amount"] {
-    margin-bottom: 7px;
-    display: block
-}
-
-.withdraw-form-field-amount input[type='text'] {
-    margin-bottom: 10px;
-    height: 35px
-}
-
-.withdraw-method-forms-wrap .withdraw-method-form input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]):focus,
-.withdraw-method-forms-wrap .withdraw-method-form textarea:focus {
-    border-color: var(--tutor-primary-color);
-    outline: none
-}
-
-.withdraw-method-forms-wrap .withdraw-method-form textarea {
-    min-height: 80px
-}
-
-.withdraw-method-forms-wrap .withdraw-method-form label {
-    color: #989EAF;
-    margin-bottom: 8px;
-    display: block
-}
-
-.withdraw-method-forms-wrap .withdraw-method-form .withdraw-field-desc {
-    font-size: 12px;
-    margin: 5px 0 0;
-    font-style: italic
-}
-
-.wpcf-withdraw-method-input{
-    position: relative;
-}
-
-#wpcf_withdraw_amount{
-    height: 55px;
-    width: 320px;
-    appearance: none;
-    -moz-appearance:textfield;
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button{
-        -webkit-appearance: none;
-        margin: 0;
-    }
-}
-
-
-input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
-}
-
-#wpcf_withdraw_amount + span{
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0 22px;
-    line-height: 55px;
-    border-left: 1px solid var(--wpcf-border-color);
-    cursor: pointer;
+.withdraw-method-select-wrap .withdraw-method-select label.active span {
+    color: #fff;
 }

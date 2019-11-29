@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import Icon from './Icon'
 
 class WithdrawMethodForm extends Component {
 	state = this.getDefaultState();
 
     getDefaultState() {
-        let { methods, selected_method } = this.props.data; 
+        let { methods, selected_method } = this.props.data;
         const first_method = Object.keys(methods)[0];
-        if( selected_method == null ) { 
+        if( selected_method == null ) {
             const method_name = methods[first_method].method_name;
             selected_method = { key: first_method, data: {[first_method]: {method_name}} }; // Default data
         } else if( !methods.hasOwnProperty(selected_method.key) ) { //if Method disable from admin
@@ -57,23 +58,26 @@ class WithdrawMethodForm extends Component {
                             <label className={ selected_method.key == key ? 'active' : '' }>
                                 <p>{methods[key].method_name}</p>
                                 <span dangerouslySetInnerHTML={{__html:methods[key].desc}}/>
+                                <Icon name="check"/>
                             </label>
                         </div>
                     )}
                 </div>
                 <div className="withdraw-method-forms-wrap">
-                    <form className="withdraw-method-form" onSubmit={ this.onSubmit } style={{display: 'flex'}}>
+                    <form className="withdraw-method-form" onSubmit={ this.onSubmit }>
                         { formFields.map( (item, index) =>
-                            <div key={index} className="withdraw-method-field-wrap">
+                            <div key={index} className="wpcf-form-group">
                                 <label htmlFor={ `field_${key}_${index}` }>{ item.label }</label>
-                                <input id={ `field_${key}_${index}` } type={ item.type } name={ item.name } value={ this.getDataValue( item.name ) } onChange={ this.onChangeInput } required/>
-                                { item.desc && 
-                                    <p className="withdraw-field-desc">{ item.desc }</p>
-                                }
+                                <div>
+                                    <input id={ `field_${key}_${index}` } type={ item.type } name={ item.name } value={ this.getDataValue( item.name ) } onChange={ this.onChangeInput } required/>
+                                    { item.desc &&
+                                    <p className="wpcf-field-info">{ item.desc }</p>
+                                    }
+                                </div>
                             </div>
                         )}
                         <div className="withdraw-account-save-btn-wrap">
-                            <button type="submit" className="wpcf-btn">Save Withdraw Account</button>
+                            <button type="submit" className="wpcf-btn wpcf-btn-round">Save Withdraw Account</button>
                         </div>
                     </form>
                 </div>

@@ -26,12 +26,30 @@
 			margin-bottom: 8px;
 		}
 	}
+	
+	
+	p{
+		font-size: 12px;
+		line-height: 16px;
+		color: var(--wpcf-light-text-color);
+		margin: 0 0 12px;
+		&.wpcf-field-info{
+			margin-top: 6px;
+		}
+	}
+	
+	input + p{
+		margin-bottom: 0;
+		color: var(--wpcf-light-text-color);
+	}
+	
 	input:not([type="submit"]),
 	.wpcf-input,
 	textarea,
 	select{
 		flex-grow: 1;
 		max-width: 375px;
+		width: 375px;
 		flex-basis: 375px;
 		border: 1px solid var(--wpcf-border-color);
 		padding: 0 15px;
