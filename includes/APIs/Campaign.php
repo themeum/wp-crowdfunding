@@ -92,7 +92,8 @@ class API_Campaign {
         
         
         $recaptcha = false;
-        if(get_option('wpneo_enable_recaptcha_campaign_submit_page') == 'true') {
+        if( (file_exists(WP_PLUGIN_DIR.'/'.WPCF_PRO_BASENAME) && is_plugin_active(WPCF_PRO_BASENAME))
+            && get_option('wpneo_enable_recaptcha_campaign_submit_page') == 'true') {
             $recaptcha = array(
                 'siteKey' => get_option('wpneo_recaptcha_site_key')
             );
