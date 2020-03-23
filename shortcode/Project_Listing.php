@@ -12,10 +12,12 @@ class Project_Listing {
     function listing_callback( $atts, $shortcode ) {
         if( function_exists('wpcf_function') ){
 
+            $post_limit = get_option( 'wpcf_listing_post_number', 10 );
+
             $a = shortcode_atts(array(
                 'cat'         => null,
-                'number'      => -1,
-                'order'     => 'DESC',
+                'number'      => $post_limit,
+                'order'       => 'DESC',
             ), $atts, $shortcode );
 
             $paged = 1;

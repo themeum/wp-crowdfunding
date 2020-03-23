@@ -353,6 +353,13 @@ class Admin_Menu {
 
                     $description_limits = intval(wpcf_function()->post('number_of_words_show_in_listing_description'));
                     wpcf_function()->update_text('number_of_words_show_in_listing_description', $description_limits );
+                    
+
+                    $product_limits = intval(wpcf_function()->post('wpcf_listing_post_number'));
+                    wpcf_function()->update_text('wpcf_listing_post_number', $product_limits );
+
+
+
 
                     $show_rating = sanitize_text_field(wpcf_function()->post('wpneo_show_rating'));
                     wpcf_function()->update_checkbox('wpneo_show_rating', $show_rating);
@@ -412,6 +419,11 @@ class Admin_Menu {
 
                     $number_of_words_show_in_listing_description = intval(wpcf_function()->post('number_of_words_show_in_listing_description'));
                     wpcf_function()->update_text('number_of_words_show_in_listing_description', $number_of_words_show_in_listing_description);
+
+                    # Product number.
+                    $wpcf_listing_post_number = intval(wpcf_function()->post('wpcf_listing_post_number'));
+                    wpcf_function()->update_text('wpcf_listing_post_number', $wpcf_listing_post_number);
+
 
                     $show_rating = sanitize_text_field(wpcf_function()->post('wpneo_show_rating'));
                     wpcf_function()->update_checkbox('wpneo_show_rating', $show_rating);

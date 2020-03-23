@@ -4,7 +4,6 @@ global $wp_query;
 $big = 999999;
 $page_numb = max( 1, get_query_var('paged') );
 
-
 $max_page = $wp_query->max_num_pages;
 ?>
 <div class="wpneo-pagination">

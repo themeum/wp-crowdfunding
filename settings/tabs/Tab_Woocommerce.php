@@ -155,6 +155,16 @@ $arr =  array(
         'label'     => __('Number of Words Shown in Listing Description','wp-crowdfunding'),
     ),
 
+    // # Number of post
+    array(
+        'id'        => 'wpcf_listing_post_number',
+        'type'      => 'number',
+        'min'       => '1',
+        'max'       => '',
+        'value'     => '10',
+        'label'     => __('Product Number','wp-crowdfunding'),
+    ),
+
     // #Single Page Seperator
     array(
         'type'      => 'seperator',
