@@ -56,7 +56,12 @@ final class Crowdfunding {
 					deactivate_plugins( plugin_basename( __FILE__ ) );
 				}
 			} else {
-				add_action( 'admin_notices', array( $initial_setup , 'no_vendor_notice' ) );
+				$cf_file = WP_PLUGIN_DIR.'/woocommerce/woocommerce.php';
+				if (file_exists($cf_file) && ! is_plugin_active('woocommerce/woocommerce.php')) {
+					add_action( 'admin_notices', array($initial_setup, 'free_plugin_installed_but_inactive_notice') );
+				} elseif ( ! file_exists($cf_file) ) {
+					add_action( 'admin_notices', array($initial_setup, 'free_plugin_not_installed') );
+				}
 			}
 		}else{
 			// Local Code

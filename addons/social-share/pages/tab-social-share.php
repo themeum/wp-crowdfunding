@@ -41,7 +41,6 @@ $arr =  array(
                                     'whatsapp' => __( 'Whatsapp', 'wp-crowdfunding' ),
                                 ),
                 'label'     => __('Multiple Checkbox','wp-crowdfunding'),
-                'desc'      => __('Select Multiple Checkbox form.','wp-crowdfunding'),
             ),
 
             // #Save Function
