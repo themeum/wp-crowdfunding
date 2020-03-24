@@ -433,6 +433,8 @@
     color: #686C8B;
     line-height: 24px;
     border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 5px;
 }
 .dashboard-head-date input[type="submit"] {
     color: #fff;
@@ -459,12 +461,13 @@
 }
 .wpneo-dashboard-summary ul li {
     display: inline-block;
-    margin-right: 20px;
-    width: 230px;
+    margin: 0 !important;
+    width: 32%;
     background: #F6F6FB;
     padding: 20px;
     position: relative;
     border-radius: 4px;
+    border: 0 !important;
 }
 .wpneo-dashboard-summary ul li span.wpneo-value-info {
     display: block;
