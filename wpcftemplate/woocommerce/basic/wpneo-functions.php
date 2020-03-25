@@ -63,7 +63,7 @@ function wpcf_bio_campaign_action(){
 		}
 		$html .= '</div>';
 		$html .= '<div class="wpneo-profile">';
-		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaign_url($creator->ID).'">'.wpcf_function()->get_author_name().'</a></div>';
+		$html .= '<div class="wpneo-profile-name"><a href="'.wpcf_function()->campaign_url($creator->ID).'">'.wpcf_function()->get_author_name($creator->ID).'</a></div>';
 		$location = wpcf_function()->campaign_location();
 		if ($location){
 			$html .= '<div class="wpneo-profile-location">';

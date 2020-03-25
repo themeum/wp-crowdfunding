@@ -83,7 +83,7 @@ jQuery(document).ready(function($){
         var html = '<div class="wpneo-modal-wrapper"> ' +
             ' <div class="wpneo-modal-content"> ' +
             '<div class="wpneo-modal-wrapper-head">' +
-            '<h4 id="wpcf_modal_title">Message</h4><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
+            '<span id="wpcf_modal_title">Message</span><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
             if( print ){
                 html += '</div><span class="wpcf-print-button button">print</span>';
             }

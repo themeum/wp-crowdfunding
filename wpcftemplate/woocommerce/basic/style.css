@@ -477,6 +477,7 @@ p.wpneo-short-description{
     width: 26px;
     position: relative;
     top: 2px;
+    margin-right: 5px;
 }
 .wpneo-icon-location{
     background-position: -401px -11px;

@@ -251,10 +251,14 @@ class Functions {
     function get_author_url($user_login) {
         return esc_url(add_query_arg(array('author' => $user_login)));
     }
-    public function get_author_name() {
-        global $post;
+    public function get_author_name( $user_id = '' ) {
+        if( !$user_id ) {
+            global $post;
+            $user_id = $post->post_author;
+        }
+        
         $author_name = '';
-        $author = get_userdata($post->post_author);
+        $author = get_userdata($user_id);
         if( isset($author->user_login) ){
             $author_name = isset($author->display_name) ? $author->display_name : $author->user_login;
             if (!empty($author->first_name)){

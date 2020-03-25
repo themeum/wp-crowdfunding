@@ -64,9 +64,9 @@ class Actions {
         $update = wp_update_user( $userdata );
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=dashboard';
         if ($update){
-            die(json_encode(array('success'=> 1, 'message' => __('Successfully updated', 'wp-crowdfunding'), 'redirect' => $redirect)));
+            die(json_encode(array('success'=> 1, 'message' => __('Successfully updated.', 'wp-crowdfunding'), 'redirect' => $redirect)));
         }else{
-            die(json_encode(array('success'=> 0, 'message' => __('Error updating, please try again', 'wp-crowdfunding'), 'redirect' => $redirect)));
+            die(json_encode(array('success'=> 0, 'message' => __('Error updating, please try again.', 'wp-crowdfunding'), 'redirect' => $redirect)));
         }
     }
 
@@ -119,7 +119,7 @@ class Actions {
 
         do_action('wpcf_after_save_profile');
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=profile';
-        die(json_encode(array('success'=> 1, 'message' => __('Successfully updated','wp-crowdfunding'),'redirect' => $redirect)));
+        die(json_encode(array('success'=> 1, 'message' => __('Successfully updated.','wp-crowdfunding'),'redirect' => $redirect)));
     }
 
     // Profile Form Action for Dashboard
@@ -179,7 +179,7 @@ class Actions {
 
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=contact';
 
-        die(json_encode(array('success'=> 1, 'message' => __('Successfully updated'), 'redirect' => $redirect)));
+        die(json_encode(array('success'=> 1, 'message' => __('Successfully updated.'), 'redirect' => $redirect)));
     }
 
     // Password Form Action for Dashboard
@@ -199,7 +199,7 @@ class Actions {
                 $user = get_user_by( 'id', $id );
                 if ( $user && wp_check_password( $password, $user->data->user_pass, $user->ID) ){
                     wp_set_password( $new_password, $id );
-                    die(json_encode(array('success'=> 1, 'message' => __('Password successfully updated'), 'redirect' => $redirect)));
+                    die(json_encode(array('success'=> 1, 'message' => __('Password successfully updated.'), 'redirect' => $redirect)));
                 }
             }
             die(json_encode(array('success'=> 0, 'message' => __('Error updating, please try again'), 'redirect' => $redirect)));
@@ -235,7 +235,7 @@ class Actions {
                 
             }
             $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=update&postid='.$post_id;
-            die(json_encode(array('success'=> 1, 'message' => __('Successfully updated'), 'redirect' => $redirect)));
+            die(json_encode(array('success'=> 1, 'message' => __('Successfully updated.'), 'redirect' => $redirect)));
         }
     }
 

@@ -10,6 +10,7 @@
     font-family: 'Rubik', sans-serif;
     font-weight: 300;
     color: #686C8B;
+    min-height: 310px;
 }
 .wpneo-hidden{
     display: none;
@@ -1062,8 +1063,8 @@ input[type="button"].removeCampaignRewards:hover{
 }
 .wpcf-print-button{
     float: right;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin-top: 10px !important;
+    margin-right: 10px !important;
 }
  
 @media print {
@@ -1147,12 +1148,13 @@ div.wpneo-modal-title {
     font-size: 14px;
     padding: 20px 50px 20px 20px;
 }
-div.wpneo-modal-wrapper-head h4 {
+div.wpneo-modal-wrapper-head span {
     border-bottom: 1px solid #e5e5e5;
     font-size: 18px;
     margin-bottom: 0;
     padding: 15px 0px 15px 30px;
     text-transform: capitalize;
+    display: block;
 }
 .wpneo-modal-content{
     background: #fff none repeat scroll 0 0;

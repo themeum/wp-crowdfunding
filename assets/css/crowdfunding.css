@@ -238,3 +238,6 @@ h1.top-reports{
     clear: both;
     margin-top: 50px;
 }
+table.wp-list-table .column-campaign_owner {
+    width: 80px;
+}
