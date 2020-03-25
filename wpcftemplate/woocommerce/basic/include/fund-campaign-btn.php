@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 ?>
-<div class="wpneo-single-sidebar">
+<div class="wpneo-single-sidebar ASA">
 	<?php
 	global $post, $woocommerce, $product;
 	$currency = '$';
@@ -40,16 +40,18 @@ defined( 'ABSPATH' ) || exit;
 			}
 			?>
 
-            <form enctype="multipart/form-data" method="post" class="cart">
+            <form enctype="multipart/form-data" method="post" class="cart AA">
 				<?php do_action('before_wpneo_donate_field'); ?>
 				<?php echo get_woocommerce_currency_symbol(); ?>
-                <input type="number" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo $recomanded_price; ?>" data-min-price="<?php echo $min_price ?>" data-max-price="<?php echo $max_price ?>" >
+                
+                <input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo $recomanded_price; ?>" data-min-price="<?php echo $min_price ?>" data-max-price="<?php echo $max_price ?>" >
+
 				<?php do_action('after_wpneo_donate_field'); ?>
                 <input type="hidden" value="<?php echo esc_attr($post->ID); ?>" name="add-to-cart">
                 <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'wpneo_donate_button'); ?>"><?php _e('Back Campaign', 'wp-crowdfunding'); ?></button>
             </form>
 
-			<?php
+		<?php
 		} else {
 			if ( ! wpcf_function()->is_campaign_started()){
 				wpcf_function()->campaign_start_countdown();
