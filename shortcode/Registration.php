@@ -191,7 +191,7 @@ class Registration {
             //On success
             if ( !is_wp_error( $user_id ) ) {
                 WC()->mailer(); // load email classes
-                do_action( 'wpcf_after_registration', $user_id );
+                do_action( 'wpcf_after_user_registration', $user_id );
     
                 $saved_redirect_uri = get_option('wpcf_user_reg_success_redirect_uri');
                 $redirect = $saved_redirect_uri ? $saved_redirect_uri : esc_url( home_url( '/' ) );
