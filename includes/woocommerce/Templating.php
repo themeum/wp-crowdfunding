@@ -242,13 +242,15 @@ class Templating {
      */
     public function check_theme_standard($directory = '', $theme_name =''){
         $theme_standard = $this->theme_standard_check();
-        $files = array_slice(scandir($directory), 2);
-        $missing_files = array_diff($theme_standard, $files);
-
-        if (count($missing_files) > 0){
+        if( $directory ){
+            $files = array_slice(scandir($directory), 2);
+            $missing_files = array_diff($theme_standard, $files);
+            if (count($missing_files) > 0){
+                return false;
+            }
+        } else {
             return false;
         }
-
         return true;
     }
 
