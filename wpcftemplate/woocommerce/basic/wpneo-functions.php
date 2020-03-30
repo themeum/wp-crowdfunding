@@ -9,7 +9,7 @@ function campaign_listing_by_author_before_loop(){
 }
 
 function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ){
-	global $woocommerce, $wpdb;
+	global $wpdb;
 	$query  =   "SELECT 
                     COUNT(p.ID)
                 FROM 

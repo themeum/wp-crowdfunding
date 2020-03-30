@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <div class="wpneo-single-sidebar ASA">
 	<?php
-	global $post, $woocommerce, $product;
+	global $post, $product;
 	$currency = '$';
 	if ($product->get_type() == 'crowdfunding') {
 		if (wpcf_function()->is_campaign_valid()) {

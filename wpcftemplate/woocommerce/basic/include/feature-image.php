@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-global $post, $woocommerce, $product;
+global $post, $product;
 $funding_video = trim(get_post_meta($post->ID, 'wpneo_funding_video', true)); ?>
 <div class="wpneo-campaign-single-left-info">
     <?php if (!empty($funding_video)) { ?>
