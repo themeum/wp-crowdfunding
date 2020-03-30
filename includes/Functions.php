@@ -81,8 +81,7 @@ class Functions {
 
     public function wc_version($version = '3.0'){
         if (class_exists('WooCommerce')) {
-            global $woocommerce;
-            if (version_compare($woocommerce->version, $version, ">=")) {
+            if (version_compare(WC()->version, $version, ">=")) {
                 return true;
             }
         }

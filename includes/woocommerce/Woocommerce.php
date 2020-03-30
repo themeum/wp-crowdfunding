@@ -107,10 +107,8 @@ class Woocommerce {
      * Remove billing address from the checkout page
      */
     function override_checkout_fields( $fields ) {
-
-        global $woocommerce;
         $crowdfunding_found = '';
-        $items = $woocommerce->cart->get_cart();
+        $items = WC()->cart->get_cart();
         if( $items ){
             foreach($items as $item => $values) {
                 $product = wc_get_product( $values['product_id'] );
@@ -172,9 +170,6 @@ class Woocommerce {
 
 
     function add_meta_info(){
-
-        global $woocommerce;
-
         echo '<div class="options_group show_if_neo_crowdfunding_options">';
 
         // Expirey
@@ -544,7 +539,7 @@ class Woocommerce {
      */
     function donate_input_field()
     {
-        global $post, $woocommerce;
+        global $post;
         $product = wc_get_product( $post->ID );
 
         //wp_die(var_dump($product));
@@ -578,7 +573,6 @@ class Woocommerce {
      * Remove Crowdfunding item form cart
      */
     public function remove_crowdfunding_item_from_cart($passed, $product_id, $quantity, $variation_id = '', $variations= '') {
-        global $woocommerce;
         $product = wc_get_product($product_id);
 
         if($product->get_type() == 'crowdfunding') {
@@ -646,7 +640,6 @@ class Woocommerce {
      */
 
     function add_user_donation() {
-        global $woocommerce;
         foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
             if ($cart_item['data']->get_type() == 'crowdfunding') {
                 $donate_cart_amount = WC()->session->get('wpneo_donate_amount');
@@ -661,7 +654,7 @@ class Woocommerce {
      * Redirect to checkout after cart
      */
     function redirect_to_checkout($url) {
-        global $woocommerce, $product;
+        global $product;
 
         if (! empty($_REQUEST['add-to-cart'])){
             $product_id = absint( $_REQUEST['add-to-cart'] );
@@ -675,7 +668,7 @@ class Woocommerce {
                 if ($preferance == 'checkout_page'){
                     $checkout_url = wc_get_checkout_url();
                 }elseif ($preferance == 'cart_page'){
-                    $checkout_url = $woocommerce->cart->get_cart_url();
+                    $checkout_url = wc_get_cart_url();
                 }else{
                     $checkout_url = get_permalink();
                 }
@@ -691,8 +684,7 @@ class Woocommerce {
      * Disabled coupon system from system
      */
     function wc_coupon_disable( $coupons_enabled ) {
-        global $woocommerce;
-        $items = $woocommerce->cart->get_cart();
+        $items = WC()->cart->get_cart();
         $type = true;
         if( $items ){
             foreach($items as $item => $values) {
@@ -746,8 +738,7 @@ class Woocommerce {
      * get PayPal email address from campaign
      */
     public function get_paypal_reciever_email_address() {
-        global $woocommerce;
-        foreach ($woocommerce->cart->cart_contents as $item) {
+        foreach (WC()->cart->cart_contents as $item) {
             $emailid = get_post_meta($item['product_id'], 'wpneo_campaigner_paypal_id', true);
             $enable_paypal_per_campaign = get_option('wpneo_enable_paypal_per_campaign_email');
 
@@ -766,7 +757,6 @@ class Woocommerce {
     }
 
     public function custom_override_paypal_email($paypal_args) {
-        global $woocommerce;
         $paypal_args['business'] = $this->get_paypal_reciever_email_address();
         return $paypal_args;
     }
@@ -777,7 +767,6 @@ class Woocommerce {
      * Save order reward if any with order meta
      */
     public function crowdfunding_order_type($order_id){
-        global $woocommerce;
         if( WC()->session != null ) {
             $rewards_data = WC()->session->get( 'wpneo_rewards_data' );
             if ( ! empty( $rewards_data ) ) {
@@ -802,8 +791,7 @@ class Woocommerce {
     }
 
     public function check_anonymous_backer(){
-        global $woocommerce;
-        $items = $woocommerce->cart->get_cart();
+        $items = WC()->cart->get_cart();
         if( $items ){
             foreach($items as $item => $values) {
                 $product = wc_get_product( $values['product_id'] );
@@ -942,7 +930,7 @@ class Woocommerce {
     }
 
     public function after_item_title_data() {
-        global $woocommerce,$post,$wpdb;
+        global $post,$wpdb;
         $product = wc_get_product($post->ID);
 
         if($product->get_type() != 'crowdfunding'){

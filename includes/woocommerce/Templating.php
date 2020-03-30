@@ -125,7 +125,7 @@ class Templating {
     }
 
     public function template_chooser_callback($template){
-        global $post, $woocommerce;
+        global $post;
 
         $post_id = get_the_ID();
         $post_type = get_post_type($post_id);
