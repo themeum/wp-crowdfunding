@@ -228,11 +228,11 @@ class Actions {
                 }
             }
             $data_json = json_encode($data,JSON_UNESCAPED_UNICODE);
-            $post_update = wpcf_function()->update_meta( $post_id, 'wpneo_campaign_updates', $data_json );
+            $post_update = wpcf_function()->update_meta( $post_id, 'wpneo_campaign_updates', wp_slash($data_json) );
             if ($post_update) {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_campaign_update_email', $post_id);
-                
+
             }
             $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=update&postid='.$post_id;
             die(json_encode(array('success'=> 1, 'message' => __('Successfully updated.'), 'redirect' => $redirect)));

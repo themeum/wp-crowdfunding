@@ -258,7 +258,7 @@ class Woocommerce {
                 'id'            => 'wpneo_campaign_end_method',
                 'label'         => __('Campaign End Method', 'wp-crowdfunding'),
                 'placeholder'   => __('Country', 'wp-crowdfunding'),
-                'class'         => 'select2 wpneo_campaign_end_method',
+                'class'         => 'wpneo_campaign_end_method',
                 'options'       => $options
             )
         );
@@ -401,7 +401,17 @@ class Woocommerce {
                         )
                     );
 
-                    wp_editor(stripslashes($value['details']), 'wpneo_prject_update_details_field'.$key, array('textarea_name' => 'wpneo_prject_update_details_field[]'));
+                    woocommerce_wp_textarea_input(
+                        array(
+                            'id'        => 'wpneo_prject_update_details_field[]',
+                            'label'     => __('Update Title', 'wp-crowdfunding'),
+                            'desc_tip'  => 'true',
+                            'placeholder' => __('Update Details', 'wp-crowdfunding'),
+                            'value'     => stripslashes($value['details'])
+                        )
+                    );
+
+                    //wp_editor(stripslashes($value['details']), 'wpneo_prject_update_details_field'.$key, array('textarea_name' => 'wpneo_prject_update_details_field[]'));
 
                     echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
                     echo '<div style="border-bottom: 1px solid #eee"></div>';
