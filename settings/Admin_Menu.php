@@ -47,6 +47,8 @@ class Admin_Menu {
                             input[type="button"]#search-submit,
                             #addreward,input[type="submit"].wpneo-submit-campaign,
                             .dashboard-btn-link,.label-primary,
+                            #wpneofrontenddata input[type="button"],
+                            #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign,
                             .btn-style1,#wpneo-tab-reviews .submit,.dashboard-head-date input[type="submit"],
                             .wp-crowd-btn-primary, .wpneo_withdraw_button,.wpneo-dashboard-head-left ul li.active,
                             .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current{ background-color:'.$button_bg.'; color:'.$button_text_color.'; }';
@@ -66,6 +68,8 @@ class Admin_Menu {
                             .removecampaignupdate:hover,
                             .wpneo-profile-button:hover,
                             .dashboard-btn-link:hover,
+                            #wpneofrontenddata input[type="button"]:hover,
+                            #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign:hover,
                             .wpneo_login_form_div #wp-submit:hover,
                             .wpneo-submit-campaign:hover,
                             .wpneo_donate_button:hover,.dashboard-head-date input[type="submit"]:hover,

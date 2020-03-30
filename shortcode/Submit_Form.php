@@ -140,27 +140,30 @@ class Campaign_Submit_Form {
             $html .= '<div class="wpneo-name">'.__( "Category" , "wp-crowdfunding" ).'</div>';
             $html .= '<div class="wpneo-fields">';
             $html .= '<select name="wpneo-form-category">';
-
-            $cat_args = array(
-                'taxonomy'      => 'product_cat',
-                'hide_empty'    => false,
-            );
-
-            # Get is Crowdfunding Categories only
-            $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
-            if ('true' === $is_only_crowdfunding_categories){
-                $cat_args['meta_query'] = array(
-                    array(
-                        'key' => '_marked_as_crowdfunding',
-                        'value' => '1'
-                    )
+                $cat_args = array(
+                    'taxonomy'      => 'product_cat',
+                    'hide_empty'    => false,
                 );
-            }
-            $all_cat = get_terms($cat_args );
-            foreach ($all_cat as $value) {
-                $selected = ($category == $value->name) ? 'selected':'';
-                $html .= '<option '.$selected.' value="'.$value->slug.'">'.$value->name.'</option>';
-            }
+
+                # Get is Crowdfunding Categories only
+                $is_only_crowdfunding_categories = get_option('seperate_crowdfunding_categories');
+                if ('true' === $is_only_crowdfunding_categories){
+                    $cat_args['meta_query'] = array(
+                        array(
+                            'key' => '_marked_as_crowdfunding',
+                            'value' => '1'
+                        )
+                    );
+                }
+                $all_cat = get_terms($cat_args );
+                if (count($all_cat) > 0) {
+                    foreach ($all_cat as $value) {
+                        $selected = ($category == $value->name) ? 'selected':'';
+                        $html .= '<option '.$selected.' value="'.$value->slug.'">'.$value->name.'</option>';
+                    }
+                }else {
+                    $html .= '<option selected value="">'.__("At First Select Crowdfunding Category","wp-crowdfunding").'</option>';
+                }
             $html .= '</select>';
             $html .= '<small>'.__("Select your campaign category","wp-crowdfunding").'</small>';
             $html .= '</div>';
