@@ -52,6 +52,36 @@ class Woocommerce {
         !is_admin() and add_filter( 'woocommerce_coupons_enabled',      array($this, 'wc_coupon_disable') ); //Hide coupon form on checkout page
 
         add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
+
+        $this->filter_product_in_shop_page();
+    }
+
+
+    /**
+     * Filter product in shop page
+     * @since v.1.4.9
+     */
+    public function filter_product_in_shop_page(){
+        $hide_cf_campaign_from_shop_page = (bool) get_option('hide_cf_campaign_from_shop_page');
+        if(!$hide_cf_campaign_from_shop_page){
+            return;
+        }
+        add_action('woocommerce_product_query', array($this, 'filter_woocommerce_product_query'));
+    }
+
+    public function filter_woocommerce_product_query($wp_query){
+        $wp_query->set('meta_query', array($this->cf_product_meta_query()));
+        return $wp_query;
+    }
+
+    public function cf_product_meta_query(){
+        $meta_query = array(
+            'taxonomy' => 'product_type',
+            'field'    => 'slug',
+            'terms'    => array( 'crowdfunding' ),
+            'operator' => 'NOT IN'
+        );
+        return $meta_query;
     }
 
     /**
