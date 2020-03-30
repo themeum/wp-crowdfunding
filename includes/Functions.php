@@ -518,15 +518,18 @@ class Functions {
         }
     }
 
-    public function is_campaign_valid(){
+    public function is_campaign_valid($campaign_id = ''){
         global $post;
-        $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
+        if(!$campaign_id){
+            $campaign_id = $post->ID;
+        }
+        $_nf_duration_start = get_post_meta($campaign_id, '_nf_duration_start', true);
         if ($_nf_duration_start){
             if (strtotime($_nf_duration_start) > time()){
                 return false;
             }
         }
-        $campaign_end_method = get_post_meta($post->ID, 'wpneo_campaign_end_method' , true);
+        $campaign_end_method = get_post_meta($campaign_id, 'wpneo_campaign_end_method' , true);
         switch ($campaign_end_method){
 
             case 'target_goal':
