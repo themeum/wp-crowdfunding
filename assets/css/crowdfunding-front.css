@@ -1311,6 +1311,7 @@ table.stripe-table{
     margin: 0px;
     border-width: 0px;
     table-layout: initial;
+    text-align: left;
 }
 table.stripe-table thead tr th,
 table.stripe-table tfoot tr td,
@@ -1762,11 +1763,11 @@ a.wpneo-cancel-campaign {
     font-size: 16px;
     font-weight: 400;
 }
-.hfeed {
-    overflow: hidden;
-}
 .wpneo-single-sidebar .cart input[type="number"].wpneo_donate_amount_field {
     height: 40px;
+}
+.wpneo-content.wpneo-shadow hr {
+    display: none;
 }
  
 /* Date Picker */
