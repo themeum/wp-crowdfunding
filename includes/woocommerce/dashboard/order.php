@@ -120,7 +120,7 @@ if ( $customer_orders ) :
 
                         $campaign_rewards = get_post_meta($product_id, 'wpneo_reward', true);
                         $campaign_rewards_a = json_decode($campaign_rewards, true);
-                        $order_total = $order->order_total;
+                        $order_total = $order->get_total();
 
                         $rewards_amount = '';
                         $temp = 0;

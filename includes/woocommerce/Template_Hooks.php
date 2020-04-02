@@ -138,13 +138,11 @@ class Template_Hooks {
 		global $product, $post;
 
 		// Description tab - shows product content
-		if ( $post->post_content ) {
-			$tabs['description'] = array(
-				'title'     => __( 'Campaign Story', 'wp-crowdfunding' ),
-				'priority'  => 10,
-				'callback'  => array($this, 'campaign_story_tab')
-			);
-		}
+		$tabs['description'] = array(
+			'title'     => __( 'Campaign Story', 'wp-crowdfunding' ),
+			'priority'  => 10,
+			'callback'  => array($this, 'campaign_story_tab')
+		);
 
 		$saved_campaign_update = get_post_meta($post->ID, 'wpneo_campaign_updates', true);
 		$saved_campaign_update = json_decode($saved_campaign_update, true);

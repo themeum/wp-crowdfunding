@@ -2,7 +2,6 @@
 defined( 'ABSPATH' ) || exit;
 global $post;
 $campaign_rewards   = get_post_meta($post->ID, 'wpneo_reward', true);
-$campaign_rewards   = stripslashes($campaign_rewards);
 $campaign_rewards_a = json_decode($campaign_rewards, true);
 if (is_array($campaign_rewards_a)) {
 	if (count($campaign_rewards_a) > 0) {
@@ -48,7 +47,7 @@ if (is_array($campaign_rewards_a)) {
 						}
 						?>
                     </h3>
-                    <div><?php echo html_entity_decode($value['wpneo_rewards_description']); ?></div>
+                    <div><?php echo wpautop($value['wpneo_rewards_description']); ?></div>
 					<?php if( $value['wpneo_rewards_image_field'] ){ ?>
                         <div class="wpneo-rewards-image">
 							<?php echo '<img src="'.wp_get_attachment_url( $value["wpneo_rewards_image_field"] ).'"/>'; ?>

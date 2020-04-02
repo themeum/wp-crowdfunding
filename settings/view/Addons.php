@@ -116,7 +116,7 @@
                     <?php }
 
                     //PRO ADDONS LIST FOR DISPLAY
-                    if( wpcf_function()->is_free() ) {
+                    if( wpcf_function()->is_free() || (!function_exists('WC') && !wpcf_function()->is_free()) ) {
                         $proAddons = array(
                             '2checkout' => array(
                                 'name'          => __( '2Checkout', 'wp-crowdfunding' ),
@@ -175,10 +175,12 @@
                                     </div>
                                     <div class="action-links">
                                         <ul class="plugin-action-buttons">
-                                            <li>
-                                                <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin"
-                                                   class="addon-buynow-link" target="_blank"><?php _e('Buy Now','wp-crowdfunding'); ?></a>
-                                            </li>
+                                            <?php if( wpcf_function()->is_free() ) { ?>
+                                                <li>
+                                                    <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin"
+                                                    class="addon-buynow-link" target="_blank"><?php _e('Buy Now','wp-crowdfunding'); ?></a>
+                                                </li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                     <div class="desc column-description">

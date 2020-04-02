@@ -68,7 +68,7 @@ $rewards_query = new WP_Query($args);
 											}
 											if ( ! empty($reward['wpneo_rewards_description'])){
 												echo '<div><strong>'. __('Description', 'wp-crowdfunding')."</strong><br />";
-												echo html_entity_decode( $reward['wpneo_rewards_description'] ).'</div>';
+												echo $reward['wpneo_rewards_description'].'</div>';
 											}
 											echo '<div><strong>'.__('Backer info', 'wp-crowdfunding').'</strong> <br />';
 

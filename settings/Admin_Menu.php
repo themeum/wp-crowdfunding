@@ -209,8 +209,6 @@ class Admin_Menu {
             $current_page = sanitize_text_field($_GET['tab']);
         }
 
-        // $screen = get_current_screen();
-        // print_r( $screen );   
         if (wpcf_function()->post('wpneo_settings_page_nonce_field')){
             echo '<div class="notice notice-success is-dismissible">';
                 echo '<p>'.__( "Settings have been Saved.", "wp-crowdfunding" ).'</p>';

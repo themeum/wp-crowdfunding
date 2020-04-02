@@ -145,7 +145,10 @@ class WPCF_Social_Share {
                                         </div>
                                     <?php } ?>
     
-                                    <p class="wpneo-short-description"><?php echo wpcf_function()->limit_word_text(strip_tags(get_the_content()), 130); ?></p>
+                                    <?php $desc = wpcf_function()->limit_word_text(strip_tags(get_the_content()), 130); ?>
+                                    <?php if($desc){ ?>
+                                        <p class="wpneo-short-description"><?php echo $desc; ?></p>
+                                    <?php } ?>
     
                                     <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
                                     <div class="wpneo-raised-percent">

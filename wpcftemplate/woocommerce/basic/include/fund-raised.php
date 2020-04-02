@@ -5,7 +5,17 @@ $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
 
 <div class="campaign-funding-info">
     <ul>
-        <li><p class="funding-amount"><?php echo wpcf_function()->price(wpcf_function()->total_goal(get_the_ID())); ?></p>
+        <li>
+            <p class="funding-amount">
+                <?php 
+                $price = wpcf_function()->total_goal(get_the_ID());
+                if($price){
+                    echo wpcf_function()->price($price);
+                }else{
+                    _e('Not Set', 'wp-crowdfunding');
+                }
+                ?>
+            </p>
             <span class="info-text"><?php _e('Funding Goal', 'wp-crowdfunding') ?></span>
         </li>
         <li>
@@ -16,9 +26,11 @@ $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
             ?>
             <li>
                 <?php if (wpcf_function()->is_campaign_started()){ ?>
-                    <span class="info-text"><?php echo wpcf_function()->get_date_remaining().' '; _e( 'Days to go','wp-crowdfunding' ); ?></span>
+                    <p class="funding-amount"><?php echo wpcf_function()->get_date_remaining(); ?></p>
+                    <span class="info-text"><?php _e( 'Days to go','wp-crowdfunding' ); ?></span>
                 <?php } else { ?>
-                    <span class="info-text"><?php echo wpcf_function()->days_until_launch().' '; _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
+                    <p class="funding-amount"><?php echo wpcf_function()->days_until_launch(); ?></p>
+                    <span class="info-text"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
                 <?php } ?>
             </li>
         <?php } ?>

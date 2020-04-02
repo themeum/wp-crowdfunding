@@ -164,7 +164,7 @@ class Submit_Form {
                     if (!empty($pladge_amount[$i])) {
                         $data[] = array(
                             'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
-                            'wpneo_rewards_description'     => esc_html($description[$i]),
+                            'wpneo_rewards_description'     => esc_textarea($description[$i]),
                             'wpneo_rewards_endmonth'        => esc_html($endmonth[$i]),
                             'wpneo_rewards_endyear'         => esc_html($endyear[$i]),
                             'wpneo_rewards_item_limit'      => esc_html($item_limit[$i]),
@@ -173,7 +173,7 @@ class Submit_Form {
                     }
                 }
                 $data_json = json_encode($data,JSON_UNESCAPED_UNICODE);
-                wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
+                wpcf_function()->update_meta($post_id, 'wpneo_reward', wp_slash($data_json));
             }
         }
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';

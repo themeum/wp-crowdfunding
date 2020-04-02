@@ -4,7 +4,7 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ WP Crowdfunding is a WooCommerce based plugin that empowers anyone to create a c
 [youtube https://www.youtube.com/watch?v=jHJBV2MbgBw]
 
 Please read the documentation.
-[Documentation](https://www.themeum.com/docs/wp-crowdfunding-introduction/)
+[Documentation](https://docs.themeum.com/wp-crowdfunding/)
 
 > Try WP Crowdfunding
 > [http://try.themeum.com/plugins/wp-crowdfunding/](http://try.themeum.com/plugins/wp-crowdfunding/)
@@ -129,6 +129,23 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+
+= 2.0.3 - 2 April, 2020 =
+Update: Redesign for WooCommerce & WP Crowdfunding Pro notices on dashboard 
+Fix: Received rewards column issue in user's pledges menu on dashboard
+Fix: Campaign detail page broken issue
+Fix: Issue with hiding WooCommerce products from the shop page  
+Fix: Campaign update status line break issue
+Fix: Color option in campaign submit form button 
+Fix: Issue with separating crowdfunding category form on frontend
+Fix: Welcome email for new account not working properly
+Fix: 'get_author_name' function issue
+Fix: Owner dashboard column CSS issue
+Fix: Author name missing in full bio lightbox issue
+Fix: Withdraw request design
+Fix: Spelling mistake in the plugin interface
+Fix: Submit form shortcode filter
+Fix: Few CSS issues
 
 = 2.0.2 - 24 September, 2019 =
 * Fixed: CSS inherit issue fixed 

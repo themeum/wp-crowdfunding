@@ -609,7 +609,7 @@ h2.wpneo-campaign-title{
 }
 .campaign-funding-info ul li{
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 14px;
 }
 .campaign-funding-info ul li:last-child{
     margin-right: 0;
@@ -659,7 +659,7 @@ input[type="number"].wpneo_donate_amount_field{
     margin-bottom: 20px;
 }
 .wpneo-list-details .wpneo-icon-location {
-    background-position: -400px -19px;
+    background-position: -391px -22px;
     width: 22px;
 }
 

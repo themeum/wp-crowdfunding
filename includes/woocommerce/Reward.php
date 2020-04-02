@@ -37,7 +37,7 @@ class Reward{
         global $post;
 
         $var = get_post_meta($post->ID, 'wpneo_reward', true);
-        $var = stripslashes($var);
+       // $var = stripslashes($var);
         $data_array = json_decode($var, true);
 
         $woocommerce_meta_field = array(
@@ -190,7 +190,7 @@ class Reward{
                             switch ($value['field_type']) {
 
                                 case 'textareafield':
-                                    $value['value'] = html_entity_decode($value['value'],ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                                    $value['value'] = $value['value'];
                                     woocommerce_wp_textarea_input($value);
                                     break;
 
@@ -268,7 +268,7 @@ class Reward{
                 }
             }
             $data_json = json_encode( $data, JSON_UNESCAPED_UNICODE );
-            wpcf_function()->update_meta($post_id, 'wpneo_reward', $data_json);
+            wpcf_function()->update_meta($post_id, 'wpneo_reward', wp_slash($data_json));
         }
     }
 

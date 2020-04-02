@@ -225,7 +225,7 @@ if (! class_exists('Initial_Setup')) {
                                 __('installed and activated on this website in order to use WP Crowdfunding.','wp-crowdfunding')
                             );
                         ?>
-                        <a href="https://www.themeum.com/docs/wp-crowdfunding-introduction/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
+                        <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
                     <div class="wpcf-install-notice-button">
                         <a  class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_woocommerce_free'), admin_url()); ?>"><?php _e('Activate WooCommerce', 'wp-crowdfunding'); ?></a>
@@ -255,7 +255,7 @@ if (! class_exists('Initial_Setup')) {
                                 __('installed and activated on this website in order to use WP Crowdfunding.','wp-crowdfunding')
                             );
                         ?>
-                        <a href="https://www.themeum.com/docs/wp-crowdfunding-introduction/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
+                        <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
                     <div class="wpcf-install-notice-button">
                         <a class="install-wpcf-button button button-primary" data-slug="woocommerce" href="<?php echo add_query_arg(array('action' => 'install_woocommerce_free'), admin_url()); ?>"><?php _e('Install WooCommerce', 'wp-crowdfunding'); ?></a>
