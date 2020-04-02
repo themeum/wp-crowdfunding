@@ -1311,6 +1311,7 @@ table.stripe-table{
     margin: 0px;
     border-width: 0px;
     table-layout: initial;
+    text-align: left;
 }
 table.stripe-table thead tr th,
 table.stripe-table tfoot tr td,
@@ -1765,6 +1766,9 @@ a.wpneo-cancel-campaign {
 .wpneo-single-sidebar .cart input[type="number"].wpneo_donate_amount_field {
     height: 40px;
 }
+.wpneo-content.wpneo-shadow hr {
+    display: none;
+}
  
 /* Date Picker */
 .ui-datepicker-calendar a.ui-state-default {
@@ -1902,4 +1906,27 @@ div#respond h3, #respond a {
 }
 .woocommerce p.stars.selected a.active::before {
     content: '\e020';
+}
+.container {
+    width: 1140px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.row.woo-products {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.col-sm-12 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.archive.author.author-admin.hfeed {
+    overflow: inherit;
+}
+.cf-campaign-author h2 {
+    margin-top: 42px;
+    margin-bottom: 32px;
 }
