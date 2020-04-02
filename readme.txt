@@ -90,7 +90,6 @@ To use these shortcodes, just place the required shortcode(s) on your desired lo
 = Pro Version =
 
 > [Pro Plugin + One Free Theme](https://www.themeum.com/product/wp-crowdfunding-plugin/)
-> [Pro Plugins + Pro Themes](https://www.themeum.com/product/backer/)
 
 = Crowdfunding Themes =		
 > [Backer Crowdfunding Theme](https://www.themeum.com/product/backer/)		
