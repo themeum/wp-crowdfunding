@@ -264,6 +264,7 @@ class Dashboard{
 
             ob_start();
             $r = get_post_meta($order_id, 'wpneo_selected_reward', true);
+            $r = json_decode($r, true);
             if ( ! empty($r) && is_array($r) ){
                 ?>
                 <tr>
@@ -271,7 +272,8 @@ class Dashboard{
                         <h4><?php _e('Selected Reward', 'wp-crowdfunding'); ?> </h4>
                         <?php
                         if ( ! empty($r['wpneo_rewards_description'])){
-                            echo "<div>{$r['wpneo_rewards_description']}</div>";
+                            // echo "<div>{$r['wpneo_rewards_description']}</div>";
+                            echo "<div>". wpautop($r['wpneo_rewards_description'])."</div>";
                         }
                         if ( ! empty($r['wpneo_rewards_pladge_amount'])){ ?>
                             <?php echo sprintf('Amount : %s, Delivery : %s', wc_price($r['wpneo_rewards_pladge_amount']), $r['wpneo_rewards_endmonth'].', '.$r['wpneo_rewards_endyear'] ); ?>

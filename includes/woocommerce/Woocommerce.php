@@ -771,7 +771,9 @@ class Woocommerce {
             $rewards_data = WC()->session->get( 'wpneo_rewards_data' );
             if ( ! empty( $rewards_data ) ) {
                 $reward = $rewards_data['wpneo_selected_rewards_checkout'];
-                wpcf_function()->update_meta( $order_id, 'wpneo_selected_reward', $reward );
+                $reward_json = json_encode($reward,JSON_UNESCAPED_UNICODE);
+                // wpcf_function()->update_meta( $order_id, 'wpneo_selected_reward', $reward );
+                wpcf_function()->update_meta( $order_id, 'wpneo_selected_reward', wp_slash($reward_json) );
                 wpcf_function()->update_meta( $order_id, '_cf_product_author_id', $rewards_data['_cf_product_author_id'] );
                 WC()->session->__unset( 'wpneo_rewards_data' );
             }
