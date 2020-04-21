@@ -55,3 +55,13 @@ if (!class_exists( 'Crowdfunding' )) {
     require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
     new \WPCF\Crowdfunding();
 }
+
+# wp_login_form() to display login form in a jQuery dialog window.
+add_action( 'wp_login_failed', 'wpcf_front_end_login_fail' );  // hook failed login
+function wpcf_front_end_login_fail( $username ) {
+   $referrer = $_SERVER['HTTP_REFERER'];
+   if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
+      wp_redirect( $referrer . '?login=failed' ); 
+      exit;
+   }
+}
