@@ -468,7 +468,7 @@ class Woocommerce {
                     $data[] = array(
                         'date'      => sanitize_text_field($date_field[$i]),
                         'title'     => sanitize_text_field($title_field[$i]),
-                        'details'   => esc_html($details_field[$i])
+                        'details'   => $details_field[$i]
                     );
                 }
             }
