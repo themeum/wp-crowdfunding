@@ -187,14 +187,22 @@ class Dashboard{
                 $html .='<td>';
                     $html .='<span class="label-warning">';
                         $raised_total = wpcf_function()->fund_raised();
-                        $html .= $raised_total ? wc_price($raised_total) : wc_price(0);
+                        if (wpcf_function()->is_campaign_valid() == true) {
+                            $html .= $raised_total ? wc_price($raised_total) : wc_price(0);
+                        }else {
+                            $html .= wc_price(0);
+                        }
                     $html .='</span>';
                 $html .='</td>';
             $html .='</tr>';
 
             $html .='<tr>';
                 $html .='<td>'.__("Raised Percent", "wp-crowdfunding").'</td>';
-                $html .='<td><span class="label-danger">'.wpcf_function()->get_fund_raised_percent_format().'</span></td>';
+                if (wpcf_function()->is_campaign_valid() == true) {
+                    $html .='<td><span class="label-danger">'.wpcf_function()->get_fund_raised_percent_format().'</span></td>';
+                }else {
+                    $html .='<td><span class="label-danger">0%</span></td>';
+                }
             $html .='</tr>';
 
         $html .='</table>';
