@@ -1,9 +1,3 @@
-# Dependency directories #
-###################
-node_modules/
-logs/
-
-
 # Compiled source #
 ###################
 *.com
@@ -12,6 +6,11 @@ logs/
 *.exe
 *.o
 *.so
+
+# Dependency directories #
+###################
+node_modules/
+logs/
 
 # Packages #
 ############

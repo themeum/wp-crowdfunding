@@ -35,7 +35,6 @@ define('WPCF_VERSION', '2.0.3');
 define('WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ));
 define('WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ));
 define('WPCF_BASENAME', plugin_basename( WPCF_FILE ));
-
 /**
 * Load Text Domain Language
 */
@@ -56,12 +55,19 @@ if (!class_exists( 'Crowdfunding' )) {
     new \WPCF\Crowdfunding();
 }
 
+require_once WPCF_DIR_PATH . 'core/Functions.php';
+function wpcrowdfunding(){
+    return new WPCF_Core_Functions();
+}
+require_once WPCF_DIR_PATH . 'core/Base.php';
+
+
 # wp_login_form() to display login form in a jQuery dialog window.
 add_action( 'wp_login_failed', 'wpcf_front_end_login_fail' );  // hook failed login
 function wpcf_front_end_login_fail( $username ) {
    $referrer = $_SERVER['HTTP_REFERER'];
    if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
-      wp_redirect( $referrer . '?login=failed' ); 
-      exit;
+        wp_redirect( $referrer . '?login=failed' ); 
+        exit;
    }
 }

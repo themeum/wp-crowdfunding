@@ -1,0 +1,1 @@
+import './blocks/wpcf_search/index'
