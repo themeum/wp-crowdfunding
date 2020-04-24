@@ -43,7 +43,7 @@ if (! class_exists('WPCF_Core_Base')) {
 			wp_enqueue_script(
 				'crowdfunding-block-script-js',
 				WPCF_DIR_URL . 'assets/js/blocks.script.build.min.js', 
-				array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor','crowdfunding-blocks-js' ),
+				array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
 				false,
 				true
 			);
