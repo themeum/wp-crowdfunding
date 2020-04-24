@@ -56,12 +56,10 @@ if (!class_exists( 'Crowdfunding' )) {
     new \WPCF\Crowdfunding();
 }
 
-# wp_login_form() to display login form in a jQuery dialog window.
-add_action( 'wp_login_failed', 'wpcf_front_end_login_fail' );  // hook failed login
-function wpcf_front_end_login_fail( $username ) {
-   $referrer = $_SERVER['HTTP_REFERER'];
-   if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
-      wp_redirect( $referrer . '?login=failed' ); 
-      exit;
-   }
+
+require_once WPCF_DIR_PATH . 'core/Functions.php';
+require_once WPCF_DIR_PATH . 'lib/repeater-widget/repeater-widget.php';
+function crowdfunding_core(){
+    return new crowdfunding_Core_Functions();
 }
+require_once WPCF_DIR_PATH . 'core/Base.php';
