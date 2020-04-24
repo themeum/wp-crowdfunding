@@ -2,7 +2,7 @@ import Edit from './Edit';
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
-registerBlockType('crowdfunding/crowdfunding-core-search', {
+registerBlockType('wp-crowdfunding/search', {
 	title: __('Courses Search'),
 	icon: 'search',
     category: 'wp-crowdfunding',

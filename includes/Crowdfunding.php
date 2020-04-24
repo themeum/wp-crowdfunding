@@ -29,7 +29,9 @@ final class Crowdfunding {
 		require_once WPCF_DIR_PATH.'includes/compatibility/Functions.php'; //require file for compatibility
 		require_once WPCF_DIR_PATH.'includes/Initial_Setup.php';
 		require_once WPCF_DIR_PATH.'settings/Admin_Menu.php';
+		require_once WPCF_DIR_PATH.'includes/Gutenberg.php';
 		new settings\Admin_Menu();
+		new \WPCF\Gutenberg();
 	}
 
 	//Checking Vendor

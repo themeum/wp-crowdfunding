@@ -2,26 +2,11 @@ const { __ } = wp.i18n;
 const { InspectorControls, RichText } = wp.editor;
 const { Component, Fragment } = wp.element;
 const { PanelBody,SelectControl } = wp.components;
-
-
   
 class Edit extends Component {
     constructor(props) {
         super(props)
-        this.state = { device: 'md', selector: true, spacer: true, openPanelSetting: '' };
-    }
-    componentDidMount() {
-        const { setAttributes, clientId, attributes: { uniqueId } } = this.props
-        const _client = clientId.substr(0, 6)
-        if (!uniqueId) {
-            setAttributes({ uniqueId: _client });
-        } else if (uniqueId && uniqueId != _client) {
-            setAttributes({ uniqueId: _client });
-        }
-    }
-
-    handlePanelOpenings = (panelName) => {
-        this.setState({ ...this.state, openPanelSetting: panelName })
+        this.state = { openPanelSetting: '' };
     }
 
     render() {
@@ -31,9 +16,6 @@ class Edit extends Component {
                 layout,
             },
         } = this.props
-
-        const { device } = this.state
-
         
         return (
             <Fragment>
@@ -52,9 +34,7 @@ class Edit extends Component {
                 </InspectorControls>
 
                 <div className={`wpcf-title-inner`}>
-                    <div>
-                        AAA
-                    </div>
+                    AAA={layout}
                 </div> 
             </Fragment>
         )

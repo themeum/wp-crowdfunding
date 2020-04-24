@@ -6,7 +6,7 @@ var webpack = require('webpack');
 module.exports = {
     mode: 'production',
     entry: {
-        'blocks.script.build.min': path.join( __dirname, 'src/index.js')
+        'blocks.min': path.join( __dirname, 'src/index.js')
     },
     output: {
         path: path.join( __dirname, '../assets/js'),

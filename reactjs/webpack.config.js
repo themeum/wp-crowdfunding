@@ -8,7 +8,7 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, '../assets/js/'),
-        filename: 'blocks.script.build.min.js'
+        filename: 'blocks.min.js'
     },
     module: {
         rules: [

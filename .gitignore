@@ -1,8 +1,7 @@
-assets/js/blocks.script.build.min.js
-assets/js/blocks.script.build.min.js.map
-assets/css/blocks.style.build.css
-source/node_modules/
-source/package-lock.json
+assets/js/blocks.min.js
+assets/js/blocks.min.js.map
+reactjs/node_modules/
+reactjs/package-lock.json
 .idea/
 .vscode/
 .DS_Store
