@@ -58,7 +58,6 @@ if (!class_exists( 'Crowdfunding' )) {
 
 
 require_once WPCF_DIR_PATH . 'core/Functions.php';
-require_once WPCF_DIR_PATH . 'lib/repeater-widget/repeater-widget.php';
 function crowdfunding_core(){
     return new crowdfunding_Core_Functions();
 }
