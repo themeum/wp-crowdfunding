@@ -11,7 +11,7 @@ class Gutenberg{
         add_filter( 'block_categories', array( $this, 'block_categorie_callback'), 1 , 2 );
     }
     
-    /**
+    /** 
      * Blocks Init
      */
     public function blocks_init(){

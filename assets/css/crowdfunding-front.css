@@ -1930,3 +1930,31 @@ div#respond h3, #respond a {
     margin-top: 42px;
     margin-bottom: 32px;
 }
+
+
+/* Search Block CSS */
+.wpcf-form-field.full input.search-field {
+    width: 79%;
+}
+.wpcf-form-field.full button {
+    width: 20%;
+}
+.wpcf-form-field.medium input.search-field {
+    width: 35%;
+}
+.wpcf-form-field.medium button {
+    width: 15%;
+}
+.wpcf-form-field input.search-field {
+    height: 44px;
+    border-radius: 4px;
+}
+.wpcf-form-field button {
+    border: none;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-left: 4px;
+    height: 44px;
+}

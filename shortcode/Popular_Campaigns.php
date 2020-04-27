@@ -12,8 +12,8 @@ class Popular_Campaigns {
     function popular_campaigns_callback( $atts, $shortcode ) {
         
         $a = shortcode_atts(array(
-            'number'      => -1,
-            'order'     => 'DESC',
+            'number'        => -1,
+            'order'         => 'DESC',
         ), $atts, $shortcode );
 
         $paged = 1;
