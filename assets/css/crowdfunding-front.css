@@ -1958,3 +1958,17 @@ div#respond h3, #respond a {
     margin-left: 4px;
     height: 44px;
 }
+
+/* Donate Block */
+.wpcf-form-field.full .wpcf-donate-form-wrap input.search-field {
+    width: 66%;
+}
+.wpcf-form-field.full .wpcf-donate-form-wrap button {
+    width: 30%;
+}
+.wpcf-form-field.medium .wpcf-donate-form-wrap input.search-field {
+    width: 30%;
+}
+.wpcf-form-field.medium .wpcf-donate-form-wrap button {
+    width: 23%;
+}

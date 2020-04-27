@@ -272,3 +272,17 @@ table.wp-list-table .column-campaign_owner {
     display: inline-block;
     margin-bottom: 4px;
 }
+
+/* Donate Block */
+.wpcf-form-field.full .wpcf-donate-form-wrap input.search-field {
+    width: 69%;
+}
+.wpcf-form-field.full .wpcf-donate-form-wrap button {
+    width: 30%;
+}
+.wpcf-form-field.medium .wpcf-donate-form-wrap input.search-field {
+    width: 28%;
+}
+.wpcf-form-field.medium .wpcf-donate-form-wrap button {
+    width: 21%;
+}

@@ -16,7 +16,10 @@ class Gutenberg{
      */
     public function blocks_init(){
         require_once WPCF_DIR_PATH . 'includes/blocks/Search.php';
+        require_once WPCF_DIR_PATH . 'includes/blocks/Donate.php';
+
         new \WPCF\blocks\Search();
+        new \WPCF\blocks\Donate();
     }
     
     /**
