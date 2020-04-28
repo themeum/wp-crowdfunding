@@ -17,9 +17,11 @@ class Gutenberg{
     public function blocks_init(){
         require_once WPCF_DIR_PATH . 'includes/blocks/Search.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Donate.php';
+        require_once WPCF_DIR_PATH . 'includes/blocks/Project_Listing.php';
 
         new \WPCF\blocks\Search();
         new \WPCF\blocks\Donate();
+        new \WPCF\blocks\ProjectListing();
     }
     
     /**
