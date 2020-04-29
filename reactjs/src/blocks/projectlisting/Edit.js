@@ -1,76 +1,59 @@
+import { isUndefined, pickBy } from 'lodash';
+
 const { __ } = wp.i18n;
 const { apiFetch } = wp;
 const { withSelect } = wp.data
+const { addQueryArgs } = wp.url;
 const { withState } = wp.compose;
 const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
-const { PanelBody,SelectControl, ColorPalette, RangeControl, TextControl, TextareaControl, Spinner } = wp.components;
+const { PanelBody,SelectControl, RangeControl, Spinner, QueryControls } = wp.components;
  
 class Edit extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            categories: []
-        }
+
+    constructor() {
+		super( ...arguments );
+		this.state = {
+			categoriesList: [],
+		}
     }
-
-    componentDidMount() {
-        const { posts } = this.props
-        // this.getFeaturedImages(posts)
-        let postSelections = [];
-
-        
-
-        wp.apiFetch({ path: "/wc/v2/products/categories" }).then(posts => {
-            postSelections.push({ label: "Select All Category", value: 'all' });
-            $.each(posts, function (key, val) {
-                postSelections.push({ label: val.name, value: val.id });
-            });
-            return postSelections;
-        });
-        this.setState({ categories: postSelections })
-
-       
-    }
-
     
-    // componentDidUpdate(prevProps, prevState) {
-    //     const { posts } = this.props
-    //     if (posts != prevProps.posts) {
-    //         this.getFeaturedImages(posts)
-    //     }
-    // }
-    // getFeaturedImages = (posts) => {
-    //     if (posts) {
-    //         posts.forEach(post => {
-    //             post._links["wp:featuredmedia"] && apiFetch({
-    //                 method: 'POST',
-    //                 url: post._links["wp:featuredmedia"][0].href,
-    //                 headers: { 'Content-Type': 'application/json' }
-    //             }).then(response => {
-    //                 this.setState({
-    //                     ...this.state,
-    //                     [post.id]: response.source_url
-    //                 })
-    //             }).catch(error => {
-    //                 console.log('error : ', error)
-    //             })
-    //         })
-    //     }
-
-    //     console.log('DD ', this.state.categories)
-    // }
+    componentWillMount() {
+		this.isStillMounted = true;
+		this.fetchRequest = apiFetch( {
+			path: addQueryArgs( `/wc/v2/products/categories`, {
+				tax: 'product_cat'
+			}),
+		} ).then(
+			categoriesList => {
+				if ( this.isStillMounted ) {
+					this.setState( { categoriesList } );
+				}
+			}
+		).catch(
+			() => {
+				if ( this.isStillMounted ) {
+					this.setState( { categoriesList: [] } );
+				}
+			}
+		)
+    }
+    
+    componentWillUnmount() {
+		this.isStillMounted = false;
+	}
 
     render() {
         const {
-            setAttributes,
             attributes: {
                 fontSize,
                 columns,
-                numbers,
-                orderby,
-                selectedCategory
+                categories,
+				order,
+				order_by,
+                numbers,   
             },
+            setAttributes,
         } = this.props
 
         const { products } = this.props
@@ -87,6 +70,7 @@ class Edit extends Component {
                 max={30}
             />
         ));
+
         // Number of column
         const ProductColumControl = withState({
             column: columns,
@@ -104,31 +88,21 @@ class Edit extends Component {
             />
         ));
 
-        // Number of post.
-        const NumberProductControl = withState({
-            numbers: numbers,
-        })(({ numbers, setState }) => (
-            <RangeControl
-                label="Number Of Product"
-                value={numbers}
-                onChange={(value) => { setAttributes({ numbers: value }) }}
-                min={1}
-                max={40}
-            />
-        ));
-        const ProductPostOrder = withState({
-            postorder: orderby,
-        })(({ postorder, setState }) => (
-            <SelectControl
-                label="Post Order"
-                value={postorder}
-                options={[
-                    { label: 'ASC', value: 'asc' },
-                    { label: 'DESC', value: 'desc' },
-                ]}
-                onChange={(value) => { setAttributes({ orderby: value }) }}
-            />
-        ));
+        const { categoriesList } = this.state;
+		const blockSettings = (
+            <PanelBody title={ __( 'Query Product', 'wp-crowdfunding' ) } initialOpen={ true }>
+                <QueryControls
+                    { ...{ order, order_by } }
+                    numberOfItems={ numbers }
+                    categoriesList={ categoriesList }
+                    selectedCategoryId={ categories }
+                    onOrderChange={ order => setAttributes( { order } ) }
+                    onOrderByChange={ order_by => setAttributes( { order_by } ) }
+                    onCategoryChange={ value => setAttributes( { categories: '' !== value ? value : undefined } ) }
+                    onNumberOfItemsChange={ numbers => setAttributes( { numbers } ) }
+                />
+            </PanelBody>
+		);
 
         let output = '';
         let count = 0;
@@ -137,16 +111,7 @@ class Edit extends Component {
             <Fragment>
                 <InspectorControls key="inspector">
 
-                    <PanelBody initialOpen={true}>
-                        <SelectControl
-                            value={selectedCategory}
-                            options={this.state.categories}
-                            onChange={(value) => setAttributes({ selectedCategory: value })}
-                        />
-                        <ProductPostOrder /> 
-                        <NumberProductControl />
-                        
-                    </PanelBody>
+                    {blockSettings}
 
                     <PanelBody title={__('Product Style')} initialOpen={false}>
                         <ProductColumControl />
@@ -228,7 +193,7 @@ class Edit extends Component {
                         }
                         </Fragment>
                         :
-                        <div className="qubely-postgrid-is-loading">
+                        <div className="wpcf-products-is-loading">
                             <Spinner />
                         </div>
                         }
@@ -242,13 +207,21 @@ class Edit extends Component {
 
 
 export default withSelect((select, props) => {
-    const { attributes: { numbers, orderby, selectedCategory } } = props
-    const { getEntityRecords } = select('core')
-    const output = (selectedCategory == 'all') ? 
-    ({products: getEntityRecords('postType', 'product', { per_page: numbers, order: orderby, status: 'publish', } )}) : 
-    ({products: getEntityRecords('postType', 'product', { per_page: numbers, order: orderby, status: 'publish', } )})
+    const { attributes: { numbers, order, order_by, categories } } = props
+    
+    const { getEntityRecords } = select( 'core' );
 
-    return output; 
+    const ProductsQuery = pickBy({
+        categories,
+        order,
+        per_page: numbers,
+        status: 'publish',
+        _embed: true,
+    }, value => ! isUndefined( value ) );
+
+    return {
+        products: getEntityRecords( 'postType', 'product', ProductsQuery ),
+    }
 })
 
 (Edit)
