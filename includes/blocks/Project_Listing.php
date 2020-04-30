@@ -16,7 +16,7 @@ class ProjectListing{
                 'attributes' => array(
                     'categories'   => array(
                         'type'      => 'string',
-                        'default'   => 'all'
+                        'default'   => ''
                     ),
                     'order'   => array(
                         'type'      => 'string',
@@ -30,15 +30,6 @@ class ProjectListing{
                         'type'      => 'number',
                         'default'   => 10
                     ),
-
-                    'fontSize'   => array(
-                        'type'      => 'number',
-                        'default'   => ''
-                    ),
-                    'columns'   => array(
-                        'type'      => 'number',
-                        'default'   => 3
-                    ),
                     
                 ),
                 'render_callback' => array( $this, 'project_listing_block_callback' ),
@@ -47,24 +38,15 @@ class ProjectListing{
     }
 
     public function project_listing_block_callback( $att ){
-        $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
-
-        // $columns 		= isset( $att['columns']) ? $att['columns'] : 3;
-        $post_limit 		= isset( $att['numbers']) ? $att['numbers'] : 6;
-        $order 		        = isset( $att['order']) ? $att['order'] : 'desc';
-        // $fontSize 		= isset( $att['fontSize']) ? $att['fontSize'] : '14';
-        // $lineheight 	= isset( $att['lineheight']) ? $att['lineheight'] : '24';
-        // $fontWeight 	= isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
-        // $blogStyle 		= isset( $att['blogStyle']) ? $att['blogStyle'] : 'style1';
-        // $colorpalette 	= isset( $att['colorpalette']) ? $att['colorpalette'] : '#212127';
-        // $selectedCategory = isset( $att['selectedCategory']) ? $att['selectedCategory'] : 'all';
-
-
+        
+        $cat_name       = ($categories) ? get_the_category_by_ID($categories) : null; 
+        $post_limit     = isset( $att['numbers']) ? $att['numbers'] : 6;
+        $order          = isset( $att['order']) ? $att['order'] : 'desc';
+        $categories     = isset( $att['categories']) ? $att['categories'] : '';
 
         if( function_exists('wpcf_function') ){
-
             $a = shortcode_atts(array(
-                'cat'         => null,
+                'cat'         => $cat_name,
                 'number'      => $post_limit,
                 'order'       => $order,
             ), $atts );
@@ -89,7 +71,6 @@ class ProjectListing{
                 ),
                 'posts_per_page'    => $a['number'],
                 'paged'             => $paged,
-                'orderby'           => 'post_title',
                 'order'             => $a['order'],
             );
 
@@ -128,10 +109,6 @@ class ProjectListing{
             wp_reset_query();
             return $html;
         }
-
-
-    
-         
-        
+           
     }
 }

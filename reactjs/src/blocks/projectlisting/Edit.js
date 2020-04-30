@@ -46,8 +46,6 @@ class Edit extends Component {
     render() {
         const {
             attributes: {
-                fontSize,
-                columns,
                 categories,
 				order,
 				order_by,
@@ -57,36 +55,6 @@ class Edit extends Component {
         } = this.props
 
         const { products } = this.props
-
-        // Font size.
-        const BtnFontSizePicker = withState({
-            fontSize: fontSize,
-        })(({ fontSize, setState }) => (
-            <RangeControl
-                label="Font Size"
-                value={fontSize}
-                onChange={(value) => { setAttributes({ fontSize: value }) }}
-                min={5}
-                max={30}
-            />
-        ));
-
-        // Number of column
-        const ProductColumControl = withState({
-            column: columns,
-        })(({ column, setState }) => (
-            <SelectControl
-                label="Select Column"
-                value={column}
-                options={[
-                    { label: 'One Column', value: '1' },
-                    { label: 'Two Column', value: '2' },
-                    { label: 'Three Column', value: '3' },
-                    { label: 'Four Column', value: '4' },
-                ]}
-                onChange={(value) => { setAttributes({ columns: value }) }}
-            />
-        ));
 
         const { categoriesList } = this.state;
 		const blockSettings = (
@@ -105,7 +73,6 @@ class Edit extends Component {
 		);
 
         let output = '';
-        let count = 0;
 
         return (
             <Fragment>
@@ -114,8 +81,7 @@ class Edit extends Component {
                     {blockSettings}
 
                     <PanelBody title={__('Product Style')} initialOpen={false}>
-                        <ProductColumControl />
-                        <BtnFontSizePicker />
+                        
                     </PanelBody>
                 </InspectorControls>
 
@@ -128,10 +94,14 @@ class Edit extends Component {
                             <div className="wpneo-wrapper-inner">
                                 { products.map(product => {
 
-                                    output = <div className={`wpneo-listings two col-${columns}`}>
+                                    console.log('ASD', product.wpcf_author.location)
+
+                                    output = <div className={`wpneo-listings two col-${product.column}`}>
                                         <div className="wpneo-listing-img">
                                             <a href="#" title="">
-                                                <img width="300" height="300" src="http://localhost/plugins/cf/wp-content/uploads/woocommerce-placeholder-300x300.png" className="woocommerce-placeholder wp-post-image" alt="Placeholder" />
+                                                {product.wpcf_image_urls.portrait[0] && 
+                                                    <img src={product.wpcf_image_urls.portrait[0]} className="img-responsive woocommerce-placeholder wp-post-image" alt={product.title.rendered}/>
+                                                }
                                             </a>
                                             <div className="overlay">
                                                 <div>
@@ -146,11 +116,11 @@ class Edit extends Component {
                                             <div className="woocommerce"></div>
                                             <h4><a href="">{product.title.rendered}</a></h4>
                                             <p className="wpneo-author">by
-                                                <a href="">Rejuan Ahamed</a>
+                                                <a href="">{product.wpcf_author.display_name}</a>
                                             </p>
                                             <div className="wpneo-location">
                                                 <i className="wpneo-icon wpneo-icon-location"></i>
-                                                <div className="wpneo-meta-desc">Ment Road 23, Australia</div>
+                                                <div className="wpneo-meta-desc">{product.wpcf_author.location}</div>
                                             </div>
                                             <p className="wpneo-short-description">Lorem ipsum dolor si...</p>
                                             <div className="wpneo-raised-percent">
@@ -181,8 +151,6 @@ class Edit extends Component {
                                                 </div>
                                             </div>
 
-                                            <a href="" className="btn-details">Campaign Details</a> 
-                                            
                                         </div>
                                     </div>
 
@@ -207,7 +175,7 @@ class Edit extends Component {
 
 
 export default withSelect((select, props) => {
-    const { attributes: { numbers, order, order_by, categories } } = props
+    const { attributes: { numbers, order, categories } } = props
     
     const { getEntityRecords } = select( 'core' );
 

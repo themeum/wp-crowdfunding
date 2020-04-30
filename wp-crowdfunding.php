@@ -52,6 +52,7 @@ if (!function_exists('wpcf_function')) {
 
 if (!class_exists( 'Crowdfunding' )) {
     require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
+    require_once WPCF_DIR_PATH . 'includes/register_api_hook.php';
     new \WPCF\Crowdfunding();
 }
 
