@@ -18,10 +18,12 @@ class Gutenberg{
         require_once WPCF_DIR_PATH . 'includes/blocks/Search.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Donate.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Project_Listing.php';
+        require_once WPCF_DIR_PATH . 'includes/blocks/Popular_Campaigns.php';
 
         new \WPCF\blocks\Search();
         new \WPCF\blocks\Donate();
         new \WPCF\blocks\ProjectListing();
+        new \WPCF\blocks\PopularCampaigns();
     }
     
     /**
