@@ -77,14 +77,8 @@ class Edit extends Component {
         return (
             <Fragment>
                 <InspectorControls key="inspector">
-
                     {blockSettings}
-
-                    <PanelBody title={__('Product Style')} initialOpen={false}>
-                        
-                    </PanelBody>
                 </InspectorControls>
-
 
                 <div className="wpneo-wrapper">
                     <div className="wpneo-container">
@@ -94,19 +88,17 @@ class Edit extends Component {
                             <div className="wpneo-wrapper-inner">
                                 { products.map(product => {
 
-                                    console.log('ASD', product.wpcf_author.location)
+                                    console.log('A', product)
 
                                     output = <div className={`wpneo-listings two col-${product.column}`}>
                                         <div className="wpneo-listing-img">
-                                            <a href="#" title="">
-                                                {product.wpcf_image_urls.portrait[0] && 
-                                                    <img src={product.wpcf_image_urls.portrait[0]} className="img-responsive woocommerce-placeholder wp-post-image" alt={product.title.rendered}/>
-                                                }
-                                            </a>
+                                            
+                                            <div dangerouslySetInnerHTML={{__html: product.wpcf_product.product_thumb}} />
+                                            
                                             <div className="overlay">
                                                 <div>
                                                     <div>
-                                                        <a href="">View Campaign</a>
+                                                        <a href="#">View Campaign</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -116,36 +108,38 @@ class Edit extends Component {
                                             <div className="woocommerce"></div>
                                             <h4><a href="">{product.title.rendered}</a></h4>
                                             <p className="wpneo-author">by
-                                                <a href="">{product.wpcf_author.display_name}</a>
+                                                <a href=""> {product.wpcf_product.display_name}</a>
                                             </p>
                                             <div className="wpneo-location">
                                                 <i className="wpneo-icon wpneo-icon-location"></i>
-                                                <div className="wpneo-meta-desc">{product.wpcf_author.location}</div>
+                                                <div className="wpneo-meta-desc">{product.wpcf_product.location}</div>
                                             </div>
-                                            <p className="wpneo-short-description">Lorem ipsum dolor si...</p>
+                                            <p className="wpneo-short-description">{product.wpcf_product.desc}</p>
                                             <div className="wpneo-raised-percent">
                                                 <div className="wpneo-meta-name">Raised Percent :</div>
-                                                <div className="wpneo-meta-desc">3.33%</div>
+                                                <div className="wpneo-meta-desc">{product.wpcf_product.raised_percent}</div>
                                             </div>
+                                                                                        
                                             <div className="wpneo-raised-bar">
-                                                <div className="neo-progressbar">
-                                                    <div>33.33%</div>
+                                                <div id="neo-progressbar">
+                                                    <div style={{width: product.wpcf_product.raised_percent}}></div>
                                                 </div>
                                             </div>
+
                                             <div className="wpneo-funding-data">
                                                 <div className="wpneo-funding-goal">
-                                                    <div className="wpneo-meta-desc"><span className="woocommerce-Price-amount amount"><span className="woocommerce-Price-currencySymbol">$</span>6,000</span>
+                                                    <div className="wpneo-meta-desc"><span className="woocommerce-Price-amount amount"><span className="woocommerce-Price-currencySymbol">$</span>{product.wpcf_product.funding_goal}</span>
                                                     </div>
                                                     <div className="wpneo-meta-name">Funding Goal</div>
                                                 </div>
                                                 <div className="wpneo-time-remaining">
-                                                    <div className="wpneo-meta-desc">0</div>
+                                                    <div className="wpneo-meta-desc">{product.wpcf_product.days_remaining}</div>
                                                     <div className="wpneo-meta-name float-left">Days to go</div>
                                                 </div>
                                                 <div className="wpneo-fund-raised">
                                                     <div className="wpneo-meta-desc">
                                                         <span className="woocommerce-Price-amount amount">
-                                                        <span className="woocommerce-Price-currencySymbol">$</span>200</span>
+                                                        <span className="woocommerce-Price-currencySymbol">$</span>{product.wpcf_product.total_raised}</span>
                                                     </div>
                                                     <div className="wpneo-meta-name">Fund Raised</div>
                                                 </div>

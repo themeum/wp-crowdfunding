@@ -304,37 +304,6 @@ table.wp-list-table .column-campaign_owner {
     float: left;
     padding: 0px 1%;
 }
-.wpneo-listing-img {
-    position: relative;
-    border-width: 1px 1px 0px;
-    border-style: solid;
-    border-color: #e9e9e9;
-}
-
-/* Project Listing Block */
-.wpneo-listing-img {
-    width: 100%;
-    font-size: 0;
-}
-.wpneo-listing-content a {
-    text-decoration: underline;
-}
-.wpneo-listings .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 10px;
-    text-align: center;
-    background: rgba(0,0,0,.7);
-    opacity: 0;
-    -webkit-transition: opacity 400ms;
-    transition: opacity 400ms;
-}
-.wpneo-listings:hover .overlay {
-    opacity: 1;
-}
 
 /*------------------------------
 -------- Listing Page ----------
