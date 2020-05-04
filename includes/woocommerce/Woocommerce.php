@@ -359,7 +359,7 @@ class Woocommerce {
             $display ='none;';
         }
 
-        echo "<div id='campaign_status' class='panel woocommerce_options_panel'>";
+        echo "<div id='campaign_status' class='panel woocommerce_options_panel update_status'>";
 
         echo "<div id='campaign_update_field' style='display: $display'>";
             echo "<div class='campaign_update_field_copy'>";

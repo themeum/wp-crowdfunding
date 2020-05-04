@@ -241,3 +241,6 @@ h1.top-reports{
 table.wp-list-table .column-campaign_owner {
     width: 80px;
 }
+.update_status.woocommerce_options_panel {
+    display: block !important;
+}
