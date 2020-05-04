@@ -632,15 +632,13 @@ class Functions {
         $total = $this->get_total_fund($campaign_id);
         $goal = $this->get_total_goal($campaign_id);
         if ($total > 0 && $goal > 0  ) {
-            $percent = number_format($total / $goal * 100, 2, '.', '');
+            $percent = ( $goal < $total ) ? '100' : number_format($total / $goal * 100, 2, '.', '');
         }
         return $percent;
     }
 
     public function get_fund_raised_percent_format() {
-        $raised_percent = $this->get_raised_percent();
-        $percent_value = ($raised_percent <= '100') ? $raised_percent : '100'; 
-        return $percent_value.'%';
+        return $this->get_raised_percent().'%';
     }
 
     public function get_campaign_orders_id_list( $post_id = Null ) {
