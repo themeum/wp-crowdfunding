@@ -638,7 +638,9 @@ class Functions {
     }
 
     public function get_fund_raised_percent_format() {
-        return $this->get_raised_percent().'%';
+        $raised_percent = $this->get_raised_percent();
+        $percent_value = ($raised_percent <= '100') ? $raised_percent : '100'; 
+        return $percent_value.'%';
     }
 
     public function get_campaign_orders_id_list( $post_id = Null ) {
