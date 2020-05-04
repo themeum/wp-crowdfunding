@@ -56,8 +56,6 @@ class Edit extends Component {
 
         const { products } = this.props
 
-        console.log('AAAS', products)
-
         const { categoriesList } = this.state;
 		const blockSettings = (
             <PanelBody title={ __( 'Query Product', 'wp-crowdfunding' ) } initialOpen={ true }>
@@ -87,12 +85,8 @@ class Edit extends Component {
                         { (products && products.length) ?
                         <Fragment>
                         { products &&
-                            
-
                             <div className="wpneo-wrapper-inner">
                                 { products.map(product => {
-
-                                    console.log('A', product)
 
                                     output = <div className={`wpneo-listings two col-${product.column}`}>
                                         <div className="wpneo-listing-img">
@@ -173,39 +167,22 @@ class Edit extends Component {
 
 
 export default withSelect((select, props) => {
-    const { attributes: { numbers, order, categories } } = props
-    
-    // const { getEntityRecords } = select( 'core' );
-
-    // const ProductsQuery = pickBy({
-    //     categories,
-    //     order,
-    //     per_page: numbers,
-    //     status: 'publish',
-    //     _embed: true,
-    // }, value => ! isUndefined( value ) );
-
-    // return {
-    //     products: getEntityRecords( 'postType', 'product', ProductsQuery ),
-    // }
-
-    
+    const { attributes: { numbers, order } } = props
     const { getEntityRecords } = select('core')
+
     const output = ({products: getEntityRecords(
         'postType', 'product', 
         { 
             order: order, 
+            // orderby: 'meta_value_num',
             per_page: numbers, 
             ignore_sticky_posts: 1, 
             metaKey: 'total_sales', 
             status: 'publish', 
         }) 
     })
-      
-    console.log('ASD', output)
 
     return output; 
-
 })
 
 (Edit)

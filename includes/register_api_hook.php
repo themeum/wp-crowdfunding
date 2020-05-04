@@ -29,16 +29,6 @@ function register_api_hook(){
         )
     );
 
-    # Query.
-    register_rest_field(
-        'product', 'wpcf_product_query',
-        array(
-            'get_callback'    => 'wpcf_campaign_query_info',
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
-
 } 
 
 # Callback functions: Author Name
@@ -64,64 +54,12 @@ function wpcf_get_prodcut_info( $object ) {
 
     $author['product_thumb'] = woocommerce_get_product_thumbnail();
 
-
-    // $query_args = array(
-    //         'meta_query' => array(
-    //             array(
-    //                 'key'       => 'total_sales',
-    //                 'value'     => 0,
-    //                 'compare'   => '>',
-    //             )
-    //         ),
-    //         'tax_query' => array(
-    //             array(
-    //                 'taxonomy' => 'product_type',
-    //                 'field'    => 'slug',
-    //                 'terms'    => 'crowdfunding',
-    //             ),
-    //         )
-    //     );
-
-
     return $author;
 }
 
 # Callback function: Column.
 function wpcf_campaign_get_column($object) {
-    $col_num = get_option('number_of_collumn_in_row', 3);
+    $col_num = get_option('number_of_collumn_in_row', true);
     return $col_num;
 }
 
-
-function wpcf_campaign_query_info($object) {
-    $posts = get_posts( array(
-        'post_type'             => 'product',
-        'post_status'           => 'publish',
-        'ignore_sticky_posts'   => 1,
-        'meta_key'              => 'total_sales',
-        'posts_per_page'        => $a['number'],
-        'paged'                 => $paged,
-        'orderby'               => 'meta_value_num',
-        'order'                 => $a['order'],
-        'meta_query' => array(
-            array(
-                'key'       => 'total_sales',
-                'value'     => 0,
-                'compare'   => '>',
-            )
-        ),
-
-        'tax_query' => array(
-            array(
-                'taxonomy' => 'product_type',
-                'field'    => 'slug',
-                'terms'    => 'crowdfunding',
-            ),
-        )
-    ) );
-    if ( empty( $posts ) ) { return null; }
-    foreach ( $posts as $post ) {
-        $price = $post;
-    }
-    return $price;
-}
