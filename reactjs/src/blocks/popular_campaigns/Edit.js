@@ -1,83 +1,62 @@
-import { isUndefined, pickBy } from 'lodash';
-
 const { __ } = wp.i18n;
-const { apiFetch } = wp;
 const { withSelect } = wp.data
-const { addQueryArgs } = wp.url;
-const { withState } = wp.compose;
 const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
-const { PanelBody,SelectControl, RangeControl, Spinner, QueryControls } = wp.components;
- 
+const { SelectControl, RangeControl, Spinner } = wp.components;
+
 class Edit extends Component {
 
-    constructor() {
-		super( ...arguments );
-		this.state = {
-			categoriesList: [],
-		}
+    constructor(props) { 
+        super(props)
+        this.state = { openPanelSetting: '' };
     }
-    
-    componentWillMount() {
-		this.isStillMounted = true;
-		this.fetchRequest = apiFetch( {
-			path: addQueryArgs( `/wc/v2/products/categories`, {
-				tax: 'product_cat'
-			}),
-		} ).then(
-			categoriesList => {
-				if ( this.isStillMounted ) {
-					this.setState( { categoriesList } );
-				}
-			}
-		).catch(
-			() => {
-				if ( this.isStillMounted ) {
-					this.setState( { categoriesList: [] } );
-				}
-			}
-		)
-    }
-    
-    componentWillUnmount() {
-		this.isStillMounted = false;
-	}
 
     render() {
         const {
             attributes: {
-                categories,
-				order,
-				order_by,
-                numbers,   
+                order,
+				orderby,
+                numbers, 
             },
             setAttributes,
         } = this.props
 
         const { products } = this.props
-
-        const { categoriesList } = this.state;
-		const blockSettings = (
-            <PanelBody title={ __( 'Query Product', 'wp-crowdfunding' ) } initialOpen={ true }>
-                <QueryControls
-                    { ...{ order, order_by } }
-                    numberOfItems={ numbers }
-                    categoriesList={ categoriesList }
-                    selectedCategoryId={ categories }
-                    onOrderChange={ order => setAttributes( { order } ) }
-                    onOrderByChange={ order_by => setAttributes( { order_by } ) }
-                    onCategoryChange={ value => setAttributes( { categories: '' !== value ? value : undefined } ) }
-                    onNumberOfItemsChange={ numbers => setAttributes( { numbers } ) }
-                />
-            </PanelBody>
-		);
-
         let output = '';
 
         return (
             <Fragment>
                 <InspectorControls key="inspector">
-                    {blockSettings}
+                <SelectControl
+                        label={__('Post Order')}
+                        value={order}
+                        options={[
+                            { label: 'ASC', value: 'asc' },
+                            { label: 'DESC', value: 'desc' },
+                        ]}
+                        onChange={(value) => { setAttributes({ order: value }) }}
+                    />
+                    <SelectControl
+                        label={__('Post Order')}
+                        value={orderby}
+                        options={[
+                            { label: 'Date', value: 'date' },
+                            { label: 'Title', value: 'title' },
+                            { label: 'Author', value: 'author' },
+                            { label: 'Modified', value: 'modified' },
+                            { label: 'ID', value: 'id' },
+                            { label: 'Slug', value: 'slug' },
+                            { label: 'Parent', value: 'parent' },
+                        ]}
+                        onChange={(value) => { setAttributes({ orderby: value }) }}
+                    />
+                    <RangeControl
+                        label={__('Number Of Post')}
+                        value={numbers}
+                        onChange={(value) => { setAttributes({ numbers: value }) }}
+                        min={1}
+                        max={20}
+                    />
                 </InspectorControls>
 
                 <div className="wpneo-wrapper">
@@ -85,14 +64,13 @@ class Edit extends Component {
                         { (products && products.length) ?
                         <Fragment>
                         { products &&
+                            
                             <div className="wpneo-wrapper-inner">
                                 { products.map(product => {
 
                                     output = <div className={`wpneo-listings two col-${product.column}`}>
                                         <div className="wpneo-listing-img">
-                                            
                                             <div dangerouslySetInnerHTML={{__html: product.wpcf_product.product_thumb}} />
-                                            
                                             <div className="overlay">
                                                 <div>
                                                     <div>
@@ -159,30 +137,19 @@ class Edit extends Component {
                         }
                     </div>
                 </div>
-
+                
             </Fragment>
         )
     }
 }
 
-
 export default withSelect((select, props) => {
-    const { attributes: { numbers, order } } = props
-    const { getEntityRecords } = select('core')
+    const { attributes: { numbers, order, orderby } } = props
 
-    const output = ({products: getEntityRecords(
-        'postType', 'product', 
-        { 
-            order: order, 
-            // orderby: 'meta_value_num',
-            per_page: numbers, 
-            ignore_sticky_posts: 1, 
-            metaKey: 'total_sales', 
-            status: 'publish', 
-        }) 
-    })
+    return {
+        products: select( 'core' ).getEntityRecords( 'postType', 'product', {per_page:numbers, order:order, orderby:orderby, 'ignore_sticky_posts': 1, metaKey: 'total_sales', } ),
+    };
 
-    return output; 
 })
 
 (Edit)

@@ -14,15 +14,12 @@ class PopularCampaigns{
             'wp-crowdfunding/popularcampaigns',
             array(
                 'attributes' => array(
-                    'categories'   => array(
-                        'type'      => 'string',
-                        'default'   => ''
-                    ),
+
                     'order'   => array(
                         'type'      => 'string',
                         'default'   => 'desc'
                     ),
-                    'order_by' => array(
+                    'orderby' => array(
                         'type'      => 'string',
                         'default'   => 'date'
                     ),
@@ -39,10 +36,9 @@ class PopularCampaigns{
 
     public function popular_campaigns_block_callback( $att ){
          
-        $cat_name       = ($categories) ? get_the_category_by_ID($categories) : null; 
         $post_limit     = isset( $att['numbers']) ? $att['numbers'] : 6;
         $order          = isset( $att['order']) ? $att['order'] : 'desc';
-        $categories     = isset( $att['categories']) ? $att['categories'] : '';
+        $orderby        = isset( $att['orderby']) ? $att['orderby'] : 'date';
 
         $paged = 1;
         if ( get_query_var('paged') ) {
@@ -56,9 +52,9 @@ class PopularCampaigns{
             'post_status'           => 'publish',
             'ignore_sticky_posts'   => 1,
             'meta_key'              => 'total_sales',
-            'posts_per_page'        => -1,
+            'posts_per_page'        => $post_limit,
             'paged'                 => $paged,
-            'orderby'               => 'meta_value_num',
+            'orderby'               => $orderby,
             'order'                 => $order,
             'meta_query' => array(
                 array(
@@ -78,9 +74,7 @@ class PopularCampaigns{
         );
 
         query_posts($query_args);
-
-        print_r($query_args);
-
+        
         ob_start();
         wpcf_function()->template('wpneo-listing');
         $html = ob_get_clean();
