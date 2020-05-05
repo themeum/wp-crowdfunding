@@ -128,12 +128,13 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
-
-= 2.0.4 - 22 April, 2020 =
+= 2.0.4 - 5 May, 2020 =
 Fix: Reword line break issue.
 Fix: Physical shop products are counted as crowdfunding products.
 Fix: Campaign update filed is not accepting images and links.
 Fix: Login credentials are wrong the wordpress login page is exposed to the user.
+Fix: Campaign Update Status not showing.
+Fix: Percentage incresing more than 100% issue.
 
 = 2.0.3 - 2 April, 2020 =
 Update: Redesign for WooCommerce & WP Crowdfunding Pro notices on dashboard 
