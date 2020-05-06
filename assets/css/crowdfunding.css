@@ -584,4 +584,161 @@ table.wp-list-table .column-campaign_owner {
     }
 }
 
-
+/* Registration */
+.wpneo-shadow  {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 4px;
+}
+.wp-crowd-parent {
+    position: relative;
+}
+.wpneo-links-list {
+    display: block;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.wpneo-links-lists {
+    display: block;
+    padding: 0 25px;
+}
+.wpneo-links .wpneo-links-list .wpneo-links-lists a {
+    line-height: 40px;
+}
+.wp-crowd-submenu {
+    position: absolute;
+    width: 230px;
+    top:100%;
+    left: 0;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transiton: 350ms;
+    -moz-transition: 350ms;
+    -ms-transition: 350ms;
+    -o-transition: 350ms;
+    transition: 350ms;
+    -webkit-transform: translate(0, 25px);
+    transform: translate(0, 25px);
+    z-index: 1;
+}
+.wpneo-links-list:hover .wp-crowd-submenu {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0, 1px);
+    transform: translate(0, 1px);
+}
+.wpneo-dashboard-chart {
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: #fff;
+}
+.wpcrowd-arrow-down {
+    border: solid #686C8B;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 2.5px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    position: relative;
+    left: 5px;
+    top: -2px;
+}
+#wpneofrontenddata,#wpneo-registration{
+    max-width: 810px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+.wpneo-wrapper{
+    margin: 0 auto;
+}
+.wpneo-single{
+    width: 100%;
+    display: inline-block;
+    padding-bottom: 30px;
+}
+.mce-stack-layout-item.mce-last{
+    background-color: #f5f5f5;
+    padding: 0;
+    border: none;
+}
+.wpneo-name{
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    color: #000;
+}
+.wpneo-fields{
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+#wpneo-dashboard-form .wpneo-single{
+    padding-bottom: 0px;
+    margin-bottom: 0 !important;
+}
+#wpneo-dashboard-form .wpneo-name {
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+.wpneo-fields input[type="number"],
+.wpneo-fields input[type="text"],
+.wpneo-fields input[type="email"],
+.wpneo-fields input[type="password"]{
+    background: #fff;
+    color: #939393;
+    font-size: 14px;
+    border: 1px solid #eee;
+    width: 100%;
+    padding: 10px 15px;
+    height: 36px !important;
+    margin-bottom: 0 !important;
+}
+.wpneo-single.wpneo-first-half {
+    width: 48%;
+    float: left;
+}
+.wpneo-single.wpneo-second-half {
+    width: 48%;
+    float: right;
+}
+.wpneo-fields #bio {
+    border: 1px solid #eee;
+    height: 120px;
+    width: 100%;
+}
+input[type="submit"].wpneo-submit-campaign:hover {
+    background-color: #80b538;
+}
+.wpneo-register {
+    margin-top: 30px;
+}
+.wpneo-single.wpneo-register a.wpneo-cancel-campaign {
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 10px 20px;
+    background-color: #dc2e2e;
+    font-weight: 400;
+    font-size: 15px;
+    border-radius: 3px;
+    float: left;
+    margin-top: 0;
+    color: #ffffff;
+    min-height: 37px;
+    text-decoration: none;
+}
+input[type="submit"].wpneo-submit-campaign {
+    text-transform: capitalize;
+    padding: 15px 20px;
+    font-weight: 400;
+    color: #fff;
+    border: none;
+    background: #1adc68;
+}
+.wpneo-register .wpneo-submit-campaign {
+    float: right;
+}

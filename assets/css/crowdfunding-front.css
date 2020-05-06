@@ -1753,9 +1753,12 @@ a.wpneo-cancel-campaign {
     border-radius: 3px;
     float: left;
     margin-top: 0;
-    color: #ffffff !important;
+    color: #ffffff;
     min-height: 37px;
     text-decoration: none !important;
+}
+.wpneo-single.wpneo-register a.wpneo-cancel-campaign {
+    color: #ffffff;
 }
 .wpneo-single-sidebar .cart .wpneo_donate_button {
     padding: 10px 22px;

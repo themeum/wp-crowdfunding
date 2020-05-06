@@ -20,12 +20,14 @@ class Gutenberg{
         require_once WPCF_DIR_PATH . 'includes/blocks/Project_Listing.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Popular_Campaigns.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Campaign_Box.php';
+        require_once WPCF_DIR_PATH . 'includes/blocks/Registration.php';
 
         new \WPCF\blocks\Search();
         new \WPCF\blocks\Donate();
         new \WPCF\blocks\ProjectListing();
         new \WPCF\blocks\PopularCampaigns();
         new \WPCF\blocks\CampaignBox();
+        new \WPCF\blocks\Registration();
     }
     
     /**
