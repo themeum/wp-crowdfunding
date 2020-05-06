@@ -16,7 +16,7 @@ class ProjectListing{
                 'attributes' => array(
                     'categories'   => array(
                         'type'      => 'string',
-                        'default'   => ''
+                        'default'   => 'all'
                     ),
                     'order'   => array(
                         'type'      => 'string',
@@ -38,18 +38,12 @@ class ProjectListing{
     }
 
     public function project_listing_block_callback( $att ){
-        
-        $cat_name       = ($categories) ? get_the_category_by_ID($categories) : null; 
-        $post_limit     = isset( $att['numbers']) ? $att['numbers'] : 6;
+
+        $cat_name       = ( $att['categories'] != 'all') ? get_the_category_by_ID( $att['categories'] ) : $att['categories']; 
+        $post_limit     = isset( $att['numbers']) ? $att['numbers'] : 10;
         $order          = isset( $att['order']) ? $att['order'] : 'desc';
-        $categories     = isset( $att['categories']) ? $att['categories'] : '';
 
         if( function_exists('wpcf_function') ){
-            $a = shortcode_atts(array(
-                'cat'         => $cat_name,
-                'number'      => $post_limit,
-                'order'       => $order,
-            ), $atts );
 
             $paged = 1;
             if ( get_query_var('paged') ){
@@ -57,6 +51,12 @@ class ProjectListing{
             } elseif (get_query_var('page')) {
                 $paged = absint( get_query_var('page') );
             }
+
+            $a = array(
+                'cat'         => $cat_name,
+                'number'      => $post_limit,
+                'order'       => $order,
+            );
 
             $query_args = array(
                 'post_type'     => 'product',
@@ -69,32 +69,12 @@ class ProjectListing{
                         'terms'     => 'crowdfunding',
                     ),
                 ),
-                'posts_per_page'    => $a['number'],
+                'posts_per_page'    => $post_limit,
                 'paged'             => $paged,
-                'order'             => $a['order'],
+                'order'             => $order,
             );
 
-            if (!empty($_GET['author'])) {
-                $user_login     = sanitize_text_field( trim( $_GET['author'] ) );
-                $user           = get_user_by( 'login', $user_login );
-                if ($user) {
-                    $user_id    = $user->ID;
-                    $query_args = array(
-                        'post_type'   => 'product',
-                        'author'      => $user_id,
-                        'tax_query'   => array(
-                            array(
-                                'taxonomy'  => 'product_type',
-                                'field'     => 'slug',
-                                'terms'     => 'crowdfunding',
-                            ),
-                        ),
-                        'posts_per_page' => -1
-                    );
-                }
-            }
-
-            if( $a['cat'] ){
+            if( $a['cat'] != 'all' ){
                 $cat_array = explode(',', $a['cat']);
                 $query_args['tax_query'][] = array(
                     'taxonomy'  => 'product_cat',
@@ -102,6 +82,7 @@ class ProjectListing{
                     'terms'     => $cat_array,
                 );
             }
+
             query_posts($query_args);
             ob_start();
             wpcf_function()->template('wpneo-listing');

@@ -88,8 +88,6 @@ class Edit extends Component {
                             <div className="wpneo-wrapper-inner">
                                 { products.map(product => {
 
-                                    console.log('A', product)
-
                                     output = <div className={`wpneo-listings two col-${product.column}`}>
                                         <div className="wpneo-listing-img">
                                             
