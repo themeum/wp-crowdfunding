@@ -6,7 +6,7 @@ registerBlockType('wp-crowdfunding/campaignbox', {
 	title: __('Campaign Box'),
 	icon: 'format-aside',
     category: 'wp-crowdfunding',
-    keywords: [__('Campaign Box'), __('WPCF Campaign Box')],
+    keywords: [__('Campaign Box'), __('WPCF Project Campaign Box')],
 	edit: Edit,
 	save: function( props ) {
 		return null;

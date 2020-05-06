@@ -17,7 +17,7 @@ class CampaignBox{
                     'campaignID'   => array(
                         'type'      => 'string',
                         'default'   => ''
-                    ),  
+                    ),
                 ),
                 'render_callback' => array( $this, 'campaign_box_block_callback' ),
             )
