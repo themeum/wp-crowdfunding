@@ -56,16 +56,16 @@ class Donate{
         $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
         $fontWeight 	    = isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
         $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
-        $campaignID            = isset( $att['campaignID']) ? $att['campaignID'] : 'all';
+        $campaignID         = isset( $att['campaignID']) ? $att['campaignID'] : 'all';
     
-        $atts = shortcode_atts( array(
+        $atts = array(
             'campaign_id'           => $campaignID,
             'amount'                => '',
             'show_input_box'        => 'true',
             'min_amount'            => '',
             'max_amount'            => '',
             'donate_button_text'    => __('Back Campaign', 'wp-crowdfunding'),
-        ), $atts );
+        );
 
         if ( ! $atts['campaign_id']){
             return '<p class="wpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
