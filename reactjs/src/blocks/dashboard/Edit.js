@@ -48,7 +48,8 @@ class Edit extends Component {
 
 export default withSelect((select, props) => {
     return {
-        products: select( 'core' ).getEntityRecords( 'postType', 'product' ),
+        products: select( 'core' ).getEntityRecords( 'postType', 'product', { per_page: 1, status: 'publish',
+        _embed: true, } ),
     };
 })
 

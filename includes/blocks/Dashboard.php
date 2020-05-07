@@ -1,82 +1,64 @@
-<?php 
+<?php
+namespace WPCF\blocks;
 
 defined( 'ABSPATH' ) || exit;
 
-# Register api hook
-add_action('rest_api_init','register_api_hook');
-function register_api_hook(){
-    $post_types = get_post_types();
-
-    # Column.
-    register_rest_field(
-        'product', 'column',
-        array(
-            'get_callback'      => 'wpcf_campaign_get_column',
-            'update_callback'   => null,
-            'schema'            => array(
-                'description'   => __('Product column'),
-                'type'          => 'string',
-            ),
-        )
-    ); 
+class Dashboard{
     
-    # Campaign Author name.
-    register_rest_field(
-        'product', 'wpcf_product',
-        array(
-            'get_callback'    => 'wpcf_get_prodcut_info',
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
+    public function __construct(){
+        $this->register_dashboard();
+    }
 
-    # Author Dashboard.
-    register_rest_field(
-        $post_types, 'wpcf_dashboard',
-        array(
-            'get_callback'    => 'wpcf_get_dashboard_info',
-            'update_callback' => null,
-            'schema'          => null,
-        )
-    );
+    public function register_dashboard(){
+        register_block_type(
+            'wp-crowdfunding/dashboard',
+            array(
+                'attributes' => array(
+                    'formSize'   => array(
+                        'type'      => 'string',
+                        'default'   => 'small'
+                    ),
+                    'bgColorpalette'    => array(
+                        'type'          => 'string',
+                        'default'       => '#0073a8',
+                    ),
+                    'titlecolor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#ffffff',
+                    ),
+                    'fontSize'    => array(
+                        'type'          => 'number',
+                        'default'       => 16,
+                    ),
+                    'fontWeight'    => array(
+                        'type'          => 'number',
+                        'default'       => 400,
+                    ),
+                    'SearchfontSize' => array(
+                        'type'          => 'number',
+                        'default'       => 14,
+                    ),
 
-} 
+                    'campaignID'   => array(
+                        'type'      => 'string',
+                        'default'   => ''
+                    ),
+                ),
+                'render_callback' => array( $this, 'dashboard_block_callback' ),
+            )
+        );
+    }
 
-# Callback functions: Author Name
-function wpcf_get_prodcut_info( $object ) {
-
-    $author['display_name'] = wpcf_function()->get_author_name();
-    $author['location']     = get_post_meta( get_the_ID(), '_nf_location', true ); 
-    $author['funding_goal'] = get_post_meta( get_the_ID(), '_nf_funding_goal', true ); 
-
-    # Fund raised
-    $raised = wpcf_function()->get_total_fund();
-    $author['total_raised'] = $raised ? $raised : 0;
-
-    # Fund raised percent
-    $author['raised_percent'] = wpcf_function()->get_fund_raised_percent_format();
-
-    # Product Description.
-    $text_limit = get_option('number_of_words_show_in_listing_description');
-    $author['desc']         = wpcf_function()->limit_word_text(strip_tags(get_the_content()), $text_limit);
-
-    # Days remaining
-    $author['days_remaining'] = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
-
-    $author['product_thumb'] = woocommerce_get_product_thumbnail();
-
-    return $author;
-}
-
-# Callback function: Column.
-function wpcf_campaign_get_column($object) {
-    $col_num = get_option('number_of_collumn_in_row', true);
-    return $col_num;
-}
-
-# Dashboad
-function wpcf_get_dashboard_info( $object ) {
-    $html = '';
+    public function dashboard_block_callback( $att ){
+        $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
+        $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : 'all';
+        $titlecolor         = isset( $att['titlecolor']) ? $att['titlecolor'] : 'all';
+        $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
+        $fontWeight 	    = isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
+        $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
+        $campaignID         = isset( $att['campaignID']) ? $att['campaignID'] : 'all';
+    
+        $html = '';
         $get_id = '';
         if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
             if ( is_user_logged_in() ) {
@@ -146,13 +128,13 @@ function wpcf_get_dashboard_info( $object ) {
                             $pagelink = add_query_arg( 'page_type', $menu_name , $pagelink );
 
                             if( $menu_value['tab'] == 'dashboard' ){
-                                $dashboard .= '<div class="wpneo-links-list '.$active.'"><a href="#">'.$menu_value['tab_name'].'</a></div>';
+                                $dashboard .= '<div class="wpneo-links-list '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
                             }elseif( $menu_value['tab'] == 'account' ){
-                                $account .= '<div class="wpneo-links-lists '.$active.'"><a href="#">'.$menu_value['tab_name'].'</a></div>';
+                                $account .= '<div class="wpneo-links-lists '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
                             }elseif( $menu_value['tab'] == 'campaign' ){
-                                $campaign .= '<div class="wpneo-links-lists '.$active.'"><a href="#">'.$menu_value['tab_name'].'</a></div>';
+                                $campaign .= '<div class="wpneo-links-lists '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
                             }else{
-                                $extra .= '<div class="wpneo-links-list '.$active.'"><a href="#">'.$menu_value['tab_name'].'</a></div>';
+                                $extra .= '<div class="wpneo-links-list '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
                             }
                         }
                         
@@ -204,4 +186,6 @@ function wpcf_get_dashboard_info( $object ) {
         }
 
         return $html;
+        
+    }
 }
