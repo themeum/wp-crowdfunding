@@ -1394,3 +1394,19 @@ input#cc-image-upload-file-button, input.profile_image_url{
     line-height: initial;
     font-weight: 400;
 }
+.wpneo-edit-btn, .wpneo-image-upload.float-right, .wpneo-save-btn, .removecampaignupdate, #addcampaignupdate, #wpneo_active_edit_form {
+    background: #1adc68;
+    color: #fff;
+    font-size: 14px;
+    padding: 14px 25px;
+    text-transform: capitalize;
+    transition: 400ms;
+    -webkit-transition: 400ms;
+    font-weight: 300;
+    border-radius: 3px;
+    border: none;
+}
+.wpcf-dashboard .wpneo-cancel-btn.wpneo-hidden, 
+.wpcf-dashboard .wpneo-save-btn.wpneo-hidden{
+    display: none;
+}

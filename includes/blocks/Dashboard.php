@@ -14,34 +14,13 @@ class Dashboard{
             'wp-crowdfunding/dashboard',
             array(
                 'attributes' => array(
-                    'formSize'   => array(
-                        'type'      => 'string',
-                        'default'   => 'small'
-                    ),
-                    'bgColorpalette'    => array(
+                    'majorColorpalette'    => array(
                         'type'          => 'string',
-                        'default'       => '#0073a8',
+                        'default'       => '#1adc68',
                     ),
                     'titlecolor'    => array(
                         'type'          => 'string',
                         'default'       => '#ffffff',
-                    ),
-                    'fontSize'    => array(
-                        'type'          => 'number',
-                        'default'       => 16,
-                    ),
-                    'fontWeight'    => array(
-                        'type'          => 'number',
-                        'default'       => 400,
-                    ),
-                    'SearchfontSize' => array(
-                        'type'          => 'number',
-                        'default'       => 14,
-                    ),
-
-                    'campaignID'   => array(
-                        'type'      => 'string',
-                        'default'   => ''
                     ),
                 ),
                 'render_callback' => array( $this, 'dashboard_block_callback' ),
@@ -50,16 +29,13 @@ class Dashboard{
     }
 
     public function dashboard_block_callback( $att ){
-        $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
-        $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : 'all';
-        $titlecolor         = isset( $att['titlecolor']) ? $att['titlecolor'] : 'all';
-        $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
-        $fontWeight 	    = isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
-        $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
-        $campaignID         = isset( $att['campaignID']) ? $att['campaignID'] : 'all';
+        $majorColor     = isset( $att['majorColorpalette']) ? $att['majorColorpalette'] : '';
+        $textcolor      = isset( $att['titlecolor']) ? $att['titlecolor'] : '';
     
         $html = '';
         $get_id = '';
+
+
         if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
             if ( is_user_logged_in() ) {
                 $pagelink = get_permalink( get_the_ID() );
@@ -115,6 +91,8 @@ class Dashboard{
                 /**
                  * Print menu with active link marking...
                  */
+                
+                $html .= '<div class="wpcf-dashboard">';
                 $html .= '<div class="wpneo-wrapper">';
                 $html .= '<div class="wpneo-head wpneo-shadow">';
                     $html .= '<div class="wpneo-links clearfix">';
@@ -177,6 +155,28 @@ class Dashboard{
                 $html .= ob_get_clean();
                 
             $html .= '</div>'; //wpneo-wrapper
+            $html .= '</div>';
+
+            $html .= '<style>';
+                $html .= '.wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-dashboard-summary ul li.active,
+                .wpcf-dashboard .wpneo-edit-btn, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
+                    background-color: '. $majorColor .';
+                }';
+                $html .= '.wpneo-links div.active a, .wpneo-links div a:hover, .wpcf-dashboard .wpneo-name > p, .wpcf-dashboard .wpcrowd-listing-content .wpcrowd-admin-title h3 a{
+                    color: '. $majorColor .';
+                }';
+
+                $html .= '.wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary, .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary:hover, .wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current, .wpcf-dashboard .wpneo-edit-btn {
+                    color: '. $textcolor .'
+                }';
+
+                $html .= '.wpneo-dashboard-summary ul li.active:after {
+                    border-color: '.$majorColor.' rgba(0, 128, 0, 0) rgba(255, 255, 0, 0) rgba(0, 0, 0, 0);
+                }';
+                $html .= '.wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
+                    border: 2px solid '.$majorColor.';
+                }';
+            $html .= '</style>';
 
         } else {
             $html .= '<div class="woocommerce">';
