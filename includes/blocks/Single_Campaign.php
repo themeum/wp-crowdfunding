@@ -14,14 +14,6 @@ class Single_Campaign{
             'wp-crowdfunding/singlecampaign',
             array(
                 'attributes' => array(
-                    'majorColorpalette'    => array(
-                        'type'          => 'string',
-                        'default'       => '#1adc68',
-                    ),
-                    'titlecolor'    => array(
-                        'type'          => 'string',
-                        'default'       => '#ffffff',
-                    ),
                     'campaignID'    => array(
                         'type'          => 'string',
                         'default'       => '',
@@ -33,8 +25,6 @@ class Single_Campaign{
     }
 
     public function single_campaign_block_callback( $att ){
-        $majorColor     = isset( $att['majorColorpalette']) ? $att['majorColorpalette'] : '';
-        $textcolor      = isset( $att['titlecolor']) ? $att['titlecolor'] : '';
         $campaignID      = isset( $att['campaignID']) ? $att['campaignID'] : '';
     
         $atts = array(
