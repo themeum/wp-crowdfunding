@@ -40,6 +40,16 @@ function register_api_hook(){
         )
     );
 
+    # Author Dashboard.
+    register_rest_field(
+        'product', 'wpcf_single_campaign',
+        array(
+            'get_callback'    => 'wpcf_get_single_campaign',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
+
 } 
 
 # Callback functions: Author Name
@@ -204,4 +214,20 @@ function wpcf_get_dashboard_info( $object ) {
         }
 
         return $html;
+}
+
+# Single Campaign.
+function wpcf_get_single_campaign( $object ) {
+    $products = get_posts( array(
+        'post_type'         => 'product',
+        'posts_per_page'    => 1,
+    ) );
+    if ( empty( $products ) ) { return null; }
+    $content = [];
+    foreach ( $products as $post ) {
+        ob_start();
+        $content = wpcf_function()->template('single-crowdfunding-content-only');
+        $content = ob_get_clean();
+    }
+    return $content;
 }
