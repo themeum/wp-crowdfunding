@@ -21,25 +21,17 @@ class Edit extends Component {
 
         const { products } = this.props
 
-        // Campaign ID 
-        const CampaignIDControl = withState( {
-            campaignID: campaignID,
-        } )( ( { campaignID, setState } ) => ( 
-            <TextControl
-                label="Campaign ID"
-                value={ campaignID }
-                onChange={ (value) => { setAttributes({ campaignID: value }) } }
-                type="number"
-            />
-        ) );
-
         let output = '';
 
         return (
             <Fragment>
                 <InspectorControls key="inspector">
-                    <PanelBody title={ __( 'Query Product', 'wp-crowdfunding' ) } initialOpen={ true }>
-                        <CampaignIDControl />
+                    <PanelBody title={ __( '' ) } initialOpen={ true }>
+                        <TextControl
+                            label={ __( 'Campaign ID' ) }
+                            value={ campaignID }
+                            onChange={ ( value ) => setAttributes( { campaignID: value } ) }
+                        />
                     </PanelBody>
                 </InspectorControls>
 
