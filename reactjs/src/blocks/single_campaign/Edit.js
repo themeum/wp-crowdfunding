@@ -3,10 +3,8 @@ const { withState } = wp.compose;
 const { withSelect } = wp.data
 const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
-const { PanelBody, PanelColorSettings, ColorPalette, TextControl, Spinner } = wp.components;
+const { PanelBody, ColorPalette, TextControl, Spinner } = wp.components;
 
-// import { CirclePicker } from 'react-color';
-  
 class Edit extends Component {
     constructor(props) { 
         super(props)
@@ -39,9 +37,6 @@ class Edit extends Component {
 
         return (
             <Fragment>
-
-            
-			
                 <InspectorControls key="inspector">
                     <PanelBody title={ __( '' ) } initialOpen={ true }>
                         <TextControl
