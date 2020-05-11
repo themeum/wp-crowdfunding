@@ -1322,8 +1322,8 @@ input#cc-image-upload-file-button, input.profile_image_url{
 }
 
 .wpneo_donate_button, #wpneo-tab-reviews .submit, .wpneo-edit-btn, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, .wpneo-save-btn, #wpneo_active_edit_form, .removeCampaignRewards, #addreward, .btn-style1, #addcampaignupdate, .wpneo-profile-button, .dashboard-btn-link, .wpneo_login_form_div #wp-submit, .wpneo-submit-campaign, input[type="button"].wpneo-image-upload, input[type="button"]#search-submit, #addreward, input[type="submit"].wpneo-submit-campaign, .dashboard-btn-link, .label-primary, #wpneofrontenddata input[type="button"], #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, .btn-style1, #wpneo-tab-reviews .submit, .dashboard-head-date input[type="submit"], .wp-crowd-btn-primary, .wpneo_withdraw_button, .wpneo-dashboard-head-left ul li.active, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
-    background-color: #8224e3;
-    color: #eeee22;
+    background-color: #94c94a;
+    color: #ffffff;
 }
 .wp-crowd-btn, .wpneo_withdraw_button {
     padding: 10px 20px;
@@ -1337,7 +1337,7 @@ input#cc-image-upload-file-button, input.profile_image_url{
     transition: 400ms;
 }
 .wpneo-dashboard-summary ul li.active {
-    background: #8224e3;
+    background: #94c94a;
 }
 .wpneo-shadow {
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
@@ -1351,7 +1351,7 @@ input#cc-image-upload-file-button, input.profile_image_url{
     padding: 0 20px;
 }
 .wpneo-link-style1, ul.wpneo-crowdfunding-update li .wpneo-crowdfunding-update-title, .wpneo-fields-action span a:hover, .wpneo-name > p, .wpneo-listings-dashboard .wpneo-listing-content h4 a, .wpneo-listings-dashboard .wpneo-listing-content .wpneo-author a, .wpcf-order-view, #wpneo_crowdfunding_modal_message td a, .dashboard-price-number, .wpcrowd-listing-content .wpcrowd-admin-title h3 a, .campaign-listing-page .stripe-table a, .stripe-table a.label-default:hover, a.wpneo-fund-modal-btn.wpneo-link-style1, .wpneo-tabs-menu li.wpneo-current a, .wpneo-links div a:hover, .wpneo-links div.active a {
-    color: #8224e3;
+    color: #94c94a;
 }
 .entry .entry-content a.button, .entry .entry-content a:hover {
     text-decoration: none;
@@ -1409,4 +1409,338 @@ input#cc-image-upload-file-button, input.profile_image_url{
 .wpcf-dashboard .wpneo-cancel-btn.wpneo-hidden, 
 .wpcf-dashboard .wpneo-save-btn.wpneo-hidden{
     display: none;
+}
+
+/* Single Campaign */
+.wpneo-campaign-single-left-info {
+    margin-bottom: 35px;
+    float: left;
+    width: 48%;
+    position: relative;
+}
+.wpneo-campaign-single-left-info h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+.entry .entry-content p {
+    word-wrap: break-word;
+}
+.wpneo-video-wrapper {
+    margin-bottom: 20px;
+}
+.wpneo-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+.wpneo-video-wrapper iframe, .wpneo-video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.wpneo-campaign-summary {
+    width: 48%;
+    float: right;
+}
+.wpneo-campaign-summary-inner h2.wpneo-campaign-title {
+    margin-top: 0;
+}
+h2.wpneo-campaign-title {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 5px;
+}
+.wpneo-wrapper p.wpneo-author-info {
+    margin-bottom: 5px;
+}
+.wpneo-author-info, .wpneo-author-info a {
+    color: #737373;
+    font-size: 18px;
+}
+.wpneo-campaign-summary-inner .woocommerce {
+    float: left;
+    color: #ffcc00;
+    padding: 12px 0px 15px;
+    width: 100%;
+    letter-spacing: 4px;
+}
+.campaign-funding-info {
+    margin: 20px 0;
+}
+.campaign-funding-info ul {
+    padding: 0;
+    margin: 0;
+}
+.campaign-funding-info ul li {
+    display: inline-block;
+    margin-right: 14px;
+}
+.campaign-funding-info ul li .funding-amount {
+    font-weight: bold;
+    margin: 0;
+}
+.campaign-funding-info ul li span.info-text {
+    font-size: 12px;
+}
+.wpneo-campaign-summary .wpneo-raised-percent {
+    border-top: none;
+    padding: 0;
+}
+.wpneo-raised-percent .wpneo-meta-name, .wpneo-raised-percent .wpneo-meta-desc {
+    display: inline-block;
+    padding-left: 20px;
+}
+.wpneo-raised-percent .wpneo-meta-desc {
+    font-weight: bold;
+}
+
+.wpneo-raised-percent .wpneo-meta-name, .wpneo-raised-percent .wpneo-meta-desc {
+    display: inline-block;
+    padding-left: 20px;
+}
+.wpneo-campaign-summary-inner .wpneo-raised-bar {
+    padding: 1px 0px 20px;
+}
+
+.wpneo-raised-bar {
+    padding: 5px 20px;
+    margin: 10px 0 20px;
+}
+#neo-progressbar {
+    background-color: #f2f2f2;
+    border-radius: 7px;
+    padding: 0px;
+}
+#neo-progressbar > div, ul.wpneo-crowdfunding-update li:hover span.round-circle, .wpneo-links li a:hover, .wpneo-links li.active a, #neo-progressbar > div {
+    background-color: #94c94a;
+}
+.wpneo-single-sidebar {
+    clear: both;
+    margin-bottom: 20px;
+}
+.wpneo-tooltip {
+    position: absolute;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.wpneo-tooltip .wpneo-tooltip-min, .wpneo-tooltip .wpneo-tooltip-max {
+    visibility: hidden;
+    width: 190px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -32px;
+    font-size: 12px;
+}
+ul.wpcf_predefined_pledge_amount {
+    margin: 10px;
+}
+.wpneo-wrapper ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ul.wpcf_predefined_pledge_amount li {
+    display: inline-block;
+}
+.entry .entry-content a {
+    text-decoration: underline;
+}
+ul.wpcf_predefined_pledge_amount li a {
+    display: block;
+    padding: 5px 10px;
+    border: 2px solid #18ce43;
+    color: #686C8B;
+}
+ul.wpcf_predefined_pledge_amount {
+    margin: 10px;
+}
+
+.wpneo-wrapper ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ul.wpcf_predefined_pledge_amount li {
+    display: inline-block;
+}
+li {
+    line-height: 1.8;
+}
+.wpneo-single-sidebar .cart input[type="number"].wpneo_donate_amount_field {
+    height: 40px;
+}
+
+input[type="number"].wpneo_donate_amount_field {
+    max-width: 120px;
+    border: 2px solid #000;
+    color: #000;
+    border-radius: 4px;
+    display: inline-block;
+}
+.wpneo-single-sidebar .cart .wpneo_donate_button {
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+}
+.wpneo-location-wrapper {
+    color: #737373;
+    display: inline-flex;
+    margin-top: -7px;
+    width: 100%;
+}
+.wpneo-list-details .wpneo-icon-location {
+    background-position: -391px -22px;
+    width: 22px;
+}
+.wpneo-icon {
+    background-attachment: initial;
+    background-image: url(./icon.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 27px;
+    width: 26px;
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+.wpneo-campaign-creator-info-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.editor-styles-wrapper .wpneo-single-short-description h2:before,
+.editor-styles-wrapper .wpneo-campaign-title:before,
+.editor-styles-wrapper .wpneo-tab-content h2:before {
+    display: none;
+}
+.social-container {
+    display: inline-flex;
+}
+.wpneo-campaign-summary-inner h2.wpneo-campaign-title {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 5px;
+}
+.wpneo-campaign-single-left-info .wpneo-single-short-description h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+.wpneo-campaign-creator-avatar {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+.wpneo-campaign-creator-info-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.woocommerce img, .woocommerce-page img {
+    height: auto;
+    max-width: 100%;
+}
+.avatar {
+    border-radius: 100%;
+    display: block;
+    height: calc(2.25 * 1rem);
+    min-height: inherit;
+    width: calc(2.25 * 1rem);
+}
+.wpneo-tabs {
+    margin-top: 50px;
+}
+.wpneo-wrapper ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.wpneo-tabs-menu {
+    border-top: 1px solid#e7e7e7;
+    border-bottom: 1px solid#e7e7e7;
+    clear: both;
+    display: table;
+    width: 100%;
+    padding: 15px 50px 0;
+}
+.wpneo-tabs-menu li.wpneo-current {
+    border-bottom: 3px solid #94c94a;
+}
+
+.wpneo-tabs-menu li.wpneo-current {
+    border-bottom: 3px solid #1adc68;
+}
+.wpneo-tabs-menu li {
+    border-top: 2px solid transparent;
+    float: left;
+    line-height: 1;
+    padding: 30px;
+    position: relative;
+    display: inherit;
+}
+.wpneo-tabs-menu li a {
+    color: #414548;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: capitalize;
+    position: relative;
+}
+.wpneo-tab h2 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.wpneo-list-details .wpneo-tab h2 {
+    font-size: 30px;
+}
+/* .wpneo-tab-content {
+    display: none;
+    padding: 15px;
+} */
+.tab_col_9 {
+    width: 70%;
+    float: left;
+}
+.tab_col_3 {
+    width: 28%;
+    float: right;
+}
+div#wpneo-tab-update {
+    display: none;
+}
+
+.tab-rewards-wrapper .overlay {
+    background: rgba(26,220,104,.95);
+}
+.tab-rewards-wrapper .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    text-align: center;
+    background: rgba(147,201,73,.9);
+    opacity: 0;
+    -webkit-transition: opacity 400ms;
+    transition: opacity 400ms;
+}
+.tab-rewards-wrapper .overlay>div>div {
+    display: table-cell;
+    vertical-align: middle;
+}
+.tab-rewards-wrapper:hover .overlay {
+    opacity: 1;
+}
+.tab-rewards-wrapper .overlay>div {
+    display: table;
+    height: 100%;
+    width: 100%;
 }
