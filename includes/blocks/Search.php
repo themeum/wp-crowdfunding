@@ -46,16 +46,18 @@ class Search{
 
     public function search_block_callback( $att ){
         $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
-        $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : 'all';
-        $titlecolor         = isset( $att['titlecolor']) ? $att['titlecolor'] : 'all';
+        $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : '';
+        $titlecolor         = isset( $att['titlecolor']) ? $att['titlecolor'] : '';
         $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
         $fontWeight 	    = isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
         $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
     
-        $html = '';
+        $html = $search_val = '';
         $html .= '<div class="wpcf-form-field '. $formSize .'">';
             $html .= '<form role="search" method="get" action="'.esc_url(home_url('/')).'">';
-                $html .= '<input type="search" class="search-field" placeholder="'.__("Search", "wp-crowdfunding").'" value="'. $_GET['s'] .'" name="s" style="font-size: '. $SearchfontSize .'px;">';
+                if (isset($_GET['s'])) { $search_val = $_GET['s']; }
+                $html .= '<input type="search" class="search-field" placeholder="'.__("Search", "wp-crowdfunding").'" 
+                value="'.$search_val.'" name="s" style="font-size: '. $SearchfontSize .'px;">';
                 $html .= '<input type="hidden" name="post_type" value="product">';
                 $html .= '<input type="hidden" name="product_type" value="croudfunding">';
                 $html .= '<button type="submit" style="background: '.$bgColor.'; color: '.$titlecolor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">'.__("Search", "wp-crowdfunding").'</button>';
