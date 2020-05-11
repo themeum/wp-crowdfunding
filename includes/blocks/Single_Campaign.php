@@ -80,7 +80,7 @@ class Single_Campaign{
 
         $html = '';
         $html .= '<style>';
-            $html .= '.wpneo-list-details .wpneo_donate_button {
+            $html .= '.wpneo-list-details .wpneo_donate_button, #wpneo-tab-reviews .submit, #neo-progressbar > div, ul.wpneo-crowdfunding-update li:hover span.round-circle, .wpneo-links li a:hover, .wpneo-links li.active a, #neo-progressbar > div {
                 background-color: '. $bgColor .';
                 color: #ffffff;
             }';
@@ -88,7 +88,7 @@ class Single_Campaign{
                 background: '. $bgColor .';
             }';
 
-            $html .= 'a.wpneo-fund-modal-btn.wpneo-link-style1, .wpneo-tabs-menu li.wpneo-current a {
+            $html .= 'a.wpneo-fund-modal-btn.wpneo-link-style1, .wpneo-tabs-menu li.wpneo-current a, ul.wpneo-crowdfunding-update li .wpneo-crowdfunding-update-title {
                 color: '. $textcolor .';
             }';
 
