@@ -111,17 +111,6 @@ class Edit extends Component {
             />
         ));
 
-        // Campaign ID 
-        const CampaignIDControl = withState( {
-            campaignID: campaignID,
-        } )( ( { campaignID, setState } ) => ( 
-            <TextControl
-                label="Campaign ID"
-                value={ campaignID }
-                onChange={ (value) => { setAttributes({ campaignID: value }) } }
-            />
-        ) );
-
         const btnStyle = {
             background: bgColorpalette,
             color: titlecolor,
@@ -136,7 +125,11 @@ class Edit extends Component {
             <Fragment>
                 <InspectorControls key="inspector">
                     <PanelBody title='' initialOpen={true}>
-                        <CampaignIDControl />
+                        <TextControl
+                            label={ __( 'Campaign ID' ) }
+                            value={ campaignID }
+                            onChange={ ( value ) => setAttributes( { campaignID: value } ) }
+                        />
 					</PanelBody>
 
                     <PanelBody title={__('Input Style')} initialOpen={false}>
