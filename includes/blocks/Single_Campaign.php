@@ -18,6 +18,14 @@ class Single_Campaign{
                         'type'          => 'string',
                         'default'       => '',
                     ),
+                    'textColor' => array(
+                        'type'          => 'string',
+                        'default'       => '#94c94a',
+                    ),
+                    'bgColor'   => array(
+                        'type'          => 'string',
+                        'default'       => '#94c94a',
+                    ),
                 ),
                 'render_callback' => array( $this, 'single_campaign_block_callback' ),
             )
@@ -25,7 +33,10 @@ class Single_Campaign{
     }
 
     public function single_campaign_block_callback( $att ){
-        $campaignID      = isset( $att['campaignID']) ? $att['campaignID'] : '';
+        $campaignID     = isset( $att['campaignID']) ? $att['campaignID'] : '';
+        $bgColor        = isset( $att['bgColor']) ? $att['bgColor'] : '';
+        $textcolor      = isset( $att['textColor']) ? $att['textColor'] : '';
+    
     
         $atts = array(
             'campaign_id' => $campaignID,
@@ -66,9 +77,28 @@ class Single_Campaign{
         // restore $previous_wp_query and reset post data.
         $wp_query = $previous_wp_query;
         wp_reset_postdata();
+
+        $html = '';
+        $html .= '<style>';
+            $html .= '.wpneo-list-details .wpneo_donate_button {
+                background-color: '. $bgColor .';
+                color: #ffffff;
+            }';
+            $html .= '.tab-rewards-wrapper .overlay {
+                background: '. $bgColor .';
+            }';
+
+            $html .= 'a.wpneo-fund-modal-btn.wpneo-link-style1, .wpneo-tabs-menu li.wpneo-current a {
+                color: '. $textcolor .';
+            }';
+
+            $html .= '.wpneo-tabs-menu li.wpneo-current {
+                border-bottom: 3px solid '. $textcolor .';
+            }';
+        $html .= '</style>';
+
         $final_content = ob_get_clean();
 
-        return '<div class="woocommerce">' . $final_content . '</div>';
-        
+        return '<div class="woocommerce">' . $final_content . ' '. $html .'</div>';
     }
 }
