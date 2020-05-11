@@ -23,6 +23,7 @@ class Gutenberg{
         require_once WPCF_DIR_PATH . 'includes/blocks/Registration.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Dashboard.php';
         require_once WPCF_DIR_PATH . 'includes/blocks/Single_Campaign.php';
+        require_once WPCF_DIR_PATH . 'includes/blocks/Submit_Form.php';
 
         new \WPCF\blocks\Search();
         new \WPCF\blocks\Donate();
@@ -32,6 +33,7 @@ class Gutenberg{
         new \WPCF\blocks\Registration();
         new \WPCF\blocks\Dashboard();
         new \WPCF\blocks\Single_Campaign();
+        new \WPCF\blocks\Submit_Form();
     }
     
     /**

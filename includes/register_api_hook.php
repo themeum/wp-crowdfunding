@@ -50,6 +50,16 @@ function register_api_hook(){
         )
     );
 
+    # Author Dashboard.
+    // register_rest_field(
+    //     'product', 'wpcf_submit_form',
+    //     array(
+    //         'get_callback'    => 'wpcf_get_submit_form_info',
+    //         'update_callback' => null,
+    //         'schema'          => null,
+    //     )
+    // );
+
 } 
 
 # Callback functions: Author Name
@@ -231,3 +241,8 @@ function wpcf_get_single_campaign( $object ) {
     }
     return $content;
 }
+
+# Submit Form.
+// function wpcf_get_submit_form_info( $object ) {
+    
+// }
