@@ -1745,3 +1745,40 @@ div#wpneo-tab-update {
     height: 100%;
     width: 100%;
 }
+/* Submit Form */
+.wpneo-requirement-title {
+    font-size: 14px;
+    text-align: left;
+    padding: 80px 0px 20px;
+}
+.wpneo-form-action {
+    text-align: right;
+    margin-top: 30px;
+}
+#wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign {
+    text-transform: capitalize;
+    padding: 15px 20px;
+    font-weight: 400;
+    margin-top: 0;
+    color: #ffffff;
+    background: #1adc68;
+    min-height: 37px;
+    font-size: 15px;
+}
+a.wpneo-cancel-campaign {
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 10px 20px;
+    background-color: #dc2e2e;
+    font-weight: 400;
+    font-size: 15px;
+    border-radius: 3px;
+    float: left;
+    margin-top: 0;
+    color: #ffffff;
+    min-height: 37px;
+    text-decoration: none !important;
+}
+.wpneo-fields .wpneo-form-country {
+    max-width: 100% !important;
+}

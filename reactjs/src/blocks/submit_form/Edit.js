@@ -31,9 +31,7 @@ class Edit extends Component {
 					</PanelBody>
                 </InspectorControls>
 
-                <div className={`wpcf-form-field`}>
-                    <div className="wpcf-donate-form-wrap">
-
+                    <div className="wpcf-form-field">
                         <form type="post" action="" id="wpneofrontenddata">
                             <div className="wpneo-single">
                                 <div className="wpneo-name">Title</div>
@@ -73,7 +71,7 @@ class Edit extends Component {
                                                 <input type="button" id="qt_wpneo-form-description_close" className="ed_button button button-small" title="Close all open tags" value="close tags" />
                                             </div>
                                            
-                                            <textarea className="wp-editor-area" rows="20" autocomplete="off" cols="40" name="wpneo-form-description" id="wpneo-form-description" aria-hidden="true"></textarea>
+                                            <textarea className="wp-editor-area" rows="15" autocomplete="off" cols="40" name="wpneo-form-description" id="wpneo-form-description" aria-hidden="true"></textarea>
                                         </div>
                                     </div>
                                     <small>Put the campaign description here</small>
@@ -149,7 +147,7 @@ class Edit extends Component {
                             <div className="wpneo-single">
                                 <div className="wpneo-name">Campaign End Method</div>
                                 <div className="wpneo-fields">
-                                    <select name="wpneo-form-type">
+                                    <select name="wpneo-form-type" className="wpneo-form-type">
                                         <option value="target_goal">Target Goal</option>
                                         <option value="target_date">Target Date</option>
                                         <option value="target_goal_and_date">Target Goal &amp; Date</option>
@@ -157,7 +155,6 @@ class Edit extends Component {
                                     </select><small>Choose the stage when campaign will end</small>
                                 </div>
                             </div>
-
 
                             <div className="wpneo-single wpneo-first-half">
                                 <div className="wpneo-name">Start Date</div>
@@ -214,7 +211,7 @@ class Edit extends Component {
                             <div className="wpneo-single">
                                 <div className="wpneo-name">Country</div>
                                 <div className="wpneo-fields">
-                                    <select name="wpneo-form-country">
+                                    <select name="wpneo-form-country" className="wpneo-form-country">
                                         <option selected="selected" value="0">Select a country</option>
                                         <option value="BD">Bangladesh</option>
                                     </select>
@@ -230,101 +227,97 @@ class Edit extends Component {
                             </div>
 
                             <div className="wpneo-reward-option">Reward Option</div>
-                                <div className="panel" id="reward_options">
-                                    <div className="reward_group">
-                                        <div className="campaign_rewards_field_copy">
-                                            <div className="wpneo-single">
-                                                <div className="wpneo-name">Pledge Amount</div>
-                                                <div className="wpneo-fields">
-                                                    <input type="text" value="" id="wpneo_rewards_pladge_amount[]" name="wpneo_rewards_pladge_amount[]" className="wc_input_price" /><small>Pledge Amount</small>
-                                                </div>
-                                            </div>
-                                            <div className="wpneo-single">
-                                                <div className="wpneo-name">Reward Image</div>
-                                                <div className="wpneo-fields">
-                                                    <input type="text" name="wpneo_rewards_image_fields" className="wpneo-upload wpneo_rewards_image_field_url" value="" />
-                                                    <input type="hidden" name="wpneo_rewards_image_field[]" className="wpneo_rewards_image_field" value="" />
-                                                    <input type="button" id="cc-image-upload-file-button" className="wpneo-image-upload-btn float-right" value="Upload Image" /><small>Upload a reward image</small>
-                                                </div>
-                                            </div>
-                                            <div className="wpneo-single form-field">
-                                                <div className="wpneo-name">Reward</div>
-                                                <div className="wpneo-fields float-right">
-                                                    <textarea cols="20" rows="2" id="wpneo_rewards_description[]" name="wpneo_rewards_description[]" className="short"></textarea><small>Reward Description</small>
-                                                </div>
-                                            </div>
-                                            <div className="wpneo-single wpneo-first-half">
-                                                <div className="wpneo-name">Estimated Delivery Month</div>
-                                                <div className="wpneo-fields">
-                                                    <select className="select short" name="wpneo_rewards_endmonth[]" id="wpneo_rewards_endmonth[]">
-                                                        <option selected="selected" value="">- Select -</option>
-                                                        <option value="jan">January</option>
-                                                        <option value="feb">February</option>
-                                                        <option value="mar">March</option>
-                                                        <option value="apr">April</option>
-                                                        <option value="may">May</option>
-                                                        <option value="jun">June</option>
-                                                        <option value="jul">July</option>
-                                                        <option value="aug">August</option>
-                                                        <option value="sep">September</option>
-                                                        <option value="oct">October</option>
-                                                        <option value="nov">November</option>
-                                                        <option value="dec">December</option>
-                                                    </select><small>Estimated Delivery Month of the Reward</small>
-                                                </div>
-                                            </div>
-                                            <div className="wpneo-single wpneo-second-half">
-                                                <div className="wpneo-name">Estimated Delivery Year</div>
-                                                <div className="wpneo-fields">
-                                                    <select className="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">
-                                                        <option selected="selected" value="">- Select -</option>
-                                                        <option value="2019">2019</option>
-                                                        <option value="2020">2020</option>
-                                                        <option value="2021">2021</option>
-                                                        <option value="2022">2022</option>
-                                                        <option value="2023">2023</option>
-                                                        <option value="2024">2024</option>
-                                                        <option value="2025">2025</option>
-                                                    </select><small>Estimated Delivery Year of the Reward</small>
-                                                </div>
-                                            </div>
-                                            <div className="wpneo-single">
-                                                <div className="wpneo-name">Quantity</div>
-                                                <div className="wpneo-fields">
-                                                    <input type="text" value="" id="wpneo_rewards_item_limit[]" name="wpneo_rewards_item_limit[]" className="wc_input_price" /><small>Quantity of physical products</small>
-                                                </div>
-                                            </div>
-                                            <div className="wpneo-remove-button">
-                                                <input type="button" value="- Remove" className="button tagadd removeCampaignRewards" name="remove_rewards" />
+                            <div className="panel" id="reward_options">
+                                <div className="reward_group">
+                                    <div className="campaign_rewards_field_copy">
+                                        <div className="wpneo-single">
+                                            <div className="wpneo-name">Pledge Amount</div>
+                                            <div className="wpneo-fields">
+                                                <input type="text" value="" id="wpneo_rewards_pladge_amount[]" name="wpneo_rewards_pladge_amount[]" className="wc_input_price" /><small>Pledge Amount</small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="rewards_addon_fields"></div>
-                                    <div className="text-right">
-                                        <input type="button" value="+ Add" id="addreward" className="button tagadd" name="save" />
+                                        <div className="wpneo-single">
+                                            <div className="wpneo-name">Reward Image</div>
+                                            <div className="wpneo-fields">
+                                                <input type="text" name="wpneo_rewards_image_fields" className="wpneo-upload wpneo_rewards_image_field_url" value="" />
+                                                <input type="hidden" name="wpneo_rewards_image_field[]" className="wpneo_rewards_image_field" value="" />
+                                                <input type="button" id="cc-image-upload-file-button" className="wpneo-image-upload-btn float-right" value="Upload Image" /><small>Upload a reward image</small>
+                                            </div>
+                                        </div>
+                                        <div className="wpneo-single form-field">
+                                            <div className="wpneo-name">Reward</div>
+                                            <div className="wpneo-fields float-right">
+                                                <textarea cols="20" rows="2" id="wpneo_rewards_description[]" name="wpneo_rewards_description[]" className="short"></textarea><small>Reward Description</small>
+                                            </div>
+                                        </div>
+                                        <div className="wpneo-single wpneo-first-half">
+                                            <div className="wpneo-name">Estimated Delivery Month</div>
+                                            <div className="wpneo-fields">
+                                                <select className="select short" name="wpneo_rewards_endmonth[]" id="wpneo_rewards_endmonth[]">
+                                                    <option selected="selected" value="">- Select -</option>
+                                                    <option value="jan">January</option>
+                                                    <option value="feb">February</option>
+                                                    <option value="mar">March</option>
+                                                    <option value="apr">April</option>
+                                                    <option value="may">May</option>
+                                                    <option value="jun">June</option>
+                                                    <option value="jul">July</option>
+                                                    <option value="aug">August</option>
+                                                    <option value="sep">September</option>
+                                                    <option value="oct">October</option>
+                                                    <option value="nov">November</option>
+                                                    <option value="dec">December</option>
+                                                </select><small>Estimated Delivery Month of the Reward</small>
+                                            </div>
+                                        </div>
+                                        <div className="wpneo-single wpneo-second-half">
+                                            <div className="wpneo-name">Estimated Delivery Year</div>
+                                            <div className="wpneo-fields">
+                                                <select className="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">
+                                                    <option selected="selected" value="">- Select -</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                </select><small>Estimated Delivery Year of the Reward</small>
+                                            </div>
+                                        </div>
+                                        <div className="wpneo-single">
+                                            <div className="wpneo-name">Quantity</div>
+                                            <div className="wpneo-fields">
+                                                <input type="text" value="" id="wpneo_rewards_item_limit[]" name="wpneo_rewards_item_limit[]" className="wc_input_price" /><small>Quantity of physical products</small>
+                                            </div>
+                                        </div>
+                                        <div className="wpneo-remove-button">
+                                            <input type="button" value="- Remove" className="button tagadd removeCampaignRewards" name="remove_rewards" />
+                                        </div>
                                     </div>
                                 </div>
+                                <div id="rewards_addon_fields"></div>
+                                <div className="text-right">
+                                    <input type="button" value="+ Add" id="addreward" className="button tagadd" name="save" />
+                                </div>
+                            </div>
 
-                                <div className="wpneo-title"></div>
-<div className="wpneo-text"></div>
-<div className="wpneo-requirement-title">
-    <input id="wpcf-term-agree" type="checkbox" value="agree" name="wpneo_terms_agree" />
-    <label for="wpcf-term-agree">I agree with the terms and conditions.</label>
-</div>
-<div className="wpneo-form-action">
-    <input type="hidden" name="action" value="addfrontenddata" />
-    <input type="submit" className="wpneo-submit-campaign" value="Submit campaign" />
-    <a href="http://localhost/plugins/cf/cf-dashboard/" className="wpneo-cancel-campaign">Cancel</a>
-</div>
-<input type="hidden" id="wpcf_form_action_field" name="wpcf_form_action_field" value="44606f713c" />
-<input type="hidden" name="_wp_http_referer" value="" />
-
-
+                            <div className="wpneo-title"></div>
+                            <div className="wpneo-text"></div>
+                            <div className="wpneo-requirement-title">
+                                <input id="wpcf-term-agree" type="checkbox" value="agree" name="wpneo_terms_agree" />
+                                <label for="wpcf-term-agree">I agree with the terms and conditions.</label>
+                            </div>
+                            <div className="wpneo-form-action">
+                                <input type="hidden" name="action" value="addfrontenddata" />
+                                <input type="submit" className="wpneo-submit-campaign" value="Submit campaign" />
+                                <a href="#" className="wpneo-cancel-campaign">Cancel</a>
+                            </div>
+                            <input type="hidden" id="wpcf_form_action_field" name="wpcf_form_action_field" value="" />
+                            <input type="hidden" name="_wp_http_referer" value="" />
                         </form>
 
                     </div>
-                </div>
-
             </Fragment>
         )
     }
