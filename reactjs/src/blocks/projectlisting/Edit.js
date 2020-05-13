@@ -7,7 +7,7 @@ const { addQueryArgs } = wp.url;
 const { withState } = wp.compose;
 const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
-const { PanelBody,SelectControl, RangeControl, Spinner, QueryControls } = wp.components;
+const { PanelBody, Spinner, QueryControls } = wp.components;
  
 class Edit extends Component {
 
@@ -104,9 +104,9 @@ class Edit extends Component {
 
                                         <div className="wpneo-listing-content">
                                             <div className="woocommerce"></div>
-                                            <h4><a href="">{product.title.rendered}</a></h4>
+                                            <h4><a href="#">{product.title.rendered}</a></h4>
                                             <p className="wpneo-author">by
-                                                <a href=""> {product.wpcf_product.display_name}</a>
+                                                <a href="#"> {product.wpcf_product.display_name}</a>
                                             </p>
                                             <div className="wpneo-location">
                                                 <i className="wpneo-icon wpneo-icon-location"></i>

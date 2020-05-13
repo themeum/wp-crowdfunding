@@ -82,9 +82,9 @@ class Edit extends Component {
 
                                         <div className="wpneo-listing-content">
                                             <div className="woocommerce"></div>
-                                            <h4><a href="">{product.title.rendered}</a></h4>
+                                            <h4><a href="#">{product.title.rendered}</a></h4>
                                             <p className="wpneo-author">by
-                                                <a href=""> {product.wpcf_product.display_name}</a>
+                                                <a href="#"> {product.wpcf_product.display_name}</a>
                                             </p>
                                             <div className="wpneo-location">
                                                 <i className="wpneo-icon wpneo-icon-location"></i>

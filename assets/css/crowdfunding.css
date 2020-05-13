@@ -1782,3 +1782,10 @@ a.wpneo-cancel-campaign {
 .wpneo-fields .wpneo-form-country {
     max-width: 100% !important;
 }
+
+.editor-styles-wrapper .wpcf-products-is-loading h2 {
+    font-size: 24px;
+}
+.editor-styles-wrapper .wpcf-products-is-loading h2:before {
+    display: none;
+}

@@ -105,8 +105,8 @@ class Edit extends Component {
                         }
                         </Fragment>
                         :
-                        <div className="wpcf-products-is-loading">
-                            <Spinner />
+                        <div className={`wpcf-products-is-loading`}>
+                            { ( campaignID ) ? <Spinner /> : <h2>Add your Campaign ID</h2> } 
                         </div>
                         }
                     </div>
