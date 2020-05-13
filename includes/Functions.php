@@ -743,7 +743,7 @@ class Functions {
         if ( $this->mb_str_word_count($text, 0) > $limit ) {
             $words  = $this->mb_str_word_count($text, 2);
             $pos    = array_keys($words);
-            $text   = mb_substr($text, 0, $pos[$limit]) . '...';
+            $text   = mb_substr($text, 0, $pos[$limit]);
         }
         return $text;
     }
