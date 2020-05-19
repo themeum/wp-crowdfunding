@@ -83,6 +83,13 @@ class Registration{
 
     public function registration_block_callback( $att ) {
 
+        $inputTextColor         = isset( $att['inputTextColor']) ? $att['inputTextColor'] : '';
+        $borderColor         = isset( $att['borderColor']) ? $att['borderColor'] : '';
+        $inputfontSize      = isset( $att['inputfontSize']) ? $att['inputfontSize'] : '16';
+
+        $labelColor         = isset( $att['labelColor']) ? $att['labelColor'] : '';
+        $labelfontSize      = isset( $att['labelfontSize']) ? $att['labelfontSize'] : '16';
+        
         $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : '';
         $titleColor         = isset( $att['titleColor']) ? $att['titleColor'] : '';
         $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
@@ -219,7 +226,19 @@ class Registration{
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
                         <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" style="background: <?php echo $bgColor; ?>; color: <?php echo $titleColor; ?>; font-size: <?php echo $fontSize; ?>px; font-weight: <?php echo $fontWeight; ?>"/>
                     </div>
-    
+
+                    <style>
+                        .wpneo-fields input[type="number"], .wpneo-fields input[type="text"], .wpneo-fields input[type="email"], .wpneo-fields input[type="password"] {
+                            font-size: <?php echo $inputfontSize; ?>px;
+                            color: <?php echo $inputTextColor; ?>;
+                            border: 1px solid <?php echo $borderColor; ?>px;
+                        }
+                        .wpneo-user-registration-wrap .wpneo-name {
+                            font-size: <?php echo $labelfontSize; ?>px;
+                            color: <?php echo $labelColor; ?>
+                        }
+                    </style>
+                    
                 </form>
             </div>
             <?php

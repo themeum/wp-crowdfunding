@@ -35,14 +35,14 @@ class Edit extends Component {
         } = this.props
 
         const inputtextcolors = [
-            { name: 'Dark Black', color: '#111111' }, 
-            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'Dark Black', color: '#000000' }, 
+            { name: 'Light Gray', color: '#939393' }, 
             { name: 'White', color: '#ffffff' }, 
         ]
         const bordercolors = [
-            { name: 'Dark Black', color: '#111111' }, 
-            { name: 'Light Gray', color: '#767676' }, 
-            { name: 'White', color: '#ffffff' }, 
+            { name: 'Dark Black', color: '#eeeeee' }, 
+            { name: 'Gray', color: '#e2e4e7' },
+            { name: 'Light Gray', color: '#fafafa' }, 
         ];
 
         const labelcolors = [
@@ -166,7 +166,7 @@ class Edit extends Component {
 
                     <PanelBody title={__('')} initialOpen={true}>
                         <RangeControl
-                            label="Label Font Size"
+                            label="Input Font Size"
                             value={inputfontSize}
                             onChange={(value) => { setAttributes({ inputfontSize: value }) }}
                             min={5}
