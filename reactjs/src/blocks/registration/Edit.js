@@ -2,7 +2,7 @@ const { __ } = wp.i18n;
 const { withState } = wp.compose;
 const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
-const { PanelBody,SelectControl, ColorPalette, RangeControl, TextControl, TextareaControl } = wp.components;
+const { PanelBody,SelectControl, ColorPalette, RangeControl } = wp.components;
 
   
 class Edit extends Component {
@@ -15,8 +15,15 @@ class Edit extends Component {
         const {
             setAttributes,
             attributes: {
+                labelfontSize,
+                labelColor,
+
+                inputfontSize,
+                borderColor, 
+                inputTextColor,
+
                 bgColorpalette,
-                titlecolor,
+                titleColor,
                 fontSize,
                 fontWeight,
                 
@@ -24,62 +31,41 @@ class Edit extends Component {
                 cancelbtncolor,
                 cancelfontWeight,
                 cancelfontSize
-            },
+            }, 
         } = this.props
 
+        const inputtextcolors = [
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ]
+        const bordercolors = [
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ];
+
+        const labelcolors = [
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ];
+
         // Background Color 
-        const BgColorPalette = withState( {
-            bgcolor: bgColorpalette,
-        } )( ( { bgcolor, setState } ) => { 
-            const bgcolors = [ 
-                { name: 'Color Code: #0073a8', color: '#0073a8' }, 
-                { name: 'Color Code: #005075', color: '#005075' }, 
-                { name: 'Dark Black', color: '#111111' }, 
-                { name: 'Light Gray', color: '#767676' }, 
-                { name: 'White', color: '#ffffff' }, 
-            ];
-            
-            return ( 
-                <ColorPalette 
-                    label="Background Color"
-                    colors={ bgcolors } 
-                    value={ bgcolor }
-                    onChange={(value) => { setAttributes({ bgColorpalette: value }) }}
-                />
-            ) 
-        } );
+        const bgcolors = [ 
+            { name: 'Color Code: #0073a8', color: '#0073a8' }, 
+            { name: 'Color Code: #005075', color: '#005075' }, 
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ];
 
         // Title Color Color 
-        const TitleColorPalette = withState( {
-            color: titlecolor,
-        } )( ( { color, setState } ) => { 
-            const colors = [ 
-                { name: 'Gray', color: '#ccc' }, 
-                { name: 'White', color: '#fff' }, 
-                { name: 'Black', color: '#000' }, 
-            ];
-            return ( 
-                <ColorPalette
-                    label="Title Color" 
-                    colors={ colors } 
-                    value={ color }
-                    onChange={(value) => { setAttributes({ titlecolor: value }) }}
-                />
-            ) 
-        } );
-
-        // Font size.
-        const BtnFontSizePicker = withState({
-            fontSize: fontSize,
-        })(({ fontSize, setState }) => (
-            <RangeControl
-                label="Font Size"
-                value={fontSize}
-                onChange={(value) => { setAttributes({ fontSize: value }) }}
-                min={5}
-                max={30}
-            />
-        ));
+        const colors = [ 
+            { name: 'Gray', color: '#ccc' }, 
+            { name: 'White', color: '#fff' }, 
+            { name: 'Black', color: '#000' }, 
+        ];
 
         // Font Width.
         const SelectFontWidthControl = withState({
@@ -102,23 +88,11 @@ class Edit extends Component {
 
         const btnStyle = {
             background: bgColorpalette,
-            color: titlecolor,
+            color: titleColor,
             fontSize: fontSize,
             fontWeight: fontWeight,
         }
 
-        // Cancel Button Font size.
-        const CancelFontSizePicker = withState({
-            cancelfontSize: cancelfontSize,
-        })(({ cancelfontSize, setState }) => (
-            <RangeControl
-                label="Font Size"
-                value={cancelfontSize}
-                onChange={(value) => { setAttributes({ cancelfontSize: value }) }}
-                min={5}
-                max={30}
-            />
-        ));
         // Font Width.
         const SelectCancelFontWidthControl = withState({
             cancelfontWeight: cancelfontWeight,
@@ -189,17 +163,81 @@ class Edit extends Component {
         return (
             <Fragment>
                 <InspectorControls key="inspector">
-                    <PanelBody title={__('Signup Button Style')} initialOpen={true}>
-                        <BtnFontSizePicker />
+
+                    <PanelBody title={__('')} initialOpen={true}>
+                        <RangeControl
+                            label="Label Font Size"
+                            value={inputfontSize}
+                            onChange={(value) => { setAttributes({ inputfontSize: value }) }}
+                            min={5}
+                            max={30}
+                        />
+                        <label className="components-base-control__label">{ __( 'Input Text Color', 'wp-crowdfunding' ) }</label>
+                        <ColorPalette
+                            label="Input Text Color" 
+                            colors={ inputtextcolors } 
+                            value={ inputTextColor }
+                            onChange={(value) => { setAttributes({ inputTextColor: value }) }}
+                        /> 
+                        <label className="components-base-control__label">{ __( 'Border Color', 'wp-crowdfunding' ) }</label>
+                        <ColorPalette
+                            label="Border Color" 
+                            colors={ bordercolors } 
+                            value={ borderColor }
+                            onChange={(value) => { setAttributes({ borderColor: value }) }}
+                        />
+                    </PanelBody>
+
+                    <PanelBody title={__('Label Style')} initialOpen={false}>
+                        <RangeControl
+                            label="Label Font Size"
+                            value={labelfontSize}
+                            onChange={(value) => { setAttributes({ labelfontSize: value }) }}
+                            min={5}
+                            max={30}
+                        />
+                        <label className="components-base-control__label">{ __( 'Label Text Color', 'wp-crowdfunding' ) }</label>
+                        <ColorPalette
+                            label="Title Color" 
+                            colors={ labelcolors } 
+                            value={ labelColor }
+                            onChange={(value) => { setAttributes({ labelColor: value }) }}
+                        />
+                    </PanelBody>
+
+                    <PanelBody title={__('Signup Button Style')} initialOpen={false}>
+                        <RangeControl
+                            label="Font Size"
+                            value={fontSize}
+                            onChange={(value) => { setAttributes({ fontSize: value }) }}
+                            min={5}
+                            max={30}
+                        />
                         <SelectFontWidthControl />
                         <label className="components-base-control__label">{ __( 'Text Color', 'wp-crowdfunding' ) }</label>
-                        <TitleColorPalette />
+                        <ColorPalette
+                            label="Title Color" 
+                            colors={ colors } 
+                            value={ titleColor }
+                            onChange={(value) => { setAttributes({ titleColor: value }) }}
+                        />
                         <label className="components-base-control__label">{ __( 'Background Color', 'wp-crowdfunding' ) }</label>
-                        <BgColorPalette />
+                        <ColorPalette 
+                            label="Background Color"
+                            colors={ bgcolors } 
+                            value={ bgColorpalette }
+                            onChange={(value) => { setAttributes({ bgColorpalette: value }) }}
+                        />
                     </PanelBody>
 
                     <PanelBody title={__('Cancel Button Style')} initialOpen={false}>
-                        <CancelFontSizePicker />
+                        <RangeControl
+                            label="Font Size"
+                            value={cancelfontSize}
+                            onChange={(value) => { setAttributes({ cancelfontSize: value }) }}
+                            min={5}
+                            max={30}
+                        />
                         <SelectCancelFontWidthControl />
                         <label className="components-base-control__label">{ __( 'Text Color', 'wp-crowdfunding' ) }</label>
                         <CancelColorPalette />
@@ -256,7 +294,7 @@ class Edit extends Component {
                             </div>
 
                             <div className="wpneo-single wpneo-register">
-                                <a href="" className="wpneo-cancel-campaign" style={CancelBtnStyle}>Cancel</a>
+                                <a href="#" className="wpneo-cancel-campaign" style={CancelBtnStyle}>Cancel</a>
                                 <input type="hidden" name="action" value="wpcf_registration" />
                                 <input type="hidden" name="current_page" value="" />
                                 <input type="submit" className="wpneo-submit-campaign" id="user-registration-btn" value="Sign UP" name="submits" style={btnStyle} />
@@ -266,6 +304,22 @@ class Edit extends Component {
                     </div>
 
                 </div>
+
+                <style>
+                    {`
+                        .wpneo-user-registration-wrap .wpneo-name {
+                            font-size: ${labelfontSize}px;
+                            color: ${labelColor}
+                        }
+                        .wpneo-fields input[type="number"], .wpneo-fields input[type="text"], .wpneo-fields input[type="email"], .wpneo-fields input[type="password"] {
+                            border: 1px solid ${borderColor};
+                        }
+                        .wpneo-fields input[type="number"], .wpneo-fields input[type="text"], .wpneo-fields input[type="email"], .wpneo-fields input[type="password"] {
+                            font-size: ${inputfontSize}px;
+                            color: ${inputTextColor}
+                        }
+                    `}
+                </style>
 
             </Fragment>
         )

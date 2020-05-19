@@ -17,11 +17,35 @@ class Registration{
             'wp-crowdfunding/registration',
             array(
                 'attributes' => array(
+
+                    'inputTextColor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#000000',
+                    ),
+                    'inputfontSize'    => array(
+                        'type'          => 'number',
+                        'default'       => 16,
+                    ),
+                    'borderColor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#000000',
+                    ),
+
+                    'labelColor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#000000',
+                    ),
+                    'labelfontSize'    => array(
+                        'type'          => 'number',
+                        'default'       => 16,
+                    ),
+
+
                     'bgColorpalette'    => array(
                         'type'          => 'string',
                         'default'       => '#0073a8',
                     ),
-                    'titlecolor'    => array(
+                    'titleColor'    => array(
                         'type'          => 'string',
                         'default'       => '#ffffff',
                     ),
@@ -33,21 +57,13 @@ class Registration{
                         'type'          => 'number',
                         'default'       => 400,
                     ),
-                    // 'SearchfontSize' => array(
-                    //     'type'          => 'number',
-                    //     'default'       => 14,
-                    // ),
 
-                    // 'campaignID'   => array(
-                    //     'type'      => 'string',
-                    //     'default'   => ''
-                    // ),
-           
+                    # Cancel Button
                     'cancelbtnbgColorpalette'    => array(
                         'type'          => 'string',
                         'default'       => '#C42525',
                     ),
-                    'cancelbtncolor'    => array(
+                    'cancelbtncolor'    => array( 
                         'type'          => 'string',
                         'default'       => '#ffffff',
                     ),
@@ -68,7 +84,7 @@ class Registration{
     public function registration_block_callback( $att ) {
 
         $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : '';
-        $titlecolor         = isset( $att['titlecolor']) ? $att['titlecolor'] : '';
+        $titleColor         = isset( $att['titleColor']) ? $att['titleColor'] : '';
         $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
         $fontWeight 	    = isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
 
@@ -201,7 +217,7 @@ class Registration{
                         <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign" style="background: <?php echo $cancelbtnbgColorpalette; ?>; color: <?php echo $cancelbtncolor; ?>; font-size: <?php echo $cancelfontSize; ?>px; font-weight: <?php echo $cancelfontWeight; ?>"><?php _e("Cancel","wp-crowdfunding"); ?></a>
                         <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
-                        <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" style="background: <?php echo $bgColor; ?>; color: <?php echo $titlecolor; ?>; font-size: <?php echo $fontSize; ?>px; font-weight: <?php echo $fontWeight; ?>"/>
+                        <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" style="background: <?php echo $bgColor; ?>; color: <?php echo $titleColor; ?>; font-size: <?php echo $fontSize; ?>px; font-weight: <?php echo $fontWeight; ?>"/>
                     </div>
     
                 </form>
