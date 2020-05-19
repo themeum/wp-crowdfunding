@@ -16,79 +16,28 @@ class Edit extends Component {
             attributes: {
                 formSize,
                 bgColorpalette,
-                titlecolor,
+                titleColor,
                 fontSize,
                 fontWeight,
                 SearchfontSize
             },
         } = this.props
 
-        // Search Font size.
-        const InputFontSizePicker = withState({
-            fontSize: SearchfontSize,
-        })(({ fontSize, setState }) => (
-            <RangeControl
-                label="Font Size"
-                value={fontSize}
-                onChange={(value) => { setAttributes({ SearchfontSize: value }) }}
-                min={5}
-                max={20}
-            />
-        ));
-
         // Background Color 
-        const BgColorPalette = withState( {
-            bgcolor: bgColorpalette,
-        } )( ( { bgcolor, setState } ) => { 
-            const bgcolors = [ 
-                { name: 'Color Code: #0073a8', color: '#0073a8' }, 
-                { name: 'Color Code: #005075', color: '#005075' }, 
-                { name: 'Dark Black', color: '#111111' }, 
-                { name: 'Light Gray', color: '#767676' }, 
-                { name: 'White', color: '#ffffff' }, 
-            ];
-            
-            return ( 
-                <ColorPalette 
-                    label="Background Color"
-                    colors={ bgcolors } 
-                    value={ bgcolor }
-                    onChange={(value) => { setAttributes({ bgColorpalette: value }) }}
-                />
-            ) 
-        } );
+        const bgcolors = [ 
+            { name: 'Color Code: #0073a8', color: '#0073a8' }, 
+            { name: 'Color Code: #005075', color: '#005075' }, 
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ];
 
         // Title Color Color 
-        const TitleColorPalette = withState( {
-            color: titlecolor,
-        } )( ( { color, setState } ) => { 
-            const colors = [ 
-                { name: 'Gray', color: '#ccc' }, 
-                { name: 'White', color: '#fff' }, 
-                { name: 'Black', color: '#000' }, 
-            ];
-            return ( 
-                <ColorPalette
-                    label="Title Color" 
-                    colors={ colors } 
-                    value={ color }
-                    onChange={(value) => { setAttributes({ titlecolor: value }) }}
-                />
-            ) 
-        } );
-
-        // Font size.
-        const BtnFontSizePicker = withState({
-            fontSize: fontSize,
-        })(({ fontSize, setState }) => (
-            <RangeControl
-                label="Font Size"
-                value={fontSize}
-                onChange={(value) => { setAttributes({ fontSize: value }) }}
-                min={5}
-                max={30}
-            />
-        ));
+        const colors = [ 
+            { name: 'Gray', color: '#ccc' }, 
+            { name: 'White', color: '#fff' }, 
+            { name: 'Black', color: '#000' }, 
+        ];
 
         // Font Width.
         const SelectFontWidthControl = withState({
@@ -111,7 +60,7 @@ class Edit extends Component {
 
         const btnStyle = {
             background: bgColorpalette,
-            color: titlecolor,
+            color: titleColor,
             fontSize: fontSize,
             fontWeight: fontWeight,
         }
@@ -133,16 +82,39 @@ class Edit extends Component {
 							]}
 							onChange={value => setAttributes({ formSize: value })}
 						/>
-                        <InputFontSizePicker />
+                        <RangeControl
+                            label="Font Size"
+                            value={SearchfontSize}
+                            onChange={(value) => { setAttributes({ SearchfontSize: value }) }}
+                            min={5}
+                            max={20}
+                        />
 					</PanelBody>
 
                     <PanelBody title={__('Button Style')} initialOpen={false}>
-                        <BtnFontSizePicker />
+                        <RangeControl
+                            label="Font Size"
+                            value={fontSize}
+                            onChange={(value) => { setAttributes({ fontSize: value }) }}
+                            min={5}
+                            max={30}
+                        />
                         <SelectFontWidthControl />
                         <label className="components-base-control__label">{ __( 'Text Color', 'wp-crowdfunding' ) }</label>
-                        <TitleColorPalette />
+                        <ColorPalette
+                            label="Title Color" 
+                            colors={ colors } 
+                            value={ titleColor }
+                            onChange={(value) => { setAttributes({ titleColor: value }) }}
+                        />
+
                         <label className="components-base-control__label">{ __( 'Background Color', 'wp-crowdfunding' ) }</label>
-                        <BgColorPalette />
+                        <ColorPalette 
+                            label="Background Color"
+                            colors={ bgcolors } 
+                            value={ bgColorpalette }
+                            onChange={(value) => { setAttributes({ bgColorpalette: value }) }}
+                        />
                     </PanelBody>
                 </InspectorControls>
 
