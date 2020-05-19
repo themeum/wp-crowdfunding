@@ -1160,6 +1160,7 @@ textarea[disabled], html input[disabled]{
     border-radius: 0;
     background: none;
     border: none;
+    max-width: 100%;
 }
 .wpneo-fields textarea{
     background: #fff none repeat scroll 0 0;
@@ -1321,9 +1322,12 @@ input#cc-image-upload-file-button, input.profile_image_url{
     margin-top: 7px;
 }
 
-.wpneo_donate_button, #wpneo-tab-reviews .submit, .wpneo-edit-btn, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, .wpneo-save-btn, #wpneo_active_edit_form, .removeCampaignRewards, #addreward, .btn-style1, #addcampaignupdate, .wpneo-profile-button, .dashboard-btn-link, .wpneo_login_form_div #wp-submit, .wpneo-submit-campaign, input[type="button"].wpneo-image-upload, input[type="button"]#search-submit, #addreward, input[type="submit"].wpneo-submit-campaign, .dashboard-btn-link, .label-primary, #wpneofrontenddata input[type="button"], #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, .btn-style1, #wpneo-tab-reviews .submit, .dashboard-head-date input[type="submit"], .wp-crowd-btn-primary, .wpneo_withdraw_button, .wpneo-dashboard-head-left ul li.active, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
+.wpneo_donate_button, #wpneo-tab-reviews .submit, .wpneo-edit-btn, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, .wpneo-save-btn, #wpneo_active_edit_form, .removeCampaignRewards, #addreward, .btn-style1, #addcampaignupdate, .wpneo-profile-button, .dashboard-btn-link, .wpneo_login_form_div #wp-submit, .wpneo-submit-campaign, input[type="button"].wpneo-image-upload, input[type="button"]#search-submit, #addreward, input[type="submit"].wpneo-submit-campaign, .dashboard-btn-link, .label-primary, #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, .btn-style1, #wpneo-tab-reviews .submit, .dashboard-head-date input[type="submit"], .wp-crowd-btn-primary, .wpneo_withdraw_button, .wpneo-dashboard-head-left ul li.active, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
     background-color: #94c94a;
     color: #ffffff;
+}
+div#qt_wpneo-form-description_toolbar {
+    display: none;
 }
 .wp-crowd-btn, .wpneo_withdraw_button {
     padding: 10px 20px;
@@ -1786,6 +1790,28 @@ a.wpneo-cancel-campaign {
 .editor-styles-wrapper .wpcf-products-is-loading h2 {
     font-size: 24px;
 }
-.editor-styles-wrapper .wpcf-products-is-loading h2:before {
+.editor-styles-wrapper .wpcf-products-is-loading h2:before,
+div#qt_wpneo-form-short-description_toolbar {
     display: none;
+}
+
+/* Submit Form */
+#wp-wpneo-form-description-wrap .wp-editor-tabs,
+#wp-wpneo-form-short-description-wrap .wp-editor-tabs {
+    text-align: right;
+}
+.wp-media-buttons {
+    float: left;
+}
+#wp-wpneo-form-description-wrap button#wpneo-form-description-tmce,
+#wp-wpneo-form-description-wrap button#wpneo-form-description-html,
+#wp-wpneo-form-short-description-wrap button#wpneo-form-short-description-tmce, 
+#wp-wpneo-form-short-description-wrap button#wpneo-form-short-description-html {
+    color: #000;
+}
+.wpneo-image-upload-btn {
+    position: inherit;
+}
+#addreward {
+    border: none;
 }

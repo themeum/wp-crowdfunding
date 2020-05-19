@@ -2,7 +2,7 @@ const { __ } = wp.i18n;
 const { withState } = wp.compose;
 const { InspectorControls } = wp.editor;
 const { Component, Fragment } = wp.element;
-const { PanelBody,SelectControl, ColorPalette, RangeControl, TextControl } = wp.components;
+const { PanelBody, ColorPalette } = wp.components;
 
   
 class Edit extends Component {
@@ -15,16 +15,63 @@ class Edit extends Component {
         const {
             setAttributes,
             attributes: {
-
+                textColor,
+                bgColor,
+                cancelBtnColor
             },
         } = this.props
+
+        const bgcolors = [
+            { name: 'Color Code: #1adc68', color: '#1adc68' }, 
+            { name: 'Color Code: #8224e3', color: '#8224e3' }, 
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ];
+
+        const textColors = [ 
+            { name: 'Green', color: '#94c94a' }, 
+            { name: 'White', color: '#fff' }, 
+            { name: 'Black', color: '#000' }, 
+        ];
+
+        const cancelBtnColors = [
+            { name: 'Red', color: 'red' }, 
+            { name: 'Dark', color: '#cf0000' }, 
+        ]
 
         return (
             <Fragment>
                 <InspectorControls key="inspector">
                     <PanelBody title='Form Style' initialOpen={true}>
-                        {/* <label className="components-base-control__label">{ __( 'Form Style', 'wp-crowdfunding' ) }</label>    */}
-					</PanelBody>
+                        <label className="components-base-control__label">{ __( 'Background Color', 'wp-crowdfunding' ) }</label>
+                        <ColorPalette
+                            label={ __( 'Bg Color') }
+                            colors={ bgcolors } 
+                            value={ bgColor }
+                            onChange={ ( value ) => setAttributes( { bgColor: value } ) }
+                            withTransparentOption
+                        />
+
+                        <label className="components-base-control__label">{ __( 'Text Color', 'wp-crowdfunding' ) }</label>
+                        <ColorPalette
+                            label={ __( 'Title Color') }
+                            colors={ textColors } 
+                            value={ textColor }
+                            onChange={ ( value ) => setAttributes( { textColor: value } ) }
+                            withTransparentOption
+                        />
+
+                        <label className="components-base-control__label">{ __( 'Cancel Button Color', 'wp-crowdfunding' ) }</label>
+                        <ColorPalette
+                            label={ __( 'Title Color') }
+                            colors={ cancelBtnColors } 
+                            value={ cancelBtnColor }
+                            onChange={ ( value ) => setAttributes( { cancelBtnColor: value } ) }
+                            withTransparentOption
+                        />
+
+                    </PanelBody>
                 </InspectorControls>
 
                 <div className="wpcf-form-field">
@@ -308,6 +355,21 @@ class Edit extends Component {
                         <input type="hidden" name="_wp_http_referer" value="" />
                     </form>
                 </div>
+
+                <style>
+                    {`
+                        input[type="button"].wpneo-image-upload, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, #addreward, #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign{
+                            background-color: ${bgColor}
+                        }
+                        
+                        input[type="button"].wpneo-image-upload, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, #addreward, #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, a.wpneo-cancel-campaign, .editor-styles-wrapper a.wpneo-cancel-campaign {
+                            color: ${textColor}
+                        }
+                        a.wpneo-cancel-campaign {
+                            background-color: ${cancelBtnColor}
+                        }
+                    `}
+                </style>
             </Fragment>
         )
     }
