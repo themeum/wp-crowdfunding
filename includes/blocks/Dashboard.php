@@ -14,11 +14,11 @@ class Dashboard{
             'wp-crowdfunding/dashboard',
             array(
                 'attributes' => array(
-                    'majorColorpalette'    => array(
+                    'bgColor'    => array(
                         'type'          => 'string',
                         'default'       => '#1adc68',
                     ),
-                    'titlecolor'    => array(
+                    'titleColor'    => array(
                         'type'          => 'string',
                         'default'       => '#ffffff',
                     ),
@@ -29,12 +29,10 @@ class Dashboard{
     }
 
     public function dashboard_block_callback( $att ){
-        $majorColor     = isset( $att['majorColorpalette']) ? $att['majorColorpalette'] : '';
-        $textcolor      = isset( $att['titlecolor']) ? $att['titlecolor'] : '';
+        $majorColor     = isset( $att['bgColor']) ? $att['bgColor'] : '';
+        $textcolor      = isset( $att['titleColor']) ? $att['titleColor'] : '';
     
-        $html = '';
-        $get_id = '';
-
+        $html = $get_id = '';
 
         if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
             if ( is_user_logged_in() ) {

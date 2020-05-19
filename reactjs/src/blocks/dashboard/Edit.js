@@ -16,62 +16,49 @@ class Edit extends Component {
         const {
             setAttributes,
             attributes: {
-                majorColorpalette,
-                titlecolor
+                bgColor,
+                titleColor
             },
         } = this.props
 
         const { products } = this.props
 
         // Major Color 
-        const MajorColorPalette = withState( {
-            bgcolor: majorColorpalette,
-        } )( ( { bgcolor, setState } ) => { 
-            const bgcolors = [ 
-                { name: 'Color Code: #1adc68', color: '#1adc68' }, 
-                { name: 'Color Code: #8224e3', color: '#8224e3' }, 
-                { name: 'Dark Black', color: '#111111' }, 
-                { name: 'Light Gray', color: '#767676' }, 
-                { name: 'White', color: '#ffffff' }, 
-            ];
-            
-            return ( 
-                <ColorPalette 
-                    label="Background Color"
-                    colors={ bgcolors } 
-                    value={ bgcolor }
-                    onChange={(value) => { setAttributes({ majorColorpalette: value }) }}
-                />
-            ) 
-        } );
+        const bgColors = [ 
+            { name: 'Color Code: #1adc68', color: '#1adc68' }, 
+            { name: 'Color Code: #8224e3', color: '#8224e3' }, 
+            { name: 'Dark Black', color: '#111111' }, 
+            { name: 'Light Gray', color: '#767676' }, 
+            { name: 'White', color: '#ffffff' }, 
+        ];
 
         // Title Color Color 
-        const TextColorPalette = withState( {
-            color: titlecolor,
-        } )( ( { color, setState } ) => { 
-            const colors = [ 
-                { name: 'Gray', color: '#ccc' }, 
-                { name: 'White', color: '#fff' }, 
-                { name: 'Black', color: '#000' }, 
-            ];
-            return ( 
-                <ColorPalette
-                    label="Title Color" 
-                    colors={ colors } 
-                    value={ color }
-                    onChange={(value) => { setAttributes({ titlecolor: value }) }}
-                />
-            ) 
-        } );
+        const titleColors = [ 
+            { name: 'Gray', color: '#ccc' }, 
+            { name: 'White', color: '#fff' }, 
+            { name: 'Black', color: '#000' }, 
+        ];
 
         return (
             <Fragment>
                 <InspectorControls key="inspector">
                     <PanelBody title={__('')} initialOpen={true}>
                         <label className="components-base-control__label">{ __( 'Major Color', 'wp-crowdfunding' ) }</label>
-                        <MajorColorPalette />
+                        <ColorPalette
+                            label={ __( 'Major Color') }
+                            colors={ bgColors } 
+                            value={ bgColor }
+                            onChange={ ( value ) => setAttributes( { bgColor: value } ) }
+                            withTransparentOption
+                        />
                         <label className="components-base-control__label">{ __( 'Text Color', 'wp-crowdfunding' ) }</label>
-                        <TextColorPalette />
+                        <ColorPalette
+                            label={ __( 'Text Color') }
+                            colors={ titleColors } 
+                            value={ titleColor }
+                            onChange={ ( value ) => setAttributes( { titleColor: value } ) }
+                            withTransparentOption
+                        />
                     </PanelBody>
                 </InspectorControls>
 
@@ -97,15 +84,15 @@ class Edit extends Component {
                     {`
                         .wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-dashboard-summary ul li.active,
                         .wpcf-dashboard .wpneo-edit-btn, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
-                            background-color: ${majorColorpalette}
+                            background-color: ${bgColor}
                         }
                         .wpneo-links div.active a, .wpneo-links div a:hover, 
                         .wpcf-dashboard .wpneo-name > p, .wpcf-dashboard .wpcrowd-listing-content .wpcrowd-admin-title h3 a{
-                            color: ${majorColorpalette}
+                            color: ${bgColor}
                         }
 
                         .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary, .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary:hover, .wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
-                            color: ${titlecolor}
+                            color: ${titleColor}
                         }
                     `}
                 </style>
