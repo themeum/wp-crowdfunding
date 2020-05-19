@@ -22,7 +22,7 @@ class Donate{
                         'type'          => 'string',
                         'default'       => '#0073a8',
                     ),
-                    'titlecolor'    => array(
+                    'titleColor'    => array(
                         'type'          => 'string',
                         'default'       => '#ffffff',
                     ),
@@ -52,7 +52,7 @@ class Donate{
     public function donate_block_callback( $att ){
         $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
         $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : 'all';
-        $titlecolor         = isset( $att['titlecolor']) ? $att['titlecolor'] : 'all';
+        $titleColor         = isset( $att['titleColor']) ? $att['titleColor'] : 'all';
         $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
         $fontWeight 	    = isset( $att['fontWeight']) ? $att['fontWeight'] : '400';
         $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
@@ -90,7 +90,7 @@ class Donate{
                         $html .= '<input type="hidden" name="wpneo_donate_amount_field" value="'.$atts['amount'].'" />';
                     }
                     $html .= '<input type="hidden" value="'.esc_attr($atts['campaign_id']).'" name="add-to-cart">';
-                    $html .= '<button type="submit" class="'.apply_filters('add_to_donate_button_class', 'wpneo_donate_button').'" style="background: '.$bgColor.'; color: '.$titlecolor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">';
+                    $html .= '<button type="submit" class="'.apply_filters('add_to_donate_button_class', 'wpneo_donate_button').'" style="background: '.$bgColor.'; color: '.$titleColor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">';
                         $html .= $atts['donate_button_text'];;
                         if ($atts['show_input_box'] != 'true'){
                             $html .= ' ('.wc_price($atts['amount']).') ';

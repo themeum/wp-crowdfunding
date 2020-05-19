@@ -246,18 +246,23 @@ table.wp-list-table .column-campaign_owner {
 /* Search Block CSS */
 .wpcf-form-field.full input.search-field {
     width: 79%;
+    max-width: 100%;
 }
 .wpcf-form-field.full button {
     width: 20%;
+    max-width: 100%;
 }
 .wpcf-form-field.medium input.search-field {
     width: 35%;
+    max-width: 100%;
 }
 .wpcf-form-field.medium button {
     width: 15%;
+    max-width: 100%;
 }
 .wpcf-form-field input.search-field {
     height: 44px;
+    width: 20%;
 }
 .wpcf-form-field button {
     border: none;
@@ -1584,7 +1589,7 @@ li {
 }
 
 input[type="number"].wpneo_donate_amount_field {
-    max-width: 120px;
+    /* max-width: 120px; */
     border: 2px solid #000;
     color: #000;
     border-radius: 4px;
