@@ -1820,3 +1820,19 @@ div#qt_wpneo-form-short-description_toolbar {
 #addreward {
     border: none;
 }
+.wpneo-title {
+    font-size: 24px;
+    text-align: left;
+    color: #000;
+    border-bottom: 1px solid #eee;
+    padding: 70px 0px 10px;
+    margin-bottom: 30px;
+}
+#reward_options, .reward_group {
+    box-shadow: none;
+    border: none;
+    background: none;
+}
+#addreward, #addcampaignupdate {
+    margin: 25px 0 25px 0px;
+}

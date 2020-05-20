@@ -49,6 +49,26 @@ function register_api_hook(){
             'schema'          => null,
         )
     );
+
+    # Popular Campaign.
+    register_rest_field(
+        'product', 'wpcf_popular_campaign',
+        array(
+            'get_callback'    => 'wpcf_get_popular_campaign',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
+
+    # Popular Campaign.
+    register_rest_field(
+        'product', 'wpcf_project_listing',
+        array(
+            'get_callback'    => 'wpcf_get_project_listing',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
 } 
 
 # Callback functions: Author Name
@@ -812,5 +832,53 @@ function wpcf_get_submit_form_campaign() {
 
     $html .= '</form>';
 
+    return $html;
+}
+
+# Popular Campaign.
+function wpcf_get_popular_campaign( $object ) {
+    $query_args = array(
+        'post_type'             => 'product',
+        'post_status'           => 'publish',
+        'ignore_sticky_posts'   => 1,
+        'meta_key'              => 'total_sales',
+        'meta_query' => array(
+            array(
+                'key'       => 'total_sales',
+                'value'     => 0,
+                'compare'   => '>',
+            )
+        ),
+
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'product_type',
+                'field'    => 'slug',
+                'terms'    => 'crowdfunding',
+            ),
+        )
+    );
+
+    $quert_post = query_posts($query_args);
+
+    return $quert_post;
+}
+
+# Project Listing.
+function wpcf_get_project_listing( $object ) {
+    $query_args = array(
+        'post_type'     => 'product',
+        'post_status'   => 'publish',
+        'tax_query'     => array(
+            'relation'  => 'AND',
+            array(
+                'taxonomy'  => 'product_type',
+                'field'     => 'slug',
+                'terms'     => 'crowdfunding',
+            ),
+        ),
+    );
+
+    $html = query_posts($query_args);
     return $html;
 }

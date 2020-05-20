@@ -52,11 +52,11 @@ class Edit extends Component {
                 numbers,   
             },
             setAttributes,
+            products
         } = this.props
 
-        const { products } = this.props
-
         const { categoriesList } = this.state;
+
 		const blockSettings = (
             <PanelBody title={ __( 'Query Product', 'wp-crowdfunding' ) } initialOpen={ true }>
                 <QueryControls
@@ -88,7 +88,11 @@ class Edit extends Component {
                             <div className="wpneo-wrapper-inner">
                                 { products.map(product => {
 
-                                    output = <div className={`wpneo-listings two col-${product.column}`}>
+                                    console.log('A', product.wpcf_project_listing)                                            
+
+                                    { product.wpcf_project_listing.map( campaign => {
+                                        if(campaign.ID == product.id) {
+                                            output = <div className={`wpneo-listings two col-${product.column}`}>
                                         <div className="wpneo-listing-img">
                                             
                                             <div dangerouslySetInnerHTML={{__html: product.wpcf_product.product_thumb}} />
@@ -145,9 +149,9 @@ class Edit extends Component {
 
                                         </div>
                                     </div>
-
+                                        }
+                                    })}
                                     return output
-
                                 })} 
                             </div>
                         }
@@ -178,7 +182,7 @@ export default withSelect((select, props) => {
         status: 'publish',
         _embed: true,
     }, value => ! isUndefined( value ) );
-
+ 
     return {
         products: getEntityRecords( 'postType', 'product', ProductsQuery ),
     }

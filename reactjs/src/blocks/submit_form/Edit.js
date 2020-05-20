@@ -330,12 +330,10 @@ class Edit extends Component {
                                             <input type="text" value="" id="wpneo_rewards_item_limit[]" name="wpneo_rewards_item_limit[]" className="wc_input_price" /><small>Quantity of physical products</small>
                                         </div>
                                     </div>
-                                    <div className="wpneo-remove-button">
-                                        <input type="button" value="- Remove" className="button tagadd removeCampaignRewards" name="remove_rewards" />
-                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div id="rewards_addon_fields"></div>
+                            {/* <div id="rewards_addon_fields"></div> */}
                             <div className="text-right">
                                 <input type="button" value="+ Add" id="addreward" className="button tagadd" name="save" />
                             </div>
