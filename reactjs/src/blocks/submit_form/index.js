@@ -3,7 +3,7 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
 registerBlockType('wp-crowdfunding/submitform', {
-	title: __('Submit Form'),
+	title: __('Campaign Submission'),
 	icon: 'buddicons-groups',
     category: 'wp-crowdfunding',
     keywords: [__('Campaign Submit Form'), __('WPCF Submit Form')],

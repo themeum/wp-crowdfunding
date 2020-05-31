@@ -14,6 +14,10 @@ class Search{
             'wp-crowdfunding/search',
             array(
                 'attributes' => array(
+                    'formAlign' => array(
+                        'type'      => 'string',
+                        'default'   => 'left'
+                    ),
                     'formSize'   => array(
                         'type'      => 'string',
                         'default'   => 'small'
@@ -45,6 +49,7 @@ class Search{
     }
 
     public function search_block_callback( $att ){
+        $formAlign           = isset($att['formAlign']) ? $att['formAlign'] : '';
         $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
         $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : '';
         $titleColor         = isset( $att['titleColor']) ? $att['titleColor'] : '';
@@ -53,7 +58,7 @@ class Search{
         $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
     
         $html = $search_val = '';
-        $html .= '<div class="wpcf-form-field '. $formSize .'">';
+        $html .= '<div class="wpcf-form-field '. $formSize .' '.$formAlign.'">';
             $html .= '<form role="search" method="get" action="'.esc_url(home_url('/')).'">';
                 if (isset($_GET['s'])) { $search_val = $_GET['s']; }
                 $html .= '<input type="search" class="search-field" placeholder="'.__("Search", "wp-crowdfunding").'" 

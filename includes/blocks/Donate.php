@@ -14,6 +14,10 @@ class Donate{
             'wp-crowdfunding/donate',
             array(
                 'attributes' => array(
+                    'formAlign'   => array(
+                        'type'      => 'string',
+                        'default'   => 'left'
+                    ),
                     'formSize'   => array(
                         'type'      => 'string',
                         'default'   => 'small'
@@ -51,6 +55,7 @@ class Donate{
 
     public function donate_block_callback( $att ){
         $formSize           = isset($att['formSize']) ? $att['formSize'] : '';
+        $formAlign           = isset($att['formAlign']) ? $att['formAlign'] : '';
         $bgColor            = isset( $att['bgColorpalette']) ? $att['bgColorpalette'] : 'all';
         $titleColor         = isset( $att['titleColor']) ? $att['titleColor'] : 'all';
         $fontSize 		    = isset( $att['fontSize']) ? $att['fontSize'] : '16';
@@ -77,7 +82,7 @@ class Donate{
         }
 
         $html = '';
-        $html .= '<div class="wpcf-form-field '. $formSize .'">';
+        $html .= '<div class="wpcf-form-field '. $formSize .' '.$formAlign.'">';
             $html .= '<div class="wpcf-donate-form-wrap">';
                 $html .= '<form enctype="multipart/form-data" method="post" class="cart">';
                     if ($atts['show_input_box'] == 'true') {

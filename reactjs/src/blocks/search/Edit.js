@@ -19,7 +19,8 @@ class Edit extends Component {
                 titleColor,
                 fontSize,
                 fontWeight,
-                SearchfontSize
+                SearchfontSize,
+                formAlign
             },
         } = this.props
 
@@ -73,6 +74,16 @@ class Edit extends Component {
                 <InspectorControls key="inspector">
                     <PanelBody title='' initialOpen={true}>
                         <SelectControl
+							label={__("Alignment")}
+							value={formAlign}
+							options={[
+								{ label: __('Left'), value: 'left' },
+								{ label: __('Right'), value: 'right' },
+                                { label: __('Center'), value: 'center' },
+							]}
+							onChange={value => setAttributes({ formAlign: value })}
+						/>
+                        <SelectControl
 							label={__("Form Size")}
 							value={formSize}
 							options={[
@@ -118,7 +129,7 @@ class Edit extends Component {
                     </PanelBody>
                 </InspectorControls>
 
-                <div className={`wpcf-form-field ${formSize}`}>
+                <div className={`wpcf-form-field ${formSize} ${formAlign}`}>
                     <form role="search" method="get" action="">
                         <input type="search" className="search-field" placeholder="Search" style={searchStyle}/>
                         <input type="hidden" name="post_type" value="product" />

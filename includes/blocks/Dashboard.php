@@ -164,7 +164,7 @@ class Dashboard{
                     color: '. $majorColor .';
                 }';
 
-                $html .= '.wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary, .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary:hover, .wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current, .wpcf-dashboard .wpneo-edit-btn {
+                $html .= '.wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary, .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary:hover, .wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current, .wpcf-dashboard .wpneo-edit-btn, .wpneo-dashboard-summary ul li.active .wpneo-value, .wpneo-dashboard-summary ul li.active .wpneo-value-info {
                     color: '. $textcolor .'
                 }';
 
