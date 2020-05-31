@@ -1,6 +1,6 @@
 import './blocks/search/index'
 import './blocks/donate/index'
-// import './blocks/projectlisting/index'
+import './blocks/projectlisting/index'
 import './blocks/popular_campaigns/index'
 import './blocks/campaign_box/index'
 import './blocks/registration/index'
