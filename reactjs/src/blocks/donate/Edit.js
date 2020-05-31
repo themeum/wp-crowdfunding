@@ -22,6 +22,7 @@ class Edit extends Component {
                 fontWeight,
                 SearchfontSize,
                 campaignID,
+                formAlign
             },
         } = this.props
 
@@ -83,6 +84,16 @@ class Edit extends Component {
 
                     <PanelBody title={__('Input Style')} initialOpen={false}>
                         <SelectControl
+							label={__("Alignment")}
+							value={formAlign}
+							options={[
+								{ label: __('Left'), value: 'left' },
+								{ label: __('Right'), value: 'right' },
+                                { label: __('Center'), value: 'center' },
+							]}
+							onChange={value => setAttributes({ formAlign: value })}
+						/>
+                        <SelectControl
 							label={__("Form Size")}
 							value={formSize} 
 							options={[
@@ -127,7 +138,7 @@ class Edit extends Component {
                     </PanelBody>
                 </InspectorControls>
 
-                <div className={`wpcf-form-field ${formSize}`}>
+                <div className={`wpcf-form-field ${formSize} ${formAlign}`}>
                     <div className="wpcf-donate-form-wrap">
                         <form enctype="multipart/form-data" method="post" className="cart">
                             <input type="number" name="wpneo_donate_amount_field" className="search-field input-text amount wpneo_donate_amount_field text" style={searchStyle}/>

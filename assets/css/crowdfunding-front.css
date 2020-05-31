@@ -1975,3 +1975,12 @@ div#respond h3, #respond a {
 .wpcf-form-field.medium .wpcf-donate-form-wrap button {
     width: 23%;
 }
+.wpcf-form-field.left {
+    text-align: left;
+}
+.wpcf-form-field.center {
+    text-align: center;
+}
+.wpcf-form-field.right {
+    text-align: right;
+}
