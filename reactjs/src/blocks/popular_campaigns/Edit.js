@@ -15,7 +15,6 @@ class Edit extends Component {
         const {
             attributes: {
                 order,
-				orderby,
                 numbers, 
             },
             setAttributes,
@@ -23,7 +22,6 @@ class Edit extends Component {
 
         const { products } = this.props
         let output = '';
-
         return (
             <Fragment>
                 <InspectorControls key="inspector">
@@ -35,20 +33,6 @@ class Edit extends Component {
                             { label: 'DESC', value: 'desc' },
                         ]}
                         onChange={(value) => { setAttributes({ order: value }) }}
-                    />
-                    <SelectControl
-                        label={__('Post Order By')}
-                        value={orderby}
-                        options={[
-                            { label: 'Date', value: 'date' },
-                            { label: 'Title', value: 'title' },
-                            { label: 'Author', value: 'author' },
-                            { label: 'Modified', value: 'modified' },
-                            { label: 'ID', value: 'id' },
-                            { label: 'Slug', value: 'slug' },
-                            { label: 'Parent', value: 'parent' },
-                        ]}
-                        onChange={(value) => { setAttributes({ orderby: value }) }}
                     />
                     <RangeControl
                         label={__('Number Of Post')}
@@ -148,10 +132,10 @@ class Edit extends Component {
 }
 
 export default withSelect((select, props) => {
-    const { attributes: { numbers, order, orderby } } = props
+    const { attributes: { numbers, order } } = props
 
     return {
-        products: select( 'core' ).getEntityRecords( 'postType', 'product', {per_page:numbers, order:order, orderby:orderby, 'ignore_sticky_posts': 1, metaKey: 'total_sales', } ),
+        products: select( 'core' ).getEntityRecords( 'postType', 'product', {per_page:numbers, order:order, 'ignore_sticky_posts': 1, metaKey: 'total_sales', } ),
     };
 
 })

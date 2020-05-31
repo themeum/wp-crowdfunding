@@ -19,10 +19,6 @@ class PopularCampaigns{
                         'type'      => 'string',
                         'default'   => 'desc'
                     ),
-                    'orderby' => array(
-                        'type'      => 'string',
-                        'default'   => 'date'
-                    ),
                     'numbers'   => array(
                         'type'      => 'number',
                         'default'   => 10
@@ -54,7 +50,7 @@ class PopularCampaigns{
             'meta_key'              => 'total_sales',
             'posts_per_page'        => $post_limit,
             'paged'                 => $paged,
-            'orderby'               => $orderby,
+            'orderby'               => 'meta_value_num',
             'order'                 => $order,
             'meta_query' => array(
                 array(
