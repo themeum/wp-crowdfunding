@@ -1,5 +1,5 @@
 === WP Crowdfunding ===
-Contributors: themeum,kawshar, mhshohel, jakirhasan, anik4e, fahimmurshed
+Contributors: themeum,kawshar, mhshohel, jakirhasan, anik4e, rejuancse, fahimmurshed
 Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online sell, e-commerce, paypal, shop, indiegogo, invest, fund collecting, crowd, marketplace, crowd funding, crowdfund, charity, donate, fundraising plugin, paypal donation, stripe donation, wordpress crowdfunding plugin, adaptive payment, split payment, paypal adaptive, stripe split, stripe connect
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
@@ -128,13 +128,13 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
-= 2.0.5 - 20 May, 2020 =
-9 Custom Gutenberg block ready 
+= 2.0.5 - 1 June, 2020 =
+9 all-new Gutenberg blocks to make your crowdfunding site-building experience easier. The blocks are
 * Added: Search Block
 * Added: Donation Block
 * Added: Registration Block
-* Added: Dahboard Block
-* Added: Submit Form Block
+* Added: Dashboard Block
+* Added: Campaign Submission Block
 * Added: Campaign box Block
 * Added: Single Campaign Block
 * Added: Popular Campaign Block
