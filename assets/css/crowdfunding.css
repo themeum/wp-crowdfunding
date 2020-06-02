@@ -1845,3 +1845,6 @@ div#qt_wpneo-form-short-description_toolbar {
 .wpcf-form-field.right {
     text-align: right;
 }
+.wpneo-listings .wpneo-listing-img img {
+    width: 100%;
+}
