@@ -30,6 +30,18 @@ class ProjectListing{
                         'type'      => 'number',
                         'default'   => 10
                     ),
+                    'mjColor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#000000',
+                    ),
+                    'progressbarColor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#1adc68',
+                    ),
+                    'authorColor'    => array(
+                        'type'          => 'string',
+                        'default'       => '#737373',
+                    ),
                     
                 ),
                 'render_callback' => array( $this, 'project_listing_block_callback' ),
@@ -38,25 +50,20 @@ class ProjectListing{
     }
 
     public function project_listing_block_callback( $att ){
-
-        $cat_name       = ( $att['categories'] != 'all') ? get_the_category_by_ID( $att['categories'] ) : $att['categories']; 
         $post_limit     = isset( $att['numbers']) ? $att['numbers'] : 10;
         $order          = isset( $att['order']) ? $att['order'] : 'desc';
+        $order_by       = isset( $att['order_by']) ? $att['order_by'] : 'date';
+        $majorColor         = isset( $att['mjColor']) ? $att['mjColor'] : '#000000';
+        $progressbarColor   = isset( $att['progressbarColor']) ? $att['progressbarColor'] : '#1adc68';
+        $authorColor        = isset( $att['authorColor']) ? $att['authorColor'] : '#737373';
 
         if( function_exists('wpcf_function') ){
-
             $paged = 1;
             if ( get_query_var('paged') ){
                 $paged = absint( get_query_var('paged') );
             } elseif (get_query_var('page')) {
                 $paged = absint( get_query_var('page') );
             }
-
-            $a = array(
-                'cat'         => $cat_name,
-                'number'      => $post_limit,
-                'order'       => $order,
-            );
 
             $query_args = array(
                 'post_type'     => 'product',
@@ -69,27 +76,31 @@ class ProjectListing{
                         'terms'     => 'crowdfunding',
                     ),
                 ),
-                'posts_per_page'    => $post_limit,
                 'paged'             => $paged,
+                'posts_per_page'    => $post_limit,
                 'order'             => $order,
+                'orderby'           => $order_by,
             );
-
-            if( $a['cat'] != 'all' ){
-                $cat_array = explode(',', $a['cat']);
-                $query_args['tax_query'][] = array(
-                    'taxonomy'  => 'product_cat',
-                    'field'     => 'slug',
-                    'terms'     => $cat_array,
-                );
-            }
 
             query_posts($query_args);
             ob_start();
             wpcf_function()->template('wpneo-listing');
-            $html = ob_get_clean();
+            $html = '';
+            $html .= '<style>';
+                $html .= '#neo-progressbar > div, ul.wpneo-crowdfunding-update li:hover span.round-circle, .wpneo-links li a:hover, .wpneo-links li.active a, #neo-progressbar > div {
+                    background-color: '. $progressbarColor .';
+                }';
+                $html .= '.wpneo-funding-data span, .wpneo-time-remaining .wpneo-meta-desc, .wpneo-funding-goal .wpneo-meta-name, .wpneo-raised-percent, .wpneo-listing-content p.wpneo-short-description, .wpneo-location .wpneo-meta-desc, .wpneo-listings .wpneo-listing-content h4 a, .wpneo-fund-raised, .wpneo-time-remaining {
+                    color: '. $majorColor .';
+                }';
+
+                $html .= '.wpneo-listings .wpneo-listing-content .wpneo-author a, .wpneo-listings .wpneo-listing-content p.wpneo-author {
+                    color: '. $authorColor .'
+                }';
+            $html .= '</style>';
+            $html .= ob_get_clean();
             wp_reset_query();
             return $html;
-        }
-           
+        }    
     }
 }

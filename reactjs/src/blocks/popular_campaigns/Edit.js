@@ -135,7 +135,7 @@ export default withSelect((select, props) => {
     const { attributes: { numbers, order } } = props
 
     return {
-        products: select( 'core' ).getEntityRecords( 'postType', 'product', {per_page:numbers, order:order, 'ignore_sticky_posts': 1, metaKey: 'total_sales', } ),
+        products: select( 'core' ).getEntityRecords( 'postType', 'product', {per_page:numbers, order:order, 'ignore_sticky_posts': 1, metaKey: 'total_sales' } ),
     };
 
 })
