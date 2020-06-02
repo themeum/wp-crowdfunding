@@ -632,7 +632,7 @@ class Functions {
         $total = $this->get_total_fund($campaign_id);
         $goal = $this->get_total_goal($campaign_id);
         if ($total > 0 && $goal > 0  ) {
-            $percent = number_format($total / $goal * 100, 2, '.', '');
+            $percent = ( $goal < $total ) ? '100' : number_format($total / $goal * 100, 2, '.', '');
         }
         return $percent;
     }

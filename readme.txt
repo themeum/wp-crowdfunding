@@ -128,7 +128,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
-= 2.0.5 - 1 June, 2020 =
+= 2.0.5 - 2 June, 2020 =
 9 all-new Gutenberg blocks to make your crowdfunding site-building experience easier. The blocks are
 * Added: Search Block
 * Added: Donation Block
@@ -140,7 +140,6 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 * Added: Popular Campaign Block
 * Added: Project Listing Block
 
-== Changelog ==
 = 2.0.4 - 5 May, 2020 =
 Fix: Single page crowdfunding reward description line break issue
 Fix: WooCommerce physical shop products counting as crowdfunding projects issue
