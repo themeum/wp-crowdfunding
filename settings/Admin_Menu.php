@@ -193,6 +193,10 @@ class Admin_Menu {
                     'tab_name' => __('Style','wp-crowdfunding'),
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
                 ),
+                'fields' => array(
+                    'tab_name' => __('Fields','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Fields.php'
+                ),
             )
         );
 
