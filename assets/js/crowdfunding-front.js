@@ -169,7 +169,7 @@ jQuery(document).ready(function($){
     $('#addreward').on('click', function (e) {
         e.preventDefault();
         var rewards_fields = $('.reward_group').html();
-        $('#rewards_addon_fields').append(rewards_fields);
+        $('#rewards_addon_fields').append(rewards_fields).hide().show('slow');
         $('#rewards_addon_fields .campaign_rewards_field_copy:last-child').find('input,textarea,select').each(function(){
             if ( ($(this).attr('name') != 'remove_rewards')&&($(this).attr('type') != 'button') ){
                 $(this).val('');
@@ -181,7 +181,9 @@ jQuery(document).ready(function($){
     // Remove Campaign Reward
     $('body').on('click', '.removeCampaignRewards', function (e) {
         e.preventDefault();
+        const topPosition = $(this).closest('#reward_options').offset().top;
         $(this).closest('.campaign_rewards_field_copy').html('');
+        $("html, body").animate({ scrollTop: topPosition - 100 }, 100);
         countRemovesBtn('.removeCampaignRewards');
     });
     countRemovesBtn('.removeCampaignRewards');

@@ -371,8 +371,17 @@ class Functions {
     }
     
     public function login_form(){
-		$html = '';
-		$html .= '<div class="wpneo_login_form_div" style="display: none;">';
+        $html = '';
+        $error = false;
+        $login  = (isset($_GET['login']) ) ? $_GET['login'] : '';
+        if (strpos($login, 'failed') !== false) {
+            $error = true;
+            $html .= '<p class="error"><strong>ERROR:</strong> Invalid username and/or password.</p><br><br>';
+        } elseif (strpos($login, 'empty') !== false) {
+            $error = true;
+            $html .= '<p class="error"><strong>ERROR:</strong> Username and/or Password is empty.</p><br><br>';
+        }
+		$html .= '<div class="wpneo_login_form_div" '.($error == false ? 'style="display: none;"' : '').'>';
 		$html .= wp_login_form(array('echo' => false, 'hidden' => true));
 		$html .= '</div>';
 		return $html;

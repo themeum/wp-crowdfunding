@@ -4,7 +4,7 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,22 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+= 2.0.6 - 25 September, 2020 =
+New: Enable/disable option for specific sections of the campaign submission form
+New: Multiple filter hooks added to the campaign submission form to make it easier for developers to add their own fields
+Update: Error message added for wrong credentials in Login Page
+Update: Animation added for better UX for the Add Reward button
+Fix: PHP error for the Email addon
+Fix: Reward tab was not working properly in the backend.
+Fix: Campaign submission form not working when the PRO version was activated
+Fix: Campaign update status was not showing in the backend
+Fix: Campaign update details text field not working properly
+Fix: Some translation issues
+Fix: Few CSS issues
+Fix: Pledge amount field now supports numbers-only
+Fix: Campaign update caused frontend issues regarding footer for some themes
+Fix: The campaign submission form calendar field had some CSS conflicts with some themes 
+
 = 2.0.5 - 2 June, 2020 =
 9 all-new Gutenberg blocks to make your crowdfunding site-building experience easier. The blocks are
 * Added: Search Block

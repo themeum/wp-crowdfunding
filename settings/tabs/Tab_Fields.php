@@ -2,180 +2,282 @@
 defined( 'ABSPATH' ) || exit;
 
 $arr =  array(
+
+    // Show Description
     array(
-        'id'        => 'wpneo_enable_description',
+        'id'        => 'wpcf_show_description',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Description','wp-crowdfunding')
+        'desc'      => __('Description','wp-crowdfunding')
     ),
+
+    // Show Short Description
     array(
-        'id'        => 'wpneo_enable_short_description',
+        'id'        => 'wpcf_show_short_description',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Short Description','wp-crowdfunding')
+        'desc'      => __('Short Description','wp-crowdfunding')
     ),
+
+    // Show Category
     array(
-        'id'        => 'wpneo_enable_category',
+        'id'        => 'wpcf_show_category',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Category','wp-crowdfunding')
+        'desc'      => __('Category','wp-crowdfunding')
     ),
+
+    // Show Tag
     array(
-        'id'        => 'wpneo_enable_tag',
+        'id'        => 'wpcf_show_tag',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Tag','wp-crowdfunding')
+        'desc'      => __('Tag','wp-crowdfunding')
     ),
+
+    // Show Feature
     array(
-        'id'        => 'wpneo_enable_feature',
+        'id'        => 'wpcf_show_feature',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Feature Image','wp-crowdfunding')
+        'desc'      => __('Feature Image','wp-crowdfunding')
     ),
+
+    // Show Video
     array(
-        'id'        => 'wpneo_enable_video',
+        'id'        => 'wpcf_show_video',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Video','wp-crowdfunding')
+        'desc'      => __('Video','wp-crowdfunding')
     ),
+
+    // Show End Method
     array(
-        'id'        => 'wpneo_enable_end_method',
+        'id'        => 'wpcf_show_end_method',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Campaign End Method','wp-crowdfunding')
+        'desc'      => __('Campaign End Method','wp-crowdfunding')
     ),
+
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    // ----------------------- Start --------------------------------
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+
+    // #Show Target Goal
     array(
-        'id'        => 'wpneo_enable_start_date',
+        'id'        => 'wpneo_show_target_goal',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Start Date','wp-crowdfunding')
+        'desc'      => __('Show Target Goal','wp-crowdfunding'),
     ),
+
+    // #Show Target Date
     array(
-        'id'        => 'wpneo_enable_end_date',
+        'id'        => 'wpneo_show_target_date',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show End Date','wp-crowdfunding')
+        'desc'      => __('Show Target Date','wp-crowdfunding'),
     ),
+
+    // #Show Target Goal & Date
     array(
-        'id'        => 'wpneo_enable_minimum',
+        'id'        => 'wpneo_show_target_goal_and_date',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Minimum Amount','wp-crowdfunding')
+        'desc'      => __('Show Target Goal & Date','wp-crowdfunding'),
     ),
+
+    // #Show Campaign Never End
     array(
-        'id'        => 'wpneo_enable_maximum',
+        'id'        => 'wpneo_show_campaign_never_end',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Maximum Amount','wp-crowdfunding')
+        'desc'      => __('Show Campaign Never End','wp-crowdfunding'),
     ),
+
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    // -------------------------- End ------------------------------
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    
+    // Show Start Data
     array(
-        'id'        => 'wpneo_enable_funding_goal',
+        'id'        => 'wpcf_show_start_date',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Funding Goal','wp-crowdfunding')
+        'desc'      => __('Start Date','wp-crowdfunding')
     ),
+
+    // Show End Date
     array(
-        'id'        => 'wpneo_enable_recommended_amount',
+        'id'        => 'wpcf_show_end_date',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Recommended Amount','wp-crowdfunding')
+        'desc'      => __('End Date','wp-crowdfunding')
     ),
+
+    // #Enable Minimum Price
     array(
-        'id'        => 'wpneo_enable_pledge_amount',
+        'id'        => 'wpneo_show_min_price',
         'type'      => 'checkbox',
         'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Predefined Pledge Amount','wp-crowdfunding')
+        'label'     => __('Enable Minimum Price','wp-crowdfunding'),
+        'desc'      => __('Enable minimum price option on the campaign submission form','wp-crowdfunding'),
     ),
+
+    // #Enable Maximum Price
     array(
-        'id'        => 'wpneo_enable_contributor_table',
+        'id'        => 'wpneo_show_max_price',
         'type'      => 'checkbox',
         'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Contributor Table','wp-crowdfunding')
+        'label'     => __('Enable Maximum Price','wp-crowdfunding'),
+        'desc'      => __('Enable maximum price option on the campaign submission form','wp-crowdfunding'),
     ),
+
+    // #Enable Recommended Price
     array(
-        'id'        => 'wpneo_enable_contributor_anonymity',
+        'id'        => 'wpneo_show_recommended_price',
         'type'      => 'checkbox',
         'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Contributor Anonymity','wp-crowdfunding')
+        'label'     => __('Enable Recommended Price','wp-crowdfunding'),
+        'desc'      => __('Enable recommended price option on the campaign submission form','wp-crowdfunding'),
     ),
+
+    // Show Funding Goal
     array(
-        'id'        => 'wpneo_enable_country',
+        'id'        => 'wpcf_show_funding_goal',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Country','wp-crowdfunding')
+        'desc'      => __('Funding Goal','wp-crowdfunding')
     ),
+
+    // Show Pledge Amount
     array(
-        'id'        => 'wpneo_enable_location',
+        'id'        => 'wpcf_show_predefined_amount',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Location','wp-crowdfunding')
+        'desc'      => __('Predefined Amount','wp-crowdfunding')
     ),
+
+    // Show Contributor Table
     array(
-        'id'        => 'wpneo_enable_pledge_amount',
+        'id'        => 'wpcf_show_contributor_table',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Pledge Amount','wp-crowdfunding')
+        'desc'      => __('Contributor Table','wp-crowdfunding')
     ),
+
+    // Show Contributor Anonymity
     array(
-        'id'        => 'wpneo_enable_reward_image',
+        'id'        => 'wpcf_show_contributor_anonymity',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Reward Image','wp-crowdfunding')
+        'desc'      => __('Contributor Anonymity','wp-crowdfunding')
     ),
+
+    // Show Country
     array(
-        'id'        => 'wpneo_enable_reward',
+        'id'        => 'wpcf_show_country',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Reward','wp-crowdfunding')
+        'desc'      => __('Country','wp-crowdfunding')
     ),
+
+    // Show Location
     array(
-        'id'        => 'wpneo_enable_estimated_delivery_month',
+        'id'        => 'wpcf_show_location',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Estimated Delivery Month','wp-crowdfunding')
+        'desc'      => __('Location','wp-crowdfunding')
     ),
+
+    // --------------------------------------------------------
+    // ------------------- Repetable Field Start --------------
+    // --------------------------------------------------------
+
+    // Show Reward Image
     array(
-        'id'        => 'wpneo_enable_estimated_delivery_year',
+        'id'        => 'wpcf_show_reward_image',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Estimated Delivery Year','wp-crowdfunding')
+        'desc'      => __('Reward Image','wp-crowdfunding')
     ),
+
+    // Show Reward
     array(
-        'id'        => 'wpneo_enable_quantity',
+        'id'        => 'wpcf_show_reward',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Quantity','wp-crowdfunding')
+        'desc'      => __('Reward','wp-crowdfunding')
     ),
+
+    // Show Estimated Delivery Month
     array(
-        'id'        => 'wpneo_enable_terms_and_conditions',
+        'id'        => 'wpcf_show_estimated_delivery_month',
         'type'      => 'checkbox',
         'value'     => 'true',
         'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Terms and Conditions','wp-crowdfunding')
+        'desc'      => __('Estimated Delivery Month','wp-crowdfunding')
+    ),
+
+    // Show Estimated Delivery Year
+    array(
+        'id'        => 'wpcf_show_estimated_delivery_year',
+        'type'      => 'checkbox',
+        'value'     => 'true',
+        'label'     => __('Enable/Disable','wp-crowdfunding'),
+        'desc'      => __('Estimated Delivery Year','wp-crowdfunding')
+    ),
+
+    // Show Quantity
+    array(
+        'id'        => 'wpcf_show_quantity',
+        'type'      => 'checkbox',
+        'value'     => 'true',
+        'label'     => __('Enable/Disable','wp-crowdfunding'),
+        'desc'      => __('Quantity','wp-crowdfunding')
+    ),
+    // --------------------------------------------------------
+    // ------------------- Repetable Close --------------------
+    // --------------------------------------------------------
+
+    // Show Terms and Conditions
+    array(
+        'id'        => 'wpcf_show_terms_and_conditions',
+        'type'      => 'checkbox',
+        'value'     => 'true',
+        'label'     => __('Enable/Disable','wp-crowdfunding'),
+        'desc'      => __('Terms and Conditions','wp-crowdfunding')
+    ),
+
+    array(
+        'id'        => 'wpcf_crowdfunding_admin_tab',
+        'type'      => 'hidden',
+        'value'     => 'tab_fields',
     ),
 );
 wpcf_function()->generator( $arr );

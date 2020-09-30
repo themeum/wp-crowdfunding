@@ -272,7 +272,7 @@ class Edit extends Component {
                                     <div className="wpneo-single">
                                         <div className="wpneo-name">Pledge Amount</div>
                                         <div className="wpneo-fields">
-                                            <input type="text" value="" id="wpneo_rewards_pladge_amount[]" name="wpneo_rewards_pladge_amount[]" className="wc_input_price" /><small>Pledge Amount</small>
+                                            <input type="number" value="" id="wpneo_rewards_pladge_amount[]" name="wpneo_rewards_pladge_amount[]" className="wc_input_price" /><small>Pledge Amount</small>
                                         </div>
                                     </div>
                                     <div className="wpneo-single">
@@ -327,7 +327,7 @@ class Edit extends Component {
                                     <div className="wpneo-single">
                                         <div className="wpneo-name">Quantity</div>
                                         <div className="wpneo-fields">
-                                            <input type="text" value="" id="wpneo_rewards_item_limit[]" name="wpneo_rewards_item_limit[]" className="wc_input_price" /><small>Quantity of physical products</small>
+                                            <input type="number" value="" id="wpneo_rewards_item_limit[]" name="wpneo_rewards_item_limit[]" className="wc_input_price" /><small>Quantity of physical products</small>
                                         </div>
                                     </div>
                                     

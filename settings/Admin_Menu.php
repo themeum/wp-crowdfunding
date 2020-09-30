@@ -194,7 +194,7 @@ class Admin_Menu {
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
                 ),
                 'fields' => array(
-                    'tab_name' => __('Fields','wp-crowdfunding'),
+                    'tab_name' => __('Field Settings','wp-crowdfunding'),
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Fields.php'
                 ),
             )
@@ -258,8 +258,94 @@ class Admin_Menu {
         
         if (wpcf_function()->post('wpneo_settings_page_nonce_field') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
 
-            $current_tab = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_admin_tab'));
+            $current_tab = sanitize_text_field(wpcf_function()->post('wpcf_crowdfunding_admin_tab'));
             if( ! empty($current_tab) ){
+                if ( $current_tab == 'tab_fields' ){
+
+                    $description = sanitize_text_field(wpcf_function()->post('wpcf_show_description'));
+                    wpcf_function()->update_checkbox('wpcf_show_description', $description);
+
+                    $short_description = sanitize_text_field(wpcf_function()->post('wpcf_show_short_description'));
+                    wpcf_function()->update_checkbox('wpcf_show_short_description', $short_description);
+
+                    $category = sanitize_text_field(wpcf_function()->post('wpcf_show_category'));
+                    wpcf_function()->update_checkbox('wpcf_show_category', $category);
+
+                    $tag = sanitize_text_field(wpcf_function()->post('wpcf_show_tag'));
+                    wpcf_function()->update_checkbox('wpcf_show_tag', $tag);
+
+                    $feature = sanitize_text_field(wpcf_function()->post('wpcf_show_feature'));
+                    wpcf_function()->update_checkbox('wpcf_show_feature', $feature);
+
+                    $video = sanitize_text_field(wpcf_function()->post('wpcf_show_video'));
+                    wpcf_function()->update_checkbox('wpcf_show_video', $video);
+
+                    $end_method = sanitize_text_field(wpcf_function()->post('wpcf_show_end_method'));
+                    wpcf_function()->update_checkbox('wpcf_show_end_method', $end_method);
+
+                    $target_goal = sanitize_text_field(wpcf_function()->post('wpneo_show_target_goal'));
+                    wpcf_function()->update_checkbox('wpneo_show_target_goal', $target_goal);
+
+                    $target_date = sanitize_text_field(wpcf_function()->post('wpneo_show_target_date'));
+                    wpcf_function()->update_checkbox('wpneo_show_target_date', $target_date);
+
+                    $target_goal_and_date = sanitize_text_field(wpcf_function()->post('wpneo_show_target_goal_and_date'));
+                    wpcf_function()->update_checkbox('wpneo_show_target_goal_and_date', $target_goal_and_date);
+
+                    $campaign_never_end = sanitize_text_field(wpcf_function()->post('wpneo_show_campaign_never_end'));
+                    wpcf_function()->update_checkbox('wpneo_show_campaign_never_end', $campaign_never_end);
+
+                    $start_date = sanitize_text_field(wpcf_function()->post('wpcf_show_start_date'));
+                    wpcf_function()->update_checkbox('wpcf_show_start_date', $start_date);
+
+                    $end_date = sanitize_text_field(wpcf_function()->post('wpcf_show_end_date'));
+                    wpcf_function()->update_checkbox('wpcf_show_end_date', $end_date);
+
+                    $min_price = sanitize_text_field(wpcf_function()->post('wpneo_show_min_price'));
+                    wpcf_function()->update_checkbox('wpneo_show_min_price', $min_price);
+
+                    $max_price = sanitize_text_field(wpcf_function()->post('wpneo_show_max_price'));
+                    wpcf_function()->update_checkbox('wpneo_show_max_price', $max_price);
+
+                    $recommended_price = sanitize_text_field(wpcf_function()->post('wpneo_show_recommended_price'));
+                    wpcf_function()->update_checkbox('wpneo_show_recommended_price', $recommended_price);
+
+                    $funding_goal = sanitize_text_field(wpcf_function()->post('wpcf_show_funding_goal'));
+                    wpcf_function()->update_checkbox('wpcf_show_funding_goal', $funding_goal);
+
+                    $predefined_amount = sanitize_text_field(wpcf_function()->post('wpcf_show_predefined_amount'));
+                    wpcf_function()->update_checkbox('wpcf_show_predefined_amount', $predefined_amount);
+
+                    $contributor_table = sanitize_text_field(wpcf_function()->post('wpcf_show_contributor_table'));
+                    wpcf_function()->update_checkbox('wpcf_show_contributor_table', $contributor_table);
+
+                    $contributor_anonymity = sanitize_text_field(wpcf_function()->post('wpcf_show_contributor_anonymity'));
+                    wpcf_function()->update_checkbox('wpcf_show_contributor_anonymity', $contributor_anonymity);
+
+                    $country = sanitize_text_field(wpcf_function()->post('wpcf_show_country'));
+                    wpcf_function()->update_checkbox('wpcf_show_country', $country);
+
+                    $location = sanitize_text_field(wpcf_function()->post('wpcf_show_location'));
+                    wpcf_function()->update_checkbox('wpcf_show_location', $location);
+
+                    $reward_image = sanitize_text_field(wpcf_function()->post('wpcf_show_reward_image'));
+                    wpcf_function()->update_checkbox('wpcf_show_reward_image', $reward_image);
+
+                    $reward = sanitize_text_field(wpcf_function()->post('wpcf_show_reward'));
+                    wpcf_function()->update_checkbox('wpcf_show_reward', $reward);
+
+                    $estimated_delivery_month = sanitize_text_field(wpcf_function()->post('wpcf_show_estimated_delivery_month'));
+                    wpcf_function()->update_checkbox('wpcf_show_estimated_delivery_month', $estimated_delivery_month);
+
+                    $estimated_delivery_year = sanitize_text_field(wpcf_function()->post('wpcf_show_estimated_delivery_year'));
+                    wpcf_function()->update_checkbox('wpcf_show_estimated_delivery_year', $estimated_delivery_year);
+
+                    $quantity = sanitize_text_field(wpcf_function()->post('wpcf_show_quantity'));
+                    wpcf_function()->update_checkbox('wpcf_show_quantity', $quantity);
+
+                    $terms_and_conditions = sanitize_text_field(wpcf_function()->post('wpcf_show_terms_and_conditions'));
+                    wpcf_function()->update_checkbox('wpcf_show_terms_and_conditions', $terms_and_conditions);
+                }
 
                 /**
                  * General Settings
@@ -274,27 +360,6 @@ class Admin_Menu {
                     
                     $edit_status = sanitize_text_field(wpcf_function()->post('wpneo_campaign_edit_status'));
                     wpcf_function()->update_text('wpneo_campaign_edit_status', $edit_status);
-
-                    $min_price = sanitize_text_field(wpcf_function()->post('wpneo_show_min_price'));
-                    wpcf_function()->update_checkbox('wpneo_show_min_price', $min_price);
-
-                    $max_price = sanitize_text_field(wpcf_function()->post('wpneo_show_max_price'));
-                    wpcf_function()->update_checkbox('wpneo_show_max_price', $max_price);
-
-                    $recommended_price = sanitize_text_field(wpcf_function()->post('wpneo_show_recommended_price'));
-                    wpcf_function()->update_checkbox('wpneo_show_recommended_price', $recommended_price);
-
-                    $target_goal = sanitize_text_field(wpcf_function()->post('wpneo_show_target_goal'));
-                    wpcf_function()->update_checkbox('wpneo_show_target_goal', $target_goal);
-
-                    $target_date = sanitize_text_field(wpcf_function()->post('wpneo_show_target_date'));
-                    wpcf_function()->update_checkbox('wpneo_show_target_date', $target_date);
-
-                    $target_goal_and_date = sanitize_text_field(wpcf_function()->post('wpneo_show_target_goal_and_date'));
-                    wpcf_function()->update_checkbox('wpneo_show_target_goal_and_date', $target_goal_and_date);
-
-                    $campaign_never_end = sanitize_text_field(wpcf_function()->post('wpneo_show_campaign_never_end'));
-                    wpcf_function()->update_checkbox('wpneo_show_campaign_never_end', $campaign_never_end);
 
                     $paypal_per_campaign_email = sanitize_text_field(wpcf_function()->post('wpneo_enable_paypal_per_campaign_email'));
                     wpcf_function()->update_checkbox('wpneo_enable_paypal_per_campaign_email', $paypal_per_campaign_email);

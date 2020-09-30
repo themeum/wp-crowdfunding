@@ -64,69 +64,6 @@ $arr =  array(
 		'desc'      => __('What will be campaign status when a campaign owner edit/update his own campaign','wp-crowdfunding'),
 	),
 
-    // #Enable Minimum Price
-    array(
-        'id'        => 'wpneo_show_min_price',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable Minimum Price','wp-crowdfunding'),
-        'desc'      => __('Enable minimum price option on the campaign submission form','wp-crowdfunding'),
-    ),
-
-    // #Enable Maximum Price
-    array(
-        'id'        => 'wpneo_show_max_price',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable Maximum Price','wp-crowdfunding'),
-        'desc'      => __('Enable maximum price option on the campaign submission form','wp-crowdfunding'),
-    ),
-
-    // #Enable Recommended Price
-    array(
-        'id'        => 'wpneo_show_recommended_price',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable Recommended Price','wp-crowdfunding'),
-        'desc'      => __('Enable recommended price option on the campaign submission form','wp-crowdfunding'),
-    ),
-
-    // #Show Target Goal
-    array(
-        'id'        => 'wpneo_show_target_goal',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Target Goal','wp-crowdfunding'),
-    ),
-
-    // #Show Target Date
-    array(
-        'id'        => 'wpneo_show_target_date',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Target Date','wp-crowdfunding'),
-    ),
-
-    // #Show Target Goal & Date
-    array(
-        'id'        => 'wpneo_show_target_goal_and_date',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Target Goal & Date','wp-crowdfunding'),
-    ),
-
-    // #Show Campaign Never End
-    array(
-        'id'        => 'wpneo_show_campaign_never_end',
-        'type'      => 'checkbox',
-        'value'     => 'true',
-        'label'     => __('Enable/Disable','wp-crowdfunding'),
-        'desc'      => __('Show Campaign Never End','wp-crowdfunding'),
-    ),
-
     // #Select Dashboard Page
     array(
         'id'        => 'wpneo_crowdfunding_dashboard_page_id',

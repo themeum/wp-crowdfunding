@@ -8,9 +8,45 @@ if (! class_exists('Initial_Setup')) {
     class Initial_Setup {
 
         public function __construct() {
+            add_action( 'admin_init', array( $this, 'initial_compatibility_check') );
             add_action('wp_ajax_install_woocommerce_plugin',        array($this, 'install_woocommerce_plugin'));
             add_action('admin_action_activate_woocommerce_free',    array($this, 'activate_woocommerce_free'));
         }
+
+        public function initial_compatibility_check(){
+            if (version_compare(WPCF_VERSION, '2.0.5', '>')){
+                $option_check = get_option('wpcf_show_description');
+                if($option_check != 'true' && $option_check != 'false'){
+                    $default_value = array(
+                        'wpcf_show_description' => 'true',
+                        'wpcf_show_short_description' => 'true',
+                        'wpcf_show_category' => 'true',
+                        'wpcf_show_tag' => 'true',
+                        'wpcf_show_feature' => 'true',
+                        'wpcf_show_video' => 'true',
+                        'wpcf_show_end_method' => 'true',
+                        'wpcf_show_start_date' => 'true',
+                        'wpcf_show_end_date' => 'true',
+                        'wpcf_show_funding_goal' => 'true',
+                        'wpcf_show_predefined_amount' => 'true',
+                        'wpcf_show_contributor_table' => 'true',
+                        'wpcf_show_contributor_anonymity' => 'true',
+                        'wpcf_show_country' => 'true',
+                        'wpcf_show_location' => 'true',
+                        'wpcf_show_reward_image' => 'true',
+                        'wpcf_show_reward' => 'true',
+                        'wpcf_show_estimated_delivery_month' => 'true',
+                        'wpcf_show_estimated_delivery_year' => 'true',
+                        'wpcf_show_quantity' => 'true',
+                        'wpcf_show_terms_and_conditions' => 'true'
+                    );
+                    foreach ($default_value as $key => $value ) {
+                        update_option( $key , $value );
+                    }
+                }
+            }
+        }
+        
 
         /**
          * Do some task during plugin activation
@@ -41,6 +77,27 @@ if (! class_exists('Initial_Setup')) {
                 'wpneo_show_target_date' => 'true',
                 'wpneo_show_target_goal_and_date' => 'true',
                 'wpneo_show_campaign_never_end' => 'true',
+                'wpcf_show_description' => 'true',
+                'wpcf_show_short_description' => 'true',
+                'wpcf_show_category' => 'true',
+                'wpcf_show_tag' => 'true',
+                'wpcf_show_feature' => 'true',
+                'wpcf_show_video' => 'true',
+                'wpcf_show_end_method' => 'true',
+                'wpcf_show_start_date' => 'true',
+                'wpcf_show_end_date' => 'true',
+                'wpcf_show_funding_goal' => 'true',
+                'wpcf_show_predefined_amount' => 'true',
+                'wpcf_show_contributor_table' => 'true',
+                'wpcf_show_contributor_anonymity' => 'true',
+                'wpcf_show_country' => 'true',
+                'wpcf_show_location' => 'true',
+                'wpcf_show_reward_image' => 'true',
+                'wpcf_show_reward' => 'true',
+                'wpcf_show_estimated_delivery_month' => 'true',
+                'wpcf_show_estimated_delivery_year' => 'true',
+                'wpcf_show_quantity' => 'true',
+                'wpcf_show_terms_and_conditions' => 'true',
                 'wpneo_enable_paypal_per_campaign_email' => 'true',
                 'wpneo_single_page_template' => 'in_wp_crowdfunding',
                 'wpneo_single_page_reward_design' => '1',

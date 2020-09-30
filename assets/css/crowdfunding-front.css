@@ -1509,6 +1509,9 @@ ul.wpneo-crowdfunding-update li:hover span.round-circle,
 .wpneo-links li a:hover, .wpneo-links li.active a,#neo-progressbar > div {
     background-color: #1adc68;
 }
+ul.wpneo-crowdfunding-update{
+    margin-bottom: 70px;
+}
 .wpneo-dashboard-summary ul li.active {
     background: #1adc68;
 }
@@ -1783,8 +1786,8 @@ a.wpneo-cancel-campaign {
 .ui-datepicker {
     width: 310px;
 }
-.ui-datepicker-calendar tbody tr td {
-    padding: 5px !important;
+#menu-item-embed{
+    display: none;
 }
 .ui-datepicker .ui-datepicker-calendar td:hover {
     background-color: transparent;

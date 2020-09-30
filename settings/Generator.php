@@ -144,7 +144,7 @@ class Settings_Generator {
                                 $html .= '<input type="checkbox" name="'.$value['id'].'" id="'.$value['id'].'" value="true" '.($var=="true"?"checked='checked'":"").'/>';
                             }
                             if(isset($value['desc'])) {
-                                $html .= '<label>'.$value['desc'].'</label>'; 
+                                $html .= '<label for="'.$value['id'].'">'.$value['desc'].'</label>';
                             }
                         $html .= '</td>';
                         $html .= '</tr>';

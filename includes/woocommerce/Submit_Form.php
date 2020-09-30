@@ -38,48 +38,70 @@ class Submit_Form {
         }
 
         global $wpdb;
-        $title = $description = $category = $tag = $image_id = $video = $start_date = '';
-        $end_date = $min_price = $max_price = $recommended_price = $type = '';
-        $contributor_table = $contributor_show = $country = $location = $video = '';
 
+        $show_description = get_option('wpcf_show_description');
+        $show_short_description = get_option('wpcf_show_short_description');
+        $show_category = get_option('wpcf_show_category');
+        $show_tag = get_option('wpcf_show_tag');
+        $show_feature = get_option('wpcf_show_feature');
+        $show_video = get_option('wpcf_show_video');
+        $show_end_method = get_option('wpcf_show_end_method');
+        $show_start_date = get_option('wpcf_show_start_date');
+        $show_end_date = get_option('wpcf_show_end_date');
+        $show_min_price = get_option('wpneo_show_min_price');
+        $show_max_price = get_option('wpneo_show_max_price');
+        $show_recommended_price = get_option('wpneo_show_recommended_price');
+        $predefined_amount = get_option('wpcf_show_predefined_amount');
+        $show_funding_goal = get_option('wpcf_show_funding_goal');
+        $show_contributor_table = get_option('wpcf_show_contributor_table');
+        $show_contributor_anonymity = get_option('wpcf_show_contributor_anonymity');
+        $show_country = get_option('wpcf_show_country');
+        $show_location = get_option('wpcf_show_location');
+        // Repetable
+        $show_reward_image = get_option('wpcf_show_reward_image');
+        $show_reward = get_option('wpcf_show_reward');
+        $show_estimated_delivery_month = get_option('wpcf_show_estimated_delivery_month');
+        $show_estimated_delivery_year = get_option('wpcf_show_estimated_delivery_year');
+        $show_quantity = get_option('wpcf_show_quantity');
+
+        $show_terms_and_conditions = get_option('wpcf_show_terms_and_conditions');
+        
         if ( empty($_POST['wpneo-form-title'])){
             die(json_encode(array('success'=> 0, 'message' => __('Title required', 'wp-crowdfunding'))));
         }
-        if ( empty($_POST['wpneo-form-description'])){
+        if ( empty($_POST['wpneo-form-description']) && $show_description == 'true'){
             die(json_encode(array('success'=> 0, 'message' => __('Description required', 'wp-crowdfunding'))));
         }
-        if ( empty($_POST['wpneo-form-short-description'])){
+        if ( empty($_POST['wpneo-form-short-description']) && $show_short_description == 'true' ){
             die(json_encode(array('success'=> 0, 'message' => __('Short Description required', 'wp-crowdfunding'))));
         }
-        if ( empty($_POST['wpneo-form-funding-goal'])){
+        if ( empty($_POST['wpneo-form-funding-goal']) && $show_funding_goal == 'true' ){
             die(json_encode(array('success'=> 0, 'message' => __('Funding goal required', 'wp-crowdfunding'))));
         }
-        if ( empty($_POST['wpneo_terms_agree'])){
+        if ( empty($_POST['wpneo_terms_agree']) && $show_terms_and_conditions == 'true' ){
             die(json_encode(array('success'=> 0, 'message' => __('Please check terms condition', 'wp-crowdfunding'))));
         }
 
-        if( $_POST['wpneo-form-title'] ){                       $title = sanitize_text_field($_POST['wpneo-form-title']); }
-        if( $_POST['wpneo-form-description'] ){                 $description = $_POST['wpneo-form-description']; }
-        if( $_POST['wpneo-form-short-description'] ){           $short_description = $_POST['wpneo-form-short-description']; }
-        if( $_POST['wpneo-form-category'] ){                    $category = sanitize_text_field($_POST['wpneo-form-category']); }
-        if( $_POST['wpneo-form-tag'] ){                         $tag = sanitize_text_field($_POST['wpneo-form-tag']); }
-        if( $_POST['wpneo-form-image-id'] ){                    $image_id = sanitize_text_field($_POST['wpneo-form-image-id']); }
-        if( $_POST['wpneo-form-video'] ){                       $video = sanitize_text_field($_POST['wpneo-form-video']); }
-        if( $_POST['wpneo-form-start-date'] ){                  $start_date = sanitize_text_field($_POST['wpneo-form-start-date']); }
-        if( $_POST['wpneo-form-end-date'] ){                    $end_date = sanitize_text_field($_POST['wpneo-form-end-date']); }
-        if( $_POST['wpneo-form-min-price'] ){                   $min_price = sanitize_text_field($_POST['wpneo-form-min-price']); }
-        if( $_POST['wpneo-form-max-price'] ){                   $max_price = sanitize_text_field($_POST['wpneo-form-max-price']); }
-        if( $_POST['wpneo-form-recommended-price'] ){           $recommended_price = sanitize_text_field($_POST['wpneo-form-recommended-price']); }
-        if( isset($_POST['wpcf_predefined_pledge_amount']) ){   $wpcf_predefined_pledge_amount = sanitize_text_field($_POST['wpcf_predefined_pledge_amount']); }
-        if( isset($_POST['wpcf_campaign_sizes']) ){             $wpcf_campaign_sizes = sanitize_text_field($_POST['wpcf_campaign_sizes']); }
-        if( isset($_POST['wpcf_campaign_colors']) ){            $wpcf_campaign_colors = sanitize_text_field($_POST['wpcf_campaign_colors']); }
-        if( $_POST['wpneo-form-funding-goal'] ){                $funding_goal = sanitize_text_field($_POST['wpneo-form-funding-goal']); }
-        if( $_POST['wpneo-form-type'] ){                        $type = sanitize_text_field($_POST['wpneo-form-type']); }
-        if( $_POST['wpneo-form-contributor-table'] ){           $contributor_table = sanitize_text_field($_POST['wpneo-form-contributor-table']); }
-        if( $_POST['wpneo-form-contributor-show'] ){            $contributor_show 	= sanitize_text_field($_POST['wpneo-form-contributor-show']); }
-        if( $_POST['wpneo-form-paypal'] ){                      $paypal = sanitize_text_field($_POST['wpneo-form-paypal']); }
-        if( $_POST['wpneo-form-country'] ){                     $country = sanitize_text_field($_POST['wpneo-form-country']); }
-        if( $_POST['wpneo-form-location'] ){                    $location = sanitize_text_field($_POST['wpneo-form-location']); }
+        $title = isset($_POST['wpneo-form-title']) ? sanitize_text_field($_POST['wpneo-form-title']) : '';
+        $description = (isset($_POST['wpneo-form-description']) && $show_description == 'true' ) ? $_POST['wpneo-form-description'] : '';
+        $short_description = (isset($_POST['wpneo-form-short-description']) && $show_short_description == 'true') ? $_POST['wpneo-form-short-description'] : '';
+        $category = (isset($_POST['wpneo-form-category']) && $show_category == 'true') ? sanitize_text_field($_POST['wpneo-form-category']) : '';
+        $tag = (isset($_POST['wpneo-form-image-id']) && $show_tag == 'true') ? sanitize_text_field($_POST['wpneo-form-tag']) : '';
+        $image_id = (isset($_POST['wpneo-form-image-id']) && $show_feature == 'true') ? sanitize_text_field($_POST['wpneo-form-image-id']) : '';
+        $video = (isset($_POST['wpneo-form-video']) && $show_video == 'true') ? sanitize_text_field($_POST['wpneo-form-video']) : '';
+        $start_date = (isset($_POST['wpneo-form-start-date']) && $show_start_date == 'true') ? sanitize_text_field($_POST['wpneo-form-start-date']) : '';
+        $end_date = (isset($_POST['wpneo-form-end-date']) && $show_end_date == 'true') ? sanitize_text_field($_POST['wpneo-form-end-date']) : '';
+        $min_price = (isset($_POST['wpneo-form-min-price']) && $show_min_price == 'true') ? sanitize_text_field($_POST['wpneo-form-min-price']) : '';
+        $max_price = (isset($_POST['wpneo-form-max-price']) && $show_max_price == 'true') ? sanitize_text_field($_POST['wpneo-form-max-price']) : ''; 
+        $recommended_price = (isset($_POST['wpneo-form-recommended-price']) && $show_recommended_price == 'true') ? sanitize_text_field($_POST['wpneo-form-recommended-price']) : '';
+        $predefined_amount = (isset($_POST['wpcf_predefined_pledge_amount']) && $predefined_amount == 'true') ? sanitize_text_field($_POST['wpcf_predefined_pledge_amount']) : '';
+        $funding_goal = (isset($_POST['wpneo-form-funding-goal']) && $show_funding_goal == 'true') ? sanitize_text_field($_POST['wpneo-form-funding-goal']) : '';
+        $type = (isset($_POST['wpneo-form-type']) && $show_end_method == 'true') ? sanitize_text_field($_POST['wpneo-form-type']) : ''; 
+        $contributor_table = (isset($_POST['wpneo-form-contributor-table']) && $show_contributor_table == 'true') ? sanitize_text_field($_POST['wpneo-form-contributor-table']) : '';
+        $contributor_show = (isset($_POST['wpneo-form-contributor-show']) && $show_contributor_anonymity == 'true') ? sanitize_text_field($_POST['wpneo-form-contributor-show']) : '';
+        $paypal = isset($_POST['wpneo-form-paypal']) ? sanitize_text_field($_POST['wpneo-form-paypal']) : ''; 
+        $country = (isset($_POST['wpneo-form-country']) && $show_country == 'true') ? sanitize_text_field($_POST['wpneo-form-country']) : '';
+        $location = (isset($_POST['wpneo-form-location']) && $show_location == 'true') ? sanitize_text_field($_POST['wpneo-form-location']) : '';
 
         $user_id = get_current_user_id();
         $my_post = array(
@@ -106,6 +128,7 @@ class Submit_Form {
                 exit;
             }
             $post_id = wp_update_post( $my_post );
+
         }else{
             $my_post['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $my_post );
@@ -113,7 +136,7 @@ class Submit_Form {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_after_campaign_email',$post_id);
             }
-        }
+        }        
 
         if ($post_id) {
             if( $category != '' ){
@@ -134,14 +157,6 @@ class Submit_Form {
             wpcf_function()->update_meta($post_id, 'wpneo_funding_maximum_price', esc_attr($max_price));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_recommended_price', esc_attr($recommended_price));
             wpcf_function()->update_meta($post_id, 'wpcf_predefined_pledge_amount', esc_attr($wpcf_predefined_pledge_amount));
-
-            if( isset($wpcf_campaign_sizes )) {
-                wpcf_function()->update_meta($post_id, 'wpcf_campaign_sizes', esc_attr($wpcf_campaign_sizes));
-            }
-            if( isset($wpcf_campaign_colors)) {
-                wpcf_function()->update_meta($post_id, 'wpcf_campaign_colors', esc_attr($wpcf_campaign_colors));
-            }
-
             wpcf_function()->update_meta($post_id, '_nf_funding_goal', esc_attr($funding_goal));
             wpcf_function()->update_meta($post_id, 'wpneo_campaign_end_method', esc_attr($type));
             wpcf_function()->update_meta($post_id, 'wpneo_show_contributor_table', esc_attr($contributor_table));
@@ -153,22 +168,24 @@ class Submit_Form {
             //Saved repeatable rewards
             if (!empty($_POST['wpneo_rewards_pladge_amount'])) {
                 $data             = array();
+                
                 $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
                 $description      = $_POST['wpneo_rewards_description'];
                 $endmonth         = $_POST['wpneo_rewards_endmonth'];
                 $endyear          = $_POST['wpneo_rewards_endyear'];
                 $item_limit       = $_POST['wpneo_rewards_item_limit'];
                 $image_field      = $_POST['wpneo_rewards_image_field'];
+
                 $field_number     = count($pladge_amount);
                 for ($i = 0; $i < $field_number; $i++) {
                     if (!empty($pladge_amount[$i])) {
                         $data[] = array(
                             'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
-                            'wpneo_rewards_description'     => esc_textarea($description[$i]),
-                            'wpneo_rewards_endmonth'        => esc_html($endmonth[$i]),
-                            'wpneo_rewards_endyear'         => esc_html($endyear[$i]),
-                            'wpneo_rewards_item_limit'      => esc_html($item_limit[$i]),
-                            'wpneo_rewards_image_field'     => esc_html($image_field[$i]),
+                            'wpneo_rewards_description'     => (($show_reward == 'true' && isset($description[$i])) ? esc_textarea($description[$i]) : ''),
+                            'wpneo_rewards_endmonth'        => (($show_estimated_delivery_month == 'true' && isset($endmonth[$i])) ? esc_html($endmonth[$i]) : ''),
+                            'wpneo_rewards_endyear'         => (($show_estimated_delivery_year == 'true' && isset($endyear[$i])) ? esc_html($endyear[$i]) : ''),
+                            'wpneo_rewards_item_limit'      => (($show_quantity == 'true' && isset($item_limit[$i])) ? esc_html($item_limit[$i]) : ''),
+                            'wpneo_rewards_image_field'     => (($show_reward_image == 'true' && isset($image_field[$i])) ? esc_html($image_field[$i]) : ''),
                         );
                     }
                 }
@@ -177,6 +194,7 @@ class Submit_Form {
             }
         }
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
+        
         die(json_encode(array('success'=> 1, 'message' => __('Campaign successfully submitted', 'wp-crowdfunding'), 'redirect' => $redirect)));
     }
 
