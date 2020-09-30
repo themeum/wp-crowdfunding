@@ -137,8 +137,8 @@ $arr =  array(
         'id'        => 'wpneo_show_min_price',
         'type'      => 'checkbox',
         'value'     => 'true',
-        'label'     => __('Enable Minimum Price','wp-crowdfunding'),
-        'desc'      => __('Enable minimum price option on the campaign submission form','wp-crowdfunding'),
+        'label'     => __('Enable/Disable','wp-crowdfunding'),
+        'desc'      => __('Enable minimum amount option on the campaign submission form','wp-crowdfunding'),
     ),
 
     // #Enable Maximum Price
@@ -146,8 +146,8 @@ $arr =  array(
         'id'        => 'wpneo_show_max_price',
         'type'      => 'checkbox',
         'value'     => 'true',
-        'label'     => __('Enable Maximum Price','wp-crowdfunding'),
-        'desc'      => __('Enable maximum price option on the campaign submission form','wp-crowdfunding'),
+        'label'     => __('Enable/Disable','wp-crowdfunding'),
+        'desc'      => __('Enable maximum amount option on the campaign submission form','wp-crowdfunding'),
     ),
 
     // #Enable Recommended Price
@@ -155,8 +155,8 @@ $arr =  array(
         'id'        => 'wpneo_show_recommended_price',
         'type'      => 'checkbox',
         'value'     => 'true',
-        'label'     => __('Enable Recommended Price','wp-crowdfunding'),
-        'desc'      => __('Enable recommended price option on the campaign submission form','wp-crowdfunding'),
+        'label'     => __('Enable/Disable','wp-crowdfunding'),
+        'desc'      => __('Enable recommended amount option on the campaign submission form','wp-crowdfunding'),
     ),
 
     // Show Funding Goal
