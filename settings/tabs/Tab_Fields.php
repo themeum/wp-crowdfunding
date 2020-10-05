@@ -275,7 +275,7 @@ $arr =  array(
     ),
 
     array(
-        'id'        => 'wpcf_crowdfunding_admin_tab',
+        'id'        => 'wpneo_crowdfunding_admin_tab',
         'type'      => 'hidden',
         'value'     => 'tab_fields',
     ),
