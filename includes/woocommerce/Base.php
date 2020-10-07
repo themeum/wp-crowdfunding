@@ -188,7 +188,7 @@ class Base {
 
     public function settings_reset(){
         $initial_setup = new \WPCF\Initial_Setup();
-        $initial_setup->wpcf_settings_reset();
+        $initial_setup->settings_reset();
     }
 
     /**
