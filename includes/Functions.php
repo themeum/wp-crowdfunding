@@ -379,7 +379,7 @@ class Functions {
             $html .= '<p class="error"><strong>ERROR:</strong> Invalid username and/or password.</p><br><br>';
         } elseif (strpos($login, 'empty') !== false) {
             $error = true;
-            $html .= '<p class="error"><strong>ERROR:</strong> Username and/or Password is empty.</p><br><br>';
+            $html .= '<p class="error"><strong>ERROR:</strong> Username or Password is empty.</p><br><br>';
         }
 		$html .= '<div class="wpneo_login_form_div" '.($error == false ? 'style="display: none;"' : '').'>';
 		$html .= wp_login_form(array('echo' => false, 'hidden' => true));

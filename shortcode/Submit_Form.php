@@ -453,7 +453,7 @@ class Campaign_Submit_Form {
                         $html .= '<div class="wpneo-single form-field wpneo_rewards_description[]_field">';
                         $html .= '<div class="wpneo-name">'.__( "Reward" , "wp-crowdfunding" ).'</div>';
                         $html .= '<div class="wpneo-fields">';
-                        $html .= '<textarea cols="20" rows="2" id="wpneo_rewards_description[]" name="wpneo_rewards_description[]" style="" class="short">'.$v['wpneo_rewards_description'].'</textarea>';
+                        $html .= '<textarea cols="20" rows="2" id="wpneo_rewards_description[]" name="wpneo_rewards_description[]" style="" class="short">'.wp_unslash($v['wpneo_rewards_description']).'</textarea>';
                         $html .= '<small>'.__("Put the reward description here","wp-crowdfunding").'</small>';
                         $html .= '</div>';
                         $html .= '</div>';

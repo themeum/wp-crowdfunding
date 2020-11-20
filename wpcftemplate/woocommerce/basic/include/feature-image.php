@@ -24,13 +24,19 @@ $funding_video = trim(get_post_meta($post->ID, 'wpneo_funding_video', true)); ?>
         <div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
             <figure class="woocommerce-product-gallery__wrapper">
                 <?php
-                $attributes = array(
-                    'title'                   => $image_title,
-                    'data-src'                => $full_size_image[0],
-                    'data-large_image'        => $full_size_image[0],
-                    'data-large_image_width'  => $full_size_image[1],
-                    'data-large_image_height' => $full_size_image[2],
-                );
+                $attributes = array( 'title' => $image_title );
+                if(isset($full_size_image[0])){
+                    $attributes['data-src'] = $full_size_image[0];
+                }
+                if(isset($full_size_image[0])){
+                    $attributes['data-large_image'] = $full_size_image[0];
+                }
+                if(isset($full_size_image[1])){
+                    $attributes['data-large_image_width'] = $full_size_image[1];
+                }
+                if(isset($full_size_image[2])){
+                    $attributes['data-large_image_height'] = $full_size_image[2];
+                }
                 if ( has_post_thumbnail() ) {
                     $html  = '<div data-thumb="' . get_the_post_thumbnail_url( $post->ID, 'shop_thumbnail' ) . '" class="woocommerce-product-gallery__image"><a itemprop="image" class="woocommerce-main-image cloud-zoom" href="'.esc_url( $full_size_image[0] ).'">';
                     $html .= get_the_post_thumbnail( $post->ID, 'shop_single', $attributes );

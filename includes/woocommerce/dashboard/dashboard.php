@@ -19,6 +19,13 @@ $html .= '<div class="wpneo-row">';
         $html .= '<h4>'.__( "My Campaigns" , "wp-crowdfunding" ).'</h4>';
         include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
     $html .= '</div>';//wpneo-shadow 
+
+    global $wp;
+    $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
+        $html .= '<h4>'.__( "Export Data" , "wp-crowdfunding" ).'</h4>';
+        $html .= '<br/><a href="'.home_url( $wp->request ).'/?download_data=personal" class="wpneo-edit-btn">Export Campaign Data</a>';
+    $html .= '</div>';//wpneo-shadow 
+
     $html .= '</div>';//wpneo-col6 
     $html .= '<div class="wpneo-col6">';
 

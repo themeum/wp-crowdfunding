@@ -181,7 +181,7 @@ class Submit_Form {
                     if (!empty($pladge_amount[$i])) {
                         $data[] = array(
                             'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
-                            'wpneo_rewards_description'     => (($show_reward == 'true' && isset($description[$i])) ? esc_textarea($description[$i]) : ''),
+                            'wpneo_rewards_description'     => (($show_reward == 'true' && isset($description[$i])) ? $description[$i] : ''),
                             'wpneo_rewards_endmonth'        => (($show_estimated_delivery_month == 'true' && isset($endmonth[$i])) ? esc_html($endmonth[$i]) : ''),
                             'wpneo_rewards_endyear'         => (($show_estimated_delivery_year == 'true' && isset($endyear[$i])) ? esc_html($endyear[$i]) : ''),
                             'wpneo_rewards_item_limit'      => (($show_quantity == 'true' && isset($item_limit[$i])) ? esc_html($item_limit[$i]) : ''),

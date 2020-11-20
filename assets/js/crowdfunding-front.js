@@ -85,7 +85,7 @@ jQuery(document).ready(function($){
             '<div class="wpneo-modal-wrapper-head">' +
             '<span id="wpcf_modal_title">Message</span><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
             if( print ){
-                html += '</div><span class="wpcf-print-button button">print</span>';
+                html += '</div><span class="wpcf-print-button button wpneo-edit-btn">print</span>';
             }
             html += '<div class="wpneo-modal-content-inner"><div id="wpcf_modal_message"></div></div></div></div>';
         if ($('.wpneo-modal-wrapper').length == 0){
@@ -498,6 +498,26 @@ jQuery(document).ready(function($){
             error: function(jqXHR, textStatus, errorThrown){ wpcf_modal({'success':0, 'message':'Error'}) }
         });
     });
+
+    // $(document).on('click', '.wpcf-export-data', function (e) {
+    //     e.preventDefault();
+    //     //var postid = $(this).data('postid');
+    //     console.log('Done 2');
+    //     $.ajax({
+    //         type:"POST",
+    //         url: wpcf_ajax_object.ajax_url,
+    //         data: { 'action': 'download_data', 'postid': 222 },
+    //         success:function(data){
+    //             // wpcf_modal(data);
+    //             console.log('Done 1');
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown){ 
+    //             console.log('1->', jqXHR);
+    //             console.log('2->', textStatus);
+    //             console.log('3->', errorThrown);
+    //         }
+    //     });
+    // });
 
     /**
      * Place the predefined price in the donation input value

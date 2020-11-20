@@ -47,7 +47,7 @@ if (is_array($campaign_rewards_a)) {
 						}
 						?>
                     </h3>
-                    <div><?php echo wpautop($value['wpneo_rewards_description']); ?></div>
+                    <div><?php echo wpautop(wp_unslash($value['wpneo_rewards_description'])); ?></div>
 					<?php if( $value['wpneo_rewards_image_field'] ){ ?>
                         <div class="wpneo-rewards-image">
 							<?php echo '<img src="'.wp_get_attachment_url( $value["wpneo_rewards_image_field"] ).'"/>'; ?>

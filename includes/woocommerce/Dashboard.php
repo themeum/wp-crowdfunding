@@ -14,12 +14,32 @@ class Dashboard{
     }
 
     public function __construct(){
-        add_action( 'wp_dashboard_setup',                   array($this, 'init' ) );
+        add_action( 'wp_dashboard_setup',                   array($this, 'init' ));
         add_filter( 'manage_edit-product_columns',          array($this, 'order_custom_column'));
-        add_action( 'manage_product_posts_custom_column' ,  array($this, 'show_campaign_data_in_product_column'), 10, 2 );
-        add_action( 'add_meta_boxes',                       array($this, 'register_meta_boxes') );
-        add_action( 'add_meta_boxes',                       array($this, 'selected_reward_meta_box') );
-        add_action( 'wp_ajax_wpcf_order_action',            array($this, 'order_campaign_action') );
+        add_action( 'manage_product_posts_custom_column' ,  array($this, 'show_campaign_data_in_product_column'), 10, 2);
+        add_action( 'add_meta_boxes',                       array($this, 'register_meta_boxes'));
+        add_action( 'add_meta_boxes',                       array($this, 'selected_reward_meta_box'));
+        add_action( 'wp_ajax_wpcf_order_action',            array($this, 'order_campaign_action'));
+        add_action( 'init',                                 array($this, 'wpcf_personal_data_download'));
+    }
+
+    /**
+    * Download Personal Data
+    */
+    public function wpcf_personal_data_download(){
+        $user_id = get_current_user_id();
+        if ( isset($_GET['download_data']) && $user_id ) {
+            require_once ABSPATH . 'wp-admin/includes/export.php';
+            $args = array(
+                'content'    => 'all',
+                'author'     => $user_id,
+                'category'   => false,
+                'start_date' => false,
+                'end_date'   => false,
+                'status'     => false,
+            );
+            export_wp( $args );
+        }
     }
 
     public function init(){

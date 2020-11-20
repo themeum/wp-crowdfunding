@@ -53,6 +53,7 @@ final class Crowdfunding {
 					new \WPCF\woocommerce\Actions();
 					$template_hook_obj = new \WPCF\woocommerce\Template_Hooks(); //variable used @compatibility actions
 					require_once WPCF_DIR_PATH.'includes/compatibility/Actions.php'; //require file for compatibility
+					add_action( 'widgets_init', array($this, 'register_backer_widget') );
 				} else {
 					add_action( 'admin_notices', array( $initial_setup , 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -68,6 +69,12 @@ final class Crowdfunding {
 		}else{
 			// Local Code
 		}
+	}
+	
+	// Register Widgets
+	public function register_backer_widget(){
+		require_once WPCF_DIR_PATH.'includes/woocommerce/Widget.php';
+		register_widget( 'WPCF\Latest_Backers' );
 	}
 
 	// Include Shortcode

@@ -128,6 +128,11 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+
+= 2.0.8 - 6 October, 2020 =
+Fix: Some field settings enable/disable options were not working properly.
+Fix: Reset Settings button in the bottom section of the General settings was not working.
+
 = 2.0.7 - 6 October, 2020 =
 Fix: Some field settings enable/disable options were not working properly.
 Fix: Reset Settings button in the bottom section of the General settings was not working.

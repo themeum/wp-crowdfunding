@@ -190,7 +190,7 @@ class Reward{
                             switch ($value['field_type']) {
 
                                 case 'textareafield':
-                                    $value['value'] = $value['value'];
+                                    $value['value'] = wp_unslash($value['value']);
                                     woocommerce_wp_textarea_input($value);
                                     break;
 
@@ -260,7 +260,7 @@ class Reward{
                     $data[] = array(
                         'wpneo_rewards_pladge_amount'   => intval($pladge_amount[$i]),
                         'wpneo_rewards_image_field'     => intval($image_field[$i]),
-                        'wpneo_rewards_description'     => esc_textarea($description[$i]),
+                        'wpneo_rewards_description'     => $description[$i],
                         'wpneo_rewards_endmonth'        => esc_html($end_month[$i]),
                         'wpneo_rewards_endyear'         => esc_html($end_year[$i]),
                         'wpneo_rewards_item_limit'      => esc_html($item_limit[$i]),
