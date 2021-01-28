@@ -129,6 +129,11 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
+= 2.0.9 =
+Fix: Translation issues
+Fix: Reward remains enabled on the frontend cf-campaign-form even after disabling it
+Update: JS and CSS minified
+
 = 2.0.8 - 09 December, 2020 =
 New: Latest widgets added from the Backer theme.
 New: WP Mega Menu Compatibility logical issue
