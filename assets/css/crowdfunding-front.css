@@ -1273,6 +1273,7 @@ div.wpneo-modal-wrapper-head span {
     border-bottom: 1px dotted black;
 }
 .wpneo-tooltip .wpneo-tooltip-min,
+.wpneo-tooltip .wpneo-tooltip-empty,
 .wpneo-tooltip .wpneo-tooltip-max {
     visibility: hidden;
     width: 190px;
@@ -1986,4 +1987,24 @@ div#respond h3, #respond a {
 }
 .wpcf-form-field.right {
     text-align: right;
+}
+
+/* Latest Backer Widget */
+.wpcf-latest-backer-widget {
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0;
+    list-style: none;
+}
+.wpcf-latest-backer-widget li {
+    padding: 5px 0;
+}
+.wpcf-latest-backer-widget li:last-child {
+    padding-bottom: 0;
+}
+.wpcf-latest-backer-widget-reward {
+    font-weight: bold;
+}
+.order-actions .wpcf-order-view{
+ word-break: initial !important;   
 }

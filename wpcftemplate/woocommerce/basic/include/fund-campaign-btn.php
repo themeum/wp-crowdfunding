@@ -26,6 +26,7 @@ defined( 'ABSPATH' ) || exit;
             <span class="wpneo-tooltip">
                 <span class="wpneo-tooltip-min"><?php _e('Minimum amount is ','wp-crowdfunding'); echo $currency.$min_price; ?></span>
                 <span class="wpneo-tooltip-max"><?php _e('Maximum amount is ','wp-crowdfunding'); echo $currency.$max_price; ?></span>
+                <span class="wpneo-tooltip-empty"><?php _e('Put a valid number','wp-crowdfunding'); ?></span>
             </span>
 
 			<?php
@@ -44,7 +45,7 @@ defined( 'ABSPATH' ) || exit;
 				<?php do_action('before_wpneo_donate_field'); ?>
 				<?php echo get_woocommerce_currency_symbol(); ?>
                 
-                <input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo $recomanded_price; ?>" data-min-price="<?php echo $min_price ?>" data-max-price="<?php echo $max_price ?>" >
+                <input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo ($recomanded_price ? $recomanded_price : $min_price); ?>" data-min-price="<?php echo $min_price; ?>" data-max-price="<?php echo $max_price ?>" >
 
 				<?php do_action('after_wpneo_donate_field'); ?>
                 <input type="hidden" value="<?php echo esc_attr($post->ID); ?>" name="add-to-cart">

@@ -30,6 +30,15 @@ jQuery(document).ready(function($){
         dateFormat : 'dd-mm-yy'
     });
 
+    $('.wpneo_donate_button').on('click', function(e){
+        const data = $('.wpneo_donate_amount_field').val();
+        if(!data){
+            e.preventDefault();
+            $('.wpneo-tooltip-empty').css({'visibility': 'visible'});
+        } else {
+            $('.wpneo-tooltip-empty').css({'visibility': 'hidden'});
+        }
+    });
 
     // Pie Chart
     $('.crowdfound-pie-chart').easyPieChart({

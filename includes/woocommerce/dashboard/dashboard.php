@@ -23,7 +23,7 @@ $html .= '<div class="wpneo-row">';
     global $wp;
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
         $html .= '<h4>'.__( "Export Data" , "wp-crowdfunding" ).'</h4>';
-        $html .= '<br/><a href="'.home_url( $wp->request ).'/?download_data=personal" class="wpneo-edit-btn">Export Campaign Data</a>';
+        $html .= '<br/><a href="'.home_url( $wp->request ).'/?download_data=personal" class="wpneo-edit-btn">'.__('Export Campaign Data', 'wp-crowdfunding').'</a>';
     $html .= '</div>';//wpneo-shadow 
 
     $html .= '</div>';//wpneo-col6 

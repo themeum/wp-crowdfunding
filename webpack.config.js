@@ -1,16 +1,14 @@
 'use strict';
-
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
-    mode: 'production',
-    entry: {
-        'blocks.min': path.join( __dirname, 'src/index.js')
-    },
+    mode: 'development',
+    entry: [
+        path.join(__dirname, 'reactjs/src/index.js')
+    ],
     output: {
-        path: path.join( __dirname, '../assets/js'),
-        filename: '[name].js'
+        path: path.join(__dirname, 'assets/js/'),
+        filename: 'blocks.min.js'
     },
     module: {
         rules: [
@@ -24,5 +22,6 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ],
             }
         ]
-    }
+    },
+    devtool: "source-map"
 };

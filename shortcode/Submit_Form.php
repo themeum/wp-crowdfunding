@@ -397,6 +397,7 @@ class Campaign_Submit_Form {
             
             // Clone Field
             //$reward = stripslashes($reward);
+            if(get_option('wpcf_show_reward') == 'true') {
             $reward_data_array = json_decode($reward, true);
             $meta_count = is_array($reward_data_array) ? count($reward_data_array) : 0;
             $html .= '<div class="wpneo-reward-option">'.__("Reward Option","wp-crowdfunding").'</div>';
@@ -626,6 +627,7 @@ class Campaign_Submit_Form {
             }
 
             $html .= '</div>';
+            }
             
             // Clone Field
             $html .= $edit_form;

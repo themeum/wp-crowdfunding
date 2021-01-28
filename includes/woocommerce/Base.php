@@ -109,8 +109,8 @@ class Base {
 
     public function admin_script(){
         wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL .'assets/css/crowdfunding.css', false, WPCF_VERSION );
-        wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL .'assets/js/crowdfunding.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
+        wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL .'assets/css/dist/crowdfunding.css', false, WPCF_VERSION );
+        wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
     }
 
     /**
@@ -118,13 +118,13 @@ class Base {
      * @frontend
      */
     public function frontend_script(){
-        wp_enqueue_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/crowdfunding-front.css', false, WPCF_VERSION );
+        wp_enqueue_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/dist/crowdfunding-front.css', false, WPCF_VERSION );
         wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
         
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
         wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
-        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
+        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.min.js', array('jquery'), WPCF_VERSION, true);
         wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
         wp_enqueue_media();
     }
@@ -137,7 +137,7 @@ class Base {
 
     // Declare script for new button
     function add_tinymce_js( $plugin_array ) {
-        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.js';
+        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.min.js';
         return $plugin_array;
     }
     // Register new button in the editor

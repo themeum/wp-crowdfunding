@@ -1,10 +1,10 @@
 === WP Crowdfunding ===
-Contributors: themeum,kawshar, mhshohel, jakirhasan, anik4e, rejuancse, fahimmurshed
+Contributors: themeum
 Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online sell, e-commerce, paypal, shop, indiegogo, invest, fund collecting, crowd, marketplace, crowd funding, crowdfund, charity, donate, fundraising plugin, paypal donation, stripe donation, wordpress crowdfunding plugin, adaptive payment, split payment, paypal adaptive, stripe split, stripe connect
 Donate Link: https://www.themeum.com/
-Requires at least: 4.0
-Tested up to: 5.5.1
-Stable tag: 2.0.7
+Requires at least: 4.5
+Tested up to: 5.6
+Stable tag: 2.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,9 +129,20 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
-= 2.0.8 - 6 October, 2020 =
-Fix: Some field settings enable/disable options were not working properly.
-Fix: Reset Settings button in the bottom section of the General settings was not working.
+= 2.0.8 - 09 December, 2020 =
+New: Latest widgets added from the Backer theme.
+New: WP Mega Menu Compatibility logical issue
+New: Now you can export campaign user's data
+New: Overwrite form system via a filter 
+Update: Introducing compatibility with the upcoming WordPress 5.6
+Fix: Reset Password option was not working in the Crowdfunding Form
+Fix: Document not printing properly for the reward item details print option
+Fix: Warning notice when feature image for a campaign was empty
+Fix: Issue regarding payments not depositing in Wallet
+Fix: Payment issue regarding Stripe Connect
+Fix: Text Multiline issue for the reward section on frontend
+Fix: Text contraction (ex: isn't, hasn't, etc) was not showing correctly on the frontend
+Fix: The recommended amount for backing not showing properly on the frontend.
 
 = 2.0.7 - 6 October, 2020 =
 Fix: Some field settings enable/disable options were not working properly.
