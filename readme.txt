@@ -67,7 +67,6 @@ Here are the most notable features of WP Crowdfunding plugin. If you need any fu
   * Stripe Connect
   * 1 Year plugin update
   * 1 Year Support
-  * Plugin package includes an exclusive dedicated theme
   * Many more feature coming soon
 
 
