@@ -1,11 +1,14 @@
 // Crowdfunding Scripts
 
-jQuery(document).ready(function($){
+jQuery(document).on('ready', function($){
     
     var count = 0;
     var numItems = $('.wpneo-block').length;
-    if(numItems!=0){ count = numItems; }
-    $.fn.createNewForm = function( count ){
+    if(numItems!=0) {
+        count = numItems;
+    }
+
+    $.fn.createNewForm = function( count ) {
         return this.each(function(){
             $(this).find('input,textarea,select').each(function(){
                 var $that = $(this);
@@ -14,6 +17,7 @@ jQuery(document).ready(function($){
             });
         });
     };
+
     $('.add-new').on('click', function(e){
         var $form       = $('.wpneo-block').last(),
             $cloned     = $form.clone();
@@ -21,11 +25,13 @@ jQuery(document).ready(function($){
         $('#wpneo-clone .add-new').before( $($cloned) );
         count = count+1;
     });
+
     $(document).on('click','.remove-button',function(events){
         if($('.wpneo-block').length > 1){
             $(this).parent('.wpneo-block').remove();
         }
     });
+
     $('#wpneo_form_start_date, #wpneo_form_end_date').datepicker({
         dateFormat : 'dd-mm-yy'
     });
@@ -265,32 +271,32 @@ jQuery(document).ready(function($){
         $('#wpneo-edit').delay(100).fadeIn('slow');
     });
 
-    // Dashboard Froentend ( Dashboard )
+    // Dashboard Frontend ( Dashboard )
     $('#wpneo-dashboard-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
         var postdata = $('#wpneo-dashboard-form').serializeArray();
         wpcf_dashboard_data_save();
     });
 
-    // Dashboard Froentend ( Profile )
+    // Dashboard Frontend ( Profile )
     $('#wpneo-profile-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
         wpcf_dashboard_data_save();
     });
 
-    // Dashboard Froentend ( Contact )
+    // Dashboard Frontend ( Contact )
     $('#wpneo-contact-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
         wpcf_dashboard_data_save();
     });
 
-    // Dashboard Froentend ( Password )
+    // Dashboard Frontend ( Password )
     $('#wpneo-password-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
         wpcf_dashboard_data_save();
     });
 
-    // Dashboard Froentend ( Update )
+    // Dashboard Frontend ( Update )
     $('#wpneo-update-save').on('click', function (e) {
         e.preventDefault(); //STOP default action
         var return_respone = wpcf_dashboard_data_save();

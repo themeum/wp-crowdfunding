@@ -1,4 +1,9 @@
-.cf-button {
+.cf-button-primary,
+.cf-button-secondary,
+.cf-button-danger,
+.cf-button-outline,
+.cf-button-outline-inverse
+ {
     display: inline-block;
     font-weight: 500;
     line-height: 1.5;
@@ -19,18 +24,33 @@
 .cf-button-primary {
     background-color: $primary-color;
     color: $white;
+    border-color: $primary-color;
 }
 
 .cf-button-secondary {
     background-color: $secondary-color;
     color: $dark-color;
+    border-color: $secondary-color;
 }
 
 .cf-button-danger {
     background-color: $danger-color;
     color: $white;
+    border-color: $danger-color;
 }
 
-.cf-button + .cf-button {
-    margin-left: 10px;
+.cf-button-outline {
+    border-color: $primary-color;
+    color: $primary-color;
+}
+
+.cf-button-outline-inverse {
+    border-color: $white;
+    color: $white;
+
+    &:hover {
+        background-color: $white;
+        border-color: $white;
+        color: $primary-color;
+    }
 }

@@ -134,10 +134,10 @@ class Registration {
                     <?php } ?>
     
                     <div class="cf-form-group wpneo-register">
-                        <a href="<?php echo get_home_url(); ?>" class="cf-button cf-button-secondary"><?php _e("Cancel","wp-crowdfunding"); ?></a>
+                        <a href="<?php echo get_home_url(); ?>" class="cf-button-secondary"><?php _e("Cancel","wp-crowdfunding"); ?></a>
                         <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
-                        <input type="submit" class="cf-button cf-button-primary wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
+                        <input type="submit" class="cf-button-primary wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
                     </div>
     
                 </form>

@@ -17,206 +17,162 @@ if (user_can($current_user_id, 'manage_options')){
 $data = get_user_meta($current_user_id);
 $user = get_user_by('ID', $current_user_id);
 
-$html .= '<div class="wpneo-content">';
-    $html .= '<form id="wpneo-dashboard-form" class="wpneo-form">';
-        $html .= '<div class="wpneo-row">';
+ob_start();
+?>
+<form id="cf-dashboard-form">
+    <div class="cf-row">
+        <div class="cf-col-lg-6">
+            <div class="cf-card">
+                <h4><?php _e('Profile Picture', 'wp-crowdfunding'); ?></h4>
 
-            $html .= '<div class="wpneo-col6">';
-                $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
-                    $html .= '<h4>'.__("Profile Picture","wp-crowdfunding").'</h4>';
-                    $html .= '<div class="cf-form-fields">';
-                    $html .= '<input type="hidden" name="action" value="wpneo_profile_form">';
-                        
+                <div class="cf-form-fields">
+                    <input type="hidden" name="action" value="wpneo_profile_form">
+                    <?php
                         $img_src = get_avatar_url( $current_user_id );
                         $image_id = get_user_meta( $current_user_id, 'profile_image_id', true );
                         if ($image_id && $image_id > 0) {
                             $img_src = wp_get_attachment_image_src($image_id, 'full')[0];
                         }
-                        $html .= '<img class="profile-form-img" src="'.$img_src.'" alt="'.__( "Profile Image:" , "wp-crowdfunding" ).'">';
-
-                        $html .= '<span id="wpneo-image-show"></span>';
-                        $html .= '<input type="hidden" name="profile_image_id" class="wpneo-form-image-id" value="'.$image_id.'">';
-                        $html .= '<input type="hidden" name="wpneo-form-image-url" class="wpneo-form-image-url" value="">';
-                        $html .= '<button name="wpneo-upload" id="cc-image-upload-file-button" class="cf-button cf-button-primary wpneo-image-upload" style="display: none;">'.__( "Upload" , "wp-crowdfunding" ).'</button>';
-                    $html .= '</div>';
-                $html .= '</div>';
-            $html .= '</div>';
-
-            $html .= '<div class="wpneo-col6">';
-                
-                // Basic info
-                $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
-                    $html .= '<h4>'.__("Basic Info","wp-crowdfunding").'</h4>';
-				    $html .= '<label class="cf-form-label">';
-					$html .= __( "Name:" , "wp-crowdfunding" );
-					$html .= '</label>';
-					$html .= '<div class="cf-form-fields">';
-					$html .= "<p>".wpcf_function()->get_author_name($current_user_id)."</p>";
-                    $html .= '</div>';
-
-					$html .= '<div class="cf-form-group">';
-                    $html .= '<label class="cf-form-label">';
-                    $html .= __( "First Name:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="cf-form-fields">';
-                    $html .= '<input type="text" name="first_name" value="'.$user->first_name.'" disabled>';
-					$html .= '</div>';
+                    ?>
                     
-					$html .= '<label class="cf-form-label">';
-					$html .= __( "Last Name:" , "wp-crowdfunding" );
-					$html .= '</label>';
-					$html .= '<div class="cf-form-fields">';
-					$html .= '<input type="text" name="last_name" value="'.$user->last_name.'" disabled>';
-					$html .= '</div>';
-				$html .= '</div>';
+                    <img class="profile-form-img" src="<?php echo $img_src; ?>" alt="<?php _e( "Profile Image:" , "wp-crowdfunding" ); ?>">
+                    <span id="wpneo-image-show"></span>
+                    <input type="hidden" name="profile_image_id" class="wpneo-form-image-id" value="<?php echo $image_id; ?>">
+                    <input type="hidden" name="wpneo-form-image-url" class="wpneo-form-image-url" value="">
+                    <button id="cc-image-upload-file-button" class="cf-button-primary wpneo-image-upload" style="display: none;">'.__( "Upload" , "wp-crowdfunding" ).'</button>
+                </div>
+            </div>
 
-                // About Us
-                $html .= '<label class="cf-form-label">';
-                    $html .= __( "About Us:" , "wp-crowdfunding" );
-                $html .= '</label>';
-                $html .= '<div class="cf-form-fields">';
-                    $value = ''; if(isset($data['profile_about'][0])){ $value = esc_textarea($data['profile_about'][0]); }
-                    $html .= '<textarea name="profile_about" rows="3" disabled>'.$value.'</textarea>';
-                $html .= '</div>';
+            <div class="cf-card">
+                <h4><?php _e("Basic Info", "wp-crowdfunding"); ?></h4>
 
-                // Profile Information
-                $html .= '<div class="cf-form-group">';
-                    $html .= '<label class="cf-form-label">';
-                        $html .= __( "User Bio:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="cf-form-fields">';
-                        $value = ''; if(isset($data['profile_portfolio'][0])){ $value = esc_textarea($data['profile_portfolio'][0]); }
-                        $html .= '<textarea name="profile_portfolio" rows="3" disabled>'.$value.'</textarea>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                <label class="cf-form-label"><?php _e( "Name:" , "wp-crowdfunding" ); ?></label>
+                <div class="cf-form-fields"><?php echo wpcf_function()->get_author_name($current_user_id); ?></div>
 
-                $html .= '</div>';
-            $html .= '</div>';
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "First Name" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="first_name" value="<?php echo $user->first_name; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Last Name" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="last_name" value="<?php echo $user->last_name; ?>" disabled>
+                    </div>
+                </div>
 
-            // Mobile Number
-            $html .= '<div class="wpneo-col6">';
-                $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
-                    $html .= '<h4>'.__("Contact Info","wp-crowdfunding").'</h4>';
-                    $html .= '<div class="cf-form-group">';
-                    $html .= '<label class="cf-form-label">' . __( "Mobile Number:" , "wp-crowdfunding" ) . '</label>';
-                    $html .= '<div class="cf-form-fields">';
-                        $value = '';
-                        if(isset($data['profile_mobile1'][0])) {
-                            $value = esc_attr($data['profile_mobile1'][0]);
-                        }
-                        $html .= '<input type="text" name="profile_mobile1" value="'.$value.'" disabled>';
-                    $html .= '</div>';
-                    // Email
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Email:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = '';
-                            if(isset($data['profile_email1'][0])) {
-                                $value = esc_attr($data['profile_email1'][0]);
-                            }
-                            $html .= '<input type="text" name="profile_email1" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
-                    // Fax
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Fax:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = '';
-                            if(isset($data['profile_fax'][0])) {
-                                $value = esc_attr($data['profile_fax'][0]);
-                            }
-                            $html .= '<input type="text" name="profile_fax" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
-                    // Website
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Website:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = ''; if(isset($data['profile_website'][0])){ $value = esc_url($data['profile_website'][0]); }
-                            $html .= '<input type="text" name="profile_website" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "About Us" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <textarea name="profile_about" rows="3" disabled><?php echo isset($data['profile_about'][0]) ? esc_textarea($data['profile_about'][0]) : ''; ?></textarea>
+                    </div>
+                </div>
 
-                    // Address
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Address:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = ''; if(isset($data['profile_address'][0])){ $value = esc_textarea($data['profile_address'][0]); }
-                            $html .= '<input type="text" name="profile_address" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
-                $html .= '</div>';
-            $html .= '</div>';
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Bio" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <textarea name="profile_portfolio" rows="3" disabled><?php echo isset($data['profile_portfolio'][0]) ? esc_textarea($data['profile_portfolio'][0]) : ''; ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            $html .= '<div class="wpneo-col6">';
-                $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
-                    $html .= '<h4>'.__("Social Profile","wp-crowdfunding").'</h4>';
-                    //Facebook
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Facebook:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = ''; if(isset($data['profile_facebook'][0])){ $value = esc_textarea($data['profile_facebook'][0]); }
-                            $html .= '<input type="text" name="profile_facebook" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
+        <div class="cf-col-lg-6">
+            <div class="cf-card">
+                <h4><?php _e("Contact Info", "wp-crowdfunding"); ?></h4>
 
-                    // Twitter
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Twitter:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = '';
-                            if(isset($data['profile_twitter'][0])) {
-                                $value = esc_textarea($data['profile_twitter'][0]);
-                            }
-                            $html .= '<input type="text" name="profile_twitter" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Mobile Number" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_mobile1" value="<?php echo isset($data['profile_mobile1'][0]) ? esc_textarea($data['profile_mobile1'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
 
-                    // VK
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "VK:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = ''; if(isset($data['profile_vk'][0])){ $value = esc_textarea($data['profile_vk'][0]); }
-                            $html .= '<input type="text" name="profile_vk" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Email" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="email" name="profile_email1" value="<?php echo isset($data['profile_email1'][0]) ? esc_textarea($data['profile_email1'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Fax" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_fax" value="<?php echo isset($data['profile_fax'][0]) ? esc_textarea($data['profile_fax'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Website" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="url" name="profile_website" value="<?php echo isset($data['profile_website'][0]) ? esc_textarea($data['profile_website'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Address" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_address" value="<?php echo isset($data['profile_address'][0]) ? esc_textarea($data['profile_address'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+            </div>
 
-                    // Linkedin
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Linkedin:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = ''; if(isset($data['profile_linkedin'][0])){ $value = esc_textarea($data['profile_linkedin'][0]); }
-                            $html .= '<input type="text" name="profile_linkedin" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
+            <div class="cf-card">
+                <h4><?php _e("Social Profile", "wp-crowdfunding"); ?></h4>
 
-                    // Pinterest
-                    $html .= '<div class="cf-form-group">';
-                        $html .= '<label class="cf-form-label">' . __( "Pinterest:" , "wp-crowdfunding" ) . '</label>';
-                        $html .= '<div class="cf-form-fields">';
-                            $value = ''; if(isset($data['profile_pinterest'][0])){ $value = esc_textarea($data['profile_pinterest'][0]); }
-                            $html .= '<input type="text" name="profile_pinterest" value="'.$value.'" disabled>';
-                        $html .= '</div>';
-                    $html .= '</div>';
-                $html .= '</div>';
-            $html .= '</div>';
-        $html .= '</div>';
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Facebook" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_facebook" value="<?php echo isset($data['profile_facebook'][0]) ? esc_textarea($data['profile_facebook'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Twitter" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_twitter" value="<?php echo isset($data['profile_twitter'][0]) ? esc_textarea($data['profile_twitter'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Linkedin" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_linkedin" value="<?php echo isset($data['profile_linkedin'][0]) ? esc_textarea($data['profile_linkedin'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+                
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "Pinterest" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_pinterest" value="<?php echo isset($data['profile_pinterest'][0]) ? esc_textarea($data['profile_pinterest'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
 
-        ob_start();
+                <div class="cf-form-group">
+                    <label class="cf-form-label"><?php _e( "VK" , "wp-crowdfunding" ); ?></label>
+                    <div class="cf-form-fields">
+                        <input type="text" name="profile_vk" value="<?php echo isset($data['profile_vk'][0]) ? esc_textarea($data['profile_vk'][0]) : ''; ?>" disabled>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <?php
         do_action('wpcf_dashboard_after_profile_form');
-        $html .= ob_get_clean();
+        wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );
+    ?>
 
-        $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );
+    <?php if ($logged_user_info) : ?>
+        <div class="wpneo-buttons-group">
+        <button id="wpneo-edit" class="cf-button-secondary wpneo-edit-btn"><?php _e( "Edit", "wp-crowdfunding" ); ?></button>
+        <button id="wpneo-dashboard-btn-cancel" class="cf-button-primary wpneo-cancel-btn wpneo-hidden" type="submit"><?php _e( "Cancel", "wp-crowdfunding" ); ?></button>
+        <button id="wpneo-profile-save" class="cf-button-primary wpneo-save-btn wpneo-hidden" type="submit"><?php _e( "Save", "wp-crowdfunding" ); ?></button>
+        </div>
+    <?php endif; ?>
 
-        //Save Button
-		if ($logged_user_info) {
-			$html .= '<div class="wpneo-buttons-group float-right">';
-			$html .= '<button id="wpneo-edit" class="wpneo-edit-btn">' . __( "Edit", "wp-crowdfunding" ) . '</button>';
-			$html .= '<button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit">' . __( "Cancel", "wp-crowdfunding" ) . '</button>';
-			$html .= '<button id="wpneo-profile-save" class="wpneo-save-btn wpneo-hidden" type="submit">' . __( "Save", "wp-crowdfunding" ) . '</button>';
-			$html .= '</div>';
-			$html .= '<div class="clear-float"></div>';
-		}
-
-    $html .= '</form>';
-$html .= '</div>';
+</form>
+<?php $html .= ob_get_clean(); ?>

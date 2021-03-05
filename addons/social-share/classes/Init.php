@@ -156,11 +156,9 @@ class WPCF_Social_Share {
                                         <div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
                                     </div>
     
-                                    <div class="wpneo-raised-bar sjkdhfjdshf">
-                                        <div id="neo-progressbar">
-                                            <?php $css_width = wpcf_function()->get_raised_percent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
-                                            <div style="width: <?php echo $css_width; ?>%"></div>
-                                        </div>
+                                    <div class="cf-progress">
+                                        <?php $css_width = wpcf_function()->get_raised_percent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
+                                        <div class="cf-progress-bar" style="width: <?php echo $css_width; ?>%" area-hidden="true"></div>
                                     </div>
     
                                     <div class="wpneo-funding-data">

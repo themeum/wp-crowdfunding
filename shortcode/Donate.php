@@ -44,7 +44,7 @@ class Donate {
                 }
                 ?>
                 <input type="hidden" value="<?php echo esc_attr($atts['campaign_id']); ?>" name="add-to-cart">
-                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'cf-button cf-button-primary cf-donate-button'); ?>">
+                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'cf-button-primary cf-donate-button'); ?>">
                     <?php
                     echo $atts['donate_button_text'];
                     if ($atts['show_input_box'] != 'true'){

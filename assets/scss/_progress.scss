@@ -1,0 +1,16 @@
+.cf-progress {
+    display: flex;
+    height: 6px;
+    background-color: $gray-200;
+    border-radius: 10px;
+    position: relative;
+}
+
+.cf-progress-bar {
+    position: absolute;
+    height: 6px;
+    top: 0;
+    left: 0;
+    background-color: $primary-color;
+    border-radius: 10px;
+}

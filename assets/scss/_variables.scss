@@ -10,3 +10,14 @@ $secondary-color:   #E4F7F4 !default;
 $dark-color:        #505780 !default;
 $danger-color:      #F16063 !default;
 $border-color:      #E5EBEA !default;
+
+
+// breakpoints
+$columns:  12 !default;
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;

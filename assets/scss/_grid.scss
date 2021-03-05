@@ -1,0 +1,58 @@
+@function breakpoint-min($name, $breakpoints) {
+    $min: map-get($breakpoints, $name);
+    @return if($min != 0, $min, null);
+}
+  
+@function breakpoint-max($name, $breakpoints) {
+    $max: map-get($breakpoints, $name);
+    @return if($max and $max > 0, $max - .02, null);
+}
+
+@mixin media-breakpoint-up($name, $breakpoints) {
+    $min: breakpoint-min($name, $breakpoints);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@function breakpoint-infix($name, $breakpoints) {
+    @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+@mixin make-col($size, $columns) {
+    flex: 0 0 auto;
+    width: percentage($size / $columns);
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.cf-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    box-sizing: border-box;
+}
+
+@each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+        .cf-col#{$infix} {
+            flex: 1 0 0%;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
+
+        @for $i from 1 through $columns {
+            .cf-col#{$infix}-#{$i} {
+                @include make-col($i, $columns);
+            }
+        }
+    }
+}

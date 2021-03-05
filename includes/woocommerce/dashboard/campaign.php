@@ -32,38 +32,43 @@ $the_query = new WP_Query( $args );
 ?>
         <div class="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
             
-            <div class="wpneo-listing-img">
-                <a href="<?php echo get_permalink(); ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
-                <div class="overlay">
-                    <div>
-                        <div>
-                            <a class="wp-crowd-btn wp-crowd-btn-primary" href="<?php echo get_permalink(); ?>"><?php _e('View','wp-crowdfunding'); ?></a>
+            <div class="cf-campaign-list-item">
+                <div class="cf-card">
+                    <div class="cf-card-thumbnail">
+                        <?php echo woocommerce_get_product_thumbnail(); ?>
+                        <div class="cf-card-overlay">
+                            <a class="cf-btn-outline" href="<?php echo get_permalink(); ?>"><?php _e('View','wp-crowdfunding'); ?></a>
                         </div>
                     </div>
+
+                    <div class="cf-card-body">
+                        
+                    </div>
                 </div>
+                
             </div>
 
-            <div class="wpneo-listing-content clearfix">
+            <div class="wpneo-listing-content">
 
-                <div class="wpneo-admin-title float-left">
+                <div class="wpneo-admin-title">
                     <!-- title -->
                     <h4><a href="<?php  echo get_permalink(); ?> "><?php echo get_the_title(); ?></a></h4>
                     
                     <!-- author -->
-                    <p class="wpneo-author"><?php _e('by','wp-crowdfunding'); ?> 
+                    <p class="wpneo-author"><?php _e('by', 'wp-crowdfunding'); ?> 
                         <a href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
                     </p>
 
                     <!-- location -->
                     <?php $location = wpcf_function()->campaign_location(); ?>
-                    <?php if($location) { ?>
+                    <?php if($location) : ?>
                         <div class="wpneo-location">
                             <i class="wpneo-icon wpneo-icon-location"></i>
                             <div class="wpneo-meta-desc"><?php echo $location; ?></div>
                         </div>
-                    <?php } ?>
+                    <?php endif; ?>
                 </div>
-                <div class="wpneo-admin-location float-right">
+                <div class="wpneo-admin-location">
                     <?php
                     $operation_btn = '';
                     $operation_btn .= '<div class="cf-form-fields-action">';
@@ -83,7 +88,7 @@ $the_query = new WP_Query( $args );
                     ?>
                 </div>
                 <div class="wpneo-clearfix"></div>
-                <div class="wpneo-percent-rund-wrap">
+                <div class="wpneo-percent-round-wrap">
                     
                     <!-- percent -->
                     <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>

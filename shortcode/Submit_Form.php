@@ -197,7 +197,7 @@ class Campaign_Submit_Form {
                 $html .= '<input type="text" readonly="readonly" name="wpneo-form-image-url" class="wpneo-upload wpneo-form-image-url" value="'.$image_url.'">';
                 $html .= '<input type="hidden" name="wpneo-form-image-id" class="wpneo-form-image-id" value="'.$image_id.'">';
                 $html .= '</div>';
-                $html .= '<input type="button" id="cc-image-upload-file-button" class="cf-button cf-button-primary wpneo-image-upload" value="'.__("Upload Image","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
+                $html .= '<input type="button" id="cc-image-upload-file-button" class="cf-button-primary wpneo-image-upload" value="'.__("Upload Image","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
                 $html .= '<small class="cf-form-help">'.__("Upload a campaign feature image","wp-crowdfunding").'</small>';
                 $html .= '</div>';
             }
@@ -449,7 +449,7 @@ class Campaign_Submit_Form {
                             $html .= '<input type="text" readonly="readonly" name="wpneo_rewards_image_fields" class="wpneo-upload wpneo_rewards_image_field_url" value="'.$attachment_url.'">';
                             $html .= '<input type="hidden" name="wpneo_rewards_image_field[]" class="wpneo_rewards_image_field" value="'.$v['wpneo_rewards_image_field'].'">';
                             $html .= '</div>';
-                            $html .= '<input type="button" id="cc-image-upload-file-button" class="cf-button cf-button-primary wpneo-image-upload-btn" value="'.__("Upload Image","wp-crowdfunding").'"/>';
+                            $html .= '<input type="button" id="cc-image-upload-file-button" class="cf-button-primary wpneo-image-upload-btn" value="'.__("Upload Image","wp-crowdfunding").'"/>';
                             $html .= '<small class="cf-form-help">'.__("Upload a reward image","wp-crowdfunding").'</small>';
                             $html .= '</div>';
                         }
@@ -545,7 +545,7 @@ class Campaign_Submit_Form {
                     $html .= '<input type="text" readonly="readonly" name="wpneo_rewards_image_fields" class="wpneo-upload wpneo_rewards_image_field_url" value="">';
                     $html .= '<input type="hidden" name="wpneo_rewards_image_field[]" class="wpneo_rewards_image_field" value="">';
                     $html .= '</div>';
-                    $html .= '<input type="button" id="cc-image-upload-file-button" class="cf-button cf-button-primary wpneo-image-upload-btn" value="'.__("Upload Image","wp-crowdfunding").'"/>';
+                    $html .= '<input type="button" id="cc-image-upload-file-button" class="cf-button-primary wpneo-image-upload-btn" value="'.__("Upload Image","wp-crowdfunding").'"/>';
                     $html .= '<small class="cf-form-help">'.__("Upload a reward image","wp-crowdfunding").'</small>';
                     $html .= '</div>';
                 }
@@ -664,8 +664,8 @@ class Campaign_Submit_Form {
 
             $html .= '<div class="wpneo-form-action">';
             $html .= '<input type="hidden" name="action" value="addfrontenddata"/>';
-            $html .= '<input type="submit" class="cf-button cf-button-primary wpneo-submit-campaign" value="'.__("Submit campaign","wp-crowdfunding").'">';
-            $html .= '<a href="'.$var.'" class="cf-button cf-button-secondary wpneo-cancel-campaign">'.__("Cancel","wp-crowdfunding").'</a>';
+            $html .= '<input type="submit" class="cf-button-primary wpneo-submit-campaign" value="'.__("Submit campaign","wp-crowdfunding").'">';
+            $html .= '<a href="'.$var.'" class="cf-button-secondary wpneo-cancel-campaign">'.__("Cancel","wp-crowdfunding").'</a>';
             $html .= '</div>';
 
             $html .= wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false );

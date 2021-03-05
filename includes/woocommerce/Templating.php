@@ -195,9 +195,9 @@ class Templating {
         $theme_standard = array(
             'index.php',
             'style.css',
-            'wpneo-listing.php',
+            'listings.php',
             'single-crowdfunding.php',
-            'wpneo-functions.php'
+            'functions.php'
         );
 
         return $theme_standard;

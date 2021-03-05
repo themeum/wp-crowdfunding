@@ -55,8 +55,10 @@
             // box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
         }
 
-        &:disabled {
-            // right here
+        &[disabled],
+        &[readonly] {
+            border-color: #e9ecef;
+            background-color: #e9ecef;
         }
     }
 
