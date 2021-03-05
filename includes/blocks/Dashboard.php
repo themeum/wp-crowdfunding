@@ -160,7 +160,7 @@ class Dashboard{
                 .wpcf-dashboard .wpneo-edit-btn, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
                     background-color: '. $majorColor .';
                 }';
-                $html .= '.wpneo-links div.active a, .wpneo-links div a:hover, .wpcf-dashboard .wpneo-name > p, .wpcf-dashboard .wpcrowd-listing-content .wpcrowd-admin-title h3 a{
+                $html .= '.wpneo-links div.active a, .wpneo-links div a:hover, .wpcf-dashboard .cf-form-label > p, .wpcf-dashboard .wpcrowd-listing-content .wpcrowd-admin-title h3 a{
                     color: '. $majorColor .';
                 }';
 

@@ -22,10 +22,12 @@ class Registration{
                         'type'          => 'string',
                         'default'       => '#000000',
                     ),
+
                     'inputfontSize'    => array(
                         'type'          => 'number',
                         'default'       => 16,
                     ),
+
                     'borderColor'    => array(
                         'type'          => 'string',
                         'default'       => '#000000',
@@ -35,24 +37,27 @@ class Registration{
                         'type'          => 'string',
                         'default'       => '#000000',
                     ),
+
                     'labelfontSize'    => array(
                         'type'          => 'number',
                         'default'       => 16,
                     ),
 
-
                     'bgColorpalette'    => array(
                         'type'          => 'string',
                         'default'       => '#0073a8',
                     ),
+
                     'titleColor'    => array(
                         'type'          => 'string',
                         'default'       => '#ffffff',
                     ),
+                    
                     'fontSize'    => array(
                         'type'          => 'number',
                         'default'       => 16,
                     ),
+
                     'fontWeight'    => array(
                         'type'          => 'number',
                         'default'       => 400,
@@ -63,14 +68,17 @@ class Registration{
                         'type'          => 'string',
                         'default'       => '#C42525',
                     ),
+
                     'cancelbtncolor'    => array( 
                         'type'          => 'string',
                         'default'       => '#ffffff',
                     ),
+
                     'cancelfontSize'    => array(
                         'type'          => 'number',
                         'default'       => 16,
                     ),
+                    
                     'cancelfontWeight'    => array(
                         'type'          => 'number',
                         'default'       => 400,
@@ -195,9 +203,9 @@ class Registration{
                     $regisration_meta = apply_filters('wpcf_user_registration_fields', $regisration_data );
     
                     foreach( $regisration_meta as $item ){ ?>
-                        <div class="wpneo-single <?php echo (isset($item['warpclass'])? $item['warpclass'] : "" ); ?>">
-                            <div class="wpneo-name"><?php echo (isset($item['label'])? $item['label'] : "" ); ?></div>
-                            <div class="wpneo-fields">
+                        <div class="cf-form-group <?php echo (isset($item['warpclass']) ? $item['warpclass'] : "" ); ?>">
+                            <label class="cf-form-label"><?php echo (isset($item['label']) ? $item['label'] : "" ); ?></label>
+                            <div class="cf-form-fields">
                                 <?php
                                 switch ($item['type']){
                                     case 'text':
@@ -220,24 +228,24 @@ class Registration{
                         </div>
                     <?php } ?>
     
-                    <div class="wpneo-single wpneo-register">
-                        <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign" style="background: <?php echo $cancelbtnbgColorpalette; ?>; color: <?php echo $cancelbtncolor; ?>; font-size: <?php echo $cancelfontSize; ?>px; font-weight: <?php echo $cancelfontWeight; ?>"><?php _e("Cancel","wp-crowdfunding"); ?></a>
+                    <div class="cf-form-group">
+                        <a href="<?php echo get_home_url(); ?>" class="cf-button cf-button-secondary"><?php _e('Cancel', 'wp-crowdfunding'); ?></a>
                         <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
-                        <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" style="background: <?php echo $bgColor; ?>; color: <?php echo $titleColor; ?>; font-size: <?php echo $fontSize; ?>px; font-weight: <?php echo $fontWeight; ?>"/>
+                        <input type="submit" class="cf-button cf-button-primary wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
                     </div>
 
-                    <style>
-                        .wpneo-fields input[type="number"], .wpneo-fields input[type="text"], .wpneo-fields input[type="email"], .wpneo-fields input[type="password"] {
+                    <!-- <style>
+                        .cf-form-fields input[type="number"], .cf-form-fields input[type="text"], .cf-form-fields input[type="email"], .cf-form-fields input[type="password"] {
                             font-size: <?php echo $inputfontSize; ?>px;
                             color: <?php echo $inputTextColor; ?>;
                             border: 1px solid <?php echo $borderColor; ?>px;
                         }
-                        .wpneo-user-registration-wrap .wpneo-name {
+                        .wpneo-user-registration-wrap .cf-form-label {
                             font-size: <?php echo $labelfontSize; ?>px;
                             color: <?php echo $labelColor; ?>
                         }
-                    </style>
+                    </style> -->
                     
                 </form>
             </div>

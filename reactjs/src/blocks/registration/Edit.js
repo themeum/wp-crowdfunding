@@ -294,7 +294,7 @@ class Edit extends Component {
                             </div>
 
                             <div className="wpneo-single wpneo-register">
-                                <a href="#" className="wpneo-cancel-campaign" style={CancelBtnStyle}>Cancel</a>
+                                <a href="#" className="cf-button cf-button-secondary" style={CancelBtnStyle}>Cancel</a>
                                 <input type="hidden" name="action" value="wpcf_registration" />
                                 <input type="hidden" name="current_page" value="" />
                                 <input type="submit" className="wpneo-submit-campaign" id="user-registration-btn" value="Sign UP" name="submits" style={btnStyle} />

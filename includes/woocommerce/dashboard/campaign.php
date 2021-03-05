@@ -66,7 +66,7 @@ $the_query = new WP_Query( $args );
                 <div class="wpneo-admin-location float-right">
                     <?php
                     $operation_btn = '';
-                    $operation_btn .= '<div class="wpneo-fields-action">';
+                    $operation_btn .= '<div class="cf-form-fields-action">';
                         $page_id = get_option('wpneo_form_page_id');
                         if ($page_id != '') {
                             $permalink_edit     = add_query_arg( array( 'action' => 'edit', 'postid' => get_the_ID() ) , get_permalink($page_id) );

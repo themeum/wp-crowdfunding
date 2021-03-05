@@ -95,7 +95,7 @@ class Donate{
                         $html .= '<input type="hidden" name="wpneo_donate_amount_field" value="'.$atts['amount'].'" />';
                     }
                     $html .= '<input type="hidden" value="'.esc_attr($atts['campaign_id']).'" name="add-to-cart">';
-                    $html .= '<button type="submit" class="'.apply_filters('add_to_donate_button_class', 'wpneo_donate_button').'" style="background: '.$bgColor.'; color: '.$titleColor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">';
+                    $html .= '<button type="submit" class="'.apply_filters('add_to_donate_button_class', 'cf-button cf-button-primary cf-donate-button').'" style="background: '.$bgColor.'; color: '.$titleColor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">';
                         $html .= $atts['donate_button_text'];;
                         if ($atts['show_input_box'] != 'true'){
                             $html .= ' ('.wc_price($atts['amount']).') ';

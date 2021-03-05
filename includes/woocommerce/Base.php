@@ -28,23 +28,22 @@ class Base {
      * @hook
      */
     public function __construct() {
-        add_action('admin_enqueue_scripts',            array($this, 'admin_script')); //Add Additional backend js and css
-        add_action('wp_enqueue_scripts',               array($this, 'frontend_script')); //Add frontend js and css
-        add_action('init',                             array($this, 'media_pluggable'));
-        add_action('admin_init',                       array($this, 'network_disable_notice' ));
-        add_action('admin_head',                       array($this, 'add_mce_button'));
-        add_action('wp_ajax_wpcf_settings_reset',      array($this, 'settings_reset'));
-        add_action('wp_ajax_wpcf_addon_enable_disable',array($this, 'addon_enable_disable'));
-        add_filter('admin_footer_text',                 array($this, 'admin_footer_text'), 2); // Footer Text, Asking Rating
-        add_action('wp_ajax_wpcf_rated',                array($this, 'admin_footer_text_rated'));
-        add_filter('plugin_action_links_'.WPCF_BASENAME,array($this, 'settings_link' ), 10, 5);
+        add_action('admin_enqueue_scripts',                 array($this, 'admin_script')); //Add Additional backend js and css
+        add_action('wp_enqueue_scripts',                    array($this, 'frontend_script')); //Add frontend js and css
+        add_action('init',                                  array($this, 'media_pluggable'));
+        add_action('admin_init',                            array($this, 'network_disable_notice' ));
+        add_action('admin_head',                            array($this, 'add_mce_button'));
+        add_action('wp_ajax_wpcf_settings_reset',           array($this, 'settings_reset'));
+        add_action('wp_ajax_wpcf_addon_enable_disable',     array($this, 'addon_enable_disable'));
+        add_filter('admin_footer_text',                     array($this, 'admin_footer_text'), 2); // Footer Text, Asking Rating
+        add_action('wp_ajax_wpcf_rated',                    array($this, 'admin_footer_text_rated'));
+        add_filter('plugin_action_links_' . WPCF_BASENAME , array($this, 'settings_link' ), 10, 5);
     }
-
     
-    public function media_pluggable(){
-        if (is_user_logged_in()){
-            if(is_admin()){
-                if (current_user_can('campaign_form_submit')){
+    public function media_pluggable() {
+        if (is_user_logged_in()) {
+            if(is_admin()) {
+                if (current_user_can('campaign_form_submit')) {
                     add_action( 'pre_get_posts', array($this, 'set_user_own_media') );
                 }
             }
@@ -52,10 +51,10 @@ class Base {
     }
 
     // Attachment Filter
-    public function set_user_own_media($query){
+    public function set_user_own_media($query) {
         if ($query) {
             if (! empty($query->query['post_type'])) {
-                if(!current_user_can('administrator')){
+                if(!current_user_can('administrator')) {
                     if ($query->query['post_type'] == 'attachment') {
                         $user = wp_get_current_user();
                         $query->set('author', $user->ID);
@@ -65,27 +64,29 @@ class Base {
         }
     }
 
-    public function settings_link($links){
+    public function settings_link($links) {
 		$actionsLinks = array(
 		    'settings' => '<a href="'.admin_url('admin.php?page=wpcf-settings').'">Settings</a>',
 		    'wpcf_docs' => '<a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank">'.__('Docs', 'wp-crowdfunding').'</a>',
             'wpcf_support' => '<a href="https://www.themeum.com/support/" target="_blank">'.__('Support', 'wp-crowdfunding').'</a>',
         );
-		if( !defined('WPCF_PRO_VERSION') ){
+
+		if( !defined('WPCF_PRO_VERSION') ) {
 			$actionsLinks['wpcf_update_pro'] = '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">'.__('Update Pro', 'wp-crowdfunding').'</a>';
 		}
+        
         return array_merge($actionsLinks, $links);
     }
 
     // Set notice for disable in network
-    public function network_disable_notice(){
-        if (is_plugin_active_for_network(WPCF_BASENAME)){
+    public function network_disable_notice() {
+        if (is_plugin_active_for_network(WPCF_BASENAME)) {
             add_action('admin_notices', array($this, 'network_notice_callback'));
         }
     }
 
     // Disable Notice
-    public static function network_notice_callback(){
+    public static function network_notice_callback() {
         $html = '';
         $html .= '<div class="notice notice-error is-dismissible">';
             $html .= '<p>'.__('WP Crowdfunding will not work properly if you activate it from network, please deactivate from network and activate again from individual site admin.', 'wp-crowdfunding').'</p>';
@@ -107,33 +108,27 @@ class Base {
         }
     }
 
-    public function admin_script(){
+    public function admin_script() {
         wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL .'assets/css/dist/crowdfunding.css', false, WPCF_VERSION );
-        wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
+        wp_enqueue_style( 'crowdfunding-admin', WPCF_DIR_URL .'assets/css/dist/crowdfunding.css', false, WPCF_VERSION );
+        wp_enqueue_script( 'crowdfunding-admin', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
     }
 
     /**
      * Registering necessary js and css
      * @frontend
      */
-    public function frontend_script(){
-        wp_enqueue_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/dist/crowdfunding-front.css', false, WPCF_VERSION );
+    public function frontend_script() {
+        wp_enqueue_style( 'crowdfunding', WPCF_DIR_URL .'assets/css/crowdfunding-front-new.css', false, WPCF_VERSION );
         wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
         
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
         wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
-        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.min.js', array('jquery'), WPCF_VERSION, true);
+        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
         wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
         wp_enqueue_media();
     }
-
-
-
-
-
-
 
     // Declare script for new button
     function add_tinymce_js( $plugin_array ) {
@@ -146,15 +141,15 @@ class Base {
         return $buttons;
     }
 
-    public function admin_footer_text($footer_text){
-        if ( ! function_exists('wc_get_screen_ids')){
+    public function admin_footer_text($footer_text) { 
+        if ( ! function_exists('wc_get_screen_ids')) {
             return $footer_text;
         }
 
         $current_screen = get_current_screen();
         $crowdfunding_screen_ids = wpcf_function()->get_screen_id();
 
-        if ( ! in_array($current_screen->id, $crowdfunding_screen_ids)){
+        if ( ! in_array($current_screen->id, $crowdfunding_screen_ids)) {
             return $footer_text;
         }
 
@@ -166,7 +161,7 @@ class Base {
                     jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
                 });
             ");
-        }else{
+        } else {
             $footer_text = sprintf( __( 'Thank you for raise funds with <strong>WP Crowdfunding</strong> by %s.', 'wp-crowdfunding' ), '<a href="https://www.themeum.com/?utm_source=wp_crowdfunding_plugin_admin" target="_blank">Themeum</a>');
         }
 
@@ -176,17 +171,15 @@ class Base {
     /**
      * Added rated
      */
-    function admin_footer_text_rated(){
+    function admin_footer_text_rated() {
         update_option('wpcf_admin_footer_text_rated', 'true');
     }
-
-
 
     /**
      * Reset method
      */
 
-    public function settings_reset(){
+    public function settings_reset() {
         $initial_setup = new \WPCF\Initial_Setup();
         $initial_setup->settings_reset();
     }
@@ -194,7 +187,7 @@ class Base {
     /**
      * Method for enable / disable addons
      */
-    public function addon_enable_disable(){
+    public function addon_enable_disable() {
         $addonsConfig = maybe_unserialize(get_option('wpcf_addons_config'));
         $isEnable = (bool) sanitize_text_field( wpcf_function()->avalue_dot('isEnable', $_POST) );
         $addonFieldName = sanitize_text_field( wpcf_function()->avalue_dot('addonFieldName', $_POST) );

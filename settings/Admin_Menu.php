@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 class Admin_Menu {
 
     public function __construct() {
-        add_action('wp_head',      array($this, 'style_custom_css' ));
+        //add_action('wp_head',      array($this, 'style_custom_css' )); // uncomment later
         add_action('admin_menu',   array($this, 'register_menu_page' ));
         add_action('admin_init',   array($this, 'save_menu_settings' ));
     }

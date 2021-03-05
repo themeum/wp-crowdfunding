@@ -1,0 +1,19 @@
+.cf-tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0 0 15px 0;
+    list-style: none;
+
+    .cf-tab-item {
+        color: #fff;
+        background-color: #0d6efd;
+        background: 0 0;
+        border: 0;
+        border-radius: .25rem;
+
+    // [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    //     cursor: pointer;
+    // }
+    }
+}

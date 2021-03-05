@@ -1,4 +1,5 @@
 var gulp = require("gulp"),
+	{ watch, src, dest, series } = require("gulp"),
 	sass = require("gulp-sass"),
 	rename = require("gulp-rename"),
 	prefix = require("gulp-autoprefixer"),
@@ -10,7 +11,7 @@ var gulp = require("gulp"),
 	zip = require("gulp-zip"),
 	concat = require('gulp-concat'),
 	minify = require('gulp-minify'),
-	cleanCSS = require('gulp-clean-css');;
+	cleanCSS = require('gulp-clean-css');
 
 var onError = function (err) {
 	notify.onError({
@@ -39,6 +40,22 @@ gulp.task('pack-js', function () {
     return gulp.src(['assets/js/crowdfunding-front.js', 'assets/js/crowdfunding.js', 'assets/js/mce-button.js'])
         .pipe(minify({ext:'.min.js'}))
         .pipe(gulp.dest('assets/js/'));
+});
+
+gulp.task('build_css', () => {
+	return gulp.src(['./assets/scss/master.scss'])
+		.pipe(sass())
+		.pipe(prefix({
+			cascade: true
+		}))
+		// .pipe(cleanCSS())
+		.pipe(concat('crowdfunding-front-new.css'))
+		.pipe(dest('./assets/css'));
+});
+
+gulp.task('watch_css', () => {
+	watch('./assets/scss/**/*.scss', gulp.series("build_css"));
+	watch('./assets/scss/*.scss', gulp.series("build_css"));
 });
 
 gulp.task('minify-css', () => {

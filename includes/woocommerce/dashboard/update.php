@@ -27,15 +27,15 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
         
         $html .= '<div style="display: '.$display.'" id="campaign_update_field">';
             $html .= '<div class="campaign_update_field_copy">';
-                $html .= '<p class="form-field wpneo_prject_update_date_field[]_field wpneo-single wpneo-first-half">';
+                $html .= '<p class="form-field wpneo_prject_update_date_field[]_field cf-form-group wpneo-first-half">';
                     $html .= '<label for="wpneo_prject_update_date_field[]">'.__("Date", "wp-crowdfunding").':</label>';
                     $html .= '<input type="text" placeholder="'.date('d-m-Y').'" value="" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="datepicker">';
                 $html .= '</p>';
-                $html .= '<p class="form-field wpneo_prject_update_title_field[]_field wpneo-single wpneo-second-half">';
+                $html .= '<p class="form-field wpneo_prject_update_title_field[]_field cf-form-group wpneo-second-half">';
                     $html .= '<label for="wpneo_prject_update_title_field[]">'.__("Update Title", "wp-crowdfunding").':</label>';
                     $html .= '<input type="text" placeholder="'.__("Update Title", "wp-crowdfunding").'" value="" id="wpneo_prject_update_title_field[]" name="wpneo_prject_update_title_field[]" style="" class="short">';
                 $html .= '</p>';
-                $html .= '<p class="form-field wpneo_prject_update_details_field[]_field wpneo-single">';
+                $html .= '<p class="form-field wpneo_prject_update_details_field[]_field cf-form-group">';
                     $html .= '<label for="wpneo_prject_update_details_field[]">'.__("Update Details", "wp-crowdfunding").':</label>';
                     $html .= '<textarea cols="20" rows="2" placeholder="'.__("Update Details", "wp-crowdfunding").'" id="wpneo_prject_update_details_field[]" name="wpneo_prject_update_details_field[]" style="" class="short"></textarea>';
                 $html .= '</p>';
@@ -47,15 +47,15 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
             if ( count($saved_campaign_update_a) > 0 ){
                 foreach( $saved_campaign_update_a as $key => $value ){
                     $html .= '<div class="campaign_update_field_copy">';
-                        $html .= '<p class="form-field wpneo_prject_update_date_field[]_field wpneo-single wpneo-first-half">';
+                        $html .= '<p class="form-field wpneo_prject_update_date_field[]_field cf-form-group wpneo-first-half">';
                             $html .= '<label for="wpneo_prject_update_date_field[]">'.__("Date", "wp-crowdfunding").':</label>';
                             $html .= '<input type="text" placeholder="'.date('d-m-Y').'" value="'.esc_attr($value['date']).'" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="datepicker">';
                         $html .= '</p>';
-                        $html .= '<p class="form-field wpneo_prject_update_title_field[]_field wpneo-single wpneo-second-half">';
+                        $html .= '<p class="form-field wpneo_prject_update_title_field[]_field cf-form-group wpneo-second-half">';
                             $html .= '<label for="wpneo_prject_update_title_field[]">'.__("Update Title", "wp-crowdfunding").':</label>';
                             $html .= '<input type="text" placeholder="'.__("Update Title", "wp-crowdfunding").'" value="'.esc_attr($value['title']).'" id="wpneo_prject_update_title_field[]" name="wpneo_prject_update_title_field[]" style="" class="short">';
                         $html .= '</p>';
-                        $html .= '<p class="form-field wpneo_prject_update_details_field[]_field wpneo-single">';
+                        $html .= '<p class="form-field wpneo_prject_update_details_field[]_field cf-form-group">';
                             $html .= '<label for="wpneo_prject_update_details_field[]">'.__("Update Details", "wp-crowdfunding").':</label>';
                             $html .= '<textarea cols="20" rows="2" placeholder="'.__("Update Details", "wp-crowdfunding").'" id="wpneo_prject_update_details_field[]" name="wpneo_prject_update_details_field[]" style="" class="short" >'.esc_textarea($value['details']).'</textarea>';
                         $html .= '</p>';

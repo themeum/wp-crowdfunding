@@ -26,27 +26,25 @@ defined( 'ABSPATH' ) || exit;
 $tabs = apply_filters( 'wpcf_default_single_campaign_tabs', array() );
 
 if ( ! empty( $tabs ) ) : ?>
-
-    <div class="wpneo-tabs">
-        <ul class="wpneo-tabs-menu">
-            <?php $i = 0;
-            foreach ( $tabs as $key => $tab ) :
+    <div class="cf-tabs">
+        <ul class="cf-tabs-nav">
+            <?php
+                $i = 0;
+                foreach ( $tabs as $key => $tab ) :
                 $i++;
-                $current = $i === 1 ? 'wpneo-current' : '';
-                ?>
-                <li class="<?php echo $current.' '.esc_attr( $key ); ?>_tab">
+                $current = $i === 1 ? 'cf-tab-current' : '';
+            ?>
+                <li class="cf-tab-item <?php echo $current .' ' . esc_attr( $key ); ?>_tab">
                     <a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'wpcf_campaign_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
-        <div class="wpneo-tab">
-            <?php foreach ( $tabs as $key => $tab ) :?>
-                <div id="wpneo-tab-<?php echo esc_attr( $key ); ?>" class="wpneo-tab-content">
+        <div class="cf-tab-content">
+            <?php foreach ( $tabs as $key => $tab ) : ?>
+                <div id="cf-tab-pane-<?php echo esc_attr( $key ); ?>" class="cf-tab-pane">
                     <?php call_user_func( $tab['callback'], $key, $tab ); ?>
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="clear-float"></div>
     </div>
-
 <?php endif; ?>

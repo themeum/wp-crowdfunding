@@ -22,8 +22,8 @@ if ( post_password_required() ) {
                             <div class="wpneo-campaign-summary">
                                 <div class="wpneo-campaign-summary-inner" itemscope itemtype="http://schema.org/DonateAction">
                                     <?php do_action( 'wpcf_single_campaign_summary' ); ?>
-                                </div><!-- .wpneo-campaign-summary-inner -->
-                            </div><!-- .wpneo-campaign-summary -->
+                                </div>
+                            </div>
                             <?php do_action( 'wpcf_after_single_campaign_summary' ); ?>
                             <meta itemprop="url" content="<?php the_permalink(); ?>" />
                         </div><!-- #campaign-<?php the_ID(); ?> -->

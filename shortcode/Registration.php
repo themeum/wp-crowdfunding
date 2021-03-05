@@ -108,9 +108,9 @@ class Registration {
                     $regisration_meta = apply_filters('wpcf_user_registration_fields', $regisration_data );
     
                     foreach( $regisration_meta as $item ){ ?>
-                        <div class="wpneo-single <?php echo (isset($item['warpclass'])? $item['warpclass'] : "" ); ?>">
-                            <div class="wpneo-name"><?php echo (isset($item['label'])? $item['label'] : "" ); ?></div>
-                            <div class="wpneo-fields">
+                        <div class="cf-form-group <?php echo (isset($item['warpclass']) ? $item['warpclass'] : "" ); ?>">
+                            <label class="cf-form-label"><?php echo (isset($item['label']) ? $item['label'] : "" ); ?></label>
+                            <div class="cf-form-fields">
                                 <?php
                                 switch ($item['type']){
                                     case 'text':
@@ -133,11 +133,11 @@ class Registration {
                         </div>
                     <?php } ?>
     
-                    <div class="wpneo-single wpneo-register">
-                        <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign"><?php _e("Cancel","wp-crowdfunding"); ?></a>
+                    <div class="cf-form-group wpneo-register">
+                        <a href="<?php echo get_home_url(); ?>" class="cf-button cf-button-secondary"><?php _e("Cancel","wp-crowdfunding"); ?></a>
                         <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
-                        <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
+                        <input type="submit" class="cf-button cf-button-primary wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
                     </div>
     
                 </form>

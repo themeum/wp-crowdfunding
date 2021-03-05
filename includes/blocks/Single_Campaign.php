@@ -5,11 +5,11 @@ defined( 'ABSPATH' ) || exit;
 
 class Single_Campaign{
     
-    public function __construct(){
+    public function __construct() {
         $this->register_single_campaign();
     }
 
-    public function register_single_campaign(){
+    public function register_single_campaign() {
         register_block_type(
             'wp-crowdfunding/singlecampaign',
             array(
@@ -32,11 +32,10 @@ class Single_Campaign{
         );
     }
 
-    public function single_campaign_block_callback( $att ){
+    public function single_campaign_block_callback( $att ) {
         $campaignID     = isset( $att['campaignID']) ? $att['campaignID'] : '';
         $bgColor        = isset( $att['bgColor']) ? $att['bgColor'] : '';
         $textcolor      = isset( $att['textColor']) ? $att['textColor'] : '';
-    
     
         $atts = array(
             'campaign_id' => $campaignID,

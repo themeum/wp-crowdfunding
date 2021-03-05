@@ -1,0 +1,36 @@
+.cf-button {
+    display: inline-block;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $text-color;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.cf-button-primary {
+    background-color: $primary-color;
+    color: $white;
+}
+
+.cf-button-secondary {
+    background-color: $secondary-color;
+    color: $dark-color;
+}
+
+.cf-button-danger {
+    background-color: $danger-color;
+    color: $white;
+}
+
+.cf-button + .cf-button {
+    margin-left: 10px;
+}

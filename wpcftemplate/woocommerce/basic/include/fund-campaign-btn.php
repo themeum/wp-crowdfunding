@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 ?>
-<div class="wpneo-single-sidebar ASA">
+<div class="cf-form-group-sidebar ASA">
 	<?php
 	global $post, $product;
 	$currency = '$';
@@ -49,7 +49,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php do_action('after_wpneo_donate_field'); ?>
                 <input type="hidden" value="<?php echo esc_attr($post->ID); ?>" name="add-to-cart">
-                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'wpneo_donate_button'); ?>"><?php _e('Back Campaign', 'wp-crowdfunding'); ?></button>
+                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'cf-button cf-button-primary cf-donate-button'); ?>"><?php _e('Back Campaign', 'wp-crowdfunding'); ?></button>
             </form>
 
 		<?php
