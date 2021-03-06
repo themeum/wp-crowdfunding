@@ -23,7 +23,7 @@ $col_num = (int) get_option('number_of_collumn_in_row', 3);
                     <?php $i++; endwhile; ?>
                 </div>
             <?php else: ?>
-                <?php wpcf_function()->template('include/loop/no-campaigns-found'); ?>
+                <?php wpcf_function()->template('include/loop/no-campaigns'); ?>
             <?php endif; ?>
         </div>
         <?php

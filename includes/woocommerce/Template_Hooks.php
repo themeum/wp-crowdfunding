@@ -86,16 +86,17 @@ class Template_Hooks {
 	}
 
 	public function campaign_loop_item_content() {
-		$this->loop_item_rating();
-		$this->loop_item_title();
-		$this->loop_item_author();
-		$this->loop_item_location();
-		wpcf_function()->template('include/loop/description');
-		$this->loop_item_fund_raised_percent();
-		$this->loop_item_funding_goal();
-		$this->loop_item_time_remaining();
-		$this->loop_item_fund_raised();
-		$this->loop_item_button();
+		wpcf_function()->template('include/loop/content');
+		// $this->loop_item_rating();
+		// $this->loop_item_title();
+		// $this->loop_item_author();
+		// $this->loop_item_location();
+		// wpcf_function()->template('include/loop/description');
+		// $this->loop_item_fund_raised_percent();
+		// $this->loop_item_funding_goal();
+		// $this->loop_item_time_remaining();
+		// $this->loop_item_fund_raised();
+		// $this->loop_item_button();
 	}
 
 	public function dashboard_campaign_loop_item_content() {

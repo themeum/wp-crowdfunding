@@ -1,4 +1,5 @@
 .cf-card {
+    background-color: $white;
     border: 1px solid $border-color;
     padding: 20px;
     border-radius: 6px;
@@ -20,8 +21,15 @@
         }
     }
 
-    .card-body {
+    .cf-card-body {
         padding-top: 20px;
+    }
+
+    .cf-card-divider {
+        margin: 20px -20px;
+        display: block;
+        height: 1px;
+        background-color: $border-color;
     }
 
     .cf-card-overlay {

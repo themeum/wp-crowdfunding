@@ -1,5 +1,60 @@
-.cf-card {
-    padding: 20px;
-    border: 1px solid $border-color;
-    border-radius: 16px;
+// text color
+.cf-text-body {
+    color: $text-color;
+    svg {
+        fill: $text-color;
+    }
+}
+
+.cf-text-lighter {
+    color: $text-light-color;
+    svg {
+        fill: $text-light-color;
+    }
+}
+
+.cf-text-muted {
+    color: $text-muted;
+    svg {
+        fill: $text-muted;
+    }
+}
+
+.cf-text-gray-200 {
+    color: $gray-200;
+    svg {
+        fill: $gray-200;
+    }
+}
+
+.cf-text-gray-300 {
+    color: $gray-300;
+    svg {
+        fill: $gray-300;
+    }
+}
+
+.cf-text-gray-600 {
+    color: $gray-600;
+    svg {
+        fill: $gray-600;
+    }
+}
+
+// svg icon
+.cf-svg-icon {
+    display: inline-block;
+}
+
+// font weight
+.cf-fw-normal {
+    font-weight: normal;
+}
+
+.cf-fw-bolder {
+    font-weight: bolder;
+}
+
+.cf-fw-bold {
+    font-weight: bold;
 }

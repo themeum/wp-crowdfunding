@@ -586,6 +586,7 @@
     border-radius: .25rem; }
 
 .cf-card {
+  background-color: #FFFFFF;
   border: 1px solid #E5EBEA;
   padding: 20px;
   border-radius: 6px;
@@ -600,8 +601,13 @@
       border-radius: 6px 6px 0 0; }
     .cf-card .cf-card-thumbnail .cf-card-overlay {
       border-radius: 6px 6px 0 0; }
-  .cf-card .card-body {
+  .cf-card .cf-card-body {
     padding-top: 20px; }
+  .cf-card .cf-card-divider {
+    margin: 20px -20px;
+    display: block;
+    height: 1px;
+    background-color: #E5EBEA; }
   .cf-card .cf-card-overlay {
     position: absolute;
     top: 0;
@@ -648,3 +654,45 @@
   left: 0;
   background-color: #007D68;
   border-radius: 10px; }
+
+.cf-text-body {
+  color: #16192C; }
+  .cf-text-body svg {
+    fill: #16192C; }
+
+.cf-text-lighter {
+  color: #425466; }
+  .cf-text-lighter svg {
+    fill: #425466; }
+
+.cf-text-muted {
+  color: #838C9A; }
+  .cf-text-muted svg {
+    fill: #838C9A; }
+
+.cf-text-gray-200 {
+  color: #EBF5F5; }
+  .cf-text-gray-200 svg {
+    fill: #EBF5F5; }
+
+.cf-text-gray-300 {
+  color: #E2E8F0; }
+  .cf-text-gray-300 svg {
+    fill: #E2E8F0; }
+
+.cf-text-gray-600 {
+  color: #808896; }
+  .cf-text-gray-600 svg {
+    fill: #808896; }
+
+.cf-svg-icon {
+  display: inline-block; }
+
+.cf-fw-normal {
+  font-weight: normal; }
+
+.cf-fw-bolder {
+  font-weight: bolder; }
+
+.cf-fw-bold {
+  font-weight: bold; }
