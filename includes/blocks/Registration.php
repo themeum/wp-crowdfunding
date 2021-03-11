@@ -203,9 +203,9 @@ class Registration{
                     $regisration_meta = apply_filters('wpcf_user_registration_fields', $regisration_data );
     
                     foreach( $regisration_meta as $item ){ ?>
-                        <div class="cf-form-group <?php echo (isset($item['warpclass']) ? $item['warpclass'] : "" ); ?>">
-                            <label class="cf-form-label"><?php echo (isset($item['label']) ? $item['label'] : "" ); ?></label>
-                            <div class="cf-form-fields">
+                        <div class="wpcf-form-group <?php echo (isset($item['warpclass']) ? $item['warpclass'] : "" ); ?>">
+                            <label class="wpcf-form-label"><?php echo (isset($item['label']) ? $item['label'] : "" ); ?></label>
+                            <div class="wpcf-form-fields">
                                 <?php
                                 switch ($item['type']){
                                     case 'text':
@@ -228,20 +228,20 @@ class Registration{
                         </div>
                     <?php } ?>
     
-                    <div class="cf-form-group">
-                        <a href="<?php echo get_home_url(); ?>" class="cf-button-secondary"><?php _e('Cancel', 'wp-crowdfunding'); ?></a>
+                    <div class="wpcf-form-group">
+                        <a href="<?php echo get_home_url(); ?>" class="wpcf-button-secondary"><?php _e('Cancel', 'wp-crowdfunding'); ?></a>
                         <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
-                        <input type="submit" class="cf-button-primary wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
+                        <input type="submit" class="wpcf-button-primary wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" />
                     </div>
 
                     <!-- <style>
-                        .cf-form-fields input[type="number"], .cf-form-fields input[type="text"], .cf-form-fields input[type="email"], .cf-form-fields input[type="password"] {
+                        .wpwpcf-form-fields input[type="number"], .wpwpcf-form-fields input[type="text"], .wpwpcf-form-fields input[type="email"], .wpwpcf-form-fields input[type="password"] {
                             font-size: <?php echo $inputfontSize; ?>px;
                             color: <?php echo $inputTextColor; ?>;
                             border: 1px solid <?php echo $borderColor; ?>px;
                         }
-                        .wpneo-user-registration-wrap .cf-form-label {
+                        .wpneo-user-registration-wrap .wpwpcf-form-label {
                             font-size: <?php echo $labelfontSize; ?>px;
                             color: <?php echo $labelColor; ?>
                         }

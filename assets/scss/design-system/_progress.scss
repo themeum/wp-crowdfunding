@@ -1,4 +1,4 @@
-.cf-progress {
+.wpcf-progress {
     display: flex;
     height: 6px;
     background-color: $gray-200;
@@ -6,7 +6,7 @@
     position: relative;
 }
 
-.cf-progress-bar {
+.wpcf-progress-bar {
     position: absolute;
     height: 6px;
     top: 0;

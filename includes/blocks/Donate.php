@@ -73,17 +73,17 @@ class Donate{
         );
 
         if ( ! $atts['campaign_id']){
-            return '<p class="wpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
+            return '<p class="wpwpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
         }
  
         $campaign = wc_get_product($atts['campaign_id']);
         if ( ! $campaign || $campaign->get_type() !== 'crowdfunding'){
-            return '<p class="wpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
+            return '<p class="wpwpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
         }
 
         $html = '';
-        $html .= '<div class="wpcf-form-field '. $formSize .' '.$formAlign.'">';
-            $html .= '<div class="wpcf-donate-form-wrap">';
+        $html .= '<div class="wpwpcf-form-field '. $formSize .' '.$formAlign.'">';
+            $html .= '<div class="wpwpcf-donate-form-wrap">';
                 $html .= '<form enctype="multipart/form-data" method="post" class="cart">';
                     if ($atts['show_input_box'] == 'true') {
                         $html .= get_woocommerce_currency_symbol();
@@ -95,7 +95,7 @@ class Donate{
                         $html .= '<input type="hidden" name="wpneo_donate_amount_field" value="'.$atts['amount'].'" />';
                     }
                     $html .= '<input type="hidden" value="'.esc_attr($atts['campaign_id']).'" name="add-to-cart">';
-                    $html .= '<button type="submit" class="'.apply_filters('add_to_donate_button_class', 'cf-button-primary cf-donate-button').'" style="background: '.$bgColor.'; color: '.$titleColor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">';
+                    $html .= '<button type="submit" class="'.apply_filters('add_to_donate_button_class', 'wpcf-button-primary wpcf-donate-button').'" style="background: '.$bgColor.'; color: '.$titleColor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">';
                         $html .= $atts['donate_button_text'];;
                         if ($atts['show_input_box'] != 'true'){
                             $html .= ' ('.wc_price($atts['amount']).') ';

@@ -1,0 +1,40 @@
+@mixin make-col($size, $columns) {
+    flex: 0 0 auto;
+    width: percentage($size / $columns);
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.wpcf-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    box-sizing: border-box;
+    > * {
+        flex-shrink: 0;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        .wpcf-col#{$infix} {
+            flex: 1 0 0%;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
+
+        @for $i from 1 through $columns {
+            .wpcf-col#{$infix}-#{$i} {
+                @include make-col($i, $columns);
+            }
+        }
+    }
+}

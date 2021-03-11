@@ -1933,7 +1933,7 @@ div#respond h3, #respond a {
 .archive.author.author-admin.hfeed {
     overflow: inherit;
 }
-.cf-campaign-author h2 {
+.wpcf-campaign-author h2 {
     margin-top: 42px;
     margin-bottom: 32px;
 }

@@ -143,7 +143,7 @@ if ( $customer_orders ) :
                     }
 
                 elseif ( 'order-actions' === $column_id ) :
-                    $html .='<div class="button wpcf-order-view" data-orderid="'.$order->get_ID().'">' . __( "View","wp-crowdfunding" ) . '</div>';
+                    $html .='<div class="button wpwpcf-order-view" data-orderid="'.$order->get_ID().'">' . __( "View","wp-crowdfunding" ) . '</div>';
                 endif;
 
                 $html .='</td>';

@@ -90,7 +90,7 @@ class Dashboard{
                  * Print menu with active link marking...
                  */
                 
-                $html .= '<div class="wpcf-dashboard">';
+                $html .= '<div class="wpwpcf-dashboard">';
                 $html .= '<div class="wpneo-wrapper">';
                 $html .= '<div class="wpneo-head wpneo-shadow">';
                     $html .= '<div class="wpneo-links clearfix">';
@@ -156,15 +156,15 @@ class Dashboard{
             $html .= '</div>';
 
             $html .= '<style>';
-                $html .= '.wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-dashboard-summary ul li.active,
-                .wpcf-dashboard .wpneo-edit-btn, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
+                $html .= '.wpwpcf-dashboard .wp-crowd-btn-primary, .wpwpcf-dashboard .wpneo-dashboard-summary ul li.active,
+                .wpwpcf-dashboard .wpneo-edit-btn, .wpwpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current {
                     background-color: '. $majorColor .';
                 }';
-                $html .= '.wpneo-links div.active a, .wpneo-links div a:hover, .wpcf-dashboard .cf-form-label > p, .wpcf-dashboard .wpcrowd-listing-content .wpcrowd-admin-title h3 a{
+                $html .= '.wpneo-links div.active a, .wpneo-links div a:hover, .wpwpcf-dashboard .wpwpcf-form-label > p, .wpwpcf-dashboard .wpcrowd-listing-content .wpcrowd-admin-title h3 a{
                     color: '. $majorColor .';
                 }';
 
-                $html .= '.wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary, .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary:hover, .wpcf-dashboard .wp-crowd-btn-primary, .wpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current, .wpcf-dashboard .wpneo-edit-btn, .wpneo-dashboard-summary ul li.active .wpneo-value, .wpneo-dashboard-summary ul li.active .wpneo-value-info {
+                $html .= '.wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary, .wpneo-links div a.wp-crowd-btn.wp-crowd-btn-primary:hover, .wpwpcf-dashboard .wp-crowd-btn-primary, .wpwpcf-dashboard .wpneo-pagination ul li span.current, .wpneo-pagination ul li a:hover, .wpneo-pagination ul li span.current, .wpwpcf-dashboard .wpneo-edit-btn, .wpneo-dashboard-summary ul li.active .wpneo-value, .wpneo-dashboard-summary ul li.active .wpneo-value-info {
                     color: '. $textcolor .'
                 }';
 

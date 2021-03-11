@@ -1,8 +1,8 @@
-.cf-button-primary,
-.cf-button-secondary,
-.cf-button-danger,
-.cf-button-outline,
-.cf-button-outline-inverse
+.wpcf-button-primary,
+.wpcf-button-secondary,
+.wpcf-button-danger,
+.wpcf-button-outline,
+.wpcf-button-outline-inverse
  {
     display: inline-block;
     font-weight: 500;
@@ -21,30 +21,30 @@
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.cf-button-primary {
+.wpcf-button-primary {
     background-color: $primary-color;
     color: $white;
     border-color: $primary-color;
 }
 
-.cf-button-secondary {
+.wpcf-button-secondary {
     background-color: $secondary-color;
     color: $dark-color;
     border-color: $secondary-color;
 }
 
-.cf-button-danger {
+.wpcf-button-danger {
     background-color: $danger-color;
     color: $white;
     border-color: $danger-color;
 }
 
-.cf-button-outline {
+.wpcf-button-outline {
     border-color: $primary-color;
     color: $primary-color;
 }
 
-.cf-button-outline-inverse {
+.wpcf-button-outline-inverse {
     border-color: $white;
     color: $white;
 

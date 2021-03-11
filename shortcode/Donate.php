@@ -20,16 +20,16 @@ class Donate {
         ), $atts, $shortcode );
 
         if ( ! $atts['campaign_id']){
-            return '<p class="wpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
+            return '<p class="wpwpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
         }
 
         $campaign = wc_get_product($atts['campaign_id']);
         if ( ! $campaign || $campaign->get_type() !== 'crowdfunding'){
-            return '<p class="wpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
+            return '<p class="wpwpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
         }
         ob_start();
         ?>
-        <div class="wpcf-donate-form-wrap">
+        <div class="wpwpcf-donate-form-wrap">
             <form enctype="multipart/form-data" method="post" class="cart">
                 <?php
                 if ($atts['show_input_box'] == 'true') {
@@ -44,7 +44,7 @@ class Donate {
                 }
                 ?>
                 <input type="hidden" value="<?php echo esc_attr($atts['campaign_id']); ?>" name="add-to-cart">
-                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'cf-button-primary cf-donate-button'); ?>">
+                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'wpcf-button-primary wpcf-donate-button'); ?>">
                     <?php
                     echo $atts['donate_button_text'];
                     if ($atts['show_input_box'] != 'true'){

@@ -6,32 +6,32 @@ $html .= '<div class="wpneo-content">';
 
         $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
             // Current Password
-            $html .= '<div class="cf-form-group">';
-                $html .= '<label class="cf-form-label">';
+            $html .= '<div class="wpcf-form-group">';
+                $html .= '<label class="wpcf-form-label">';
                 $html .= __( "Current Password" , "wp-crowdfunding" );
                 $html .= '</label>';
-                $html .= '<div class="cf-form-fields">';
+                $html .= '<div class="wpcf-form-fields">';
                     $html .= '<input type="hidden" name="action" value="wpneo_password_form">';
                     $html .= '<input type="password" name="password" value="" autocomplete="off">';
                 $html .= '</div>';
             $html .= '</div>';
 
             // New Password
-            $html .= '<div class="cf-form-group">';
-                $html .= '<label class="cf-form-label">';
+            $html .= '<div class="wpcf-form-group">';
+                $html .= '<label class="wpcf-form-label">';
                 $html .= __( "New Password" , "wp-crowdfunding" );
                 $html .= '</label>';
-                $html .= '<div class="cf-form-fields">';
+                $html .= '<div class="wpcf-form-fields">';
                     $html .= '<input type="password" name="new-password" value="" autocomplete="off">';
                 $html .= '</div>';
             $html .= '</div>';
 
             // Retype Password
-            $html .= '<div class="cf-form-group">';
-                $html .= '<label class="cf-form-label">';
+            $html .= '<div class="wpcf-form-group">';
+                $html .= '<label class="wpcf-form-label">';
                 $html .= __( "Retype Password" , "wp-crowdfunding" );
                 $html .= '</label>';
-                $html .= '<div class="cf-form-fields">';
+                $html .= '<div class="wpcf-form-fields">';
                 $html .= '<input type="password" name="retype-password" value="" autocomplete="off">';
                 $html .= '</div>';
             $html .= '</div>';

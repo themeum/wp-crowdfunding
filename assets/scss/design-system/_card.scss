@@ -1,11 +1,11 @@
-.cf-card {
+.wpcf-card {
     background-color: $white;
     border: 1px solid $border-color;
     padding: 20px;
     border-radius: 6px;
     position: relative;
 
-    .cf-card-thumbnail {
+    .wpcf-card-thumbnail {
         margin: -20px -20px 0px -20px;
         border-radius: 6px 6px 0 0;
         position: relative;
@@ -16,23 +16,23 @@
             border-radius: 6px 6px 0 0;
         }
 
-        .cf-card-overlay {
+        .wpcf-card-overlay {
             border-radius: 6px 6px 0 0;
         }
     }
 
-    .cf-card-body {
+    .wpcf-card-body {
         padding-top: 20px;
     }
 
-    .cf-card-divider {
+    .wpcf-card-divider {
         margin: 20px -20px;
         display: block;
         height: 1px;
         background-color: $border-color;
     }
 
-    .cf-card-overlay {
+    .wpcf-card-overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -48,12 +48,12 @@
     }
 
     &:hover {
-        .cf-card-overlay {
+        .wpcf-card-overlay {
             opacity: 1;
         }
     }
 }
 
-.cf-card + .cf-card {
+.wpcf-card + .wpcf-card {
     margin-top: 20px;
 }

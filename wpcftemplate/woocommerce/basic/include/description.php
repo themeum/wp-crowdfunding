@@ -6,7 +6,7 @@ if ( ! $post->post_excerpt ) {
 }
 ?>
 <div style="clear: both"></div>
-<div class="cf-form-group-short-description">
+<div class="wpcf-form-group-short-description">
     <h2><?php _e('Short Story','wp-crowdfunding'); ?></h2>
     <div itemprop="description">
         <?php echo apply_filters( 'woocommerce_short_description', $post->post_excerpt ) ?>

@@ -109,19 +109,19 @@ function wpcf_bio_campaign_action(){
 		$html .= '<div class="wpneo-profile-about">';
 		$html .= '<h3>'.__("Social Link","wp-crowdfunding").'</h3>';
 		if ( ! empty($user_info['profile_facebook'][0])){
-			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_facebook"][0].'"><i class="wpneo-icon wpneo-icon-facebook"></i></a>';
+			$html .= '<a class="wpwpcf-social-link" href="'.$user_info["profile_facebook"][0].'"><i class="wpneo-icon wpneo-icon-facebook"></i></a>';
 		}
 		if ( ! empty($user_info['profile_twitter'][0])){
-			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_twitter"][0].'"><i class="wpneo-icon wpneo-icon-twitter"></i></a>';
+			$html .= '<a class="wpwpcf-social-link" href="'.$user_info["profile_twitter"][0].'"><i class="wpneo-icon wpneo-icon-twitter"></i></a>';
 		}
 		if ( ! empty($user_info['profile_vk'][0])){
-			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_vk"][0].'"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
+			$html .= '<a class="wpwpcf-social-link" href="'.$user_info["profile_vk"][0].'"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
 		}
 		if ( ! empty($user_info['profile_linkedin'][0])){
-			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_linkedin"][0].'"><i class="wpneo-icon wpneo-icon-linkedin"></i></a>';
+			$html .= '<a class="wpwpcf-social-link" href="'.$user_info["profile_linkedin"][0].'"><i class="wpneo-icon wpneo-icon-linkedin"></i></a>';
 		}
 		if ( ! empty($user_info['profile_pinterest'][0])){
-			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_pinterest"][0].'"><i class="wpneo-icon wpneo-icon-pinterest"></i></a>';
+			$html .= '<a class="wpwpcf-social-link" href="'.$user_info["profile_pinterest"][0].'"><i class="wpneo-icon wpneo-icon-pinterest"></i></a>';
 		}
 		$html .= '</div>';
 

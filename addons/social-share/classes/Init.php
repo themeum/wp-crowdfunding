@@ -38,7 +38,7 @@ class WPCF_Social_Share {
     }
 
     public function social_share_enqueue_frontend_script() {
-        wp_enqueue_script('wpcf-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/SocialShare.min.js', array('jquery'), WPCF_VERSION, true);
+        wp_enqueue_script('wpwpcf-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/SocialShare.min.js', array('jquery'), WPCF_VERSION, true);
     }
 
     /**
@@ -156,9 +156,9 @@ class WPCF_Social_Share {
                                         <div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
                                     </div>
     
-                                    <div class="cf-progress">
+                                    <div class="wpcf-progress">
                                         <?php $css_width = wpcf_function()->get_raised_percent(); if( $css_width >= 100 ){ $css_width = 100; } ?>
-                                        <div class="cf-progress-bar" style="width: <?php echo $css_width; ?>%" area-hidden="true"></div>
+                                        <div class="wpcf-progress-bar" style="width: <?php echo $css_width; ?>%" area-hidden="true"></div>
                                     </div>
     
                                     <div class="wpneo-funding-data">

@@ -58,7 +58,7 @@ class Search{
         $SearchfontSize     = isset( $att['SearchfontSize']) ? $att['SearchfontSize'] : '14';
     
         $html = $search_val = '';
-        $html .= '<div class="wpcf-form-field '. $formSize .' '.$formAlign.'">';
+        $html .= '<div class="wpwpcf-form-field '. $formSize .' '.$formAlign.'">';
             $html .= '<form role="search" method="get" action="'.esc_url(home_url('/')).'">';
                 if (isset($_GET['s'])) { $search_val = $_GET['s']; }
                 $html .= '<input type="search" class="search-field" placeholder="'.__("Search", "wp-crowdfunding").'" 

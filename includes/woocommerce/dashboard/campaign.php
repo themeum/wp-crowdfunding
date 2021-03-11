@@ -32,16 +32,16 @@ $the_query = new WP_Query( $args );
 ?>
         <div class="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
             
-            <div class="cf-campaign-list-item">
-                <div class="cf-card">
-                    <div class="cf-card-thumbnail">
+            <div class="wpcf-campaign-list-item">
+                <div class="wpcf-card">
+                    <div class="wpcf-card-thumbnail">
                         <?php echo woocommerce_get_product_thumbnail(); ?>
-                        <div class="cf-card-overlay">
-                            <a class="cf-btn-outline" href="<?php echo get_permalink(); ?>"><?php _e('View','wp-crowdfunding'); ?></a>
+                        <div class="wpcf-card-overlay">
+                            <a class="wpcf-btn-outline" href="<?php echo get_permalink(); ?>"><?php _e('View','wp-crowdfunding'); ?></a>
                         </div>
                     </div>
 
-                    <div class="cf-card-body">
+                    <div class="wpcf-card-body">
                         
                     </div>
                 </div>
@@ -71,7 +71,7 @@ $the_query = new WP_Query( $args );
                 <div class="wpneo-admin-location">
                     <?php
                     $operation_btn = '';
-                    $operation_btn .= '<div class="cf-form-fields-action">';
+                    $operation_btn .= '<div class="wpcf-form-fields-action">';
                         $page_id = get_option('wpneo_form_page_id');
                         if ($page_id != '') {
                             $permalink_edit     = add_query_arg( array( 'action' => 'edit', 'postid' => get_the_ID() ) , get_permalink($page_id) );

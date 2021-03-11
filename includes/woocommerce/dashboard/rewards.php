@@ -99,7 +99,7 @@ $rewards_query = new WP_Query($args);
 					</table>
 				</div> <?php
 			} else {
-				echo '<div class="wpneocf-alert-info"> '.__('There is no rewards selected by backer', 'wp-crowdfunding').' </div>';
+				echo '<div class="wpneowpcf-alert-info"> '.__('There is no rewards selected by backer', 'wp-crowdfunding').' </div>';
 			}
 			?>
 		</div>

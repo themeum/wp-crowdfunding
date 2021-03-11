@@ -803,7 +803,7 @@ class Functions {
         $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
 
         ?>
-        <p class="wpcf-start-campaign-countdown"><?php _e('Campaign will be started within') ?> <span id="wpcf-campaign-countdown"></span></p>
+        <p class="wpwpcf-start-campaign-countdown"><?php _e('Campaign will be started within') ?> <span id="wpwpcf-campaign-countdown"></span></p>
         
         <script type="text/javascript">
             // Set the date we're counting down to
@@ -821,13 +821,13 @@ class Functions {
                 let wpcfMinutes = Math.floor((dateDiff % 3600000 ) / 60000 );
                 let wpcfSeconds = Math.floor((dateDiff % 60000 ) / 1000 );
 
-                // Display the result in the element with id="wpcf-campaign-countdown"
-                document.getElementById("wpcf-campaign-countdown").innerHTML = '<span>'+wpcfDays+'</span>' + "d " + "<span>" + wpcfHours + "h </span> <span> " + wpcfMinutes + "m </span> <span> " + wpcfSeconds + "s </span> ";
+                // Display the result in the element with id="wpwpcf-campaign-countdown"
+                document.getElementById("wpwpcf-campaign-countdown").innerHTML = '<span>'+wpcfDays+'</span>' + "d " + "<span>" + wpcfHours + "h </span> <span> " + wpcfMinutes + "m </span> <span> " + wpcfSeconds + "s </span> ";
 
                 // If the count down is finished, write some text
                 if ( dateDiff < 0 ) {
                     clearInterval(wpcfIntervalE);
-                    document.getElementById("wpcf-campaign-countdown").innerHTML = "";
+                    document.getElementById("wpwpcf-campaign-countdown").innerHTML = "";
                 }
             }, 1000);
         </script>

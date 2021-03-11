@@ -14,10 +14,21 @@ $border-color:      #E5EBEA !default;
 
 // breakpoints
 $columns:  12 !default;
-$breakpoints: (
+$grid-breakpoints: (
   xs: 0,
   sm: 576px,
   md: 768px,
   lg: 992px,
   xl: 1200px
+) !default;
+
+// spacers
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer / 4,
+  2: $spacer / 2,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
 ) !default;

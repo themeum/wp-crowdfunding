@@ -11,7 +11,7 @@ global $wp_query;
         <div class="container">
             <div class="row woo-products">
             	<div class="col-sm-12">
-            		<div class="cf-campaign-author sub-title-inner">
+            		<div class="wpcf-campaign-author sub-title-inner">
 					    <h2><?php _e('Campaigns by Author', 'wp-crowdfunding'); ?></h2>
 	                </div>
             	</div>

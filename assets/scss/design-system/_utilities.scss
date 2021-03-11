@@ -1,0 +1,180 @@
+// text color
+.wpcf-text-body {
+    color: $text-color;
+    svg {
+        fill: $text-color;
+    }
+}
+
+.wpcf-text-lighter {
+    color: $text-light-color;
+    svg {
+        fill: $text-light-color;
+    }
+}
+
+.wpcf-text-muted {
+    color: $text-muted;
+    svg {
+        fill: $text-muted;
+    }
+}
+
+.wpcf-text-gray-200 {
+    color: $gray-200;
+    svg {
+        fill: $gray-200;
+    }
+}
+
+.wpcf-text-gray-300 {
+    color: $gray-300;
+    svg {
+        fill: $gray-300;
+    }
+}
+
+.wpcf-text-gray-600 {
+    color: $gray-600;
+    svg {
+        fill: $gray-600;
+    }
+}
+
+.wpcf-text-small {
+    font-size: 14px;
+}
+
+.wpcf-text-extra-small {
+    font-size: 12px;
+}
+
+// svg icon
+.wpcf-svg-icon {
+    display: inline-block;
+}
+
+// font weight
+.wpcf-fw-normal {
+    font-weight: normal;
+}
+
+.wpcf-fw-bolder {
+    font-weight: bolder;
+}
+
+.wpcf-fw-bold {
+    font-weight: bold;
+}
+
+// Utilities
+$utilities: () !default;
+
+$utilities: map-merge(
+    (
+    // Margin utilities
+    "margin": (
+        responsive: true,
+        property: margin,
+        class: wpcf-m,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    "margin-x": (
+        responsive: true,
+        property: margin-right margin-left,
+        class: wpcf-mx,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    "margin-y": (
+        responsive: true,
+        property: margin-top margin-bottom,
+        class: wpcf-my,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    "margin-top": (
+        responsive: true,
+        property: margin-top,
+        class: wpcf-mt,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    "margin-end": (
+        responsive: true,
+        property: margin-right,
+        class: wpcf-mr,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    "margin-bottom": (
+        responsive: true,
+        property: margin-bottom,
+        class: wpcf-mb,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    "margin-start": (
+        responsive: true,
+        property: margin-left,
+        class: wpcf-ml,
+        values: map-merge($spacers, (auto: auto))
+    ),
+    // Padding utilities
+    "padding": (
+        responsive: true,
+        property: padding,
+        class: wpcf-p,
+        values: $spacers
+    ),
+    "padding-x": (
+        responsive: true,
+        property: padding-right padding-left,
+        class: wpcf-px,
+        values: $spacers
+    ),
+    "padding-y": (
+        responsive: true,
+        property: padding-top padding-bottom,
+        class: wpcf-py,
+        values: $spacers
+    ),
+    "padding-top": (
+        responsive: true,
+        property: padding-top,
+        class: wpcf-pt,
+        values: $spacers
+    ),
+    "padding-end": (
+        responsive: true,
+        property: padding-right,
+        class: wpcf-pr,
+        values: $spacers
+    ),
+    "padding-bottom": (
+        responsive: true,
+        property: padding-bottom,
+        class: wpcf-pb,
+        values: $spacers
+    ),
+    "padding-start": (
+        responsive: true,
+        property: padding-left,
+        class: wpcf-pl,
+        values: $spacers
+    ),
+    ),
+    $utilities
+);
+
+// Loop over each breakpoint
+@each $breakpoint in map-keys($grid-breakpoints) {
+    // Generate media query if needed
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        // Loop over each utility property
+        @each $key, $utility in $utilities {
+            // The utility can be disabled with `false`, thus check if the utility is a map first
+            // Only proceed if responsive media queries are enabled or if it's the base media query
+            @if type-of($utility) == "map" and (map-get($utility, responsive) or $infix == "") {
+                @include generate-utility($utility, $infix);
+            }
+        }
+    }
+}

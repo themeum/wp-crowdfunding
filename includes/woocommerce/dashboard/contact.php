@@ -39,66 +39,66 @@ ob_start();
                     <h4><?php _e("Shipping Address","wp-crowdfunding"); ?></h4>
                     
                     <!-- // First Name ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "First Name:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "First Name:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                         <input type="hidden" name="action" value="wpneo_contact_form">
                             <input type="text" name="shipping_first_name" value="<?php echo $f_name; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // Last Name ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_last_name" value="<?php echo $l_name; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // Company ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Company:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Company:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_company" value="<?php echo $company; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // Address 1 ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_address_1" value="<?php echo $address1; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // Address 2 ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_address_2" value="<?php echo $address2; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // City ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "City:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "City:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_city" value="<?php echo $city; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // Postcode ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_postcode" value="<?php echo $postcode; ?>" disabled>
                         </div>
                     </div>
 
                     <!-- // Country ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Country:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Country:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <?php
                             $countries_obj   = new WC_Countries();
                             $countries   = $countries_obj->__get('countries');
@@ -117,9 +117,9 @@ ob_start();
                     </div>
 
                     <!-- // State ( Shipping ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "State:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "State:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="shipping_state" value="<?php echo $state; ?>" disabled>
                         </div>
                     </div>
@@ -132,72 +132,72 @@ ob_start();
                     <!-- // Billing Address -->
                     <h4><?php _e("Billing Address","wp-crowdfunding"); ?></h4>
                     <!-- // First Name ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "First Name:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "First Name:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_first_name" value="<?php echo $b_f_name; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Last Name ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_last_name" value="<?php echo $b_l_name; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Company ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Company:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Company:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_company" value="<?php echo $b_company; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Address 1 ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_address_1" value="<?php echo $b_address1; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Address 2 ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_address_2" value="<?php echo $b_address2; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // City ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "City:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "City:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_city" value="<?php echo $b_city; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Postcode ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_postcode" value="<?php echo $b_postcode; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Country ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Country:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Country:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <?php
                             $countries_obj = new WC_Countries();
                             $countries = $countries_obj->__get('countries');
@@ -216,27 +216,27 @@ ob_start();
 
 
                     <!-- // State ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "State:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "State:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_state" value="<?php echo $b_state; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Telephone ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Telephone:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Telephone:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="text" name="billing_phone" value="<?php echo $b_phone; ?>" disabled>
                         </div>
                     </div>
 
 
                     <!-- // Email ( Billing ) -->
-                    <div class="cf-form-group">
-                        <label class="cf-form-label"><?php _e( "Email:" , "wp-crowdfunding" ); ?></label>
-                        <div class="cf-form-fields">
+                    <div class="wpcf-form-group">
+                        <label class="wpcf-form-label"><?php _e( "Email:" , "wp-crowdfunding" ); ?></label>
+                        <div class="wpcf-form-fields">
                             <input type="email" name="billing_email" value="<?php echo $b_email; ?>" disabled>
                         </div>
                     </div>

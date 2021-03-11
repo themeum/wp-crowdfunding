@@ -11,7 +11,7 @@ if ( post_password_required() ) {
 ?>
 
 <div class="wpneo-wrapper">
-    <div class="wpneocf-container">
+    <div class="wpneowpcf-container">
         <div id="primary" class="content-area">
             <div id="content" class="site-content" role="main">
                 <div class="wpneo-list-details">

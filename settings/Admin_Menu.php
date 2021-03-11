@@ -107,7 +107,7 @@ class Admin_Menu {
                             .wpneo-fields-action span a:hover,.wpneo-name > p,
                             .wpneo-listings-dashboard .wpneo-listing-content h4 a,
                             .wpneo-listings-dashboard .wpneo-listing-content .wpneo-author a,
-                            .wpcf-order-view,#wpneo_crowdfunding_modal_message td a,
+                            .wpwpcf-order-view,#wpneo_crowdfunding_modal_message td a,
                             .dashboard-price-number,.wpcrowd-listing-content .wpcrowd-admin-title h3 a,
                             .campaign-listing-page .stripe-table a,.stripe-table  a.label-default:hover,
                             a.wpneo-fund-modal-btn.wpneo-link-style1,.wpneo-tabs-menu li.wpneo-current a,
@@ -145,7 +145,7 @@ class Admin_Menu {
             'Crowdfunding',
             'Crowdfunding',
             'manage_options',
-            'wpcf-crowdfunding',
+            'wpwpcf-crowdfunding',
             '',
             'dashicons-admin-multisite', 
             null 
@@ -156,19 +156,19 @@ class Admin_Menu {
             $addon_pro = __('Add-ons <span class="dashicons dashicons-star-filled" style="color:#ef450b"/>', 'wp-crowdfunding');
         }
         add_submenu_page(
-            'wpcf-crowdfunding',
+            'wpwpcf-crowdfunding',
             __('Add-ons', 'wp-crowdfunding'),
             $addon_pro,
             'manage_options',
-            'wpcf-crowdfunding',
+            'wpwpcf-crowdfunding',
             array( $this, 'wpcf_manage_addons' )
         );
         add_submenu_page(
-            'wpcf-crowdfunding',
+            'wpwpcf-crowdfunding',
             __( 'Settings', 'wp-crowdfunding' ),
             __( 'Settings', 'wp-crowdfunding' ),
             'manage_options',
-            'wpcf-settings',
+            'wpwpcf-settings',
             array( $this, 'wpcf_menu_page' )
         );
     }
@@ -223,12 +223,12 @@ class Admin_Menu {
         echo '<h2 class="nav-tab-wrapper">';
         foreach( $tabs as $tab => $name ){
             $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-            echo "<a class='nav-tab$class' href='?page=wpcf-settings&tab=$tab'>{$name['tab_name']}</a>";
+            echo "<a class='nav-tab$class' href='?page=wpwpcf-settings&tab=$tab'>{$name['tab_name']}</a>";
         }
         echo '</h2>';
         ?>
 
-        <form id="wpcf-crowdfunding" role="form" method="post" action="">
+        <form id="wpwpcf-crowdfunding" role="form" method="post" action="">
             <?php
             //Load tab file
             $default_file = WPCF_DIR_PATH.'settings/tabs/Tab_General.php';

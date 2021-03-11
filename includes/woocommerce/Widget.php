@@ -76,12 +76,12 @@ class Latest_Backers extends \WP_Widget {
             $order = wc_get_order( $customer_order );
             $order_date = (array) $order->get_date_created();
             $items = $order->get_items();
-            echo '<ul class="wpcf-latest-backer-widget">';
+            echo '<ul class="wpwpcf-latest-backer-widget">';
 				echo '<li>';
 					foreach ($items as $val) {
 						echo '<span>'.$val->get_name().'</span> - ';
 					}
-					echo '<span class="wpcf-latest-backer-widget-reward">'.$order->get_formatted_order_total().'</span>';
+					echo '<span class="wpwpcf-latest-backer-widget-reward">'.$order->get_formatted_order_total().'</span>';
 				echo '</li>';
             echo '</ul>';
         }
