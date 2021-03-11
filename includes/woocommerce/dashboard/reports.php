@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * Generate Reports
  */
@@ -12,7 +13,7 @@ $from_date          = date('Y-m-d 00:00:00', strtotime('-6 days'));
 $chart_bottom_title = "1W";
 $query_range        = 'day_wise';
 
-if ( ! empty($_GET['date_range'])){
+if ( ! empty($_GET['date_range'])) {
     $date_range = sanitize_text_field($_GET['date_range']);
     switch ($date_range){
         case 'last_7_days':
@@ -56,10 +57,10 @@ if ( ! empty($_GET['date_range'])){
     }
 }
 
-if (! empty($_GET['date_range_from'])){
+if (! empty($_GET['date_range_from'])) {
     $from_date      = sanitize_text_field($_GET['date_range_from']);
 }
-if (! empty($_GET['date_range_to'])){
+if (! empty($_GET['date_range_to'])) {
     $to_date        = sanitize_text_field($_GET['date_range_to']);
 }
 
@@ -153,7 +154,6 @@ AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'w
     }
 }
 
-
 /**
  * Get Total Campaigns
  */
@@ -188,40 +188,72 @@ $get_crowdfunding_campaigns = new WP_Query($query_args);
 $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
 ?>
 
-<div class="wpneo-dashboard-chart wpneo-shadow chart-container">
-
-    <div class="wpneo-dashboard-head wpneo-clearfix">
-        <div class="wpneo-dashboard-head-left">
-            <span><?php _e( "Summary" , "wp-crowdfunding" );?></span>
-            <ul>
-                <li class="<?php echo ($date_range === 'last_7_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_7_days'),get_permalink()); ?>"><?php echo __('1W','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'last_14_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>"><?php echo __('2W','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'this_month') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_month'), get_permalink()); ?>"><?php echo __('1M','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'last_3_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_3_months'), get_permalink()); ?>"><?php echo __('3M','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'last_6_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_6_months'), get_permalink()); ?>"><?php echo __('6M','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'this_year') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_year'), get_permalink()); ?>"><?php echo __('1Y','wp-crowdfunding'); ?></a></li>
-            </ul>
-        </div><!--dashboard-head-left-->
-        <div class="dashboard-head-right">
-            <form method="get" action="" class="dashboard-head-date">
-                <input type="hidden" name="page" value="wpcrowd-crowdfunding-reports" />
-                <input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($from_date)); ?>" placeholder="From" />
-                <span><?php _e( "to" , "wp-crowdfunding" ); ?></span>
-                <input type="text" name="date_range_to" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($to_date)); ?>" placeholder="To" />
-                <button type="submit" class="wp-crowd-btn wp-crowd-btn-primary" id="search-submit"><?php _e('Search', 'wp-crowdfunding') ?></button>
-            </form>
-        </div><!--dashboard-head-right-->
-    </div><!--wpneo-dashboard-head-->
-
-    <div class="wpneo-dashboard-summary wpneo-clearfix">
-        <ul>
-            <li class="active"><span class="wpneo-value"> <?php echo wc_price(array_sum($total_backers_amount_ever)); ?></span><span class="wpneo-value-info"><?php _e( "Fund Raised" , "wp-crowdfunding" ); ?></span></li>
-            <li><span class="wpneo-value"><?php echo array_sum($sales_count_ever); ?></span><span class="wpneo-value-info"><?php _e( "Total Backed" , "wp-crowdfunding" ); ?></span></li>
-            <li><span class="wpneo-value"><?php echo count($pladges_received); ?></span><span class="wpneo-value-info"><?php _e( "Pledge Received" , "wp-crowdfunding" ); ?></span></li>
+<div class="wpcf-row wpcf-align-items-center">
+    <div class="wpcf-col-lg-6 wpcf-d-flex wpcf-align-items-center">
+        <span class="wpcf-text-muted wpcf-mr-4"><?php _e( "Summary" , "wp-crowdfunding" );?></span>
+        <ul class="wpcf-nav">
+            <li><a class="wpcf-nav-item<?php echo ($date_range === 'last_7_days') ? ' wpcf-is-active' : ''; ?>" href="<?php echo add_query_arg(array('date_range' => 'last_7_days'),get_permalink()); ?>"><?php echo __('1W','wp-crowdfunding'); ?></a></li>
+            <li><a class="wpcf-nav-item<?php echo ($date_range === 'last_14_days') ? ' wpcf-is-active' : ''; ?>" href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>"><?php echo __('2W','wp-crowdfunding'); ?></a></li>
+            <li><a class="wpcf-nav-item<?php echo ($date_range === 'this_month') ? ' wpcf-is-active' : ''; ?>" href="<?php echo add_query_arg(array('date_range' => 'this_month'), get_permalink()); ?>"><?php echo __('1M','wp-crowdfunding'); ?></a></li>
+            <li><a class="wpcf-nav-item<?php echo ($date_range === 'last_3_months') ? ' wpcf-is-active' : ''; ?>" href="<?php echo add_query_arg(array('date_range' => 'last_3_months'), get_permalink()); ?>"><?php echo __('3M','wp-crowdfunding'); ?></a></li>
+            <li><a class="wpcf-nav-item<?php echo ($date_range === 'last_6_months') ? ' wpcf-is-active' : ''; ?>" href="<?php echo add_query_arg(array('date_range' => 'last_6_months'), get_permalink()); ?>"><?php echo __('6M','wp-crowdfunding'); ?></a></li>
+            <li><a class="wpcf-nav-item<?php echo ($date_range === 'this_year') ? ' wpcf-is-active' : ''; ?>" href="<?php echo add_query_arg(array('date_range' => 'this_year'), get_permalink()); ?>"><?php echo __('1Y','wp-crowdfunding'); ?></a></li>
         </ul>
-    </div><!--wpneo-dashboard-summary-->
+    </div>
+
+    <div class="wpcf-col-lg-6 wpcf-d-flex wpcf-justify-content-end">
+        <div>
+            <form method="get" class="dashboard-head-date">
+                <div class="wpcf-d-flex wpcf-align-items-center">
+                    <div>
+                        <input type="hidden" name="page" value="wpcrowd-crowdfunding-reports" />
+                        <input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($from_date)); ?>" placeholder="From" />
+                    </div>
+                    
+                    <div class="wpcf-mx-3">
+                        <?php _e( "to" , "wp-crowdfunding" ); ?>
+                    </div>
+                    
+                    <div>
+                        <input type="text" name="date_range_to" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($to_date)); ?>" placeholder="To" />
+                    </div>
+
+                    <div class="wpcf-ml-3">
+                        <button type="submit" class="wpcf-button-primary" id="search-submit"><?php _e('Search', 'wp-crowdfunding') ?></button>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="wpcf-row wpcf-mt-4">
+    <div class="wpcf-col-lg-4">
+        <div class="wpcf-card">
+            <h4 class="wpcf-fw-bold wpcf-text-primary wpcf-m-0"><?php echo wc_price(array_sum($total_backers_amount_ever)); ?></h4>
+            <div class="wpcf-text-muted wpcf-mt-1"><?php _e( "Fund Raised", "wp-crowdfunding" ); ?></div>
+        </div>
+    </div>
+
+    <div class="wpcf-col-lg-4">
+        <div class="wpcf-card">
+            <h4 class="wpcf-fw-bold wpcf-text-primary wpcf-m-0"><?php echo array_sum($sales_count_ever); ?></h4>
+            <div class="wpcf-text-muted wpcf-mt-1"><?php _e( "Total Backed", "wp-crowdfunding" ); ?></div>
+        </div>
+    </div>
+
+    <div class="wpcf-col-lg-4">
+        <div class="wpcf-card">
+            <h4 class="wpcf-fw-bold wpcf-text-primary wpcf-m-0"><?php echo count($pladges_received); ?></h4>
+            <div class="wpcf-text-muted wpcf-mt-1"><?php _e( "Pledge Received", "wp-crowdfunding" ); ?></div>
+        </div>
+    </div>
+</div>
+
+<div class="wpcf-mt-4">
     <canvas id="WPcrowdFundChart" width="400" height="60"></canvas>
-</div><!--"wpneo-dashboard-chart-->
+</div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 <script type="text/javascript">
@@ -262,6 +294,4 @@ $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
             }
         })
     });
-
-
 </script>

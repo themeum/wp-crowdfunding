@@ -6,6 +6,13 @@
     }
 }
 
+.wpcf-text-primary {
+    color: $primary-color;
+    svg {
+        fill: $primary-color;
+    }
+}
+
 .wpcf-text-lighter {
     color: $text-light-color;
     svg {
@@ -72,6 +79,52 @@ $utilities: () !default;
 
 $utilities: map-merge(
     (
+    // display
+    "display": (
+      responsive: true,
+      print: true,
+      property: display,
+      class: wpcf-d,
+      values: inline inline-block block flex inline-flex none
+    ),
+    // Flex utilities
+    "flex": (
+      responsive: true,
+      property: flex,
+      class: wpcf-flex,
+      values: (fill: 1 1 auto)
+    ),
+    "flex-direction": (
+      responsive: true,
+      property: flex-direction,
+      class: wpcf-flex,
+      values: row column row-reverse column-reverse
+    ),
+    "justify-content": (
+      responsive: true,
+      property: justify-content,
+      class: wpcf-justify-content,
+      values: (
+        start: flex-start,
+        end: flex-end,
+        center: center,
+        between: space-between,
+        around: space-around,
+        evenly: space-evenly,
+      )
+    ),
+    "align-items": (
+      responsive: true,
+      property: align-items,
+      class: wpcf-align-items,
+      values: (
+        start: flex-start,
+        end: flex-end,
+        center: center,
+        baseline: baseline,
+        stretch: stretch,
+      )
+    ),
     // Margin utilities
     "margin": (
         responsive: true,
@@ -177,4 +230,13 @@ $utilities: map-merge(
             }
         }
     }
+}
+
+// z-index
+.wpcf-z-index-9 {
+    z-index: 9;
+}
+
+.wpcf-z-index-99 {
+    z-index: 99;
 }

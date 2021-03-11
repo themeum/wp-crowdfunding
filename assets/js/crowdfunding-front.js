@@ -1,6 +1,6 @@
 // Crowdfunding Scripts
 
-jQuery(document).on('ready', function($){
+jQuery(function($) {
     
     var count = 0;
     var numItems = $('.wpneo-block').length;

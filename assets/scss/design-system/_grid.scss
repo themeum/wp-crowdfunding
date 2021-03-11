@@ -1,11 +1,3 @@
-@mixin make-col($size, $columns) {
-    flex: 0 0 auto;
-    width: percentage($size / $columns);
-    padding-left: 15px;
-    padding-right: 15px;
-    box-sizing: border-box;
-}
-
 .wpcf-row {
     display: flex;
     flex-wrap: wrap;

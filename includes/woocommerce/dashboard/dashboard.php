@@ -3,21 +3,26 @@
 defined( 'ABSPATH' ) || exit;
 
 $current_user = wp_get_current_user();
-?>
-<?php
 
 ob_start();
-include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/wpcrowd-reports-chart.php';
-$html .= ob_get_clean();
 ?>
-
+<div class="wpcf-card">
+    <?php include_once WPCF_DIR_PATH . 'includes/woocommerce/dashboard/reports.php'; ?>
+</div>
 <?php
+$html .= ob_get_clean(); ?>
+
+<?php ob_start(); ?>
+<div class="wpcf-card">
+    <?php include_once WPCF_DIR_PATH . 'includes/woocommerce/dashboard/campaigns.php'; ?>
+</div>
+<?php
+$html .= ob_get_clean();
 
 $html .= '<div class="wpneo-row">';
     $html .= '<div class="wpneo-col6">';
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
-        $html .= '<h4>'.__( "My Campaigns" , "wp-crowdfunding" ).'</h4>';
-        include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
+        
     $html .= '</div>';
 
     global $wp;

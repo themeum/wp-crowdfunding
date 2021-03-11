@@ -9,6 +9,15 @@
     }
 }
 
+// make column
+@mixin make-col($size, $columns) {
+    flex: 0 0 auto;
+    width: percentage($size / $columns);
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
 // generate utility
 @mixin generate-utility($utility, $infix, $is-rfs-media-query: false) {
     $values: map-get($utility, values);
