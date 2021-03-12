@@ -81,7 +81,7 @@
 						$addonConfig = wpcf_function()->get_addon_config($basName);
                         $isEnable = (bool)wpcf_function()->avalue_dot('is_enable', $addonConfig);
 
-						$thumbnailURL =  WPCF_DIR_URL.'assets/images/wpwpcf-plugin.png';
+						$thumbnailURL =  WPCF_DIR_URL.'assets/images/wpcf-plugin.png';
 						if (file_exists($addon['path'].'assets/images/thumbnail.png') ){
 							$thumbnailURL = $addon['url'].'assets/images/thumbnail.png';
                         } elseif (file_exists($addon['path'].'assets/images/thumbnail.svg')){
@@ -154,7 +154,7 @@
                             $addons_path = trailingslashit(WPCF_DIR_PATH."assets/addons/{$basName}");
                             $addons_url = trailingslashit(WPCF_DIR_URL."assets/addons/{$basName}");
     
-                            $thumbnailURL =  WPCF_DIR_URL.'assets/images/wpwpcf-plugin.png';
+                            $thumbnailURL =  WPCF_DIR_URL.'assets/images/wpcf-plugin.png';
     
                             if (file_exists($addons_path.'thumbnail.png') ) {
                                 $thumbnailURL = $addons_url.'thumbnail.png';

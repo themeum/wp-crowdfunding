@@ -35,6 +35,16 @@ class Dashboard {
                     'tab_name'        => __('Contact','wp-crowdfunding'),
                     'load_form_file'  => WPCF_DIR_PATH . 'includes/woocommerce/dashboard/contact.php'
                 ),
+                'password' => array(
+                    'tab'            => 'account',
+                    'tab_name'       => __('Password','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH . 'includes/woocommerce/dashboard/password.php'
+                ),
+                'rewards' => array(
+                    'tab'            => 'account',
+                    'tab_name'       => __('Rewards','wp-crowdfunding'),
+                    'load_form_file' => WPCF_DIR_PATH . 'includes/woocommerce/dashboard/rewards.php'
+                ),
                 'campaign' => array(
                     'tab'             => 'campaign',
                     'tab_name'        => __('My Campaigns','wp-crowdfunding'),
@@ -54,16 +64,6 @@ class Dashboard {
                     'tab'            => 'campaign',
                     'tab_name'       => __('Bookmarks','wp-crowdfunding'),
                     'load_form_file' => WPCF_DIR_PATH . 'includes/woocommerce/dashboard/bookmark.php'
-                ),
-                'password' => array(
-                    'tab'            => 'account',
-                    'tab_name'       => __('Password','wp-crowdfunding'),
-                    'load_form_file' => WPCF_DIR_PATH . 'includes/woocommerce/dashboard/password.php'
-                ),
-                'rewards' => array(
-                    'tab'            => 'account',
-                    'tab_name'       => __('Rewards','wp-crowdfunding'),
-                    'load_form_file' => WPCF_DIR_PATH . 'includes/woocommerce/dashboard/rewards.php'
                 ),
             ));
             

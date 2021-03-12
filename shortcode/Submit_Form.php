@@ -651,7 +651,7 @@ class Campaign_Submit_Form {
                 $requirement_agree_title = get_option( 'wpneo_requirement_agree_title', '' );
                 $html .= '<div class="wpneo-title">' . $requirement_title . '</div>';
                 $html .= '<div class="wpneo-text">' . $requirement_text . '</div>';
-                $html .= '<div class="wpneo-requirement-title"><input id="wpwpcf-term-agree" type="checkbox" value="agree" name="wpneo_terms_agree" /> <label for="wpwpcf-term-agree">'.$requirement_agree_title.'</label></div>';
+                $html .= '<div class="wpneo-requirement-title"><input id="wpcf-term-agree" type="checkbox" value="agree" name="wpneo_terms_agree" /> <label for="wpcf-term-agree">'.$requirement_agree_title.'</label></div>';
             }
 
             $var = get_option( 'wpneo_crowdfunding_dashboard_page_id', '' );

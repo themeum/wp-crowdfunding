@@ -22,135 +22,104 @@ $current_page = get_permalink();
 $the_query = new WP_Query( $args );
 ?>
 
-<div class="wpneo-content">
-<div class="wpneo-form campaign-listing-page">
 
-
-<?php if ( $the_query->have_posts() ) : global $post; $i = 1;
-    while ( $the_query->have_posts() ) : $the_query->the_post();
-        ob_start();
-?>
-        <div class="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
-            
-            <div class="wpcf-campaign-list-item">
+<?php if ( $the_query->have_posts() ) : global $post; $i = 1; ob_start(); ?>
+    <div class="wpcf-row">
+        <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+            <div class="wpcf-col-lg-4">
                 <div class="wpcf-card">
                     <div class="wpcf-card-thumbnail">
-                        <?php echo woocommerce_get_product_thumbnail(); ?>
+                        <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"><?php echo woocommerce_get_product_thumbnail(); ?></a>
                         <div class="wpcf-card-overlay">
-                            <a class="wpcf-btn-outline" href="<?php echo get_permalink(); ?>"><?php _e('View','wp-crowdfunding'); ?></a>
+                            <a class="wpcf-button-outline-inverse" href="<?php echo $permalink; ?>"><?php _e('View Campaign', 'wp-crowdfunding'); ?></a>
                         </div>
                     </div>
 
-                    <div class="wpcf-card-body">
-                        
+                    <h4 class="wpcf-mt-4 wpcf-mb-0"><a href="<?php echo $permalink; ?> "><?php echo get_the_title(); ?></a></h4>
+
+                    <div class="wpcf-campaign-author wpcf-mt-3">
+                        <span><?php _e('By','wp-crowdfunding'); ?></span> <a href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
                     </div>
-                </div>
-                
-            </div>
 
-            <div class="wpneo-listing-content">
-
-                <div class="wpneo-admin-title">
-                    <!-- title -->
-                    <h4><a href="<?php  echo get_permalink(); ?> "><?php echo get_the_title(); ?></a></h4>
-                    
-                    <!-- author -->
-                    <p class="wpneo-author"><?php _e('by', 'wp-crowdfunding'); ?> 
-                        <a href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
-                    </p>
-
-                    <!-- location -->
                     <?php $location = wpcf_function()->campaign_location(); ?>
-                    <?php if($location) : ?>
-                        <div class="wpneo-location">
-                            <i class="wpneo-icon wpneo-icon-location"></i>
-                            <div class="wpneo-meta-desc"><?php echo $location; ?></div>
+                    <?php if(!empty($location)) : ?>
+                        <div class="wpcf-campaign-location wpcf-text-gray-600 wpcf-mt-3">
+                            <span class="wpcf-svg-icon">
+                                <svg width="10" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 .333A4.663 4.663 0 00.333 5C.333 8.5 5 13.667 5 13.667S9.666 8.5 9.666 5A4.663 4.663 0 005 .333zm0 6.334a1.667 1.667 0 110-3.335 1.667 1.667 0 010 3.335z" /></svg>
+                            </span>
+                            <span><?php echo wpcf_function()->campaign_location(); ?></span>
                         </div>
                     <?php endif; ?>
-                </div>
-                <div class="wpneo-admin-location">
+
                     <?php
-                    $operation_btn = '';
-                    $operation_btn .= '<div class="wpcf-form-fields-action">';
-                        $page_id = get_option('wpneo_form_page_id');
-                        if ($page_id != '') {
-                            $permalink_edit     = add_query_arg( array( 'action' => 'edit', 'postid' => get_the_ID() ) , get_permalink($page_id) );
-                            $permalink_update   = add_query_arg( array( 'page_type' => 'update', 'postid' => get_the_ID() ) , $current_page );
-                            $operation_btn .= '<span><a href="'.$permalink_update.'">'.__("Update", "wp-crowdfunding").'</a></span>';
-                            $operation_btn .= '<span><a href="' . $permalink_edit . '" class="wp-crowd-btn wp-crowd-btn-primary">' . __("Edit", "wp-crowdfunding") . '</a></span>';
-                        }
-                        
-                    if (get_post_status() == 'draft'){
-	                    $operation_btn .='<span class="wp-crowd-btn wpneo-campaign-status">['.__("Draft", "wp-crowdfunding").']</span>';
-                    }
-                    $operation_btn .= '</div>';
-                    echo $operation_btn;
+                        $col_num        = get_option('number_of_words_show_in_listing_description', 130);
+                        $desc           = wpcf_function()->limit_word_text(strip_tags(get_the_content()), $col_num);
                     ?>
-                </div>
-                <div class="wpneo-clearfix"></div>
-                <div class="wpneo-percent-round-wrap">
-                    
-                    <!-- percent -->
-                    <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
-                    <div class="crowdfound-pie-chart" data-size="60" data-percent="<?php echo $raised_percent; ?>">
-                        <div class="sppb-chart-percent"><span><?php echo $raised_percent; ?></span></div>
-                    </div>
-
-                    <!-- fund-raised -->
-                    <?php 
-                    $raised_percent = wpcf_function()->get_fund_raised_percent_format();
-                    $raised = 0;
-                    $total_raised = wpcf_function()->get_total_fund();
-                    if ($total_raised){
-                        $raised = $total_raised;
-                    }
-                    ?>
-                    <div class="crowdfound-fund-raised">
-                        <div class="wpneo-meta-desc"><?php echo wc_price($raised); ?></div>
-                        <div class="wpneo-meta-name"><?php _e('Fund Raised', 'wp-crowdfunding'); ?></div>
-                    </div>
-
-                    <!-- Funding Goal -->
-                    <?php $funding_goal = get_post_meta($post->ID, '_nf_funding_goal', true); ?>
-                    <div class="crowdfound-funding-goal">
-                        <div class="wpneo-meta-desc"><?php echo wc_price( $funding_goal ); ?></div>
-                        <div class="wpneo-meta-name"><?php _e('Funding Goal', 'wp-crowdfunding'); ?></div>
-                    </div>
-
-                    <!--  Days to go -->
-                    <?php $days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
-                    if (wpcf_function()->get_date_remaining()){
-                        $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
-                    }
-
-                    $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
-
-                    if ($end_method != 'never_end'){ ?>
-                        <div class="crowdfound-time-remaining">
-                            <?php if (wpcf_function()->is_campaign_started()){ ?>
-                                <div class="wpneo-meta-desc"><?php echo wpcf_function()->get_date_remaining(); ?></div>
-                                <div class="wpneo-meta-name"><?php _e( 'Days to go','wp-crowdfunding' ); ?></div>
-                            <?php } else { ?>
-                                <div class="wpneo-meta-desc"><?php echo wpcf_function()->days_until_launch(); ?></div>
-                                <div class="wpneo-meta-name"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
-                            <?php } ?>
+                    <?php if(!empty($desc)) : ?>
+                        <div class="wpcf-campaign-intro wpcf-mt-4">
+                            <?php echo $desc; ?>
                         </div>
-                    <?php } ?>
-                </div><!-- wpneo-percent-rund-wrap -->
-            </div><!-- wpneo-listing-content -->
-            <?php do_action('wpcf_dashboard_campaign_loop_item_after_content'); ?>
-            <div style="clear: both"></div>
-        </div>
-        <?php $i++;
+                    <?php endif; ?>
+
+                    <div class="wpcf-card-divider"></div>
+
+                    <?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
+                    <div class="wpcf-campaign-progress">
+                        <div class="wpcf-text-small wpcf-mb-2">
+                            <span class="wpcf-text-gray-600"><?php _e('Raised Percent', 'wp-crowdfunding'); ?>:</span>
+                            <span class="wpcf-ml-2 wpcf-fw-bolder"><?php echo $raised_percent; ?></span>
+                        </div>
+
+                        <div class="wpcf-progress">
+                            <?php
+                                $progress_width = wpcf_function()->get_raised_percent();
+                                if( $progress_width >= 100 ) {
+                                    $progress_width = 100;
+                                }
+                            ?>
+                            <div class="wpcf-progress-bar" style="width: <?php echo $progress_width; ?>%;" area-hidden="true"></div>
+                        </div>
+                    </div>
+
+                    <div class="wpcf-campaign-meta wpcf-mt-4">
+                        <div class="wpcf-row wpcf-text-small">
+                            <div class="wpcf-col-6 wpcf-col-lg-4">
+                                <div class="wpcf-campaign-meta-goal">
+                                    <div class="wpcf-fw-bolder"><?php echo wc_price( $funding_goal ); ?></div>
+                                    <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Funding Goal', 'wp-crowdfunding'); ?></div>
+                                </div>
+                            </div>
+
+                            <div class="wpcf-col-6 wpcf-col-lg-4">
+                                <div class="wpcf-campaign-meta-raised">
+                                    <div class="wpcf-fw-bolder"><?php echo wc_price( $raised ); ?></div>
+                                    <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Fund Raised', 'wp-crowdfunding'); ?></div>
+                                </div>
+                            </div>
+                            
+                            <?php if($end_method != 'never_end') : ?>
+                                <div class="wpcf-col-lg-4 wpcf-mt-3 wpcf-mt-lg-0">
+                                    <div class="wpcf-campaign-meta-duration">
+                                        <?php if (wpcf_function()->is_campaign_started()) : ?>
+                                            <div class="wpcf-fw-bolder"><?php echo wpcf_function()->get_date_remaining(); ?></div>
+                                            <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Days to Go', 'wp-crowdfunding'); ?></div>
+                                        <?php else: ?>
+                                            <div class="wpcf-fw-bolder"><?php echo wpcf_function()->days_until_launch(); ?></div>
+                                            <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Days Until Launch', 'wp-crowdfunding'); ?></div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endwhile; wp_reset_postdata(); ?>
+    </div>
+    <?php
         $html .= ob_get_clean();
-    endwhile;
-    wp_reset_postdata();
-else :
-    $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
+        $html .= wpcf_function()->get_pagination( $page_numb, $the_query->max_num_pages );
+    ?>
+<?php else:
+    $html .= "<div class='wpcf-alert-waring'>" . __( 'Sorry, no Campaign Found.','wp-crowdfunding' ) . "</div>";
 endif;
-
-$html .= wpcf_function()->get_pagination( $page_numb , $the_query->max_num_pages );
-
-$html .= '<div style="clear: both;"></div>';
-$html .= '</div>';
-$html .= '</div>';

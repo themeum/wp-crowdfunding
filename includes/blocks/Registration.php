@@ -236,12 +236,12 @@ class Registration{
                     </div>
 
                     <!-- <style>
-                        .wpwpcf-form-fields input[type="number"], .wpwpcf-form-fields input[type="text"], .wpwpcf-form-fields input[type="email"], .wpwpcf-form-fields input[type="password"] {
+                        .wpcf-form-fields input[type="number"], .wpcf-form-fields input[type="text"], .wpcf-form-fields input[type="email"], .wpcf-form-fields input[type="password"] {
                             font-size: <?php echo $inputfontSize; ?>px;
                             color: <?php echo $inputTextColor; ?>;
                             border: 1px solid <?php echo $borderColor; ?>px;
                         }
-                        .wpneo-user-registration-wrap .wpwpcf-form-label {
+                        .wpneo-user-registration-wrap .wpcf-form-label {
                             font-size: <?php echo $labelfontSize; ?>px;
                             color: <?php echo $labelColor; ?>
                         }

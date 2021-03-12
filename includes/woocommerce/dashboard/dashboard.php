@@ -4,26 +4,21 @@ defined( 'ABSPATH' ) || exit;
 
 $current_user = wp_get_current_user();
 
-ob_start();
-?>
-<div class="wpcf-card">
-    <?php include_once WPCF_DIR_PATH . 'includes/woocommerce/dashboard/reports.php'; ?>
-</div>
-<?php
-$html .= ob_get_clean(); ?>
+$html .= '<div class="wpcf-card wpcf-mb-5">';
+    ob_start();
+    include_once WPCF_DIR_PATH . 'includes/woocommerce/dashboard/reports.php';
+    $html .= ob_get_clean();
+$html .= '</div>';
 
-<?php ob_start(); ?>
-<div class="wpcf-card">
-    <?php include_once WPCF_DIR_PATH . 'includes/woocommerce/dashboard/campaigns.php'; ?>
-</div>
-<?php
+ob_start();
+include_once WPCF_DIR_PATH . 'includes/woocommerce/dashboard/campaigns.php';
 $html .= ob_get_clean();
+
+
 
 $html .= '<div class="wpneo-row">';
     $html .= '<div class="wpneo-col6">';
-    $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
-        
-    $html .= '</div>';
+    
 
     global $wp;
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
@@ -40,67 +35,7 @@ $html .= '<div class="wpneo-row">';
 
     $html .= '<div class="wpneo-content wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
         $html .= '<form id="wpneo-dashboard-form" action="" method="" class="wpneo-form">';
-                // User Name
-                $html .= '<h4>'.__('My Information', 'wp-crowdfunding').'</h4>';
-                $html .= '<div class="wpcf-form-group">';
-                    $html .= '<label class="wpcf-form-label">';
-                        $html .= __( "Username:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="wpcf-form-fields">';
-                        $html .= '<input type="hidden" name="action" value="wpneo_dashboard_form">';
-                        $html .= '<input type="text" name="username" value="'.$current_user->user_login.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-            
-                // Email Address
-                $html .= '<div class="wpcf-form-group">';
-                    $html .= '<label class="wpcf-form-label">';
-                        $html .= __( "Email:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="wpcf-form-fields">';
-                        $html .= '<input type="email" name="email" value="'.$current_user->user_email.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-                // First Name
-                $html .= '<div class="wpcf-form-group">';
-                    $html .= '<label class="wpcf-form-label">';
-                        $html .= __( "First Name:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="wpcf-form-fields">';
-                        $html .= '<input type="text" name="firstname" value="'.$current_user->user_firstname.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-                // Last Name
-                $html .= '<div class="wpcf-form-group">';
-                    $html .= '<label class="wpcf-form-label">';
-                        $html .= __( "Last Name:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="wpcf-form-fields">';
-                        $html .= '<input type="text" name="lastname" value="'.$current_user->user_lastname.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-                // Website
-                $html .= '<div class="wpcf-form-group">';
-                    $html .= '<label class="wpcf-form-label">';
-                        $html .= __( "Website:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="wpcf-form-fields">';
-                        $html .= '<input type="text" name="website" value="'.$current_user->user_url.'" disabled>';
-                    $html .= '</div>';
-                $html .= '</div>';
-
-                // Bio Info
-                $html .= '<div class="wpcf-form-group">';
-                    $html .= '<label class="wpcf-form-label">';
-                        $html .= __( "Bio:" , "wp-crowdfunding" );
-                    $html .= '</label>';
-                    $html .= '<div class="wpcf-form-fields">';
-                        $html .= '<textarea name="description" rows="3" disabled>'.$current_user->description.'</textarea>';
-                    $html .= '</div>';
-                $html .= '</div>';
+                
 
             $html .= '<h4>'.__('Payment Info', 'wp-crowdfunding').'</h4>';
             ob_start();

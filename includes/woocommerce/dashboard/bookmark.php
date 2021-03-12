@@ -44,7 +44,7 @@ ob_start(); ?>
                 </div>
                 <?php wp_reset_postdata(); ?>
             <?php else : ?>
-                <p><?php _e('Sorry, No bookmark found.', 'wp-crowdfunding'); ?></p>
+                <div class="wpcf-alert-warning"><?php _e('Sorry, No bookmark found.', 'wp-crowdfunding'); ?></div>
             <?php endif; ?>
         </div>
         <?php echo wpcf_function()->get_pagination($page_numb, $the_query->max_num_pages); ?>

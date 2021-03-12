@@ -38,7 +38,7 @@ class WPCF_Social_Share {
     }
 
     public function social_share_enqueue_frontend_script() {
-        wp_enqueue_script('wpwpcf-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/SocialShare.min.js', array('jquery'), WPCF_VERSION, true);
+        wp_enqueue_script('wpcf-social-share-front', WPCF_DIR_URL .'addons/social-share/assets/js/SocialShare.min.js', array('jquery'), WPCF_VERSION, true);
     }
 
     /**

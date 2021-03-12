@@ -43,7 +43,7 @@ class Gutenberg{
         
         // Scripts
         wp_enqueue_script(
-            'wpwpcf-block-script-js',
+            'wpcf-block-script-js',
             WPCF_DIR_URL . 'assets/js/blocks.min.js', 
             array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
             false,
@@ -51,7 +51,7 @@ class Gutenberg{
         );
 
         // Localize Scripts
-        wp_localize_script( 'wpwpcf-block-script-js', 'plugin_option', array(
+        wp_localize_script( 'wpcf-block-script-js', 'plugin_option', array(
             'plugin' => WPCF_DIR_URL,
             'name' => 'crowdfunding'
         ) );

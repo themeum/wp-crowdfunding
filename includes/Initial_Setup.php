@@ -201,34 +201,34 @@ if (! class_exists('Initial_Setup')) {
         public function activation_css() {
             ?>
             <style type="text/css">
-                .wpwpcf-install-notice{
+                .wpcf-install-notice{
                     padding: 20px;
                 }
-                .wpwpcf-install-notice-inner{
+                .wpcf-install-notice-inner{
                     display: flex;
                     align-items: center;
                 }
-                .wpwpcf-install-notice-inner .button{
+                .wpcf-install-notice-inner .button{
                     padding: 5px 30px;
                     height: auto;
                     line-height: 20px;
                     text-transform: capitalize;
                 }
-                .wpwpcf-install-notice-content{
+                .wpcf-install-notice-content{
                     flex-grow: 1;
                     padding-left: 20px;
                     padding-right: 20px;
                 }
-                .wpwpcf-install-notice-icon img{
+                .wpcf-install-notice-icon img{
                     width: 64px;
                     border-radius: 4px;
                     display: block;
                 }
-                .wpwpcf-install-notice-content h2{
+                .wpcf-install-notice-content h2{
                     margin-top: 0;
                     margin-bottom: 5px;
                 }
-                .wpwpcf-install-notice-content p{
+                .wpcf-install-notice-content p{
                     margin-top: 0;
                     margin-bottom: 0px;
                     padding: 0;
@@ -237,7 +237,7 @@ if (! class_exists('Initial_Setup')) {
             <script type="text/javascript">
                 jQuery(document).ready(function($){
                     'use strict';
-                    $(document).on('click', '.install-wpwpcf-button', function(e){
+                    $(document).on('click', '.install-wpcf-button', function(e){
                         e.preventDefault();
                         var $btn = $(this);
                         $.ajax({
@@ -248,7 +248,7 @@ if (! class_exists('Initial_Setup')) {
                                 $btn.addClass('updating-message');
                             },
                             success: function (data) {
-                                $('.install-wpwpcf-button').remove();
+                                $('.install-wpcf-button').remove();
                                 $('#wpcf_install_msg').html(data);
                             },
                             complete: function () {
@@ -266,12 +266,12 @@ if (! class_exists('Initial_Setup')) {
         public function free_plugin_installed_but_inactive_notice(){
             $this->activation_css();
             ?>
-            <div class="notice notice-error wpwpcf-install-notice">
-                <div class="wpwpcf-install-notice-inner">
-                    <div class="wpwpcf-install-notice-icon">
+            <div class="notice notice-error wpcf-install-notice">
+                <div class="wpcf-install-notice-inner">
+                    <div class="wpcf-install-notice-icon">
                         <img src="<?php echo WPCF_DIR_URL.'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
                     </div>
-                    <div class="wpwpcf-install-notice-content">
+                    <div class="wpcf-install-notice-content">
                         <h2><?php _e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
                         <?php 
                             printf(
@@ -284,7 +284,7 @@ if (! class_exists('Initial_Setup')) {
                         ?>
                         <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
-                    <div class="wpwpcf-install-notice-button">
+                    <div class="wpcf-install-notice-button">
                         <a  class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_woocommerce_free'), admin_url()); ?>"><?php _e('Activate WooCommerce', 'wp-crowdfunding'); ?></a>
                     </div>
                 </div>
@@ -296,12 +296,12 @@ if (! class_exists('Initial_Setup')) {
             include( ABSPATH . 'wp-admin/includes/plugin-install.php' );
             $this->activation_css();
             ?>
-            <div class="notice notice-error wpwpcf-install-notice">
-                <div class="wpwpcf-install-notice-inner">
-                    <div class="wpwpcf-install-notice-icon">
+            <div class="notice notice-error wpcf-install-notice">
+                <div class="wpcf-install-notice-inner">
+                    <div class="wpcf-install-notice-icon">
                         <img src="<?php echo WPCF_DIR_URL.'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
                     </div>
-                    <div class="wpwpcf-install-notice-content">
+                    <div class="wpcf-install-notice-content">
                         <h2><?php _e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
                         <?php 
                             printf(
@@ -314,8 +314,8 @@ if (! class_exists('Initial_Setup')) {
                         ?>
                         <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
-                    <div class="wpwpcf-install-notice-button">
-                        <a class="install-wpwpcf-button button button-primary" data-slug="woocommerce" href="<?php echo add_query_arg(array('action' => 'install_woocommerce_free'), admin_url()); ?>"><?php _e('Install WooCommerce', 'wp-crowdfunding'); ?></a>
+                    <div class="wpcf-install-notice-button">
+                        <a class="install-wpcf-button button button-primary" data-slug="woocommerce" href="<?php echo add_query_arg(array('action' => 'install_woocommerce_free'), admin_url()); ?>"><?php _e('Install WooCommerce', 'wp-crowdfunding'); ?></a>
                     </div>
                 </div>
                 <div id="wpcf_install_msg"></div>
@@ -325,7 +325,7 @@ if (! class_exists('Initial_Setup')) {
 
         public function activate_woocommerce_free() {
             activate_plugin('woocommerce/woocommerce.php' );
-            wp_redirect(admin_url('admin.php?page=wpwpcf-crowdfunding'));
+            wp_redirect(admin_url('admin.php?page=wpcf-crowdfunding'));
 		    exit();
         }
 
@@ -372,7 +372,6 @@ if (! class_exists('Initial_Setup')) {
             $upgrader->install($api->download_link);
             die();
         }
-    
         
         public static function wc_low_version(){
             printf(

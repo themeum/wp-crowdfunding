@@ -298,13 +298,12 @@ class Functions {
     public function template($template = '404'){
 		$template_class = new \WPCF\woocommerce\Templating;
 		$locate_file = $template_class->_theme_in_themes_path.$template.'.php';
-		if (file_exists($locate_file)){
+		if (file_exists($locate_file)) {
 			include $locate_file;
 		} else { 
             include $template_class->_theme_in_plugin_path.$template.'.php';
         }
     }
-
 
     public function fund_raised($campaign_id = 0){
 		global $wpdb, $post;
@@ -319,7 +318,7 @@ class Functions {
 			$translations = apply_filters( 'wpml_get_element_translations', null, $trid, $type );
 			$campaign_ids = wp_list_pluck( $translations, 'element_id' );
 		} else {
-				$campaign_ids = array( $campaign_id );
+			$campaign_ids = array( $campaign_id );
 		}
 		$placeholders = implode( ',', array_fill( 0, count( $campaign_ids ), '%d' ) );
 		
@@ -803,7 +802,7 @@ class Functions {
         $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
 
         ?>
-        <p class="wpwpcf-start-campaign-countdown"><?php _e('Campaign will be started within') ?> <span id="wpwpcf-campaign-countdown"></span></p>
+        <p class="wpcf-start-campaign-countdown"><?php _e('Campaign will be started within') ?> <span id="wpcf-campaign-countdown"></span></p>
         
         <script type="text/javascript">
             // Set the date we're counting down to
@@ -821,13 +820,13 @@ class Functions {
                 let wpcfMinutes = Math.floor((dateDiff % 3600000 ) / 60000 );
                 let wpcfSeconds = Math.floor((dateDiff % 60000 ) / 1000 );
 
-                // Display the result in the element with id="wpwpcf-campaign-countdown"
-                document.getElementById("wpwpcf-campaign-countdown").innerHTML = '<span>'+wpcfDays+'</span>' + "d " + "<span>" + wpcfHours + "h </span> <span> " + wpcfMinutes + "m </span> <span> " + wpcfSeconds + "s </span> ";
+                // Display the result in the element with id="wpcf-campaign-countdown"
+                document.getElementById("wpcf-campaign-countdown").innerHTML = '<span>'+wpcfDays+'</span>' + "d " + "<span>" + wpcfHours + "h </span> <span> " + wpcfMinutes + "m </span> <span> " + wpcfSeconds + "s </span> ";
 
                 // If the count down is finished, write some text
                 if ( dateDiff < 0 ) {
                     clearInterval(wpcfIntervalE);
-                    document.getElementById("wpwpcf-campaign-countdown").innerHTML = "";
+                    document.getElementById("wpcf-campaign-countdown").innerHTML = "";
                 }
             }, 1000);
         </script>

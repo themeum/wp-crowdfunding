@@ -117,14 +117,14 @@ class Templating {
             add_filter( 'template_include',         array( $this, 'template_chooser_callback' ), 99); //Get custom template for this
         }
 
-        add_action( 'wpcf_select_theme',    array( $this, 'selected_theme_callback') ); //Generate a dropdown for theme
+        add_action( 'wpcf_select_theme',        array( $this, 'selected_theme_callback') ); //Generate a dropdown for theme
         add_action( 'admin_notices',            array( $this, 'theme_noticed_callback') );
         add_action( 'init',                     array( $this, 'require_theme_resources') );
         add_action( 'wp_enqueue_scripts',       array( $this, 'load_theme_css_callback' ) );
         //add_action( 'template_redirect',        array( $this, 'theme_redirect_callback') ); //Template Redirect
     }
 
-    public function template_chooser_callback($template){
+    public function template_chooser_callback($template) {
         global $post;
 
         $post_id = get_the_ID();

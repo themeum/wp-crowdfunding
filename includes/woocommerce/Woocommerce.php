@@ -438,7 +438,7 @@ class Woocommerce {
 
                     wp_editor(stripslashes($value['details']), 'wpneo_prject_update_details_field'.$key, array('textarea_name' => 'wpneo_prject_update_details_field[]'));
 
-                    echo '<div class="wpwpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
+                    echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
                     echo '<div style="border-bottom: 1px solid #eee"></div>';
                     echo "</div>";
                 }

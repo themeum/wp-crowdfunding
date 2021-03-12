@@ -14,7 +14,7 @@ $args = array(
             'terms'    => 'crowdfunding',
         ),
     ),
-    'posts_per_page'    => 4,
+    'posts_per_page'    => 12,
     'paged'             => $page_numb
 );
 
@@ -23,8 +23,7 @@ $the_query = new WP_Query( $args );
 if ( $the_query->have_posts() ) :
     global $post;
     $i = 1;
-    while ( $the_query->have_posts() ) : $the_query->the_post();
-        ob_start(); 
+    while ( $the_query->have_posts() ) : $the_query->the_post(); 
         $permalink      = wpcf_function()->is_published() ? get_permalink() : '#';
         $word_count     = get_option('number_of_words_show_in_listing_description', 130);
         $desc           = wpcf_function()->limit_word_text(strip_tags(get_the_content()), $word_count);
@@ -45,8 +44,10 @@ if ( $the_query->have_posts() ) :
             $raised = $total_raised;
         }
         $funding_goal = get_post_meta($post->ID, '_nf_funding_goal', true);
+        
+        ob_start();
         ?>
-        <div class="wpcf-col-lg-6">
+        <div class="wpcf-col-lg-4">
             <div class="wpcf-card">
                 <div class="wpcf-card-thumbnail">
                     <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"><?php echo woocommerce_get_product_thumbnail(); ?></a>
@@ -86,7 +87,7 @@ if ( $the_query->have_posts() ) :
                                 <div class="wpcf-campaign-meta-duration">
                                     <?php if (wpcf_function()->is_campaign_started()) : ?>
                                         <div class="wpcf-fw-bolder"><?php echo wpcf_function()->get_date_remaining(); ?></div>
-                                        <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Days to go', 'wp-crowdfunding'); ?></div>
+                                        <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Days to Go', 'wp-crowdfunding'); ?></div>
                                     <?php else: ?>
                                         <div class="wpcf-fw-bolder"><?php echo wpcf_function()->days_until_launch(); ?></div>
                                         <div class="wpcf-text-gray-600 wpcf-mt-1"><?php _e('Days Until Launch', 'wp-crowdfunding'); ?></div>
@@ -105,8 +106,7 @@ if ( $the_query->have_posts() ) :
     endwhile;
     wp_reset_postdata();
 else :
-    $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
+    $html .= "<div class='wpcf-alert-warning'>".__( 'Sorry, no Campaign Found.', 'wp-crowdfunding' )."</div>";
 endif;
 $html .= '</div>';
-$html .= wpcf_function()->get_pagination( $page_numb , $the_query->max_num_pages );
-
+$html .= wpcf_function()->get_pagination( $page_numb, $the_query->max_num_pages );

@@ -73,17 +73,17 @@ class Donate{
         );
 
         if ( ! $atts['campaign_id']){
-            return '<p class="wpwpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
+            return '<p class="wpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
         }
  
         $campaign = wc_get_product($atts['campaign_id']);
         if ( ! $campaign || $campaign->get_type() !== 'crowdfunding'){
-            return '<p class="wpwpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
+            return '<p class="wpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
         }
 
         $html = '';
-        $html .= '<div class="wpwpcf-form-field '. $formSize .' '.$formAlign.'">';
-            $html .= '<div class="wpwpcf-donate-form-wrap">';
+        $html .= '<div class="wpcf-form-field '. $formSize .' '.$formAlign.'">';
+            $html .= '<div class="wpcf-donate-form-wrap">';
                 $html .= '<form enctype="multipart/form-data" method="post" class="cart">';
                     if ($atts['show_input_box'] == 'true') {
                         $html .= get_woocommerce_currency_symbol();

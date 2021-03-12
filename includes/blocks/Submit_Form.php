@@ -41,7 +41,7 @@ class Submit_Form{
         $html .= wpcf_get_submit_form_campaign();
 
         $html .= '<style>';
-            $html .= 'input[type="button"].wpneo-image-upload, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, #addreward, #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, .wpwpcf-form-group .wpneo-image-upload-btn {
+            $html .= 'input[type="button"].wpneo-image-upload, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, #addreward, #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, .wpcf-form-group .wpneo-image-upload-btn {
                 background-color: '. $bgColor .';
             }';
             $html .= 'input[type="button"].wpneo-image-upload, .wpneo-image-upload.float-right, .wpneo-image-upload-btn, #addreward, #wpneofrontenddata .wpneo-form-action input[type="submit"].wpneo-submit-campaign, a.wpneo-cancel-campaign, .editor-styles-wrapper a.wpneo-cancel-campaign {

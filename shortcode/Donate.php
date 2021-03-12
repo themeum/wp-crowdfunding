@@ -20,16 +20,16 @@ class Donate {
         ), $atts, $shortcode );
 
         if ( ! $atts['campaign_id']){
-            return '<p class="wpwpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
+            return '<p class="wpcf-donate-form-response">'.__('Campaign ID required', 'wp-crowdfunding').'</p>';
         }
 
         $campaign = wc_get_product($atts['campaign_id']);
         if ( ! $campaign || $campaign->get_type() !== 'crowdfunding'){
-            return '<p class="wpwpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
+            return '<p class="wpcf-donate-form-response">'.__('Invalid Campaign ID', 'wp-crowdfunding').'</p>';
         }
         ob_start();
         ?>
-        <div class="wpwpcf-donate-form-wrap">
+        <div class="wpcf-donate-form-wrap">
             <form enctype="multipart/form-data" method="post" class="cart">
                 <?php
                 if ($atts['show_input_box'] == 'true') {

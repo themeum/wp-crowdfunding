@@ -66,7 +66,7 @@ class Base {
 
     public function settings_link($links) {
 		$actionsLinks = array(
-		    'settings' => '<a href="'.admin_url('admin.php?page=wpwpcf-settings').'">Settings</a>',
+		    'settings' => '<a href="'.admin_url('admin.php?page=wpcf-settings').'">Settings</a>',
 		    'wpcf_docs' => '<a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank">'.__('Docs', 'wp-crowdfunding').'</a>',
             'wpcf_support' => '<a href="https://www.themeum.com/support/" target="_blank">'.__('Support', 'wp-crowdfunding').'</a>',
         );
@@ -154,9 +154,9 @@ class Base {
         }
 
         if ( ! get_option( 'wpcf_admin_footer_text_rated' ) ) {
-            $footer_text = sprintf(__('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpwpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'woocommerce') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
+            $footer_text = sprintf(__('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'woocommerce') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
             wc_enqueue_js("
-                jQuery( 'a.wpwpcf-rating-link' ).click( function() {
+                jQuery( 'a.wpcf-rating-link' ).click( function() {
                     jQuery.post( '" . admin_url('admin-ajax.php') . "', { action: 'wpcf_rated' } );
                     jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
                 });
