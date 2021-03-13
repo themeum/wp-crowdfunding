@@ -183,17 +183,6 @@ $arr =  array(
         'label'     => __('Template for campaign single page','wp-crowdfunding'),
     ),
 
-    // #Number of Columns in a Row
-    array(
-        'id'        => 'wpneo_single_page_reward_design',
-        'type'      => 'dropdown',
-        'option'    => array(
-            '1' => __('1','wp-crowdfunding'),
-            '2' => __('2','wp-crowdfunding'),
-        ),
-        'label'     => __('Select Style for Rewards','wp-crowdfunding'),
-    ),
-
     // #Reward fixed price
     array(
         'id'        => 'wpneo_reward_fixed_price',

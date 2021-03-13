@@ -3,16 +3,19 @@ defined( 'ABSPATH' ) || exit;
 
 $raised_percent = wpcf_function()->get_fund_raised_percent_format();
 ?>
-<div class="wpneo-raised-percent">
-    <div class="wpneo-meta-name"><?php _e('Raised Percent', 'wp-crowdfunding'); ?> :</div>
-    <div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
-</div>
-<div class="wpcf-progress">
-    <?php
-        $css_width = wpcf_function()->get_raised_percent();
-        if( $css_width >= 100 ) {
-            $css_width = 100;
-        }
-    ?>
-    <div class="wpcf-progress-bar" style="width: <?php echo $css_width; ?>%;" area-hidden="true"></div>
+<div class="wpcf-campaign-progress">
+    <div class="wpcf-text-small wpcf-mb-2">
+        <span class="wpcf-text-gray-600"><?php _e('Raised Percent', 'wp-crowdfunding'); ?>:</span>
+        <span class="wpcf-ml-2 wpcf-fw-bolder"><?php echo $raised_percent; ?></span>
+    </div>
+
+    <div class="wpcf-progress">
+        <?php
+            $progress_width = wpcf_function()->get_raised_percent();
+            if( $progress_width >= 100 ) {
+                $progress_width = 100;
+            }
+        ?>
+        <div class="wpcf-progress-bar" style="width: <?php echo $progress_width; ?>%;" area-hidden="true"></div>
+    </div>
 </div>

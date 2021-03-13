@@ -438,9 +438,6 @@ class Admin_Menu {
 
                 // Single Page Settings
                 if ( $current_tab == 'tab_single_page' ){
-                    $reward_design = intval(wpcf_function()->post('wpneo_single_page_reward_design'));
-                    wpcf_function()->update_text('wpneo_single_page_reward_design', $reward_design);
-
                     $fixed_price = sanitize_text_field(wpcf_function()->post('wpneo_reward_fixed_price'));
                     wpcf_function()->update_checkbox('wpneo_reward_fixed_price', $fixed_price);
                 }
@@ -501,9 +498,6 @@ class Admin_Menu {
                     //Load single campaign to WooCommerce or not
                     $page_template = sanitize_text_field(wpcf_function()->post('wpneo_single_page_template'));
                     wpcf_function()->update_checkbox('wpneo_single_page_template', $page_template);
-
-                    $reward_design = intval(wpcf_function()->post('wpneo_single_page_reward_design'));
-                    wpcf_function()->update_text('wpneo_single_page_reward_design', $reward_design);
 
                     $fixed_price = sanitize_text_field(wpcf_function()->post('wpneo_reward_fixed_price'));
                     wpcf_function()->update_checkbox('wpneo_reward_fixed_price', $fixed_price);

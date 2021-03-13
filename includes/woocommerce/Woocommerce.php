@@ -48,7 +48,7 @@ class Woocommerce {
         if ( 'true' == get_option('hide_cf_campaign_from_shop_page' )) {
             add_action('woocommerce_product_query',                     array($this, 'limit_show_cf_campaign_in_shop')); //Filter product query
         }
-        add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') );
+        // add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') ); // reactive again if needed
         !is_admin() and add_filter( 'woocommerce_coupons_enabled',      array($this, 'wc_coupon_disable') ); //Hide coupon form on checkout page
 
         add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );

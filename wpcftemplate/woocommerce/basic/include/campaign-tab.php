@@ -27,24 +27,27 @@ $tabs = apply_filters( 'wpcf_default_single_campaign_tabs', array() );
 
 if ( ! empty( $tabs ) ) : ?>
     <div class="wpcf-tabs">
-        <ul class="wpcf-tabs-nav">
-            <?php
-                $i = 0;
-                foreach ( $tabs as $key => $tab ) :
-                $i++;
-                $current = $i === 1 ? 'wpcf-tab-current' : '';
-            ?>
-                <li class="wpcf-tab-item <?php echo $current .' ' . esc_attr( $key ); ?>_tab">
-                    <a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'wpcf_campaign_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-        <div class="wpcf-tab-content">
+        <div class="wpcf-card">
+            <ul class="wpcf-nav wpcf-nav-tabs">
+                <?php
+                    $i = 0;
+                    foreach ( $tabs as $key => $tab ) :
+                    $i++;
+                    $current = $i === 1 ? ' wpcf-is-active' : '';
+                ?>
+                    <li>
+                        <a href="#" class="wpcf-nav-item<?php echo $current; ?>" role="tab"><?php echo apply_filters( 'wpcf_campaign_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <div class="wpcf-tab-content wpcf-pt-4">
+            <?php $j = 0; ?>
             <?php foreach ( $tabs as $key => $tab ) : ?>
-                <div id="wpcf-tab-pane-<?php echo esc_attr( $key ); ?>" class="wpcf-tab-pane">
+                <div class="wpcf-tab-pane<?php echo $j == 0 ? ' wpcf-is-active' : ''; ?>" role="tabpanel">
                     <?php call_user_func( $tab['callback'], $key, $tab ); ?>
                 </div>
-            <?php endforeach; ?>
+            <?php $j++; endforeach; ?>
         </div>
     </div>
 <?php endif; ?>

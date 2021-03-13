@@ -6,6 +6,7 @@
     }
 }
 
+
 .wpcf-text-primary {
     color: $primary-color;
     svg {
@@ -17,6 +18,13 @@
     color: $text-light-color;
     svg {
         fill: $text-light-color;
+    }
+}
+
+.wpcf-text-white {
+    color: $white;
+    svg {
+        fill: $white;
     }
 }
 
@@ -54,6 +62,15 @@
 
 .wpcf-text-extra-small {
     font-size: 12px;
+}
+
+// background
+.wpcf-bg-primary {
+    background-color: $primary-color;
+}
+
+.wpcf-bg-secondary {
+    background-color: $secondary-color;
 }
 
 // svg icon
@@ -267,4 +284,19 @@ $utilities: map-merge(
         height: 100%;
         border: 0;
     }
+}
+
+// badge
+.wpcf-badge {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    background-color: $secondary-color;
+    color: $text-color;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 4px;
 }

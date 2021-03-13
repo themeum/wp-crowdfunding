@@ -20,7 +20,7 @@ $saved_campaign_update_a = json_decode($saved_campaign_update, true);
                         echo wpautop($upate_content); ?>
                     </p>
                 </li>
-            <?php }  //the_content(); ?>
+            <?php } ?>
         </ul>
         <?php
     }

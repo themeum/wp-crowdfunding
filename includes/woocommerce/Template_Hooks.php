@@ -29,8 +29,8 @@ class Template_Hooks {
     }
 
 
-    public function woocommerce_single_page(){
-        if (is_product()){
+    public function woocommerce_single_page() {
+        if (is_product()) {
             global $post;
             $product = wc_get_product($post->ID);
             if ($product->get_type() == 'crowdfunding'){
@@ -77,12 +77,12 @@ class Template_Hooks {
 	public function single_campaign_summary() {
 		wpcf_function()->template('include/campaign-title');
 		wpcf_function()->template('include/author');
-		$this->loop_item_rating();
-		$this->single_fund_raised();
+		// wpcf_function()->template('include/loop/rating_html');
 		wpcf_function()->template('include/fund_raised_percent');
-		$this->single_fund_this_campaign_btn();
-		$this->campaign_location();
-		$this->creator_info();
+		wpcf_function()->template('include/fund-raised');
+		wpcf_function()->template('include/fund-campaign-btn');
+		wpcf_function()->template('include/location');
+		wpcf_function()->template('include/creator-info');
 	}
 
 	public function campaign_loop_item_content() {

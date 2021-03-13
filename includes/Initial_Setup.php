@@ -100,7 +100,6 @@ if (! class_exists('Initial_Setup')) {
                 'wpcf_show_terms_and_conditions' => 'true',
                 'wpneo_enable_paypal_per_campaign_email' => 'true',
                 'wpneo_single_page_template' => 'in_wp_crowdfunding',
-                'wpneo_single_page_reward_design' => '1',
                 'hide_cf_campaign_from_shop_page' => 'false',
                 'wpneo_crowdfunding_add_to_cart_redirect' => 'checkout_page',
                 'wpneo_single_page_id' => 'true',

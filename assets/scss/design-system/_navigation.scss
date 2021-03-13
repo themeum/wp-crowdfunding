@@ -67,3 +67,10 @@
         }
     }
 }
+
+// tabs
+.wpcf-tab-pane {
+    &:not(.wpcf-is-active) {
+        display: none;
+    }
+}

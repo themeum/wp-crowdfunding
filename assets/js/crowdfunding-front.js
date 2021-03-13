@@ -1,7 +1,29 @@
 // Crowdfunding Scripts
 
 jQuery(function($) {
-    
+
+    // tabs
+    $(document).on('click', '.wpcf-nav-tabs .wpcf-nav-item', function(event) {
+        event.preventDefault();
+
+        // do not do anything if active
+        if($(this).hasClass('wpcf-is-active')) {
+            return;
+        }
+
+        var parent = $(this).closest('.wpcf-tabs');
+        var handles = parent.find('.wpcf-nav-item');
+        var tabs = parent.find('.wpcf-tab-pane');
+        var activeIndex = $(this).parent().index();
+
+        handles.removeClass('wpcf-is-active');
+        $(this).addClass('wpcf-is-active');
+        tabs.removeClass('wpcf-is-active').eq(activeIndex).addClass('wpcf-is-active');
+    });
+
+
+
+    // legacy
     var count = 0;
     var numItems = $('.wpneo-block').length;
     if(numItems!=0) {
@@ -339,17 +361,17 @@ jQuery(function($) {
     });
 
     // Donate Field Add Max & Min Amount
-    $('input[name="wpneo_donate_amount_field"]').on('blur change paste', function(){
+    $('input[name="wpcf_donate_amount_field"]').on('blur change paste', function(){
         var input_price = $(this).val();
         var min_price = $(this).data('min-price');
         var max_price = $(this).data('max-price');
-        if (input_price < min_price){
-            if(min_price){
+        if (input_price < min_price) {
+            if(min_price) {
                 $(this).val( min_price );
                 $('.wpneo-tooltip-min').css({'visibility': 'visible'});
             }
-        }else if (max_price < input_price){
-            if(max_price){
+        }else if (max_price < input_price) {
+            if(max_price) {
                 $(this).val( max_price );
                 $('.wpneo-tooltip-max').css({'visibility': 'visible'});
             }

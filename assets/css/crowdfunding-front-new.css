@@ -705,6 +705,9 @@
     .wpcf-nav > li:hover > ul {
       display: block; }
 
+.wpcf-tab-pane:not(.wpcf-is-active) {
+  display: none; }
+
 .wpcf-tabs-nav {
   display: flex;
   flex-wrap: wrap;
@@ -748,6 +751,11 @@
   .wpcf-text-lighter svg {
     fill: #425466; }
 
+.wpcf-text-white {
+  color: #FFFFFF; }
+  .wpcf-text-white svg {
+    fill: #FFFFFF; }
+
 .wpcf-text-muted {
   color: #838C9A; }
   .wpcf-text-muted svg {
@@ -773,6 +781,12 @@
 
 .wpcf-text-extra-small {
   font-size: 12px; }
+
+.wpcf-bg-primary {
+  background-color: #007D68; }
+
+.wpcf-bg-secondary {
+  background-color: #E4F7F4; }
 
 .wpcf-svg-icon {
   display: inline-block; }
@@ -2195,5 +2209,28 @@
     height: 100%;
     border: 0; }
 
+.wpcf-badge {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  background-color: #E4F7F4;
+  color: #16192C;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 4px; }
+
 .wpcf-campaign-item {
   margin-bottom: 30px; }
+
+.wpcf-campaign-intro-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px; }
+  .wpcf-campaign-intro-gallery > * {
+    flex: 1 0 21%;
+    margin: 10px; }
+  .wpcf-campaign-intro-gallery:not(:empty) {
+    margin-top: 10px; }

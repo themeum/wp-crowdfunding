@@ -1,27 +1,29 @@
 <?php
-defined( 'ABSPATH' ) || exit;
-?>
-<div class="wpcf-form-group-sidebar ASA">
-	<?php
+	defined( 'ABSPATH' ) || exit;
 	global $post, $product;
 	$currency = '$';
-	if ($product->get_type() == 'crowdfunding') {
-		if (wpcf_function()->is_campaign_valid()) {
-			$recomanded_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
-			$min_price = get_post_meta($post->ID, 'wpneo_funding_minimum_price', true);
-			$max_price = get_post_meta($post->ID, 'wpneo_funding_maximum_price', true);
-			$predefined_price = get_post_meta($post->ID, 'wpcf_predefined_pledge_amount', true);
-			if ( ! empty($predefined_price)){
-				$predefined_price = apply_filters('wpcf_predefined_pledge_amount_array_a', explode(',', $predefined_price));
-			}
+?>
+<div class="wpcf-campaign-back-actions">
+	<?php if ($product->get_type() == 'crowdfunding') : ?>
+		<?php if (wpcf_function()->is_campaign_valid()) : ?>
+			<?php
+				$recomanded_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
+				$min_price = get_post_meta($post->ID, 'wpneo_funding_minimum_price', true);
+				$max_price = get_post_meta($post->ID, 'wpneo_funding_maximum_price', true);
+				$predefined_price = get_post_meta($post->ID, 'wpcf_predefined_pledge_amount', true);
 
-			if(function_exists( 'get_woocommerce_currency_symbol' )){
-				$currency = get_woocommerce_currency_symbol();
-			}
+				if (!empty($predefined_price)) {
+					$predefined_price = apply_filters('wpcf_predefined_pledge_amount_array_a', explode(',', $predefined_price));
+				}
 
-			if (! empty($_GET['reward_min_amount'])){
-				$recomanded_price = (int) esc_html($_GET['reward_min_amount']);
-			} ?>
+				if(function_exists( 'get_woocommerce_currency_symbol' )) {
+					$currency = get_woocommerce_currency_symbol();
+				}
+
+				if (! empty($_GET['reward_min_amount'])) {
+					$recomanded_price = (int) esc_html($_GET['reward_min_amount']);
+				}
+			?>
 
             <span class="wpneo-tooltip">
                 <span class="wpneo-tooltip-min"><?php _e('Minimum amount is ','wp-crowdfunding'); echo $currency.$min_price; ?></span>
@@ -41,30 +43,33 @@ defined( 'ABSPATH' ) || exit;
 			}
 			?>
 
-            <form enctype="multipart/form-data" method="post" class="cart AA">
+            <form enctype="multipart/form-data" method="post">
 				<?php do_action('before_wpneo_donate_field'); ?>
-				<?php echo get_woocommerce_currency_symbol(); ?>
-                
-                <input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo ($recomanded_price ? $recomanded_price : $min_price); ?>" data-min-price="<?php echo $min_price; ?>" data-max-price="<?php echo $max_price ?>" >
-
-				<?php do_action('after_wpneo_donate_field'); ?>
+				<div class="wpcf-d-flex wpcf-align-items-center">
+					<div class="wpcf-mr-3"><?php echo get_woocommerce_currency_symbol(); ?></div>
+					<div class="wpcf-mr-3">
+						<input type="number" name="wpneo_donate_amount_field" oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" class="wpcf-form-control wpcf_donate_amount_field is-valid" value="<?php echo ($recomanded_price ? $recomanded_price : $min_price); ?>" data-min-price="<?php echo $min_price; ?>" data-max-price="<?php echo $max_price ?>">
+						<div class="wpcf-valid-feedback"></div>
+					</div>
+					<?php do_action('after_wpneo_donate_field'); ?>
+					<div>
+						<button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'wpcf-button-primary wpcf-donate-button'); ?>"><?php _e('Back Campaign', 'wp-crowdfunding'); ?></button>
+					</div>
+				</div>
                 <input type="hidden" value="<?php echo esc_attr($post->ID); ?>" name="add-to-cart">
-                <button type="submit" class="<?php echo apply_filters('add_to_donate_button_class', 'wpcf-button-primary wpcf-donate-button'); ?>"><?php _e('Back Campaign', 'wp-crowdfunding'); ?></button>
             </form>
 
-		<?php
-		} else {
-			if ( ! wpcf_function()->is_campaign_started()){
+		<?php else :
+			if ( ! wpcf_function()->is_campaign_started()) :
 				wpcf_function()->campaign_start_countdown();
-			}else{
-				if( wpcf_function()->is_reach_target_goal() ){
+			else :
+				if( wpcf_function()->is_reach_target_goal() ) :
 					_e('The campaign is successful.','wp-crowdfunding');
-				}else{
+				else :
 					_e('This campaign has been invalid or not started yet.','wp-crowdfunding');
-				}
-			}
-		}
-	}
-
+				endif;
+			endif;
+		endif;
+	endif;
 	?>
 </div>
