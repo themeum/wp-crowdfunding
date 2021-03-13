@@ -3,11 +3,11 @@
 	global $post, $product;
 	$currency = '$';
 ?>
-<div class="wpcf-campaign-back-actions">
+<div class="wpcf-campaign-back-actions wpcf-mt-5">
 	<?php if ($product->get_type() == 'crowdfunding') : ?>
 		<?php if (wpcf_function()->is_campaign_valid()) : ?>
 			<?php
-				$recomanded_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
+				$recommended_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
 				$min_price = get_post_meta($post->ID, 'wpneo_funding_minimum_price', true);
 				$max_price = get_post_meta($post->ID, 'wpneo_funding_maximum_price', true);
 				$predefined_price = get_post_meta($post->ID, 'wpcf_predefined_pledge_amount', true);
@@ -21,15 +21,9 @@
 				}
 
 				if (! empty($_GET['reward_min_amount'])) {
-					$recomanded_price = (int) esc_html($_GET['reward_min_amount']);
+					$recommended_price = (int) esc_html($_GET['reward_min_amount']);
 				}
 			?>
-
-            <span class="wpneo-tooltip">
-                <span class="wpneo-tooltip-min"><?php _e('Minimum amount is ','wp-crowdfunding'); echo $currency.$min_price; ?></span>
-                <span class="wpneo-tooltip-max"><?php _e('Maximum amount is ','wp-crowdfunding'); echo $currency.$max_price; ?></span>
-                <span class="wpneo-tooltip-empty"><?php _e('Put a valid number','wp-crowdfunding'); ?></span>
-            </span>
 
 			<?php
 			if (is_array($predefined_price) && count($predefined_price)){
@@ -37,7 +31,7 @@
 				foreach ($predefined_price as $price){
 					$price = trim($price);
 					$wooPrice = wc_price($price);
-					echo " <li><a href='javascript:;' data-predefined-price='{$price}'> {$wooPrice}</a> </li> ";
+					echo "<li><a href='javascript:;' data-predefined-price='{$price}'>{$wooPrice}</a></li>";
 				}
 				echo "</ul>";
 			}
@@ -48,8 +42,7 @@
 				<div class="wpcf-d-flex wpcf-align-items-center">
 					<div class="wpcf-mr-3"><?php echo get_woocommerce_currency_symbol(); ?></div>
 					<div class="wpcf-mr-3">
-						<input type="number" name="wpneo_donate_amount_field" oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" step="any" min="0" placeholder="<?php echo $recomanded_price; ?>" class="wpcf-form-control wpcf_donate_amount_field is-valid" value="<?php echo ($recomanded_price ? $recomanded_price : $min_price); ?>" data-min-price="<?php echo $min_price; ?>" data-max-price="<?php echo $max_price ?>">
-						<div class="wpcf-valid-feedback"></div>
+						<input type="number" name="wpneo_donate_amount_field" oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" step="any" min="<?php echo $min_price; ?>" max="<?php echo $max_price; ?>" placeholder="<?php echo $recommended_price; ?>" class="wpcf-form-control wpcf_donate_amount_field" value="<?php echo ($recommended_price ? $recommended_price : $min_price); ?>">
 					</div>
 					<?php do_action('after_wpneo_donate_field'); ?>
 					<div>

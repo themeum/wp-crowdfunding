@@ -360,26 +360,6 @@ jQuery(function($) {
         }
     });
 
-    // Donate Field Add Max & Min Amount
-    $('input[name="wpcf_donate_amount_field"]').on('blur change paste', function(){
-        var input_price = $(this).val();
-        var min_price = $(this).data('min-price');
-        var max_price = $(this).data('max-price');
-        if (input_price < min_price) {
-            if(min_price) {
-                $(this).val( min_price );
-                $('.wpneo-tooltip-min').css({'visibility': 'visible'});
-            }
-        }else if (max_price < input_price) {
-            if(max_price) {
-                $(this).val( max_price );
-                $('.wpneo-tooltip-max').css({'visibility': 'visible'});
-            }
-        }else{
-            $('.wpneo-tooltip-min,.wpneo-tooltip-max').css({'visibility': 'hidden'});
-        }
-    });
-
     // Add Love Campaign
     $(document).on('click', '#love_this_campaign', function () {
         var campaign_id = $(this).data('campaign-id');
@@ -561,7 +541,8 @@ jQuery(function($) {
      *
      * @since 10.22
      */
-    $(document).on('click', 'ul.wpcf_predefined_pledge_amount li a', function(){
+    $(document).on('click', 'ul.wpcf_predefined_pledge_amount li a', function(event) {
+        event.preventDefault();
         var price = $(this).attr('data-predefined-price');
         $('.wpneo_donate_amount_field').val(price);
     });

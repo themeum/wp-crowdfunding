@@ -542,8 +542,6 @@ class Woocommerce {
         global $post;
         $product = wc_get_product( $post->ID );
 
-        //wp_die(var_dump($product));
-
         $html = '';
         if ($product->get_type() == 'crowdfunding') {
             $html .= '<div class="donate_field wp_neo">';
@@ -552,9 +550,9 @@ class Woocommerce {
 
                 $html .= '<form class="cart" method="post" enctype="multipart/form-data">';
                 $html .= do_action('before_wpneo_donate_field');
-                $recomanded_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
+                $recommended_price = get_post_meta($post->ID, 'wpneo_funding_recommended_price', true);
                 $html .= get_woocommerce_currency_symbol();
-                $html .= apply_filters('neo_donate_field', '<input type ="number" step="any" class="input-text amount wpneo_donation_input text" name="wpneo_donate_amount_field" min="0" value="'.esc_attr($recomanded_price).'" />');
+                $html .= apply_filters('neo_donate_field', '<input type ="number" step="any" class="input-text amount wpneo_donation_input text" name="wpneo_donate_amount_field" min="0" value="'.esc_attr($recommended_price).'" />');
                 $html .= do_action('after_wpneo_donate_field');
                 $html .= '<input type="hidden" name="add-to-cart" value="' . esc_attr($product->get_id()) . '" />';
                 $btn_text = get_option('wpneo_donation_btn_text');
