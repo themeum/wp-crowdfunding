@@ -52,7 +52,7 @@ class Popular_Campaigns {
         query_posts($query_args);
 
         ob_start();
-        wpcf_function()->template('wpneo-listing');
+        wpcf_function()->template('wpcf-listing');
         $html = ob_get_clean();
         wp_reset_query();
         return $html;

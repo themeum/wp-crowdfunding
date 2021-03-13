@@ -27,7 +27,7 @@ class Admin_Menu {
     
             $style = '';
     
-            if( $button_bg ){
+            if( $button_bg ) {
                 $style .= '.wpneo_donate_button, 
                             #wpneo-tab-reviews .submit,
                             .wpneo-edit-btn,
@@ -77,7 +77,7 @@ class Admin_Menu {
                             .wpneo_withdraw_button:hover{ background-color:'.$button_bg_hover.'; color:'.$text_hover_color.'; }';
             }
     
-            if( $color_scheme ){
+            if( $color_scheme ) {
                 $style .=  '#neo-progressbar > div,
                             ul.wpneo-crowdfunding-update li:hover span.round-circle,
                             .wpneo-links li a:hover, .wpneo-links li.active a,#neo-progressbar > div {
@@ -125,7 +125,7 @@ class Admin_Menu {
                             }';
     
                 list($r, $g, $b) = sscanf( $color_scheme, "#%02x%02x%02x" );
-                $style .=  '.tab-rewards-wrapper .overlay { background: rgba('.$r.','.$g.','.$b.',.95); }';
+                $style .=  '.tab-rewards-wrapper .overlay { background: rgba('.$r.','.$g.','.$b.', .95); }';
             }
     
             if( $custom_css ){ $style .= $custom_css; }
@@ -177,7 +177,6 @@ class Admin_Menu {
     public function wpcf_manage_addons() {
         include WPCF_DIR_PATH.'settings/view/Addons.php';
     }
-
 
     /**
      * Display a custom menu page

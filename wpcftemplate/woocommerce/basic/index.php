@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Name: WPNEO Crowdfunding Basic
+ * Theme Name: WP Crowdfunding Basic
  * version: 1.0.0
- * Copyright: WPNEO
+ * Copyright: Themeum
  */

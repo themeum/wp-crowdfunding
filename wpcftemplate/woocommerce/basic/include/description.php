@@ -5,7 +5,6 @@ if ( ! $post->post_excerpt ) {
     return;
 }
 ?>
-<div style="clear: both"></div>
 <div class="wpcf-form-group-short-description">
     <h2><?php _e('Short Story','wp-crowdfunding'); ?></h2>
     <div itemprop="description">

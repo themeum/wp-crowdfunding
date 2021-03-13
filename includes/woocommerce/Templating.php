@@ -110,7 +110,7 @@ class Templating {
             }
         }
 
-        //Determine where single campaign will be load, is it WooCommerce or Wp Crowdfunding
+        //Determine where single campaign will be load, is it WooCommerce or WP Crowdfunding
         $single_page_template = get_option('wpneo_single_page_template');
 
         if (empty($single_page_template) || ($single_page_template == 'in_wp_crowdfunding') ){
@@ -310,9 +310,9 @@ class Templating {
     public function require_theme_resources(){
         $is_valid_theme = $this->check_theme_standard($this->_selected_theme_path);
         if ($is_valid_theme) {
-            include_once $this->_selected_theme_path . 'wpneo-functions.php';
+            include_once $this->_selected_theme_path . 'wpcf-functions.php';
         }else{
-            include_once $this->_theme_in_plugin_path . 'wpneo-functions.php';
+            include_once $this->_theme_in_plugin_path . 'wpcf-functions.php';
         }
     }
 

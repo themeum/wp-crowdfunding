@@ -9,29 +9,24 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div class="wpneo-wrapper">
-    <div class="wpneowpcf-container">
-        <div id="primary" class="content-area">
+<div class="wpcf-wrapper">
+    <div class="wpcf-container">
+        <div class="content-area">
             <div id="content" class="site-content" role="main">
-                <div class="wpneo-list-details">
-
+                <div class="wpcf-campaign-details">
 					<?php do_action( 'wpcf_before_main_content' ); ?>
-                    <div itemscope itemtype="http://schema.org/ItemList" id="campaign-<?php the_ID(); ?>" <?php post_class(); ?>>
+                    <div id="campaign-<?php the_ID(); ?>" <?php post_class(); ?> itemscope itemtype="http://schema.org/ItemList">
 						<?php do_action( 'wpcf_before_single_campaign_summary' ); ?>
-                        <div class="wpneo-campaign-summary">
-                            <div class="wpneo-campaign-summary-inner" itemscope itemtype="http://schema.org/DonateAction">
-								<?php do_action( 'wpcf_single_campaign_summary' ); ?>
-                            </div>
+                        <div class="wpcf-campaign-summary" itemscope itemtype="http://schema.org/DonateAction">
+							<?php do_action( 'wpcf_single_campaign_summary' ); ?>
                         </div>
 						<?php do_action( 'wpcf_after_single_campaign_summary' ); ?>
                         <meta itemprop="url" content="<?php the_permalink(); ?>" />
-                    </div><!-- #campaign-<?php the_ID(); ?> -->
+                    </div>
 					<?php do_action( 'wpcf_after_single_campaign' ); ?>
 					<?php do_action( 'wpcf_after_main_content' ); ?>
-
                 </div>
-            </div><!-- #content -->
-        </div><!-- #primary -->
+            </div>
+        </div>
     </div>
-
 </div>

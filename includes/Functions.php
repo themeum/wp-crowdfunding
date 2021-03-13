@@ -434,7 +434,7 @@ class Functions {
 		return $url;
 	}
 
-	public function get_embeded_video($url){
+	public function get_embeded_video($url) {
 		if (! empty($url)) {
 			$embeded = wp_oembed_get($url);
 
@@ -450,7 +450,7 @@ class Functions {
 				}
 				$embeded = '<video controls><source src="' . $url . '" type="video/' . $format . '">'.__('Your browser does not support the video tag.', 'wp-crowdfunding').'</video>';
 			}
-			return '<div class="wpneo-video-wrapper">' . $embeded . '</div>';
+			return '<div class="wpcf-embed">' . $embeded . '</div>';
 		} else {
 			return false;
 		}
@@ -460,7 +460,7 @@ class Functions {
 	function get_pagination($page_numb, $max_page) {
 		$html = '';
 		$big = 999999999; // need an unlikely integer
-		$html .= '<div class="wpneo-pagination">';
+		$html .= '<div class="wpcf-pagination-wrapper">';
 		$html .= paginate_links(array(
 			'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
 			'format' => '?paged=%#%',
