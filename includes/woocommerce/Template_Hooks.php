@@ -76,13 +76,14 @@ class Template_Hooks {
 
 	public function single_campaign_summary() {
 		wpcf_function()->template('include/campaign-title');
-		wpcf_function()->template('include/author');
+		//wpcf_function()->template('include/author');
+		wpcf_function()->template('include/creator-info');
 		// wpcf_function()->template('include/loop/rating_html');
 		wpcf_function()->template('include/fund_raised_percent');
 		wpcf_function()->template('include/fund-raised');
 		wpcf_function()->template('include/fund-campaign-btn');
 		wpcf_function()->template('include/location');
-		wpcf_function()->template('include/creator-info');
+		
 	}
 
 	public function campaign_loop_item_content() {

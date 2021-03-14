@@ -84,7 +84,7 @@ jQuery(function($) {
     });
 
     // Insert Campaign Post Data
-    $('#wpneofrontenddata').submit(submit_frontend);
+    $('#wpneofrontenddata').on('submit', submit_frontend);
     function submit_frontend(){
         tinyMCE.triggerSave();
         var front_end_data = $(this).serialize();
@@ -110,48 +110,52 @@ jQuery(function($) {
         return false;
     }
 
-    $( document ).on('click', '.wpcf-print-button', function (e) {
-        window.print();
-    });
+    // Modal
+    function wpcf_modal(content) {
+        var data = JSON.parse(content);
 
-    // Common Modal Function
-    function wpcf_modal( data, print = false ){
-        var data = JSON.parse(data);
-        var html = '<div class="wpneo-modal-wrapper"> ' +
-            ' <div class="wpneo-modal-content"> ' +
-            '<div class="wpneo-modal-wrapper-head">' +
-            '<span id="wpcf_modal_title">Message</span><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
-            if( print ){
-                html += '</div><span class="wpcf-print-button button wpneo-edit-btn">print</span>';
-            }
-            html += '<div class="wpneo-modal-content-inner"><div id="wpcf_modal_message"></div></div></div></div>';
-        if ($('.wpneo-modal-wrapper').length == 0){
-            $('body').append(html);
-            if (data.redirect){
-                if ( $('#wpneo_crowdfunding_redirect_url').length == 0 ){
-                    $('body').append('<input type="hidden" id="wpneo_crowdfunding_redirect_url" value="'+data.redirect+'" />');
+        var modalHtml = '<div class="wpcf-modal">' +
+            '<div class="wpcf-modal-dialog">' +
+                '<div class="wpcf-modal-content">' +
+                    '<div class="wpcf-modal-header"><span class="wpcf-modal-title"></span><a href="#" class="wpcf-modal-close" role="button"></a></div>' +
+                    '<div class="wpcf-modal-body"></div>' +
+                    '</div>' +
+                '</div>'+
+            '</div>';
+
+        if ($('.wpcf-modal').length == 0) {
+            $('body').addClass('wpcf-modal-open');
+            $('body').append(modalHtml);
+
+            if (data.redirect) {
+                if ($('#wpneo_crowdfunding_redirect_url').length == 0) {
+                    $('body').append('<input type="hidden" id="wpneo_crowdfunding_redirect_url" value="' + data.redirect + '" />');
                 }
             }
         }
-        if (data.success == 1){
-            if(data.message){
-                $('.wpneo-modal-wrapper #wpcf_modal_message').html( data.message );
+
+        if (data.success == 1) {
+
+            if(data.message) {
+                $('.wpcf-modal-body').html(data.message);
             }
-            if(data.title){
-                $('.wpneo-modal-wrapper #wpcf_modal_title').html( data.title );
+            
+            if(data.title) {
+                $('.wpcf-modal-title').html(data.title);
             }
-            $('.wpneo-modal-wrapper').css({'display': 'block'});
-            if ( $('#wpneofrontenddata').length > 0 ){
+            
+            if ( $('#wpneofrontenddata').length > 0 ) {
                 $("#wpneofrontenddata")[0].reset();
             }
+            
             return true;
         }else {
-            $('.wpneo-modal-wrapper #wpcf_modal_message').html(data.message);
-            $('.wpneo-modal-wrapper').css({'display': 'block'});
+            $('.wpcf-modal-body').html(data.message);
             return false;
         }
     }
-    window.wpcf_modal = wpcf_modal; //make global function
+    
+    window.wpcf_modal = wpcf_modal;
 
     // Image Upload Function
     function wpcf_upload_image( button_class ) {
@@ -259,7 +263,7 @@ jQuery(function($) {
     });
 
     // Dashboard Data Save
-    function wpcf_dashboard_data_save(){
+    function wpcf_dashboard_data_save() {
         var return_data;
         var postdata = $('#wpneo-dashboard-form').serializeArray();
         $.ajax({
@@ -337,18 +341,23 @@ jQuery(function($) {
     }));
     $($('.wpneo-current a').attr('href')).fadeIn();
 
-    // Modal Bio in Product details
-    $('.wpneo-fund-modal-btn').on('click', function (e) {
+    // Show author bio in a modal
+    $('[action-show-author-bio]').on('click', function (e) {
         e.preventDefault();
         var author = $(this).data('author');
         $.ajax({
             type:"POST",
             url: wpcf_ajax_object.ajax_url,
-            data: { 'action': 'wpcf_bio_action', 'author': author },
-            success:function(data){
-                wpcf_modal( data );
+            data: {
+                'action': 'wpcf_bio_action',
+                'author': author
             },
-            error: function(jqXHR, textStatus, errorThrown){ wpcf_modal({'success':0, 'message':'Error'}) }
+            success:function(data) {
+                wpcf_modal(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                wpcf_modal({'success':0, 'message':'Error'})
+            }
         });
     });
 

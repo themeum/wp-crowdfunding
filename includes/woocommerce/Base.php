@@ -119,37 +119,38 @@ class Base {
      * @frontend
      */
     public function frontend_script() {
-        wp_enqueue_style( 'crowdfunding', WPCF_DIR_URL .'assets/css/crowdfunding-front-new.css', false, WPCF_VERSION );
-        wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
+        wp_enqueue_style('crowdfunding', WPCF_DIR_URL . 'assets/css/crowdfunding-front-new.css', false, WPCF_VERSION);
+        //wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
         
-        wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
-        wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
-        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
-        wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery-ui-datepicker', array('jquery'));
+        wp_enqueue_script('wp-crowdfunding', WPCF_DIR_URL . 'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
+        wp_localize_script('wp-crowdfunding-ajax', 'wpcf_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
         wp_enqueue_media();
     }
 
     // Declare script for new button
     function add_tinymce_js( $plugin_array ) {
-        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.min.js';
+        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.js';
         return $plugin_array;
     }
+
     // Register new button in the editor
     function register_mce_button( $buttons ) {
         array_push( $buttons, 'crowdfunding_button' );
         return $buttons;
     }
 
-    public function admin_footer_text($footer_text) { 
-        if ( ! function_exists('wc_get_screen_ids')) {
+    public function admin_footer_text($footer_text) {
+
+        if (!function_exists('wc_get_screen_ids')) {
             return $footer_text;
         }
 
         $current_screen = get_current_screen();
         $crowdfunding_screen_ids = wpcf_function()->get_screen_id();
 
-        if ( ! in_array($current_screen->id, $crowdfunding_screen_ids)) {
+        if (!in_array($current_screen->id, $crowdfunding_screen_ids)) {
             return $footer_text;
         }
 

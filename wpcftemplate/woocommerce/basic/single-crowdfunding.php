@@ -15,7 +15,7 @@ if ( post_password_required() ) {
     <div class="wpcf-container">
         <div class="content-area">
             <div id="content" class="site-content" role="main">
-                <div class="wpcf-campaign-details">
+                <div class="wpcf-campaign-details wpcf-mt-5">
                     <?php while ( have_posts() ) : the_post(); ?>
                         <?php do_action( 'wpcf_before_main_content' ); ?>
                         <div id="campaign-<?php the_ID(); ?>" <?php post_class(); ?> itemscope itemtype="http://schema.org/ItemList">

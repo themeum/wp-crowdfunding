@@ -300,3 +300,19 @@ $utilities: map-merge(
     vertical-align: baseline;
     border-radius: 4px;
 }
+
+// avatar
+.wpcf-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+}
+
+// meta separator
+.wpcf-meta-separator {
+    display: inline-flex;
+    width: 4px;
+    height: 4px;
+    background-color: $gray-300;
+    border-radius: 4px;
+}
