@@ -619,8 +619,11 @@
   background-color: #FFFFFF;
   border: 1px solid #E5EBEA;
   padding: 20px;
-  border-radius: 6px;
+  border-radius: 8px;
   position: relative; }
+  .wpcf-card.wpcf-has-shadow {
+    border: 0;
+    box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05); }
   .wpcf-card .wpcf-card-thumbnail {
     margin: -20px -20px 0px -20px;
     border-radius: 6px 6px 0 0;

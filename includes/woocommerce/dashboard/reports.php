@@ -230,21 +230,21 @@ $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
 
 <div class="wpcf-row wpcf-mt-4">
     <div class="wpcf-col-lg-4">
-        <div class="wpcf-card">
+        <div class="wpcf-card wpcf-bg-secondary wpcf-has-shadow">
             <h4 class="wpcf-fw-bold wpcf-text-primary wpcf-m-0"><?php echo wc_price(array_sum($total_backers_amount_ever)); ?></h4>
             <div class="wpcf-text-muted wpcf-mt-1"><?php _e( "Fund Raised", "wp-crowdfunding" ); ?></div>
         </div>
     </div>
 
     <div class="wpcf-col-lg-4">
-        <div class="wpcf-card">
+        <div class="wpcf-card wpcf-bg-secondary wpcf-has-shadow">
             <h4 class="wpcf-fw-bold wpcf-text-primary wpcf-m-0"><?php echo array_sum($sales_count_ever); ?></h4>
             <div class="wpcf-text-muted wpcf-mt-1"><?php _e( "Total Backed", "wp-crowdfunding" ); ?></div>
         </div>
     </div>
 
     <div class="wpcf-col-lg-4">
-        <div class="wpcf-card">
+        <div class="wpcf-card wpcf-bg-secondary wpcf-has-shadow">
             <h4 class="wpcf-fw-bold wpcf-text-primary wpcf-m-0"><?php echo count($pladges_received); ?></h4>
             <div class="wpcf-text-muted wpcf-mt-1"><?php _e( "Pledge Received", "wp-crowdfunding" ); ?></div>
         </div>
