@@ -71,7 +71,7 @@ class Dashboard {
             /**
              * Print menu with active link marking...
              */
-            $html .= '<div class="wpcf-wrapper ">';
+            $html .= '<div class="wpcf-wrapper">';
             $html .= '<div class="wpcf-card wpcf-z-index-9">';
                 $html .= '<div class="wpcf-d-flex wpcf-align-items-center">';    
                     $html .= '<div>';

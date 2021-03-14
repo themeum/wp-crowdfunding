@@ -31,8 +31,9 @@ class WPCF_Social_Share {
 
     public function add_social_share_tab_to_wpcf_settings($tabs){
         $tabs['social-share'] = array(
-            'tab_name' => __('Social Share','wp-crowdfunding'),
-            'load_form_file' => WPCF_SOCIAL_SHARE_DIR_PATH.'pages/tab-social-share.php'
+            'tab_name'          => __('Social Share','wp-crowdfunding'),
+            'tab_icon' 		    => '<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854.853a.5.5 0 10-.707-.707L11.39 1.902H3.078c-.264 0-.491 0-.678.015a1.527 1.527 0 00-.584.148 1.5 1.5 0 00-.655.656c-.097.189-.133.386-.149.583-.015.188-.015.415-.015.679v6.232c0 .264 0 .491.015.678.016.198.052.395.149.584a1.5 1.5 0 00.275.38l-1.29 1.29a.5.5 0 10.708.707l1.57-1.571c.183.013.402.013.654.013h8.32c.264 0 .49 0 .678-.015.198-.017.394-.052.584-.149a1.5 1.5 0 00.655-.655c.097-.19.132-.386.148-.584.016-.187.016-.414.016-.678V3.983c0-.264 0-.491-.016-.679a1.526 1.526 0 00-.148-.583 1.5 1.5 0 00-.655-.656l-.012-.006L13.854.853zM10.39 2.902H3.097c-.288 0-.474 0-.616.012a.57.57 0 00-.211.042.5.5 0 00-.218.219.57.57 0 00-.043.21 8.505 8.505 0 00-.012.617v6.194c0 .288 0 .474.012.616a.57.57 0 00.043.21.5.5 0 00.091.127l8.248-8.247zm-6.98 8.394l8.391-8.391c.074.001.137.004.193.009a.57.57 0 01.21.042.5.5 0 01.22.219.57.57 0 01.042.21c.011.142.012.329.012.617v6.194c0 .288 0 .474-.012.616a.57.57 0 01-.043.21.5.5 0 01-.218.22.57.57 0 01-.211.042 8.483 8.483 0 01-.616.012H3.41z" /></svg>',
+            'load_form_file'    => WPCF_SOCIAL_SHARE_DIR_PATH.'pages/tab-social-share.php'
         );
         return $tabs;
     }
@@ -45,7 +46,7 @@ class WPCF_Social_Share {
      * All settings will be save in this method
      */
     public function social_share_save_settings(){
-        if (isset($_POST['wpneo_admin_settings_submit_btn']) && isset($_POST['wpcf_varify_share']) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ){
+        if (isset($_POST['wpcf_admin_settings_submit_btn']) && isset($_POST['wpcf_varify_share']) && wp_verify_nonce( $_POST['wpcf_settings_page_nonce_field'], 'wpcf_settings_page_action' ) ){
             // Checkbox
             $embed_share = sanitize_text_field(wpcf_function()->post('wpcf_embed_share'));
             wpcf_function()->update_checkbox('wpcf_embed_share', $embed_share);

@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 class Admin_Menu {
 
     public function __construct() {
-        //add_action('wp_head',      array($this, 'style_custom_css' )); // uncomment later
+        add_action('wp_head',      array($this, 'style_custom_css' )); // uncomment later
         add_action('admin_menu',   array($this, 'register_menu_page' ));
         add_action('admin_init',   array($this, 'save_menu_settings' ));
     }
@@ -17,7 +17,7 @@ class Admin_Menu {
      */
     public function style_custom_css(){
 
-        if( 'true' == get_option('wpneo_enable_color_styling') ){
+        if( 'true' == get_option('wpneo_enable_color_styling') ) {
             $color_scheme       = get_option( 'wpneo_color_scheme' );
             $button_bg          = get_option( 'wpneo_button_bg_color' );
             $button_bg_hover    = get_option( 'wpneo_button_bg_hover_color' );
@@ -185,15 +185,18 @@ class Admin_Menu {
         // Settings Tab With slug and Display name
         $tabs = apply_filters('wpcf_settings_panel_tabs', array(
                 'general' => array(
-                    'tab_name' => __('General Settings','wp-crowdfunding'),
+                    'tab_name' => __('General', 'wp-crowdfunding'),
+                    'tab_icon' => '<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854.853a.5.5 0 10-.707-.707L11.39 1.902H3.078c-.264 0-.491 0-.678.015a1.527 1.527 0 00-.584.148 1.5 1.5 0 00-.655.656c-.097.189-.133.386-.149.583-.015.188-.015.415-.015.679v6.232c0 .264 0 .491.015.678.016.198.052.395.149.584a1.5 1.5 0 00.275.38l-1.29 1.29a.5.5 0 10.708.707l1.57-1.571c.183.013.402.013.654.013h8.32c.264 0 .49 0 .678-.015.198-.017.394-.052.584-.149a1.5 1.5 0 00.655-.655c.097-.19.132-.386.148-.584.016-.187.016-.414.016-.678V3.983c0-.264 0-.491-.016-.679a1.526 1.526 0 00-.148-.583 1.5 1.5 0 00-.655-.656l-.012-.006L13.854.853zM10.39 2.902H3.097c-.288 0-.474 0-.616.012a.57.57 0 00-.211.042.5.5 0 00-.218.219.57.57 0 00-.043.21 8.505 8.505 0 00-.012.617v6.194c0 .288 0 .474.012.616a.57.57 0 00.043.21.5.5 0 00.091.127l8.248-8.247zm-6.98 8.394l8.391-8.391c.074.001.137.004.193.009a.57.57 0 01.21.042.5.5 0 01.22.219.57.57 0 01.042.21c.011.142.012.329.012.617v6.194c0 .288 0 .474-.012.616a.57.57 0 01-.043.21.5.5 0 01-.218.22.57.57 0 01-.211.042 8.483 8.483 0 01-.616.012H3.41z" /></svg>',
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_General.php'
                 ),
                 'style' => array(
-                    'tab_name' => __('Style','wp-crowdfunding'),
+                    'tab_name' => __('Design', 'wp-crowdfunding'),
+                    'tab_icon' => '<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854.853a.5.5 0 10-.707-.707L11.39 1.902H3.078c-.264 0-.491 0-.678.015a1.527 1.527 0 00-.584.148 1.5 1.5 0 00-.655.656c-.097.189-.133.386-.149.583-.015.188-.015.415-.015.679v6.232c0 .264 0 .491.015.678.016.198.052.395.149.584a1.5 1.5 0 00.275.38l-1.29 1.29a.5.5 0 10.708.707l1.57-1.571c.183.013.402.013.654.013h8.32c.264 0 .49 0 .678-.015.198-.017.394-.052.584-.149a1.5 1.5 0 00.655-.655c.097-.19.132-.386.148-.584.016-.187.016-.414.016-.678V3.983c0-.264 0-.491-.016-.679a1.526 1.526 0 00-.148-.583 1.5 1.5 0 00-.655-.656l-.012-.006L13.854.853zM10.39 2.902H3.097c-.288 0-.474 0-.616.012a.57.57 0 00-.211.042.5.5 0 00-.218.219.57.57 0 00-.043.21 8.505 8.505 0 00-.012.617v6.194c0 .288 0 .474.012.616a.57.57 0 00.043.21.5.5 0 00.091.127l8.248-8.247zm-6.98 8.394l8.391-8.391c.074.001.137.004.193.009a.57.57 0 01.21.042.5.5 0 01.22.219.57.57 0 01.042.21c.011.142.012.329.012.617v6.194c0 .288 0 .474-.012.616a.57.57 0 01-.043.21.5.5 0 01-.218.22.57.57 0 01-.211.042 8.483 8.483 0 01-.616.012H3.41z" /></svg>',
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
                 ),
                 'fields' => array(
-                    'tab_name' => __('Field Settings','wp-crowdfunding'),
+                    'tab_name' => __('Options', 'wp-crowdfunding'),
+                    'tab_icon' => '<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854.853a.5.5 0 10-.707-.707L11.39 1.902H3.078c-.264 0-.491 0-.678.015a1.527 1.527 0 00-.584.148 1.5 1.5 0 00-.655.656c-.097.189-.133.386-.149.583-.015.188-.015.415-.015.679v6.232c0 .264 0 .491.015.678.016.198.052.395.149.584a1.5 1.5 0 00.275.38l-1.29 1.29a.5.5 0 10.708.707l1.57-1.571c.183.013.402.013.654.013h8.32c.264 0 .49 0 .678-.015.198-.017.394-.052.584-.149a1.5 1.5 0 00.655-.655c.097-.19.132-.386.148-.584.016-.187.016-.414.016-.678V3.983c0-.264 0-.491-.016-.679a1.526 1.526 0 00-.148-.583 1.5 1.5 0 00-.655-.656l-.012-.006L13.854.853zM10.39 2.902H3.097c-.288 0-.474 0-.616.012a.57.57 0 00-.211.042.5.5 0 00-.218.219.57.57 0 00-.043.21 8.505 8.505 0 00-.012.617v6.194c0 .288 0 .474.012.616a.57.57 0 00.043.21.5.5 0 00.091.127l8.248-8.247zm-6.98 8.394l8.391-8.391c.074.001.137.004.193.009a.57.57 0 01.21.042.5.5 0 01.22.219.57.57 0 01.042.21c.011.142.012.329.012.617v6.194c0 .288 0 .474-.012.616a.57.57 0 01-.043.21.5.5 0 01-.218.22.57.57 0 01-.211.042 8.483 8.483 0 01-.616.012H3.41z" /></svg>',
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Fields.php'
                 ),
             )
@@ -201,7 +204,8 @@ class Admin_Menu {
 
         if( class_exists( 'WooCommerce' ) ){
             $woo_tab = array(
-                'tab_name' => __('WooCommerce Settings','wp-crowdfunding'),
+                'tab_name' => __('WooCommerce', 'wp-crowdfunding'),
+                'tab_icon' => '<svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854.853a.5.5 0 10-.707-.707L11.39 1.902H3.078c-.264 0-.491 0-.678.015a1.527 1.527 0 00-.584.148 1.5 1.5 0 00-.655.656c-.097.189-.133.386-.149.583-.015.188-.015.415-.015.679v6.232c0 .264 0 .491.015.678.016.198.052.395.149.584a1.5 1.5 0 00.275.38l-1.29 1.29a.5.5 0 10.708.707l1.57-1.571c.183.013.402.013.654.013h8.32c.264 0 .49 0 .678-.015.198-.017.394-.052.584-.149a1.5 1.5 0 00.655-.655c.097-.19.132-.386.148-.584.016-.187.016-.414.016-.678V3.983c0-.264 0-.491-.016-.679a1.526 1.526 0 00-.148-.583 1.5 1.5 0 00-.655-.656l-.012-.006L13.854.853zM10.39 2.902H3.097c-.288 0-.474 0-.616.012a.57.57 0 00-.211.042.5.5 0 00-.218.219.57.57 0 00-.043.21 8.505 8.505 0 00-.012.617v6.194c0 .288 0 .474.012.616a.57.57 0 00.043.21.5.5 0 00.091.127l8.248-8.247zm-6.98 8.394l8.391-8.391c.074.001.137.004.193.009a.57.57 0 01.21.042.5.5 0 01.22.219.57.57 0 01.042.21c.011.142.012.329.012.617v6.194c0 .288 0 .474-.012.616a.57.57 0 01-.043.21.5.5 0 01-.218.22.57.57 0 01-.211.042 8.483 8.483 0 01-.616.012H3.41z" /></svg>',
                 'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Woocommerce.php'
             );
             $tabs = array_slice($tabs, 0, 1, true) + array('woocommerce' => $woo_tab) + array_slice($tabs, 1, count($tabs), true);
@@ -212,40 +216,53 @@ class Admin_Menu {
             $current_page = sanitize_text_field($_GET['tab']);
         }
 
-        if (wpcf_function()->post('wpneo_settings_page_nonce_field')){
+        if (wpcf_function()->post('wpcf_settings_page_nonce_field')){
             echo '<div class="notice notice-success is-dismissible">';
                 echo '<p>'.__( "Settings have been Saved.", "wp-crowdfunding" ).'</p>';
             echo '</div>';
         }
-
-        // Print the Tab Title
-        echo '<h2 class="nav-tab-wrapper">';
-        foreach( $tabs as $tab => $name ){
-            $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-            echo "<a class='nav-tab$class' href='?page=wpcf-settings&tab=$tab'>{$name['tab_name']}</a>";
-        }
-        echo '</h2>';
         ?>
 
-        <form id="wpcf-crowdfunding" role="form" method="post" action="">
-            <?php
-            //Load tab file
-            $default_file = WPCF_DIR_PATH.'settings/tabs/Tab_General.php';
+        <div class="wpcf-settings">
+            <div class="wpcf-vertical-tabs">
+                <ul class="wpcf-vertical-tabs-nav">
+                    <?php foreach( $tabs as $tab => $name ) : ?>
+                        <li>
+                            <a class="wpcf-nav-item<?php echo ($tab == $current_page) ? ' wpcf-is-active' : ''; ?>" href="?page=wpcf-settings&tab=<?php echo $tab; ?>">
+                                <span class="wpcf-svg-icon"><?php echo $name['tab_icon']; ?></span>
+                                <span><?php echo $name['tab_name']; ?></span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
 
-            if( array_key_exists(trim(esc_attr($current_page)), $tabs) ){
-                if( file_exists($default_file) ){
-                    include_once $tabs[$current_page]['load_form_file'];
-                }else{
-                    include_once $default_file;
-                }
-            }else{
-                include_once $default_file;
-            }
-            wp_nonce_field( 'wpneo_settings_page_action', 'wpneo_settings_page_nonce_field' );
-            submit_button( null, 'primary', 'wpneo_admin_settings_submit_btn' );
-            ?>
-            <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> <i class="dashicons dashicons-image-rotate"></i> <?php _e('Reset Settings', 'wp-crowdfunding'); ?></a>
-        </form>
+                <div class="wpcf-vertical-tab-content">
+                    <form id="wpcf-crowdfunding" role="form" method="post" action="">
+                        <?php
+                        //Load tab file
+                        $default_file = WPCF_DIR_PATH.'settings/tabs/Tab_General.php';
+
+                        if( array_key_exists(trim(esc_attr($current_page)), $tabs) ){
+                            if( file_exists($default_file) ){
+                                include_once $tabs[$current_page]['load_form_file'];
+                            }else{
+                                include_once $default_file;
+                            }
+                        }else{
+                            include_once $default_file;
+                        }
+                        wp_nonce_field( 'wpcf_settings_page_action', 'wpcf_settings_page_nonce_field' );
+                        ?>
+                        <div class="wpcf-settings-actions">
+                            <?php submit_button( null, 'primary button-large', 'wpcf_admin_settings_submit_btn' ); ?>
+                            <p>
+                                <a href="javascript:;" class="button button-large" action-wpcf-reset-settings><?php _e('Reset Settings', 'wp-crowdfunding'); ?></a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <?php
     }
 
@@ -255,7 +272,7 @@ class Admin_Menu {
      */
     public function save_menu_settings() {
         
-        if (wpcf_function()->post('wpneo_settings_page_nonce_field') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
+        if (wpcf_function()->post('wpcf_settings_page_nonce_field') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpcf_settings_page_nonce_field')), 'wpcf_settings_page_action' ) ){
 
             $current_tab = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_admin_tab'));
             if( ! empty($current_tab) ){

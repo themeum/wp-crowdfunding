@@ -110,8 +110,8 @@ class Base {
     // add necessary admin scripts & stylesheets
     public function admin_script() {
         wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'crowdfunding-admin', WPCF_DIR_URL .'assets/css/dist/crowdfunding.css', false, WPCF_VERSION );
-        wp_enqueue_script( 'crowdfunding-admin', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
+        wp_enqueue_style( 'crowdfunding-admin', WPCF_DIR_URL .'assets/css/crowdfunding-admin.css', false, WPCF_VERSION );
+        wp_enqueue_script( 'crowdfunding-admin', WPCF_DIR_URL .'assets/js/crowdfunding-admin.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
     }
 
     // Declare script for new button

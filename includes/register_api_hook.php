@@ -851,7 +851,7 @@ function wpcf_get_submit_form_campaign() {
         if ( wpcf_function()->is_free() ) {
             $html .= '<div style="clear: both;"></div>';
             if(is_admin()) {
-                $html .= '<p><i> ' . __('pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">' . __('click here to get pro version', 'wp-crowdfunding') . '</a></i></p>';
+                $html .= '<p class="wpcf-alert-info"><i> ' . __('Pro version is required to add more than 1 reward', 'wp-crowdfunding') . '. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">' . __('Click here to get pro version', 'wp-crowdfunding') . '</a></i></p>';
             }
         } else {
             $html .= '<div id="rewards_addon_fields"></div>';

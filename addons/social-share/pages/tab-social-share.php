@@ -9,7 +9,7 @@ $arr =  array(
         'label'     => __('Social Share Settings','wp-crowdfunding'),
         'desc'      => __(''),
         'top_line'  => 'true',
-        ),
+    ),
         
     // #Enable Embed Option
     array(

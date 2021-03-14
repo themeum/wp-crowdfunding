@@ -111,7 +111,7 @@ jQuery(document).ready(function($){
 
 	$('.wpneo-color-field').wpColorPicker();
 
-	$(document).on('click', 'a.wpneo-crowdfunding-reset-btn', function(){
+	$(document).on('click', '[action-wpcf-reset-settings]', function(){
 		if ( ! confirm('[WARNING!] This will be reset your full settings, Are you sure?')){
 			return false;
 		}

@@ -1,7 +1,125 @@
-/*
- * Crowdfunding CSS
- * File Description: The main stylesheet of this plugins for main design part.
- */
+
+/* Button */
+.wpcf-button {
+    background-color: #007D68;
+    color: #FFFFFF;
+    border-color: #007D68;
+    display: inline-block;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.wpcf-button:hover,
+.wpcf-button:active,
+.wpcf-button:focus {
+    text-decoration: none;
+    background-color: #004a3e;
+    color: #FFFFFF;
+}
+
+/* Vertical Tabs */
+.wpcf-vertical-tabs {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.wpcf-vertical-tabs-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    border-right: 1px solid #dcdcde;
+    padding-right: 30px;
+}
+
+.wpcf-vertical-tabs-nav > li > a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #425466;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: color 300ms ease-in, background-color 300ms ease-in;
+}
+
+.wpcf-vertical-tabs-nav > li > a .wpcf-svg-icon {
+    margin-right: 10px;
+}
+
+.wpcf-vertical-tabs-nav > li > a .wpcf-svg-icon svg {
+    fill: #425466;
+    transition: fill 300ms ease-in;
+}
+
+.wpcf-vertical-tabs-nav > li > a:hover {
+    color: #007D68;
+    text-decoration: none;
+}
+
+.wpcf-vertical-tabs-nav > li > a:active,
+.wpcf-vertical-tabs-nav > li > a:focus {
+    outline: 0;
+    border: 0;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.wpcf-vertical-tabs-nav > li > .wpcf-is-active {
+    color: #007D68;
+    text-decoration: none;
+    background: #fff;
+    border: #E5EBEA;
+}
+
+.wpcf-vertical-tabs-nav > li > a:hover .wpcf-svg-icon svg,
+.wpcf-vertical-tabs-nav > li > .wpcf-is-active .wpcf-svg-icon svg {
+    fill: #007D68;
+}
+
+.wpcf-vertical-tab-content {
+    border-left: 1px solid #f6f7f7;
+    padding-left: 30px;
+}
+
+.wpcf-settings-actions {
+    display: flex;
+}
+
+.wpcf-settings-actions > * {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.wpcf-settings-actions > *:not(:first-child) {
+    margin-left: 15px !important;
+}
+
+
+
+
+
+/* Legacy */
 #addreward, #addcampaignupdate{
     float: right;
     position: relative;
@@ -198,18 +316,18 @@ h1.top-reports{
     margin-right: 10px;
 }
 
-
-
 .alert {
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 4px;
 }
+
 .alert-success {
     color: #3c763d;
     background-color: #dff0d8;
     border-color: #d6e9c6;
 }
+
 .alert-info {
     color: #31708f;
     background-color: #d9edf7;
@@ -241,7 +359,6 @@ h1.top-reports{
 table.wp-list-table .column-campaign_owner {
     width: 80px;
 }
-
 
 /* Search Block CSS */
 .wpcf-form-field.full input.search-field {
