@@ -292,7 +292,6 @@ class Campaign_Submit_Form {
                 $html .= '</div>';
             }
 
-
             //Maximum Amount
             if ($_max_price == 'true') {
                 $html .= '<div class="wpcf-form-group '.( $_min_price == 'true' ? 'wpneo-second-half' : '').'">';
@@ -303,7 +302,6 @@ class Campaign_Submit_Form {
                 $html .= '<small class="wpcf-form-help">'.__("Maximum campaign funding amount","wp-crowdfunding").'</small>';
                 $html .= '</div>';
             }
-        
 
             //Funding Goal
             if( get_option('wpcf_show_funding_goal') == 'true' ){
@@ -406,7 +404,7 @@ class Campaign_Submit_Form {
             $reward_data_array = json_decode($reward, true);
             $meta_count = is_array($reward_data_array) ? count($reward_data_array) : 0;
             $html .= '<div class="wpneo-reward-option">'.__("Reward Option","wp-crowdfunding").'</div>';
-            $html .= '<div class="panel" id="reward_options">';
+            $html .= '<div class="panel" id="wpcf-reward-options">';
 
             $month_list = array(
                 '1' => __( 'January' , 'wp-crowdfunding' ),
@@ -517,7 +515,7 @@ class Campaign_Submit_Form {
                         }
 
                         $html .= '<div class="wpneo-remove-button">';
-                        $html .= '<input name="remove_rewards" type="button" class="button tagadd removeCampaignRewards text-right" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
+                        $html .= '<input name="remove_rewards" type="button" class="button removeCampaignRewards text-right" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
                         $html .= '</div>';
 
                         $html .=  "</div>";
@@ -616,7 +614,7 @@ class Campaign_Submit_Form {
                 }
 
                 $html .= '<div class="wpneo-remove-button">';
-                $html .= '<input type="button" value="'.__("- Remove","wp-crowdfunding").'" class="button tagadd removeCampaignRewards" name="remove_rewards" style="display: none;">';
+                $html .= '<input type="button" value="'.__("- Remove", "wp-crowdfunding").'" class="button removeCampaignRewards" name="remove_rewards" style="display: none;">';
                 $html .= '</div>';
 
                 $html .= '</div>';
@@ -632,7 +630,7 @@ class Campaign_Submit_Form {
             } else {
                 $html .= '<div id="rewards_addon_fields"></div>';
                 $html .= '<div class="text-right">';
-                $html .= '<input type="button" value="' . __("+ Add", "wp-crowdfunding") . '" id="addreward" class="button tagadd" name="save">';
+                $html .= '<input type="button" value="' . __("+ Add", "wp-crowdfunding") . '" id="addreward" class="button" name="save">';
                 $html .= '</div>';
             }
 

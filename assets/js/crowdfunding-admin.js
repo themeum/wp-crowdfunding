@@ -1,9 +1,8 @@
 /*========================================================================
  * WP Crowdfunding
  *======================================================================== */
-jQuery(document).ready(function($){
-
-
+jQuery(function($){
+	
 	function countRemovesBtn(btn) {
 		var rewards_count = $(btn).length;
 		if (rewards_count > 1){
@@ -11,10 +10,10 @@ jQuery(document).ready(function($){
 		}else {
 			$(btn).hide();
 			if (btn == '.removeCampaignRewards') {
-				$('.reward_group').show();
+				$('.wpcf-reward-group').show();
 			}
-			if (btn == '.removecampaignupdate') {
-				$('#campaign_update_field').show();
+			if (btn == '[wpcf-action-remove-update]') {
+				$('#wpcf-campaign-update-field').show();
 			}
 		}
 		$(btn).first().hide();
@@ -23,31 +22,31 @@ jQuery(document).ready(function($){
 	//Add More Campaign Update Field
 	$('#addreward').on('click', function (e) {
 		e.preventDefault();
-		$('#rewards_addon_fields').append( $('.reward_group').html() );
+		$('#rewards_addon_fields').append( $('.wpcf-reward-group').html() );
 		countRemovesBtn('.removeCampaignRewards');
 	});
 
 	$('body').on('click', '.removeCampaignRewards', function (e) {
 		e.preventDefault();
-		$(this).closest('.campaign_rewards_field_copy').html('');
+		$(this).closest('.wpcf-reward-group').remove();
 		countRemovesBtn('.removeCampaignRewards');
 	});
 	countRemovesBtn('.removeCampaignRewards');
 
 	//Add More Campaign Update Field
-	$('#addcampaignupdate').on('click', function (e) {
+	$('[wpcf-action-add-update]').on('click', function (e) {
 		e.preventDefault();
-		var update = $('#campaign_update_field').html();
-		$('#campaign_update_addon_field').append(update);
-		countRemovesBtn('.removecampaignupdate');
+		var update = $('#wpcf-campaign-update-field').html();
+		$('#wpcf-campaign-updates').append(update);
+		countRemovesBtn('[wpcf-action-remove-update]');
 	});
 
-	$('body').on('click', '.removecampaignupdate', function (e) {
-		e.preventDefault();
-		$(this).closest('.campaign_update_field_copy').html('').hide();
-		countRemovesBtn('.removecampaignupdate');
+	$('body').on('click', '[wpcf-action-remove-update]', function (event) {
+		event.preventDefault();
+		$(this).closest('.wpcf-campaign-update').remove();
+		countRemovesBtn('[wpcf-action-remove-update]');
 	});
-	countRemovesBtn('.removecampaignupdate');
+	countRemovesBtn('[wpcf-action-remove-update]');
 
 
 	/**

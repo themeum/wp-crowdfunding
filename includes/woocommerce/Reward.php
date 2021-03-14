@@ -23,7 +23,7 @@ class Reward{
     function reward_tabs($tabs){
         $tabs['reward'] = array(
             'label'     => __('Reward', 'wp-crowdfunding'),
-            'target'    => 'reward_options',
+            'target'    => 'wpcf-reward-options',
             'class'     => array('show_if_neo_crowdfunding_options', 'show_if_neo_crowdfunding_options'),
         );
         return $tabs;
@@ -129,7 +129,7 @@ class Reward{
         );
         ?>
 
-        <div id='reward_options' class='panel woocommerce_options_panel'>
+        <div id='wpcf-reward-options' class='panel woocommerce_options_panel'>
             <?php
             $display = 'block';
             $meta_count = is_array($data_array) ? count($data_array) : 0;
@@ -139,8 +139,8 @@ class Reward{
             /*
             * Print without value of Reward System for clone group
             */
-            echo "<div class='reward_group' style='display:" . $display . ";'>";
-            echo "<div class='campaign_rewards_field_copy'>";
+            echo "<div class='wpcf-reward-group' style='display:" . $display . ";'>";
+            echo "<div class='wpcf-reward wpcf-card'>";
 
             foreach ($woocommerce_meta_field as $value) {
                 switch ($value['field_type']) {
@@ -168,7 +168,7 @@ class Reward{
                 }
             }
 
-            echo '<input name="remove_rewards" type="button" class="button tagadd removeCampaignRewards" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
+            echo '<input name="remove_rewards" type="button" class="button removeCampaignRewards" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
             echo "</div>";
             echo "</div>";
 
@@ -179,8 +179,8 @@ class Reward{
             if ($meta_count > 0) {
                 if (is_array($data_array) && !empty($data_array)) {
                     foreach ($data_array as $k => $v) {
-                        echo "<div class='reward_group'>";
-                        echo "<div class='campaign_rewards_field_copy'>";
+                        echo "<div class='wpcf-reward-group'>";
+                        echo "<div class='wpcf-reward wpcf-card'>";
                         foreach ($woocommerce_meta_field as $value) {
                             if(isset( $v[str_replace('[]', '', $value['id'])] )){
                                 $value['value'] = $v[str_replace('[]', '', $value['id'])];
@@ -220,7 +220,7 @@ class Reward{
                                     break;
                             }
                         }
-                        echo '<input name="remove_rewards" type="button" class="button tagadd removeCampaignRewards" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
+                        echo '<input name="remove_rewards" type="button" class="button removeCampaignRewards" value="' . __('- Remove', 'wp-crowdfunding') . '" />';
                         echo "</div>";
                         echo "</div>";
                     }
@@ -234,7 +234,7 @@ class Reward{
             } else {
                 ?>
                 <div id="rewards_addon_fields"></div>
-                <input name="save" type="button" class="button button-primary tagadd" id="addreward" value="<?php _e('+ Add Reward', 'wp-crowdfunding'); ?>">
+                <input name="save" type="button" class="button button-primary" id="addreward" value="<?php _e('+ Add Reward', 'wp-crowdfunding'); ?>">
             <?php } ?>
         </div>
 

@@ -25,8 +25,8 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
     $html .= '<div class="panel woocommerce_options_panel" id="campaign_status">';
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
         
-        $html .= '<div style="display: '.$display.'" id="campaign_update_field">';
-            $html .= '<div class="campaign_update_field_copy">';
+        $html .= '<div style="display: '.$display.'" id="wpcf-campaign-update-field">';
+            $html .= '<div class="wpcf-campaign-update wpcf-card">';
                 $html .= '<p class="form-field wpneo_prject_update_date_field[]_field wpcf-form-group wpneo-first-half">';
                     $html .= '<label for="wpneo_prject_update_date_field[]">'.__("Date", "wp-crowdfunding").':</label>';
                     $html .= '<input type="text" placeholder="'.date('d-m-Y').'" value="" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="datepicker">';
@@ -39,14 +39,14 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
                     $html .= '<label for="wpneo_prject_update_details_field[]">'.__("Update Details", "wp-crowdfunding").':</label>';
                     $html .= '<textarea cols="20" rows="2" placeholder="'.__("Update Details", "wp-crowdfunding").'" id="wpneo_prject_update_details_field[]" name="wpneo_prject_update_details_field[]" style="" class="short"></textarea>';
                 $html .= '</p>';
-                $html .= '<input type="button" value="'.__('Remove', 'wp-crowdfunding').'" class="button tagadd removecampaignupdate" name="remove_udpate" style="display: none;">';
+                $html .= '<input type="button" value="'.__('Remove', 'wp-crowdfunding').'" class="button removecampaignupdate" name="remove_udpate" style="display: none;">';
             $html .= '</div>';
         $html .= '</div>';
 
-        $html .= '<div id="campaign_update_addon_field">';
+        $html .= '<div id="wpcf-campaign-updates">';
             if ( count($saved_campaign_update_a) > 0 ){
                 foreach( $saved_campaign_update_a as $key => $value ){
-                    $html .= '<div class="campaign_update_field_copy">';
+                    $html .= '<div class="wpcf-campaign-update wpcf-card">';
                         $html .= '<p class="form-field wpneo_prject_update_date_field[]_field wpcf-form-group wpneo-first-half">';
                             $html .= '<label for="wpneo_prject_update_date_field[]">'.__("Date", "wp-crowdfunding").':</label>';
                             $html .= '<input type="text" placeholder="'.date('d-m-Y').'" value="'.esc_attr($value['date']).'" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="datepicker">';
@@ -59,13 +59,13 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
                             $html .= '<label for="wpneo_prject_update_details_field[]">'.__("Update Details", "wp-crowdfunding").':</label>';
                             $html .= '<textarea cols="20" rows="2" placeholder="'.__("Update Details", "wp-crowdfunding").'" id="wpneo_prject_update_details_field[]" name="wpneo_prject_update_details_field[]" style="" class="short" >'.esc_textarea($value['details']).'</textarea>';
                         $html .= '</p>';
-                        $html .= '<input type="button" value="'.__('Remove', 'wp-crowdfunding').'" class="button tagadd removecampaignupdate" name="remove_udpate" style="display: none;">';
+                        $html .= '<input type="button" value="'.__('Remove', 'wp-crowdfunding').'" class="button removecampaignupdate" name="remove_udpate" style="display: none;">';
                     $html .= '</div>';
                 }
             }
         $html .= '</div>';
 
-        $html .= '<input type="button" value="+ '.__('Add Update', 'wp-crowdfunding').'" id="addcampaignupdate" class="button tagadd" name="save_update">';
+        $html .= '<input type="button" value="+ '.__('Add Update', 'wp-crowdfunding').'" id="addcampaignupdate" class="button" name="save_update">';
         $html .= '<div style="clear: both;"></div>';
     $html .= '</div>';
 
@@ -106,12 +106,12 @@ $html .= '<div id="wpneo_update_display_wrapper">';
                     $html .= '</tbody>';
                 $html .= '</table>';
             $html .= '</div>';
-            $html .= '<input type="button" value="'.__('Add Update', 'wp-crowdfunding').'" id="wpneo_active_edit_form" class="button tagadd" name="save_update">';
+            $html .= '<input type="button" value="'.__('Add Update', 'wp-crowdfunding').'" id="wpneo_active_edit_form" class="button" name="save_update">';
         $html .= '</div>';
 
     } else {
         $html .= '<div class="wpneo-form">';
-            $html .= '<input type="button" value="'.__('Add Update', 'wp-crowdfunding').'" id="wpneo_active_edit_form" class="button tagadd" name="save_update">';
+            $html .= '<input type="button" value="'.__('Add Update', 'wp-crowdfunding').'" id="wpneo_active_edit_form" class="button" name="save_update">';
         $html .= '</div>';
     }
-$html .='</div>'; //wpneo_update_display_wrapper
+$html .='</div>';

@@ -67,7 +67,7 @@ class Templating {
     }
 
     public function __construct() {
-        $this->_theme = get_option('wpneo_cf_selected_theme',true);
+        $this->_theme = get_option('wpneo_cf_selected_theme', true);
 
         /**
          * Set Vendor, we checking here which vendor we are using currently
@@ -191,7 +191,7 @@ class Templating {
      * Theme standard
      * These file required for develop a wpneo crowdfunding theme
      */
-    public function theme_standard_check(){
+    public function theme_standard_check() {
         $theme_standard = array(
             'index.php',
             'style.css',

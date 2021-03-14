@@ -1,11 +1,11 @@
 /* Button */
 .wpcf-button {
-    background-color: #007D68;
+    background-color: #007D68 !important;
     color: #FFFFFF;
-    border-color: #007D68;
+    border-color: #007D68 !important;
     display: inline-block;
     font-weight: 500;
-    line-height: 1.5;
+    line-height: 1.2;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
@@ -16,8 +16,8 @@
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: 10px 15px;
-    font-size: 16px;
+    padding: 9px 12px;
+    font-size: 14px;
     border-radius: 4px;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
@@ -25,9 +25,12 @@
 .wpcf-button:hover,
 .wpcf-button:active,
 .wpcf-button:focus {
+    outline: 0;
     text-decoration: none;
-    background-color: #004a3e;
+    border-color: #004a3e !important;
+    background-color: #004a3e !important;
     color: #FFFFFF;
+    box-shadow: none !important;
 }
 
 /* Vertical Tabs */
@@ -260,6 +263,19 @@
 .wpcf-addon-thumbnail {
     height: 48px;
     margin-bottom: 20px;
+}
+
+/* Rewards */
+#wpcf-reward-options {
+    padding: 30px;
+}
+
+#wpcf-reward-options .wpcf-reward-group {
+    margin-bottom: 30px;
+}
+
+#wpcf-campaign-updates .wpcf-campaign-update {
+    margin-bottom: 30px;
 }
 
 /* Utilities */

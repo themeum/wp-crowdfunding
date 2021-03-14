@@ -179,7 +179,7 @@ class Woocommerce {
                 'label'         => __( 'Video Url', 'wp-crowdfunding' ),
                 'placeholder'   => __( 'Video url', 'wp-crowdfunding' ), 
                 'description'   => __( 'Enter a video url to show your video in campaign details page', 'wp-crowdfunding' ) 
-                ) 
+            ) 
         );
 
         // Expirey
@@ -189,7 +189,7 @@ class Woocommerce {
                 'label'         => __( 'Start date', 'wp-crowdfunding' ),
                 'placeholder'   => __( 'Start time of this campaign', 'wp-crowdfunding' ), 
                 'description'   => __( 'Enter start of this campaign', 'wp-crowdfunding' ) 
-                ) 
+            ) 
         );
 
         woocommerce_wp_text_input( 
@@ -198,7 +198,7 @@ class Woocommerce {
                 'label'         => __( 'End date', 'wp-crowdfunding' ),
                 'placeholder'   => __( 'End time of this campaign', 'wp-crowdfunding' ), 
                 'description'   => __( 'Enter end time of this campaign', 'wp-crowdfunding' ) 
-                ) 
+            ) 
         );
 
         echo '<div class="options_group"></div>';
@@ -211,7 +211,7 @@ class Woocommerce {
                     'placeholder'   => __('Minimum Price','wp-crowdfunding'), 
                     'description'   => __('Enter the minimum price', 'wp-crowdfunding'), 
                     'class'         => 'wc_input_price'
-                    )
+                )
             );
         }
 
@@ -223,7 +223,7 @@ class Woocommerce {
                     'placeholder'   => __('Maximum Price','wp-crowdfunding'), 
                     'description'   => __('Enter the maximum price', 'wp-crowdfunding'), 
                     'class'         =>'wc_input_price'
-                    )
+                )
             );
         }
 
@@ -235,7 +235,7 @@ class Woocommerce {
                     'placeholder'   => __('Recommended Price', 'wp-crowdfunding'), 
                     'description'   => __('Enter the recommended price', 'wp-crowdfunding'),
                     'class'         => 'wc_input_price'
-                    )
+                )
             );
         }
         echo '<div class="options_group"></div>';
@@ -259,7 +259,7 @@ class Woocommerce {
                 'placeholder'   => __( 'Funding goal','wp-crowdfunding' ), 
                 'description'   => __('Enter the funding goal', 'wp-crowdfunding' ), 
                 'class'         => 'wc_input_price' 
-                )
+            )
         );
 
 
@@ -359,96 +359,88 @@ class Woocommerce {
             $display ='none;';
         }
 
-        echo "<div id='campaign_status' class='panel woocommerce_options_panel update_status'>";
+        ?>
+            <div id="wpcf-campaign-status" class="panel woocommerce_options_panel wpcf-campaign-update-status">
+                <div id="wpcf-campaign-update-field" style="display: <?php echo $display; ?>">
+                    <div class="wpcf-campaign-update wpcf-card">
+                        <?php
+                            woocommerce_wp_text_input(
+                                array(
+                                    'id'            => 'wpneo_prject_update_date_field[]',
+                                    'label'         => __( 'Date', 'wp-crowdfunding' ),
+                                    'desc_tip'      => 'true',
+                                    'type'          => 'text',
+                                    'class'         => 'datepicker',
+                                    'placeholder'   => __( date('d-m-Y'), 'wp-crowdfunding' ),
+                                    'value'         => ''
+                                )
+                            );
 
-        echo "<div id='campaign_update_field' style='display: $display'>";
-            echo "<div class='campaign_update_field_copy'>";
+                            woocommerce_wp_text_input(
+                                array(
+                                    'id'            => 'wpneo_prject_update_title_field[]',
+                                    'label'         => __( 'Update Title', 'wp-crowdfunding' ),
+                                    'desc_tip'      => 'true',
+                                    'type'          => 'text',
+                                    'placeholder'   => __( 'Update title', 'wp-crowdfunding' ),
+                                    'value'         => ''
+                                )
+                            );
 
-            woocommerce_wp_text_input(
-                array(
-                    'id'            => 'wpneo_prject_update_date_field[]',
-                    'label'         => __( 'Date', 'wp-crowdfunding' ),
-                    'desc_tip'      => 'true',
-                    'type'          => 'text',
-                    'class'         => 'datepicker',
-                    'placeholder'   => __( date('d-m-Y'), 'wp-crowdfunding' ),
-                    'value'         => ''
-                )
-            );
-            woocommerce_wp_text_input(
-                array(
-                    'id'            => 'wpneo_prject_update_title_field[]',
-                    'label'         => __( 'Update Title', 'wp-crowdfunding' ),
-                    'desc_tip'      => 'true',
-                    'type'          => 'text',
-                    'placeholder'   => __( 'Update title', 'wp-crowdfunding' ),
-                    'value'         => ''
-                )
-            );
-            woocommerce_wp_textarea_input(
-                array(
-                    'id'            => 'wpneo_prject_update_details_field[]',
-                    'label'         => __( 'Update Details', 'wp-crowdfunding' ),
-                    'desc_tip'      => 'true',
-                    'type'          => 'text',
-                    'placeholder'   => __( 'Update details', 'wp-crowdfunding' ),
-                    'value'         => ''
-                )
-            );
-        echo '<input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="'.__('Remove', 'wp-crowdfunding').'" />';
-        echo '<div style="border-bottom: 1px solid #eee"></div>';
-        echo "</div>";
-        echo "</div>";
+                            woocommerce_wp_textarea_input(
+                                array(
+                                    'id'            => 'wpneo_prject_update_details_field[]',
+                                    'label'         => __( 'Update Details', 'wp-crowdfunding' ),
+                                    'desc_tip'      => 'true',
+                                    'type'          => 'text',
+                                    'placeholder'   => __( 'Update details', 'wp-crowdfunding' ),
+                                    'value'         => ''
+                                )
+                            );
+                        ?>
 
-        echo "<div id='campaign_update_addon_field'>";
-            if (is_array($saved_campaign_update_a) && $total_campaign_update > 0){
-                foreach($saved_campaign_update_a as $key => $value) {
-                    echo "<div class='campaign_update_field_copy'>";
-                    woocommerce_wp_text_input(
-                        array(
-                            'id'            => 'wpneo_prject_update_date_field[]',
-                            'label'         => __( 'Date', 'wp-crowdfunding' ),
-                            'desc_tip'      => 'true',
-                            'type'          => 'text',
-                            'class'         => 'datepicker',
-                            'placeholder'   => __( date('d-m-Y'), 'wp-crowdfunding' ),
-                            'value'         => stripslashes($value['date'])
-                        )
-                    );
-                    woocommerce_wp_text_input(
-                        array(
-                            'id'        => 'wpneo_prject_update_title_field[]',
-                            'label'     => __('Update Title', 'wp-crowdfunding'),
-                            'desc_tip'  => 'true',
-                            'type'      => 'text',
-                            'placeholder' => __('Update title', 'wp-crowdfunding'),
-                            'value'     => stripslashes($value['title'])
-                        )
-                    );
+                        <input name="remove_udpate" type="button" class="button button-cancel button-small" value="<?php _e('Remove', 'wp-crowdfunding'); ?>" wpcf-action-remove-update />
+                    </div>
+                </div>
 
-                    // woocommerce_wp_textarea_input(
-                    //     array(
-                    //         'id'        => 'wpneo_prject_update_details_field[]',
-                    //         'label'     => __('Update Title', 'wp-crowdfunding'),
-                    //         'desc_tip'  => 'true',
-                    //         'placeholder' => __('Update Details', 'wp-crowdfunding'),
-                    //         'value'     => stripslashes($value['details'])
-                    //     )
-                    // );
+                <div id="wpcf-campaign-updates">
+                    <?php if (is_array($saved_campaign_update_a) && $total_campaign_update > 0) : ?>
+                        <?php foreach($saved_campaign_update_a as $key => $value) : ?>
+                            <div class="wpcf-campaign-update wpcf-card">
+                                <?php
+                                    woocommerce_wp_text_input(
+                                        array(
+                                            'id'            => 'wpneo_prject_update_date_field[]',
+                                            'label'         => __( 'Date', 'wp-crowdfunding' ),
+                                            'desc_tip'      => 'true',
+                                            'type'          => 'text',
+                                            'class'         => 'datepicker',
+                                            'placeholder'   => __( date('d-m-Y'), 'wp-crowdfunding' ),
+                                            'value'         => stripslashes($value['date'])
+                                        )
+                                    );
+                                    woocommerce_wp_text_input(
+                                        array(
+                                            'id'        => 'wpneo_prject_update_title_field[]',
+                                            'label'     => __('Update Title', 'wp-crowdfunding'),
+                                            'desc_tip'  => 'true',
+                                            'type'      => 'text',
+                                            'placeholder' => __('Update title', 'wp-crowdfunding'),
+                                            'value'     => stripslashes($value['title'])
+                                        )
+                                    );
+                
+                                    wp_editor(stripslashes($value['details']), 'wpneo_prject_update_details_field'.$key, array('textarea_name' => 'wpneo_prject_update_details_field[]'));
+                                ?>
 
-                    wp_editor(stripslashes($value['details']), 'wpneo_prject_update_details_field'.$key, array('textarea_name' => 'wpneo_prject_update_details_field[]'));
-
-                    echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="'.__('Remove', 'wp-crowdfunding').'" /></div>';
-                    echo '<div style="border-bottom: 1px solid #eee"></div>';
-                    echo "</div>";
-                }
-            }
-        echo "</div>";
-
-
-        echo '<input name="save_update" type="button" class="button tagadd" id="addcampaignupdate" value="'.__('+ Add Update', 'wp-crowdfunding').'" />';
-        echo '<div style="clear: both;"></div>';
-        echo "</div>";
+                                <div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button button-cancel button-small" value="<?php _e('Remove', 'wp-crowdfunding'); ?>" wpcf-action-remove-update /></div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <input name="save_update" type="button" class="wpcf-button" value="<?php _e('+ Add Update', 'wp-crowdfunding'); ?>" wpcf-action-add-update />
+            </div>
+        <?php
     }
 
     /**

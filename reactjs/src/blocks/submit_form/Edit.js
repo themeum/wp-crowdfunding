@@ -266,9 +266,9 @@ class Edit extends Component {
                             </div>
                         </div>
                         <div className="wpneo-reward-option">Reward Option</div>
-                        <div className="panel" id="reward_options">
-                            <div className="reward_group">
-                                <div className="campaign_rewards_field_copy">
+                        <div className="panel" id="wpcf-reward-options">
+                            <div className="wpcf-reward-group">
+                                <div className="wpcf-reward wpcf-card">
                                     <div className="wpneo-single">
                                         <div className="wpneo-name">Pledge Amount</div>
                                         <div className="wpneo-fields">
@@ -335,7 +335,7 @@ class Edit extends Component {
                             </div>
                             {/* <div id="rewards_addon_fields"></div> */}
                             <div className="text-right">
-                                <input type="button" value="+ Add" id="addreward" className="button tagadd" name="save" />
+                                <input type="button" value="+ Add" id="addreward" className="button" name="save" />
                             </div>
                         </div>
                         <div className="wpneo-title"></div>
