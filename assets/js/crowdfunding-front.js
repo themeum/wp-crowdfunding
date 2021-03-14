@@ -69,12 +69,12 @@ jQuery(function($) {
     });
 
     // Pie Chart
-    $('.crowdfound-pie-chart').easyPieChart({
-        barColor: '#1adc68',
-        trackColor: '#f5f5f5',
-        scaleColor: false,
-        lineWidth: 5,
-    });
+    // $('.crowdfound-pie-chart').easyPieChart({
+    //     barColor: '#1adc68',
+    //     trackColor: '#f5f5f5',
+    //     scaleColor: false,
+    //     lineWidth: 5,
+    // });
 
     $('.datepickers_1').datepicker({
         dateFormat: 'yy-mm-dd'
@@ -114,7 +114,7 @@ jQuery(function($) {
     function wpcf_modal(content) {
         var data = JSON.parse(content);
 
-        var modalHtml = '<div class="wpcf-modal">' +
+        var modalHtml = '<div class="wpcf-modal" style="display: none;">' +
             '<div class="wpcf-modal-dialog">' +
                 '<div class="wpcf-modal-content">' +
                     '<div class="wpcf-modal-header"><span class="wpcf-modal-title"></span><a href="#" class="wpcf-modal-close" role="button"></a></div>' +
@@ -126,6 +126,7 @@ jQuery(function($) {
         if ($('.wpcf-modal').length == 0) {
             $('body').addClass('wpcf-modal-open');
             $('body').append(modalHtml);
+            $('.wpcf-modal').fadeIn(300);
 
             if (data.redirect) {
                 if ($('#wpneo_crowdfunding_redirect_url').length == 0) {
@@ -156,6 +157,17 @@ jQuery(function($) {
     }
     
     window.wpcf_modal = wpcf_modal;
+
+     // Close Modal
+     $(document).on('click', '.wpcf-modal-close', function(){
+        $('.wpcf-modal').fadeOut(300, function() {
+            $('body').removeClass('wpcf-modal-open');
+            $('.wpcf-modal').remove();
+            if ( $('#wpneo_crowdfunding_redirect_url').length > 0 ) {
+                location.href = $('#wpneo_crowdfunding_redirect_url').val();
+            }
+        });
+    });
 
     // Image Upload Function
     function wpcf_upload_image( button_class ) {
@@ -342,8 +354,8 @@ jQuery(function($) {
     $($('.wpneo-current a').attr('href')).fadeIn();
 
     // Show author bio in a modal
-    $('[action-show-author-bio]').on('click', function (e) {
-        e.preventDefault();
+    $('[action-show-author-bio]').on('click', function (event) {
+        event.preventDefault();
         var author = $(this).data('author');
         $.ajax({
             type:"POST",
@@ -359,14 +371,6 @@ jQuery(function($) {
                 wpcf_modal({'success':0, 'message':'Error'})
             }
         });
-    });
-
-    // Modal Close Option
-    $(document).on('click', '.wpneo-modal-close', function(){
-        $('.wpneo-modal-wrapper').css({'display': 'none'});
-        if ( $('#wpneo_crowdfunding_redirect_url').length > 0 ) {
-            location.href = $('#wpneo_crowdfunding_redirect_url').val();
-        }
     });
 
     // Add Love Campaign

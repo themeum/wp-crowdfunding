@@ -94,7 +94,6 @@ class Base {
         echo $html;
     }
 
-
     // Hooks your functions into the correct filters
     function add_mce_button() {
         // check user permissions
@@ -108,37 +107,35 @@ class Base {
         }
     }
 
+    // add necessary admin scripts & stylesheets
     public function admin_script() {
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_style( 'crowdfunding-admin', WPCF_DIR_URL .'assets/css/dist/crowdfunding.css', false, WPCF_VERSION );
         wp_enqueue_script( 'crowdfunding-admin', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
     }
 
-    /**
-     * Registering necessary js and css
-     * @frontend
-     */
-    public function frontend_script() {
-        wp_enqueue_style('crowdfunding', WPCF_DIR_URL . 'assets/css/crowdfunding-front-new.css', false, WPCF_VERSION);
-        //wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
-        
-        wp_enqueue_script('jquery');
-        wp_enqueue_script('jquery-ui-datepicker', array('jquery'));
-        wp_enqueue_script('wp-crowdfunding', WPCF_DIR_URL . 'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
-        wp_localize_script('wp-crowdfunding-ajax', 'wpcf_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
-        wp_enqueue_media();
-    }
-
     // Declare script for new button
-    function add_tinymce_js( $plugin_array ) {
-        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.js';
+    function add_tinymce_js($plugin_array) {
+        $plugin_array['wp_crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.js';
         return $plugin_array;
     }
 
     // Register new button in the editor
     function register_mce_button( $buttons ) {
-        array_push( $buttons, 'crowdfunding_button' );
+        array_push($buttons, 'wp_crowdfunding_button');
         return $buttons;
+    }
+
+    // Registering necessary frontend javascript and css scripts
+    public function frontend_script() {
+        wp_enqueue_style('wp-crowdfunding', WPCF_DIR_URL . 'assets/css/crowdfunding-front-new.css', false, WPCF_VERSION);
+        wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+        
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery-ui-datepicker', array('jquery'));
+        wp_enqueue_script('wp-crowdfunding', WPCF_DIR_URL . 'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
+        wp_localize_script('wp-crowdfunding', 'wpcf_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+        wp_enqueue_media();
     }
 
     public function admin_footer_text($footer_text) {
