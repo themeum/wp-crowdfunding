@@ -1,0 +1,24 @@
+.wpcf-content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    .wpcf-btn{
+        margin-left: auto;
+    }
+}
+
+.wpcf-content-heading{
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--wpcf-heading-color);
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+
+.wpcf-content-subheading{
+    color: var(--wpcf-primary-text-color);
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: 400;
+}

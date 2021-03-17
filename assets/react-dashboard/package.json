@@ -1,0 +1,38 @@
+{
+  "name": "liveedit",
+  "version": "1.0.0",
+  "description": "Crowdfunding Dashboard",
+  "main": "index.js",
+  "author": "themeum",
+  "license": "GPL",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.1.0",
+    "node-sass": "^4.12.0",
+    "path": "^0.12.7",
+    "sass-loader": "^7.1.0",
+    "standard": "^13.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.6",
+    "webpack-merge": "^4.2.2"
+  },
+  "scripts": {
+    "start": "webpack --watch --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "test": "standard && node my-tests.js"
+  },
+  "dependencies": {
+    "@wordpress/i18n": "^3.6.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
+  }
+}

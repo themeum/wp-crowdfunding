@@ -1,0 +1,29 @@
+.wpcf-dashboard-container{
+    &.is-skeleton{
+	   .wpcf-dashboard-sidebar{
+           span:first-child{
+               height: 65px;
+               width: 65px;
+               display: block;
+               border-radius: 50%;
+               margin-bottom: 14px;
+           }
+           span:nth-child(2){
+               display: block;
+               height: 25px;
+               width: 60%;
+               margin-bottom: 8px;
+           }
+           span:nth-child(3){
+               display: block;
+               height: 20px;
+               width: 100%;
+           }
+           li{
+               margin: 10px 30px;
+               height: 30px;
+           }
+
+       }
+    }
+}
