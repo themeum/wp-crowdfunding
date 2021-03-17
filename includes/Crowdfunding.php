@@ -16,6 +16,7 @@ final class Crowdfunding {
 
 	function __construct() {
 		$this->includes_core();
+		$this->include_apis();
 		$this->include_shortcode();
 		$this->include_addons();
 		$this->initial_activation();
@@ -32,6 +33,13 @@ final class Crowdfunding {
 		require_once WPCF_DIR_PATH.'includes/Gutenberg.php';
 		new settings\Admin_Menu();
 		new \WPCF\Gutenberg();
+	}
+
+	// Include APIs
+	public function include_apis() {
+		if( class_exists( 'WooCommerce' ) ){
+			include_once WPCF_DIR_PATH.'includes/APIs/Dashboard.php';
+		}
 	}
 
 	//Checking Vendor
