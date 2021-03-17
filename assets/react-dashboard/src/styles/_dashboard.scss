@@ -1,0 +1,169 @@
+.wpcf-dashboard-info-cards{
+    display: flex;
+    margin-bottom: 20px;
+    margin-left: -20px;
+    margin-top: -20px;
+    @include media(xs){
+        flex-wrap: wrap;
+    }
+    .wpcf-dashboard-info-card{
+        font-size: 16px;
+        padding: 28px 25px 22px;
+        border: 1px solid var(--wpcf-border-color);
+        border-radius: 8px;
+        color: var(--wpcf-light-text-color);
+        margin-left: 20px;
+        font-weight: 400;
+        flex-grow: 1;
+        margin-top: 20px;
+        @include media(md){
+            flex-basis: calc(50% - 20px);
+            max-width: calc(50% - 20px);
+        }
+        @include media(xs_md){
+            font-size: 14px;
+            padding: 18px 15px 12px;
+        }
+        @include media(xs){
+            flex-basis: calc(50% - 20px);
+            max-width: calc(50% - 20px);
+        }
+        h3{
+            font-size: 32px;
+            margin-bottom: 2px;
+            color: var(--wpcf-primary-color);
+            font-weight: 400;
+            line-height: 30px;
+            @include media(xs_md){
+                font-size: 24px;
+                line-height: 26px;
+            }
+        }
+        &:first-child{
+            min-width: 28%;
+        }
+        &.wpcf-info-success{
+            background: var(--wpcf-success-color);
+            border-color: var(--wpcf-success-color);
+            color: #ffffff;
+            h3{
+                color: #ffffff;
+            }
+        }
+    }
+    
+}
+
+.wpcf-report-header{
+    margin-bottom: 12px;
+}
+
+.wpcf-report-filter{
+    display: flex;
+    align-items: center;
+    margin-left: -12px;
+    flex-wrap: wrap;
+    > span,
+    > input,
+    > .wpcf-report-export-btn{
+        margin-left: 12px;
+        margin-bottom: 8px;
+        @include media(xs_md){
+            flex-basis: calc(50% - 12px);
+        }
+    }
+    .wpcf-report-export-btn{
+        margin-left: auto;
+        @include media(xs_md){
+            margin-left: 12px;
+        }
+    }
+    span,
+    input{
+        height: 45px;
+        padding: 0 20px;
+        border: 1px solid var(--wpcf-border-color);
+        border-radius: 30px;
+        color: var(--wpcf-primary-text-color);
+        font-size: 16px;
+        &::placeholder{
+            color: var(--wpcf-primary-text-color);
+        }
+    
+        @include media(xs_md){
+            font-size: 14px;
+            height: 35px;
+            line-height: 35px;
+        }
+    }
+    input{
+        width: 140px;
+    }
+    span{
+        display: inline-flex;
+        padding: 0;
+        position: relative;
+        select{
+            border: none;
+            background: transparent;
+            min-width: 160px;
+            -webkit-appearance: none;
+            -moz-appearance:    none;
+            appearance:         none;
+            color: var(--wpcf-primary-text-color);
+            padding: 0 20px !important;
+            line-height: 45px;
+            height: 45px;
+            font-size: 16px;
+            @include media(xs_md){
+                font-size: 14px;
+                height: 35px;
+                line-height: 35px;
+            }
+        }
+        &::after{
+            position: absolute;
+            content: '\f078';
+            font-weight: 900;
+            font-family: 'Font Awesome 5 Free';
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+    }
+    
+}
+
+.wpcf-report-line-graph{
+    border: 1px solid var(--wpcf-border-color);
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    @include media(xs_md){
+        padding: 10px;
+    }
+}
+
+.wpcf-dashboard-item-wraper{
+    border: 1px solid var(--wpcf-border-color);
+    padding: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.wpcf-dashboard-search{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    input{
+        height: 35px;
+        border: 1px solid var(--wpcf-border-color);
+        border-radius: 30px;
+        padding-left: 20px;
+        &::placeholder{
+            color: #DCDCE4;
+            opacity: 1;
+        }
+    }
+}

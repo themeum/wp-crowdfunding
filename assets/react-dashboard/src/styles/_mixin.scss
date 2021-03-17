@@ -1,0 +1,82 @@
+// Media Query
+
+@mixin media( $point ) {
+	/*Extra small devices (portrait phones, less than 576px)*/
+	@if $point == xs {
+		@media ( max-width: 575.98px ) {
+			@content;
+		}
+	}
+	/*Small devices (landscape phones, 576px and up)*/
+	@if $point == sm {
+		@media (min-width: 576px) and (max-width: 767.98px) {
+			@content;
+		}
+	}
+	/*Medium devices (tablets, 768px and up)*/
+	@if $point == md {
+		@media (min-width: 768px) and (max-width: 991.98px) {
+			@content;
+		}
+	}
+	/*Large devices (desktops, 992px and up)*/
+	@if $point == lg {
+		@media (min-width: 992px) and (max-width: 1199.98px) {
+			@content;
+		}
+	}
+	/*Extra large devices (large desktops, 1200px and up)*/
+	@if $point == xl {
+		@media (min-width: 1200px) {
+			@content;
+		}
+	}
+	
+	/**
+	 * Hybrid Media
+	 */
+	
+	/* Small and Down*/
+	@if $point == xs_sm {
+		@media (max-width: 767.98px) {
+			@content;
+		}
+	}
+	
+	/* Medium and Down*/
+	@if $point == xs_md {
+		@media (max-width: 991.98px) {
+			@content;
+		}
+	}
+	
+	/* Large and Down*/
+	@if $point == xs_lg {
+		@media (max-width: 1199.98px) {
+			@content;
+		}
+	}
+	
+}
+
+@mixin custom_media($min: false, $max: false) {
+	@if($min == false && $max == false){
+		@content;
+	}
+	@else{
+		@if($min == false){
+			@media (max-width: $max) {
+				@content;
+			}
+		}
+		@else if($max == false){
+			@media (min-width: $min) {
+				@content;
+			}
+		}
+		@else{
+		
+		}
+	}
+	
+}

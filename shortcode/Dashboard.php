@@ -1,142 +1,120 @@
 <?php
-namespace WPCF\shortcode;
+/**
+ * WP-Crowdfunding dashboard Shortcodes
+ *
+ * @category   Crowdfunding
+ * @package    Shortcode
+ * @author     Themeum <www.themeum.com>
+ * @copyright  2019 Themeum <www.themeum.com>
+ * @since      2.1.0
+ */
 
+namespace WPCF\shortcode;
 defined( 'ABSPATH' ) || exit;
 
 class Dashboard {
-
+    /**
+     * Dashboard Constructor
+     * @since 2.1.0
+     */
     function __construct() {
+        add_action( 'init', array( $this, 'init_dashboard' ) );
+    }
+
+    /**
+     * Enqueue dashboard assets and add shortcode
+     * @since   2.1.0
+     * @access  public
+     */
+    public function init_dashboard() {
+        add_action( 'wp_enqueue_scripts',    array($this, 'dashboard_assets') );
         add_shortcode( 'wpcf_dashboard', array( $this, 'dashboard_callback' ) );
     }
 
-    function dashboard_callback( $attr ) {
-        $html = '';
-        $get_id = '';
-        if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
-            if ( is_user_logged_in() ) {
-                $pagelink = get_permalink( get_the_ID() );
-                $dashboard_menus = apply_filters('wpcf_frontend_dashboard_menus', array(
-                    'dashboard' => array(
-                        'tab'             => 'dashboard',
-                        'tab_name'        => __('Dashboard','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php'
-                    ),
-                    'profile' => array(
-                        'tab'             => 'account',
-                        'tab_name'        => __('Profile','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php'
-                    ),
-                    'contact' => array(
-                        'tab'             => 'account',
-                        'tab_name'        => __('Contact','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/contact.php'
-                    ),
-                    'campaign' => array(
-                        'tab'             => 'campaign',
-                        'tab_name'        => __('My Campaigns','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php'
-                    ),
-                    'backed_campaigns' => array(
-                        'tab'             => 'campaign',
-                        'tab_name'        => __('My Invested Campaigns','wp-crowdfunding'),
-                        'load_form_file'  => WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php'
-                    ),
-                    'pledges_received' => array(
-                        'tab'            => 'campaign',
-                        'tab_name'       => __('Pledges Received','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php'
-                    ),
-                    'bookmark' => array(
-                        'tab'            => 'campaign',
-                        'tab_name'       => __('Bookmarks','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php'
-                    ),
-                    'password' => array(
-                        'tab'            => 'account',
-                        'tab_name'       => __('Password','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/password.php'
-                    ),
-                    'rewards' => array(
-                        'tab'            => 'account',
-                        'tab_name'       => __('Rewards','wp-crowdfunding'),
-                        'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
-                    ),
-                ));
-                
+    /**
+     * Enqueue dashboard assets
+     * @since   2.1.0
+     * @access  public
+     */
+    function dashboard_assets() {
+        if (!is_user_logged_in()) {
+            return false;
+        }
+        //dashboard scripts
+        $api_namespace = WPCF_API_NAMESPACE . WPCF_API_VERSION;
+        $page_id = get_option('wpneo_crowdfunding_dashboard_page_id');
+        $form_page_id = get_option('wpneo_form_page_id');
 
-                /**
-                 * Print menu with active link marking...
-                 */
-                $html .= '<div class="wpneo-wrapper">';
-                $html .= '<div class="wpneo-head wpneo-shadow">';
-                    $html .= '<div class="wpneo-links clearfix">';
-
-                        $dashboard = $account = $campaign = $extra = '';
-                        foreach ($dashboard_menus as $menu_name => $menu_value){
-
-                            if ( empty($get_id) && $menu_name == 'dashboard'){ $active = 'active';
-                            } else { $active = ($get_id == $menu_name) ? 'active' : ''; }
-
-                            $pagelink = add_query_arg( 'page_type', $menu_name , $pagelink );
-
-                            if( $menu_value['tab'] == 'dashboard' ){
-                                $dashboard .= '<div class="wpneo-links-list '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
-                            }elseif( $menu_value['tab'] == 'account' ){
-                                $account .= '<div class="wpneo-links-lists '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
-                            }elseif( $menu_value['tab'] == 'campaign' ){
-                                $campaign .= '<div class="wpneo-links-lists '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
-                            }else{
-                                $extra .= '<div class="wpneo-links-list '.$active.'"><a href="'.$pagelink.'">'.$menu_value['tab_name'].'</a></div>';
-                            }
-                        }
-                        
-                        $html .= $dashboard;
-                        $html .= '<div class="wpneo-links-list wp-crowd-parent"><a href="#">'.__("My Account","wp-crowdfunding").'<span class="wpcrowd-arrow-down"></span></a>';
-                            $html .= '<div class="wp-crowd-submenu wpneo-shadow">';
-                                $html .= $account;
-                                $html .= '<div class="wpneo-links-lists"><a href="'.wp_logout_url( home_url() ).'">'.__('Logout','wp-crowdfunding').'</a></div>';
-                            $html .= '</div>';
-                        $html .= '</div>';
-                        $html .= '<div class="wpneo-links-list wp-crowd-parent"><a href="#">'.__("Campaigns","wp-crowdfunding").'<span class="wpcrowd-arrow-down"></span></a>';
-                            $html .= '<div class="wp-crowd-submenu wpneo-shadow">';
-                                $html .= $campaign;
-                            $html .= '</div>';
-                        $html .= '</div>';
-                        $html .= $extra;
-                        $html .= '<div class="wp-crowd-new-campaign"><a class="wp-crowd-btn wp-crowd-btn-primary" href="'.get_permalink(get_option('wpneo_form_page_id')).'">'.__("Add New Campaign","wp-crowdfunding").'</a></div>';
-
-                    $html .= '</div>';
-                $html .= '</div>';
-
-
-                $var = '';
-                if( isset($_GET['page_type']) ){
-                    $var = $_GET['page_type'];
-                }
+        $currency_symbol = (get_woocommerce_currency_symbol()) ? get_woocommerce_currency_symbol() : '$';
+        $decimal_separator = (wc_get_price_decimal_separator()) ? wc_get_price_decimal_separator() : '.';
+        $thousand_separator = (wc_get_price_thousand_separator()) ? wc_get_price_thousand_separator() : ',';
+        $decimals = (wc_get_price_decimals()) ? wc_get_price_decimals() : 2;
         
-                ob_start();
-                if( $var == 'update' ){
-                    require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/update.php';
-                }else{
-                    if ( ! empty($dashboard_menus[$get_id]['load_form_file']) ) {
-                        if (file_exists($dashboard_menus[$get_id]['load_form_file'])) {
-                            include $dashboard_menus[$get_id]['load_form_file'];
-                        }
-                    }else{
-                        include $dashboard_menus['dashboard']['load_form_file'];
-                    }
-                }
-                $html .= ob_get_clean();
-                
-            $html .= '</div>'; //wpneo-wrapper
-
-        } else {
-            $html .= '<div class="woocommerce">';
-            $html .= '<div class="woocommerce-info">' . __("Please log in first?", "wp-crowdfunding") . ' <a class="wpneoShowLogin" href="#">' . __("Click here to login", "wp-crowdfunding") . '</a></div>';
-            $html .= wpcf_function()->login_form();
-            $html .= '</div>';
+        if( get_the_ID() && get_the_ID() == $page_id ) {
+            $active_pro = (file_exists(WP_PLUGIN_DIR.'/'.WPCF_PRO_BASENAME) && is_plugin_active(WPCF_PRO_BASENAME));
+            wp_enqueue_script( 'chart.bundle.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js', array('jquery'), '', true );
+            wp_enqueue_script( 'wpcf-dashboard-script', WPCF_DIR_URL.'assets/js/dashboard.js', array('jquery'), WPCF_VERSION, true );
+            wp_localize_script( 'wpcf-dashboard-script', 'WPCF', array (
+                'site_url'          => site_url(),
+                'rest_url'          => rest_url( $api_namespace ),
+                'assets'            => WPCF_DIR_URL.'assets/',
+                'nonce'             => wp_create_nonce( 'wpcf_dasboard_nonce' ),
+                'create_campaign'   => get_permalink( $form_page_id ),
+                'active_pro'        => $active_pro,
+                'currency'          => array(
+                    'symbol'        => $currency_symbol,
+                    'd_separator'  	=> $decimal_separator,
+                    't_separator' 	=> $thousand_separator,
+                    'decimals'      => $decimals,
+                )
+            ));
         }
 
-        return $html;
+        wp_enqueue_script('fontawesome', 'https://kit.fontawesome.com/7617ec241a.js', array(), WPCF_VERSION, true);
+
+        // Dashboard Styles
+        if('false' !== get_option('wpcf_enable_google_fonts', 'true')){
+            wp_enqueue_style('roboto', $this->google_fonts(), array(), WPCF_VERSION);
+        }
     }
+
+    /**
+     * Dashboard shortcode callback
+     * @since     2.1.0
+     * @access    public
+     * @param     {object}  attr
+     * @return    {html}    mixed
+     */
+    function dashboard_callback($attr) {
+        if(!is_user_logged_in()) {
+            $html = '<div class="woocommerce">';
+            $html .= '<div class="woocommerce-info">'.__("Please log in first.","wp-crowdfunding").' <a class="wpneoShowLogin" href="#">'.__("Click here to login.","wp-crowdfunding").'</a></div>';
+            $html .= wpcf_function()->login_form();
+            $html .= '</div>';
+            return $html;
+        }
+        return '<div id="wpcf-dashboard"></div>';
+    }
+
+    /**
+     * Register Google fonts.
+     *
+     * @since 2.1.0
+     * @return string Google fonts URL for the plugin.
+     */
+    function google_fonts() {
+        $google_fonts = apply_filters(
+            'wpcf_google_font_families', array(
+                'roboto' => 'Roboto:300,400,400i,500,500i,700',
+            )
+        );
+        $query_args = array(
+            'family' => implode( '|', $google_fonts ),
+            'subset' => rawurlencode( 'latin,latin-ext' ),
+            'display' => 'swap'
+        );
+        $fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+        return $fonts_url;
+    }
+
 }

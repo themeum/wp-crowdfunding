@@ -1,0 +1,87 @@
+:root{
+	--wpcf-font-family: 'Roboto', sans-serif;
+    --wpcf-primary-text-color: #787993;
+    --wpcf-light-text-color: #ADAECF;
+    --wpcf-primary-color: #3060c5;
+    --wpcf-heading-color: #25265e;
+    --wpcf-border-color: #dcdce4;
+    --wpcf-success-color: #00A92F;
+    --wpcf-warning-color: #e8710d;
+    --wpcf-danger-color: #c91818;
+}
+
+$sidebar_width: 255px;
+$sidebar_width_sm: 230px;
+
+#wpcf-dashboard{
+    font-family: var(--wpcf-font-family);
+    color: var(--wpcf-primary-text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+    fill: #ADAECF;
+}
+#wpcf-dashboard img{
+    max-width: 100%;
+    height: auto;
+}
+
+.wpcf-dashboard-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.wpcf-dashboard-sidebar{
+    flex: 0 0 $sidebar_width;
+    max-width: $sidebar_width;
+    @include media(md){
+        flex: 0 0 $sidebar_width_sm;
+        max-width: $sidebar_width_sm;
+    }
+    @include media(xs_sm){
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.wpcf-dashboard-content{
+    flex: 1 0 calc(100% - #{$sidebar_width});
+    max-width: calc(100% - #{$sidebar_width});
+    padding-left: 30px;
+    padding-top: 30px;
+    @include media(md){
+        flex: 1 0 calc(100% - #{$sidebar_width_sm});
+        max-width: calc(100% - #{$sidebar_width_sm});
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+    @include media(xs_sm){
+        flex: 1 0 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-top: 20px;
+    }
+}
+
+a{
+    color: var(--wpcf-primary-color);
+    &:hover,
+    &:focus,
+    &:active{
+        color: var(--wpcf-primary-color);
+    }
+}
+
+.wpcf-svg-icon{
+    font-size: inherit;
+    height: 1em;
+    width: 1em;
+    display: inline-flex;
+    svg{
+        flex-grow: 1;
+        path{
+            fill: inherit;
+        }
+    }
+}
+
