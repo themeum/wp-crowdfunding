@@ -873,4 +873,17 @@ class Functions {
     function getFundRaisedPercentFormat() {
         return $this->get_fund_raised_percent_format();
     }
+
+    /**
+     * Get campaign status
+     * @since     2.1.0
+     * @access    public
+     */
+    function get_campaign_status() {
+        $post_status = get_post_status();
+        if( $post_status === "publish" ) {
+            $post_status = $this->is_campaign_valid() ? "running" : "completed";
+        }
+        return $post_status;
+    }
 }

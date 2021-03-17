@@ -299,7 +299,9 @@ class API_Dashboard {
         $user_id = $this->current_user_id;
         $user = get_userdata( $user_id );
         $country_code = get_user_meta( $user_id, 'profile_country', true );
+        $country_name = isset( WC()->countries->countries[$country_code] ) ? WC()->countries->countries[$country_code] : '';
         $profile_image_id = get_user_meta( $user_id, 'profile_image_id', true );
+
         $data = array(
             'username'          => $user->user_login,
             'display_name'      => $user->display_name,
@@ -311,7 +313,7 @@ class API_Dashboard {
             'profile_email1'    => get_user_meta( $user_id, 'profile_email1', true ),
             'profile_mobile1'   => get_user_meta( $user_id, 'profile_mobile1', true ),
             'profile_country'   => $country_code,
-            'country_name'      => WC()->countries->countries[$country_code],
+            'country_name'      => $country_name,
             'profile_city'      => get_user_meta( $user_id, 'profile_city', true ),
             'profile_address'   => get_user_meta( $user_id, 'profile_address', true ),
             'profile_post_code' => get_user_meta( $user_id, 'profile_post_code', true ),
@@ -686,6 +688,7 @@ class API_Dashboard {
                     'product_name'  => $item_data['name']
                 );
             }
+            
             $order_details['line_items'] = $line_items; //Overwrite line items of campaign details
             $order_details['fulfillment'] =  ( wpcf_function()->is_campaign_valid( $line_items[0]['product_id'] ) ) ? 'On Process' : 'Done';
             $order_details['billing']['country_name'] =  WC()->countries->countries[ $order_details['billing']['country'] ];
