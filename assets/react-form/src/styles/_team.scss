@@ -1,0 +1,84 @@
+.wpcf-team-members{
+	border: 1px solid var(--wpcf-border-color);
+	padding: 30px 40px;
+	border-radius: 4px;
+	margin-top: 30px;
+	h3{
+		color: var(--wpcf-heading-color);
+		font-size: 16px;
+		font-weight: 400;
+	}
+}
+.wpcf-team-member-items{
+	overflow: hidden;
+	margin: 0 -10px;
+}
+.wpcf-team-member{
+	min-width: 280px;
+	float: left;
+	position: relative;
+	padding: 15px 10px;
+	display: flex;
+	align-items: center;
+	margin-top: 15px;
+	.wpcf-team-avatar{
+		max-width: 70px;
+		min-width: 70px;
+		margin-right: 12px;
+		img{
+			border-radius: 50%;
+		}
+	}
+	h4{
+		font-size: 16px;
+		font-weight: 400;
+		color: var(--wpcf-heading-color);
+		margin: 0 0 3px;
+	}
+	h6{
+		font-size: 13px;
+		font-weight: 400;
+		color: var(--wpcf-light-text-color);
+		margin: 0 0 5px;
+	}
+	p{
+		margin: 0;
+		color: var(--wpcf-primary-color);
+	}
+	.wpcf-team-overlay{
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		background: rgba(0, 0, 0, 0.6);
+		border-radius: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		button{
+			background: none;
+			border: none;
+			color: #ffffff;
+			padding: 8px;
+			&:hover{
+				opacity: .9;
+			}
+		}
+	}
+	&:hover .wpcf-team-overlay{
+		opacity: 1;
+		transition: 300ms;
+	}
+}
+
+.wpcf-accordion-details .wpcf-form-group .wpcf-team-label{
+	display: flex;
+	align-items: center;
+	font-size: 13px;
+	color: var(--wpcf-primary-text-color);
+	input{
+		margin: 0 6px 0 0;
+	}
+}

@@ -1,0 +1,50 @@
+.wpcf-accordion-wrapper{
+	.wpcf-accordion{
+		margin-bottom: 15px;
+		border-radius: 4px;
+		overflow: hidden;
+		.wpcf-accordion-title{
+			padding: 20px 30px;
+			background: #F5F5FA;
+			font-size: 16px;
+			font-weight: 500;
+			display: flex;
+			align-items: center;
+			text-transform: capitalize;
+			cursor: pointer;
+			width: 100%;
+			border: 1px solid var(--wpcf-border-color);
+			border-radius: 4px;
+			&.active{
+				color: #fff;
+				background: var(--wpcf-heading-color);
+				border-color: var(--wpcf-heading-color);
+				border-radius: 4px 4px 0 0;
+			}
+			
+			span{
+				height: 32px;
+				width: 32px;
+				padding: 0 5px;
+				border: 2px solid var(--wpcf-light-text-color);
+				border-radius: 50%;
+				text-align: center;
+				margin-right: 20px;
+				font-size: 18px;
+				fill: transparent;
+			}
+			
+			&.wpcf-completed span{
+				border-color: var(--wpcf-success-color);
+				fill: var(--wpcf-success-color);
+			}
+			
+		}
+		.wpcf-accordion-details{
+			border: 1px solid var(--wpcf-border-color);
+			border-top: 0;
+			border-radius: 0 0 4px 4px;
+			padding: 30px;
+		}
+	}
+}

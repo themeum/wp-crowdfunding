@@ -1,0 +1,106 @@
+.wpcf-story-values {
+	.wpcf-story-item {
+		border: 1px dashed #DCDCE4;
+		padding: 19px 9px 9px;
+		margin-bottom: 32px;
+		position: relative;
+		.story-item-control{
+			position: absolute;
+			right: 10px;
+			top: 0;
+			transform: translateY(-50%);
+			button{
+				height: 25px;
+				width: 25px;
+				background: #fff;
+				border: 1px solid var(--wpcf-border-color);
+				margin: 0 2px;
+				border-radius: 50%;
+				font-size: 12px;
+				line-height: 23px;
+				color: var(--wpcf-primary-color);
+				transition: 300ms;
+				text-align: center;
+				&:hover{
+					border-color: var(--wpcf-primary-color);
+				}
+				&.wpcf-danger{
+					color: var(--wpcf-danger-color);
+					&:hover{
+						border-color: var(--wpcf-danger-color);
+					}
+				}
+				&[disabled]:hover,
+				&[disabled]{
+					border-color: var(--wpcf-border-color);
+					color: var(--wpcf-light-text-color);
+				}
+			}
+		}
+	}
+}
+
+.story-item-value{
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -6px;
+	margin-right: -6px;
+	video{
+		max-width: 100%;
+		height: auto;
+	}
+	.wpcf-story-column{
+		flex-grow: 1;
+		padding-left: 6px;
+		padding-right: 6px;
+		&.wpcf-story-column-1{
+			flex-basis: 100%;
+			max-width: 100%;
+		}
+		&.wpcf-story-column-2{
+			flex-basis: 50%;
+			max-width: 50%;
+		}
+		.wpcf-story-item-image{
+			img{
+				width: 100%;
+				height: auto;
+			}
+			&.wpcf-empty-image{
+				min-height: 150px;
+				height: 100%;
+				width: 100%;
+				background: var(--wpcf-border-color);
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 21px;
+				color: var(--wpcf-light-text-color);
+			}
+		}
+	}
+}
+
+.story-item-swap{
+	position: absolute;
+	top: calc(50% + 10px);
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.story-item-swap-btn{
+	height: 25px;
+	width: 25px;
+	padding: 0;
+	background: #ffffff;
+	border-radius: 50%;
+	border: 1px solid var(--wpcf-border-color);
+	position: relative;
+	i{
+		width: 100%;
+		font-size: 13px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

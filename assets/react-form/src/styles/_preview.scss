@@ -1,0 +1,200 @@
+.wpcf-form-sidebar{
+	.preview-title{
+		padding: 25px 30px;
+		background: var(--wpcf-border-color);
+		color: #535A82;
+		font-weight: 500;
+		font-size: 16px;
+		display: flex;
+		align-items: center;
+		border-radius: 4px 4px 0 0;
+		> span{
+			font-size: 22px;
+			fill: var(--wpcf-primary-color);
+			margin-right: 7px;
+		}
+	}
+	.wpcf-preview-link{
+		button,
+		a{
+			padding: 20px 30px;
+			background: var(--wpcf-heading-color);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			color: #ffffff;
+			border: none;
+			width: 100%;
+			font-size: 16px;
+			border-radius: 0 0 4px 4px;
+			span{
+				font-size: 15px;
+				color: var(--wpcf-light-text-color);
+			}
+		}
+	}
+}
+
+.wpcf-preview-content{
+	border-left: 1px solid var(--wpcf-border-color);
+	border-right: 1px solid var(--wpcf-border-color);
+	height: 640px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.wpcf-preview-empty{
+	padding: 40px 60px;
+	text-align: center;
+	font-size: 16px;
+	@extend .wpcf-preview-content;
+	.wpcf-preview-empty-image{
+		img{
+			display: block;
+		}
+		margin-bottom: 30px;
+	}
+}
+
+
+//preview media
+.wpcf-preview-media-view{
+	overflow: hidden;
+	border-radius: 8px;
+	margin-bottom: 17px;
+}
+.wpcf-preview-media{
+	@extend .wpcf-preview-content;
+	padding: 20px;
+}
+
+.wpcf-thumbnail-view{
+	display: flex;
+	margin-bottom: 17px;
+	img{
+		height: 60px;
+		width: 25%;
+		object-fit: cover;
+	}
+}
+
+
+// emabaded
+
+.embed-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	overflow: hidden;
+	max-width: 100%;
+}
+.embed-container
+iframe,
+.embed-container object,
+.embed-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+//story item
+
+.preview-story-item{
+	padding: 20px;
+	&:not(:last-child){
+		padding-bottom: 0;
+	}
+}
+
+// raised progress
+
+.wpcf-preview-raised-area{
+	h3{
+		font-size: 14px;
+		font-weight: 400;
+		color: var(--wpcf-heading-color);
+		margin: 0 0 8px;
+		span{
+			font-size: 21px;
+		}
+	}
+}
+
+.wpcf-raised-progress{
+	width: 100%;
+	height: 13px;
+	background: var(--wpcf-border-color);
+	border-radius: 30px;
+	overflow: hidden;
+	position: relative;
+	span{
+		position: absolute;
+		height: 100%;
+		background: var(--wpcf-success-color);
+		left: 0;
+		top: 0;
+		border-radius: 30px;
+		transition: 200ms;
+	}
+}
+
+.wpcf-preview-raised-footer{
+	margin-top: 12px;
+	font-size: 14px;
+	font-weight: 400;
+	color: var(--wpcf-heading-color);
+	display: flex;
+	span{
+		font-size: 18px;
+	}
+	.wpcf-preview-raised-left{
+		flex-grow: 1;
+	}
+}
+
+// Reward Preview
+.wpcf-preview-reward{
+	@extend .wpcf-preview-content;
+	padding: 35px;
+}
+
+.wpcf-reward-box{
+	max-width: 285px;
+	border: 1px solid var(--wpcf-border-color);
+	padding: 7px;
+	border-radius: 4px;
+	.wpcf-reward-img.wpcf-placeholder{
+		display: flex;
+		height: 190px;
+		align-items: center;
+		justify-content: center;
+		background: #F5F5FA;
+		color: var(--wpcf-border-color);
+		padding: 21px;
+	}
+	.wpcf-reward-content{
+		padding: 20px 15px 15px;
+		color: #ADAECF;
+		font-size: 14px;
+		h3{
+			font-size: 16px;
+			color: var(--wpcf-heading-color);
+			font-weight: 400;
+			margin: 0 0 11px;
+		}
+		.wpcf-reward-meta{
+			h6{
+				font-size: 12px;
+				color: var(--wpcf-heading-color);
+				font-weight: 400;
+				margin: 0 0 2px;
+			}
+		}
+		p:last-child{
+			margin-bottom: 0;
+		}
+	}
+}

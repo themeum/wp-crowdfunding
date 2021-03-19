@@ -1,0 +1,121 @@
+
+.wpcf-rewards-content{
+	font-size: 12px;
+	line-height: 20px;
+	color: var(--wpcf-light-text-color);
+	> p{
+		margin-bottom: 30px;
+	}
+}
+
+.wpcf-rewards-options{
+	display: flex;
+	.wpcf-rewards-option{
+		width: 160px;
+		margin-right: 17px;
+		border: 1px solid var(--wpcf-border-color);
+		padding: 40px 20px;
+		text-align: center;
+		border-radius: 4px;
+		cursor: pointer;
+		p{
+			margin: 0;
+		}
+		span{
+			font-size: 35px;
+			display: block;
+			margin: 0 auto 20px;
+			color: var(--wpcf-light-text-color);
+			fill: var(--wpcf-light-text-color);
+		}
+		&:hover {
+			border-color: var(--wpcf-success-color);
+			span, p{
+				color: var(--wpcf-success-color);
+				fill: var(--wpcf-success-color);
+			}
+		}
+	}
+}
+
+.wpcf-rewards{
+	padding: 25px 35px;
+	border: 1px solid var(--wpcf-border-color);
+	border-radius: 4px;
+	h3{
+		font-size: 16px;
+		color: var(--wpcf-heading-color);
+		margin: 0 0 23px;
+		font-weight: 400;
+	}
+	.wpcf-add-reward-lists{
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -15px;
+		margin-top: -15px;
+		.wpcf-reward-item{
+			max-width: 112px;
+			flex-basis: 112px;
+			height: 180px;
+			border: 1px solid var(--wpcf-primary-color);
+			padding: 13px;
+			margin-left: 15px;
+			margin-top: 15px;
+			border-radius: 4px;
+			position: relative;
+			font-size: 7px;
+			line-height: 11px;
+			overflow: hidden;
+			h6{
+				font-size: 10px;
+				margin: 8px 0 0;
+			}
+			p{
+				margin-top: 5px;
+			}
+			.wpcf-reward-item-placeholder{
+				height: 60px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: #F5F5FA;
+				font-size: 7px;
+			}
+			.wpcf-reward-item-overlay{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: rgba(5, 5, 5, 0.60);
+				color: #fff;
+				fill: #fff;
+				opacity: 0;
+				transition: 300ms;
+				span{
+					fill: inherit;
+					font-size: 24px;
+					padding: 4.5px;
+					cursor: pointer;
+				}
+			}
+			&:hover .wpcf-reward-item-overlay{
+				opacity: 1;
+			}
+			&.wpcf-reward-item-empty{
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid var(--wpcf-border-color);
+				span{
+					font-size: 14px;
+					color: #DCDCE4;
+				}
+			}
+		}
+	}
+}

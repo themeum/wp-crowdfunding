@@ -38,6 +38,7 @@ final class Crowdfunding {
 	// Include APIs
 	public function include_apis() {
 		if( class_exists( 'WooCommerce' ) ){
+			include_once WPCF_DIR_PATH.'includes/APIs/Campaign.php';
 			include_once WPCF_DIR_PATH.'includes/APIs/Dashboard.php';
 		}
 	}
