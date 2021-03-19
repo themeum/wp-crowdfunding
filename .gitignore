@@ -15,3 +15,7 @@ assets/js/blocks.min.js.map
 assets/js/crowdfunding-front.min.js
 assets/js/crowdfunding.min.js
 assets/js/mce-button.min.js
+
+assets/js/campaign-form.js
+assets/js/campaign-form.js.map
+assets/css/campaign-form.css
