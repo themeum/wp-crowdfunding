@@ -27,7 +27,7 @@ class Control extends Component {
     render() {
         const { current, prevStep, lastStep, recaptcha, validateRecaptcha } = this.props;
 
-        console.log(validateRecaptcha);
+       
 
         return (
             <div>
