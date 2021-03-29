@@ -48,6 +48,7 @@ class Basic extends Component {
 		} = this.props;
 		if (basic.category) {
 			this.props.fetchSubCategories(basic.category);
+			// console.log(this.props.fields);
 		}
 		if (basic.goal_type) {
 			this.updateFieldOption();
@@ -64,6 +65,7 @@ class Basic extends Component {
 		const {
 			formValues: { basic: prevVal },
 		} = prevProps;
+
 		if (curVal.category && curVal.category !== prevVal.category) {
 			const sub_cat = `${sectionName}.sub_category`;
 			this.props.changeFieldValue(formName, sub_cat, null);
@@ -86,6 +88,7 @@ class Basic extends Component {
 		const { fields } = this.props;
 		let requiredFields = {};
 		let sectionCompleted = {};
+
 		Object.keys(fields).map((section) => {
 			sectionCompleted[section] = false;
 			requiredFields[section] = [];
@@ -286,7 +289,7 @@ class Basic extends Component {
 			formValues && formValues.hasOwnProperty(sectionName)
 				? formValues[sectionName]
 				: {};
-
+		console.log(fields);
 		return (
 			<div className='row'>
 				<div className='col-md-7'>
@@ -337,6 +340,7 @@ class Basic extends Component {
 												).map((key) => {
 													const field =
 														fields[section][key];
+
 													const validate = field.required
 														? [required]
 														: [];
