@@ -59518,7 +59518,6 @@ var extractTextFromHTML = function extractTextFromHTML(value) {
   var div = document.createElement('div');
   div.innerHTML = value;
   var text = div.textContent;
-  console.log(text.length);
 
   if (text.length > 30) {
     var str = text.slice(0, 20) + '...';
