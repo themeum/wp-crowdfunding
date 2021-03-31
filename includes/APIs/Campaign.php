@@ -356,7 +356,7 @@ class API_Campaign {
                     'show'      => true,
                 ),
                 'goal_type' => array(
-                    'type'      => 'radio',
+                    'type'      => 'select',
                     'title'     => __("Goal Type *","wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
                     'class'     => 'wpcf-radio-group-alt',
@@ -1075,6 +1075,7 @@ class API_Campaign {
 
         //do_action('wpcf_before_campaign_submit_action');
 
+        //print_r($basic);
         if($story) {
             foreach($story as $key => $st) {
                 foreach($st as $index => $s) {
@@ -1124,8 +1125,8 @@ class API_Campaign {
             if( $basic['sub_category'] != '' ) {
                 array_push($category, $basic['sub_category']);
             }
-            if($basic['tag']) {
-                $tags = array_column($basic['tag'], 'label');
+            if($basic['tags']) {
+                $tags = array_column($basic['tags'], 'label');
             }
             //Update object terms
             wp_set_object_terms( $post_id , $tags, 'product_tag' );
