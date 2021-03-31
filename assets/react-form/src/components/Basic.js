@@ -48,7 +48,6 @@ class Basic extends Component {
 		} = this.props;
 		if (basic.category) {
 			this.props.fetchSubCategories(basic.category);
-			// console.log(this.props.fields);
 		}
 		if (basic.goal_type) {
 			this.updateFieldOption();
@@ -194,6 +193,7 @@ class Basic extends Component {
 	}
 
 	_onChangeRange(e) {
+		e.preventDefault();
 		const { formValues } = this.props;
 		const { name, value, attributes } = e.target;
 		const range = attributes.getNamedItem('range').value;
@@ -289,7 +289,8 @@ class Basic extends Component {
 			formValues && formValues.hasOwnProperty(sectionName)
 				? formValues[sectionName]
 				: {};
-		console.log(fields);
+
+		//console.log(basicValues);
 		return (
 			<div className='row'>
 				<div className='col-md-7'>

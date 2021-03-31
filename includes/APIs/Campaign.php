@@ -426,7 +426,7 @@ class API_Campaign {
                     'class'     => '',
                     'step'      => 1,
                     'minVal'    => 1,
-                    'maxVal'    => 500,
+                    'maxVal'    => 250,
                     'required'  => true,
                     'show'      => true,
                 ),

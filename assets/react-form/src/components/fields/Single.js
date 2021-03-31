@@ -12,6 +12,7 @@ const defaultProps = {
 	fieldValue: '',
 };
 
+const recommendedAmount = [20, 40, 60, 80];
 const RenderField = (_props) => {
 	const props = { ...defaultProps, ..._props };
 	const {
@@ -27,7 +28,7 @@ const RenderField = (_props) => {
 	} = props;
 	const [allTags, setAllTags] = useState(false);
 
-	console.log('options', input);
+	//console.log(input);
 	switch (item.type) {
 		case 'text':
 		case 'email':
@@ -236,52 +237,70 @@ const RenderField = (_props) => {
 			const range = typeof fieldValue == 'object';
 
 			return (
-				<div className={'range-picker-parent ' + item.class}>
-					<RangePicker
-						min={item.minVal}
-						max={item.maxVal}
-						step={item.step}
-						value={input.value}
-						onChange={input.onChange}
-					/>
-
-					<div
-						className={
-							'range-picker-value ' +
-							(range ? 'wpcf-multiple' : 'wpcf-single')
-						}
-					>
-						{range ? (
-							<Fragment>
-								<input
-									type='text'
-									name={input.name}
-									range='min'
-									value={input.value.min}
-									onChange={(e) => onChangeRange(e)}
-								/>
-								<input
-									type='text'
-									name={input.name}
-									range='max'
-									value={input.value.max}
-									onChange={(e) => onChangeRange(e)}
-								/>
-							</Fragment>
-						) : (
-							<input
-								type='text'
+				<div className='wpcf-input-tags-btns top-btns'>
+					{input.name == 'basic.recommended_amount' &&
+						recommendedAmount.map((amount, index) => (
+							<button
+								className={
+									input.value === amount ? 'btn-active' : ''
+								}
 								name={input.name}
+								value={amount}
+								key={index}
 								range='false'
-								value={input.value}
-								onChange={(e) => onChangeRange(e)}
-							/>
-						)}
-						<span
-							dangerouslySetInnerHTML={{
-								__html: WPCF.currency.symbol,
-							}}
+								onClick={(e) => onChangeRange(e)}
+							>
+								{amount}
+							</button>
+						))}
+
+					<div className={'range-picker-parent ' + item.class}>
+						<RangePicker
+							min={item.minVal}
+							max={item.maxVal}
+							step={item.step}
+							value={input.value}
+							onChange={input.onChange}
 						/>
+
+						<div
+							className={
+								'range-picker-value ' +
+								(range ? 'wpcf-multiple' : 'wpcf-single')
+							}
+						>
+							{range ? (
+								<Fragment>
+									<input
+										type='text'
+										name={input.name}
+										range='min'
+										value={input.value.min}
+										onChange={(e) => onChangeRange(e)}
+									/>
+									<input
+										type='text'
+										name={input.name}
+										range='max'
+										value={input.value.max}
+										onChange={(e) => onChangeRange(e)}
+									/>
+								</Fragment>
+							) : (
+								<input
+									type='text'
+									name={input.name}
+									range='false'
+									value={input.value}
+									onChange={(e) => onChangeRange(e)}
+								/>
+							)}
+							<span
+								dangerouslySetInnerHTML={{
+									__html: WPCF.currency.symbol,
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 			);
