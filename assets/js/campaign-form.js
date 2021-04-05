@@ -58416,8 +58416,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var formName = "campaignForm";
-var sectionName = "rewards";
+var formName = 'campaignForm';
+var sectionName = 'rewards';
 
 var Reward = /*#__PURE__*/function (_Component) {
   _inherits(Reward, _Component);
@@ -58599,8 +58599,9 @@ var Reward = /*#__PURE__*/function (_Component) {
           handleSubmit = _this$props3.handleSubmit,
           current = _this$props3.current,
           prevStep = _this$props3.prevStep,
-          lastStep = _this$props3.lastStep;
-      var months = rewardFields.estimate_delivery.fields.end_month.options;
+          lastStep = _this$props3.lastStep; // const delivery_date =
+      // 	rewardFields.estimate_delivery.delivery_date;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -58684,7 +58685,6 @@ var Reward = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_preview_Preview__WEBPACK_IMPORTED_MODULE_8__["default"], {
         title: "Preview"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_preview_Reward__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        months: months,
         rewards: rewards,
         selectedItem: selectedItem
       }))));
@@ -60972,19 +60972,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var PreviewReward = function PreviewReward(props) {
-  var months = props.months,
-      rewards = props.rewards,
+  var rewards = props.rewards,
       selectedItem = props.selectedItem;
 
   var getValue = function getValue(key) {
     return rewards.length > 0 && rewards[selectedItem] ? rewards[selectedItem][key] : '';
-  };
-
-  var getMonthName = function getMonthName(key) {
-    var month = months.filter(function (item) {
-      return item.value == key;
-    });
-    return month.length > 0 ? month[0].label : '';
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -60999,9 +60991,9 @@ var PreviewReward = function PreviewReward(props) {
     className: "wpcf-reward-img wpcf-placeholder"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "No Image")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-reward-content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, getValue('title') ? getValue('title') : "No title added", " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, getValue('description')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, getValue('title') ? getValue('title') : 'No title added', ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, getValue('description')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "wpcf-reward-meta"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, "Estimate Delivery Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, getMonthName(getValue('end_month')), " ", getValue('end_year'))))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, "Estimate Delivery Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, getValue('estimate_delivery'))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PreviewReward);

@@ -725,25 +725,25 @@ class API_Campaign {
      */
     function form_reward_fields($fields = []) {
 
-        $month_list = array(
-            array( 'value' => 'jan', 'label' => __('January', "wp-crowdfunding") ),
-            array( 'value' => 'feb', 'label' => __('February', "wp-crowdfunding") ),
-            array( 'value' => 'mar', 'label' => __('March', "wp-crowdfunding") ),
-            array( 'value' => 'apr', 'label' => __('April', "wp-crowdfunding") ),
-            array( 'value' => 'may', 'label' => __('May', "wp-crowdfunding") ),
-            array( 'value' => 'jun', 'label' => __('June', "wp-crowdfunding") ),
-            array( 'value' => 'jul', 'label' => __('July', "wp-crowdfunding") ),
-            array( 'value' => 'aug', 'label' => __('August', "wp-crowdfunding") ),
-            array( 'value' => 'sep', 'label' => __('September', "wp-crowdfunding") ),
-            array( 'value' => 'oct', 'label' => __('October', "wp-crowdfunding") ),
-            array( 'value' => 'nov', 'label' => __('November', "wp-crowdfunding") ),
-            array( 'value' => 'dec', 'label' => __('December', "wp-crowdfunding") ),
-        );
+        // $month_list = array(
+        //     array( 'value' => 'jan', 'label' => __('January', "wp-crowdfunding") ),
+        //     array( 'value' => 'feb', 'label' => __('February', "wp-crowdfunding") ),
+        //     array( 'value' => 'mar', 'label' => __('March', "wp-crowdfunding") ),
+        //     array( 'value' => 'apr', 'label' => __('April', "wp-crowdfunding") ),
+        //     array( 'value' => 'may', 'label' => __('May', "wp-crowdfunding") ),
+        //     array( 'value' => 'jun', 'label' => __('June', "wp-crowdfunding") ),
+        //     array( 'value' => 'jul', 'label' => __('July', "wp-crowdfunding") ),
+        //     array( 'value' => 'aug', 'label' => __('August', "wp-crowdfunding") ),
+        //     array( 'value' => 'sep', 'label' => __('September', "wp-crowdfunding") ),
+        //     array( 'value' => 'oct', 'label' => __('October', "wp-crowdfunding") ),
+        //     array( 'value' => 'nov', 'label' => __('November', "wp-crowdfunding") ),
+        //     array( 'value' => 'dec', 'label' => __('December', "wp-crowdfunding") ),
+        // );
 
-        $year_list = array();
-        foreach( range(date('Y'), date('Y')+10) as $year ) {
-            $year_list[] = array( 'value' => $year, 'label' => __($year, "wp-crowdfunding") );
-        }
+        // $year_list = array();
+        // foreach( range(date('Y'), date('Y')+10) as $year ) {
+        //     $year_list[] = array( 'value' => $year, 'label' => __($year, "wp-crowdfunding") );
+        // }
 
 
         $default_fields = array(
@@ -786,28 +786,13 @@ class API_Campaign {
                 'show'          => true,
             ),
             'estimate_delivery' => array(
-                'type'          => 'form_group',
+                'type'          => 'date',
                 'title'         => __("Estimate Delivery *", "wp-crowdfunding"),
-                'desc'          => __("Reach a more specific community by also choosing a subcategory", "wp-crowdfunding"),
+                'desc'          => __("Estimated Shipping Date Rewards to be Received", "wp-crowdfunding"),
                 'class'         => 'wpcf-estimate-delivery',
-                'fields' => array(
-                    'end_month' => array(
-                        'type'          => 'select',
-                        'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
-                        'class'         => 'wpcf-input-col',
-                        'options'       => $month_list,
-                        'required'      => true,
-                        'show'          => true
-                    ),
-                    'end_year' => array(
-                        'type'          => 'select',
-                        'placeholder'   => __("Select Sub-Catagory", "wp-crowdfunding"),
-                        'class'         => 'wpcf-input-col',
-                        'options'       => $year_list,
-                        'required'      => true,
-                        'show'          => true
-                    )
-                )
+                'placeholder'   => __("Select Date", "wp-crowdfunding"),
+                'required'      => true,
+                'show'          => true,
             ),
             'rewards_items' => array(
                 'type'      => 'repeatable',
@@ -976,8 +961,9 @@ class API_Campaign {
                     'type'          => isset($reward['wpneo_rewards_type']) ? $reward['wpneo_rewards_type'] : '',
                     'title'         => isset($reward['wpneo_rewards_title']) ? $reward['wpneo_rewards_title'] : '',
                     'description'   => $reward['wpneo_rewards_description'],
-                    'end_month'     => $reward['wpneo_rewards_endmonth'],
-                    'end_year'      => $reward['wpneo_rewards_endyear'],
+                    // 'end_month'     => $reward['wpneo_rewards_endmonth'],
+                    // 'end_year'      => $reward['wpneo_rewards_endyear'],
+                    'estimate_delivery'      =>$reward['wpneo_rewards_delivery'],
                     'no_of_items'   => $reward['wpneo_rewards_item_limit'],
                     'image'         => $reward_image,
                     'rewards_items' => isset($reward['wpneo_rewards_items']) && is_array($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
@@ -1185,8 +1171,9 @@ class API_Campaign {
                         'wpneo_rewards_type'            => esc_html( $reward['type'] ),
                         'wpneo_rewards_title'           => esc_html( $reward['title'] ),
                         'wpneo_rewards_description'     => esc_html( $reward['description'] ),
-                        'wpneo_rewards_endmonth'        => esc_html( $reward['end_month'] ),
-                        'wpneo_rewards_endyear'         => esc_html( $reward['end_year'] ),
+                        // 'wpneo_rewards_endmonth'        => esc_html( $reward['end_month'] ),
+                        // 'wpneo_rewards_endyear'         => esc_html( $reward['end_year'] ),
+                        'wpneo_rewards_delivery'        =>esc_html($reward['estimate_delivery']),
                         'wpneo_rewards_item_limit'      => esc_html( $reward['no_of_items'] ),
                         'wpneo_rewards_image_field'     => esc_html( $reward_image ),
                         'wpneo_rewards_items'           => $reward['rewards_items'],
