@@ -290,7 +290,7 @@ class Basic extends Component {
 				? formValues[sectionName]
 				: {};
 
-		//console.log(basicValues);
+		
 		return (
 			<div className='row'>
 				<div className='col-md-7'>

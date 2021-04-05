@@ -58046,8 +58046,7 @@ var Basic = /*#__PURE__*/function (_Component) {
           current = _this$props3.current,
           prevStep = _this$props3.prevStep,
           lastStep = _this$props3.lastStep;
-      var basicValues = formValues && formValues.hasOwnProperty(sectionName) ? formValues[sectionName] : {}; //console.log(basicValues);
-
+      var basicValues = formValues && formValues.hasOwnProperty(sectionName) ? formValues[sectionName] : {};
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

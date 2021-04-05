@@ -360,6 +360,7 @@ class API_Campaign {
                     'title'     => __("Goal Type *","wp-crowdfunding"),
                     'desc'      => __("Lorem ipsum dolor sit amet, consectetur adipiscing","wp-crowdfunding"),
                     'class'     => 'wpcf-radio-group-alt',
+                    'placeholder'   => __("Select Goal type", "wp-crowdfunding"),
                     'options'   => array(
                         array(
                             'value' => 'target_goal',
@@ -900,6 +901,8 @@ class API_Campaign {
             }
         }
 
+        //print_r($image);
+
         $category = false;
         $sub_category = false;
         //$sub_categories = false;
@@ -946,13 +949,12 @@ class API_Campaign {
                 )
             );
         }
-
         $rewards = get_post_meta($post_id, 'wpneo_reward', true);
         $rewards = json_decode(stripslashes($rewards), true);
         $res_rewards = array();
         if ($rewards) {
             foreach( $rewards as $reward ) {
-                $image = array();
+                $reward_image = array();
                 $image_id = $reward['wpneo_rewards_image_field'];
                 if($image_id) {
                     $name       = get_the_title($image_id);
@@ -967,7 +969,7 @@ class API_Campaign {
                         'name'  => $image_name.$filetype['ext'],
                         'thumb' => $thumb[0],
                     );
-                    array_push($image, $m);
+                    array_push($reward_image, $m);
                 }
                 $res_rewards[] = array(
                     'amount'        => $reward['wpneo_rewards_pladge_amount'],
@@ -977,12 +979,11 @@ class API_Campaign {
                     'end_month'     => $reward['wpneo_rewards_endmonth'],
                     'end_year'      => $reward['wpneo_rewards_endyear'],
                     'no_of_items'   => $reward['wpneo_rewards_item_limit'],
-                    'image'         => $image,
+                    'image'         => $reward_image,
                     'rewards_items' => isset($reward['wpneo_rewards_items']) && is_array($reward['wpneo_rewards_items']) ? $reward['wpneo_rewards_items'] : []
                 );
             }
         }
-
         $team = get_post_meta($post_id, 'wpcf_team_member', true);
         $team = json_decode(stripslashes($team), true);
         $res_team = array();
@@ -1052,6 +1053,7 @@ class API_Campaign {
             'values'            => $values,
             //'sub_categories'    => $sub_categories,
         );
+
         return rest_ensure_response($response);
     }
 
