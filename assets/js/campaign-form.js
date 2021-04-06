@@ -61047,6 +61047,9 @@ var RenderPreview = function RenderPreview(props) {
     case 'text':
     case 'embeded':
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          wordBreak: 'break-all'
+        },
         dangerouslySetInnerHTML: {
           __html: data.value
         }
@@ -61070,7 +61073,7 @@ var PreviewStory = function PreviewStory(props) {
     }, item && item.map(function (itm, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: index + i,
-        className: "wpcf-story-column wpcf-story-column-" + item.length
+        className: 'wpcf-story-column wpcf-story-column-' + item.length
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RenderPreview, {
         data: itm
       }));
