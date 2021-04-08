@@ -40668,7 +40668,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var defaultProps = {
   initialPage: 1,
-  filterValue: ""
+  filterValue: ''
 };
 
 var Pagination = /*#__PURE__*/function (_Component) {
@@ -40796,7 +40796,6 @@ var Pagination = /*#__PURE__*/function (_Component) {
       }, "First")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: pager.currentPage === 1 ? 'disabled' : ''
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "javascrpt:void(0)",
         onClick: function onClick() {
           return _this2.setPage(pager.currentPage - 1);
         }
@@ -40808,7 +40807,6 @@ var Pagination = /*#__PURE__*/function (_Component) {
           className: "page-numbers current"
         }, page) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           className: "page-link",
-          href: "javascrpt:void(0)",
           onClick: function onClick(e) {
             return _this2.setPage(page);
           }
@@ -40816,14 +40814,12 @@ var Pagination = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: pager.currentPage === pager.totalPages ? 'disabled' : ''
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "javascrpt:void(0)",
         onClick: function onClick() {
           return _this2.setPage(pager.currentPage + 1);
         }
       }, "Next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: pager.currentPage === pager.totalPages ? 'disabled' : ''
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "javascrpt:void(0)",
         onClick: function onClick() {
           return _this2.setPage(pager.totalPages);
         }
@@ -40836,7 +40832,7 @@ var Pagination = /*#__PURE__*/function (_Component) {
 
 _defineProperty(Pagination, "defaultProps", {
   initialPage: 1,
-  filterValue: ""
+  filterValue: ''
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (Pagination);
@@ -43507,7 +43503,6 @@ var Order = /*#__PURE__*/function (_Component) {
           filterValue = _this$state2.filterValue,
           searchText = _this$state2.searchText,
           orderDetails = _this$state2.orderDetails;
-      console.log(filterValue);
       var orderData = this.getOrderData();
 
       if (orderDetails) {
@@ -43550,7 +43545,7 @@ var Order = /*#__PURE__*/function (_Component) {
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wpcf-mycampaign-filter-group wpcf-btn-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: 'wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary ' + (filterValue == 'all' ? 'active' : ''),
+        className: 'wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary ' + (filterValue == '' ? 'active' : ''),
         onClick: function onClick(e) {
           return _this2.onClickFilter(e);
         }

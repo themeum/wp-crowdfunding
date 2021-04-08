@@ -111,7 +111,6 @@ class Order extends Component {
 			searchText,
 			orderDetails,
 		} = this.state;
-		console.log(filterValue);
 		const orderData = this.getOrderData();
 
 		if (orderDetails) {
@@ -173,7 +172,7 @@ class Order extends Component {
 						<button
 							className={
 								'wpcf-btn wpcf-btn-outline wpcf-btn-round wpcf-btn-secondary ' +
-								(filterValue == 'all' ? 'active' : '')
+								(filterValue == '' ? 'active' : '')
 							}
 							onClick={(e) => this.onClickFilter(e)}
 						>
