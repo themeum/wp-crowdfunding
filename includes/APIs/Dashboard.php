@@ -1108,20 +1108,19 @@ class API_Dashboard {
             'posts_per_page'    => -1
         );
         $campaign_list = get_posts( $args );
-
+        
         $all_reward = array();
 
         foreach ($campaign_list as $value) {
             $campaign_rewards   = get_post_meta($value->ID, 'wpneo_reward', true);
             $campaign_rewards   = json_decode(stripslashes($campaign_rewards), true);
-
             foreach($campaign_rewards as $reward) {
                 $image_id       = $reward['wpneo_rewards_image_field'];
                 $reward_image   = ($image_id) ? wp_get_attachment_image_src($image_id)[0] : wc_placeholder_img_src();
                 $reward_title   = (isset($reward['wpneo_rewards_title'])) ? $reward['wpneo_rewards_title'] : '';
-
-                $end_month      = $reward['wpneo_rewards_endmonth'];
-                $end_year       = $reward['wpneo_rewards_endyear'];
+                $end_month      = (isset($reward['wpneo_rewards_endmonth']))?$reward['wpneo_rewards_endmonth']:strtolower(date('M',strtotime($reward['wpneo_rewards_delivery'])));
+                
+                $end_year       = (isset($reward['wpneo_rewards_endyear']))?$reward['wpneo_rewards_endyear']:date('Y',strtotime($reward['wpneo_rewards_delivery']));
 
                 $end_date       = date("Y-m-t 23:59:59", strtotime( $end_year.'-'.$end_month ));
                 $end_date       = new \DateTime($end_date);
@@ -1146,6 +1145,7 @@ class API_Dashboard {
                     'seconds'       => $seconds,
                     'status'        => $status
                 );
+               
             }
         }
 
