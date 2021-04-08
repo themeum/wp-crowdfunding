@@ -41063,8 +41063,10 @@ var ProfileEditForm = /*#__PURE__*/function (_Component) {
       _this.props.onClickSaveData(postData);
 
       _this.setState({
-        error: ""
+        error: ''
       });
+
+      _this.props.toggleEdit();
     });
 
     return _this;
@@ -41099,7 +41101,7 @@ var ProfileEditForm = /*#__PURE__*/function (_Component) {
         className: "",
         src: profile_image,
         style: {
-          maxWidth: "200px"
+          maxWidth: '200px'
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         "aria-label": "Edit",
