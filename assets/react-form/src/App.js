@@ -9,6 +9,7 @@ import Story from './components/Story';
 import Reward from './components/Reward';
 import Team from './components/Team';
 import ConfirmSave from './components/ConfirmSave';
+import FormSkeleton from './components/FormSkeleton';
 
 const formName = 'campaignForm';
 const components = { basic: Basic, story: Story, reward: Reward, team: Team };
@@ -65,7 +66,7 @@ class App extends Component {
 		const { current } = this.state;
 
 		if (loading) {
-			return <div>Loading...</div>;
+			return <FormSkeleton />;
 		}
 
 		const formSteps = Object.keys(steps);
