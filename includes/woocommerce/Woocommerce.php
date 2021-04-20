@@ -51,7 +51,7 @@ class Woocommerce {
         // add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') ); // reactive again if needed
         !is_admin() and add_filter( 'woocommerce_coupons_enabled',      array($this, 'wc_coupon_disable') ); //Hide coupon form on checkout page
 
-        add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
+        add_action( 'wp_logout', $this );
 
         $this->filter_product_in_shop_page();
     }
