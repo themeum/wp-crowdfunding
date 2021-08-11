@@ -4,6 +4,7 @@ namespace WPCF\woocommerce;
 defined( 'ABSPATH' ) || exit;
 
 class Submit_Form {
+    
 
     public function __construct() {
         add_action( 'wp_ajax_addfrontenddata', array($this, 'frontend_data_save')); // Save data for frontend campaign submit form
@@ -32,6 +33,7 @@ class Submit_Form {
      */
 
     function frontend_data_save(){
+
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your data did not verify.', 'wp-crowdfunding'))));
             exit;
@@ -88,6 +90,7 @@ class Submit_Form {
         $category = (isset($_POST['wpneo-form-category']) && $show_category == 'true') ? sanitize_text_field($_POST['wpneo-form-category']) : '';
         $tag = (isset($_POST['wpneo-form-image-id']) && $show_tag == 'true') ? sanitize_text_field($_POST['wpneo-form-tag']) : '';
         $image_id = (isset($_POST['wpneo-form-image-id']) && $show_feature == 'true') ? sanitize_text_field($_POST['wpneo-form-image-id']) : '';
+        $gallery_image_ids = (isset($_POST['gallery-image-ids']) ? sanitize_text_field($_POST['gallery-image-ids']) : '');
         $video = (isset($_POST['wpneo-form-video']) && $show_video == 'true') ? sanitize_text_field($_POST['wpneo-form-video']) : '';
         $start_date = (isset($_POST['wpneo-form-start-date']) && $show_start_date == 'true') ? sanitize_text_field($_POST['wpneo-form-start-date']) : '';
         $end_date = (isset($_POST['wpneo-form-end-date']) && $show_end_date == 'true') ? sanitize_text_field($_POST['wpneo-form-end-date']) : '';
@@ -136,7 +139,7 @@ class Submit_Form {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_after_campaign_email',$post_id);
             }
-        }        
+        }
 
         if ($post_id) {
             if( $category != '' ){
@@ -149,7 +152,9 @@ class Submit_Form {
             }
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type',true );
 
+            // update_post_meta( $post_id, '_product_image_gallery', $gallery_image_ids);
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
+            wpcf_function()->update_meta($post_id, '_product_image_gallery', esc_attr($gallery_image_ids));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
             wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($start_date));
             wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($end_date));

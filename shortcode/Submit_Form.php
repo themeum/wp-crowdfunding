@@ -201,6 +201,17 @@ class Campaign_Submit_Form {
             $html .= '</div>';
             }
 
+            // gallery-image
+            $html .= '<div class="wpneo-single">';
+            $html .= '<div class="wpneo-name">'.__( "Gallery Images" , "wp-crowdfunding" ).'</div>';
+            $html .= '<div class="wpneo-fields">';
+            $html .= '<input type="text" readonly="readonly" class="gallery-image-id-show" value="">';
+            $html .= '<input type="hidden" name="gallery-image-ids" class="gallery-image-ids" value="">';
+            $html .= '<input type="button" id="" class="wpneo-upload-image-gallery float-right" value="'.__("Upload Gallery","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
+            $html .= '<small>'.__("Upload campaign gallery images","wp-crowdfunding").'</small>';
+            $html .= '</div>';
+            $html .= '</div>';
+
 
             //Video
             if( get_option('wpcf_show_video') == 'true' ){
@@ -663,5 +674,3 @@ class Campaign_Submit_Form {
         return $html;
     }
 }
-
-

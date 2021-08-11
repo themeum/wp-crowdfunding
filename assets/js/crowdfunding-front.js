@@ -90,7 +90,7 @@ jQuery(document).ready(function($){
     function wpcf_modal( data, print = false ){
         var data = JSON.parse(data);
         var html = '<div class="wpneo-modal-wrapper"> ' +
-            ' <div class="wpneo-modal-content"> ' +
+            '<div class="wpneo-modal-content"> ' +
             '<div class="wpneo-modal-wrapper-head">' +
             '<span id="wpcf_modal_title">Message</span><a href="javascript:;" class="wpneo-modal-close">&times;</a>';
             if( print ){
@@ -124,6 +124,43 @@ jQuery(document).ready(function($){
         }
     }
     window.wpcf_modal = wpcf_modal; //make global function
+
+    function wpcf_image_gallery_upload ( button_class ) {
+        
+        var file_frame; // variable for the wp.media file_frame
+		
+		$('body').on('click',button_class, function(event) {
+			event.preventDefault();
+            var gallery_image_ids = $(".gallery-image-ids");
+            var gallery_image_id_show = $(".gallery-image-id-show");
+			if (file_frame) {
+				file_frame.open();
+				return;
+			}
+			file_frame = wp.media.frames.file_frame = wp.media({
+				title: $(this).data('uploader_title'),
+				button: {
+					text: $(this).data('uploader_button_text'),
+				},
+				multiple: true,
+			});
+			file_frame.on('select', function () {
+                var image_ids = [];
+				attachments = file_frame.state().get('selection').toJSON();
+                gallery_image_ids.val('');
+                gallery_image_id_show.val('');
+                attachments.forEach(function(attachment) {
+                    image_ids.push(attachment.id);
+                });
+                gallery_image_ids.val(image_ids);
+                gallery_image_id_show.val(image_ids);
+			});
+			file_frame.open();
+		});
+
+    }
+
+    wpcf_image_gallery_upload('.wpneo-upload-image-gallery');
 
     // Image Upload Function
     function wpcf_upload_image( button_class ) {
