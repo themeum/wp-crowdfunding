@@ -132,6 +132,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 New: Added Gallery Image Uploader in the Campaign Form
 Fix: Translation Issue on Campaign Countdown Text
 Fix: Social Share Button Not Working in Single Campaign Page
+Fix: Changed the Name to be the Username in CF Dashboard Profile Section
 
 = 2.0.9 =
 Fix: Translation issues
