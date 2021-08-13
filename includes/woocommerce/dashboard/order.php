@@ -58,7 +58,7 @@ $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', 
 ) );
 
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-    'numberposts' => 10, // Chnage Number
+    'numberposts' => wpcf_function()->number_of_items_per_page(), // Chnage Number
     'paged'		  => $page_numb,
     'post__in'	  => $order_ids,
     'meta_key'    => '_customer_user',
@@ -169,7 +169,7 @@ $customer_order_all = get_posts( apply_filters( 'woocommerce_my_account_my_order
 
 $max_page = 1;
 if(!empty($customer_order_all)){
-    $max_page = ceil( count($customer_order_all)/10 );
+    $max_page = ceil( count($customer_order_all) / wpcf_function()->number_of_items_per_page() );
 }
 // Pagination
 $html .= wpcf_function()->get_pagination( $page_numb , $max_page );

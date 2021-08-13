@@ -99,9 +99,18 @@ $arr =  array(
         'value'     => 'tab_general',
     ),
 
+    // #wpcf_dashboard_pagination
+    array(
+        'id'  => 'wpcf_dashboard_paginate_number',
+        'type' => 'number',
+        'min' => 1,
+        'value' => ! empty( get_option( 'wpcf_dashboard_paginate_number' ) ) ? absint( get_option( 'wpcf_dashboard_paginate_number' ) ) : 10,
+        'label' => __( 'Number of Items to Show Per Page in CF Dashboard', 'wp-crowdfunding' )
+    ),
+
 	// #Show Campaign Never End
 	array(
-		'id'        => 'wpcf_user_reg_success_redirect_uri',
+		'id'        => 'wpcf_pagination',
 		'type'      => 'text',
 		'value'     => esc_url( home_url( '/' ) ),
 		'label'     => __('Redirect URL for User Registration Success','wp-crowdfunding'),

@@ -260,7 +260,7 @@ class Admin_Menu {
 
             $current_tab = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_admin_tab'));
             if( ! empty($current_tab) ){
-                if ( $current_tab == 'tab_fields' ){
+                if ( $current_tab == 'tab_fields' ) {
 
                     $description = sanitize_text_field(wpcf_function()->post('wpcf_show_description'));
                     wpcf_function()->update_checkbox('wpcf_show_description', $description);
@@ -351,6 +351,9 @@ class Admin_Menu {
                  * General Settings
                  */
                 if ( $current_tab == 'tab_general' ){
+
+                    $dashboard_paginate_number = absint( wpcf_function()->post( 'wpcf_dashboard_paginate_number' ) );
+                    wpcf_function()->update_text('wpcf_dashboard_paginate_number', $dashboard_paginate_number);
 
                     $vendor_type = sanitize_text_field(wpcf_function()->post('vendor_type'));
                     wpcf_function()->update_text('vendor_type', $vendor_type);

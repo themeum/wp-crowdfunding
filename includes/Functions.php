@@ -388,6 +388,16 @@ class Functions {
         return $html;
     }
 
+    /**
+     * Number of Items Per Page in CF Dashboard
+     * 
+     * @return int $cf_dash_per_page_item
+     */
+    public function number_of_items_per_page() {
+        $cf_dash_per_page_item = ! empty( get_option( 'wpcf_dashboard_paginate_number' ) ) ? absint( get_option( 'wpcf_dashboard_paginate_number' ) ) : 10;
+        return $cf_dash_per_page_item;
+    }
+
     public function loved_count($user_id = 0) {
         global $post;
         $campaign_id = $post->ID;
