@@ -13,11 +13,11 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/Functions.php:453
+#: includes/Functions.php:463
 msgid "Your browser does not support the video tag."
 msgstr ""
 
-#: includes/Functions.php:816
+#: includes/Functions.php:826
 msgid "Campaign will be started within"
 msgstr ""
 
@@ -630,7 +630,7 @@ msgid "Search"
 msgstr ""
 
 #: shortcode/Submit_Form.php:206
-msgid "Gallery image"
+msgid "Gallery Images"
 msgstr ""
 
 #: shortcode/Submit_Form.php:210
@@ -638,7 +638,7 @@ msgid "Upload Gallery"
 msgstr ""
 
 #: shortcode/Submit_Form.php:211
-msgid "Upload a campaign gallery image"
+msgid "Upload campaign gallery images"
 msgstr ""
 
 #: addons/social-share/social-share.php:18, addons/social-share/classes/Init.php:34
@@ -1221,7 +1221,11 @@ msgstr ""
 msgid "Select roles that can enable frontend campaign submission form."
 msgstr ""
 
-#: settings/tabs/Tab_General.php:107
+#: settings/tabs/Tab_General.php:108
+msgid "Number of Items to Show Per Page in CF Dashboard"
+msgstr ""
+
+#: settings/tabs/Tab_General.php:116
 msgid "Redirect URL for User Registration Success"
 msgstr ""
 
