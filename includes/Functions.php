@@ -2,9 +2,18 @@
 
 namespace WPCF;
 
+use WP_Query;
+
 defined('ABSPATH') || exit;
 
 class Functions {
+
+    /**
+     * Construct
+     */
+    public function __construct() {
+        add_action( 'init', array( $this, 'trigger_emails' ) );
+    }
 
     public function generator($arr) {
         require_once WPCF_DIR_PATH . 'settings/Generator.php';
@@ -63,6 +72,41 @@ class Functions {
         }
     }
 
+    /**
+	 * Trigger emails
+	 */
+	public function trigger_emails() {
+		// Custom query for CF Products
+        $args = array(
+            'post_type'        => 'product',
+            'tax_query'        => array(
+                array(
+                    'taxonomy' => 'product_type',
+                    'field'    => 'slug',
+                    'terms'    => 'crowdfunding',
+                ),
+            ),
+            'posts_per_page'   => -1
+        );
+
+		$cf_products = get_posts( $args );
+
+        foreach ( $cf_products as $cf_product ) {
+            $crowdfunding_id = $cf_product->ID;
+            $end_date = get_post_meta( $crowdfunding_id, '_nf_duration_end', true );
+            $end_method = get_post_meta( $crowdfunding_id, 'wpneo_campaign_end_method', true );
+            if ( strtotime( $end_date ) > '1629244800' ) {
+                if ( 'target_goal_and_date' === $end_method ) {
+                    if ( $this->get_total_fund( $crowdfunding_id ) >= $this->get_total_goal( $crowdfunding_id ) ) {
+                        do_action( 'wpcf_trigger_campaign_emails', $cf_product );
+                        // echo '<pre>';
+                        // print_r( $this->get_total_goal( $crowdfunding_id ) );
+                        // die();
+                    }
+                }
+            }
+        }
+	}
 
     public function get_pages() {
         $args = array(
