@@ -570,7 +570,11 @@ class Functions {
                 break;
 
             case 'target_date':
-                if ( $this->get_date_remaining( $campaign_id ) ) {
+                if ( $this->is_reach_target_goal( $campaign_id, $donate_total ) ) {
+                    return false;
+                } elseif ( ! $this->is_reach_target_goal( $campaign_id, $donate_total ) && $this->get_date_remaining( $campaign_id ) ) {
+                    return true;
+                } elseif ( $this->get_date_remaining( $campaign_id ) ) {
                     return true;
                 } else {
                     return false;
