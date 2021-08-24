@@ -13,11 +13,11 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/Functions.php:463
+#: includes/Functions.php:464
 msgid "Your browser does not support the video tag."
 msgstr ""
 
-#: includes/Functions.php:826
+#: includes/Functions.php:833
 msgid "Campaign will be started within"
 msgstr ""
 
@@ -497,7 +497,7 @@ msgstr ""
 msgid "Reset Settings"
 msgstr ""
 
-#: shortcode/Donate.php:19, includes/blocks/Donate.php:72, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:52
+#: shortcode/Donate.php:19, includes/blocks/Donate.php:72, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:148, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:103, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:56
 msgid "Back Campaign"
 msgstr ""
 
@@ -1944,23 +1944,23 @@ msgstr ""
 msgid "Short Story"
 msgstr ""
 
-#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:63
+#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:157
 msgid "This campaign has been invalid or not started yet."
 msgstr ""
 
-#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:61
+#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:155
 msgid "The campaign is successful."
 msgstr ""
 
-#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:27
+#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:123, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:78, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:31
 msgid "Minimum amount is "
 msgstr ""
 
-#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:28
+#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:124, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:79, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:32
 msgid "Maximum amount is "
 msgstr ""
 
-#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:29
+#: wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:125, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:80, wpcftemplate/woocommerce/basic/include/fund-campaign-btn.php:33
 msgid "Put a valid number"
 msgstr ""
 
