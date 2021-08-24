@@ -40,7 +40,7 @@ class Woocommerce {
         add_action( 'edit_product_cat',                                 array($this, 'edit_mark_category_as_crowdfunding'), 10, 2);
         add_filter( "manage_product_cat_custom_column",                 array($this, 'filter_description_col_product_taxomony'), 10, 3);
         add_filter( 'manage_edit-product_cat_columns' ,                 array($this, 'product_taxonomy_is_crowdfunding_columns'), 10, 1);
-    
+        add_filter( 'woocommerce_order_button_text',                    array( $this, 'change_checkout_button_text' ) );
         //template hooks
         add_action( 'woocommerce_after_shop_loop_item',                 array($this, 'after_item_title_data')); // Woocommerce Backed User
         add_filter( 'woocommerce_product_tabs',                         array($this, 'product_backed_user_tab') );
@@ -136,6 +136,17 @@ class Woocommerce {
             }
         }
         return $fields;
+    }
+
+    /**
+     * Change checkout button text callback
+     * 
+     * @return string $button_text
+     */
+    public function change_checkout_button_text( $button_text ) {
+        $button_text = __( 'Back Campaign Now', 'wp-crowdfunding' );
+
+        return $button_text;
     }
 
     /**
