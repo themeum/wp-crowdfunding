@@ -50,6 +50,7 @@ class Woocommerce {
         }
         add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') );
         !is_admin() and add_filter( 'woocommerce_coupons_enabled',      array($this, 'wc_coupon_disable') ); //Hide coupon form on checkout page
+        add_action( 'woocommerce_email_order_meta', array( $this, 'custom_campaign_order_meta' ), 10, 3 );
 
         add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
 
@@ -147,6 +148,38 @@ class Woocommerce {
         $button_text = __( 'Back Campaign Now', 'wp-crowdfunding' );
 
         return $button_text;
+    }
+
+    /**
+     * Custom campaign fields in order emails
+     * 
+     * @return void
+     */
+    public function custom_campaign_order_meta( $order_obj, $sent_to_admin, $plain_text ) {
+        $is_crowdfunding = get_post_meta( $order_obj->get_order_number(), 'is_crowdfunding_order', true );
+        $order_currency  = get_post_meta( $order_obj->get_order_number(), '_order_currency', true );
+        
+        // we won't display anything if it is not a crowdfunding order.
+        if ( ! $is_crowdfunding ) {
+            return;
+        }
+        
+        // ok, it's a cf order, get all the other fields
+        $selected_reward = get_post_meta( $order_obj->get_order_number(), 'wpneo_selected_reward', true );
+        
+        // Let's check if it's empty or not.
+        if ( empty( $selected_reward ) ) {
+            return;
+        }
+
+        $reward_details = json_decode( $selected_reward );
+        
+        echo '<h2>' . __( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
+        <ul>
+            <li> ' . __( 'Amount: ', 'wp-crowdfunding' ) . wc_price( $reward_details->wpneo_rewards_pladge_amount ) . '</li>
+            <li> ' . __( 'Delivery: ', 'wp-crowdfunding' ) . ucfirst( $reward_details->wpneo_rewards_endmonth ) . ', ' . $reward_details->wpneo_rewards_endyear . '</li>
+            <li> ' . __( 'Reward Details: ', 'wp-crowdfunding' ) . $reward_details->wpneo_rewards_description . '</li>
+        </ul>';
     }
 
     /**
