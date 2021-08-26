@@ -157,7 +157,6 @@ class Woocommerce {
      */
     public function custom_campaign_order_meta( $order_obj, $sent_to_admin, $plain_text ) {
         $is_crowdfunding = get_post_meta( $order_obj->get_order_number(), 'is_crowdfunding_order', true );
-        $order_currency  = get_post_meta( $order_obj->get_order_number(), '_order_currency', true );
         
         // we won't display anything if it is not a crowdfunding order.
         if ( ! $is_crowdfunding ) {
