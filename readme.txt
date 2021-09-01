@@ -4,7 +4,7 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 4.5
 Tested up to: 5.8
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,13 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+
+= 2.1.1 =
+Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard
+Fix: The Order Confirmation Email Does Not Show the Selected Reward
+Fix: Payment Info Section Removed from CF Dashboard
+Fix: Checkout Button Text Changed from "Pay Now" to Back Campaign Now
+Fix: All Automated Order Emails for WP Crowdfunding has been Modified Textually
 
 = 2.1.0 =
 New: Added Gallery Image Uploader in the Campaign Form

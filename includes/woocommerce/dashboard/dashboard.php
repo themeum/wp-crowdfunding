@@ -96,15 +96,15 @@ $html .= '<div class="wpneo-row">';
                         $html .= '<textarea name="description" rows="3" disabled>'.$current_user->description.'</textarea>';
                     $html .= '</div>';
                 $html .= '</div>';
-                $settings = get_option( 'woocommerce_wpneo_stripe_connect_settings' );
-                ! is_array( $settings ) ? $settings = array() : 0;
+                // $settings = get_option( 'woocommerce_wpneo_stripe_connect_settings' );
+                // ! is_array( $settings ) ? $settings = array() : 0;
         
-                if ( ! empty( $settings['enabled'] )  && $settings['enabled'] == 'yes' ) {
-                    $html .= '<h4>' . __( 'Payment Info', 'wp-crowdfunding' ) . '</h4>';
-                }
-                ob_start();
-                do_action('wpcf_dashboard_after_dashboard_form');
-                $html .= ob_get_clean();
+                // if ( ! empty( $settings['enabled'] )  && $settings['enabled'] == 'yes' ) {
+                //     $html .= '<h4>' . __( 'Payment Info', 'wp-crowdfunding' ) . '</h4>'; 
+                // }
+                // ob_start();
+                // do_action('wpcf_dashboard_after_dashboard_form');
+                // $html .= ob_get_clean();
 
                 $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );
                 //Save Button
