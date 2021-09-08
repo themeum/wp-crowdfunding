@@ -1713,6 +1713,10 @@ msgstr ""
 msgid "Bio:"
 msgstr ""
 
+#: includes/woocommerce/dashboard/dashboard.php:103
+msgid "Payment Info"
+msgstr ""
+
 #: includes/woocommerce/dashboard/investment.php:41, includes/woocommerce/dashboard/order.php:51, includes/woocommerce/dashboard/rewards.php:39
 msgid "Order"
 msgstr ""
