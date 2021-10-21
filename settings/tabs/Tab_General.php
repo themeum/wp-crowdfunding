@@ -110,7 +110,7 @@ $arr =  array(
 
 	// #Show Campaign Never End
 	array(
-		'id'        => 'wpcf_pagination',
+		'id'        => 'wpcf_user_reg_success_redirect_uri',
 		'type'      => 'text',
 		'value'     => esc_url( home_url( '/' ) ),
 		'label'     => __('Redirect URL for User Registration Success','wp-crowdfunding'),
