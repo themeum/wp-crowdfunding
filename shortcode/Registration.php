@@ -193,7 +193,7 @@ class Registration {
                 WC()->mailer(); // load email classes
                 do_action( 'wpcf_after_user_registration', $user_id );
     
-                $saved_redirect_uri = get_option('wpcf_user_reg_success_redirect_uri');
+                $saved_redirect_uri = get_option( 'wpcf_redurl' );
                 $redirect = $saved_redirect_uri ? $saved_redirect_uri : esc_url( home_url( '/' ) );
                 die(json_encode(array('success'=> 1, 'message' => __('Registration complete.', 'wp-crowdfunding'), 'redirect' => $redirect )));
             } else {

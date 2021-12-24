@@ -13,11 +13,11 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/Functions.php:464
+#: includes/Functions.php:469
 msgid "Your browser does not support the video tag."
 msgstr ""
 
-#: includes/Functions.php:833
+#: includes/Functions.php:838
 msgid "Campaign will be started within"
 msgstr ""
 

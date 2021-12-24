@@ -2087,3 +2087,29 @@ div#respond h3,
     border: none;
     width: 21% !important;
 }
+
+/** Login Form **/
+.wpneo_login_form_div {
+    margin-bottom: 60px;
+}
+
+#loginform {
+    width: 350px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 40px 30px 20px;
+    border: 1px solid #e7e7e7;
+}
+
+#loginform .login-password {
+    margin-bottom: 15px;
+}
+#loginform .login-username input,
+#loginform .login-password input {
+    width: 100%;
+}
+
+#loginform .login-remember {
+    margin-bottom: 15px;
+}

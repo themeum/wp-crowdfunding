@@ -110,10 +110,10 @@ $arr =  array(
 
 	// #Show Campaign Never End
 	array(
-		'id'        => 'wpcf_pagination',
-		'type'      => 'text',
-		'value'     => esc_url( home_url( '/' ) ),
-		'label'     => __('Redirect URL for User Registration Success','wp-crowdfunding'),
+		'id'    => 'wpcf_redurl',
+		'type'  => 'text',
+        'value' => ! empty( get_option( 'wpcf_redurl' ) ) ? sanitize_text_field( get_option( 'wpcf_redurl' ) ) : esc_url( home_url( '/' ) ),
+		'label' => __( 'Redirect URL for User Registration Success', 'wp-crowdfunding' ),
 	),
 );
 wpcf_function()->generator( $arr );

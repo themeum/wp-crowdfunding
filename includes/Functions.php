@@ -399,6 +399,11 @@ class Functions {
         return $cf_dash_per_page_item;
     }
 
+    public function wpcf_redurl() {
+        $cf_red_url = ! empty( get_option( 'wpcf_redurl' ) ) ?  sanitize_text_field( get_option( 'wpcf_redurl' ) ) : esc_url( home_url( '/' ) );
+        return $cf_red_url;
+    }
+
     public function loved_count($user_id = 0) {
         global $post;
         $campaign_id = $post->ID;

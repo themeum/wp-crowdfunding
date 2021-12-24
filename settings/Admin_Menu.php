@@ -355,6 +355,9 @@ class Admin_Menu {
                     $dashboard_paginate_number = absint( wpcf_function()->post( 'wpcf_dashboard_paginate_number' ) );
                     wpcf_function()->update_text('wpcf_dashboard_paginate_number', $dashboard_paginate_number);
 
+                    $siteurlred = sanitize_text_field( wpcf_function()->post( 'wpcf_redurl' ) );
+                    wpcf_function()->update_text( 'wpcf_redurl', $siteurlred );
+
                     $vendor_type = sanitize_text_field(wpcf_function()->post('vendor_type'));
                     wpcf_function()->update_text('vendor_type', $vendor_type);
 
