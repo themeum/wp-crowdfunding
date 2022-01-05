@@ -29,7 +29,7 @@ if ( $the_query->have_posts() ) :
         ?>
         <div class="wpneo-col6">
             <div class="wpcrowd-listing">
-                <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
+                <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail( 'full' ); ?></a>
             </div>
             <div class="wpcrowd-listing-content">
                 <div class="wpcrowd-admin-title">

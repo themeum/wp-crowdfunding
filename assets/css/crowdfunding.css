@@ -1958,3 +1958,10 @@ div#qt_wpneo-form-short-description_toolbar {
 .wpneo-listings .wpneo-listing-img img {
     width: 100%;
 }
+.wpneo-settings-notice {
+    margin-top: 30px;
+    padding: 10px 15px;
+    background: #cce9f5;
+    border: 1px solid #abccd9;
+    border-radius: 5px;
+}

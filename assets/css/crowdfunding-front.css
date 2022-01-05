@@ -1273,6 +1273,9 @@ div.wpneo-modal-wrapper-head span {
     font-weight: 400;
     line-height: 24px;
     margin-bottom: 5px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    min-height: 70px;
 }
 .wpcrowd-listing-content .wpcrowd-admin-title h3 a {
     text-decoration: none;
@@ -2112,4 +2115,31 @@ div#respond h3,
 
 #loginform .login-remember {
     margin-bottom: 15px;
+}
+
+#wpcf_modal_message table {
+    width: 100%;
+}
+#wpcf_modal_message table thead tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+.theme-backer .select2-selection {
+    height: 48px;
+}
+
+.theme-backer .select2-selection .select2-selection__rendered,
+.theme-backer .select2-selection .select2-selection__arrow {
+    height: 40px;
+    line-height: 3em;
+}
+
+p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received {
+    background: rgba(169, 235, 191, 0.4);
+    border: 1px solid rgb(169, 235, 191);
+    color: rgb(60, 71, 64);
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
 }
