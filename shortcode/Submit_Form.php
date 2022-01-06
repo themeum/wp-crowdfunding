@@ -59,6 +59,9 @@ class Campaign_Submit_Form {
                                 $image_url          = $image_url[0];
                                 $image_id           = get_post_thumbnail_id( get_the_ID() );
                             }
+                            $gallery_image_ids  = get_post_meta( get_the_ID(), '_product_image_gallery', true );
+                            $gallery_image_array = explode( ',', $gallery_image_ids );
+                            
                             $video              = get_post_meta( get_the_ID(), 'wpneo_funding_video', true );
                             $start_date         = get_post_meta( get_the_ID(), '_nf_duration_start', true );
                             $end_date           = get_post_meta( get_the_ID(), '_nf_duration_end', true );
@@ -205,10 +208,18 @@ class Campaign_Submit_Form {
             $html .= '<div class="wpneo-single">';
             $html .= '<div class="wpneo-name">'.__( "Gallery Images" , "wp-crowdfunding" ).'</div>';
             $html .= '<div class="wpneo-fields">';
-            $html .= '<input type="text" readonly="readonly" class="gallery-image-id-show" value="">';
-            $html .= '<input type="hidden" name="gallery-image-ids" class="gallery-image-ids" value="">';
-            $html .= '<input type="button" id="" class="wpneo-upload-image-gallery float-right" value="'.__("Upload Gallery","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
-            $html .= '<small>'.__("Upload campaign gallery images","wp-crowdfunding").'</small>';
+            $html .= '<input type="text" readonly="readonly" class="gallery-image-id-show" value="' . $gallery_image_ids . '">';
+            $html .= '<input type="hidden" name="gallery-image-ids" class="gallery-image-ids" value="' . $gallery_image_ids . '">';
+            $html .= '<input type="button" id="gallery-image-ids" class="wpneo-upload-image-gallery float-right" value="'.__("Upload Gallery","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
+            $html .= '<small>' . __( "Upload campaign gallery images. Use <code>SHIFT</code> key to select multiple images.", "wp-crowdfunding" ) . '</small>';
+            $html .= '</div>';
+            $html .= '<div style="display:flex; justify-content:flex-start; align-items:flex-start;">';
+            ?>
+            <?php if ( ! empty( $gallery_image_array ) ) {
+                foreach ( $gallery_image_array as $single_image ) {
+                   $html .= '<img width="50" style="padding: 0 3px;" src="' . esc_url( wp_get_attachment_image_url( $single_image, 'thumbnail' ) ) . '" />';
+                }
+            }
             $html .= '</div>';
             $html .= '</div>';
 

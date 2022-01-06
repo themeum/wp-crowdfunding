@@ -12,9 +12,15 @@ $html .= ob_get_clean();
 ?>
 
 <?php
+$theme = wp_get_theme();
+$theme_data = $theme->get( 'TextDomain' );
 
-$html .= '<div class="wpneo-row">';
-    $html .= '<div class="wpneo-col6">';
+$row_class      = 'backer' === $theme_data || 'patrios' === $theme_data ? 'row' : 'wpneo-row';
+$col_class      = 'backer' === $theme_data || 'patrios' === $theme_data ? 'col-md-8' : 'wpneo-col6';
+$col_class_info = 'backer' === $theme_data || 'patrios' === $theme_data ? 'col-md-4' : 'wpneo-col6';
+
+$html .= '<div class="'. $row_class .'">';
+    $html .= '<div class="' . $col_class . '">';
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
         $html .= '<h4>'.__( "My Campaigns" , "wp-crowdfunding" ).'</h4>';
         include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
@@ -27,7 +33,7 @@ $html .= '<div class="wpneo-row">';
     // $html .= '</div>';//wpneo-shadow 
 
     $html .= '</div>';//wpneo-col6 
-    $html .= '<div class="wpneo-col6">';
+    $html .= '<div class="' . $col_class_info . '">';
 
     ob_start();
     do_action('wpcf_dashboard_place_3');

@@ -682,7 +682,7 @@ class Functions {
         return $this->get_raised_percent() . '%';
     }
 
-    public function get_campaign_orders_id_list($post_id = Null) {
+    public function get_campaign_orders_id_list($post_id = null) {
 
         global $wpdb, $post;
         $prefix = $wpdb->prefix;
@@ -731,11 +731,11 @@ class Functions {
         return false;
     }
 
-    public function getCustomersByProduct($post_id = Null) {
-        return $this->get_customers_product($post_id = Null);
+    public function getCustomersByProduct( $post_id = null ) {
+        return $this->get_customers_product( $post_id );
     }
-    public function get_customers_product($post_id = Null) {
-        $order_ids = $this->get_campaign_orders_id_list($post_id);
+    public function get_customers_product( $post_id = null ) {
+        $order_ids = $this->get_campaign_orders_id_list( $post_id );
         return $order_ids;
     }
 

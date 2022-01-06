@@ -131,6 +131,16 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 = 2.1.2 =
 Fix: Stripe Connect not showing in CF Dashboard issue
 Fix: Redirect url not saving in settings issue
+Fix: Pledge Details Modal View design
+Fix: Withdrawer Name and Email not Displayed in Withdrawal Request Table issue
+Fix: Country and District Input Field Height issue
+Fix: Add Gallery Image Media files Dissappearing issue when updating a campaign in Frontend editor
+Fix: My campaign column width issues in CF Dashboard
+Fix: Added styling to the Payment Complete page success message
+Fix: Withdraw Texts and Button design issue in the Withdrawal Modal
+Fix: Added a notice in the Crowdfunding Settings page to enable Stripe Connect and Wallet
+Fix: Action button design in Withdrawal Request table in backend
+
 
 = 2.1.1 =
 Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard
