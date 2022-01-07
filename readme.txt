@@ -129,18 +129,19 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 == Changelog ==
 
 = 2.1.2 =
-Fix: Stripe Connect not showing in CF Dashboard issue
-Fix: Redirect url not saving in settings issue
-Fix: Pledge Details Modal View design
-Fix: Withdrawer Name and Email not Displayed in Withdrawal Request Table issue
-Fix: Country and District Input Field Height issue
-Fix: Add Gallery Image Media files Dissappearing issue when updating a campaign in Frontend editor
-Fix: My campaign column width issues in CF Dashboard
-Fix: Added styling to the Payment Complete page success message
-Fix: Withdraw Texts and Button design issue in the Withdrawal Modal
-Fix: Added a notice in the Crowdfunding Settings page to enable Stripe Connect and Wallet
-Fix: Action button design in Withdrawal Request table in backend
 
+Update: Compatibility update with Stripe Connect
+Update: Alert Message is being shown as suggestion on how to enable Withdrawal feature
+Fix: Email was not being sent while a Campaign is Updated
+Fix: In the Settings, Redirect URL was not being updated
+Fix: The action button design was broken in the Withdrawal Page of Admin Panel
+Fix: The Withdraw Button design was missing in the “Withdraw Info” Modal while submitting a Withdraw request from CF Dashboard
+Fix: The Checkout Page was showing Alert Message without any Design
+Fix: On the Dashboard, in the “My Campaigns” page the Campaign Title design was broken
+Fix: The “Add Media”, “Upload Image”, “Upload Gallery” buttons were opening Media Library, but any Image was not being uploaded
+Fix: The minimum height of the “Country” and “District” options were fixed in the Checkout Page
+Fix: The Withdrawer’s Full Name is missing in the Withdraw Request page at Admin Panel
+Fix: The Pledges Details Modal’s design was Broken in the front-site
 
 = 2.1.1 =
 Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard
