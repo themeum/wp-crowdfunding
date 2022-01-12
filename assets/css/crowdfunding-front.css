@@ -1800,7 +1800,7 @@ ul.wpcf_predefined_pledge_amount li a {
     min-height: 37px;
 }
 #wpneofrontenddata .wpneo-fields select {
-    height: 36px !important;
+    height: 50px !important;
 }
 .wpneo-fields {
     color: #bcc0d0;
@@ -2142,4 +2142,10 @@ p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-rece
     border-radius: 5px;
     padding: 10px 15px;
     margin-bottom: 20px;
+}
+
+#wpneo_update_form_wrapper .datepicker {
+    padding: 8px 15px;
+    color: #686c8b;
+    border: 1px solid #f5f5f5;
 }

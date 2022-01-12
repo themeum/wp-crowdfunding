@@ -130,18 +130,18 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 = 2.1.2 =
 
-Update: Compatibility update with Stripe Connect
-Update: Alert Message is being shown as suggestion on how to enable Withdrawal feature
-Fix: Email was not being sent while a Campaign is Updated
-Fix: In the Settings, Redirect URL was not being updated
-Fix: The action button design was broken in the Withdrawal Page of Admin Panel
-Fix: The Withdraw Button design was missing in the “Withdraw Info” Modal while submitting a Withdraw request from CF Dashboard
-Fix: The Checkout Page was showing Alert Message without any Design
-Fix: On the Dashboard, in the “My Campaigns” page the Campaign Title design was broken
-Fix: The “Add Media”, “Upload Image”, “Upload Gallery” buttons were opening Media Library, but any Image was not being uploaded
-Fix: The minimum height of the “Country” and “District” options were fixed in the Checkout Page
-Fix: The Withdrawer’s Full Name is missing in the Withdraw Request page at Admin Panel
-Fix: The Pledges Details Modal’s design was Broken in the front-site
+Update: Compatibility update with the latest Stripe Connect
+Update: Alert message on how to enable the Withdrawal feature
+Fix: Campaign update email was not being sent
+Fix: The Redirect URL was not getting updated
+Fix: Design issue for the button in the Withdrawal page of the Admin Panel
+Fix: The withdraw button design was missing in the "Withdraw Info" Modal
+Fix: The checkout page was showing alert messages without any design
+Fix: On the "My Campaigns" page, the campaign title design was broken
+Fix: Unable to upload media using the "Add Media", "Upload Image", and "Upload Gallery" buttons
+Fix: The minimum height of the "Country" and "District" options was fixed in the Checkout Page
+Fix: The Withdrawer's full name was missing in the withdrawal request page
+Fix: The Pledges Details Modal's design was broken in the front-site
 
 = 2.1.1 =
 Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard

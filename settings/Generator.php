@@ -8,14 +8,16 @@ class Settings_Generator {
     // Settings Option Generator
     public function generator( $arr ) {
         // Let's show a notice if Stripe Connect and Wallet addons are disabled.
-        if ( isset( $_GET['page'] ) && 'wpcf-settings' === $_GET['page'] ) {
-            $wpcf_wallet               = wpcf_function()->get_addon_config( WPCF_WALLET_BASE_NAME );
-            $wpcf_stripe_connect       = wpcf_function()->get_addon_config( WPCF_STRIPE_CONNECT_BASE_NAME );
-            $is_wallet_enabled         = (bool) wpcf_function()->avalue_dot( 'is_enable', $wpcf_wallet );
-            $is_stripe_connect_enabled = (bool) wpcf_function()->avalue_dot( 'is_enable', $wpcf_stripe_connect );
-            
-            if ( ! $is_wallet_enabled || ! $is_stripe_connect_enabled ) {
-                echo '<p class="wpneo-settings-notice">' . esc_html__( 'You need to enable Stripe Connect and Wallet addons to facilitate the Withdrawal facility to the Campaign Creators!', 'wp-crowdfunding' ) . '</p>';
+        if ( is_plugin_active( 'wp-crowdfunding-pro/wp-crowdfunding-pro.php' ) ) {
+            if ( isset( $_GET['page'] ) && 'wpcf-settings' === $_GET['page'] ) {
+                $wpcf_wallet               = wpcf_function()->get_addon_config( WPCF_WALLET_BASE_NAME );
+                $wpcf_stripe_connect       = wpcf_function()->get_addon_config( WPCF_STRIPE_CONNECT_BASE_NAME );
+                $is_wallet_enabled         = (bool) wpcf_function()->avalue_dot( 'is_enable', $wpcf_wallet );
+                $is_stripe_connect_enabled = (bool) wpcf_function()->avalue_dot( 'is_enable', $wpcf_stripe_connect );
+                
+                if ( ! $is_wallet_enabled || ! $is_stripe_connect_enabled ) {
+                    echo '<p class="wpneo-settings-notice">' . esc_html__( 'You need to enable Stripe Connect and Wallet addons to facilitate the Withdrawal facility to the Campaign Creators!', 'wp-crowdfunding' ) . '</p>';
+                }
             }
         }
         

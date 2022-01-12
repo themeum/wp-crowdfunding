@@ -97,7 +97,7 @@ class Submit_Form {
         $min_price = (isset($_POST['wpneo-form-min-price']) && $show_min_price == 'true') ? sanitize_text_field($_POST['wpneo-form-min-price']) : '';
         $max_price = (isset($_POST['wpneo-form-max-price']) && $show_max_price == 'true') ? sanitize_text_field($_POST['wpneo-form-max-price']) : ''; 
         $recommended_price = (isset($_POST['wpneo-form-recommended-price']) && $show_recommended_price == 'true') ? sanitize_text_field($_POST['wpneo-form-recommended-price']) : '';
-        $predefined_amount = (isset($_POST['wpcf_predefined_pledge_amount']) && $predefined_amount == 'true') ? sanitize_text_field($_POST['wpcf_predefined_pledge_amount']) : '';
+        $wpcf_predefined_pledge_amount = (isset($_POST['wpcf_predefined_pledge_amount']) && $predefined_amount == 'true') ? sanitize_text_field($_POST['wpcf_predefined_pledge_amount']) : '';
         $funding_goal = (isset($_POST['wpneo-form-funding-goal']) && $show_funding_goal == 'true') ? sanitize_text_field($_POST['wpneo-form-funding-goal']) : '';
         $type = (isset($_POST['wpneo-form-type']) && $show_end_method == 'true') ? sanitize_text_field($_POST['wpneo-form-type']) : ''; 
         $contributor_table = (isset($_POST['wpneo-form-contributor-table']) && $show_contributor_table == 'true') ? sanitize_text_field($_POST['wpneo-form-contributor-table']) : '';
@@ -131,6 +131,9 @@ class Submit_Form {
                 exit;
             }
             $post_id = wp_update_post( $my_post );
+            $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
+        
+            die(json_encode(array('success'=> 1, 'message' => __('Campaign successfully updated', 'wp-crowdfunding'), 'redirect' => $redirect)));
 
         }else{
             $my_post['post_status'] = get_option( 'wpneo_default_campaign_status' );
