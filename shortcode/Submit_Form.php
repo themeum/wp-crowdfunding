@@ -211,14 +211,15 @@ class Campaign_Submit_Form {
             $html .= '<input type="button" id="gallery-image-ids" class="wpneo-upload-image-gallery float-right" value="'.__("Upload Gallery","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
             $html .= '<small>' . __( "Upload campaign gallery images. Use <code>SHIFT</code> key to select multiple images.", "wp-crowdfunding" ) . '</small>';
             $html .= '</div>';
-            $html .= '<div style="display:flex; justify-content:flex-start; align-items:flex-start;">';
-            ?>
+            //$html .= '<div style="display:flex; justify-content:flex-start; align-items:flex-start;">';
+            /*?>
             <?php if ( ! empty( $gallery_image_array ) ) {
                 foreach ( $gallery_image_array as $single_image ) {
                    $html .= '<img width="50" style="padding: 0 3px;" src="' . esc_url( wp_get_attachment_image_url( $single_image, 'thumbnail' ) ) . '" />';
                 }
             }
             $html .= '</div>';
+            */
             $html .= '</div>';
 
 
