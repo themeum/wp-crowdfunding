@@ -116,7 +116,7 @@ class Submit_Form {
         );
 
         do_action('wpcf_before_campaign_submit_action');
-
+        $update_message = '';
         if(isset($_POST['edit_form'])){
             //Prevent if unauthorised access
             $wp_query_users_product_id = $this->logged_in_user_campaign_ids();
@@ -131,13 +131,12 @@ class Submit_Form {
                 exit;
             }
             $post_id = wp_update_post( $my_post );
-            $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
+            $update_message = __( 'Campaign successfully updated', 'wp-crowdfunding' );
         
-            die(json_encode(array('success'=> 1, 'message' => __('Campaign successfully updated', 'wp-crowdfunding'), 'redirect' => $redirect)));
-
-        }else{
+        } else {
             $my_post['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $my_post );
+            $update_message = __( 'Campaign successfully submitted', 'wp-crowdfunding' );
             if ($post_id) {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_after_campaign_email',$post_id);
@@ -203,7 +202,7 @@ class Submit_Form {
         }
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
         
-        die(json_encode(array('success'=> 1, 'message' => __('Campaign successfully submitted', 'wp-crowdfunding'), 'redirect' => $redirect)));
+        die(json_encode(array('success'=> 1, 'message' => $update_message, 'redirect' => $redirect)));
     }
 
 }

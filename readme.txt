@@ -130,18 +130,19 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 = 2.1.2 =
 
-Update: Compatibility update with the latest Stripe Connect
-Update: Alert message on how to enable the Withdrawal feature
-Fix: Campaign update email was not being sent
-Fix: The Redirect URL was not getting updated
-Fix: Design issue for the button in the Withdrawal page of the Admin Panel
-Fix: The withdraw button design was missing in the "Withdraw Info" Modal
-Fix: The checkout page was showing alert messages without any design
-Fix: On the "My Campaigns" page, the campaign title design was broken
-Fix: Unable to upload media using the "Add Media", "Upload Image", and "Upload Gallery" buttons
-Fix: The minimum height of the "Country" and "District" options was fixed in the Checkout Page
-Fix: The Withdrawer's full name was missing in the withdrawal request page
-Fix: The Pledges Details Modal's design was broken in the front-site
+Fix: Campaign update email was not being sent.
+Fix: The Redirect URL was not getting updated.
+Fix: Campaign Form input field design issue is fixed.
+Fix: The height of the “Country” and “District” fields is fixed in the Checkout Page.
+Fix: Design issue for the button in the Withdrawal page of the Admin Panel.
+Fix: The withdraw button design was missing in the “Withdraw Info” Modal.
+Fix: The checkout page was showing alert messages without any design.
+Fix: On the “My Campaigns” page, the campaign title design was broken.
+Fix: Media file upload was not working sometimes in the Campaign Form.
+Fix: The Withdrawer’s full name was missing on the withdrawal request page.
+Fix: The Pledges Details Modal’s design was broken in the front-site.
+Fix: Campaign Update Message for Campaign Creator is Fixed.
+Fix: Date Picker is fixed in the Campaign Update page.
 
 = 2.1.1 =
 Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard

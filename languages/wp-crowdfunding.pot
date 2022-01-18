@@ -889,12 +889,12 @@ msgstr ""
 msgid "Please check terms condition"
 msgstr ""
 
-#: includes/woocommerce/Submit_Form.php:136
-msgid "Campaign successfully updated"
+#: includes/woocommerce/Submit_Form.php:139
+msgid "Campaign successfully submitted"
 msgstr ""
 
-#: includes/woocommerce/Submit_Form.php:206
-msgid "Campaign successfully submitted"
+#: includes/woocommerce/Submit_Form.php:134
+msgid "Campaign successfully updated"
 msgstr ""
 
 #: includes/woocommerce/Template_Hooks.php:142, wpcftemplate/woocommerce/basic/include/tabs/story-tab.php:8
