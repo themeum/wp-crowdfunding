@@ -596,11 +596,11 @@ class Campaign_Submit_Form {
                 $html .= '<option value="2023">2023</option>';
                 $html .= '<option value="2024">2024</option>';
                 $html .= '<option value="2025">2025</option>';
-                $html .= '<option value="2026">2025</option>';
-                $html .= '<option value="2027">2025</option>';
-                $html .= '<option value="2028">2025</option>';
-                $html .= '<option value="2029">2025</option>';
-                $html .= '<option value="2030">2025</option>';
+                $html .= '<option value="2026">2026</option>';
+                $html .= '<option value="2027">2027</option>';
+                $html .= '<option value="2028">2028</option>';
+                $html .= '<option value="2029">2029</option>';
+                $html .= '<option value="2030">2030</option>';
                 $html .= '</select>';
                 $html .= '<small>'.__("Estimated Delivery Year of the Reward","wp-crowdfunding").'</small>';
                 $html .= '</div>';
