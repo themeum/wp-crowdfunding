@@ -50,6 +50,9 @@ class WPCF_Social_Share {
             $embed_share = sanitize_text_field(wpcf_function()->post('wpcf_embed_share'));
             wpcf_function()->update_checkbox('wpcf_embed_share', $embed_share);
 
+            $enable_social_share = wpcf_function()->post('wpcf_enable_share');
+            wpcf_function()->update_checkbox('wpcf_enable_share', $enable_social_share);
+
             $social_share = wpcf_function()->post('wpcf_social_share');
             wpcf_function()->update_checkbox('wpcf_social_share', $social_share);
 
