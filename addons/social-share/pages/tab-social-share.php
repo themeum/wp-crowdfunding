@@ -20,6 +20,15 @@ $arr =  array(
                 'desc'      => __('Embed Option in Single Campaign.','wp-crowdfunding'),
             ),
 
+            // #Enable Embed Option
+            array(
+                'id'        => 'wpcf_enable_share',
+                'type'      => 'checkbox',
+                'value'     => 'true',
+                'label'     => __('Social Share','wp-crowdfunding'),
+                'desc'      => __('Enable Social Share in Single Campaign.','wp-crowdfunding'),
+            ),
+
             // Social Share
             array(
                 'id'        => 'wpcf_social_share',

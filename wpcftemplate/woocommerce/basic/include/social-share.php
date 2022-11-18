@@ -5,6 +5,7 @@ $enable_social = false;
 $post_id = get_the_ID();
 $social = get_option( 'wpcf_social_share' , array() );
 $embed = get_option( 'wpcf_embed_share' ) == 'true' ? true : false;
+$social_share = get_option( 'wpcf_enable_share' ) == 'true' ? true : false;
 
 $description = apply_filters( 'the_excerpt', get_post_field('post_excerpt', $post_id) );
 $post_thumbnail_url = '';
@@ -13,6 +14,7 @@ if ( has_post_thumbnail() ) {
     $post_thumbnail_url = wp_get_attachment_url( $post_thumbnail_id );
 }
 ?>
+    <?php if($social_share == true) { ?>
     <?php if( is_array( $social ) ){ ?>
         <?php if( !empty( $social ) ){ ?>
             <?php $enable_social = true; ?>
@@ -75,6 +77,7 @@ if ( has_post_thumbnail() ) {
                 });
             </script>
         <?php } ?>
+    <?php } ?>
     <?php } ?>
 
     <?php if( !$enable_social && $embed ){ ?>
