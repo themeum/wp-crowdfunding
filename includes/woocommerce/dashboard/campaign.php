@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $page_numb = max( 1, get_query_var('paged') );
-$posts_per_page = get_option( 'posts_per_page',10 );
+$posts_per_page = wpcf_function()->number_of_items_per_page();
 $args = array(
     'post_type' 		=> 'product',
     'post_status'		=> array('publish', 'draft'),

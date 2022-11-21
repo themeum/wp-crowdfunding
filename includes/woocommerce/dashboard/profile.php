@@ -51,7 +51,7 @@ $html .= '<div class="wpneo-content">';
 					$html .= '<p>'.__( "Name:" , "wp-crowdfunding" ).'</p>';
 					$html .= '</div>';
 					$html .= '<div class="wpneo-fields float-right">';
-					$html .= "<p>".wpcf_function()->get_author_name($current_user_id)."</p>";
+					$html .= "<p>".$user->user_login."</p>";
                     $html .= '</div>';
 
 					$html .= '<div class="wpneo-single">';

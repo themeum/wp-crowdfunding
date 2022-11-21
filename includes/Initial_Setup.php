@@ -11,6 +11,29 @@ if (! class_exists('Initial_Setup')) {
             add_action( 'admin_init', array( $this, 'initial_compatibility_check') );
             add_action('wp_ajax_install_woocommerce_plugin',        array($this, 'install_woocommerce_plugin'));
             add_action('admin_action_activate_woocommerce_free',    array($this, 'activate_woocommerce_free'));
+            add_filter( 'woocommerce_locate_template', array($this, 'wpcf_woocommerce_locate_template'), 10, 3 );
+        }
+
+        function wpcf_woocommerce_locate_template( $template, $template_name, $template_path ) {
+            global $woocommerce;
+            $_template = $template;
+            if ( ! $template_path ) { 
+                $template_path = $woocommerce->template_url;
+            }
+            $plugin_path  = WPCF_DIR_PATH . '/woocommerce/';
+            $template = locate_template(
+                array(
+                    $template_path . $template_name,
+                    $template_name
+                )
+            );
+            if ( ! $template && file_exists( $plugin_path . $template_name ) ) {
+                $template = $plugin_path . $template_name;
+            }
+            if ( ! $template ) {
+                $template = $_template;
+            }
+            return $template;
         }
 
         public function initial_compatibility_check(){

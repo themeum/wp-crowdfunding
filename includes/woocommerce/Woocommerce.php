@@ -40,7 +40,7 @@ class Woocommerce {
         add_action( 'edit_product_cat',                                 array($this, 'edit_mark_category_as_crowdfunding'), 10, 2);
         add_filter( "manage_product_cat_custom_column",                 array($this, 'filter_description_col_product_taxomony'), 10, 3);
         add_filter( 'manage_edit-product_cat_columns' ,                 array($this, 'product_taxonomy_is_crowdfunding_columns'), 10, 1);
-    
+        //add_filter( 'woocommerce_order_button_text',                    array( $this, 'change_checkout_button_text' ) );
         //template hooks
         add_action( 'woocommerce_after_shop_loop_item',                 array($this, 'after_item_title_data')); // Woocommerce Backed User
         add_filter( 'woocommerce_product_tabs',                         array($this, 'product_backed_user_tab') );
@@ -50,6 +50,7 @@ class Woocommerce {
         }
         add_action('woocommerce_product_thumbnails',                    array($this, 'wpcf_campaign_single_love_this') );
         !is_admin() and add_filter( 'woocommerce_coupons_enabled',      array($this, 'wc_coupon_disable') ); //Hide coupon form on checkout page
+        add_action( 'woocommerce_email_order_meta', array( $this, 'custom_campaign_order_meta' ), 10, 3 );
 
         add_action( 'wp_logout', array( $this, 'wc_empty_cart' ) );
 
@@ -136,6 +137,52 @@ class Woocommerce {
             }
         }
         return $fields;
+    }
+
+    /**
+     * Change checkout button text callback
+     * 
+     * @return string $button_text
+     */
+    public function change_checkout_button_text( $button_text ) {
+        if ( class_exists( 'Crowdfunding' ) ) {
+            $button_text = __( 'Back Campaign Now', 'wp-crowdfunding' );
+        } else {
+            $button_text = __( 'Pay Now', 'wp-crowdfunding' );
+        }
+
+        return $button_text;
+    }
+
+    /**
+     * Custom campaign fields in order emails
+     * 
+     * @return void
+     */
+    public function custom_campaign_order_meta( $order_obj, $sent_to_admin, $plain_text ) {
+        $is_crowdfunding = get_post_meta( $order_obj->get_order_number(), 'is_crowdfunding_order', true );
+        
+        // we won't display anything if it is not a crowdfunding order.
+        if ( ! $is_crowdfunding ) {
+            return;
+        }
+        
+        // ok, it's a cf order, get all the other fields
+        $selected_reward = get_post_meta( $order_obj->get_order_number(), 'wpneo_selected_reward', true );
+        
+        // Let's check if it's empty or not.
+        if ( empty( $selected_reward ) ) {
+            return;
+        }
+
+        $reward_details = json_decode( $selected_reward );
+        
+        echo '<h2>' . __( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
+        <ul>
+            <li> ' . __( 'Amount: ', 'wp-crowdfunding' ) . wc_price( $reward_details->wpneo_rewards_pladge_amount ) . '</li>
+            <li> ' . __( 'Delivery: ', 'wp-crowdfunding' ) . ucfirst( $reward_details->wpneo_rewards_endmonth ) . ', ' . $reward_details->wpneo_rewards_endyear . '</li>
+            <li> ' . __( 'Reward Details: ', 'wp-crowdfunding' ) . $reward_details->wpneo_rewards_description . '</li>
+        </ul>';
     }
 
     /**

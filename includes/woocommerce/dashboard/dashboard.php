@@ -12,22 +12,28 @@ $html .= ob_get_clean();
 ?>
 
 <?php
+$theme = wp_get_theme();
+$theme_data = $theme->get( 'TextDomain' );
 
-$html .= '<div class="wpneo-row">';
-    $html .= '<div class="wpneo-col6">';
+$row_class      = 'backer' === $theme_data || 'patrios' === $theme_data ? 'row' : 'wpneo-row';
+$col_class      = 'backer' === $theme_data || 'patrios' === $theme_data ? 'col-md-8' : 'wpneo-col6';
+$col_class_info = 'backer' === $theme_data || 'patrios' === $theme_data ? 'col-md-4' : 'wpneo-col6';
+
+$html .= '<div class="'. $row_class .'">';
+    $html .= '<div class="' . $col_class . '">';
     $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
         $html .= '<h4>'.__( "My Campaigns" , "wp-crowdfunding" ).'</h4>';
         include_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard-campaign.php';
     $html .= '</div>';//wpneo-shadow 
 
-    global $wp;
-    $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
-        $html .= '<h4>'.__( "Export Data" , "wp-crowdfunding" ).'</h4>';
-        $html .= '<br/><a href="'.home_url( $wp->request ).'/?download_data=personal" class="wpneo-edit-btn">'.__('Export Campaign Data', 'wp-crowdfunding').'</a>';
-    $html .= '</div>';//wpneo-shadow 
+    // global $wp;
+    // $html .= '<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">'; 
+    //     $html .= '<h4>'.__( "Export Data" , "wp-crowdfunding" ).'</h4>';
+    //     $html .= '<br/><a href="'.home_url( $wp->request ).'/?download_data=personal" class="wpneo-edit-btn">'.__('Export Campaign Data', 'wp-crowdfunding').'</a>';
+    // $html .= '</div>';//wpneo-shadow 
 
     $html .= '</div>';//wpneo-col6 
-    $html .= '<div class="wpneo-col6">';
+    $html .= '<div class="' . $col_class_info . '">';
 
     ob_start();
     do_action('wpcf_dashboard_place_3');
@@ -96,21 +102,25 @@ $html .= '<div class="wpneo-row">';
                         $html .= '<textarea name="description" rows="3" disabled>'.$current_user->description.'</textarea>';
                     $html .= '</div>';
                 $html .= '</div>';
+                $settings = get_option( 'woocommerce_wpneo_stripe_connect_settings' );
+                ! is_array( $settings ) ? $settings = array() : 0;
+        
+                if ( ! empty( $settings['enabled'] )  && $settings['enabled'] == 'yes' ) {
+                    $html .= '<h4>' . __( 'Payment Info', 'wp-crowdfunding' ) . '</h4>'; 
+                }
+                ob_start();
+                do_action('wpcf_dashboard_after_dashboard_form');
+                $html .= ob_get_clean();
 
-            $html .= '<h4>'.__('Payment Info', 'wp-crowdfunding').'</h4>';
-            ob_start();
-            do_action('wpcf_dashboard_after_dashboard_form');
-            $html .= ob_get_clean();
-
-            $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );
-            //Save Button
-            $html .= '<div class="wpneo-buttons-group float-right">';
-                $html .= '<button id="wpneo-edit" class="wpneo-edit-btn">'.__( "Edit" , "wp-crowdfunding" ).'</button>';
-                $html .= '<button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit">'.__( "Cancel" , "wp-crowdfunding" ).'</button>';
-                $html .= '<button id="wpneo-dashboard-save" class="wpneo-save-btn wpneo-hidden" type="submit">'.__( "Save" , "wp-crowdfunding" ).'</button>';
-            $html .= '</div>';
-            $html .= '<div class="clear-float"></div>';
-        $html .= '</form>';//#wpneo-dashboard-form
-    $html .= '</div>';//wpneo-content
+                $html .= wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false );
+                //Save Button
+                $html .= '<div class="wpneo-buttons-group float-right">';
+                    $html .= '<button id="wpneo-edit" class="wpneo-edit-btn">'.__( "Edit" , "wp-crowdfunding" ).'</button>';
+                    $html .= '<button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit">'.__( "Cancel" , "wp-crowdfunding" ).'</button>';
+                    $html .= '<button id="wpneo-dashboard-save" class="wpneo-save-btn wpneo-hidden" type="submit">'.__( "Save" , "wp-crowdfunding" ).'</button>';
+                $html .= '</div>';
+                $html .= '<div class="clear-float"></div>';
+            $html .= '</form>';//#wpneo-dashboard-form
+        $html .= '</div>';//wpneo-content
     $html .= '</div>';//wpneo-col6 
 $html .= '</div>';//wpneo-row

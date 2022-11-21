@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $page_numb = max( 1, get_query_var('paged') );
-$posts_per_page = get_option( 'posts_per_page',10 );
+$posts_per_page = wpcf_function()->number_of_items_per_page();
 $args = array(
     'post_type' 		=> 'product',
     'post_status'		=> array('publish', 'draft'),
@@ -14,7 +14,7 @@ $args = array(
             'terms'    => 'crowdfunding',
         ),
     ),
-    'posts_per_page'    => 4,
+    'posts_per_page'    => $posts_per_page,
     'paged'             => $page_numb
 );
 
@@ -29,7 +29,7 @@ if ( $the_query->have_posts() ) :
         ?>
         <div class="wpneo-col6">
             <div class="wpcrowd-listing">
-                <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
+                <a href="<?php echo $permalink; ?>" title="<?php  echo get_the_title(); ?>"> <?php echo woocommerce_get_product_thumbnail( 'full' ); ?></a>
             </div>
             <div class="wpcrowd-listing-content">
                 <div class="wpcrowd-admin-title">

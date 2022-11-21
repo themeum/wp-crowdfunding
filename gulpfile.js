@@ -35,16 +35,16 @@ gulp.task('makepot', function () {
 		.pipe(gulp.dest('languages/wp-crowdfunding.pot'));
 });
 
-gulp.task('pack-js', function () {    
-    return gulp.src(['assets/js/crowdfunding-front.js', 'assets/js/crowdfunding.js', 'assets/js/mce-button.js'])
-        .pipe(minify({ext:'.min.js'}))
-        .pipe(gulp.dest('assets/js/'));
+gulp.task('pack-js', function () {
+	return gulp.src(['assets/js/crowdfunding-front.js', 'assets/js/crowdfunding.js', 'assets/js/mce-button.js'])
+		.pipe(minify({ ext: '.min.js' }))
+		.pipe(gulp.dest('assets/js/'));
 });
 
 gulp.task('minify-css', () => {
 	return gulp.src(['assets/css/crowdfunding.css', 'assets/css/crowdfunding-front.css'])
 		.pipe(cleanCSS())
-	.pipe(gulp.dest('assets/css/dist'));
+		.pipe(gulp.dest('assets/css/dist'));
 });
 
 /**
@@ -80,6 +80,7 @@ gulp.task("copy", function () {
 			"!./webpack.production.config.js",
 			"!./reactjs/**",
 			"!./readme.md",
+			"!./README.md",
 			"!.DS_Store",
 			"!./**/.DS_Store",
 			"!./LICENSE.txt",

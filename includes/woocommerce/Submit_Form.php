@@ -4,6 +4,7 @@ namespace WPCF\woocommerce;
 defined( 'ABSPATH' ) || exit;
 
 class Submit_Form {
+    
 
     public function __construct() {
         add_action( 'wp_ajax_addfrontenddata', array($this, 'frontend_data_save')); // Save data for frontend campaign submit form
@@ -32,6 +33,7 @@ class Submit_Form {
      */
 
     function frontend_data_save(){
+
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
             die(json_encode(array('success'=> 0, 'message' => __('Sorry, your data did not verify.', 'wp-crowdfunding'))));
             exit;
@@ -88,13 +90,14 @@ class Submit_Form {
         $category = (isset($_POST['wpneo-form-category']) && $show_category == 'true') ? sanitize_text_field($_POST['wpneo-form-category']) : '';
         $tag = (isset($_POST['wpneo-form-image-id']) && $show_tag == 'true') ? sanitize_text_field($_POST['wpneo-form-tag']) : '';
         $image_id = (isset($_POST['wpneo-form-image-id']) && $show_feature == 'true') ? sanitize_text_field($_POST['wpneo-form-image-id']) : '';
+        $gallery_image_ids = (isset($_POST['gallery-image-ids']) ? sanitize_text_field($_POST['gallery-image-ids']) : '');
         $video = (isset($_POST['wpneo-form-video']) && $show_video == 'true') ? sanitize_text_field($_POST['wpneo-form-video']) : '';
         $start_date = (isset($_POST['wpneo-form-start-date']) && $show_start_date == 'true') ? sanitize_text_field($_POST['wpneo-form-start-date']) : '';
         $end_date = (isset($_POST['wpneo-form-end-date']) && $show_end_date == 'true') ? sanitize_text_field($_POST['wpneo-form-end-date']) : '';
         $min_price = (isset($_POST['wpneo-form-min-price']) && $show_min_price == 'true') ? sanitize_text_field($_POST['wpneo-form-min-price']) : '';
         $max_price = (isset($_POST['wpneo-form-max-price']) && $show_max_price == 'true') ? sanitize_text_field($_POST['wpneo-form-max-price']) : ''; 
         $recommended_price = (isset($_POST['wpneo-form-recommended-price']) && $show_recommended_price == 'true') ? sanitize_text_field($_POST['wpneo-form-recommended-price']) : '';
-        $predefined_amount = (isset($_POST['wpcf_predefined_pledge_amount']) && $predefined_amount == 'true') ? sanitize_text_field($_POST['wpcf_predefined_pledge_amount']) : '';
+        $wpcf_predefined_pledge_amount = (isset($_POST['wpcf_predefined_pledge_amount']) && $predefined_amount == 'true') ? sanitize_text_field($_POST['wpcf_predefined_pledge_amount']) : '';
         $funding_goal = (isset($_POST['wpneo-form-funding-goal']) && $show_funding_goal == 'true') ? sanitize_text_field($_POST['wpneo-form-funding-goal']) : '';
         $type = (isset($_POST['wpneo-form-type']) && $show_end_method == 'true') ? sanitize_text_field($_POST['wpneo-form-type']) : ''; 
         $contributor_table = (isset($_POST['wpneo-form-contributor-table']) && $show_contributor_table == 'true') ? sanitize_text_field($_POST['wpneo-form-contributor-table']) : '';
@@ -113,7 +116,7 @@ class Submit_Form {
         );
 
         do_action('wpcf_before_campaign_submit_action');
-
+        $update_message = '';
         if(isset($_POST['edit_form'])){
             //Prevent if unauthorised access
             $wp_query_users_product_id = $this->logged_in_user_campaign_ids();
@@ -128,15 +131,17 @@ class Submit_Form {
                 exit;
             }
             $post_id = wp_update_post( $my_post );
-
-        }else{
+            $update_message = __( 'Campaign successfully updated', 'wp-crowdfunding' );
+        
+        } else {
             $my_post['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $my_post );
+            $update_message = __( 'Campaign successfully submitted', 'wp-crowdfunding' );
             if ($post_id) {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_after_campaign_email',$post_id);
             }
-        }        
+        }
 
         if ($post_id) {
             if( $category != '' ){
@@ -149,7 +154,9 @@ class Submit_Form {
             }
             wp_set_object_terms( $post_id , 'crowdfunding', 'product_type',true );
 
+            // update_post_meta( $post_id, '_product_image_gallery', $gallery_image_ids);
             wpcf_function()->update_meta($post_id, '_thumbnail_id', esc_attr($image_id));
+            wpcf_function()->update_meta($post_id, '_product_image_gallery', esc_attr($gallery_image_ids));
             wpcf_function()->update_meta($post_id, 'wpneo_funding_video', esc_url($video));
             wpcf_function()->update_meta($post_id, '_nf_duration_start', esc_attr($start_date));
             wpcf_function()->update_meta($post_id, '_nf_duration_end', esc_attr($end_date));
@@ -195,7 +202,7 @@ class Submit_Form {
         }
         $redirect = get_permalink(get_option('wpneo_crowdfunding_dashboard_page_id')).'?page_type=campaign';
         
-        die(json_encode(array('success'=> 1, 'message' => __('Campaign successfully submitted', 'wp-crowdfunding'), 'redirect' => $redirect)));
+        die(json_encode(array('success'=> 1, 'message' => $update_message, 'redirect' => $redirect)));
     }
 
 }

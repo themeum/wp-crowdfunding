@@ -12,10 +12,10 @@ $creator = get_user_by('id', $post->post_author);
         <?php if ( $post->post_author ) {
             $img_src    = '';
             $image_id = get_user_meta( $post->post_author,'profile_image_id', true );
-            if( $image_id != '' ){
-                $img_src = wp_get_attachment_image_src( $image_id, 'backer-portfo' )[0];
+            if ( $image_id != '' ) {
+                $img_src = wp_get_attachment_image_url( $image_id, 'backer-portfo' );
             } ?>
-            <?php if( $img_src ){ ?>
+            <?php if ( $img_src ){ ?>
                 <img width="80" height="80" src="<?php echo $img_src; ?>" alt="">
             <?php } else { ?>
                 <?php  echo get_avatar($post->post_author, 80); ?>

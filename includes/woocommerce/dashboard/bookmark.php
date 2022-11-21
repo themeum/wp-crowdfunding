@@ -7,7 +7,7 @@ $campaign_ids = json_decode( $campaign_ids, true );
 if (empty($campaign_ids)) {
     $campaign_ids = array(9999999);
 }
-$posts_per_page = get_option('posts_per_page', 10);
+$posts_per_page = wpcf_function()->number_of_items_per_page();
 $args = array(
     'post_type'         => 'product',
     'post__in'          => $campaign_ids,

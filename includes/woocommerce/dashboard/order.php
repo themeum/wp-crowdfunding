@@ -58,7 +58,7 @@ $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', 
 ) );
 
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-    'numberposts' => 10, // Chnage Number
+    'numberposts' => wpcf_function()->number_of_items_per_page(), // Chnage Number
     'paged'		  => $page_numb,
     'post__in'	  => $order_ids,
     'meta_key'    => '_customer_user',
@@ -113,30 +113,17 @@ if ( $customer_orders ) :
                     * Get specific rewards from amount
                     */
                     $ordered_items = $order->get_items();
+                    
                     foreach ( $ordered_items as $item ) {
+                        $order_id   = $item['order_id'];
                         $product_id = $item['product_id'];
 
-                        //$html .= $product_id;
-
-                        $campaign_rewards = get_post_meta($product_id, 'wpneo_reward', true);
-                        $campaign_rewards_a = json_decode($campaign_rewards, true);
-                        $order_total = $order->get_total();
+                        $campaign_rewards        = get_post_meta( $order_id, 'wpneo_selected_reward', true );
+                        $campaign_rewards_amount = json_decode( $campaign_rewards );
 
                         $rewards_amount = '';
-                        $temp = 0;
-                        if (is_array($campaign_rewards_a)) {
-                            if (count($campaign_rewards_a) > 0) {
-                                foreach ($campaign_rewards_a as $key => $value) {
-                                    if ($order_total >= $value['wpneo_rewards_pladge_amount']) {
-                                        if( $temp <= $value['wpneo_rewards_pladge_amount'] ){
-                                            $temp = $value['wpneo_rewards_pladge_amount'];
-                                            $rewards_amount = '<a class="label-default" href="'.get_permalink($product_id).'" target="_blank">'.__('Rewards', 'wp-crowdfunding'). wpcf_function()->price($value['wpneo_rewards_pladge_amount']).'</a>';
-                                        }
-
-                                    }
-                                }
-
-                            }
+                        if ( ! empty( $campaign_rewards_amount ) ) {
+                            $rewards_amount = '<a class="label-default" href="' . get_permalink( $product_id ) . '" target="_blank">' . __( 'Rewards ', 'wp-crowdfunding' ) . wpcf_function()->price( $campaign_rewards_amount->wpneo_rewards_pladge_amount ) . '</a>';
                         }
 
                         $html .= $rewards_amount;
@@ -169,7 +156,7 @@ $customer_order_all = get_posts( apply_filters( 'woocommerce_my_account_my_order
 
 $max_page = 1;
 if(!empty($customer_order_all)){
-    $max_page = ceil( count($customer_order_all)/10 );
+    $max_page = ceil( count($customer_order_all) / wpcf_function()->number_of_items_per_page() );
 }
 // Pagination
 $html .= wpcf_function()->get_pagination( $page_numb , $max_page );
