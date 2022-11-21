@@ -7,7 +7,7 @@ $user_id = $current_user->ID;
 
 global $wpdb, $wp;
 $date_range         = '';
-$to_date            = date('Y-m-d 23:59:59');
+$given_to_date            = date('Y-m-d 23:59:59');
 $from_date          = date('Y-m-d 00:00:00', strtotime('-6 days'));
 $chart_bottom_title = "1W";
 $query_range        = 'day_wise';
@@ -60,9 +60,9 @@ if (! empty($_GET['date_range_from'])){
     $from_date      = sanitize_text_field($_GET['date_range_from']);
 }
 if (! empty($_GET['date_range_to'])){
-    $to_date        = sanitize_text_field($_GET['date_range_to']);
+    $given_to_date        = sanitize_text_field($_GET['date_range_to']);
 }
-
+$to_date = date('Y-m-d', strtotime($given_to_date. ' +1 days'));
 $total_backers_amount_ever = array();
 $from_time          = strtotime('-1 day', strtotime($from_date));
 $to_time            = strtotime('-1 day', strtotime($to_date));
@@ -113,7 +113,7 @@ AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'w
     } else {
         $from_time          = strtotime('-1 month', strtotime($from_date));
         $to_time            = strtotime('-1 month', strtotime($to_date));
-
+        
         while ($from_time < $to_time) {
             $from_time      = strtotime('+1 month', $from_time);
             $printed_date   = date('F', $from_time);
@@ -189,10 +189,9 @@ $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
 ?>
 
 <div class="wpneo-dashboard-chart wpneo-shadow chart-container">
-
     <div class="wpneo-dashboard-head wpneo-clearfix">
         <div class="wpneo-dashboard-head-left">
-            <span><?php _e( "Summary" , "wp-crowdfunding" );?></span>
+            <span><?php _e( "Summary" , "wp-crowdfunding" ); ?></span>
             <ul>
                 <li class="<?php echo ($date_range === 'last_7_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_7_days'),get_permalink()); ?>"><?php echo __('1W','wp-crowdfunding'); ?></a></li>
                 <li class="<?php echo ($date_range === 'last_14_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>"><?php echo __('2W','wp-crowdfunding'); ?></a></li>
@@ -207,7 +206,7 @@ $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
                 <input type="hidden" name="page" value="wpcrowd-crowdfunding-reports" />
                 <input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($from_date)); ?>" placeholder="From" />
                 <span><?php _e( "to" , "wp-crowdfunding" ); ?></span>
-                <input type="text" name="date_range_to" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($to_date)); ?>" placeholder="To" />
+                <input type="text" name="date_range_to" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($given_to_date)); ?>" placeholder="To" />
                 <button type="submit" class="wp-crowd-btn wp-crowd-btn-primary" id="search-submit"><?php _e('Search', 'wp-crowdfunding') ?></button>
             </form>
         </div><!--dashboard-head-right-->
