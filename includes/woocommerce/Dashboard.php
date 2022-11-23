@@ -263,12 +263,10 @@ class Dashboard{
             $html .= '<div><span>'.__("Order Status","wp-crowdfunding").':</span> '.wc_get_order_status_name($order->get_status()).'</div>';
             
             $html .= '<table>';
-            $html .= '<thead>';
             $html .= '<tr>';
             $html .= '<th>'.__( "Product", "woocommerce" ).'</th>';
             $html .= '<th>'.__( "Total", "woocommerce" ).'</th>';
             $html .= '</tr>';
-            $html .= '</thead>';
             $html .= '<tbody>';
     
             foreach ( $order->get_items() as $item_id => $item ) {
