@@ -2153,11 +2153,11 @@ p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-rece
     border: 1px solid #f5f5f5;
 }
 
-table, th, td {
+.wpneo-modal-content-inner table, .wpneo-modal-content-inner th, .wpneo-modal-content-inner td {
     border: 1px solid #999;
 }
 
-table {
+.wpneo-modal-content-inner table {
 border-collapse: separate;
 border-spacing: 0;
 border-width: 1px 0 0 1px;
@@ -2165,11 +2165,17 @@ margin: 0 0 1.5em;
 width: 100%;
 }
 
-th {
+.wpneo-modal-content-inner th {
 font-weight: bold;
 }
 
-th, td {
+.wpneo-modal-content-inner th, .wpneo-modal-content-inner td {
 padding: 8px;
 border-width: 0 1px 1px 0;
+}
+.reward_table_dashboard a{
+    padding: 0px;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: transparent;
 }

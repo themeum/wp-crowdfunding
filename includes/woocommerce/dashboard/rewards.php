@@ -90,7 +90,7 @@ $rewards_query = new WP_Query($args);
 										</div>
 									</td>
 									<td>
-										<a href="javascript:;" class="button"><?php _e('View Details', 'wp-crowdfunding'); ?></a>
+										<a href="javascript:;"><?php _e('View Details', 'wp-crowdfunding'); ?></a>
 									</td>
 								</tr> <?php
 							}
