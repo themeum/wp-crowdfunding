@@ -10,8 +10,3 @@ yarn.lock
 .sass-cache
 .prettierignore
 *.zip
-assets/js/blocks.min.js
-assets/js/blocks.min.js.map
-assets/js/crowdfunding-front.min.js
-assets/js/crowdfunding.min.js
-assets/js/mce-button.min.js

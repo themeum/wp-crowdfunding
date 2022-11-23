@@ -513,6 +513,9 @@
     width: 33.333%;
     padding: 0px 5px;
 }
+.woocommerce #content div.product div.thumbnails a, .woocommerce div.product div.thumbnails a, .woocommerce-page #content div.product div.thumbnails a, .woocommerce-page div.product div.thumbnails a{
+    width: 100% !important;
+}
 .wpneo-dashboard-summary {
     margin-top: 22px;
     margin-bottom: 15px;
