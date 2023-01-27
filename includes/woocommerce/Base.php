@@ -110,7 +110,6 @@ class Base {
     public function admin_script(){
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL .'assets/css/crowdfunding.css', false, WPCF_VERSION );
-        wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL .'assets/css/crowdfunding.css', false, WPCF_VERSION );
         wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
     }
 
