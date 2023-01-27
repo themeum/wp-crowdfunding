@@ -139,6 +139,36 @@ Fix: Withdrawal Message Shortcode was not working on the Email Body
 Fix: In Pledges Received Modal, the Invoice Preview design was broken
 Fix: On the Reward section under the My Account page the "View Details" button design was appearing wrong
 
+2.1.2
+Fix: Campaign update email was not being sent.
+Fix: The Redirect URL was not getting updated.
+Fix: Campaign Form input field design issue is fixed.
+Fix: The height of the “Country” and “District” fields is fixed in the Checkout Page.
+Fix: Design issue for the button in the Withdrawal page of the Admin Panel.
+Fix: The withdraw button design was missing in the “Withdraw Info” Modal.
+Fix: The checkout page was showing alert messages without any design.
+Fix: On the “My Campaigns” page, the campaign title design was broken.
+Fix: Media file upload was not working sometimes in the Campaign Form.
+Fix: The Withdrawer’s full name was missing on the withdrawal request page.
+Fix: The Pledges Details Modal’s design was broken in the front-site.
+Fix: Campaign Update Message for Campaign Creator is Fixed.
+Fix: Date Picker is fixed in the Campaign Update page.
+
+2.1.1
+Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard
+Fix: The Order Confirmation Email Does Not Show the Selected Reward
+Fix: Payment Info Section Removed from CF Dashboard
+Fix: Checkout Button Text Changed from “Pay Now” to Back Campaign Now
+Fix: All Automated Order Emails for WP Crowdfunding has been Modified Textually
+
+2.1.0
+New: Added Gallery Image Uploader in the Campaign Form
+New: Added Number of Campaigns Per Page Option in CF Settings
+Fix: Translation Issue on Campaign Countdown Text
+Fix: Social Share Button Not Working in Single Campaign Page
+Fix: Changed the Name to be the Username in CF Dashboard Profile Section
+Fix: Older Donation Does Not Show in the List
+
 = 2.0.9 =
 Fix: Translation issues
 Fix: Reward remains enabled on the frontend cf-campaign-form even after disabling it
