@@ -129,6 +129,16 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
+= 2.1.3 =
+Update: The User Experience of Social Share Settings is improved
+Update: The License Mechanism is improved
+Fix: On the Dashboard, the Graph was not showing result of the last day when searched between a date range
+Fix: On the Single Campaign page Gallery Images were not appearing on Image Preview Modal Box
+Fix: Wrong icon was Appearing on the Single Campaign page
+Fix: Withdrawal Message Shortcode was not working on the Email Body
+Fix: In Pledges Received Modal, the Invoice Preview design was broken
+Fix: On the Reward section under the My Account page the "View Details" button design was appearing wrong
+
 = 2.0.9 =
 Fix: Translation issues
 Fix: Reward remains enabled on the frontend cf-campaign-form even after disabling it
