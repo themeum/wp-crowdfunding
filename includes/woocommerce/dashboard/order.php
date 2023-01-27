@@ -78,7 +78,6 @@ if ( $customer_orders ) :
         endforeach;
         $html .='</tr>';
         $html .='</thead>';
-
         $html .='<tbody>';
         foreach ( $customer_orders as $customer_order ) :
             $order      = wc_get_order( $customer_order );
@@ -106,7 +105,6 @@ if ( $customer_orders ) :
 
                 elseif ( 'order-total' === $column_id ) :
                     $html .= sprintf( _n( '%s for %s item', '%s for %s items', $item_count, 'wp-crowdfunding' ), $order->get_formatted_order_total(), $item_count );
-
 
                 elseif ( 'order-rewards' === $column_id ) :
                     /**

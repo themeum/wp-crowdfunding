@@ -66,9 +66,3 @@ class Campaign_Box {
     }
 
 }
-
-
-
-
-
-

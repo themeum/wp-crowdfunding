@@ -64,7 +64,6 @@ if (is_array($campaign_rewards_a)) {
 					}
 					?>
 
-
                     <!-- Campaign Valid -->
 					<?php if (wpcf_function()->is_campaign_valid()) { ?>
 						<?php if (wpcf_function()->is_campaign_started()) {

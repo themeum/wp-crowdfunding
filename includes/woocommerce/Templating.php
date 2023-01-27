@@ -49,13 +49,11 @@ class Templating {
 
     public $_vendor;
 
-
     /**
      * @var
      * Get vendor path in plugin directory
      */
     public $_vendor_path;
-
 
     protected static $_instance;
 
@@ -331,7 +329,6 @@ class Templating {
             wp_enqueue_style('wpcf_style', $this->_selected_theme_uri.'style.css',array(), WPCF_VERSION);
         }
     }
-
 
     /**
      * Template Redirect

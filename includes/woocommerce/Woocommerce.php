@@ -57,7 +57,6 @@ class Woocommerce {
         $this->filter_product_in_shop_page();
     }
 
-
     /**
      * Filter product in shop page
      * @since v.1.4.9
@@ -215,7 +214,6 @@ class Woocommerce {
         }
     }
 
-
     function add_meta_info(){
         echo '<div class="options_group show_if_neo_crowdfunding_options">';
 
@@ -309,7 +307,6 @@ class Woocommerce {
                 )
         );
 
-
         $options = array();
         if (get_option('wpneo_show_target_goal') == 'true'){
             $options['target_goal'] = __( 'Target Goal','wp-crowdfunding' );
@@ -335,7 +332,6 @@ class Woocommerce {
             )
         );
     
-
         //Show contributor table
         woocommerce_wp_checkbox(
             array(
@@ -388,11 +384,9 @@ class Woocommerce {
         echo '</div>';
     }
 
-
     public function add_campaign_update(){
         add_meta_box( 'campaign-update-status-meta', __( 'Campaign Update Status', 'wp-crowdfunding' ), array($this, 'campaign_status_metabox'), 'product', 'normal' );
     }
-
 
     public function campaign_status_metabox() {
         global $post;
@@ -524,7 +518,6 @@ class Woocommerce {
         }
     }
 
-
     /**
      * @param $post_id
      * Saving meta information over this method
@@ -580,7 +573,6 @@ class Woocommerce {
         wpcf_function()->update_meta($post_id, 'wpneo_country', $country);
     }
 
-
     /**
      * donate_input_field();
      */
@@ -614,7 +606,6 @@ class Woocommerce {
         }
         echo $html;
     }
-
 
     /**
      * Remove Crowdfunding item form cart
@@ -762,7 +753,6 @@ class Woocommerce {
         return $price;
     }
 
-
     /**
      * @param $purchasable
      * @param $product
@@ -777,7 +767,6 @@ class Woocommerce {
         }
         return $purchasable;
     }
-
 
     /**
      * @return mixed
@@ -864,7 +853,6 @@ class Woocommerce {
         }
     }
 
-
     public function is_tax_enable_for_crowdfunding_product($bool){
         if( ! $bool){
             return false;
@@ -875,7 +863,6 @@ class Woocommerce {
         if ($bool && $is_enabled){
             return true;
         }
-
 
         $is_crowdfunding_in_cart = false;
         if ( ! empty(wc()->cart->cart_contents)){
@@ -893,8 +880,6 @@ class Woocommerce {
 
         return $bool;
     }
-
-
 
     public function add_checked_crowdfunding_categories( $taxonomy){
         ?>
@@ -962,7 +947,6 @@ class Woocommerce {
         $columns['crowdfunding_col'] = __('Crowdfunding', 'wp-crowdfunding');
         return $columns;
     }
-
 
     function filter_description_col_product_taxomony($content, $column_name, $term_id ) {
         switch ($column_name) {
@@ -1161,6 +1145,4 @@ class Woocommerce {
             WC()->cart->empty_cart();
         }
     }
-
-
 } //End class bracket

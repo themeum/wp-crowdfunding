@@ -63,7 +63,6 @@ class Dashboard {
                     ),
                 ));
                 
-
                 /**
                  * Print menu with active link marking...
                  */
@@ -107,7 +106,6 @@ class Dashboard {
 
                     $html .= '</div>';
                 $html .= '</div>';
-
 
                 $var = '';
                 if( isset($_GET['page_type']) ){

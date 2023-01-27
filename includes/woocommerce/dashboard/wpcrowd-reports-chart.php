@@ -153,7 +153,6 @@ AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'w
     }
 }
 
-
 /**
  * Get Total Campaigns
  */
@@ -261,6 +260,4 @@ $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
             }
         })
     });
-
-
 </script>

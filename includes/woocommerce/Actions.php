@@ -36,8 +36,6 @@ class Actions {
         add_action( 'wp_ajax_wpneo_update_status_save',  array($this, 'update_status_save'));
     }
 
-
-
     // General Form Action for Dashboard
     public function dashboard_form_save() {
         if ( ! isset( $_POST['wpneo_crowdfunding_dashboard_nonce_field'] ) || ! wp_verify_nonce( $_POST['wpneo_crowdfunding_dashboard_nonce_field'], 'wpneo_crowdfunding_dashboard_form_action' )) {

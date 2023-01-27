@@ -77,7 +77,7 @@ if ( $the_query->have_posts() ) :
                                 <span class="wpneo-meta-name"><?php _e('Goal', 'wp-crowdfunding'); ?></span>
                                 <?php echo wc_price( $funding_goal ); ?>
                             </span>   
-
+                            
                         </div><!--wpcrowd-admin-meta-info -->
                     </div><!-- wpcrowd-admin-metadata -->
             </div><!-- wpneo-listing-content -->

@@ -9,7 +9,6 @@ if (count($pages)>0) {
 }
 $pages = $page_array;
 
-
 // #WooCommerce Settings (Tab Settings)
 $arr =  array(
     // #Listing Page Seperator

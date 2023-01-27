@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
  * This if for campaign owner, at a glance all reward lists selected by backer.
  */
 
-
 $user_id = get_current_user_id();
 
 $args = array(

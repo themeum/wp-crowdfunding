@@ -84,7 +84,6 @@ class Dashboard{
                         'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
                     ),
                 ));
-                
 
                 /**
                  * Print menu with active link marking...
@@ -131,7 +130,6 @@ class Dashboard{
 
                     $html .= '</div>';
                 $html .= '</div>';
-
 
                 $var = '';
                 if( isset($_GET['page_type']) ){

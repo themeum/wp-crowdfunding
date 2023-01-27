@@ -157,7 +157,6 @@ function wpcf_get_dashboard_info( $object ) {
                     'load_form_file' => WPCF_DIR_PATH.'includes/woocommerce/dashboard/rewards.php'
                 ),
             ));
-            
 
             /**
              * Print menu with active link marking...
@@ -202,7 +201,6 @@ function wpcf_get_dashboard_info( $object ) {
 
                 $html .= '</div>';
             $html .= '</div>';
-
 
             $var = '';
             if( isset($_GET['page_type']) ){
@@ -340,7 +338,6 @@ function wpcf_get_submit_form_campaign() {
             return $html;
         }
     }
-
 
     $html .= '<form type="post" action="" id="wpneofrontenddata">';
 
@@ -481,7 +478,6 @@ function wpcf_get_submit_form_campaign() {
         $html .= '</div>';
         }
 
-
         //Start Date
         $_start_date = get_option('wpcf_show_start_date');
         $_end_date = get_option('wpcf_show_end_date');
@@ -495,7 +491,6 @@ function wpcf_get_submit_form_campaign() {
         $html .= '</div>';
         }
 
-
         //End Date
         if( $_end_date == 'true' ){
         $html .= '<div class="wpneo-single wpneo-second-half">';
@@ -506,7 +501,6 @@ function wpcf_get_submit_form_campaign() {
         $html .= '</div>';
         $html .= '</div>';
         }
-
 
         //Minimum Amount
         $_min_price = get_option('wpneo_show_min_price');
@@ -521,7 +515,6 @@ function wpcf_get_submit_form_campaign() {
             $html .= '</div>';
         }
 
-
         //Maximum Amount
         if ($_max_price == 'true') {
             $html .= '<div class="wpneo-single wpneo-second-half">';
@@ -532,7 +525,6 @@ function wpcf_get_submit_form_campaign() {
             $html .= '</div>';
             $html .= '</div>';
         }
-
 
         //Funding Goal
         if( get_option('wpcf_show_funding_goal') == 'true' ){
@@ -618,7 +610,6 @@ function wpcf_get_submit_form_campaign() {
         $html .= '</div>';
         }
 
-
         //Location
         if( get_option('wpcf_show_location') == 'true' ){
         $html .= '<div class="wpneo-single">';
@@ -629,7 +620,6 @@ function wpcf_get_submit_form_campaign() {
         $html .= '</div>';
         $html .= '</div>';
         }
-
         
         // Clone Field
         //$reward = stripslashes($reward);
@@ -787,7 +777,6 @@ function wpcf_get_submit_form_campaign() {
             $html .= '</div>';
             $html .= '</div>';
             }
-
 
             // Estimated Delivery Month
             $_delivery_month = get_option('wpcf_show_estimated_delivery_month');

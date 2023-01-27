@@ -2,7 +2,6 @@
 defined( 'ABSPATH' ) || exit;
 $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
 ?>
-
 <div class="campaign-funding-info">
     <ul>
         <li>

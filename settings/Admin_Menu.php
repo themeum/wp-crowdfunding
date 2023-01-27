@@ -11,7 +11,6 @@ class Admin_Menu {
         add_action('admin_init',   array($this, 'save_menu_settings' ));
     }
 
-
     /**
      * Crowdfunding Custom Styling Option
      */
@@ -135,8 +134,6 @@ class Admin_Menu {
         }
     }
     
-    
-
     /**
      * Crowdfunding Menu Option Page
      */
@@ -177,7 +174,6 @@ class Admin_Menu {
     public function wpcf_manage_addons() {
         include WPCF_DIR_PATH.'settings/view/Addons.php';
     }
-
 
     /**
      * Display a custom menu page
@@ -249,7 +245,6 @@ class Admin_Menu {
         </form>
         <?php
     }
-
 
     /**
      * Add menu settings action
@@ -422,22 +417,14 @@ class Admin_Menu {
                     update_option('wpcf_user_reg_success_redirect_uri', $wpcf_user_reg_success_redirect_uri);
                 }
 
-
                 // Listing Page Settings
                 if ( $current_tab == 'tab_listing_page' ){
                     $columns  = intval(wpcf_function()->post('number_of_collumn_in_row'));
                     wpcf_function()->update_text('number_of_collumn_in_row', $columns );
-
                     $description_limits = intval(wpcf_function()->post('number_of_words_show_in_listing_description'));
                     wpcf_function()->update_text('number_of_words_show_in_listing_description', $description_limits );
-                    
-
                     $product_limits = intval(wpcf_function()->post('wpcf_listing_post_number'));
                     wpcf_function()->update_text('wpcf_listing_post_number', $product_limits );
-
-
-
-
                     $show_rating = sanitize_text_field(wpcf_function()->post('wpneo_show_rating'));
                     wpcf_function()->update_checkbox('wpneo_show_rating', $show_rating);
                 }
@@ -447,11 +434,9 @@ class Admin_Menu {
                 if ( $current_tab == 'tab_single_page' ){
                     $reward_design = intval(wpcf_function()->post('wpneo_single_page_reward_design'));
                     wpcf_function()->update_text('wpneo_single_page_reward_design', $reward_design);
-
                     $fixed_price = sanitize_text_field(wpcf_function()->post('wpneo_reward_fixed_price'));
                     wpcf_function()->update_checkbox('wpneo_reward_fixed_price', $fixed_price);
                 }
-
 
                 // WooCommerce Settings
                 if ( $current_tab == 'tab_woocommerce' ){
@@ -500,7 +485,6 @@ class Admin_Menu {
                     # Product number.
                     $wpcf_listing_post_number = intval(wpcf_function()->post('wpcf_listing_post_number'));
                     wpcf_function()->update_text('wpcf_listing_post_number', $wpcf_listing_post_number);
-
 
                     $show_rating = sanitize_text_field(wpcf_function()->post('wpneo_show_rating'));
                     wpcf_function()->update_checkbox('wpneo_show_rating', $show_rating);

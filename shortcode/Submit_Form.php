@@ -3,7 +3,6 @@ namespace WPCF\shortcode;
 
 defined( 'ABSPATH' ) || exit;
 
-
 class Campaign_Submit_Form {
     public function __construct() {
         add_shortcode( 'wpcf_form', array( $this, 'campaign_form_callback' ) );        
@@ -103,7 +102,6 @@ class Campaign_Submit_Form {
                 return $html;
             }
         }
-
 
         $html .= '<form type="post" action="" id="wpneofrontenddata">';
 

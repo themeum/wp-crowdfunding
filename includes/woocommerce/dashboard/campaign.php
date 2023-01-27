@@ -25,7 +25,6 @@ $the_query = new WP_Query( $args );
 <div class="wpneo-content">
 <div class="wpneo-form campaign-listing-page">
 
-
 <?php if ( $the_query->have_posts() ) : global $post; $i = 1;
     while ( $the_query->have_posts() ) : $the_query->the_post();
         ob_start();

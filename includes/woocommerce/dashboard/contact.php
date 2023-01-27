@@ -27,13 +27,9 @@ $b_email        = get_user_meta( $id,'billing_email',true );
 ob_start();
 ?>
 
-
 <div class="wpneo-content">
-
     <form id="wpneo-dashboard-form" action="" method="" class="wpneo-form">
-
         <div class="wpneo-row">
-
             <div class="wpneo-col6">
                 <div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
                     <h4><?php _e("Shipping Address","wp-crowdfunding"); ?></h4>
@@ -159,7 +155,6 @@ ob_start();
                         </div>
                     </div>
 
-
                     <!-- // Last Name ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
@@ -169,7 +164,6 @@ ob_start();
                             <input type="text" name="billing_last_name" value="<?php echo $b_l_name; ?>" disabled>
                         </div>
                     </div>
-
 
                     <!-- // Company ( Billing ) -->
                     <div class="wpneo-single">
@@ -181,7 +175,6 @@ ob_start();
                         </div>
                     </div>
 
-
                     <!-- // Address 1 ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
@@ -191,7 +184,6 @@ ob_start();
                             <input type="text" name="billing_address_1" value="<?php echo $b_address1; ?>" disabled>
                         </div>
                     </div>
-
 
                     <!-- // Address 2 ( Billing ) -->
                     <div class="wpneo-single">
@@ -203,7 +195,6 @@ ob_start();
                         </div>
                     </div>
 
-
                     <!-- // City ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
@@ -214,7 +205,6 @@ ob_start();
                         </div>
                     </div>
 
-
                     <!-- // Postcode ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
@@ -224,7 +214,6 @@ ob_start();
                             <input type="text" name="billing_postcode" value="<?php echo $b_postcode; ?>" disabled>
                         </div>
                     </div>
-
 
                     <!-- // Country ( Billing ) -->
                     <div class="wpneo-single">
@@ -248,7 +237,6 @@ ob_start();
                         </div>
                     </div>
 
-
                     <!-- // State ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
@@ -259,7 +247,6 @@ ob_start();
                         </div>
                     </div>
 
-
                     <!-- // Telephone ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
@@ -269,7 +256,6 @@ ob_start();
                             <input type="text" name="billing_phone" value="<?php echo $b_phone; ?>" disabled>
                         </div>
                     </div>
-
 
                     <!-- // Email ( Billing ) -->
                     <div class="wpneo-single">

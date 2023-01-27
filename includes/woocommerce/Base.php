@@ -93,7 +93,6 @@ class Base {
         echo $html;
     }
 
-
     // Hooks your functions into the correct filters
     function add_mce_button() {
         // check user permissions
@@ -130,12 +129,6 @@ class Base {
         wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
         wp_enqueue_media();
     }
-
-
-
-
-
-
 
     // Declare script for new button
     function add_tinymce_js( $plugin_array ) {
@@ -181,8 +174,6 @@ class Base {
     function admin_footer_text_rated(){
         update_option('wpcf_admin_footer_text_rated', 'true');
     }
-
-
 
     /**
      * Reset method
