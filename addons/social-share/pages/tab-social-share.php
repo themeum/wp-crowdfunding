@@ -6,7 +6,7 @@ $arr =  array(
             // #Listing Page Seperator
             array(
                 'type'      => 'seperator',
-                'label'     => __('Social Share Settings','wp-crowdfunding'),
+                'label'     => __('Enable Social Share','wp-crowdfunding'),
                 'desc'      => __(''),
                 'top_line'  => 'true',
                 ),
@@ -17,7 +17,7 @@ $arr =  array(
                 'type'      => 'checkbox',
                 'value'     => 'true',
                 'label'     => __('Embed Option','wp-crowdfunding'),
-                'desc'      => __('Embed Option in Single Campaign.','wp-crowdfunding'),
+                'desc'      => __('Enable Embed Option in Single Campaign.','wp-crowdfunding'),
             ),
 
             // #Enable Embed Option
@@ -26,7 +26,7 @@ $arr =  array(
                 'type'      => 'checkbox',
                 'value'     => 'true',
                 'label'     => __('Social Share','wp-crowdfunding'),
-                'desc'      => __('Enable Social Share in Single Campaign.','wp-crowdfunding'),
+                'desc'      => __('Enable Social Share on Single Campaign page.','wp-crowdfunding'),
             ),
 
             // Social Share
@@ -49,7 +49,7 @@ $arr =  array(
                                     'wordpress' => __( 'WordPress', 'wp-crowdfunding' ),
                                     'whatsapp' => __( 'Whatsapp', 'wp-crowdfunding' ),
                                 ),
-                'label'     => __('Multiple Checkbox','wp-crowdfunding'),
+                'label'     => __('Social Share Options.','wp-crowdfunding'),
             ),
 
             // #Save Function
