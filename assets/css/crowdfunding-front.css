@@ -1098,6 +1098,13 @@ input[type="button"].removeCampaignRewards:hover {
     margin-top: 10px !important;
     margin-right: 10px !important;
 }
+.wpcf-print-button.button.wpneo-edit-btn {
+    cursor: pointer;
+    padding-right: 35px;
+    padding-left: 35px;
+    font-weight: 400;
+    font-size: 18px;
+}
 
 @media print {
     #wpneo_crowdfunding_modal_message {

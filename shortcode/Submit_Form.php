@@ -204,7 +204,7 @@ class Campaign_Submit_Form {
             $html .= '<div class="wpneo-single">';
             $html .= '<div class="wpneo-name">'.__( "Gallery Images" , "wp-crowdfunding" ).'</div>';
             $html .= '<div class="wpneo-fields">';
-            $html .= '<input type="text" readonly="readonly" class="gallery-image-id-show" value="' . $gallery_image_ids . '">';
+            $html .= '<input type="text" class="gallery-image-id-show" value="' . $gallery_image_ids . '">';
             $html .= '<input type="hidden" name="gallery-image-ids" class="gallery-image-ids" value="' . $gallery_image_ids . '">';
             $html .= '<input type="button" id="gallery-image-ids" class="wpneo-upload-image-gallery float-right" value="'.__("Upload Gallery","wp-crowdfunding").'" data-url="'. get_site_url().'" />';
             $html .= '<small>' . __( "Upload campaign gallery images. Use <code>SHIFT</code> key to select multiple images.", "wp-crowdfunding" ) . '</small>';
