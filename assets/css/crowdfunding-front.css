@@ -513,6 +513,9 @@
     width: 33.333%;
     padding: 0px 5px;
 }
+.woocommerce #content div.product div.thumbnails a, .woocommerce div.product div.thumbnails a, .woocommerce-page #content div.product div.thumbnails a, .woocommerce-page div.product div.thumbnails a{
+    width: 100% !important;
+}
 .wpneo-dashboard-summary {
     margin-top: 22px;
     margin-bottom: 15px;
@@ -1094,6 +1097,13 @@ input[type="button"].removeCampaignRewards:hover {
     float: right;
     margin-top: 10px !important;
     margin-right: 10px !important;
+}
+.wpcf-print-button.button.wpneo-edit-btn {
+    cursor: pointer;
+    padding-right: 35px;
+    padding-left: 35px;
+    font-weight: 400;
+    font-size: 18px;
 }
 
 @media print {
@@ -2148,4 +2158,31 @@ p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-rece
     padding: 8px 15px;
     color: #686c8b;
     border: 1px solid #f5f5f5;
+}
+
+.wpneo-modal-content-inner table, .wpneo-modal-content-inner th, .wpneo-modal-content-inner td {
+    border: 1px solid #999;
+}
+
+.wpneo-modal-content-inner table {
+border-collapse: separate;
+border-spacing: 0;
+border-width: 1px 0 0 1px;
+margin: 0 0 1.5em;
+width: 100%;
+}
+
+.wpneo-modal-content-inner th {
+font-weight: bold;
+}
+
+.wpneo-modal-content-inner th, .wpneo-modal-content-inner td {
+padding: 8px;
+border-width: 0 1px 1px 0;
+}
+.reward_table_dashboard a{
+    padding: 0px;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: transparent;
 }

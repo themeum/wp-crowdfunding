@@ -84,7 +84,6 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
     $html .= '</div>';
 $html .='</div>'; //update_form_wrapper
 
-
 $html .= '<div id="wpneo_update_display_wrapper">';
     if (count($saved_campaign_update_a) > 0){
         $html .= '<div class="wpneo-form">';

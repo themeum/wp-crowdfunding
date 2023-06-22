@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
  * This if for campaign owner, at a glance all reward lists selected by backer.
  */
 
-
 $user_id = get_current_user_id();
 
 $args = array(
@@ -90,7 +89,7 @@ $rewards_query = new WP_Query($args);
 										</div>
 									</td>
 									<td>
-										<a href="javascript:;" class="button"><?php _e('View Details', 'wp-crowdfunding'); ?></a>
+										<a href="javascript:;"><?php _e('View Details', 'wp-crowdfunding'); ?></a>
 									</td>
 								</tr> <?php
 							}

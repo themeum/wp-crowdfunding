@@ -25,6 +25,7 @@ class Campaign_Box {
             'post_status'         => 'publish',
             'ignore_sticky_posts' => 1,
             'no_found_rows'       => 1,
+            
         );
 
         if ( isset( $atts['campaign_id'] ) ) {
@@ -66,9 +67,3 @@ class Campaign_Box {
     }
 
 }
-
-
-
-
-
-

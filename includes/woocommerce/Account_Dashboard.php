@@ -17,7 +17,6 @@ class Account_Dashboard {
         add_action( 'woocommerce_account_bookmarks_endpoint',               array( $this, 'bookmarks_callback') );
     }
 
-
     // Rewrite Rules For Woocommerce My Account Page
     public function endpoints() {
         add_rewrite_endpoint( 'crowdfunding-dashboard', EP_ROOT | EP_PAGES );
@@ -52,7 +51,6 @@ class Account_Dashboard {
         $items = array_merge( $new_items,$items );
         return $items;
     }
-
 
     // Crowdfunding Dashboard
     public function dashboard_callback() {

@@ -97,6 +97,4 @@ global $wp_query;
             </div> <!-- .row -->
         </div> <!-- .container -->
     </section>
-
-
 <?php get_footer();

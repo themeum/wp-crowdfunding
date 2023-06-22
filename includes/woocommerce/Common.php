@@ -82,8 +82,6 @@ class Common {
         }
     }
 
-
-
     /**
      *   Add the 'photos' query variable so Wordpress
      *   won't mangle it.

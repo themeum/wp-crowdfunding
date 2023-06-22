@@ -205,7 +205,6 @@ if (! class_exists('Initial_Setup')) {
             }
         }
 
-
         /**
          * Reset method, the ajax will call that method for Reset Settings
          */
@@ -219,7 +218,6 @@ if (! class_exists('Initial_Setup')) {
         public function initial_plugin_deactivation(){
 
         }
-
 
         public function activation_css() {
             ?>

@@ -5,7 +5,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Submit_Form {
     
-
     public function __construct() {
         add_action( 'wp_ajax_addfrontenddata', array($this, 'frontend_data_save')); // Save data for frontend campaign submit form
     }

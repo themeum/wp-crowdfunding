@@ -14,7 +14,6 @@ class Functions {
         $generator->generator($arr);
     }
 
-
     public function post($post_item) {
         if (!empty($_POST[$post_item])) {
             return $_POST[$post_item];
@@ -31,7 +30,6 @@ class Functions {
         return $status == 'publish' ? true : false;
     }
 
-
     public function is_free() {
         if (is_plugin_active('wp-crowdfunding-pro/wp-crowdfunding-pro.php')) {
             return false;
@@ -40,13 +38,11 @@ class Functions {
         }
     }
 
-
     public function update_text($option_name = '', $option_value = null) {
         if (!empty($option_value)) {
             update_option($option_name, $option_value);
         }
     }
-
 
     public function update_checkbox($option_name = '', $option_value = null, $checked_default_value = 'false') {
         if (!empty($option_value)) {
@@ -55,7 +51,6 @@ class Functions {
             update_option($option_name, $checked_default_value);
         }
     }
-
 
     public function update_meta($post_id, $meta_name = '', $meta_value = '', $checked_default_value = '') {
         if (!empty($meta_value)) {
@@ -80,7 +75,6 @@ class Functions {
         return $pages;
     }
 
-
     public function wc_version($version = '3.0') {
         if (class_exists('WooCommerce')) {
             if (version_compare(WC()->version, $version, ">=")) {
@@ -89,7 +83,6 @@ class Functions {
         }
         return false;
     }
-
 
     public function is_woocommerce() {
         $vendor = get_option('vendor_type', 'woocommerce');
@@ -100,7 +93,6 @@ class Functions {
         }
     }
 
-
     public function get_screen_id() {
         $screen_ids = array(
             'toplevel_page_wpneo-crowdfunding',
@@ -109,7 +101,6 @@ class Functions {
         );
         return apply_filters('wpcf_screen_id', $screen_ids);
     }
-
 
     public function get_addon_config($addon_field = null) {
         if (!$addon_field) {
@@ -121,7 +112,6 @@ class Functions {
         }
         return false;
     }
-
 
     public function avalue_dot($key = null, $array = array()) {
         $array = (array) $array;
@@ -159,7 +149,6 @@ class Functions {
 
         return $results;
     }
-
 
     public function get_pladge_received($from_date = null, $to_date = null) {
         if (!$from_date) {
@@ -232,7 +221,6 @@ class Functions {
         return $customer_orders;
     }
 
-
     public function get_order_ids_by_product_ids($product_ids, $order_status = array('wc-completed')) {
         global $wpdb;
         $results = $wpdb->get_col("
@@ -269,7 +257,6 @@ class Functions {
         return $author_name;
     }
 
-
     public function author_name_by_login($author_login) {
         $author = get_user_by('login', $author_login);
         $author_name = $author->first_name . ' ' . $author->last_name;
@@ -278,7 +265,6 @@ class Functions {
         }
         return $author_name;
     }
-
 
     public function campaign_location() {
         global $post;
@@ -296,7 +282,6 @@ class Functions {
         return $location;
     }
 
-
     public function template($template = '404') {
         $template_class = new \WPCF\woocommerce\Templating;
         $locate_file = $template_class->_theme_in_themes_path . $template . '.php';
@@ -306,7 +291,6 @@ class Functions {
             include $template_class->_theme_in_plugin_path . $template . '.php';
         }
     }
-
 
     public function fund_raised($campaign_id = 0) {
         global $wpdb, $post;
@@ -337,7 +321,6 @@ class Functions {
 
         return $wp_sql->total_sales_amount;
     }
-
 
     public function campaign_loved($echo = true) {
         global $post;
@@ -421,7 +404,6 @@ class Functions {
         return 0;
     }
 
-
     public function author_campaigns($author_id = 0) {
         if (!$author_id) {
             $author_id = get_current_user_id();
@@ -443,7 +425,6 @@ class Functions {
 
         return $the_query;
     }
-
 
     public function url($url) {
         if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
@@ -503,7 +484,6 @@ class Functions {
         }
     }
 
-
     public function total_goal($campaign_id) {
         return $funding_goal = get_post_meta($campaign_id, '_nf_funding_goal', true);
     }
@@ -515,7 +495,6 @@ class Functions {
     public function get_total($context = 'view') {
         return $this->get_prop('total', $context);
     }
-
 
     public function user_meta($url) {
         $shipping_first_name     = ($_POST['shipping_first_name']) ? sanitize_text_field($_POST['shipping_first_name']) : "";

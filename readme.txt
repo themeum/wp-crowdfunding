@@ -2,9 +2,9 @@
 Contributors: themeum
 Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online sell, e-commerce, paypal, shop, indiegogo, invest, fund collecting, crowd, marketplace, crowd funding, crowdfund, charity, donate, fundraising plugin, paypal donation, stripe donation, wordpress crowdfunding plugin, adaptive payment, split payment, paypal adaptive, stripe split, stripe connect
 Donate Link: https://www.themeum.com/
-Requires at least: 4.5
-Tested up to: 5.8
-Stable tag: 2.1.2
+Requires at least: 5.9
+Tested up to: 6.1
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,7 @@ Here are the most notable features of WP Crowdfunding plugin. If you need any fu
   * Stripe Connect
   * 1 Year plugin update
   * 1 Year Support
+  * Plugin package includes an exclusive dedicated theme
   * Many more feature coming soon
 
 
@@ -128,8 +129,17 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 
-= 2.1.2 =
+= 2.1.3 =
+Update: The User Experience of Social Share Settings is improved
+Update: The License Mechanism is improved
+Fix: On the Dashboard, the Graph was not showing result of the last day when searched between a date range
+Fix: On the Single Campaign page Gallery Images were not appearing on Image Preview Modal Box
+Fix: Wrong icon was Appearing on the Single Campaign page
+Fix: Withdrawal Message Shortcode was not working on the Email Body
+Fix: In Pledges Received Modal, the Invoice Preview design was broken
+Fix: On the Reward section under the My Account page the "View Details" button design was appearing wrong
 
+2.1.2
 Fix: Campaign update email was not being sent.
 Fix: The Redirect URL was not getting updated.
 Fix: Campaign Form input field design issue is fixed.
@@ -144,14 +154,14 @@ Fix: The Pledges Details Modal’s design was broken in the front-site.
 Fix: Campaign Update Message for Campaign Creator is Fixed.
 Fix: Date Picker is fixed in the Campaign Update page.
 
-= 2.1.1 =
+2.1.1
 Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard
 Fix: The Order Confirmation Email Does Not Show the Selected Reward
 Fix: Payment Info Section Removed from CF Dashboard
-Fix: Checkout Button Text Changed from "Pay Now" to Back Campaign Now
+Fix: Checkout Button Text Changed from “Pay Now” to Back Campaign Now
 Fix: All Automated Order Emails for WP Crowdfunding has been Modified Textually
 
-= 2.1.0 =
+2.1.0
 New: Added Gallery Image Uploader in the Campaign Form
 New: Added Number of Campaigns Per Page Option in CF Settings
 Fix: Translation Issue on Campaign Countdown Text

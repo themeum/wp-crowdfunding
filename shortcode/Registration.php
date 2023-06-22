@@ -147,8 +147,6 @@ class Registration {
         return ob_get_clean();
     }
     
-    
-    
     // register a new user
     public function registration_save_action() {
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {

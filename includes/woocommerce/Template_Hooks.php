@@ -28,7 +28,6 @@ class Template_Hooks {
         add_action('wp',                                                array($this, 'woocommerce_single_page' ));
     }
 
-
     public function woocommerce_single_page(){
         if (is_product()){
             global $post;
@@ -43,7 +42,6 @@ class Template_Hooks {
             }
         }
     }
-
 
 	public function search_shortcode_filter($query){
 		if (!empty($_GET['product_type'])) {
@@ -108,7 +106,6 @@ class Template_Hooks {
 		$this->loop_item_fund_raised();
 		$this->loop_item_button();
 	}
-
 
 	public function campaign_location() {
 		wpcf_function()->template('include/location');
@@ -264,6 +261,4 @@ class Template_Hooks {
 		}
 		return $gen;
 	}
-
-
 }

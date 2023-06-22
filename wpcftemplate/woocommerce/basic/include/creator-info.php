@@ -6,7 +6,6 @@ $user_info = get_user_meta($post->post_author);
 $creator = get_user_by('id', $post->post_author);
 
 ?>
-
 <div class="wpneo-campaign-creator-info-wrapper">
     <div class="wpneo-campaign-creator-avatar">
         <?php if ( $post->post_author ) {
