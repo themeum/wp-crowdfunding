@@ -124,6 +124,9 @@ jQuery(document).ready(function($){
 			},
 			success : function(data){
 				window.location.reload(true);
+			},
+			error: function (data){
+				console.log("Something went wrong");
 			}
 		});
 	});

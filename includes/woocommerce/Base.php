@@ -190,10 +190,12 @@ class Base {
 
     public function settings_reset() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            exit;
+            wp_send_json_error();
+            die();
         }
-        if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
-            exit;
+        if ( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
+            wp_send_json_error();
+            die();
         }
 
     	$initial_setup = new \WPCF\Initial_Setup();
