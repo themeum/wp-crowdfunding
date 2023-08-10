@@ -129,7 +129,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 =2.1.5=
-Fix: Security issue
+Fix: Resolved security vulnerability
 New: Introducing compatibility with WordPress 6.3
 
 = 2.1.4 =
