@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-15 10:15+0000\n"
+"POT-Creation-Date: 2023-08-10 06:24+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -214,23 +214,23 @@ msgstr ""
 msgid "Put the campaign video URL here"
 msgstr ""
 
-#: includes/register_api_hook.php:456, shortcode/Submit_Form.php:242, includes/woocommerce/Woocommerce.php:329, settings/tabs/Tab_Fields.php:66, wpcftemplate/woocommerce/basic/include/fund-raised.php:51
+#: includes/register_api_hook.php:456, shortcode/Submit_Form.php:242, includes/woocommerce/Woocommerce.php:332, settings/tabs/Tab_Fields.php:66, wpcftemplate/woocommerce/basic/include/fund-raised.php:51
 msgid "Campaign End Method"
 msgstr ""
 
-#: includes/register_api_hook.php:461, shortcode/Submit_Form.php:247, includes/woocommerce/Woocommerce.php:313, wpcftemplate/woocommerce/basic/include/fund-raised.php:41
+#: includes/register_api_hook.php:461, shortcode/Submit_Form.php:247, includes/woocommerce/Woocommerce.php:316, wpcftemplate/woocommerce/basic/include/fund-raised.php:41
 msgid "Target Goal"
 msgstr ""
 
-#: includes/register_api_hook.php:465, shortcode/Submit_Form.php:251, includes/woocommerce/Woocommerce.php:316, wpcftemplate/woocommerce/basic/include/fund-raised.php:43
+#: includes/register_api_hook.php:465, shortcode/Submit_Form.php:251, includes/woocommerce/Woocommerce.php:319, wpcftemplate/woocommerce/basic/include/fund-raised.php:43
 msgid "Target Date"
 msgstr ""
 
-#: includes/register_api_hook.php:469, shortcode/Submit_Form.php:255, includes/woocommerce/Woocommerce.php:319
+#: includes/register_api_hook.php:469, shortcode/Submit_Form.php:255, includes/woocommerce/Woocommerce.php:322
 msgid "Target Goal & Date"
 msgstr ""
 
-#: includes/register_api_hook.php:473, shortcode/Submit_Form.php:259, includes/woocommerce/Woocommerce.php:322, wpcftemplate/woocommerce/basic/include/fund-raised.php:47
+#: includes/register_api_hook.php:473, shortcode/Submit_Form.php:259, includes/woocommerce/Woocommerce.php:325, wpcftemplate/woocommerce/basic/include/fund-raised.php:47
 msgid "Campaign Never Ends"
 msgstr ""
 
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Maximum campaign funding amount"
 msgstr ""
 
-#: includes/register_api_hook.php:532, shortcode/Submit_Form.php:318, includes/woocommerce/Woocommerce.php:304, settings/tabs/Tab_Fields.php:164, addons/social-share/classes/Init.php:174, includes/woocommerce/dashboard/campaign.php:111, wpcftemplate/woocommerce/basic/include/fund-raised.php:18, wpcftemplate/woocommerce/basic/include/loop/funding_goal.php:9
+#: includes/register_api_hook.php:532, shortcode/Submit_Form.php:318, includes/woocommerce/Woocommerce.php:307, settings/tabs/Tab_Fields.php:164, addons/social-share/classes/Init.php:174, includes/woocommerce/dashboard/campaign.php:111, wpcftemplate/woocommerce/basic/include/fund-raised.php:18, wpcftemplate/woocommerce/basic/include/loop/funding_goal.php:9
 msgid "Funding Goal"
 msgstr ""
 
@@ -286,7 +286,7 @@ msgstr ""
 msgid "Recommended campaign funding amount"
 msgstr ""
 
-#: includes/register_api_hook.php:556, shortcode/Submit_Form.php:342, includes/woocommerce/Woocommerce.php:292
+#: includes/register_api_hook.php:556, shortcode/Submit_Form.php:342, includes/woocommerce/Woocommerce.php:295
 msgid "Predefined Pledge Amount"
 msgstr ""
 
@@ -310,7 +310,7 @@ msgstr ""
 msgid "Make contributors anonymous on the contributor table"
 msgstr ""
 
-#: includes/register_api_hook.php:594, shortcode/Submit_Form.php:377, includes/woocommerce/Woocommerce.php:330, includes/woocommerce/Woocommerce.php:366, includes/woocommerce/Woocommerce.php:367, settings/tabs/Tab_Fields.php:200
+#: includes/register_api_hook.php:594, shortcode/Submit_Form.php:377, includes/woocommerce/Woocommerce.php:333, includes/woocommerce/Woocommerce.php:369, includes/woocommerce/Woocommerce.php:370, settings/tabs/Tab_Fields.php:200
 msgid "Country"
 msgstr ""
 
@@ -322,7 +322,7 @@ msgstr ""
 msgid "Select your country"
 msgstr ""
 
-#: includes/register_api_hook.php:616, shortcode/Submit_Form.php:399, includes/woocommerce/Woocommerce.php:377, includes/woocommerce/Woocommerce.php:378, settings/tabs/Tab_Fields.php:209
+#: includes/register_api_hook.php:616, shortcode/Submit_Form.php:399, includes/woocommerce/Woocommerce.php:380, includes/woocommerce/Woocommerce.php:381, settings/tabs/Tab_Fields.php:209
 msgid "Location"
 msgstr ""
 
@@ -694,11 +694,11 @@ msgstr ""
 msgid "WP Crowdfunding will not work properly if you activate it from network, please deactivate from network and activate again from individual site admin."
 msgstr ""
 
-#: includes/woocommerce/Base.php:165
+#: includes/woocommerce/Base.php:174
 msgid "Thank you for raise funds with <strong>WP Crowdfunding</strong> by %s."
 msgstr ""
 
-#: includes/woocommerce/Base.php:157
+#: includes/woocommerce/Base.php:166
 msgid "If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!"
 msgstr ""
 
@@ -762,7 +762,7 @@ msgstr ""
 msgid "Raised Percent"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:241, includes/woocommerce/Dashboard.php:298, includes/woocommerce/Reward.php:286, includes/woocommerce/Reward.php:306, includes/woocommerce/Woocommerce.php:180
+#: includes/woocommerce/Dashboard.php:241, includes/woocommerce/Dashboard.php:298, includes/woocommerce/Reward.php:286, includes/woocommerce/Reward.php:306, includes/woocommerce/Woocommerce.php:183
 msgid "Selected Reward"
 msgstr ""
 
@@ -854,7 +854,7 @@ msgstr ""
 msgid "+ Add Reward"
 msgstr ""
 
-#: includes/woocommerce/Reward.php:292, includes/woocommerce/Reward.php:311, includes/woocommerce/Woocommerce.php:1083
+#: includes/woocommerce/Reward.php:292, includes/woocommerce/Reward.php:311, includes/woocommerce/Woocommerce.php:1086
 msgid "Amount"
 msgstr ""
 
@@ -934,207 +934,207 @@ msgstr ""
 msgid "Latest Backers"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:151
+#: includes/woocommerce/Woocommerce.php:154
 msgid "Pay Now"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:149
+#: includes/woocommerce/Woocommerce.php:152
 msgid "Back Campaign Now"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:182
+#: includes/woocommerce/Woocommerce.php:185
 msgid "Amount: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:183
+#: includes/woocommerce/Woocommerce.php:186
 msgid "Delivery: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:184
+#: includes/woocommerce/Woocommerce.php:187
 msgid "Reward Details: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:195, includes/woocommerce/Woocommerce.php:947
+#: includes/woocommerce/Woocommerce.php:198, includes/woocommerce/Woocommerce.php:950
 msgid "Crowdfunding"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:225
+#: includes/woocommerce/Woocommerce.php:228
 msgid "Video Url"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:226
+#: includes/woocommerce/Woocommerce.php:229
 msgid "Video url"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:227
+#: includes/woocommerce/Woocommerce.php:230
 msgid "Enter a video url to show your video in campaign details page"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:235
+#: includes/woocommerce/Woocommerce.php:238
 msgid "Start date"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:236
+#: includes/woocommerce/Woocommerce.php:239
 msgid "Start time of this campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:237
+#: includes/woocommerce/Woocommerce.php:240
 msgid "Enter start of this campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:244
+#: includes/woocommerce/Woocommerce.php:247
 msgid "End date"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:245
+#: includes/woocommerce/Woocommerce.php:248
 msgid "End time of this campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:246
+#: includes/woocommerce/Woocommerce.php:249
 msgid "Enter end time of this campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:256, includes/woocommerce/Woocommerce.php:257
+#: includes/woocommerce/Woocommerce.php:259, includes/woocommerce/Woocommerce.php:260
 msgid "Minimum Price"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:258
+#: includes/woocommerce/Woocommerce.php:261
 msgid "Enter the minimum price"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:268, includes/woocommerce/Woocommerce.php:269
+#: includes/woocommerce/Woocommerce.php:271, includes/woocommerce/Woocommerce.php:272
 msgid "Maximum Price"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:270
+#: includes/woocommerce/Woocommerce.php:273
 msgid "Enter the maximum price"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:280, includes/woocommerce/Woocommerce.php:281
+#: includes/woocommerce/Woocommerce.php:283, includes/woocommerce/Woocommerce.php:284
 msgid "Recommended Price"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:282
+#: includes/woocommerce/Woocommerce.php:285
 msgid "Enter the recommended price"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:293
+#: includes/woocommerce/Woocommerce.php:296
 msgid "10,20,30,40"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:294
+#: includes/woocommerce/Woocommerce.php:297
 msgid "Predefined amount allow you to place the amount in donate box by click, example: <code>10,20,30,40</code>"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:305
+#: includes/woocommerce/Woocommerce.php:308
 msgid "Funding goal"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:306
+#: includes/woocommerce/Woocommerce.php:309
 msgid "Enter the funding goal"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:340
+#: includes/woocommerce/Woocommerce.php:343
 msgid "Show Contributor Table"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:342
+#: includes/woocommerce/Woocommerce.php:345
 msgid "Enable this option to display the contributors for this Campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:350
+#: includes/woocommerce/Woocommerce.php:353
 msgid "Mark Contributors as Anonymous"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:352
+#: includes/woocommerce/Woocommerce.php:355
 msgid "Enable this option to display the contributors Name as Anonymous for this Campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:379
+#: includes/woocommerce/Woocommerce.php:382
 msgid "Location of this campaign"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:388
+#: includes/woocommerce/Woocommerce.php:391
 msgid "Campaign Update Status"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:411, includes/woocommerce/Woocommerce.php:451, includes/woocommerce/dashboard/investment.php:42, includes/woocommerce/dashboard/order.php:52, includes/woocommerce/dashboard/update.php:31, includes/woocommerce/dashboard/update.php:51, includes/woocommerce/dashboard/update.php:94, wpcftemplate/woocommerce/basic/include/tabs/baker-list-tab.php:14
+#: includes/woocommerce/Woocommerce.php:414, includes/woocommerce/Woocommerce.php:454, includes/woocommerce/dashboard/investment.php:42, includes/woocommerce/dashboard/order.php:52, includes/woocommerce/dashboard/update.php:31, includes/woocommerce/dashboard/update.php:51, includes/woocommerce/dashboard/update.php:94, wpcftemplate/woocommerce/basic/include/tabs/baker-list-tab.php:14
 msgid "Date"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:422, includes/woocommerce/Woocommerce.php:462, includes/woocommerce/dashboard/update.php:35, includes/woocommerce/dashboard/update.php:36, includes/woocommerce/dashboard/update.php:55, includes/woocommerce/dashboard/update.php:56
+#: includes/woocommerce/Woocommerce.php:425, includes/woocommerce/Woocommerce.php:465, includes/woocommerce/dashboard/update.php:35, includes/woocommerce/dashboard/update.php:36, includes/woocommerce/dashboard/update.php:55, includes/woocommerce/dashboard/update.php:56
 msgid "Update Title"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:425, includes/woocommerce/Woocommerce.php:465
+#: includes/woocommerce/Woocommerce.php:428, includes/woocommerce/Woocommerce.php:468
 msgid "Update title"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:432, includes/woocommerce/dashboard/update.php:39, includes/woocommerce/dashboard/update.php:40, includes/woocommerce/dashboard/update.php:59, includes/woocommerce/dashboard/update.php:60
+#: includes/woocommerce/Woocommerce.php:435, includes/woocommerce/dashboard/update.php:39, includes/woocommerce/dashboard/update.php:40, includes/woocommerce/dashboard/update.php:59, includes/woocommerce/dashboard/update.php:60
 msgid "Update Details"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:435
+#: includes/woocommerce/Woocommerce.php:438
 msgid "Update details"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:439, includes/woocommerce/Woocommerce.php:482, includes/woocommerce/dashboard/update.php:42, includes/woocommerce/dashboard/update.php:62
+#: includes/woocommerce/Woocommerce.php:442, includes/woocommerce/Woocommerce.php:485, includes/woocommerce/dashboard/update.php:42, includes/woocommerce/dashboard/update.php:62
 msgid "Remove"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:489
+#: includes/woocommerce/Woocommerce.php:492
 msgid "+ Add Update"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:601
+#: includes/woocommerce/Woocommerce.php:604
 msgid "This campaign has been end"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:837
+#: includes/woocommerce/Woocommerce.php:840
 msgid "Make me anonymous"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:956
+#: includes/woocommerce/Woocommerce.php:959
 msgid "Yes"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:996
+#: includes/woocommerce/Woocommerce.php:999
 msgid "Date expired"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1006
+#: includes/woocommerce/Woocommerce.php:1009
 msgid "Location: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1012
+#: includes/woocommerce/Woocommerce.php:1015
 msgid "Funding Goal: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1018
+#: includes/woocommerce/Woocommerce.php:1021
 msgid "Raised: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1025
+#: includes/woocommerce/Woocommerce.php:1028
 msgid "Funded percent: "
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1051
+#: includes/woocommerce/Woocommerce.php:1054
 msgid "Backed User"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1112
+#: includes/woocommerce/Woocommerce.php:1115
 msgid "Sorry, no posts matched your criteria."
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1080
+#: includes/woocommerce/Woocommerce.php:1083
 msgid "ID"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1081, wpcftemplate/woocommerce/basic/include/tabs/baker-list-tab.php:12
+#: includes/woocommerce/Woocommerce.php:1084, wpcftemplate/woocommerce/basic/include/tabs/baker-list-tab.php:12
 msgid "Name"
 msgstr ""
 
-#: includes/woocommerce/Woocommerce.php:1082, settings/view/Addons.php:130
+#: includes/woocommerce/Woocommerce.php:1085, settings/view/Addons.php:130
 msgid "Email"
 msgstr ""
 
