@@ -106,11 +106,20 @@ class Base {
         }
     }
 
-    public function admin_script(){
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL .'assets/css/crowdfunding.css', false, WPCF_VERSION );
-        wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL .'assets/js/crowdfunding.min.js', array('jquery','wp-color-picker'), WPCF_VERSION, true );
+    public function admin_script() {
+    	wp_enqueue_style( 'wp-color-picker' );
+    	wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL . 'assets/css/crowdfunding.css', false, WPCF_VERSION );
+    	wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL . 'assets/js/crowdfunding.min.js', array( 'jquery', 'wp-color-picker' ), WPCF_VERSION, true );
+    	wp_localize_script(
+    		'wpcf-jquery-scripts',
+    		'cfajax',
+    		array(
+    			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+    			'nonce'   => wp_create_nonce( 'cf_reset_ajax_nonce' ),
+    		)
+    	);
     }
+
 
     /**
      * Registering necessary js and css
@@ -179,10 +188,20 @@ class Base {
      * Reset method
      */
 
-    public function settings_reset(){
-        $initial_setup = new \WPCF\Initial_Setup();
-        $initial_setup->settings_reset();
+    public function settings_reset() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error();
+            die();
+        }
+        if ( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
+            wp_send_json_error();
+            die();
+        }
+
+    	$initial_setup = new \WPCF\Initial_Setup();
+    	$initial_setup->settings_reset();
     }
+
 
     /**
      * Method for enable / disable addons

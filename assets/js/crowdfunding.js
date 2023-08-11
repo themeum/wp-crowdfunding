@@ -117,10 +117,16 @@ jQuery(document).ready(function($){
 		}
 		$.ajax({
 			type : 'POST',
-			url : ajaxurl,
-			data : { action : 'wpcf_settings_reset'},
+			url : cfajax.ajaxurl,
+			data : { 
+				action : 'wpcf_settings_reset',
+				nonce  : cfajax.nonce
+			},
 			success : function(data){
 				window.location.reload(true);
+			},
+			error: function (data){
+				console.log("Something went wrong");
 			}
 		});
 	});
