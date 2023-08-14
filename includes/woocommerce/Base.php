@@ -193,7 +193,7 @@ class Base {
             wp_send_json_error();
             die();
         }
-        if ( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
+        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
             wp_send_json_error();
             die();
         }
