@@ -24,9 +24,32 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
 <p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
-<p><?php esc_html_e( 'Thanks for your donation. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you donated:', 'woocommerce' ); ?></p>
+<?php 
 
-<?php
+$items = $order->get_items();
+
+foreach ( $items as $item ) {
+
+	$product = $item->get_product();
+
+
+	$product_type = $product->get_type();
+	if ( $product_type == 'crowdfunding' ) {
+		?>
+		<p><?php esc_html_e( 'Thanks for your donation. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you donated:', 'woocommerce' ); ?></p>
+	
+		<?php
+		}
+		else{ ?>
+			<p><?php esc_html_e( 'Thanks for your order. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you ordered:', 'woocommerce' ); ?></p>
+			
+			<?php 
+		}
+		break;
+
+}
+
+
 
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.

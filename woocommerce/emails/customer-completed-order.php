@@ -26,8 +26,32 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
 <p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
-<p><?php esc_html_e( 'We have finished reviewing/processing your donation.', 'woocommerce' ); ?></p>
-<?php
+
+<?php 
+
+$items = $order->get_items();
+
+foreach ( $items as $item ) {
+
+	$product = $item->get_product();
+
+
+	$product_type = $product->get_type();
+	if ( $product_type == 'crowdfunding' ) {
+		?>
+		<p><?php esc_html_e( 'We have finished reviewing/processing your donation.', 'woocommerce' ); ?></p>
+	
+		<?php
+		}
+		else{ ?>
+			<p><?php esc_html_e( 'We have finished reviewing/processing your order.', 'woocommerce' ); ?></p>
+			
+			<?php 
+		}
+		break;
+
+}
+
 
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.
