@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
-<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+<p><?php printf( esc_html__( 'Hi %s,', 'wp-crowdfunding' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
 
 <?php 
 
@@ -39,12 +39,12 @@ foreach ( $items as $item ) {
 	$product_type = $product->get_type();
 	if ( $product_type == 'crowdfunding' ) {
 		?>
-		<p><?php esc_html_e( 'We have finished reviewing/processing your donation.', 'woocommerce' ); ?></p>
+		<p><?php esc_html_e( 'We have finished reviewing/processing your donation.', 'wp-crowdfunding' ); ?></p>
 	
 		<?php
 		}
 		else{ ?>
-			<p><?php esc_html_e( 'We have finished reviewing/processing your order.', 'woocommerce' ); ?></p>
+			<p><?php esc_html_e( 'We have finished reviewing/processing your order.', 'wp-crowdfunding' ); ?></p>
 			
 			<?php 
 		}

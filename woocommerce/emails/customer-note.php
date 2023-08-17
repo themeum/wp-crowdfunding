@@ -25,12 +25,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
-<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
-<p><?php esc_html_e( 'The following note has been added to your donation:', 'woocommerce' ); ?></p>
+<p><?php printf( esc_html__( 'Hi %s,', 'wp-crowdfunding' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+<p><?php esc_html_e( 'The following note has been added to your donation:', 'wp-crowdfunding' ); ?></p>
 
 <blockquote><?php echo wpautop( wptexturize( make_clickable( $customer_note ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></blockquote>
 
-<p><?php esc_html_e( 'As a reminder, here are your donation details:', 'woocommerce' ); ?></p>
+<p><?php esc_html_e( 'As a reminder, here are your donation details:', 'wp-crowdfunding' ); ?></p>
 
 <?php
 

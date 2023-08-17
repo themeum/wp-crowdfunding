@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
-<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+<p><?php printf( esc_html__( 'Hi %s,', 'wp-crowdfunding' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
 <?php 
 
 $items = $order->get_items();
@@ -36,12 +36,12 @@ foreach ( $items as $item ) {
 	$product_type = $product->get_type();
 	if ( $product_type == 'crowdfunding' ) {
 		?>
-		<p><?php esc_html_e( 'Thanks for your donation. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you donated:', 'woocommerce' ); ?></p>
+		<p><?php esc_html_e( 'Thanks for your donation. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you donated:', 'wp-crowdfunding' ); ?></p>
 	
 		<?php
 		}
 		else{ ?>
-			<p><?php esc_html_e( 'Thanks for your order. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you ordered:', 'woocommerce' ); ?></p>
+			<p><?php esc_html_e( 'Thanks for your order. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you ordered:', 'wp-crowdfunding' ); ?></p>
 			
 			<?php 
 		}
