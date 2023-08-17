@@ -15,7 +15,7 @@ if (! class_exists('Initial_Setup')) {
             add_filter( 'woocommerce_locate_template', array($this, 'wpcf_woocommerce_locate_template'), 10, 3 );
         }
         function capability_add(){
-            add_role('cf_creator', 'CF Creator', array(
+            add_role('campaign_creator', 'Campaign Creator', array(
                 'read' => true,
                 'create_posts' => true,
                 'publish_posts' => true,
