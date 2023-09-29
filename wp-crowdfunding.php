@@ -41,6 +41,7 @@ define( 'WPCF_BASENAME', plugin_basename( WPCF_FILE ) );
 add_action( 'init', 'wpcf_language_load' );
 function wpcf_language_load() {
 	load_plugin_textdomain( 'wp-crowdfunding', false, basename( dirname( WPCF_FILE ) ) . '/languages/' );
+
 }
 
 if ( ! function_exists( 'wpcf_function' ) ) {

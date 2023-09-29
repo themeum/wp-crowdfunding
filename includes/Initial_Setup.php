@@ -18,6 +18,7 @@ if (! class_exists('Initial_Setup')) {
             add_role('campaign_creator', 'Campaign Creator', array(
                 'read' => true,
                 'create_posts' => true,
+                'edit_posts' => true,
                 'publish_posts' => true,
                 'manage_categories' => true,
                 ));

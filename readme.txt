@@ -129,8 +129,9 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 =2.1.6=
-Fix: Wrong email sending issue
-Update: Improved security vulnerability
+New: Added a new role for the Campaign Creators.
+Update: Made various security enhancements.
+Fix: Wrong email was being sent upon purchasing WooCommerce products
 
 =2.1.5=
 Fix: Resolved security vulnerability
