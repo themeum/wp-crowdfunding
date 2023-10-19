@@ -128,7 +128,6 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
-== Changelog ==
 =2.1.7=
 Update: Made security enhancements.
 
