@@ -19,37 +19,37 @@ const FormSkeleton = () => {
 
 			<div className='wpcf-campaign-body is-skeleton'>
 				<div className='wpcf-form-tabs-menu'>
-					<button class='wpcf-tab-title active skeleton-bg'>
+					<button className='wpcf-tab-title active skeleton-bg'>
 						<span>1</span> Campaign Basics
 					</button>
-					<button class='wpcf-tab-title skeleton-bg'>
+					<button className='wpcf-tab-title skeleton-bg'>
 						<span>2</span> Story
 					</button>
-					<button class='wpcf-tab-title skeleton-bg'>
+					<button className='wpcf-tab-title skeleton-bg'>
 						<span>3</span> Rewards
 					</button>
-					<button class='wpcf-tab-title skeleton-bg'>
+					<button className='wpcf-tab-title skeleton-bg'>
 						<span>4</span> Team
 					</button>
 				</div>
-				<div class='row'>
-					<div class='col-md-7'>
-						<div class='wpcf-accordion-wrapper'>
-							<div class='wpcf-accordion'>
-								<div class='wpcf-accordion-title active skeleton-bg'>
+				<div className='row'>
+					<div className='col-md-7'>
+						<div className='wpcf-accordion-wrapper'>
+							<div className='wpcf-accordion'>
+								<div className='wpcf-accordion-title active skeleton-bg'>
 									{' '}
 									campaign info
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class='col-md-5'>
-						<div class='wpcf-form-sidebar'>
-							<div class='preview-title skeleton-bg'>
+					<div className='col-md-5'>
+						<div className='wpcf-form-sidebar'>
+							<div className='preview-title skeleton-bg'>
 								{' '}
 								Preview
 							</div>
-							<div class='wpcf-preview-empty'></div>
+							<div className='wpcf-preview-empty'></div>
 						</div>
 					</div>
 				</div>

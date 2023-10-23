@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Field } from 'redux-form';
 import { required, isYoutubeUrl  } from '../../Helper';
 import RenderField from './Single';
@@ -7,9 +7,13 @@ import Icon from "../Icon";
 const RenderRepeatableFields = (props) => {
     const { fields, item } = props;
     const onBlurVideoLink = ( typeof props.onBlurVideoLink !== 'undefined') ? props.onBlurVideoLink : ()=>{};
-    if(fields.length == 0 && item.open_first_item) {
-        fields.push({});
-    }
+
+    useEffect(() => {
+        if(fields.length == 0 && item.open_first_item) {
+            fields.push({});
+        }
+    }, [fields.length]);
+
     return (
         <div className="">
             {fields.map((field, index) => (
