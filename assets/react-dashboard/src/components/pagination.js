@@ -90,10 +90,7 @@ class Pagination extends Component {
 			<div className='wpneo-pagination'>
 				<ul className='page-numbers'>
 					<li className={pager.currentPage === 1 ? 'disabled' : ''}>
-						<a
-							href='javascrpt:void(0)'
-							onClick={() => this.setPage(1)}
-						>
+						<a onClick={() => this.setPage(1)}>
 							First
 						</a>
 					</li>

@@ -10,7 +10,7 @@ export default (props) => {
                             Go Back My Placeholder
                         </button>
                     </div>
-                    <a className="wpcf-btn wpcf-btn-round skeleton-bg" href="javascript:void(0)">
+                    <a className="wpcf-btn wpcf-btn-round skeleton-bg">
                         Create Campaign
                     </a>
                 </div>

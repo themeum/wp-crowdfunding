@@ -75,7 +75,7 @@ class ItemCampaign extends Component {
                         </h3>
                         {this.props.children}
                     </div>
-                    <h4 className="wpcf-campaign-author">by <a href="javascript:void(0)">{ data.author_name }</a> </h4>
+                    <h4 className="wpcf-campaign-author">by <a>{ data.author_name }</a> </h4>
     
                     <div className="wpcf-campaign-infos">
                         <div className="wpcf-campaign-info">

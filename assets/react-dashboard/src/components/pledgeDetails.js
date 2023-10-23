@@ -7,7 +7,13 @@ export default (props) => {
             <div className="wpneo-modal-content">
                 <div className="wpneo-modal-wrapper-head">
                     <h4 id="wpcf_modal_title">Pledge Details</h4>
-                    <a href="javascript:void(0);" onClick={ () => props.onClickModalClose() } className="wpneo-modal-close">×</a>
+                    <a 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            props.onClickModalClose();
+                        }}
+                        className="wpneo-modal-close"
+                    >×</a>
                 </div>
                 <span className="wpcf-print-button button">print</span>
                 <div className="wpneo-modal-content-inner">

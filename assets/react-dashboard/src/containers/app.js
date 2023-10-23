@@ -109,8 +109,9 @@ class App extends Component {
 								}
 							>
 								<a
-									href='javascript:void(0)'
-									onClick={() => {
+									href='#'
+									onClick={(e) => {
+										e.preventDefault();
 										this.setState({
 											myCampainsCollapse: !this.state
 												.myCampainsCollapse,
@@ -214,8 +215,9 @@ class App extends Component {
 								}
 							>
 								<a
-									href='javascript:void(0)'
-									onClick={() => {
+									href='#'
+									onClick={(e) => {
+										e.preventDefault();
 										this.setState({
 											userSettingsCollapse: !this.state
 												.userSettingsCollapse,
