@@ -1064,15 +1064,15 @@ class API_Campaign {
         //do_action('wpcf_before_campaign_submit_action');
 
         //print_r($basic);
-        if($story) {
-            foreach($story as $key => $st) {
-                foreach($st as $index => $s) {
-                    $s['value'] = str_replace('"', "'", $s['value']);
-                    $st[$index] = $s;
-                }
-                $story[$key] = $st;
-            }
-        }
+        // if($story) {
+        //     foreach($story as $key => $st) {
+        //         foreach($st as $index => $s) {
+        //             $s['value'] = str_replace('"', "'", $s['value']);
+        //             $st[$index] = $s;
+        //         }
+        //         $story[$key] = $st;
+        //     }
+        // }
 
         $campaign = array(
             'post_type'		=>'product',
@@ -1295,7 +1295,7 @@ class API_Campaign {
      */
     function check_auth() {
         $headers = getallheaders();
-        $nonce  = $headers['WPCF-Nonce'];
+        $nonce  = $headers['Wpcf-Nonce'];
 		$i      = wp_nonce_tick();
         $token  = wp_get_session_token();
         $uid    = $this->current_user_id;

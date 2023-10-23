@@ -1221,7 +1221,7 @@ class API_Dashboard {
      */
     function check_auth() {
         $headers = getallheaders();
-        $nonce  = $headers['WPCF-Nonce'];
+        $nonce  = $headers['Wpcf-Nonce'];
 		$i      = wp_nonce_tick();
         $token  = wp_get_session_token();
         $uid    = $this->current_user_id;
