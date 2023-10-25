@@ -8,8 +8,6 @@
 
 <?php if (is_array($campaign_rewards_a) && count($campaign_rewards_a) > 0) : ?>
 	<?php
-		$i      = 0;
-		$j 		= 0;
 		$amount = array();
 
 		foreach ($campaign_rewards_a as $key => $row) {
@@ -20,18 +18,16 @@
 
 	<div class="wpcf-campaign-rewards">
 		<h3 class="wpcf-mt-0 wpcf-mb-4"><?php _e('Rewards', 'wp-crowdfunding'); ?></h3>
-		<?php foreach ($campaign_rewards_a as $value) : ?>
+		<?php foreach ($campaign_rewards_a as $key => $value) : ?>
 			<?php
-				$i++;
-				$j++;
 				$quantity 	= '';
 				$post_id    = get_the_ID();
 				$min_data   = $value['wpneo_rewards_pladge_amount'];
 				$max_data   = '';
 				$orders     = 0;
 	
-				if(empty($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount'])) {
-					$max_data = $campaign_rewards_a[$i]['wpneo_rewards_pladge_amount'] - 1;
+				if(empty($campaign_rewards_a[$key]['wpneo_rewards_pladge_amount'])) {
+					$max_data = $campaign_rewards_a[$key]['wpneo_rewards_pladge_amount'] - 1;
 				} else {
 					$max_data = 9000000000;
 				}
@@ -56,7 +52,7 @@
 							echo wc_price($value['wpneo_rewards_pladge_amount']);
 
 							if( 'true' != get_option('wpneo_reward_fixed_price','') ) :
-								echo ( ! empty($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount']))? ' - '. wc_price($campaign_rewards_a[$i]['wpneo_rewards_pladge_amount'] - 1) : __(" or more", 'wp-crowdfunding');
+								echo ( ! empty($campaign_rewards_a[$key]['wpneo_rewards_pladge_amount']))? ' - '. wc_price($campaign_rewards_a[$key]['wpneo_rewards_pladge_amount'] - 1) : __(" or more", 'wp-crowdfunding');
 							endif;
 						endif; ?>
                     </h4>
