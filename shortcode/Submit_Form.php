@@ -33,7 +33,6 @@ class Campaign_Submit_Form {
         $decimals = (wc_get_price_decimals()) ? wc_get_price_decimals() : 2;
 
         if( get_the_ID() && get_the_ID() == $page_id && current_user_can('campaign_form_submit') ) {
-            wp_enqueue_style( 'wpcf-campaign-style', WPCF_DIR_URL.'assets/css/campaign-form.css', false, WPCF_VERSION );
             wp_enqueue_script( 'wpcf-campaign-script', WPCF_DIR_URL.'assets/js/campaign-form.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-slider'), WPCF_VERSION, true );
             wp_localize_script( 'wpcf-campaign-script', 'WPCF', array (
                 'site_url'      => site_url(),
