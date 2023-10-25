@@ -32,8 +32,8 @@ const FormSkeleton = () => {
 						<span>4</span> Team
 					</button>
 				</div>
-				<div className='row'>
-					<div className='col-md-7'>
+				<div className='wpcf-row'>
+					<div className='wpcf-col-md-7'>
 						<div className='wpcf-accordion-wrapper'>
 							<div className='wpcf-accordion'>
 								<div className='wpcf-accordion-title active skeleton-bg'>
@@ -43,7 +43,7 @@ const FormSkeleton = () => {
 							</div>
 						</div>
 					</div>
-					<div className='col-md-5'>
+					<div className='wpcf-col-md-5'>
 						<div className='wpcf-form-sidebar'>
 							<div className='preview-title skeleton-bg'>
 								{' '}

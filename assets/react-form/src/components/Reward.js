@@ -151,8 +151,8 @@ class Reward extends Component {
 		// const delivery_date =
 		// 	rewardFields.estimate_delivery.delivery_date;
 		return (
-			<div className='row'>
-				<div className='col-md-7'>
+			<div className='wpcf-row'>
+				<div className='wpcf-col-md-7'>
 					<form onSubmit={handleSubmit}>
 						<div className='wpcf-accordion-wrapper'>
 							<div className='wpcf-accordion'>
@@ -285,7 +285,7 @@ class Reward extends Component {
 						/>
 					</form>
 				</div>
-				<div className='col-md-5'>
+				<div className='wpcf-col-md-5'>
 					<Preview title='Preview'>
 						<PreviewReward
 							rewards={rewards}

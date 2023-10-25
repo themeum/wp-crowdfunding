@@ -107,8 +107,8 @@ class Story extends Component {
 		} = this.props;
 		const { postId } = this.props._reduxForm.data || 0;
 		return (
-			<div className='row'>
-				<div className='col-md-7'>
+			<div className='wpcf-row'>
+				<div className='wpcf-col-md-7'>
 					<form onSubmit={handleSubmit}>
 						<div className='wpcf-accordion-wrapper'>
 							<div className='wpcf-accordion'>
@@ -280,7 +280,7 @@ class Story extends Component {
 						/>
 					</form>
 				</div>
-				<div className='col-md-5'>
+				<div className='wpcf-col-md-5'>
 					<Preview title='Preview' postId={postId}>
 						<PreviewStory data={story} />
 					</Preview>

@@ -292,8 +292,8 @@ class Basic extends Component {
 
 		
 		return (
-			<div className='row'>
-				<div className='col-md-7'>
+			<div className='wpcf-row'>
+				<div className='wpcf-col-md-7'>
 					<form onSubmit={handleSubmit}>
 						<FormSection name={sectionName}>
 							<div className='wpcf-accordion-wrapper'>
@@ -483,7 +483,7 @@ class Basic extends Component {
 						/>
 					</form>
 				</div>
-				<div className='col-md-5'>
+				<div className='wpcf-col-md-5'>
 					<Preview postId={postId} title='Preview'>
 						{sectionActive === 2 && basicValues.media.length ? (
 							<PreviewBasic
