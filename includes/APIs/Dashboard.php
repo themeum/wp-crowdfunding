@@ -95,10 +95,10 @@ class API_Dashboard {
             array( 'methods' => $method_readable, 'callback' => array($this, 'rewards'), 'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/wc-countries', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'wc_countries'),'permission_callback' => array($this, 'check_auth') ),
         ));
         register_rest_route( $namespace, '/logout', array(
-            array( 'methods' => $method_readable, 'callback' => array($this, 'logout') ),
+            array( 'methods' => $method_readable, 'callback' => array($this, 'logout'),'permission_callback' => array($this, 'check_auth') ),
         ));
     }
 
