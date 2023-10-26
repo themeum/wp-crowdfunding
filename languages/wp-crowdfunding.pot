@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-10 06:24+0000\n"
+"POT-Creation-Date: 2023-08-21 10:57+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -26,39 +26,39 @@ msgstr ""
 msgid "WP Crowdfunding"
 msgstr ""
 
-#: includes/Initial_Setup.php:296, includes/Initial_Setup.php:326
+#: includes/Initial_Setup.php:306, includes/Initial_Setup.php:336
 msgid "Thanks for using WP Crowdfunding"
 msgstr ""
 
-#: includes/Initial_Setup.php:300, includes/Initial_Setup.php:330
+#: includes/Initial_Setup.php:310, includes/Initial_Setup.php:340
 msgid "You must have"
 msgstr ""
 
-#: includes/Initial_Setup.php:302, includes/Initial_Setup.php:332, includes/Initial_Setup.php:403
+#: includes/Initial_Setup.php:312, includes/Initial_Setup.php:342, includes/Initial_Setup.php:413
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/Initial_Setup.php:303, includes/Initial_Setup.php:333
+#: includes/Initial_Setup.php:313, includes/Initial_Setup.php:343
 msgid "installed and activated on this website in order to use WP Crowdfunding."
 msgstr ""
 
-#: includes/Initial_Setup.php:306, includes/Initial_Setup.php:336
+#: includes/Initial_Setup.php:316, includes/Initial_Setup.php:346
 msgid "Learn more about WP Crowdfunding"
 msgstr ""
 
-#: includes/Initial_Setup.php:309
+#: includes/Initial_Setup.php:319
 msgid "Activate WooCommerce"
 msgstr ""
 
-#: includes/Initial_Setup.php:339
+#: includes/Initial_Setup.php:349
 msgid "Install WooCommerce"
 msgstr ""
 
-#: includes/Initial_Setup.php:401
+#: includes/Initial_Setup.php:411
 msgid "Your"
 msgstr ""
 
-#: includes/Initial_Setup.php:404
+#: includes/Initial_Setup.php:414
 msgid "version is below then 3.0, please update."
 msgstr ""
 
@@ -422,7 +422,7 @@ msgstr ""
 msgid "Estimated Delivery Year of the Reward"
 msgstr ""
 
-#: includes/register_api_hook.php:822, includes/register_api_hook.php:728, shortcode/Submit_Form.php:611, shortcode/Submit_Form.php:512, includes/woocommerce/Reward.php:120, settings/tabs/Tab_Fields.php:258
+#: includes/register_api_hook.php:822, includes/register_api_hook.php:728, shortcode/Submit_Form.php:611, shortcode/Submit_Form.php:512, includes/woocommerce/Reward.php:120, settings/tabs/Tab_Fields.php:258, woocommerce/emails/email-order-details.php:43
 msgid "Quantity"
 msgstr ""
 
@@ -702,6 +702,10 @@ msgstr ""
 msgid "If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!"
 msgstr ""
 
+#: includes/woocommerce/Base.php:166
+msgid "Thanks :)"
+msgstr ""
+
 #: includes/woocommerce/Common.php:39, includes/woocommerce/Dashboard.php:253
 msgid "Please Sign In first"
 msgstr ""
@@ -794,7 +798,7 @@ msgstr ""
 msgid "Customer details"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:335
+#: includes/woocommerce/Dashboard.php:335, woocommerce/emails/email-order-details.php:80
 msgid "Note:"
 msgstr ""
 
@@ -808,6 +812,10 @@ msgstr ""
 
 #: includes/woocommerce/Dashboard.php:355
 msgid "Billing Address:"
+msgstr ""
+
+#: includes/woocommerce/Dashboard.php:357
+msgid "N/A"
 msgstr ""
 
 #: includes/woocommerce/Reward.php:58, includes/woocommerce/Reward.php:61
@@ -1092,6 +1100,10 @@ msgstr ""
 
 #: includes/woocommerce/Woocommerce.php:840
 msgid "Make me anonymous"
+msgstr ""
+
+#: includes/woocommerce/Woocommerce.php:907
+msgid "Is Crowdfunding Category"
 msgstr ""
 
 #: includes/woocommerce/Woocommerce.php:959
@@ -1528,6 +1540,104 @@ msgstr ""
 
 #: settings/view/Addons.php:181
 msgid "Buy Now"
+msgstr ""
+
+#. translators: %1$s: Order number, %2$s: Customer full name.
+#: woocommerce/emails/admin-cancelled-order.php:28
+msgid "Notification to let you know &mdash; donation #%1$s belonging to %2$s has been cancelled:"
+msgstr ""
+
+#. translators: %1$s: Order number. %2$s: Customer full name.
+#: woocommerce/emails/admin-failed-order.php:28
+msgid "Payment for donation #%1$s from %2$s has failed. The donation was as follows:"
+msgstr ""
+
+#: woocommerce/emails/admin-new-order.php:44
+msgid "You’ve received the following order from %s:"
+msgstr ""
+
+#: woocommerce/emails/admin-new-order.php:38
+msgid "You’ve received the following donation from %s:"
+msgstr ""
+
+#. translators: %s: Customer first name
+#. translators: %s: Customer username
+#: woocommerce/emails/customer-completed-order.php:28, woocommerce/emails/customer-invoice.php:30, woocommerce/emails/customer-new-account.php:23, woocommerce/emails/customer-note.php:28, woocommerce/emails/customer-on-hold-order.php:26, woocommerce/emails/customer-processing-order.php:28, woocommerce/emails/customer-refunded-order.php:26
+msgid "Hi %s,"
+msgstr ""
+
+#: woocommerce/emails/customer-completed-order.php:47
+msgid "We have finished reviewing/processing your order."
+msgstr ""
+
+#: woocommerce/emails/customer-completed-order.php:42
+msgid "We have finished reviewing/processing your donation."
+msgstr ""
+
+#. translators: %s Order date
+#: woocommerce/emails/customer-invoice.php:55
+msgid "Here are the details of your donation placed on %s:"
+msgstr ""
+
+#: woocommerce/emails/customer-invoice.php:38
+msgid "A donation has been created for you on %1$s. Your invoice is below, with a link to make payment when you’re ready: %2$s"
+msgstr ""
+
+#: woocommerce/emails/customer-invoice.php:46
+msgid "Pay for this donation"
+msgstr ""
+
+#. translators: %1$s: Site title, %2$s: Username, %3$s: My account link
+#: woocommerce/emails/customer-new-account.php:25
+msgid "Thanks for creating an account on %1$s. Your username is %2$s. You can access your account area to view donations, change your password, and more at: %3$s"
+msgstr ""
+
+#. translators: %s: Auto generated password
+#: woocommerce/emails/customer-new-account.php:28
+msgid "Your password has been automatically generated: %s"
+msgstr ""
+
+#: woocommerce/emails/customer-note.php:29
+msgid "The following note has been added to your donation:"
+msgstr ""
+
+#: woocommerce/emails/customer-note.php:33
+msgid "As a reminder, here are your donation details:"
+msgstr ""
+
+#: woocommerce/emails/customer-on-hold-order.php:44
+msgid "Thanks for your order. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you ordered:"
+msgstr ""
+
+#: woocommerce/emails/customer-on-hold-order.php:39
+msgid "Thanks for your donation. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you donated:"
+msgstr ""
+
+#. translators: %s: Order number
+#: woocommerce/emails/customer-processing-order.php:30
+msgid "Just to let you know &mdash; we've received your donation #%s, and it is now being reviewed:"
+msgstr ""
+
+#. translators: %s: Site title
+#: woocommerce/emails/customer-refunded-order.php:35
+msgid "Your donation on %s has been refunded. There are more details below for your reference:"
+msgstr ""
+
+#: woocommerce/emails/customer-refunded-order.php:32
+msgid "Your donation on %s has been partially refunded. There are more details below for your reference:"
+msgstr ""
+
+#. translators: %s: Order ID.
+#: woocommerce/emails/email-order-details.php:34
+msgid "[Donation #%s]"
+msgstr ""
+
+#: woocommerce/emails/email-order-details.php:42
+msgid "Campaign"
+msgstr ""
+
+#: woocommerce/emails/email-order-details.php:44
+msgid "Price"
 msgstr ""
 
 #: addons/social-share/classes/Init.php:139, includes/woocommerce/dashboard/campaign.php:52, includes/woocommerce/dashboard/dashboard-campaign.php:57, wpcftemplate/woocommerce/basic/include/author.php:8, wpcftemplate/woocommerce/basic/include/loop/author.php:4

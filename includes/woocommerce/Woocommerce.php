@@ -904,7 +904,7 @@ class Woocommerce {
 		<tr class="form-field">
 			<th scope="row" valign="top"><label>
 			<?php
-			_e( 'Is Crowdfunding Category', 'woocommerce' );
+			_e( 'Is Crowdfunding Category', 'wp-crowdfunding' );
 			?>
 			</label></th>
 			<td>

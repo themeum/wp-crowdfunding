@@ -9,9 +9,19 @@ if (! class_exists('Initial_Setup')) {
 
         public function __construct() {
             add_action( 'admin_init', array( $this, 'initial_compatibility_check') );
+            add_action( 'admin_init', array( $this, 'capability_add') );
             add_action('wp_ajax_install_woocommerce_plugin',        array($this, 'install_woocommerce_plugin'));
             add_action('admin_action_activate_woocommerce_free',    array($this, 'activate_woocommerce_free'));
             add_filter( 'woocommerce_locate_template', array($this, 'wpcf_woocommerce_locate_template'), 10, 3 );
+        }
+        function capability_add(){
+            add_role('campaign_creator', 'Campaign Creator', array(
+                'read' => true,
+                'create_posts' => true,
+                'edit_posts' => true,
+                'publish_posts' => true,
+                'manage_categories' => true,
+                ));
         }
 
         function wpcf_woocommerce_locate_template( $template, $template_name, $template_path ) {
@@ -138,7 +148,7 @@ if (! class_exists('Initial_Setup')) {
             }
     
             //Upload Permission
-            update_option( 'wpneo_user_role_selector', array('administrator', 'editor', 'author', 'shop_manager') );
+            update_option( 'wpneo_user_role_selector', array('administrator', 'editor', 'author', 'shop_manager','customer') );
             $role_list = get_option( 'wpneo_user_role_selector' );
             if( is_array( $role_list ) ){
                 if( !empty( $role_list ) ){
