@@ -250,7 +250,7 @@ class Reward{
             $data             = array();
             $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
             $image_field      = $_POST['wpneo_rewards_image_field'];
-            $description      = $_POST['wpneo_rewards_description'];
+            $description      = array_map( 'sanitize_text_field', wp_unslash( $_POST['wpneo_rewards_description'] ));
             $end_month        = $_POST['wpneo_rewards_endmonth'];
             $end_year         = $_POST['wpneo_rewards_endyear'];
             $item_limit       = $_POST['wpneo_rewards_item_limit'];
