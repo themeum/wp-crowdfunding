@@ -60,9 +60,11 @@ class Search{
         $html = $search_val = '';
         $html .= '<div class="wpcf-form-field '. $formSize .' '.$formAlign.'">';
             $html .= '<form role="search" method="get" action="'.esc_url(home_url('/')).'">';
-                if (isset($_GET['s'])) { $search_val = $_GET['s']; }
+            
+                $search_val = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+
                 $html .= '<input type="search" class="search-field" placeholder="'.__("Search", "wp-crowdfunding").'" 
-                value="'.$search_val.'" name="s" style="font-size: '. $SearchfontSize .'px;">';
+                value="'.esc_attr( $search_val ).'" name="s" style="font-size: '. $SearchfontSize .'px;">';
                 $html .= '<input type="hidden" name="post_type" value="product">';
                 $html .= '<input type="hidden" name="product_type" value="croudfunding">';
                 $html .= '<button type="submit" style="background: '.$bgColor.'; color: '.$titleColor.'; font-size: '. $fontSize .'px; font-weight: '.$fontWeight.'">'.__("Search", "wp-crowdfunding").'</button>';
