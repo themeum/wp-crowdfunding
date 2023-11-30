@@ -465,14 +465,15 @@ class Admin_Menu {
                     wpcf_function()->update_text('wpneo_cf_selected_theme', $selected_theme );
 
                     $requirement_title = sanitize_text_field(wpcf_function()->post('wpneo_requirement_title'));
-                    wpcf_function()->update_text('wpneo_requirement_title', $requirement_title);
+                    wpcf_function()->update_text('wpneo_requirement_title', esc_html($requirement_title));
 
                     $requirement = sanitize_text_field(wpcf_function()->post('wpneo_requirement_text'));
-                    wpcf_function()->update_text('wpneo_requirement_text', $requirement );
+                    wpcf_function()->update_text('wpneo_requirement_text', esc_html($requirement ));
 
-                    $agree_title = sanitize_text_field(wpcf_function()->post('wpneo_requirement_agree_title'));
-                    wpcf_function()->update_text('wpneo_requirement_agree_title', $agree_title);
+                   $agree_title = sanitize_text_field((wpcf_function()->post('wpneo_requirement_agree_title')));
 
+                    wpcf_function()->update_text('wpneo_requirement_agree_title', esc_html($agree_title));
+                    
                     $cart_redirect = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_add_to_cart_redirect'));
                     wpcf_function()->update_text('wpneo_crowdfunding_add_to_cart_redirect', $cart_redirect);
 
