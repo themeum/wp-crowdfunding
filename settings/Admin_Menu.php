@@ -351,7 +351,7 @@ class Admin_Menu {
                     wpcf_function()->update_text('wpcf_dashboard_paginate_number', $dashboard_paginate_number);
 
                     $siteurlred = sanitize_text_field( wpcf_function()->post( 'wpcf_redurl' ) );
-                    wpcf_function()->update_text( 'wpcf_redurl', $siteurlred );
+                    wpcf_function()->update_text( 'wpcf_redurl', esc_url($siteurlred) );
 
                     $vendor_type = sanitize_text_field(wpcf_function()->post('vendor_type'));
                     wpcf_function()->update_text('vendor_type', $vendor_type);
@@ -525,8 +525,8 @@ class Admin_Menu {
                     $button_text_hover_color = sanitize_text_field(wpcf_function()->post('wpneo_button_text_hover_color'));
                     wpcf_function()->update_text('wpneo_button_text_hover_color', $button_text_hover_color);
 
-                    $custom_css = wpcf_function()->post( 'wpneo_custom_css' );
-                    wpcf_function()->update_text( 'wpneo_custom_css', $custom_css );
+                    $custom_css = sanitize_textarea_field(wpcf_function()->post( 'wpneo_custom_css' ));
+                    wpcf_function()->update_text( 'wpneo_custom_css', esc_html($custom_css) );
                 }
             }
         }
