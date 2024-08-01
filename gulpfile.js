@@ -38,7 +38,7 @@ gulp.task('makepot', function () {
 gulp.task('pack-js', function () {
 	return gulp.src(['assets/js/crowdfunding-front.js', 'assets/js/crowdfunding.js', 'assets/js/mce-button.js'])
 		.pipe(minify({ ext: '.min.js' }))
-		.pipe(gulp.dest('assets/js/'));
+		.pipe(gulp.dest('assets/js/dist'));
 });
 
 gulp.task('minify-css', () => {
@@ -94,6 +94,12 @@ gulp.task("make-zip", function () {
 	return gulp.src("./build/**/*.*").pipe(zip("wp-crowdfunding.zip")).pipe(gulp.dest("./"));
 });
 
+// Watch task
+gulp.task('watch', function () {
+	gulp.watch(['assets/js/*.js', '!assets/js/dist/*.js'], gulp.series('pack-js'));
+	gulp.watch(['assets/css/*.css', '!assets/css/dist/*.css'], gulp.series('minify-css'));
+});
+
 /**
  * Export tasks
  */
@@ -107,3 +113,8 @@ exports.build = gulp.series(
 	"make-zip",
 	"clean-build"
 );
+
+/**
+ * Default task
+ */
+gulp.task('default', gulp.series('minify-css', 'pack-js', 'watch'));
