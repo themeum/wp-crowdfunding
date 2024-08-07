@@ -206,12 +206,26 @@ class Base {
     /**
      * Method for enable / disable addons
      */
-    public function addon_enable_disable(){
+    public function addon_enable_disable() {
+
+        $current_user_id = get_current_user_id();
+
+        if ( !wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
+            wp_send_json_error();
+        }
+
+        if ( user_can( $current_user_id, 'manage_options' ) ) {
+            wp_send_json_error();
+        }
+
         $addonsConfig = maybe_unserialize(get_option('wpcf_addons_config'));
         $isEnable = (bool) sanitize_text_field( wpcf_function()->avalue_dot('isEnable', $_POST) );
         $addonFieldName = sanitize_text_field( wpcf_function()->avalue_dot('addonFieldName', $_POST) );
         $addonsConfig[$addonFieldName]['is_enable'] = ($isEnable) ? 1 : 0;
         update_option('wpcf_addons_config', $addonsConfig);
+
         wp_send_json_success();
+
     }
+    
 }

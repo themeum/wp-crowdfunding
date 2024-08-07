@@ -10,7 +10,7 @@ var gulp = require("gulp"),
 	zip = require("gulp-zip"),
 	concat = require('gulp-concat'),
 	minify = require('gulp-minify'),
-	cleanCSS = require('gulp-clean-css');;
+	cleanCSS = require('gulp-clean-css');
 
 var onError = function (err) {
 	notify.onError({
@@ -51,7 +51,7 @@ gulp.task('minify-css', () => {
  * Build
  */
 gulp.task("clean-zip", function () {
-	return gulp.src("./wp-crowdfunding.zip", {
+	return gulp.src("./wp-crowdfunding.2.1.11.zip", {
 		read: false,
 		allowEmpty: true
 	}).pipe(clean());

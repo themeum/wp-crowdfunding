@@ -132,14 +132,14 @@ jQuery(document).ready(function($){
 	});
 
 
-	$(document).on('change', '.wpcf_addons_list_item', function(e) {
+	$(document).on('change', '.wpcf_addons_list_item', function (e) {
         var $that = $(this);
         var isEnable = $that.prop('checked') ? 1 : 0;
         var addonFieldName = $that.attr('name');
         $.ajax({
             url : ajaxurl,
             type : 'POST',
-            data : {isEnable:isEnable, addonFieldName:addonFieldName, action : 'wpcf_addon_enable_disable'},
+            data : {isEnable:isEnable, addonFieldName:addonFieldName, action : 'wpcf_addon_enable_disable', nonce : cfajax.nonce},
             success: function (data) {
                 if (data.success){
                     //Success
