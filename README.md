@@ -6,6 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * npm run start
 * npm run watch
+* npm run build
 
 ### What is this repository for? ###
 
