@@ -214,7 +214,7 @@ class Base {
             wp_send_json_error();
         }
 
-        if ( user_can( $current_user_id, 'manage_options' ) ) {
+        if ( !user_can( $current_user_id, 'manage_options' ) ) {
             wp_send_json_error();
         }
 
