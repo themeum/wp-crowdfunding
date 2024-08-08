@@ -215,7 +215,7 @@ class Base {
         }
 
         if ( !user_can( $current_user_id, 'manage_options' ) ) {
-            wp_send_json_error();
+            wp_send_json_error('Aunauthorized Access!!');
         }
 
         $addonsConfig = maybe_unserialize(get_option('wpcf_addons_config'));

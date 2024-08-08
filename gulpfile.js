@@ -51,7 +51,7 @@ gulp.task('minify-css', () => {
  * Build
  */
 gulp.task("clean-zip", function () {
-	return gulp.src("./wp-crowdfunding.2.1.11.zip", {
+	return gulp.src("./wp-crowdfunding.zip", {
 		read: false,
 		allowEmpty: true
 	}).pipe(clean());
