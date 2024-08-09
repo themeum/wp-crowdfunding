@@ -141,7 +141,7 @@ jQuery(document).ready(function($){
             type : 'POST',
             data : {isEnable:isEnable, addonFieldName:addonFieldName, action : 'wpcf_addon_enable_disable', nonce : cfajax.nonce},
             success: function (data) {
-                if (data.success){
+                if (data.success) {
                     //Success
                 }
             }
