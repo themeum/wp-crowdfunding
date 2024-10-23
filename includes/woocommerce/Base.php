@@ -129,6 +129,7 @@ class Base {
     // Registering necessary frontend javascript and css scripts
     public function frontend_script() {
         wp_enqueue_style('wp-crowdfunding', WPCF_DIR_URL . 'assets/css/crowdfunding-front-new.css', false, WPCF_VERSION);
+        wp_enqueue_style('wp-crowdfunding-old', WPCF_DIR_URL . 'assets/css/crowdfunding-front-old.css', false, WPCF_VERSION);
         wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
         
         wp_enqueue_script('jquery');
