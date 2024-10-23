@@ -122,7 +122,7 @@ class WPCF_Social_Share {
                                     padding: 0px;
                                 }
                                 #neo-progressbar > div {
-                                    background-color: #4C76FF;
+                                    background-color: #1ADC68;
                                     height: 10px;
                                     border-radius: 10px;
                                 }

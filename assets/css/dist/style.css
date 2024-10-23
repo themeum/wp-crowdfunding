@@ -788,7 +788,7 @@ ul.wpneo-crowdfunding-update li .wpneo-crowdfunding-update-title{
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 22px;
-    color: #1ADC68;
+    color: #18CE43;
 }
 .wpneo-crowdfunding-update h4 {
     margin-top: -26px;
@@ -802,7 +802,7 @@ span.round-circle{
     margin-left: -35px;
 }
 ul.wpneo-crowdfunding-update li:hover span.round-circle{
-    background: #1ADC68;
+    background: #18CE43;
 }
 /** Media Query */
 @media screen and (min-width: 320px) and (max-width: 767px) {
