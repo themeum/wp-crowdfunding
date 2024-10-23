@@ -17,7 +17,7 @@ $saved_campaign_update_a = json_decode($saved_campaign_update, true);
                     <p>
                         <?php
                         $upate_content = apply_filters('the_content', stripslashes($value['details']));
-                        echo wpautop(esc_html($upate_content)); ?>
+                        echo wpautop(wp_kses_post($upate_content)); ?>
                     </p>
                 </li>
             <?php }  //the_content(); ?>
