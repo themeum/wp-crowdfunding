@@ -2,6 +2,10 @@
 ----------- Preset CSS ---------
 --------------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700');
+:root {
+    --wpcf-primary-color: #007D68;
+    --wpcf-hover-color: #339C58;
+}
 #wpneofrontenddata,
 #wpneofrontenddata button,
 #wpneofrontenddata input,
@@ -601,7 +605,7 @@ h2.wpneo-campaign-title{
     font-size: 18px;
 }
 .wpneo-link-style1{
-    color: #8cc641 !important;
+    color: var(--wpcf-primary-color) !important;
 }
 
 .campaign-funding-info{
@@ -788,7 +792,7 @@ ul.wpneo-crowdfunding-update li .wpneo-crowdfunding-update-title{
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 22px;
-    color: #18CE43;
+    color: var(--wpcf-primary-color);
 }
 .wpneo-crowdfunding-update h4 {
     margin-top: -26px;
@@ -802,7 +806,7 @@ span.round-circle{
     margin-left: -35px;
 }
 ul.wpneo-crowdfunding-update li:hover span.round-circle{
-    background: #18CE43;
+    background: var(--wpcf-primary-color);
 }
 /** Media Query */
 @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -873,7 +877,7 @@ img.profile-avatar{
     text-decoration: none;
     text-transform: capitalize;
     padding: 8px 20px;
-    background-color: #1ADC68;
+    background-color: var(--wpcf-primary-color);
     font-weight: 300;
     color: #fff;
     font-size: 15px;

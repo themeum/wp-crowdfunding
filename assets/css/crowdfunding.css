@@ -2,6 +2,10 @@
  * Crowdfunding CSS
  * File Description: The main stylesheet of this plugins for main design part.
  */
+:root {
+    --wpcf-primary-color: #007D68;
+    --wpcf-hover-color: #339C58;
+}
 #addreward,
 #addcampaignupdate {
     float: right;
@@ -786,7 +790,7 @@ input[type="submit"].wpneo-submit-campaign {
     font-weight: 400;
     color: #fff;
     border: none;
-    background: #1adc68;
+    background: var(--wpcf-primary-color);
 }
 .wpneo-register .wpneo-submit-campaign {
     float: right;
@@ -1503,7 +1507,7 @@ a.wpneo-fund-modal-btn.wpneo-link-style1,
 .removecampaignupdate,
 #addcampaignupdate,
 #wpneo_active_edit_form {
-    background: #1adc68;
+    background: var(--wpcf-primary-color);
     color: #fff;
     font-size: 16px;
     padding: 7px 16px;
@@ -1674,7 +1678,7 @@ ul.wpcf_predefined_pledge_amount li {
 ul.wpcf_predefined_pledge_amount li a {
     display: block;
     padding: 5px 10px;
-    border: 2px solid #18ce43;
+    border: 2px solid var(--wpcf-primary-color);
     color: #686c8b;
 }
 ul.wpcf_predefined_pledge_amount {
@@ -1795,7 +1799,7 @@ input[type="number"].wpneo_donate_amount_field {
 }
 
 .wpneo-tabs-menu li.wpneo-current {
-    border-bottom: 3px solid #1adc68;
+    border-bottom: 3px solid var(--wpcf-primary-color);
 }
 .wpneo-tabs-menu li {
     border-top: 2px solid transparent;
@@ -1881,7 +1885,7 @@ div#wpneo-tab-update {
     font-weight: 400;
     margin-top: 0;
     color: #ffffff;
-    background: #1adc68;
+    background: var(--wpcf-primary-color);
     min-height: 37px;
     font-size: 15px;
 }

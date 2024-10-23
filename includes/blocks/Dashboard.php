@@ -16,7 +16,7 @@ class Dashboard{
                 'attributes' => array(
                     'bgColor'    => array(
                         'type'          => 'string',
-                        'default'       => '#1adc68',
+                        'default'       => 'var(--wpcf-primary-color)',
                     ),
                     'titleColor'    => array(
                         'type'          => 'string',

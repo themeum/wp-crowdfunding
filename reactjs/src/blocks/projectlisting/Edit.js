@@ -30,7 +30,7 @@ class Edit extends Component {
 
 		// Major Color 
         const mjColors = [ 
-            { name: 'Color Code: #1adc68', color: '#1adc68' }, 
+            { name: 'Color Code: var(--wpcf-primary-color)', color: 'var(--wpcf-primary-color)' }, 
             { name: 'Color Code: #8224e3', color: '#8224e3' }, 
             { name: 'Dark Black', color: '#111111' }, 
             { name: 'Light Gray', color: '#767676' }, 
@@ -39,7 +39,7 @@ class Edit extends Component {
 
         // Title Color Color 
         const progressbarColors = [ 
-            { name: 'Color Code: #1adc68', color: '#1adc68' }, 
+            { name: 'Color Code: var(--wpcf-primary-color)', color: 'var(--wpcf-primary-color)' }, 
             { name: 'Color Code: #8224e3', color: '#8224e3' }, 
             { name: 'Dark Black', color: '#111111' },
         ];

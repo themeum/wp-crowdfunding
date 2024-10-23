@@ -20,11 +20,11 @@ class Single_Campaign{
                     ),
                     'textColor' => array(
                         'type'          => 'string',
-                        'default'       => '#18CE43',
+                        'default'       => 'var(--wpcf-primary-color)',
                     ),
                     'bgColor'   => array(
                         'type'          => 'string',
-                        'default'       => '#18CE43',
+                        'default'       => 'var(--wpcf-primary-color)',
                     ),
                 ),
                 'render_callback' => array( $this, 'single_campaign_block_callback' ),

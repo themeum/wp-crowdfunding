@@ -20,7 +20,7 @@ class Submit_Form{
                     ),
                     'bgColor'   => array(
                         'type'          => 'string',
-                        'default'       => '#1adc68',
+                        'default'       => 'var(--wpcf-primary-color)',
                     ),
                     'cancelBtnColor'   => array(
                         'type'          => 'string',

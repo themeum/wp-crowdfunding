@@ -42,7 +42,7 @@ jQuery(document).ready(function ($) {
 
     // Pie Chart
     $('.crowdfound-pie-chart').easyPieChart({
-        barColor: '#1adc68',
+        barColor: 'var(--wpcf-primary-color)',
         trackColor: '#f5f5f5',
         scaleColor: false,
         lineWidth: 5,
