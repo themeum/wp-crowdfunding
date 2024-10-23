@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:300, 400, 500, 700");
 :root {
-    --wpcf-primary-color: #007D68;
-    --wpcf-hover-color: #339C58;
+    --wpcf-primary-color: var(--wpcf-primary-color);
+    --wpcf-hover-color: var(--wpcf-hover-color);
 }
 .wp-crowd-parent,
 .wpneo-links-list {
@@ -1984,5 +1984,9 @@ p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-rece
 }
 
 .button.product_type_crowdfunding:hover {
-    background-color: var(--wpcf-primary-color) !important;
+    background-color: var(--wpcf-hover-color) !important;
+}
+
+.wp-crowd-btn:hover, .wpneo_donate_button:hover{
+    background-color: var(--wpcf-hover-color);
 }
