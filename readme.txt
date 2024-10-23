@@ -129,6 +129,8 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 == Changelog ==
 =2.1.12=
+Update: Added compatibility with the latest version of WooCommerce.
+Fix: Addressed customizer issues with third-party themes.
 Fix: Resolve security vulnerability.
 
 =2.1.11=
