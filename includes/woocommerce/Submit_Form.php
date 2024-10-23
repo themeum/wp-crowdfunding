@@ -176,7 +176,7 @@ class Submit_Form {
                 $data             = array();
                 
                 $pladge_amount    = $_POST['wpneo_rewards_pladge_amount'];
-                $description      = $_POST['wpneo_rewards_description'];
+                $description      = array_map('sanitize_text_field',wp_unslash($_POST['wpneo_rewards_description']));
                 $endmonth         = $_POST['wpneo_rewards_endmonth'];
                 $endyear          = $_POST['wpneo_rewards_endyear'];
                 $item_limit       = $_POST['wpneo_rewards_item_limit'];

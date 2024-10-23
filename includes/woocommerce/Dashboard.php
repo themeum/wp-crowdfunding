@@ -354,7 +354,7 @@ class Dashboard{
             // Billings Address
             $html .= '<h3>'.__('Billing Address:','wp-crowdfunding').'</h3>';
             $html .= '<address>';
-            $html .= ( $address = $order->get_formatted_billing_address() ) ? $address : __( 'N/A', 'woocommerce' );
+            $html .= ( $address = $order->get_formatted_billing_address() ) ? $address : __( 'N/A', 'wp-crowdfunding' );
             $html .= '</address>';
     
             $html .= '</div>';

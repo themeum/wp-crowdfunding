@@ -2,6 +2,12 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
+### For Development ###
+
+* npm run start
+* npm run watch
+* npm run build
+
 ### What is this repository for? ###
 
 * Quick summary

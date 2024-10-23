@@ -108,8 +108,8 @@ class Base {
 
     public function admin_script() {
     	wp_enqueue_style( 'wp-color-picker' );
-    	wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL . 'assets/css/crowdfunding.css', false, WPCF_VERSION );
-    	wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL . 'assets/js/crowdfunding.min.js', array( 'jquery', 'wp-color-picker' ), WPCF_VERSION, true );
+    	wp_enqueue_style( 'wpcf-crowdfunding-css', WPCF_DIR_URL . 'assets/css/dist/crowdfunding.css', false, WPCF_VERSION );
+    	wp_enqueue_script( 'wpcf-jquery-scripts', WPCF_DIR_URL . 'assets/js/dist/crowdfunding.min.js', array( 'jquery', 'wp-color-picker' ), WPCF_VERSION, true );
     	wp_localize_script(
     		'wpcf-jquery-scripts',
     		'cfajax',
@@ -127,21 +127,21 @@ class Base {
      */
     public function frontend_script(){
         wp_enqueue_style( 'magnific-popup-css-front', WPCF_DIR_URL .'assets/css/magnific-popup.css', false, WPCF_VERSION );
-        wp_enqueue_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/crowdfunding-front.css', false, WPCF_VERSION );
+        wp_enqueue_style( 'neo-crowdfunding-css-front', WPCF_DIR_URL .'assets/css/dist/crowdfunding-front.css', false, WPCF_VERSION );
         wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
         
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
         wp_enqueue_script( 'jquery.easypiechart', WPCF_DIR_URL .'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
         wp_enqueue_script( 'wp-neo-jquery.magnific-popup.min-front', WPCF_DIR_URL .'assets/js/jquery.magnific-popup.min.js', array('jquery'), WPCF_VERSION, true);
-        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
+        wp_enqueue_script( 'wp-neo-jquery-scripts-front', WPCF_DIR_URL .'assets/js/dist/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
         wp_localize_script( 'wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
         wp_enqueue_media();
     }
 
     // Declare script for new button
     function add_tinymce_js( $plugin_array ) {
-        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/mce-button.min.js';
+        $plugin_array['crowdfunding_button'] = WPCF_DIR_URL .'assets/js/dist/mce-button.min.js';
         return $plugin_array;
     }
     // Register new button in the editor
@@ -163,7 +163,7 @@ class Base {
         }
 
         if ( ! get_option( 'wpcf_admin_footer_text_rated' ) ) {
-            $footer_text = sprintf(__('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'woocommerce') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
+            $footer_text = sprintf(__('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'wp-crowdfunding') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
             wc_enqueue_js("
                 jQuery( 'a.wpcf-rating-link' ).click( function() {
                     jQuery.post( '" . admin_url('admin-ajax.php') . "', { action: 'wpcf_rated' } );
@@ -193,7 +193,7 @@ class Base {
             wp_send_json_error();
             die();
         }
-        if ( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
+        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
             wp_send_json_error();
             die();
         }
@@ -206,12 +206,26 @@ class Base {
     /**
      * Method for enable / disable addons
      */
-    public function addon_enable_disable(){
+    public function addon_enable_disable() {
+
+        $current_user_id = get_current_user_id();
+
+        if ( !wp_verify_nonce( $_POST['nonce'], 'cf_reset_ajax_nonce' ) ) {
+            wp_send_json_error();
+        }
+
+        if ( !user_can( $current_user_id, 'manage_options' ) ) {
+            wp_send_json_error('Aunauthorized Access!!');
+        }
+
         $addonsConfig = maybe_unserialize(get_option('wpcf_addons_config'));
         $isEnable = (bool) sanitize_text_field( wpcf_function()->avalue_dot('isEnable', $_POST) );
         $addonFieldName = sanitize_text_field( wpcf_function()->avalue_dot('addonFieldName', $_POST) );
         $addonsConfig[$addonFieldName]['is_enable'] = ($isEnable) ? 1 : 0;
         update_option('wpcf_addons_config', $addonsConfig);
+
         wp_send_json_success();
+
     }
+    
 }

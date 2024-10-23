@@ -3,8 +3,8 @@ Contributors: themeum
 Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online sell, e-commerce, paypal, shop, indiegogo, invest, fund collecting, crowd, marketplace, crowd funding, crowdfund, charity, donate, fundraising plugin, paypal donation, stripe donation, wordpress crowdfunding plugin, adaptive payment, split payment, paypal adaptive, stripe split, stripe connect
 Donate Link: https://www.themeum.com/
 Requires at least: 5.9
-Tested up to: 6.3
-Stable tag: 2.1.5
+Tested up to: 6.6
+Stable tag: 2.1.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,24 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+=2.1.11=
+Fix: User privilege vulnerability.
+
+== Changelog ==
+=2.1.9=
+Update: Made security enhancements.
+
+=2.1.8=
+Update: Made security enhancements.
+
+=2.1.7=
+Update: Made security enhancements.
+
+=2.1.6=
+New: Added a new role for the Campaign Creators.
+Update: Made various security enhancements.
+Fix: Wrong email was being sent upon purchasing WooCommerce products
+
 =2.1.5=
 Fix: Resolved security vulnerability
 New: Introducing compatibility with WordPress 6.3
