@@ -108,37 +108,19 @@ class Woocommerce {
 	 * Remove billing address from the checkout page
 	 */
 	function override_checkout_fields( $fields ) {
-		$crowdfunding_found = '';
-		if(! WC()->cart && WC()->cart->is_empty()){
-			return ;
-		}
-		$items              = WC()->cart->get_cart();
-		if ( $items ) {
-			foreach ( $items as $item => $values ) {
-				$product = wc_get_product( $values['product_id'] );
-				if ( $product->get_type() == 'crowdfunding' ) {
-					if ( 'true' == get_option( 'hide_cf_address_from_checkout', '' ) ) {
-						unset( $fields['billing']['billing_first_name'] );
-						unset( $fields['billing']['billing_last_name'] );
-						unset( $fields['billing']['billing_company'] );
-						unset( $fields['billing']['billing_address_1'] );
-						unset( $fields['billing']['billing_address_2'] );
-						unset( $fields['billing']['billing_city'] );
-						unset( $fields['billing']['billing_postcode'] );
-						unset( $fields['billing']['billing_country'] );
-						unset( $fields['billing']['billing_state'] );
-						unset( $fields['billing']['billing_phone'] );
-						unset( $fields['order']['order_comments'] );
-						unset( $fields['billing']['billing_address_2'] );
-						unset( $fields['billing']['billing_postcode'] );
-						unset( $fields['billing']['billing_company'] );
-						unset( $fields['billing']['billing_last_name'] );
-						unset( $fields['billing']['billing_email'] );
-						unset( $fields['billing']['billing_city'] );
-					}
-				}
-			}
-		}
+		// Remove all billing fields
+		unset( $fields['billing']['billing_first_name']);
+		unset( $fields['billing']['billing_last_name']);
+		unset( $fields['billing']['billing_company']);
+		unset( $fields['billing']['billing_address_1']);
+		unset( $fields['billing']['billing_address_2']);
+		unset( $fields['billing']['billing_city']);
+		unset( $fields['billing']['billing_postcode']);
+		unset( $fields['billing']['billing_country']);
+		unset( $fields['billing']['billing_state']);
+		unset( $fields['billing']['billing_phone']);
+		unset( $fields['billing']['billing_email']);
+
 		return $fields;
 	}
 

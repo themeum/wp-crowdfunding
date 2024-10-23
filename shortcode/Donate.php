@@ -1,4 +1,5 @@
 <?php
+
 namespace WPCF\shortcode;
 
 defined( 'ABSPATH' ) || exit;
@@ -23,37 +24,47 @@ class Donate {
 			$shortcode
 		);
 
+		// Sanitize inputs
+		$atts['campaign_id']        = intval( $atts['campaign_id'] );
+		$atts['amount']             = sanitize_text_field( $atts['amount'] );
+		$atts['show_input_box']     = filter_var( $atts['show_input_box'], FILTER_VALIDATE_BOOLEAN );
+		$atts['min_amount']         = sanitize_text_field( $atts['min_amount'] );
+		$atts['max_amount']         = sanitize_text_field( $atts['max_amount'] );
+		$atts['donate_button_text'] = sanitize_text_field( $atts['donate_button_text'] );
+
 		if ( ! $atts['campaign_id'] ) {
-			return '<p class="wpcf-donate-form-response">' . __( 'Campaign ID required', 'wp-crowdfunding' ) . '</p>';
+			return '<p class="wpcf-donate-form-response">' . esc_html__( 'Campaign ID required', 'wp-crowdfunding' ) . '</p>';
 		}
 
 		$campaign = wc_get_product( $atts['campaign_id'] );
 		if ( ! $campaign || $campaign->get_type() !== 'crowdfunding' ) {
-			return '<p class="wpcf-donate-form-response">' . __( 'Invalid Campaign ID', 'wp-crowdfunding' ) . '</p>';
+			return '<p class="wpcf-donate-form-response">' . esc_html__( 'Invalid Campaign ID', 'wp-crowdfunding' ) . '</p>';
 		}
+
 		ob_start();
 		?>
 		<div class="wpcf-donate-form-wrap">
 			<form enctype="multipart/form-data" method="post" class="cart">
 				<?php
 				if ( $atts['show_input_box'] == 'true' ) {
-					echo get_woocommerce_currency_symbol();
+					echo esc_html( get_woocommerce_currency_symbol() );
 					?>
-					<input type="number" step="any" min="1" placeholder="<?php echo $atts['amount']; ?>"
+					<input type="number" step="any" min="1" 
+						placeholder="<?php echo esc_attr( $atts['amount'] ); ?>"
 						name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text"
-						value="<?php echo $atts['amount']; ?>" data-min-price="<?php echo $atts['min_amount']; ?>"
-						data-max-price="<?php echo $atts['max_amount']; ?>">
+						value="<?php echo esc_attr( $atts['amount'] ); ?>" data-min-price="<?php echo esc_attr( $atts['min_amount'] ); ?>"
+						data-max-price="<?php echo esc_attr( $atts['max_amount'] ); ?>">
 					<?php
 				} else {
-					echo '<input type="hidden" name="wpneo_donate_amount_field" value="' . $atts['amount'] . '" />';
+					echo '<input type="hidden" name="wpneo_donate_amount_field" value="' . esc_attr( $atts['amount'] ) . '" />';
 				}
 				?>
 				<input type="hidden" value="<?php echo esc_attr( $atts['campaign_id'] ); ?>" name="add-to-cart">
-				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>">
+				<button type="submit" class="<?php echo esc_attr( apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ) ); ?>">
 					<?php
-					echo $atts['donate_button_text'];
+					echo esc_html( $atts['donate_button_text'] );
 					if ( $atts['show_input_box'] != 'true' ) {
-						echo ' (' . wc_price( $atts['amount'] ) . ') ';
+						echo ' (' . esc_html( wc_price( $atts['amount'] ) ) . ') ';
 					}
 					?>
 				</button>

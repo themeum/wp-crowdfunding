@@ -36,7 +36,7 @@ class ProjectListing{
                     ),
                     'progressbarColor'    => array(
                         'type'          => 'string',
-                        'default'       => '#1adc68',
+                        'default'       => 'var(--wpcf-primary-color)',
                     ),
                     'authorColor'    => array(
                         'type'          => 'string',
@@ -54,7 +54,7 @@ class ProjectListing{
         $order          = isset( $att['order']) ? $att['order'] : 'desc';
         $order_by       = isset( $att['order_by']) ? $att['order_by'] : 'date';
         $majorColor         = isset( $att['mjColor']) ? $att['mjColor'] : '#000000';
-        $progressbarColor   = isset( $att['progressbarColor']) ? $att['progressbarColor'] : '#1adc68';
+        $progressbarColor   = isset( $att['progressbarColor']) ? $att['progressbarColor'] : 'var(--wpcf-primary-color)';
         $authorColor        = isset( $att['authorColor']) ? $att['authorColor'] : '#737373';
 
         if( function_exists('wpcf_function') ){

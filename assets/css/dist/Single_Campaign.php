@@ -88,7 +88,7 @@ class Single_Campaign{
                 background: '. $bgColor .';
             }';
 
-            $html .= 'a.wpneo-fund-modal-btn.wpneo-link-style1, .wpneo-tabs-menu li.wpneo-current a, ul.wpneo-crowdfunding-update li .wpneo-crowdfunding-update-title {
+            $html .= 'a.wpneo-fund-modal-btn.wpneo-link-style1, .wpneo-tabs-menu li.wpneo-current a, rewardmate {
                 color: '. $textcolor .';
             }';
 

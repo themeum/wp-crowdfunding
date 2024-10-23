@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
                     'type'      => 'color',
                     'label'     => __('Color Scheme','wp-crowdfunding'),
                     'desc'      => __('Select color scheme of plugins.','wp-crowdfunding'),
-                    'value'     => '#1adc68',
+                    'value'     => 'var(--wpcf-primary-color)',
                     ),
 
                 // #Button Background Color
@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
                     'type'      => 'color',
                     'label'     => __('Button BG Color','wp-crowdfunding'),
                     'desc'      => __('Select button background color.','wp-crowdfunding'),
-                    'value'     => '#1adc68',
+                    'value'     => 'var(--wpcf-primary-color)',
                     ),
 
                 // #Button Background Hover Color
