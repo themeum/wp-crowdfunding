@@ -3,7 +3,7 @@
 * Plugin Name:       WP Crowdfunding
 * Plugin URI:        https://www.themeum.com/product/wp-crowdfunding-plugin/
 * Description:       The Ultimate Fundraising and Backer Plugin for WordPress.
-* Version:           2.1.12
+* Version:           2.1.13
 * Author:            Themeum
 * Author URI:        https://themeum.com
 * Text Domain:       wp-crowdfunding

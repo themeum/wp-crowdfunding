@@ -1,33 +1,38 @@
 <?php
+
 namespace WPCF;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if (! class_exists('Initial_Setup')) {
 
-    class Initial_Setup {
+    class Initial_Setup
+    {
 
-        public function __construct() {
-            add_action( 'admin_init', array( $this, 'initial_compatibility_check') );
-            add_action( 'admin_init', array( $this, 'capability_add') );
+        public function __construct()
+        {
+            add_action('admin_init', array($this, 'initial_compatibility_check'));
+            add_action('admin_init', array($this, 'capability_add'));
             add_action('wp_ajax_install_woocommerce_plugin',        array($this, 'install_woocommerce_plugin'));
             add_action('admin_action_activate_woocommerce_free',    array($this, 'activate_woocommerce_free'));
-            add_filter( 'woocommerce_locate_template', array($this, 'wpcf_woocommerce_locate_template'), 10, 3 );
+            add_filter('woocommerce_locate_template', array($this, 'wpcf_woocommerce_locate_template'), 10, 3);
         }
-        function capability_add(){
+        function capability_add()
+        {
             add_role('campaign_creator', 'Campaign Creator', array(
                 'read' => true,
                 'create_posts' => true,
                 'edit_posts' => true,
                 'publish_posts' => true,
                 'manage_categories' => true,
-                ));
+            ));
         }
 
-        function wpcf_woocommerce_locate_template( $template, $template_name, $template_path ) {
+        function wpcf_woocommerce_locate_template($template, $template_name, $template_path)
+        {
             global $woocommerce;
             $_template = $template;
-            if ( ! $template_path ) { 
+            if (! $template_path) {
                 $template_path = $woocommerce->template_url;
             }
             $plugin_path  = WPCF_DIR_PATH . '/woocommerce/';
@@ -37,19 +42,20 @@ if (! class_exists('Initial_Setup')) {
                     $template_name
                 )
             );
-            if ( ! $template && file_exists( $plugin_path . $template_name ) ) {
+            if (! $template && file_exists($plugin_path . $template_name)) {
                 $template = $plugin_path . $template_name;
             }
-            if ( ! $template ) {
+            if (! $template) {
                 $template = $_template;
             }
             return $template;
         }
 
-        public function initial_compatibility_check(){
-            if (version_compare(WPCF_VERSION, '2.0.5', '>')){
+        public function initial_compatibility_check()
+        {
+            if (version_compare(WPCF_VERSION, '2.0.5', '>')) {
                 $option_check = get_option('wpcf_show_description');
-                if($option_check != 'true' && $option_check != 'false'){
+                if ($option_check != 'true' && $option_check != 'false') {
                     $default_value = array(
                         'wpcf_show_description' => 'true',
                         'wpcf_show_short_description' => 'true',
@@ -73,18 +79,19 @@ if (! class_exists('Initial_Setup')) {
                         'wpcf_show_quantity' => 'true',
                         'wpcf_show_terms_and_conditions' => 'true'
                     );
-                    foreach ($default_value as $key => $value ) {
-                        update_option( $key , $value );
+                    foreach ($default_value as $key => $value) {
+                        update_option($key, $value);
                     }
                 }
             }
         }
-        
+
 
         /**
          * Do some task during plugin activation
          */
-        public function initial_plugin_activation() {
+        public function initial_plugin_activation()
+        {
             if (get_option('wpneo_crowdfunding_is_used')) { // Check is plugin used before or not
                 return false;
             }
@@ -95,7 +102,8 @@ if (! class_exists('Initial_Setup')) {
         /**
          * Insert settings option data
          */
-        public function update_option() {
+        public function update_option()
+        {
             $init_setup_data = array(
                 'wpneo_crowdfunding_is_used' => WPCF_VERSION,
                 'wpneo_cf_selected_theme' => 'basic',
@@ -143,20 +151,20 @@ if (! class_exists('Initial_Setup')) {
                 'wpneo_requirement_agree_title' => 'I agree with the terms and conditions.',
             );
 
-            foreach ($init_setup_data as $key => $value ) {
-                update_option( $key , $value );
+            foreach ($init_setup_data as $key => $value) {
+                update_option($key, $value);
             }
-    
+
             //Upload Permission
-            update_option( 'wpneo_user_role_selector', array('administrator', 'editor', 'author', 'shop_manager','customer') );
-            $role_list = get_option( 'wpneo_user_role_selector' );
-            if( is_array( $role_list ) ){
-                if( !empty( $role_list ) ){
-                    foreach( $role_list as $val ){
-                        $role = get_role( $val );
-                        if ($role){
-	                        $role->add_cap( 'campaign_form_submit' );
-	                        $role->add_cap( 'upload_files' );
+            update_option('wpneo_user_role_selector', array('administrator', 'editor', 'author', 'shop_manager', 'customer'));
+            $role_list = get_option('wpneo_user_role_selector');
+            if (is_array($role_list)) {
+                if (!empty($role_list)) {
+                    foreach ($role_list as $val) {
+                        $role = get_role($val);
+                        if ($role) {
+                            $role->add_cap('campaign_form_submit');
+                            $role->add_cap('upload_files');
                         }
                     }
                 }
@@ -166,7 +174,8 @@ if (! class_exists('Initial_Setup')) {
         /**
          * Insert menu page
          */
-        public function insert_page() {
+        public function insert_page()
+        {
             // Create page object
             $dashboard = array(
                 'post_title'    => 'CF Dashboard',
@@ -192,156 +201,167 @@ if (! class_exists('Initial_Setup')) {
                 'post_type'     => 'page',
                 'post_status'   => 'publish',
             );
-        
+
             /**
              * Insert the page into the database
              * @Dashbord, @Form, @Listing and @Registration Pages Object
              */
-            $dashboard_page = wp_insert_post( $dashboard );
-            if ( !is_wp_error( $dashboard_page ) ) {
-                wpcf_function()->update_text( 'wpneo_crowdfunding_dashboard_page_id', $dashboard_page );
+            $dashboard_page = wp_insert_post($dashboard);
+            if (!is_wp_error($dashboard_page)) {
+                wpcf_function()->update_text('wpneo_crowdfunding_dashboard_page_id', $dashboard_page);
             }
-            $form_page = wp_insert_post( $form );
-            if( !is_wp_error( $form_page ) ){
-                wpcf_function()->update_text( 'wpneo_form_page_id', $form_page );
+            $form_page = wp_insert_post($form);
+            if (!is_wp_error($form_page)) {
+                wpcf_function()->update_text('wpneo_form_page_id', $form_page);
             }
-            $listing_page = wp_insert_post( $listing );
-            if( !is_wp_error( $listing_page ) ){
-                wpcf_function()->update_text( 'wpneo_listing_page_id', $listing_page );
+            $listing_page = wp_insert_post($listing);
+            if (!is_wp_error($listing_page)) {
+                wpcf_function()->update_text('wpneo_listing_page_id', $listing_page);
             }
-            $registration_page = wp_insert_post( $registration );
-            if( !is_wp_error( $registration_page ) ){
-                wpcf_function()->update_text( 'wpneo_registration_page_id', $registration_page );
+            $registration_page = wp_insert_post($registration);
+            if (!is_wp_error($registration_page)) {
+                wpcf_function()->update_text('wpneo_registration_page_id', $registration_page);
             }
         }
 
         /**
          * Reset method, the ajax will call that method for Reset Settings
          */
-        public function settings_reset() {
+        public function settings_reset()
+        {
             self::update_option();
         }
 
         /**
          * Deactivation Hook For Crowdfunding
          */
-        public function initial_plugin_deactivation(){
+        public function initial_plugin_deactivation() {}
 
-        }
-
-        public function activation_css() {
-            ?>
+        public function activation_css()
+        {
+?>
             <style type="text/css">
-                .wpcf-install-notice{
+                .wpcf-install-notice {
                     padding: 20px;
                 }
-                .wpcf-install-notice-inner{
+
+                .wpcf-install-notice-inner {
                     display: flex;
                     align-items: center;
                 }
-                .wpcf-install-notice-inner .button{
+
+                .wpcf-install-notice-inner .button {
                     padding: 5px 30px;
                     height: auto;
                     line-height: 20px;
                     text-transform: capitalize;
                 }
-                .wpcf-install-notice-content{
+
+                .wpcf-install-notice-content {
                     flex-grow: 1;
                     padding-left: 20px;
                     padding-right: 20px;
                 }
-                .wpcf-install-notice-icon img{
+
+                .wpcf-install-notice-icon img {
                     width: 64px;
                     border-radius: 4px;
                     display: block;
                 }
-                .wpcf-install-notice-content h2{
+
+                .wpcf-install-notice-content h2 {
                     margin-top: 0;
                     margin-bottom: 5px;
                 }
-                .wpcf-install-notice-content p{
+
+                .wpcf-install-notice-content p {
                     margin-top: 0;
                     margin-bottom: 0px;
                     padding: 0;
                 }
             </style>
             <script type="text/javascript">
-                jQuery(document).ready(function($){
+                jQuery(document).ready(function($) {
                     'use strict';
-                    $(document).on('click', '.install-wpcf-button', function(e){
+                    $(document).on('click', '.install-wpcf-button', function(e) {
                         e.preventDefault();
                         var $btn = $(this);
                         $.ajax({
                             type: 'POST',
                             url: ajaxurl,
-                            data: {install_plugin: 'woocommerce', action: 'install_woocommerce_plugin'},
-                            beforeSend: function(){
+                            data: {
+                                install_plugin: 'woocommerce',
+                                action: 'install_woocommerce_plugin'
+                            },
+                            beforeSend: function() {
                                 $btn.addClass('updating-message');
                             },
-                            success: function (data) {
+                            success: function(data) {
                                 $('.install-wpcf-button').remove();
                                 $('#wpcf_install_msg').html(data);
                             },
-                            complete: function () {
+                            complete: function() {
                                 $btn.removeClass('updating-message');
                             }
                         });
                     });
                 });
             </script>
-            <?php
+        <?php
         }
         /**
          * Show notice if there is no woocommerce
          */
-        public function free_plugin_installed_but_inactive_notice(){
+        public function free_plugin_installed_but_inactive_notice()
+        {
             $this->activation_css();
-            ?>
+        ?>
             <div class="notice notice-error wpcf-install-notice">
                 <div class="wpcf-install-notice-inner">
                     <div class="wpcf-install-notice-icon">
-                        <img src="<?php echo WPCF_DIR_URL.'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
+                        <img src="<?php echo WPCF_DIR_URL . 'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
                     </div>
                     <div class="wpcf-install-notice-content">
                         <h2><?php _e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
-                        <?php 
-                            printf(
-                                '<p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p>', 
-                                __('You must have','wp-crowdfunding'), 
-                                'https://wordpress.org/plugins/woocommerce/', 
-                                __('WooCommerce','wp-crowdfunding'), 
-                                __('installed and activated on this website in order to use WP Crowdfunding.','wp-crowdfunding')
-                            );
+                        <?php
+                        printf(
+                            '<p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p>',
+                            __('You must have', 'wp-crowdfunding'),
+                            'https://wordpress.org/plugins/woocommerce/',
+                            __('WooCommerce', 'wp-crowdfunding'),
+                            __('installed and activated on this website in order to use WP Crowdfunding.', 'wp-crowdfunding')
+                        );
                         ?>
                         <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
                     <div class="wpcf-install-notice-button">
-                        <a  class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_woocommerce_free'), admin_url()); ?>"><?php _e('Activate WooCommerce', 'wp-crowdfunding'); ?></a>
+                        <a class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_woocommerce_free'), admin_url()); ?>"><?php _e('Activate WooCommerce', 'wp-crowdfunding'); ?></a>
                     </div>
                 </div>
             </div>
-            <?php
+        <?php
         }
-    
-        public function free_plugin_not_installed(){
-            include( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+
+        public function free_plugin_not_installed()
+        {
+            include(ABSPATH . 'wp-admin/includes/plugin-install.php');
             $this->activation_css();
-            ?>
+        ?>
             <div class="notice notice-error wpcf-install-notice">
                 <div class="wpcf-install-notice-inner">
                     <div class="wpcf-install-notice-icon">
-                        <img src="<?php echo WPCF_DIR_URL.'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
+                        <img src="<?php echo WPCF_DIR_URL . 'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
                     </div>
                     <div class="wpcf-install-notice-content">
                         <h2><?php _e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
-                        <?php 
-                            printf(
-                                '<p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p>', 
-                                __('You must have','wp-crowdfunding'), 
-                                'https://wordpress.org/plugins/woocommerce/', 
-                                __('WooCommerce','wp-crowdfunding'), 
-                                __('installed and activated on this website in order to use WP Crowdfunding.','wp-crowdfunding')
-                            );
+                        <?php
+                        printf(
+                            '<p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p>',
+                            __('You must have', 'wp-crowdfunding'),
+                            'https://wordpress.org/plugins/woocommerce/',
+                            __('WooCommerce', 'wp-crowdfunding'),
+                            __('installed and activated on this website in order to use WP Crowdfunding.', 'wp-crowdfunding')
+                        );
                         ?>
                         <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
@@ -351,29 +371,35 @@ if (! class_exists('Initial_Setup')) {
                 </div>
                 <div id="wpcf_install_msg"></div>
             </div>
-            <?php
+<?php
         }
 
-        public function activate_woocommerce_free() {
-            activate_plugin('woocommerce/woocommerce.php' );
+        public function activate_woocommerce_free()
+        {
+            activate_plugin('woocommerce/woocommerce.php');
             wp_redirect(admin_url('admin.php?page=wpcf-crowdfunding'));
-		    exit();
+            exit();
         }
 
-        public function install_woocommerce_plugin(){
+        public function install_woocommerce_plugin()
+        {
+            if (!current_user_can('manage_options')) {
+                wp_send_json_error();
+            }
+
             include(ABSPATH . 'wp-admin/includes/plugin-install.php');
             include(ABSPATH . 'wp-admin/includes/class-wp-upgrader.php');
-    
-            if ( ! class_exists('Plugin_Upgrader')){
+
+            if (! class_exists('Plugin_Upgrader')) {
                 include(ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php');
             }
-            if ( ! class_exists('Plugin_Installer_Skin')) {
-                include( ABSPATH . 'wp-admin/includes/class-plugin-installer-skin.php' );
+            if (! class_exists('Plugin_Installer_Skin')) {
+                include(ABSPATH . 'wp-admin/includes/class-plugin-installer-skin.php');
             }
-    
+
             $plugin = 'woocommerce';
-    
-            $api = plugins_api( 'plugin_information', array(
+
+            $api = plugins_api('plugin_information', array(
                 'slug' => $plugin,
                 'fields' => array(
                     'short_description' => false,
@@ -389,31 +415,31 @@ if (! class_exists('Initial_Setup')) {
                     'homepage' => false,
                     'donate_link' => false,
                 ),
-            ) );
-    
-            if ( is_wp_error( $api ) ) {
-                wp_die( $api );
+            ));
+
+            if (is_wp_error($api)) {
+                wp_die($api);
             }
-    
-            $title = sprintf( __('Installing Plugin: %s'), $api->name . ' ' . $api->version );
+
+            $title = sprintf(__('Installing Plugin: %s'), $api->name . ' ' . $api->version);
             $nonce = 'install-plugin_' . $plugin;
-            $url = 'update.php?action=install-plugin&plugin=' . urlencode( $plugin );
-    
-            $upgrader = new \Plugin_Upgrader( new \Plugin_Installer_Skin( compact('title', 'url', 'nonce', 'plugin', 'api') ) );
+            $url = 'update.php?action=install-plugin&plugin=' . urlencode($plugin);
+
+            $upgrader = new \Plugin_Upgrader(new \Plugin_Installer_Skin(compact('title', 'url', 'nonce', 'plugin', 'api')));
             $upgrader->install($api->download_link);
             die();
         }
-    
-        
-        public static function wc_low_version(){
+
+
+        public static function wc_low_version()
+        {
             printf(
-                '<div class="notice notice-error is-dismissible"><p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p></div>', 
-                __('Your','wp-crowdfunding'), 
-                'https://wordpress.org/plugins/woocommerce/', 
-                __('WooCommerce','wp-crowdfunding'), 
-                __('version is below then 3.0, please update.','wp-crowdfunding') 
+                '<div class="notice notice-error is-dismissible"><p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p></div>',
+                __('Your', 'wp-crowdfunding'),
+                'https://wordpress.org/plugins/woocommerce/',
+                __('WooCommerce', 'wp-crowdfunding'),
+                __('version is below then 3.0, please update.', 'wp-crowdfunding')
             );
         }
-
     }
 }
