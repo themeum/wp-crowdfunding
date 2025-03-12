@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-05 09:18+0000\n"
+"POT-Creation-Date: 2024-12-11 10:05+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/Functions.php:450
+#: includes/Functions.php:476
 msgid "Your browser does not support the video tag."
 msgstr ""
 
-#: includes/Functions.php:817
+#: includes/Functions.php:860
 msgid "Campaign will be started within"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "You must have"
 msgstr ""
 
-#: includes/Initial_Setup.php:331, includes/Initial_Setup.php:362, includes/Initial_Setup.php:442
+#: includes/Initial_Setup.php:331, includes/Initial_Setup.php:362, includes/Initial_Setup.php:440
 msgid "WooCommerce"
 msgstr ""
 
@@ -54,11 +54,11 @@ msgstr ""
 msgid "Install WooCommerce"
 msgstr ""
 
-#: includes/Initial_Setup.php:440
+#: includes/Initial_Setup.php:438
 msgid "Your"
 msgstr ""
 
-#: includes/Initial_Setup.php:443
+#: includes/Initial_Setup.php:441
 msgid "version is below then 3.0, please update."
 msgstr ""
 

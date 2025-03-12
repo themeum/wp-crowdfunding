@@ -292,6 +292,16 @@ class Functions {
         }
     }
 
+    public static function hpos_enabled() {
+		$hpos = false;
+
+		if ( version_compare( WC()->version, '8.2.0', '>=' ) ) {
+			$hpos = 'yes' === get_option( 'woocommerce_custom_orders_table_enabled' );
+		}
+
+		return $hpos;
+	}
+
     public function fund_raised($campaign_id = 0) {
         global $wpdb, $post;
         $db_prefix = $wpdb->prefix;
@@ -309,14 +319,30 @@ class Functions {
         }
         $placeholders = implode(',', array_fill(0, count($campaign_ids), '%d'));
 
-
-        $query = "SELECT SUM(ltoim.meta_value) as total_sales_amount
+        if( ! $this->hpos_enabled() ) {
+            $query = "SELECT SUM(ltoim.meta_value) as total_sales_amount
                 FROM {$wpdb->prefix}woocommerce_order_itemmeta woim
-			    LEFT JOIN {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
-			    LEFT JOIN {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID
-			    LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
-			    WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
-
+                LEFT JOIN {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
+                LEFT JOIN {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID
+                LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
+                WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
+        } else {
+            $query = "SELECT 
+                        SUM(ltoim.meta_value) as total_sales_amount
+                    FROM
+                        {$wpdb->prefix}woocommerce_order_itemmeta woim
+                    LEFT JOIN
+                        {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
+                    LEFT JOIN
+                        {$wpdb->prefix}wc_orders wco ON oi.order_id = wco.id
+                    LEFT JOIN
+                        {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
+                    WHERE
+                    woim.meta_key = '_product_id'
+                    AND woim.meta_value IN ($placeholders)
+                    AND wco.status = 'wc-completed';
+                ";
+        }
         $wp_sql = $wpdb->get_row($wpdb->prepare($query, $campaign_ids));
 
         return $wp_sql->total_sales_amount;
@@ -597,6 +623,7 @@ class Functions {
         if ($campaign_id == 0) {
             $campaign_id = $post->ID;
         }
+        $od = get_option( 'woocommerce_custom_orders_table_enabled' );
         // WPML compatibility.
         if (apply_filters('wpml_setting', false, 'setup_complete')) {
             $type           = apply_filters('wpml_element_type', get_post_type($campaign_id));
@@ -608,20 +635,36 @@ class Functions {
         }
         $placeholders = implode(',', array_fill(0, count($campaign_ids), '%d'));
 
-
-        $query = "SELECT 
-                    SUM(ltoim.meta_value) as total_sales_amount 
-                FROM 
-                    {$wpdb->prefix}woocommerce_order_itemmeta woim 
-                LEFT JOIN 
-                    {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id 
-                LEFT JOIN 
-                    {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID 
-                LEFT JOIN 
-                    {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total' 
-                WHERE 
-                    woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
-
+        if( ! $this->hpos_enabled() ) {
+            $query = "SELECT 
+                SUM(ltoim.meta_value) as total_sales_amount 
+            FROM 
+                {$wpdb->prefix}woocommerce_order_itemmeta woim 
+            LEFT JOIN 
+                {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id 
+            LEFT JOIN 
+                {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID 
+            LEFT JOIN 
+                {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total' 
+            WHERE 
+                woim.meta_key = '_product_id' AND woim.meta_value IN ($placeholders) AND wpposts.post_status = 'wc-completed';";
+        } else {
+            $query = "SELECT 
+                SUM(ltoim.meta_value) as total_sales_amount
+                FROM
+                    {$wpdb->prefix}woocommerce_order_itemmeta woim
+                LEFT JOIN
+                    {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
+                LEFT JOIN
+                    {$wpdb->prefix}wc_orders wco ON oi.order_id = wco.id
+                LEFT JOIN
+                    {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
+                WHERE
+                woim.meta_key = '_product_id'
+                AND woim.meta_value IN ($placeholders)
+                AND wco.status = 'wc-completed';
+            ";
+        }
         $wp_sql = $wpdb->get_row($wpdb->prepare($query, $campaign_ids));
 
         return $wp_sql->total_sales_amount;
