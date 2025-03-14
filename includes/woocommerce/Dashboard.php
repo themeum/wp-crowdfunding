@@ -26,9 +26,12 @@ class Dashboard{
     /**
     * Download Personal Data
     */
-    public function wpcf_personal_data_download(){
+    public function wpcf_personal_data_download() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
         $user_id = get_current_user_id();
-        if ( isset($_GET['download_data']) && $user_id ) {
+        if ( isset( $_GET['download_data'] ) && $user_id ) {
             require_once ABSPATH . 'wp-admin/includes/export.php';
             $args = array(
                 'content'    => 'all',
@@ -42,7 +45,7 @@ class Dashboard{
         }
     }
 
-    public function init(){
+    public function init() {
         wp_add_dashboard_widget( 'dashboard_overview', __('CrowdFunding Overview', 'wp-crowdfunding'), array($this, 'dashboard_overview'));
     }
 

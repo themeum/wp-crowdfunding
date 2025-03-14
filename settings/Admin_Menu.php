@@ -16,7 +16,7 @@ class Admin_Menu {
      */
     public function style_custom_css(){
 
-        if( 'true' == get_option('wpneo_enable_color_styling') ){
+        if( 'true' == get_option('wpneo_enable_color_styling') ) {
             $color_scheme       = get_option( 'wpneo_color_scheme' );
             $button_bg          = get_option( 'wpneo_button_bg_color' );
             $button_bg_hover    = get_option( 'wpneo_button_bg_hover_color' );
@@ -127,9 +127,9 @@ class Admin_Menu {
                 $style .=  '.tab-rewards-wrapper .overlay { background: rgba('.$r.','.$g.','.$b.',.95); }';
             }
     
-            if( $custom_css ){ $style .= $custom_css; }
+            if ( $custom_css ) { $style .= $custom_css; }
     
-            $output = '<style type="text/css"> '.$style.' </style>';
+            $output = '<style type="text/css">' . wp_strip_all_tags($style) . '</style>';
             echo $output;
         }
     }
@@ -211,7 +211,7 @@ class Admin_Menu {
 
         if (wpcf_function()->post('wpneo_settings_page_nonce_field')){
             echo '<div class="notice notice-success is-dismissible">';
-                echo '<p>'.__( "Settings have been Saved.", "wp-crowdfunding" ).'</p>';
+                echo '<p>' . esc_html__("Settings have been Saved.", "wp-crowdfunding") . '</p>';
             echo '</div>';
         }
 
@@ -219,7 +219,14 @@ class Admin_Menu {
         echo '<h2 class="nav-tab-wrapper">';
         foreach( $tabs as $tab => $name ){
             $class = ( $tab == $current_page ) ? ' nav-tab-active' : '';
-            echo "<a class='nav-tab$class' href='?page=wpcf-settings&tab=$tab'>{$name['tab_name']}</a>";
+            // echo "<a class='nav-tab$class' href='?page=wpcf-settings&tab=$tab'> {$name['tab_name']} </a>";
+            echo '<a class="nav-tab ' . esc_attr($class) . ' " href="?page=wpcf-settings&tab=' . esc_attr($tab) . '"> ' . esc_html($name['tab_name']) . '</a>';
+            // printf(
+            //     '<a class="nav-tab%s" href="%s">%s</a>',
+            //     esc_attr($class),
+            //     esc_url(add_query_arg(['page' => 'wpcf-settings', 'tab' => $tab], admin_url('admin.php'))),
+            //     esc_html($name['tab_name'])
+            // );
         }
         echo '</h2>';
         ?>
@@ -241,7 +248,7 @@ class Admin_Menu {
             wp_nonce_field( 'wpneo_settings_page_action', 'wpneo_settings_page_nonce_field' );
             submit_button( null, 'primary', 'wpneo_admin_settings_submit_btn' );
             ?>
-            <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> <i class="dashicons dashicons-image-rotate"></i> <?php _e('Reset Settings', 'wp-crowdfunding'); ?></a>
+            <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> <i class="dashicons dashicons-image-rotate"></i> <?php esc_attr_e('Reset Settings', 'wp-crowdfunding'); ?></a>
         </form>
         <?php
     }

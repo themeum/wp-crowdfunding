@@ -1,6 +1,6 @@
 <div class="wrap">
     <div class="wp-crowdfunding-addons-list">
-        <h1 class="addon-list-heading"><?php _e('Addons List', 'wp-crowdfunding'); ?></h1>
+        <h1 class="addon-list-heading"><?php esc_html_e( 'Addons List', 'wp-crowdfunding' ); ?></h1>
         <br class="clear">
 		<?php
         $addons = apply_filters('wpcf_addons_lists_config', array());
@@ -93,8 +93,8 @@
                                 <div class="name column-name">
                                     <h3>
 										<?php
-                                        echo $addon['name']; 
-										echo "<img src='{$thumbnailURL}' class='plugin-icon' alt=''>";
+                                        echo esc_html( $addon['name'] ); 
+										echo '<img src="' . esc_url($thumbnailURL) . '" class="' . esc_attr('plugin-icon') . '" alt="">';
 										?>
                                     </h3>
                                 </div>
@@ -102,14 +102,14 @@
                                     <ul class="plugin-action-buttons">
                                         <li>
                                             <label class="btn-switch">
-                                                <input type="checkbox" class="wpcf_addons_list_item" value="1" name="<?php echo $basName; ?>" <?php checked(true, $isEnable) ?> />
+                                                <input type="checkbox" class="wpcf_addons_list_item" value="1" name="<?php echo esc_attr($basName); ?>" <?php checked(true, $isEnable) ?> />
                                                 <div class="btn-slider btn-round"></div>
                                             </label>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="desc column-description">
-                                    <p><?php echo $addon['description']; ?></p>
+                                    <p><?php echo esc_html($addon['description']); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -168,8 +168,8 @@
                                     <div class="name column-name">
                                         <h3>
                                             <?php
-                                            echo $addon['name'];
-                                            echo "<img src='{$thumbnailURL}' class='plugin-icon' alt=''>";
+                                                echo esc_html($addon['name']);
+                                                echo '<img src="' . esc_url($thumbnailURL) . '" class="plugin-icon" alt="">';
                                             ?>
                                         </h3>
                                     </div>
@@ -178,13 +178,13 @@
                                             <?php if( wpcf_function()->is_free() ) { ?>
                                                 <li>
                                                     <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin"
-                                                    class="addon-buynow-link" target="_blank"><?php _e('Buy Now','wp-crowdfunding'); ?></a>
+                                                    class="addon-buynow-link" target="_blank"><?php esc_attr_e('Buy Now','wp-crowdfunding'); ?></a>
                                                 </li>
                                             <?php } ?>
                                         </ul>
                                     </div>
                                     <div class="desc column-description">
-                                        <p><?php echo $addon['description']; ?></p>
+                                        <p><?php echo esc_html($addon['description']); ?></p>
                                     </div>
                                 </div>
                             </div>
