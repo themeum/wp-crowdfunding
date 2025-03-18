@@ -322,7 +322,7 @@ if (! class_exists('Initial_Setup')) {
                         <img src="<?php echo WPCF_DIR_URL . 'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
                     </div>
                     <div class="wpcf-install-notice-content">
-                        <h2><?php _e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
+                        <h2><?php esc_html_e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
                         <?php
                         printf(
                             '<p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p>',
@@ -332,10 +332,10 @@ if (! class_exists('Initial_Setup')) {
                             __('installed and activated on this website in order to use WP Crowdfunding.', 'wp-crowdfunding')
                         );
                         ?>
-                        <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
+                        <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php esc_html_e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
                     <div class="wpcf-install-notice-button">
-                        <a class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_woocommerce_free'), admin_url()); ?>"><?php _e('Activate WooCommerce', 'wp-crowdfunding'); ?></a>
+                        <a class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_woocommerce_free'), admin_url()); ?>"><?php esc_html_e('Activate WooCommerce', 'wp-crowdfunding'); ?></a>
                     </div>
                 </div>
             </div>
@@ -353,7 +353,7 @@ if (! class_exists('Initial_Setup')) {
                         <img src="<?php echo WPCF_DIR_URL . 'assets/images/woocommerce-icon.png'; ?>" alt="logo" />
                     </div>
                     <div class="wpcf-install-notice-content">
-                        <h2><?php _e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
+                        <h2><?php esc_html_e('Thanks for using WP Crowdfunding', 'wp-crowdfunding'); ?></h2>
                         <?php
                         printf(
                             '<p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p>',
@@ -363,10 +363,10 @@ if (! class_exists('Initial_Setup')) {
                             __('installed and activated on this website in order to use WP Crowdfunding.', 'wp-crowdfunding')
                         );
                         ?>
-                        <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php _e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
+                        <a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank"><?php esc_html_e('Learn more about WP Crowdfunding', 'wp-crowdfunding'); ?></a>
                     </div>
                     <div class="wpcf-install-notice-button">
-                        <a class="install-wpcf-button button button-primary" data-slug="woocommerce" href="<?php echo add_query_arg(array('action' => 'install_woocommerce_free'), admin_url()); ?>"><?php _e('Install WooCommerce', 'wp-crowdfunding'); ?></a>
+                        <a class="install-wpcf-button button button-primary" data-slug="woocommerce" href="<?php echo add_query_arg(array('action' => 'install_woocommerce_free'), admin_url()); ?>"><?php esc_html_e('Install WooCommerce', 'wp-crowdfunding'); ?></a>
                     </div>
                 </div>
                 <div id="wpcf_install_msg"></div>
@@ -435,10 +435,10 @@ if (! class_exists('Initial_Setup')) {
         {
             printf(
                 '<div class="notice notice-error is-dismissible"><p>%1$s <a target="_blank" href="%2$s">%3$s</a> %4$s</p></div>',
-                __('Your', 'wp-crowdfunding'),
+                esc_html__('Your', 'wp-crowdfunding'),
                 'https://wordpress.org/plugins/woocommerce/',
-                __('WooCommerce', 'wp-crowdfunding'),
-                __('version is below then 3.0, please update.', 'wp-crowdfunding')
+                esc_html__('WooCommerce', 'wp-crowdfunding'),
+                esc_html__('version is below then 3.0, please update.', 'wp-crowdfunding')
             );
         }
     }

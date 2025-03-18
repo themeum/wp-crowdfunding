@@ -473,7 +473,7 @@ class Functions {
                 } elseif (strpos($url, '.webm')) {
                     $format = 'WebM';
                 }
-                $embeded = '<video controls><source src="' . $url . '" type="video/' . $format . '">' . __('Your browser does not support the video tag.', 'wp-crowdfunding') . '</video>';
+                $embeded = '<video controls><source src="' . $url . '" type="video/' . $format . '">' . esc_html__('Your browser does not support the video tag.', 'wp-crowdfunding') . '</video>';
             }
             return '<div class="wpneo-video-wrapper">' . $embeded . '</div>';
         } else {
@@ -857,7 +857,7 @@ class Functions {
         $_nf_duration_start = get_post_meta($post->ID, '_nf_duration_start', true);
 
 ?>
-        <p class="wpcf-start-campaign-countdown"><?php _e('Campaign will be started within', 'wp-crowdfunding') ?> <span id="wpcf-campaign-countdown"></span></p>
+        <p class="wpcf-start-campaign-countdown"><?php esc_html_e('Campaign will be started within', 'wp-crowdfunding') ?> <span id="wpcf-campaign-countdown"></span></p>
 
         <script type="text/javascript">
             // Set the date we're counting down to

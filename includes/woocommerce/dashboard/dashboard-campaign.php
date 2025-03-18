@@ -39,22 +39,22 @@ if ( $the_query->have_posts() ) :
                         <div class="wpcrowd-admin-meta-info">
                             <!--  Days to go -->
                             <span class="wpneo-meta-wrap">
-                                <?php $days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
+                                <?php $days_remaining = apply_filters('date_expired_msg', esc_html__('0', 'wp-crowdfunding'));
                                 if (wpcf_function()->get_date_remaining()){
-                                    $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
+                                    $days_remaining = apply_filters('date_remaining_msg', esc_html__(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
                                 }
                                 $end_method = get_post_meta(get_the_ID(), 'wpneo_campaign_end_method', true);
                                 if ($end_method != 'never_end'){ ?>
                                     <?php if (wpcf_function()->is_campaign_started()){ ?>
-                                        <span class="info-text"><?php echo wpcf_function()->get_date_remaining().' '; _e( 'Days to go','wp-crowdfunding' ); ?></span>
+                                        <span class="info-text"><?php echo wpcf_function()->get_date_remaining().' '; esc_html_e( 'Days to go','wp-crowdfunding' ); ?></span>
                                     <?php } else { ?>
-                                        <span class="info-text"><?php echo wpcf_function()->days_until_launch().' '; _e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
+                                        <span class="info-text"><?php echo wpcf_function()->days_until_launch().' '; esc_html_e( 'Days Until Launch','wp-crowdfunding' ); ?></span>
                                     <?php } ?>
                                 <?php } ?>
                             </span>
                             <!-- author -->
                             <span class="wpneo-meta-wrap">
-                                <span class="wpneo-meta-name"><?php _e('by','wp-crowdfunding'); ?> </span>
+                                <span class="wpneo-meta-name"><?php esc_html_e('by','wp-crowdfunding'); ?> </span>
                                 <a href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
                             </span>
 
@@ -68,13 +68,13 @@ if ( $the_query->have_posts() ) :
                             }
                             ?>
                             <span class="wpneo-meta-wrap">
-                                <span class="wpneo-meta-name"><?php _e('Total', 'wp-crowdfunding'); ?> </span>
+                                <span class="wpneo-meta-name"><?php esc_html_e('Total', 'wp-crowdfunding'); ?> </span>
                                 <?php echo wc_price($raised); ?>
                             </span>
                             <span class="wpneo-meta-wrap">
                                 <!-- Funding Goal -->
                                 <?php $funding_goal = get_post_meta($post->ID, '_nf_funding_goal', true); ?>
-                                <span class="wpneo-meta-name"><?php _e('Goal', 'wp-crowdfunding'); ?></span>
+                                <span class="wpneo-meta-name"><?php esc_html_e('Goal', 'wp-crowdfunding'); ?></span>
                                 <?php echo wc_price( $funding_goal ); ?>
                             </span>   
                             
@@ -89,7 +89,7 @@ if ( $the_query->have_posts() ) :
     endwhile;
     wp_reset_postdata();
 else :
-    $html .= "<p>".__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
+    $html .= "<p>".esc_html__( 'Sorry, no Campaign Found.','wp-crowdfunding' )."</p>";
 endif;
 $html .= '</div>';
 $html .= wpcf_function()->get_pagination( $page_numb , $the_query->max_num_pages );

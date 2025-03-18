@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 add_action('wpcf_campaign_listing_before_loop', 'campaign_listing_by_author_before_loop');
 function campaign_listing_by_author_before_loop(){
 	if (! empty($_GET['author'])) {
-		echo '<h3>'.__('Campaigns by: ', 'wp-crowdfunding').' '.wpcf_function()->author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
+		echo '<h3>'.esc_html__('Campaigns by: ', 'wp-crowdfunding').' '.wpcf_function()->author_name_by_login(sanitize_text_field(trim($_GET['author']))).'</h3>';
 	}
 }
 
@@ -70,44 +70,44 @@ function wpcf_bio_campaign_action(){
 			$html .= '<i class="wpneo-icon wpneo-icon-location"></i> <span>'.$location.'</span>';
 			$html .= '</div>';
 		}
-		$html .= '<div class="wpneo-profile-campaigns">'.wpcf_function()->author_campaigns($author)->post_count.__( " Campaigns" , "wp-crowdfunding" ).' | '.wpcf_function()->loved_count().__( " Loved campaigns" , "wp-crowdfunding" ).'</div>';
+		$html .= '<div class="wpneo-profile-campaigns">'.wpcf_function()->author_campaigns($author)->post_count.esc_html__( " Campaigns" , "wp-crowdfunding" ).' | '.wpcf_function()->loved_count().esc_html__( " Loved campaigns" , "wp-crowdfunding" ).'</div>';
 		$html .= '</div>';
 
 		if ( ! empty($user_info['profile_about'][0])){
 			$html .= '<div class="wpneo-profile-about">';
-			$html .= '<h3>'.__("Profile Information","wp-crowdfunding").'</h3>';
+			$html .= '<h3>'.esc_html__("Profile Information","wp-crowdfunding").'</h3>';
 			$html .= '<p>'.$user_info['profile_about'][0].'</p>';
 			$html .= '</div>';
 		}
 
 		if ( ! empty($user_info['profile_portfolio'][0])){
 			$html .= '<div class="wpneo-profile-about">';
-			$html .= '<h3>'.__("Portfolio","wp-crowdfunding").'</h3>';
+			$html .= '<h3>'.esc_html__("Portfolio","wp-crowdfunding").'</h3>';
 			$html .= '<p>'.$user_info['profile_portfolio'][0].'</p>';
 			$html .= '</div>';
 		}
 
 		$html .= '<div class="wpneo-profile-about">';
-		$html .= '<h3>'.__("Contact Info","wp-crowdfunding").'</h3>';
+		$html .= '<h3>'.esc_html__("Contact Info","wp-crowdfunding").'</h3>';
 		if ( ! empty($user_info['profile_email1'][0])){
-			$html .= '<p>'.__("Email: ","wp-crowdfunding").$user_info['profile_email1'][0].'</p>';
+			$html .= '<p>'.esc_html__("Email: ","wp-crowdfunding").$user_info['profile_email1'][0].'</p>';
 		}
 		if ( ! empty($user_info['profile_mobile1'][0])){
-			$html .= '<p>'.__("Phone: ","wp-crowdfunding").$user_info['profile_mobile1'][0].'</p>';
+			$html .= '<p>'.esc_html__("Phone: ","wp-crowdfunding").$user_info['profile_mobile1'][0].'</p>';
 		}
 		if ( ! empty($user_info['profile_fax'][0])){
-			$html .= '<p>'.__("Fax: ","wp-crowdfunding").$user_info['profile_fax'][0].'</p>';
+			$html .= '<p>'.esc_html__("Fax: ","wp-crowdfunding").$user_info['profile_fax'][0].'</p>';
 		}
 		if ( ! empty($user_info['profile_website'][0])){
-			$html .= '<p>'.__("Website: ","wp-crowdfunding").' <a href="'.wpcf_function()->url($user_info['profile_website'][0]).'"> '.wpcf_function()->url($user_info['profile_website'][0]).' </a></p>';
+			$html .= '<p>'.esc_html__("Website: ","wp-crowdfunding").' <a href="'.wpcf_function()->url($user_info['profile_website'][0]).'"> '.wpcf_function()->url($user_info['profile_website'][0]).' </a></p>';
 		}
 		if ( ! empty($user_info['profile_email1'][0])){
-			$html .= '<a class="wpneo-profile-button" href="mailto:'.$user_info['profile_email1'][0].'" target="_top">'.__("Contact Me","wp-crowdfunding").'</a>';
+			$html .= '<a class="wpneo-profile-button" href="mailto:'.$user_info['profile_email1'][0].'" target="_top">'.esc_html__("Contact Me","wp-crowdfunding").'</a>';
 		}
 		$html .= '</div>';
 
 		$html .= '<div class="wpneo-profile-about">';
-		$html .= '<h3>'.__("Social Link","wp-crowdfunding").'</h3>';
+		$html .= '<h3>'.esc_html__("Social Link","wp-crowdfunding").'</h3>';
 		if ( ! empty($user_info['profile_facebook'][0])){
 			$html .= '<a class="wpcf-social-link" href="'.$user_info["profile_facebook"][0].'"><i class="wpneo-icon wpneo-icon-facebook"></i></a>';
 		}
@@ -125,7 +125,7 @@ function wpcf_bio_campaign_action(){
 		}
 		$html .= '</div>';
 
-		$title = __("About the campaign creator","wp-crowdfunding");
+		$title = esc_html__("About the campaign creator","wp-crowdfunding");
 
 		die(json_encode(array('success'=> 1, 'message' => $html, 'title' => $title )));
 	}

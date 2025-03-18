@@ -32,12 +32,12 @@ ob_start();
         <div class="wpneo-row">
             <div class="wpneo-col6">
                 <div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
-                    <h4><?php _e("Shipping Address","wp-crowdfunding"); ?></h4>
+                    <h4><?php esc_html_e("Shipping Address","wp-crowdfunding"); ?></h4>
                     
                     <!-- // First Name ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "First Name:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "First Name:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                         <input type="hidden" name="action" value="wpneo_contact_form">
@@ -48,7 +48,7 @@ ob_start();
                     <!-- // Last Name ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Last Name:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_last_name" value="<?php echo $l_name; ?>" disabled>
@@ -58,7 +58,7 @@ ob_start();
                     <!-- // Company ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Company:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Company:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_company" value="<?php echo $company; ?>" disabled>
@@ -68,7 +68,7 @@ ob_start();
                     <!-- // Address 1 ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Address 1:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_address_1" value="<?php echo $address1; ?>" disabled>
@@ -78,7 +78,7 @@ ob_start();
                     <!-- // Address 2 ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Address 2:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_address_2" value="<?php echo $address2; ?>" disabled>
@@ -88,7 +88,7 @@ ob_start();
                     <!-- // City ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "City:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "City:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_city" value="<?php echo $city; ?>" disabled>
@@ -98,7 +98,7 @@ ob_start();
                     <!-- // Postcode ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Postcode:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_postcode" value="<?php echo $postcode; ?>" disabled>
@@ -108,7 +108,7 @@ ob_start();
                     <!-- // Country ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Country:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Country:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <?php
@@ -131,7 +131,7 @@ ob_start();
                     <!-- // State ( Shipping ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "State:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "State:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="shipping_state" value="<?php echo $state; ?>" disabled>
@@ -144,11 +144,11 @@ ob_start();
             <div class="wpneo-col6">
                 <div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
                     <!-- // Billing Address -->
-                    <h4><?php _e("Billing Address","wp-crowdfunding"); ?></h4>
+                    <h4><?php esc_html_e("Billing Address","wp-crowdfunding"); ?></h4>
                     <!-- // First Name ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "First Name:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "First Name:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_first_name" value="<?php echo $b_f_name; ?>" disabled>
@@ -158,7 +158,7 @@ ob_start();
                     <!-- // Last Name ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Last Name:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Last Name:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_last_name" value="<?php echo $b_l_name; ?>" disabled>
@@ -168,7 +168,7 @@ ob_start();
                     <!-- // Company ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Company:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Company:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_company" value="<?php echo $b_company; ?>" disabled>
@@ -178,7 +178,7 @@ ob_start();
                     <!-- // Address 1 ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Address 1:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Address 1:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_address_1" value="<?php echo $b_address1; ?>" disabled>
@@ -188,7 +188,7 @@ ob_start();
                     <!-- // Address 2 ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Address 2:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Address 2:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_address_2" value="<?php echo $b_address2; ?>" disabled>
@@ -198,7 +198,7 @@ ob_start();
                     <!-- // City ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "City:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "City:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_city" value="<?php echo $b_city; ?>" disabled>
@@ -208,7 +208,7 @@ ob_start();
                     <!-- // Postcode ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Postcode:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Postcode:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_postcode" value="<?php echo $b_postcode; ?>" disabled>
@@ -218,7 +218,7 @@ ob_start();
                     <!-- // Country ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Country:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Country:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <?php
@@ -240,7 +240,7 @@ ob_start();
                     <!-- // State ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "State:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "State:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_state" value="<?php echo $b_state; ?>" disabled>
@@ -250,7 +250,7 @@ ob_start();
                     <!-- // Telephone ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Telephone:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Telephone:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="text" name="billing_phone" value="<?php echo $b_phone; ?>" disabled>
@@ -260,7 +260,7 @@ ob_start();
                     <!-- // Email ( Billing ) -->
                     <div class="wpneo-single">
                         <div class="wpneo-name float-left">
-                            <p><?php _e( "Email:" , "wp-crowdfunding" ); ?></p>
+                            <p><?php esc_html_e( "Email:" , "wp-crowdfunding" ); ?></p>
                         </div>
                         <div class="wpneo-fields">
                             <input type="email" name="billing_email" value="<?php echo $b_email; ?>" disabled>
@@ -276,9 +276,9 @@ ob_start();
 
 		<!-- //Save Button -->
         <div class="wpneo-buttons-group float-right">
-            <button id="wpneo-edit" class="wpneo-edit-btn"><?php _e( "Edit" , "wp-crowdfunding" ); ?></button>
-            <button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit"><?php _e( "Cancel" , "wp-crowdfunding" ); ?></button>
-            <button id="wpneo-contact-save" class="wpneo-save-btn wpneo-hidden" type="submit"><?php _e( "Save" , "wp-crowdfunding" ); ?></button>
+            <button id="wpneo-edit" class="wpneo-edit-btn"><?php esc_html_e( "Edit" , "wp-crowdfunding" ); ?></button>
+            <button id="wpneo-dashboard-btn-cancel" class="wpneo-cancel-btn wpneo-hidden" type="submit"><?php esc_html_e( "Cancel" , "wp-crowdfunding" ); ?></button>
+            <button id="wpneo-contact-save" class="wpneo-save-btn wpneo-hidden" type="submit"><?php esc_html_e( "Save" , "wp-crowdfunding" ); ?></button>
         </div>
         <div class="clear-float"></div>
 

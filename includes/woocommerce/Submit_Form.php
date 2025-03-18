@@ -34,7 +34,7 @@ class Submit_Form {
     function frontend_data_save(){
 
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
-            die(json_encode(array('success'=> 0, 'message' => __('Sorry, your data did not verify.', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Sorry, your data did not verify.', 'wp-crowdfunding'))));
             exit;
         }
 
@@ -68,19 +68,19 @@ class Submit_Form {
         $show_terms_and_conditions = get_option('wpcf_show_terms_and_conditions');
         
         if ( empty($_POST['wpneo-form-title'])){
-            die(json_encode(array('success'=> 0, 'message' => __('Title required', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Title required', 'wp-crowdfunding'))));
         }
         if ( empty($_POST['wpneo-form-description']) && $show_description == 'true'){
-            die(json_encode(array('success'=> 0, 'message' => __('Description required', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Description required', 'wp-crowdfunding'))));
         }
         if ( empty($_POST['wpneo-form-short-description']) && $show_short_description == 'true' ){
-            die(json_encode(array('success'=> 0, 'message' => __('Short Description required', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Short Description required', 'wp-crowdfunding'))));
         }
         if ( empty($_POST['wpneo-form-funding-goal']) && $show_funding_goal == 'true' ){
-            die(json_encode(array('success'=> 0, 'message' => __('Funding goal required', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Funding goal required', 'wp-crowdfunding'))));
         }
         if ( empty($_POST['wpneo_terms_agree']) && $show_terms_and_conditions == 'true' ){
-            die(json_encode(array('success'=> 0, 'message' => __('Please check terms condition', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Please check terms condition', 'wp-crowdfunding'))));
         }
 
         $title = isset($_POST['wpneo-form-title']) ? sanitize_text_field($_POST['wpneo-form-title']) : '';
@@ -126,16 +126,16 @@ class Submit_Form {
 
             if ( ! in_array($my_post['ID'], $wp_query_users_product_id)) {
                 header('Content-Type: application/json');
-                echo json_encode(array('success' => 0, 'msg' => 'Unauthorized action'));
+                echo json_encode(array('success' => 0, 'msg' => esc_html__('Unauthorized action', 'wp-crowdfunding')));
                 exit;
             }
             $post_id = wp_update_post( $my_post );
-            $update_message = __( 'Campaign successfully updated', 'wp-crowdfunding' );
+            $update_message = esc_html__('Campaign successfully updated', 'wp-crowdfunding');
         
         } else {
             $my_post['post_status'] = get_option( 'wpneo_default_campaign_status' );
             $post_id = wp_insert_post( $my_post );
-            $update_message = __( 'Campaign successfully submitted', 'wp-crowdfunding' );
+            $update_message = esc_html__('Campaign successfully submitted', 'wp-crowdfunding');
             if ($post_id) {
                 WC()->mailer(); // load email classes
                 do_action('wpcf_after_campaign_email',$post_id);

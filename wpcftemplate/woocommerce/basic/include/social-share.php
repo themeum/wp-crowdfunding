@@ -19,7 +19,7 @@ if ( has_post_thumbnail() ) {
         <?php if( !empty( $social ) ){ ?>
             <?php $enable_social = true; ?>
             <div class="social-container">
-                <span><?php _e('Share: ','wp-crowdfunding'); ?></span>
+                <span><?php esc_html_e('Share: ','wp-crowdfunding'); ?></span>
                 <div class="links">
                     <?php if( in_array( 'facebook', $social ) ){ ?>
                         <a href="javascript:void(0)" class="wpcf-share s_facebook"><i class="wpneo-icon wpneo-icon-facebook"></i> </a>
@@ -82,7 +82,7 @@ if ( has_post_thumbnail() ) {
 
     <?php if( !$enable_social && $embed ){ ?>
         <div class="social-container">
-            <span><?php _e('Share: ','wp-crowdfunding'); ?></span>
+            <span><?php esc_html_e('Share: ','wp-crowdfunding'); ?></span>
             <div class="links">
                 <a href="javascript:;" class="embedlink" data-postid="<?php echo the_permalink( $post_id ); ?>"><i class="wpneo-icon wpneo-icon-embed" data-postid="<?php echo $post_id; ?>"></i></a>
             </div>

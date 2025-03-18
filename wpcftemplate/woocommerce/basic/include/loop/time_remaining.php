@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-$days_remaining = apply_filters('date_expired_msg', __('0', 'wp-crowdfunding'));
+$days_remaining = apply_filters('date_expired_msg', esc_html__('0', 'wp-crowdfunding'));
 if (wpcf_function()->get_date_remaining()){
     $days_remaining = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
 }
@@ -11,10 +11,10 @@ if ($end_method != 'never_end'){ ?>
     <div class="wpneo-time-remaining">
         <?php if (wpcf_function()->is_campaign_started()){ ?>
             <div class="wpneo-meta-desc"><?php echo wpcf_function()->get_date_remaining(); ?></div>
-            <div class="wpneo-meta-name float-left"><?php _e( 'Days to go','wp-crowdfunding' ); ?></div>
+            <div class="wpneo-meta-name float-left"><?php esc_html_e( 'Days to go','wp-crowdfunding' ); ?></div>
         <?php } else { ?>
             <div class="wpneo-meta-desc"><?php echo wpcf_function()->days_until_launch(); ?></div>
-            <div class="wpneo-meta-name float-left"><?php _e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
+            <div class="wpneo-meta-name float-left"><?php esc_html_e( 'Days Until Launch','wp-crowdfunding' ); ?></div>
         <?php } ?>
     </div>
 <?php } ?>

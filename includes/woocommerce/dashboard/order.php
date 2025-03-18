@@ -48,12 +48,12 @@ if( is_array( $id_array ) ){
 $page_numb = max( 1, get_query_var('paged') );
 
 $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', array(
-    'order-number'  => __( 'Order', 'wp-crowdfunding' ),
-    'order-date'    => __( 'Date', 'wp-crowdfunding' ),
-    'order-status'  => __( 'Status', 'wp-crowdfunding' ),
-    'order-total'   => __( 'Total', 'wp-crowdfunding' ),
-    'order-rewards' => __( 'Rewards', 'wp-crowdfunding' ),
-    'order-actions'    => __( 'Actions', 'wp-crowdfunding' ),
+    'order-number'  => esc_html__( 'Order', 'wp-crowdfunding' ),
+    'order-date'    => esc_html__( 'Date', 'wp-crowdfunding' ),
+    'order-status'  => esc_html__( 'Status', 'wp-crowdfunding' ),
+    'order-total'   => esc_html__( 'Total', 'wp-crowdfunding' ),
+    'order-rewards' => esc_html__( 'Rewards', 'wp-crowdfunding' ),
+    'order-actions'    => esc_html__( 'Actions', 'wp-crowdfunding' ),
     //'order-actions' => '&nbsp;',
 ) );
 
@@ -95,7 +95,7 @@ if ( $customer_orders ) :
                     $html .= _x( '#', 'hash before order number', 'wp-crowdfunding' ) . $order->get_order_number();
 
                 elseif ( 'order-view' === $column_id ) :
-                    $html .= '<a class="label-info" href="'.$order->get_view_order_url().'">'.__("View","wp-crowdfunding").'</a>';
+                    $html .= '<a class="label-info" href="'.$order->get_view_order_url().'">'.esc_html__( "View","wp-crowdfunding" ).'</a>';
 
                 elseif ( 'order-date' === $column_id ) :
                     $html .='<time datetime="'.date( 'Y-m-d', strtotime( $order_date['date'] ) ).'" title="'.esc_attr( strtotime( $order_date['date'] ) ).'">'.date_i18n( get_option( "date_format" ), strtotime( $order_date['date'] ) ).'</time>';
@@ -121,14 +121,14 @@ if ( $customer_orders ) :
 
                         $rewards_amount = '';
                         if ( ! empty( $campaign_rewards_amount ) ) {
-                            $rewards_amount = '<a class="label-default" href="' . get_permalink( $product_id ) . '" target="_blank">' . __( 'Rewards ', 'wp-crowdfunding' ) . wpcf_function()->price( $campaign_rewards_amount->wpneo_rewards_pladge_amount ) . '</a>';
+                            $rewards_amount = '<a class="label-default" href="' . get_permalink( $product_id ) . '" target="_blank">' . esc_html__( 'Rewards ', 'wp-crowdfunding' ) . wpcf_function()->price( $campaign_rewards_amount->wpneo_rewards_pladge_amount ) . '</a>';
                         }
 
                         $html .= $rewards_amount;
                     }
 
                 elseif ( 'order-actions' === $column_id ) :
-                    $html .='<div class="button wpcf-order-view" data-orderid="'.$order->get_ID().'">' . __( "View","wp-crowdfunding" ) . '</div>';
+                    $html .='<div class="button wpcf-order-view" data-orderid="'.$order->get_ID().'">' . esc_html__( "View","wp-crowdfunding" ) . '</div>';
                 endif;
 
                 $html .='</td>';
@@ -139,7 +139,7 @@ if ( $customer_orders ) :
         $html .='</table>';
     $html .='</div>';//wpneo-responsive-table
 else:
-    $html .= "<p>".__( 'Sorry, No Pledges Received Data Found.','wp-crowdfunding' )."</p>";
+    $html .= "<p>".esc_html__( 'Sorry, No Pledges Received Data Found.','wp-crowdfunding' )."</p>";
 endif;
 $html .= "</div>";//wpneo-padding25
 

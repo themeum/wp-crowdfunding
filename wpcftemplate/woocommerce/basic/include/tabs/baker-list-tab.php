@@ -9,9 +9,9 @@ $baker_list = wpcf_function()->get_customers_product();
 ?>
 <table>
     <tr>
-        <th><?php _e('Name', 'wp-crowdfunding'); ?></th>
-        <th><?php _e('Donate Amount', 'wp-crowdfunding'); ?></th>
-        <th><?php _e('Date', 'wp-crowdfunding'); ?></th>
+        <th><?php esc_html_e('Name', 'wp-crowdfunding'); ?></th>
+        <th><?php esc_html_e('Donate Amount', 'wp-crowdfunding'); ?></th>
+        <th><?php esc_html_e('Date', 'wp-crowdfunding'); ?></th>
     </tr>
 
     <?php
@@ -32,11 +32,11 @@ $baker_list = wpcf_function()->get_customers_product();
                 <td>
                     <?php
                     if (get_post_meta(get_the_ID(), 'wpneo_mark_contributors_as_anonymous', true) == "1") {
-                        echo __("Anonymous", "wp-crowdfunding");
+                        echo esc_html__("Anonymous", "wp-crowdfunding");
                     } else {
                         $mark_anonymous = get_post_meta($order->get_id(), 'mark_name_anonymous', true);
                         if ($mark_anonymous === 'true'){
-                            _e('Anonymous', 'wp-crowdfunding');
+                            esc_html_e('Anonymous', 'wp-crowdfunding');
                         }else{
                             echo $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
                         }

@@ -46,7 +46,7 @@ class Dashboard{
     }
 
     public function init() {
-        wp_add_dashboard_widget( 'dashboard_overview', __('CrowdFunding Overview', 'wp-crowdfunding'), array($this, 'dashboard_overview'));
+        wp_add_dashboard_widget( 'dashboard_overview', esc_html__('CrowdFunding Overview', 'wp-crowdfunding'), array($this, 'dashboard_overview'));
     }
 
     /**
@@ -88,10 +88,10 @@ class Dashboard{
 
         $html = '';
         $html .= '<ul class="wpneo_d_status_list">';
-            $html .= '<li><span> <strong>'.$totalCampaigns.' </strong> '.__( "Total Campaign","wp-crowdfunding" ).'</span></li>';
-            $html .= '<li><span><strong>'.$total_orders .' </strong> '.__( "Completed Orders","wp-crowdfunding" ).'</span></li>';
-            $html .= '<li><span><strong>'. $on_hole_total_orders.' </strong> '.__( "On-Hold Orders","wp-crowdfunding" ).'</span></li>';
-            $html .= '<li><span><strong>'.get_woocommerce_currency_symbol().$total_campaign_orders.' </strong> '.__( "Total Donation Raised","wp-crowdfunding" ).'</span></li>';
+            $html .= '<li><span> <strong>'.$totalCampaigns.' </strong> '.esc_html__( "Total Campaign","wp-crowdfunding" ).'</span></li>';
+            $html .= '<li><span><strong>'.$total_orders .' </strong> '.esc_html__( "Completed Orders","wp-crowdfunding" ).'</span></li>';
+            $html .= '<li><span><strong>'. $on_hole_total_orders.' </strong> '.esc_html__( "On-Hold Orders","wp-crowdfunding" ).'</span></li>';
+            $html .= '<li><span><strong>'.get_woocommerce_currency_symbol().$total_campaign_orders.' </strong> '.esc_html__( "Total Donation Raised","wp-crowdfunding" ).'</span></li>';
         $html .= '</ul>';
         echo $html;
     }
@@ -133,7 +133,7 @@ class Dashboard{
     public function order_custom_column( $columns ) {
         $date = $columns['date'];
         unset($columns['date']);
-        $columns['campaign_owner'] = __('Owner', 'wp-crowdfunding');
+        $columns['campaign_owner'] = esc_html__('Owner', 'wp-crowdfunding');
         $columns['date'] = $date;
         return $columns;
     }
@@ -169,7 +169,7 @@ class Dashboard{
      * Register meta box(es).
      */
     function register_meta_boxes() {
-        add_meta_box( 'meta-box-id', __( 'Campaign Summary', 'wp-crowdfunding' ), array($this, 'metabox_display_callback'), 'product', 'side', 'high' );
+        add_meta_box( 'meta-box-id', esc_html__( 'Campaign Summary', 'wp-crowdfunding' ), array($this, 'metabox_display_callback'), 'product', 'side', 'high' );
     }
 
     /**
@@ -181,7 +181,7 @@ class Dashboard{
         $html = '';
         $html .='<table class="widefat striped our-products">';
             $html .='<tr>';
-                $html .='<td>'.__( "By","wp-crowdfunding" ).'</td>';
+                $html .='<td>'.esc_html__( "By","wp-crowdfunding" ).'</td>';
                 $html .='<td>';
                     $html .='<span class="label-default">';
                         $user = get_userdata($post->post_author);
@@ -191,22 +191,22 @@ class Dashboard{
             $html .='</tr>';
 
             $html .='<tr>';
-                $html .='<td>'.__("Start Date", "wp-crowdfunding").'</td>';
+                $html .='<td>'.esc_html__("Start Date", "wp-crowdfunding").'</td>';
                 $html .='<td><span class="label-primary">'.get_post_meta($post->ID, "_nf_duration_start", true).'</span></td>';
             $html .='</tr>';
 
             $html .='<tr>';
-                $html .='<td>'.__("End Date", "wp-crowdfunding").'</td>';
+                $html .='<td>'.esc_html__("End Date", "wp-crowdfunding").'</td>';
                 $html .='<td><span class="label-success">'.get_post_meta($post->ID, "_nf_duration_end", true).'</span></td>';
             $html .='</tr>';
 
             $html .='<tr>';
-                $html .='<td>'.__("Goal", "wp-crowdfunding").'</td>';
+                $html .='<td>'.esc_html__("Goal", "wp-crowdfunding").'</td>';
                 $html .='<td><span class="label-info">'.wc_price(get_post_meta($post->ID, "_nf_funding_goal", true)).'</span></td>';
             $html .='</tr>';
 
             $html .='<tr>';
-                $html .='<td>'.__("Raised", "wp-crowdfunding").'</td>';
+                $html .='<td>'.esc_html__("Raised", "wp-crowdfunding").'</td>';
                 $html .='<td>';
                     $html .='<span class="label-warning">';
                         $raised_total = wpcf_function()->fund_raised();
@@ -220,11 +220,11 @@ class Dashboard{
             $html .='</tr>';
 
             $html .='<tr>';
-                $html .='<td>'.__("Raised Percent", "wp-crowdfunding").'</td>';
+                $html .='<td>'.esc_html__("Raised Percent", "wp-crowdfunding").'</td>';
                 if (wpcf_function()->is_campaign_valid() == true) {
                     $html .='<td><span class="label-danger">'.wpcf_function()->get_fund_raised_percent_format().'</span></td>';
                 }else {
-                    $html .='<td><span class="label-danger">0%</span></td>';
+                    $html .='<td><span class="label-danger">'.esc_html__('0%', 'wp-crowdfunding').'</span></td>';
                 }
             $html .='</tr>';
 
@@ -241,7 +241,7 @@ class Dashboard{
         //Check is reward selected
         $r = get_post_meta($post->ID, 'wpneo_selected_reward', true);
         if ( ! empty($r) && is_array($r) ) {
-            add_meta_box('meta-box-selected-reward', __('Selected Reward', 'wp-crowdfunding'), array($this, 'selected_reward_meta_box_display_callback'), 'shop_order', 'side', 'high');
+            add_meta_box('meta-box-selected-reward', esc_html__('Selected Reward', 'wp-crowdfunding'), array($this, 'selected_reward_meta_box_display_callback'), 'shop_order', 'side', 'high');
         }
     }
 
@@ -253,7 +253,7 @@ class Dashboard{
     // Odrer Data View 
     public function order_campaign_action(){
         if ( ! is_user_logged_in()){
-            die(json_encode(array('success'=> 0, 'message' => __('Please Sign In first', 'wp-crowdfunding') )));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Please Sign In first', 'wp-crowdfunding') )));
         }
         
         $html = '';
@@ -261,14 +261,14 @@ class Dashboard{
         if( $order_id ) {
             $order = new \WC_Order( $order_id );
             $html .= '<div>';
-            $html .= '<div><span>'.__("Order ID","wp-crowdfunding").':</span> '.$order->get_ID().'</div>';
-            $html .= '<div><span>'.__("Order Date","wp-crowdfunding").':</span> '.wc_format_datetime($order->get_date_created()).'</div>';
-            $html .= '<div><span>'.__("Order Status","wp-crowdfunding").':</span> '.wc_get_order_status_name($order->get_status()).'</div>';
+            $html .= '<div><span>'.esc_html__("Order ID","wp-crowdfunding").':</span> '.$order->get_ID().'</div>';
+            $html .= '<div><span>'.esc_html__("Order Date","wp-crowdfunding").':</span> '.wc_format_datetime($order->get_date_created()).'</div>';
+            $html .= '<div><span>'.esc_html__("Order Status","wp-crowdfunding").':</span> '.wc_get_order_status_name($order->get_status()).'</div>';
             
             $html .= '<table>';
             $html .= '<tr>';
-            $html .= '<th>'.__( "Product", "woocommerce" ).'</th>';
-            $html .= '<th>'.__( "Total", "woocommerce" ).'</th>';
+            $html .= '<th>'.esc_html__("Product", "woocommerce" ).'</th>';
+            $html .= '<th>'.esc_html__("Total", "woocommerce" ).'</th>';
             $html .= '</tr>';
             $html .= '<tbody>';
     
@@ -298,7 +298,7 @@ class Dashboard{
                 ?>
                 <tr>
                     <td>
-                        <h4><?php _e('Selected Reward', 'wp-crowdfunding'); ?> </h4>
+                        <h4><?php esc_html_e('Selected Reward', 'wp-crowdfunding'); ?> </h4>
                         <?php
                         if ( ! empty($r['wpneo_rewards_description'])){
                             // echo "<div>{$r['wpneo_rewards_description']}</div>";
@@ -314,40 +314,40 @@ class Dashboard{
             $html .= ob_get_clean();
 
             $html .= '<tr>';
-            $html .= '<td>'.__('Subtotal:','wp-crowdfunding').'</td>';
+            $html .= '<td>'.esc_html__('Subtotal:','wp-crowdfunding').'</td>';
             $html .= '<td>'.wc_price($order->get_subtotal()).'</td>';
             $html .= '</tr>';
     
             $html .= '<tr>';
-            $html .= '<td>'.__('Payments Method:','wp-crowdfunding').'</td>';
+            $html .= '<td>'.esc_html__('Payments Method:','wp-crowdfunding').'</td>';
             $html .= '<td>'.$order->get_payment_method_title().'</td>';
             $html .= '</tr>';
     
             $html .= '<tr>';
-            $html .= '<td>'.__('Total:','wp-crowdfunding').'</td>';
+            $html .= '<td>'.esc_html__('Total:','wp-crowdfunding').'</td>';
             $html .= '<td>'.wc_price($order->get_total()).'</td>';
             $html .= '</tr>';
             $html .= '</tbody>';
             $html .= '</table>';
     
             // Customer Details
-            $html .= '<h3>'.__( "Customer details", "wp-crowdfunding" ).'</h3>';
+            $html .= '<h3>'.esc_html__( "Customer details", "wp-crowdfunding" ).'</h3>';
             $html .= '<table>';
             if ( $order->get_customer_note() ) :
                 $html .= '<tr>';
-                    $html .= '<th>'.__( "Note:", "wp-crowdfunding" ).'</th>';
+                    $html .= '<th>'.esc_html__( "Note:", "wp-crowdfunding" ).'</th>';
                     $html .= '<td>'.wptexturize( $order->get_customer_note() ).'</td>';
                 $html .= '</tr>';
             endif;
             if ( $order->get_billing_email() ) :
                 $html .= '<tr>';
-                    $html .= '<th>'.__( "Email:", "wp-crowdfunding" ).'</th>';
+                    $html .= '<th>'.esc_html__( "Email:", "wp-crowdfunding" ).'</th>';
                     $html .= '<td>'.esc_html__( $order->get_billing_email() ).'</td>';
                 $html .= '</tr>';
             endif;
             if ( $order->get_billing_phone() ) :
                 $html .= '<tr>';
-                    $html .= '<th>'.__( "Phone:", "wp-crowdfunding" ).'</th>';
+                    $html .= '<th>'.esc_html__( "Phone:", "wp-crowdfunding" ).'</th>';
                     $html .= '<td>'.esc_html__( $order->get_billing_phone() ).'</td>';
                 $html .= '</tr>';
             endif;
@@ -355,9 +355,9 @@ class Dashboard{
     
     
             // Billings Address
-            $html .= '<h3>'.__('Billing Address:','wp-crowdfunding').'</h3>';
+            $html .= '<h3>'.esc_html__('Billing Address:','wp-crowdfunding').'</h3>';
             $html .= '<address>';
-            $html .= ( $address = $order->get_formatted_billing_address() ) ? $address : __( 'N/A', 'wp-crowdfunding' );
+            $html .= ( $address = $order->get_formatted_billing_address() ) ? $address : esc_html__('N/A', 'wp-crowdfunding' );
             $html .= '</address>';
     
             $html .= '</div>';

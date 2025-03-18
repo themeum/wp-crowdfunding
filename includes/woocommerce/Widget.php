@@ -8,8 +8,8 @@ class Latest_Backers extends \WP_Widget {
     function __construct() {
         parent::__construct(
             'wpb_widget',
-            __('Latest Backers', 'wpb_widget_domain'), 
-            array( 'description' => __( 'Latest Backers of Crowdfunding', 'wpb_widget_domain' ), ) 
+            esc_html__('Latest Backers', 'wp-crowdfunding'), 
+            array( 'description' => esc_html__('Latest Backers of Crowdfunding', 'wp-crowdfunding' ) ) 
         );
     }
       
@@ -91,15 +91,15 @@ class Latest_Backers extends \WP_Widget {
               
     // Widget Backend 
     public function form( $instance ) {
-        $title = isset($instance[ 'title' ]) ? $instance[ 'title' ] : __( 'Latest Backers', 'wp-crowdfunding' );
+        $title = isset($instance[ 'title' ]) ? $instance[ 'title' ] : esc_html__('Latest Backers', 'wp-crowdfunding' );
         $number = isset($instance[ 'number' ]) ? $instance[ 'number' ] : 6;
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:' ); ?></label> 
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number:' ); ?></label> 
+            <label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number:' ); ?></label> 
             <input class="widefat" id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="number" value="<?php echo esc_attr( $number ); ?>" />
         </p>
         <?php 

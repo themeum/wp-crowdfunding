@@ -9,6 +9,6 @@ if ($total_raised){
 ?>
 	<div class="wpneo-fund-raised">
 		<div class="wpneo-meta-desc"><?php echo wc_price($raised); ?></div>
-	    <div class="wpneo-meta-name"><?php _e('Fund Raised', 'wp-crowdfunding'); ?></div>
+	    <div class="wpneo-meta-name"><?php esc_html_e('Fund Raised', 'wp-crowdfunding'); ?></div>
 	</div>
 </div>

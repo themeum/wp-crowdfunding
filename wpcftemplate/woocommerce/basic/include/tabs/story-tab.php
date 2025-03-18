@@ -5,7 +5,7 @@ global $post;
 
 <?php if($post->post_content) { ?>
     <div class="tab-description tab_col_9 tab-campaign-story-left">
-        <h2><?php _e('Campaign Story', 'wp-crowdfunding') ?></h2>
+        <h2><?php esc_html_e('Campaign Story', 'wp-crowdfunding') ?></h2>
         <?php the_content(); ?>
     </div>
 <?php } ?>

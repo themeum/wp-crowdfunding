@@ -26,17 +26,17 @@ ob_start(); ?>
                     <table class="stripe-table">
                         <thead>
                             <tr>
-                                <th><?php _e("Title", "wp-crowdfunding"); ?></th>
-                                <th><?php _e("Created Time", "wp-crowdfunding"); ?></th>
-                                <th><?php _e("Action", "wp-crowdfunding"); ?></th>
+                                <th><?php esc_html_e("Title", "wp-crowdfunding"); ?></th>
+                                <th><?php esc_html_e("Created Time", "wp-crowdfunding"); ?></th>
+                                <th><?php esc_html_e("Action", "wp-crowdfunding"); ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
                                 <tr>
                                     <td><?php the_title(); ?></td>
-                                    <td><?php _e('Created at', 'wp-crowdfunding'); ?> : <?php the_date(); ?></td>
-                                    <td><a href="<?php the_permalink(); ?>"><?php _e("View", "wp-crowdfunding"); ?></a></td>
+                                    <td><?php esc_html_e('Created at', 'wp-crowdfunding'); ?> : <?php the_date(); ?></td>
+                                    <td><a href="<?php the_permalink(); ?>"><?php esc_html_e("View", "wp-crowdfunding"); ?></a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
@@ -44,7 +44,7 @@ ob_start(); ?>
                 </div>
                 <?php wp_reset_postdata(); ?>
             <?php else : ?>
-                <p><?php _e('Sorry, No bookmark found.', 'wp-crowdfunding'); ?></p>
+                <p><?php esc_html_e('Sorry, No bookmark found.', 'wp-crowdfunding'); ?></p>
             <?php endif; ?>
         </div>
         <?php echo wpcf_function()->get_pagination($page_numb, $the_query->max_num_pages); ?>

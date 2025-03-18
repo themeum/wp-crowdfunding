@@ -14,8 +14,8 @@ $max_page = $wp_query->max_num_pages;
             'current'   => $page_numb,
             'total'     => $max_page,
             'type'      => 'list',
-            'prev_text' => __('Prev', 'wp-crowdfunding'),
-            'next_text' => __('Next', 'wp-crowdfunding'),
+            'prev_text' => esc_html__('Prev', 'wp-crowdfunding'),
+            'next_text' => esc_html__('Next', 'wp-crowdfunding'),
         ) );
     ?>
 </div>

@@ -102,7 +102,7 @@ class Registration{
 
         ob_start();
         if ( is_user_logged_in() ) { ?>
-            <h3 class="wpneo-center"><?php _e("You are already logged in.","wp-crowdfunding"); ?></h3>
+            <h3 class="wpneo-center"><?php esc_html_e("You are already logged in.","wp-crowdfunding"); ?></h3>
         <?php } else {
           global $reg_errors,$reg_success;
           ?>
@@ -113,9 +113,9 @@ class Registration{
                     $regisration_data = array(
                         array(
                             'id'            => 'fname',
-                            'label'         => __( "First Name" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "First Name" , "wp-crowdfunding" ),
                             'type'          => 'text',
-                            'placeholder'   => __('Enter First Name', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter First Name', 'wp-crowdfunding'),
                             'value'         => '',
                             'class'         => '',
                             'warpclass'     => 'wpneo-first-half',
@@ -123,9 +123,9 @@ class Registration{
                         ),
                         array(
                             'id'            => 'lname',
-                            'label'         => __( "Last Name" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "Last Name" , "wp-crowdfunding" ),
                             'type'          => 'text',
-                            'placeholder'   => __('Enter Last Name', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter Last Name', 'wp-crowdfunding'),
                             'value'         => '',
                             'class'         => '',
                             'warpclass'     => 'wpneo-second-half',
@@ -133,9 +133,9 @@ class Registration{
                         ),
                         array(
                             'id'            => 'username',
-                            'label'         => __( "Username *" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "Username *" , "wp-crowdfunding" ),
                             'type'          => 'text',
-                            'placeholder'   => __('Enter Username', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter Username', 'wp-crowdfunding'),
                             'value'         => '',
                             'class'         => 'required',
                             'warpclass'     => '',
@@ -143,18 +143,18 @@ class Registration{
                         ),
                         array(
                             'id'            => 'password',
-                            'label'         => __('Password *', 'wp-crowdfunding'),
+                            'label'         => esc_html__('Password *', 'wp-crowdfunding'),
                             'type'          => 'password',
-                            'placeholder'   => __('Enter Password', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter Password', 'wp-crowdfunding'),
                             'class'         => 'required',
                             'warpclass'     => '',
                             'autocomplete'  => 'off',
                         ),
                         array(
                             'id'            => 'email',
-                            'label'         => __( "Email *" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "Email *" , "wp-crowdfunding" ),
                             'type'          => 'text',
-                            'placeholder'   => __('Enter Email', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter Email', 'wp-crowdfunding'),
                             'value'         => '',
                             'warpclass'     => 'wpneo-first-half',
                             'class'         => 'required',
@@ -162,9 +162,9 @@ class Registration{
                         ),
                         array(
                             'id'            => 'website',
-                            'label'         => __( "Website" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "Website" , "wp-crowdfunding" ),
                             'type'          => 'text',
-                            'placeholder'   => __('Enter Website', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter Website', 'wp-crowdfunding'),
                             'value'         => '',
                             'class'         => '',
                             'warpclass'     => 'wpneo-second-half',
@@ -172,9 +172,9 @@ class Registration{
                         ),
                         array(
                             'id'            => 'nickname',
-                            'label'         => __( "Nickname" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "Nickname" , "wp-crowdfunding" ),
                             'type'          => 'text',
-                            'placeholder'   => __('Enter Nickname', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter Nickname', 'wp-crowdfunding'),
                             'value'         => '',
                             'class'         => '',
                             'warpclass'     => '',
@@ -182,9 +182,9 @@ class Registration{
                         ),
                         array(
                             'id'            => 'bio',
-                            'label'         => __( "About / Bio" , "wp-crowdfunding" ),
+                            'label'         => esc_html__( "About / Bio" , "wp-crowdfunding" ),
                             'type'          => 'textarea',
-                            'placeholder'   => __('Enter About / Bio', 'wp-crowdfunding'),
+                            'placeholder'   => esc_html__('Enter About / Bio', 'wp-crowdfunding'),
                             'value'         => '',
                             'class'         => '',
                             'warpclass'     => '',
@@ -221,10 +221,10 @@ class Registration{
                     <?php } ?>
     
                     <div class="wpneo-single wpneo-register">
-                        <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign" style="background: <?php echo $cancelbtnbgColorpalette; ?>; color: <?php echo $cancelbtncolor; ?>; font-size: <?php echo $cancelfontSize; ?>px; font-weight: <?php echo $cancelfontWeight; ?>"><?php _e("Cancel","wp-crowdfunding"); ?></a>
+                        <a href="<?php echo get_home_url(); ?>" class="wpneo-cancel-campaign" style="background: <?php echo $cancelbtnbgColorpalette; ?>; color: <?php echo $cancelbtncolor; ?>; font-size: <?php echo $cancelfontSize; ?>px; font-weight: <?php echo $cancelfontWeight; ?>"><?php esc_html_e("Cancel","wp-crowdfunding"); ?></a>
                         <input type="hidden" name="action" value="wpcf_registration" />
                         <input type="hidden" name="current_page" value="<?php echo get_the_permalink(); ?>" />
-                        <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php _e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" style="background: <?php echo $bgColor; ?>; color: <?php echo $titleColor; ?>; font-size: <?php echo $fontSize; ?>px; font-weight: <?php echo $fontWeight; ?>"/>
+                        <input type="submit" class="wpneo-submit-campaign" id="user-registration-btn" value="<?php esc_html_e('Sign UP', 'wp-crowdfunding'); ?>" name="submits" style="background: <?php echo $bgColor; ?>; color: <?php echo $titleColor; ?>; font-size: <?php echo $fontSize; ?>px; font-weight: <?php echo $fontWeight; ?>"/>
                     </div>
 
                     <style>
@@ -249,7 +249,7 @@ class Registration{
     // register a new user
     public function registration_save_action() {
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
-            die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
+            die(json_encode(array('success'=> 0, 'message' => esc_html__('Sorry, your status did not verify.', 'wp-crowdfunding'))));
             exit;
         }
     
@@ -292,12 +292,12 @@ class Registration{
     
                 $saved_redirect_uri = get_option('wpcf_user_reg_success_redirect_uri');
                 $redirect = $saved_redirect_uri ? $saved_redirect_uri : esc_url( home_url( '/' ) );
-                die(json_encode(array('success'=> 1, 'message' => __('Registration complete.', 'wp-crowdfunding'), 'redirect' => $redirect )));
+                die(json_encode(array('success'=> 1, 'message' => esc_html__('Registration complete.', 'wp-crowdfunding'), 'redirect' => $redirect )));
             } else {
                 $errors = '';
                 if ( is_wp_error( $reg_errors ) ) {
                     foreach ( $reg_errors->get_error_messages() as $error ) {
-                        $errors .= '<strong>'.__('ERROR','wp-crowdfunding').'</strong>:'.$error.'<br />';
+                        $errors .= '<strong>'.esc_html__('ERROR','wp-crowdfunding').'</strong>:'.$error.'<br />';
                     }
                 }
                 die(json_encode(array('success'=> 0, 'message' => $errors )));
@@ -306,7 +306,7 @@ class Registration{
             $errors = '';
             if ( is_wp_error( $reg_errors ) ) {
                 foreach ( $reg_errors->get_error_messages() as $error ) {
-                    $errors .= '<strong>'.__('ERROR','wp-crowdfunding').'</strong>:'.$error.'<br />';
+                    $errors .= '<strong>'.esc_html__('ERROR','wp-crowdfunding').'</strong>:'.$error.'<br />';
                 }
             }
             die(json_encode(array('success'=> 0, 'message' => $errors )));
@@ -318,35 +318,35 @@ class Registration{
         $reg_errors = new \WP_Error;
     
         if ( empty( $username ) || empty( $password ) || empty( $email ) ) {
-            $reg_errors->add('field', __('Required form field is missing','wp-crowdfunding'));
+            $reg_errors->add('field', esc_html__('Required form field is missing','wp-crowdfunding'));
         }
     
         if ( strlen( $username ) < 4 ) {
-            $reg_errors->add('username_length', __('Username too short. At least 4 characters is required','wp-crowdfunding'));
+            $reg_errors->add('username_length', esc_html__('Username too short. At least 4 characters is required','wp-crowdfunding'));
         }
     
         if ( username_exists( $username ) )
-            $reg_errors->add('user_name', __('Sorry, that username already exists!','wp-crowdfunding'));
+            $reg_errors->add('user_name', esc_html__('Sorry, that username already exists!','wp-crowdfunding'));
     
         if ( !validate_username( $username ) ) {
-            $reg_errors->add('username_invalid', __('Sorry, the username you entered is not valid','wp-crowdfunding'));
+            $reg_errors->add('username_invalid', esc_html__('Sorry, the username you entered is not valid','wp-crowdfunding'));
         }
     
         if ( strlen( $password ) < 6 ) {
-            $reg_errors->add('password', __('Password length must be greater than 6','wp-crowdfunding'));
+            $reg_errors->add('password', esc_html__('Password length must be greater than 6','wp-crowdfunding'));
         }
     
         if ( !is_email( $email ) ) {
-            $reg_errors->add('email_invalid', __('Email is not valid','wp-crowdfunding'));
+            $reg_errors->add('email_invalid', esc_html__('Email is not valid','wp-crowdfunding'));
         }
     
         if ( email_exists( $email ) ) {
-            $reg_errors->add('email', __('Email Already in use','wp-crowdfunding'));
+            $reg_errors->add('email', esc_html__('Email Already in use','wp-crowdfunding'));
         }
     
         if ( !empty( $website ) ) {
             if ( !filter_var($website, FILTER_VALIDATE_URL) ) {
-                $reg_errors->add('website', __('Website is not a valid URL','wp-crowdfunding'));
+                $reg_errors->add('website', esc_html__('Website is not a valid URL','wp-crowdfunding'));
             }
         }
     }

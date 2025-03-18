@@ -22,7 +22,7 @@ class Reward{
     */
     function reward_tabs($tabs){
         $tabs['reward'] = array(
-            'label'     => __('Reward', 'wp-crowdfunding'),
+            'label'     => esc_html__('Reward', 'wp-crowdfunding'),
             'target'    => 'reward_options',
             'class'     => array('show_if_neo_crowdfunding_options', 'show_if_neo_crowdfunding_options'),
         );
@@ -44,10 +44,10 @@ class Reward{
             // Pledge Amount
             array(
                 'id'            => 'wpneo_rewards_pladge_amount[]',
-                'label'         => __('Pledge Amount', 'wp-crowdfunding'),
+                'label'         => esc_html__('Pledge Amount', 'wp-crowdfunding'),
                 'desc_tip'      => 'true',
                 'type'          => 'text',
-                'placeholder'   => __('Pledge Amount', 'wp-crowdfunding'),
+                'placeholder'   => esc_html__('Pledge Amount', 'wp-crowdfunding'),
                 'value'         => '',
                 'class'         => 'wc_input_price',
                 'field_type'    => 'textfield'
@@ -55,10 +55,10 @@ class Reward{
             // Reward Image
             array(
                 'id'            => 'wpneo_rewards_image_field[]',
-                'label'         => __('Image Field', 'wp-crowdfunding'),
+                'label'         => esc_html__('Image Field', 'wp-crowdfunding'),
                 'desc_tip'      => 'true',
                 'type'          => 'image',
-                'placeholder'   => __('Image Field', 'wp-crowdfunding'),
+                'placeholder'   => esc_html__('Image Field', 'wp-crowdfunding'),
                 'value'         => '',
                 'class'         => '',
                 'field_type'    => 'image'
@@ -66,61 +66,61 @@ class Reward{
             // Reward Description
             array(
                 'id'            => 'wpneo_rewards_description[]',
-                'label'         => __('Reward', 'wp-crowdfunding'),
+                'label'         => esc_html__('Reward', 'wp-crowdfunding'),
                 'desc_tip'      => 'true',
                 'type'          => 'text',
-                'placeholder'   => __('Reward Description', 'wp-crowdfunding'),
+                'placeholder'   => esc_html__('Reward Description', 'wp-crowdfunding'),
                 'value'         => '',
                 'field_type'    => 'textareafield',
             ),
             // Reward Month
             array(
                 'id'            => 'wpneo_rewards_endmonth[]',
-                'label'         => __('Estimated Delivery Month', 'wp-crowdfunding'),
+                'label'         => esc_html__('Estimated Delivery Month', 'wp-crowdfunding'),
                 'type'          => 'text',
                 'value'         => '',
                 'options'       => array(
-                    ''    => __('- Select -', 'wp-crowdfunding'),
-                    'jan' => __('January', 'wp-crowdfunding'),
-                    'feb' => __('February', 'wp-crowdfunding'),
-                    'mar' => __('March', 'wp-crowdfunding'),
-                    'apr' => __('April', 'wp-crowdfunding'),
-                    'may' => __('May', 'wp-crowdfunding'),
-                    'jun' => __('June', 'wp-crowdfunding'),
-                    'jul' => __('July', 'wp-crowdfunding'),
-                    'aug' => __('August', 'wp-crowdfunding'),
-                    'sep' => __('September', 'wp-crowdfunding'),
-                    'oct' => __('October', 'wp-crowdfunding'),
-                    'nov' => __('November', 'wp-crowdfunding'),
-                    'dec' => __('December', 'wp-crowdfunding'),
+                    ''    => esc_html__('- Select -', 'wp-crowdfunding'),
+                    'jan' => esc_html__('January', 'wp-crowdfunding'),
+                    'feb' => esc_html__('February', 'wp-crowdfunding'),
+                    'mar' => esc_html__('March', 'wp-crowdfunding'),
+                    'apr' => esc_html__('April', 'wp-crowdfunding'),
+                    'may' => esc_html__('May', 'wp-crowdfunding'),
+                    'jun' => esc_html__('June', 'wp-crowdfunding'),
+                    'jul' => esc_html__('July', 'wp-crowdfunding'),
+                    'aug' => esc_html__('August', 'wp-crowdfunding'),
+                    'sep' => esc_html__('September', 'wp-crowdfunding'),
+                    'oct' => esc_html__('October', 'wp-crowdfunding'),
+                    'nov' => esc_html__('November', 'wp-crowdfunding'),
+                    'dec' => esc_html__('December', 'wp-crowdfunding'),
                 ),
                 'field_type'    => 'selectfield',
             ),
             // Reward Year
             array(
                 'id'            => 'wpneo_rewards_endyear[]',
-                'label'         => __('Estimated Delivery Year', 'wp-crowdfunding'),
+                'label'         => esc_html__('Estimated Delivery Year', 'wp-crowdfunding'),
                 'type'          => 'text',
                 'value'         => '',
                 'options'       => array(
-                    ''     => __('- Select -', 'wp-crowdfunding'),
-                    '2019' => __('2019', 'wp-crowdfunding'),
-                    '2020' => __('2020', 'wp-crowdfunding'),
-                    '2021' => __('2021', 'wp-crowdfunding'),
-                    '2022' => __('2022', 'wp-crowdfunding'),
-                    '2023' => __('2023', 'wp-crowdfunding'),
-                    '2024' => __('2024', 'wp-crowdfunding'),
-                    '2025' => __('2025', 'wp-crowdfunding'),
+                    ''     => esc_html__('- Select -', 'wp-crowdfunding'),
+                    '2019' => esc_html__('2019', 'wp-crowdfunding'),
+                    '2020' => esc_html__('2020', 'wp-crowdfunding'),
+                    '2021' => esc_html__('2021', 'wp-crowdfunding'),
+                    '2022' => esc_html__('2022', 'wp-crowdfunding'),
+                    '2023' => esc_html__('2023', 'wp-crowdfunding'),
+                    '2024' => esc_html__('2024', 'wp-crowdfunding'),
+                    '2025' => esc_html__('2025', 'wp-crowdfunding'),
                 ),
                 'field_type'    => 'selectfield',
             ),
             // Quantity (Number of Pledge Items)
             array(
                 'id'            => 'wpneo_rewards_item_limit[]',
-                'label'         => __('Quantity', 'wp-crowdfunding'),
+                'label'         => esc_html__('Quantity', 'wp-crowdfunding'),
                 'desc_tip'      => 'true',
                 'type'          => 'text',
-                'placeholder'   => __('Number of Rewards(Physical Product)', 'wp-crowdfunding'),
+                'placeholder'   => esc_html__('Number of Rewards(Physical Product)', 'wp-crowdfunding'),
                 'value'         => '',
                 'class'         => 'wc_input_price',
                 'field_type'    => 'textfield'
@@ -303,13 +303,13 @@ class Reward{
             ?>
             <tr>
                 <td>
-                    <h4><?php _e('Selected Reward','wp-crowdfunding'); ?> </h4>
+                    <h4><?php esc_html_e('Selected Reward','wp-crowdfunding'); ?> </h4>
                     <?php
                     if ( isset($reward_data['wpneo_rewards_description'])){
                         // echo "<div>{$reward_data['wpneo_rewards_description']}</div>";
                         echo "<div>". wpautop($reward_data['wpneo_rewards_description']) ."</div>";
-                        echo __('Amount','wp-crowdfunding').' : <strong>'.wc_price($reward_data['wpneo_rewards_pladge_amount']).'</strong>, ';
-                        echo __('Delivery','wp-crowdfunding').' : '.$reward_data['wpneo_rewards_endmonth'].', '.$reward_data['wpneo_rewards_endyear'];
+                        echo esc_html__('Amount','wp-crowdfunding').' : <strong>'.wc_price($reward_data['wpneo_rewards_pladge_amount']).'</strong>, ';
+                        echo esc_html__('Delivery','wp-crowdfunding').' : '.$reward_data['wpneo_rewards_endmonth'].', '.$reward_data['wpneo_rewards_endyear'];
                     }
                     ?>
                 </td>

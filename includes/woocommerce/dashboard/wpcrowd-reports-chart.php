@@ -16,34 +16,34 @@ if ( ! empty($_GET['date_range'])){
     $date_range = sanitize_text_field($_GET['date_range']);
     switch ($date_range){
         case 'last_7_days':
-            $chart_bottom_title = __('1W','wp-crowdfunding');
+            $chart_bottom_title = esc_html__( '1W', 'wp-crowdfunding' );
             $query_range        = 'day_wise';
             break;
         case 'last_14_days':
             $to_date            = date('Y-m-d 23:59:59');
             $from_date          = date('Y-m-01 00:00:00');
-            $chart_bottom_title = __('2W','wp-crowdfunding');
+            $chart_bottom_title = esc_html__( '2W', 'wp-crowdfunding' );
             $query_range        = 'day_wise';
             break;
 
         case 'this_month':
             $to_date            = date('Y-m-d 23:59:59');
             $from_date          = date('Y-m-01 00:00:00');
-            $chart_bottom_title = __('1M','wp-crowdfunding');
+            $chart_bottom_title = esc_html__( '1M', 'wp-crowdfunding' );
             $query_range        = 'day_wise';
             break;
 
         case 'last_3_months':
             $to_date            = date('Y-m-t 23:59:59', strtotime('-1 month'));
             $from_date          = date('Y-m-01 00:00:00', strtotime('-3 month'));
-            $chart_bottom_title = __('3M','wp-crowdfunding');
+            $chart_bottom_title = esc_html__( '3M', 'wp-crowdfunding' );
             $query_range        = 'month_wise';
             break;
 
         case 'last_6_months':
             $to_date            = date('Y-m-t 23:59:59', strtotime('-1 month'));
             $from_date          = date('Y-m-01 00:00:00', strtotime('-6 month'));
-            $chart_bottom_title = __('6M','wp-crowdfunding');
+            $chart_bottom_title = esc_html__( '6M', 'wp-crowdfunding' );
             $query_range        = 'month_wise';
             break;
 
@@ -51,7 +51,7 @@ if ( ! empty($_GET['date_range'])){
             $to_date            = date('Y-m-d 23:59:59');
             $from_date          = date('Y-01-01 00:00:00');
             $chart_bottom_title = "This Year (".date('Y').")";
-            $query_range        = __('1Y','wp-crowdfunding');
+            $query_range        = esc_html__( '1Y', 'wp-crowdfunding' );
             break;
     }
 }
@@ -190,32 +190,32 @@ $pladges_received = wpcf_function()->get_pladge_received($from_date, $to_date);
 <div class="wpneo-dashboard-chart wpneo-shadow chart-container">
     <div class="wpneo-dashboard-head wpneo-clearfix">
         <div class="wpneo-dashboard-head-left">
-            <span><?php _e( "Summary" , "wp-crowdfunding" ); ?></span>
+            <span><?php esc_html_e( "Summary" , "wp-crowdfunding" ); ?></span>
             <ul>
-                <li class="<?php echo ($date_range === 'last_7_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_7_days'),get_permalink()); ?>"><?php echo __('1W','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'last_14_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>"><?php echo __('2W','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'this_month') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_month'), get_permalink()); ?>"><?php echo __('1M','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'last_3_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_3_months'), get_permalink()); ?>"><?php echo __('3M','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'last_6_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_6_months'), get_permalink()); ?>"><?php echo __('6M','wp-crowdfunding'); ?></a></li>
-                <li class="<?php echo ($date_range === 'this_year') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_year'), get_permalink()); ?>"><?php echo __('1Y','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_7_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_7_days'),get_permalink()); ?>"><?php echo esc_html__('1W','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_14_days') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_14_days'), get_permalink()); ?>"><?php echo esc_html__('2W','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'this_month') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_month'), get_permalink()); ?>"><?php echo esc_html__('1M','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_3_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_3_months'), get_permalink()); ?>"><?php echo esc_html__('3M','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'last_6_months') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'last_6_months'), get_permalink()); ?>"><?php echo esc_html__('6M','wp-crowdfunding'); ?></a></li>
+                <li class="<?php echo ($date_range === 'this_year') ? 'active':''; ?>"><a href="<?php echo add_query_arg(array('date_range' => 'this_year'), get_permalink()); ?>"><?php echo esc_html__('1Y','wp-crowdfunding'); ?></a></li>
             </ul>
         </div><!--dashboard-head-left-->
         <div class="dashboard-head-right">
             <form method="get" action="" class="dashboard-head-date">
                 <input type="hidden" name="page" value="wpcrowd-crowdfunding-reports" />
                 <input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($from_date)); ?>" placeholder="From" />
-                <span><?php _e( "to" , "wp-crowdfunding" ); ?></span>
+                <span><?php esc_html_e( "to" , "wp-crowdfunding" ); ?></span>
                 <input type="text" name="date_range_to" class="datepickers_1" value="<?php echo date('Y-m-d', strtotime($given_to_date)); ?>" placeholder="To" />
-                <button type="submit" class="wp-crowd-btn wp-crowd-btn-primary" id="search-submit"><?php _e('Search', 'wp-crowdfunding') ?></button>
+                <button type="submit" class="wp-crowd-btn wp-crowd-btn-primary" id="search-submit"><?php esc_html_e('Search', 'wp-crowdfunding') ?></button>
             </form>
         </div><!--dashboard-head-right-->
     </div><!--wpneo-dashboard-head-->
 
     <div class="wpneo-dashboard-summary wpneo-clearfix">
         <ul>
-            <li class="active"><span class="wpneo-value"> <?php echo wc_price(array_sum($total_backers_amount_ever)); ?></span><span class="wpneo-value-info"><?php _e( "Fund Raised" , "wp-crowdfunding" ); ?></span></li>
-            <li><span class="wpneo-value"><?php echo array_sum($sales_count_ever); ?></span><span class="wpneo-value-info"><?php _e( "Total Backed" , "wp-crowdfunding" ); ?></span></li>
-            <li><span class="wpneo-value"><?php echo count($pladges_received); ?></span><span class="wpneo-value-info"><?php _e( "Pledge Received" , "wp-crowdfunding" ); ?></span></li>
+            <li class="active"><span class="wpneo-value"> <?php echo wc_price(array_sum($total_backers_amount_ever)); ?></span><span class="wpneo-value-info"><?php esc_html_e( "Fund Raised" , "wp-crowdfunding" ); ?></span></li>
+            <li><span class="wpneo-value"><?php echo array_sum($sales_count_ever); ?></span><span class="wpneo-value-info"><?php esc_html_e( "Total Backed" , "wp-crowdfunding" ); ?></span></li>
+            <li><span class="wpneo-value"><?php echo count($pladges_received); ?></span><span class="wpneo-value-info"><?php esc_html_e( "Pledge Received" , "wp-crowdfunding" ); ?></span></li>
         </ul>
     </div><!--wpneo-dashboard-summary-->
     <canvas id="WPcrowdFundChart" width="400" height="60"></canvas>

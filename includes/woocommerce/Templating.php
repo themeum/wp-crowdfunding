@@ -219,7 +219,7 @@ class Templating {
 
                 if (count($missing_files) > 0){
                     $html .= '<div class="notice notice-error"><p>';
-                    $html .= __('Error crowdfunding theme: ', 'wp-crowdfunding'). $theme_info['theme_name']. '<br />';
+                    $html .= esc_html__('Error crowdfunding theme: ', 'wp-crowdfunding'). $theme_info['theme_name']. '<br />';
 
                     foreach($missing_files as $file){
                         $html .= "<strong>{$file}</strong> missing<br />";
@@ -262,11 +262,11 @@ class Templating {
         $html .='<table class="form-table">';
             $html .='<tbody>';
             $html .='<tr>';
-                $html .='<th scope="row"><label>'.__('Select a Theme for Single and Listing Pages', 'wp-crowdfunding').'</label></th>';
+                $html .='<th scope="row"><label>'.esc_html__('Select a Theme for Single and Listing Pages', 'wp-crowdfunding').'</label></th>';
                 $html .='<td>';
                     $html .= '<select name="wpneo_cf_selected_theme">';
                         if (count($themes_dir) > 0){
-                            $html .= '<option value="">'.__('Select a theme', 'wp-crowdfunding').'</option>';
+                            $html .= '<option value="">'.esc_html__('Select a theme', 'wp-crowdfunding').'</option>';
                             foreach($themes_dir as $k => $v) {
                                 $selected   = ($this->_theme == $v) ? 'selected' : '';
                                 $theme_info = $this->get_theme_info($this->_vendor_path.$v.'/index.php');
@@ -276,7 +276,7 @@ class Templating {
                                 }
                             }
                         }else{
-                            $html .= '<option value="">'.__('You have no valid theme', 'wp-crowdfunding').'</option>';
+                            $html .= '<option value="">'.esc_html__('You have no valid theme', 'wp-crowdfunding').'</option>';
                         }
                     $html .= '</select>';
                 $html .= '</td>';

@@ -34,7 +34,7 @@ if ( ! empty( $tabs ) ) : ?>
                 $i++;
                 $current = $i === 1 ? 'wpneo-current' : '';
                 ?>
-                <li class="<?php echo $current.' '.esc_attr( $key ); ?>_tab">
+                <li class="<?php echo esc_attr($current ).' '.esc_attr($key ); ?>_tab">
                     <a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'wpcf_campaign_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
                 </li>
             <?php endforeach; ?>

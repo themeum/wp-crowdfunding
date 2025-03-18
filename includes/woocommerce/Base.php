@@ -74,12 +74,12 @@ class Base
     public function settings_link($links)
     {
         $actionsLinks = array(
-            'settings' => '<a href="' . admin_url('admin.php?page=wpcf-settings') . '">Settings</a>',
-            'wpcf_docs' => '<a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank">' . __('Docs', 'wp-crowdfunding') . '</a>',
-            'wpcf_support' => '<a href="https://www.themeum.com/support/" target="_blank">' . __('Support', 'wp-crowdfunding') . '</a>',
+            'settings' => '<a href="' . admin_url('admin.php?page=wpcf-settings') . '">' . esc_html__('Settings', 'wp-crowdfunding') . '</a>',
+            'wpcf_docs' => '<a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank">' . esc_html__('Docs', 'wp-crowdfunding') . '</a>',
+            'wpcf_support' => '<a href="https://www.themeum.com/support/" target="_blank">' . esc_html__('Support', 'wp-crowdfunding') . '</a>',
         );
         if (!defined('WPCF_PRO_VERSION')) {
-            $actionsLinks['wpcf_update_pro'] = '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">' . __('Update Pro', 'wp-crowdfunding') . '</a>';
+            $actionsLinks['wpcf_update_pro'] = '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">' . esc_html__('Update Pro', 'wp-crowdfunding') . '</a>';
         }
         return array_merge($actionsLinks, $links);
     }
@@ -97,7 +97,7 @@ class Base
     {
         $html = '';
         $html .= '<div class="notice notice-error is-dismissible">';
-        $html .= '<p>' . __('WP Crowdfunding will not work properly if you activate it from network, please deactivate from network and activate again from individual site admin.', 'wp-crowdfunding') . '</p>';
+        $html .= '<p>' . esc_html__('WP Crowdfunding will not work properly if you activate it from network, please deactivate from network and activate again from individual site admin.', 'wp-crowdfunding') . '</p>';
         $html .= '</div>';
         echo $html;
     }

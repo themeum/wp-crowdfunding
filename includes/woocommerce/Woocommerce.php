@@ -110,9 +110,9 @@ class Woocommerce {
 	 */
 	public function change_checkout_button_text( $button_text ) {
 		if ( class_exists( 'Crowdfunding' ) ) {
-			$button_text = __( 'Back Campaign Now', 'wp-crowdfunding' );
+			$button_text = esc_html__( 'Back Campaign Now', 'wp-crowdfunding' );
 		} else {
-			$button_text = __( 'Pay Now', 'wp-crowdfunding' );
+			$button_text = esc_html__( 'Pay Now', 'wp-crowdfunding' );
 		}
 
 		return $button_text;
@@ -141,11 +141,11 @@ class Woocommerce {
 
 		$reward_details = json_decode( $selected_reward );
 
-		echo '<h2>' . __( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
+		echo '<h2>' . esc_html__( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
         <ul>
-            <li> ' . __( 'Amount: ', 'wp-crowdfunding' ) . wc_price( $reward_details->wpneo_rewards_pladge_amount ) . '</li>
-            <li> ' . __( 'Delivery: ', 'wp-crowdfunding' ) . ucfirst( $reward_details->wpneo_rewards_endmonth ) . ', ' . $reward_details->wpneo_rewards_endyear . '</li>
-            <li> ' . __( 'Reward Details: ', 'wp-crowdfunding' ) . $reward_details->wpneo_rewards_description . '</li>
+            <li> ' . esc_html__( 'Amount: ', 'wp-crowdfunding' ) . wc_price( $reward_details->wpneo_rewards_pladge_amount ) . '</li>
+            <li> ' . esc_html__( 'Delivery: ', 'wp-crowdfunding' ) . ucfirst( $reward_details->wpneo_rewards_endmonth ) . ', ' . $reward_details->wpneo_rewards_endyear . '</li>
+            <li> ' . esc_html__( 'Reward Details: ', 'wp-crowdfunding' ) . $reward_details->wpneo_rewards_description . '</li>
         </ul>';
 	}
 
@@ -156,7 +156,7 @@ class Woocommerce {
 	 * Added a product type in woocommerce
 	 */
 	function product_type_selector( $product_type ) {
-		$product_type['crowdfunding'] = __( 'Crowdfunding', 'wp-crowdfunding' );
+		$product_type['crowdfunding'] = esc_html__( 'Crowdfunding', 'wp-crowdfunding' );
 		return $product_type;
 	}
 
@@ -186,9 +186,9 @@ class Woocommerce {
 		woocommerce_wp_text_input(
 			array(
 				'id'          => 'wpneo_funding_video',
-				'label'       => __( 'Video Url', 'wp-crowdfunding' ),
-				'placeholder' => __( 'Video url', 'wp-crowdfunding' ),
-				'description' => __( 'Enter a video url to show your video in campaign details page', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Video Url', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( 'Video url', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Enter a video url to show your video in campaign details page', 'wp-crowdfunding' ),
 			)
 		);
 
@@ -196,18 +196,18 @@ class Woocommerce {
 		woocommerce_wp_text_input(
 			array(
 				'id'          => '_nf_duration_start',
-				'label'       => __( 'Start date', 'wp-crowdfunding' ),
-				'placeholder' => __( 'Start time of this campaign', 'wp-crowdfunding' ),
-				'description' => __( 'Enter start of this campaign', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Start date', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( 'Start time of this campaign', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Enter start of this campaign', 'wp-crowdfunding' ),
 			)
 		);
 
 		woocommerce_wp_text_input(
 			array(
 				'id'          => '_nf_duration_end',
-				'label'       => __( 'End date', 'wp-crowdfunding' ),
-				'placeholder' => __( 'End time of this campaign', 'wp-crowdfunding' ),
-				'description' => __( 'Enter end time of this campaign', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'End date', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( 'End time of this campaign', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Enter end time of this campaign', 'wp-crowdfunding' ),
 			)
 		);
 
@@ -217,9 +217,9 @@ class Woocommerce {
 			woocommerce_wp_text_input(
 				array(
 					'id'          => 'wpneo_funding_minimum_price',
-					'label'       => __( 'Minimum Price', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
-					'placeholder' => __( 'Minimum Price', 'wp-crowdfunding' ),
-					'description' => __( 'Enter the minimum price', 'wp-crowdfunding' ),
+					'label'       => esc_html__( 'Minimum Price', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+					'placeholder' => esc_html__( 'Minimum Price', 'wp-crowdfunding' ),
+					'description' => esc_html__( 'Enter the minimum price', 'wp-crowdfunding' ),
 					'class'       => 'wc_input_price',
 				)
 			);
@@ -229,9 +229,9 @@ class Woocommerce {
 			woocommerce_wp_text_input(
 				array(
 					'id'          => 'wpneo_funding_maximum_price',
-					'label'       => __( 'Maximum Price', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
-					'placeholder' => __( 'Maximum Price', 'wp-crowdfunding' ),
-					'description' => __( 'Enter the maximum price', 'wp-crowdfunding' ),
+					'label'       => esc_html__( 'Maximum Price', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+					'placeholder' => esc_html__( 'Maximum Price', 'wp-crowdfunding' ),
+					'description' => esc_html__( 'Enter the maximum price', 'wp-crowdfunding' ),
 					'class'       => 'wc_input_price',
 				)
 			);
@@ -241,9 +241,9 @@ class Woocommerce {
 			woocommerce_wp_text_input(
 				array(
 					'id'          => 'wpneo_funding_recommended_price',
-					'label'       => __( 'Recommended Price', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
-					'placeholder' => __( 'Recommended Price', 'wp-crowdfunding' ),
-					'description' => __( 'Enter the recommended price', 'wp-crowdfunding' ),
+					'label'       => esc_html__( 'Recommended Price', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+					'placeholder' => esc_html__( 'Recommended Price', 'wp-crowdfunding' ),
+					'description' => esc_html__( 'Enter the recommended price', 'wp-crowdfunding' ),
 					'class'       => 'wc_input_price',
 				)
 			);
@@ -253,9 +253,9 @@ class Woocommerce {
 		woocommerce_wp_text_input(
 			array(
 				'id'          => 'wpcf_predefined_pledge_amount',
-				'label'       => __( 'Predefined Pledge Amount', 'wp-crowdfunding' ),
-				'placeholder' => __( '10,20,30,40', 'wp-crowdfunding' ),
-				'description' => __( 'Predefined amount allow you to place the amount in donate box by click, example: <code>10,20,30,40</code>', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Predefined Pledge Amount', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( '10,20,30,40', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Predefined amount allow you to place the amount in donate box by click, example: <code>10,20,30,40</code>', 'wp-crowdfunding' ),
 			)
 		);
 
@@ -265,33 +265,33 @@ class Woocommerce {
 		woocommerce_wp_text_input(
 			array(
 				'id'          => '_nf_funding_goal',
-				'label'       => __( 'Funding Goal', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
-				'placeholder' => __( 'Funding goal', 'wp-crowdfunding' ),
-				'description' => __( 'Enter the funding goal', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Funding Goal', 'wp-crowdfunding' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'placeholder' => esc_html__( 'Funding goal', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Enter the funding goal', 'wp-crowdfunding' ),
 				'class'       => 'wc_input_price',
 			)
 		);
 
 		$options = array();
 		if ( get_option( 'wpneo_show_target_goal' ) == 'true' ) {
-			$options['target_goal'] = __( 'Target Goal', 'wp-crowdfunding' );
+			$options['target_goal'] = esc_html__( 'Target Goal', 'wp-crowdfunding' );
 		}
 		if ( get_option( 'wpneo_show_target_date' ) == 'true' ) {
-			$options['target_date'] = __( 'Target Date', 'wp-crowdfunding' );
+			$options['target_date'] = esc_html__( 'Target Date', 'wp-crowdfunding' );
 		}
 		if ( get_option( 'wpneo_show_target_goal_and_date' ) == 'true' ) {
-			$options['target_goal_and_date'] = __( 'Target Goal & Date', 'wp-crowdfunding' );
+			$options['target_goal_and_date'] = esc_html__( 'Target Goal & Date', 'wp-crowdfunding' );
 		}
 		if ( get_option( 'wpneo_show_campaign_never_end' ) == 'true' ) {
-			$options['never_end'] = __( 'Campaign Never Ends', 'wp-crowdfunding' );
+			$options['never_end'] = esc_html__( 'Campaign Never Ends', 'wp-crowdfunding' );
 		}
 
 		// Campaign end method
 		woocommerce_wp_select(
 			array(
 				'id'          => 'wpneo_campaign_end_method',
-				'label'       => __( 'Campaign End Method', 'wp-crowdfunding' ),
-				'placeholder' => __( 'Country', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Campaign End Method', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( 'Country', 'wp-crowdfunding' ),
 				'class'       => 'wpneo_campaign_end_method',
 				'options'     => $options,
 			)
@@ -301,9 +301,9 @@ class Woocommerce {
 		woocommerce_wp_checkbox(
 			array(
 				'id'          => 'wpneo_show_contributor_table',
-				'label'       => __( 'Show Contributor Table', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Show Contributor Table', 'wp-crowdfunding' ),
 				'cbvalue'     => 1,
-				'description' => __( 'Enable this option to display the contributors for this Campaign', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Enable this option to display the contributors for this Campaign', 'wp-crowdfunding' ),
 			)
 		);
 
@@ -311,9 +311,9 @@ class Woocommerce {
 		woocommerce_wp_checkbox(
 			array(
 				'id'          => 'wpneo_mark_contributors_as_anonymous',
-				'label'       => __( 'Mark Contributors as Anonymous', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Mark Contributors as Anonymous', 'wp-crowdfunding' ),
 				'cbvalue'     => 1,
-				'description' => __( 'Enable this option to display the contributors Name as Anonymous for this Campaign', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Enable this option to display the contributors Name as Anonymous for this Campaign', 'wp-crowdfunding' ),
 			)
 		);
 		echo '<div class="options_group"></div>';
@@ -327,8 +327,8 @@ class Woocommerce {
 		woocommerce_wp_select(
 			array(
 				'id'          => 'wpneo_country',
-				'label'       => __( 'Country', 'wp-crowdfunding' ),
-				'placeholder' => __( 'Country', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Country', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( 'Country', 'wp-crowdfunding' ),
 				'class'       => 'select2 wpneo_country',
 				'options'     => $countries,
 			)
@@ -338,9 +338,9 @@ class Woocommerce {
 		woocommerce_wp_text_input(
 			array(
 				'id'          => '_nf_location',
-				'label'       => __( 'Location', 'wp-crowdfunding' ),
-				'placeholder' => __( 'Location', 'wp-crowdfunding' ),
-				'description' => __( 'Location of this campaign', 'wp-crowdfunding' ),
+				'label'       => esc_html__( 'Location', 'wp-crowdfunding' ),
+				'placeholder' => esc_html__( 'Location', 'wp-crowdfunding' ),
+				'description' => esc_html__( 'Location of this campaign', 'wp-crowdfunding' ),
 				'type'        => 'text',
 			)
 		);
@@ -349,7 +349,7 @@ class Woocommerce {
 	}
 
 	public function add_campaign_update() {
-		add_meta_box( 'campaign-update-status-meta', __( 'Campaign Update Status', 'wp-crowdfunding' ), array( $this, 'campaign_status_metabox' ), 'product', 'normal' );
+		add_meta_box( 'campaign-update-status-meta', esc_html__( 'Campaign Update Status', 'wp-crowdfunding' ), array( $this, 'campaign_status_metabox' ), 'product', 'normal' );
 	}
 
 	public function campaign_status_metabox() {
@@ -372,35 +372,35 @@ class Woocommerce {
 			woocommerce_wp_text_input(
 				array(
 					'id'          => 'wpneo_prject_update_date_field[]',
-					'label'       => __( 'Date', 'wp-crowdfunding' ),
+					'label'       => esc_html__( 'Date', 'wp-crowdfunding' ),
 					'desc_tip'    => 'true',
 					'type'        => 'text',
 					'class'       => 'datepicker',
-					'placeholder' => __( date( 'd-m-Y' ), 'wp-crowdfunding' ),
+					'placeholder' => esc_html__( date( 'd-m-Y' ), 'wp-crowdfunding' ),
 					'value'       => '',
 				)
 			);
 			woocommerce_wp_text_input(
 				array(
 					'id'          => 'wpneo_prject_update_title_field[]',
-					'label'       => __( 'Update Title', 'wp-crowdfunding' ),
+					'label'       => esc_html__( 'Update Title', 'wp-crowdfunding' ),
 					'desc_tip'    => 'true',
 					'type'        => 'text',
-					'placeholder' => __( 'Update title', 'wp-crowdfunding' ),
+					'placeholder' => esc_html__( 'Update title', 'wp-crowdfunding' ),
 					'value'       => '',
 				)
 			);
 			woocommerce_wp_textarea_input(
 				array(
 					'id'          => 'wpneo_prject_update_details_field[]',
-					'label'       => __( 'Update Details', 'wp-crowdfunding' ),
+					'label'       => esc_html__( 'Update Details', 'wp-crowdfunding' ),
 					'desc_tip'    => 'true',
 					'type'        => 'text',
-					'placeholder' => __( 'Update details', 'wp-crowdfunding' ),
+					'placeholder' => esc_html__( 'Update details', 'wp-crowdfunding' ),
 					'value'       => '',
 				)
 			);
-		echo '<input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . __( 'Remove', 'wp-crowdfunding' ) . '" />';
+		echo '<input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . esc_html__( 'Remove', 'wp-crowdfunding' ) . '" />';
 		echo '<div style="border-bottom: 1px solid #eee"></div>';
 		echo '</div>';
 		echo '</div>';
@@ -412,21 +412,21 @@ class Woocommerce {
 				woocommerce_wp_text_input(
 					array(
 						'id'          => 'wpneo_prject_update_date_field[]',
-						'label'       => __( 'Date', 'wp-crowdfunding' ),
+						'label'       => esc_html__( 'Date', 'wp-crowdfunding' ),
 						'desc_tip'    => 'true',
 						'type'        => 'text',
 						'class'       => 'datepicker',
-						'placeholder' => __( date( 'd-m-Y' ), 'wp-crowdfunding' ),
+						'placeholder' => esc_html__( date( 'd-m-Y' ), 'wp-crowdfunding' ),
 						'value'       => stripslashes( $value['date'] ),
 					)
 				);
 				woocommerce_wp_text_input(
 					array(
 						'id'          => 'wpneo_prject_update_title_field[]',
-						'label'       => __( 'Update Title', 'wp-crowdfunding' ),
+						'label'       => esc_html__( 'Update Title', 'wp-crowdfunding' ),
 						'desc_tip'    => 'true',
 						'type'        => 'text',
-						'placeholder' => __( 'Update title', 'wp-crowdfunding' ),
+						'placeholder' => esc_html__( 'Update title', 'wp-crowdfunding' ),
 						'value'       => stripslashes( $value['title'] ),
 					)
 				);
@@ -434,23 +434,23 @@ class Woocommerce {
 				// woocommerce_wp_textarea_input(
 				// array(
 				// 'id'        => 'wpneo_prject_update_details_field[]',
-				// 'label'     => __('Update Title', 'wp-crowdfunding'),
+				// 'label'     => esc_html__( 'Update Title', 'wp-crowdfunding' ),
 				// 'desc_tip'  => 'true',
-				// 'placeholder' => __('Update Details', 'wp-crowdfunding'),
+				// 'placeholder' => esc_html__( 'Update Details', 'wp-crowdfunding' ),
 				// 'value'     => stripslashes($value['details'])
 				// )
 				// );
 
 				wp_editor( stripslashes( $value['details'] ), 'wpneo_prject_update_details_field' . $key, array( 'textarea_name' => 'wpneo_prject_update_details_field[]' ) );
 
-				echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . __( 'Remove', 'wp-crowdfunding' ) . '" /></div>';
+				echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . esc_html__( 'Remove', 'wp-crowdfunding' ) . '" /></div>';
 				echo '<div style="border-bottom: 1px solid #eee"></div>';
 				echo '</div>';
 			}
 		}
 		echo '</div>';
 
-		echo '<input name="save_update" type="button" class="button tagadd" id="addcampaignupdate" value="' . __( '+ Add Update', 'wp-crowdfunding' ) . '" />';
+		echo '<input name="save_update" type="button" class="button tagadd" id="addcampaignupdate" value="' . esc_html__( '+ Add Update', 'wp-crowdfunding' ) . '" />';
 		echo '<div style="clear: both;"></div>';
 		echo '</div>';
 	}
@@ -559,10 +559,10 @@ class Woocommerce {
 				$html            .= do_action( 'after_wpneo_donate_field' );
 				$html            .= '<input type="hidden" name="add-to-cart" value="' . esc_attr( $product->get_id() ) . '" />';
 				$btn_text         = get_option( 'wpneo_donation_btn_text' );
-				$html            .= '<button type="submit" class="' . apply_filters( 'add_to_donate_button_class', 'single_add_to_cart_button button alt' ) . '">' . __( apply_filters( 'add_to_donate_button_text', esc_html( $btn_text ) ? esc_html( $btn_text ) : 'Donate now' ), 'woocommerce' ) . '</button>';
+				$html            .= '<button type="submit" class="' . apply_filters( 'add_to_donate_button_class', 'single_add_to_cart_button button alt' ) . '">' . esc_html__( apply_filters( 'add_to_donate_button_text', esc_html( $btn_text ) ? esc_html( $btn_text ) : 'Donate now' ), 'woocommerce' ) . '</button>';
 				$html            .= '</form>';
 			} else {
-				$html .= apply_filters( 'end_campaign_message', __( 'This campaign has been end', 'wp-crowdfunding' ) );
+				$html .= apply_filters( 'end_campaign_message', esc_html__( 'This campaign has been end', 'wp-crowdfunding' ) );
 			}
 			$html .= '</div>';
 		}
@@ -798,7 +798,7 @@ class Woocommerce {
 				$product = wc_get_product( $values['product_id'] );
 				if ( $product->get_type() == 'crowdfunding' ) {
 					echo '<div id="mark_name_anonymous" class="mark_name_anonymous_wrap">';
-					echo '<label><input type="checkbox" value="true" name="mark_name_anonymous" /> ' . __( 'Make me anonymous', 'wp-crowdfunding' ) . ' </label>';
+					echo '<label><input type="checkbox" value="true" name="mark_name_anonymous" /> ' . esc_html__( 'Make me anonymous', 'wp-crowdfunding' ) . ' </label>';
 					echo '</div>';
 				}
 			}
@@ -908,7 +908,7 @@ class Woocommerce {
 	}
 
 	public function product_taxonomy_is_crowdfunding_columns( $columns ) {
-		$columns['crowdfunding_col'] = __( 'Crowdfunding', 'wp-crowdfunding' );
+		$columns['crowdfunding_col'] = esc_html__( 'Crowdfunding', 'wp-crowdfunding' );
 		return $columns;
 	}
 
@@ -917,7 +917,7 @@ class Woocommerce {
 			case 'crowdfunding_col':
 				$is_crowdfunding_col = get_term_meta( $term_id, '_marked_as_crowdfunding', true );
 				if ( $is_crowdfunding_col == '1' ) {
-					$content = __( 'Yes', 'wp-crowdfunding' );
+					$content = esc_html__( 'Yes', 'wp-crowdfunding' );
 				}
 				break;
 			default:
@@ -957,9 +957,9 @@ class Woocommerce {
 		// Get order sales value by product
 		$sales_value_by_product = 0;
 
-		$days_remaining = apply_filters( 'date_expired_msg', __( 'Date expired', 'wp-crowdfunding' ) );
+		$days_remaining = apply_filters( 'date_expired_msg', esc_html__( 'Date expired', 'wp-crowdfunding' ) );
 		if ( wpcf_function()->get_date_remaining() ) {
-			$days_remaining = apply_filters( 'date_remaining_msg', __( wpcf_function()->get_date_remaining() . ' days remaining', 'wp-crowdfunding' ) );
+			$days_remaining = apply_filters( 'date_remaining_msg', esc_html__( wpcf_function()->get_date_remaining() . ' days remaining', 'wp-crowdfunding' ) );
 		}
 
 		$html  = '';
@@ -967,26 +967,26 @@ class Woocommerce {
 
 		if ( $country_name ) {
 			$html .= '<div class="wpneo_location">';
-			$html .= '<p class="wpneo_thumb_text">' . __( 'Location: ', 'wp-crowdfunding' ) . $country_name . '</p>';
+			$html .= '<p class="wpneo_thumb_text">' . esc_html__( 'Location: ', 'wp-crowdfunding' ) . $country_name . '</p>';
 			$html .= '</div>';
 		}
 
 		if ( $funding_goal ) {
 			$html .= '<div class="funding_goal">';
-			$html .= '<p class="wpneo_thumb_text">' . __( 'Funding Goal: ', 'wp-crowdfunding' ) . '<span class="price amount">' . wc_price( $funding_goal ) . '</span>' . '</p>';
+			$html .= '<p class="wpneo_thumb_text">' . esc_html__( 'Funding Goal: ', 'wp-crowdfunding' ) . '<span class="price amount">' . wc_price( $funding_goal ) . '</span>' . '</p>';
 			$html .= '</div>';
 		}
 
 		if ( $total_sales ) {
 			$html .= '<div class="total_raised">';
-			$html .= '<p class="wpneo_thumb_text">' . __( 'Raised: ', 'wp-crowdfunding' ) . '<span class="price amount">' . wc_price( $raised ) . '</span>' . '</p>';
+			$html .= '<p class="wpneo_thumb_text">' . esc_html__( 'Raised: ', 'wp-crowdfunding' ) . '<span class="price amount">' . wc_price( $raised ) . '</span>' . '</p>';
 			$html .= '</div>';
 		}
 
 		if ( $total_sales && $funding_goal ) {
 			$percent = wpcf_function()->get_raised_percent();
 			$html   .= '<div class="percent_funded">';
-			$html   .= '<p class="wpneo_thumb_text">' . __( 'Funded percent: ', 'wp-crowdfunding' ) . '<span class="price amount">' . $percent . ' %</span>' . '</p>';
+			$html   .= '<p class="wpneo_thumb_text">' . esc_html__( 'Funded percent: ', 'wp-crowdfunding' ) . '<span class="price amount">' . $percent . ' %</span>' . '</p>';
 			$html   .= '</div>';
 		}
 
@@ -1012,7 +1012,7 @@ class Woocommerce {
 		if ( $product->get_type() == 'crowdfunding' ) {
 			// Adds the new tab
 			$tabs['backed_user'] = array(
-				'title'    => __( 'Backed User', 'wp-crowdfunding' ),
+				'title'    => esc_html__( 'Backed User', 'wp-crowdfunding' ),
 				'priority' => 51,
 				'callback' => array( $this, 'product_backed_user_tab_content' ),
 			);
@@ -1041,10 +1041,10 @@ class Woocommerce {
 
                 <thead>
                     <tr>
-                        <th>' . __( 'ID', 'wp-crowdfunding' ) . '</th>
-                        <th>' . __( 'Name', 'wp-crowdfunding' ) . '</th>
-                        <th>' . __( 'Email', 'wp-crowdfunding' ) . '</th>
-                        <th>' . __( 'Amount', 'wp-crowdfunding' ) . '</th>
+                        <th>' . esc_html__( 'ID', 'wp-crowdfunding' ) . '</th>
+                        <th>' . esc_html__( 'Name', 'wp-crowdfunding' ) . '</th>
+                        <th>' . esc_html__( 'Email', 'wp-crowdfunding' ) . '</th>
+                        <th>' . esc_html__( 'Amount', 'wp-crowdfunding' ) . '</th>
                     </tr>
                 </thead>';
 			?>
@@ -1073,7 +1073,7 @@ class Woocommerce {
 			?>
 			<?php
 		else :
-			$html .= __( 'Sorry, no posts matched your criteria.', 'wp-crowdfunding' );
+			$html .= esc_html__( 'Sorry, no posts matched your criteria.', 'wp-crowdfunding' );
 		endif;
 
 		echo $html;

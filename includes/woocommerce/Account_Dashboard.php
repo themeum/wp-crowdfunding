@@ -41,12 +41,12 @@ class Account_Dashboard {
     // Woocommerce Menu Items
     public function menu_items( $items ) {
         $new_items = array(
-            'crowdfunding-dashboard'=> __( 'Crowdfunding Dashboard', 'wp-crowdfunding' ),
-            'profile'               => __( 'Profile', 'wp-crowdfunding' ),
-            'my-campaigns'          => __( 'My Campaigns', 'wp-crowdfunding' ),
-            'backed-campaigns'      => __( 'Backed Campaigns', 'wp-crowdfunding' ),
-            'pledges-received'      => __( 'Pledges Received', 'wp-crowdfunding' ),
-            'bookmarks'             => __( 'Bookmarks', 'wp-crowdfunding' ),
+            'crowdfunding-dashboard'=> esc_html__( 'Crowdfunding Dashboard', 'wp-crowdfunding' ),
+            'profile'               => esc_html__( 'Profile', 'wp-crowdfunding' ),
+            'my-campaigns'          => esc_html__( 'My Campaigns', 'wp-crowdfunding' ),
+            'backed-campaigns'      => esc_html__( 'Backed Campaigns', 'wp-crowdfunding' ),
+            'pledges-received'      => esc_html__( 'Pledges Received', 'wp-crowdfunding' ),
+            'bookmarks'             => esc_html__( 'Bookmarks', 'wp-crowdfunding' ),
         );
         $items = array_merge( $new_items,$items );
         return $items;

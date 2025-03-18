@@ -148,13 +148,13 @@ class Admin_Menu {
             null 
         );
 
-        $addon_pro =  __('Add-ons', 'wp-crowdfunding');
+        $addon_pro =  esc_html__('Add-ons', 'wp-crowdfunding');
         if( !defined('WPCF_PRO_FILE') ){
-            $addon_pro = __('Add-ons <span class="dashicons dashicons-star-filled" style="color:#ef450b"/>', 'wp-crowdfunding');
+            $addon_pro = esc_html__('Add-ons <span class="dashicons dashicons-star-filled" style="color:#ef450b"/>', 'wp-crowdfunding');
         }
         add_submenu_page(
             'wpcf-crowdfunding',
-            __('Add-ons', 'wp-crowdfunding'),
+            esc_html__('Add-ons', 'wp-crowdfunding'),
             $addon_pro,
             'manage_options',
             'wpcf-crowdfunding',
@@ -162,8 +162,8 @@ class Admin_Menu {
         );
         add_submenu_page(
             'wpcf-crowdfunding',
-            __( 'Settings', 'wp-crowdfunding' ),
-            __( 'Settings', 'wp-crowdfunding' ),
+            esc_html__( 'Settings', 'wp-crowdfunding' ),
+            esc_html__( 'Settings', 'wp-crowdfunding' ),
             'manage_options',
             'wpcf-settings',
             array( $this, 'wpcf_menu_page' )
@@ -182,15 +182,15 @@ class Admin_Menu {
         // Settings Tab With slug and Display name
         $tabs = apply_filters('wpcf_settings_panel_tabs', array(
                 'general' => array(
-                    'tab_name' => __('General Settings','wp-crowdfunding'),
+                    'tab_name' => esc_html__('General Settings','wp-crowdfunding'),
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_General.php'
                 ),
                 'style' => array(
-                    'tab_name' => __('Style','wp-crowdfunding'),
+                    'tab_name' => esc_html__('Style','wp-crowdfunding'),
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Style.php'
                 ),
                 'fields' => array(
-                    'tab_name' => __('Field Settings','wp-crowdfunding'),
+                    'tab_name' => esc_html__('Field Settings','wp-crowdfunding'),
                     'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Fields.php'
                 ),
             )
@@ -198,7 +198,7 @@ class Admin_Menu {
 
         if( class_exists( 'WooCommerce' ) ){
             $woo_tab = array(
-                'tab_name' => __('WooCommerce Settings','wp-crowdfunding'),
+                'tab_name' => esc_html__('WooCommerce Settings','wp-crowdfunding'),
                 'load_form_file' => WPCF_DIR_PATH.'settings/tabs/Tab_Woocommerce.php'
             );
             $tabs = array_slice($tabs, 0, 1, true) + array('woocommerce' => $woo_tab) + array_slice($tabs, 1, count($tabs), true);

@@ -35,9 +35,9 @@ $rewards_query = new WP_Query($args);
 					<table class="stripe-table reward_table_dashboard">
 						<thead>
 							<tr>
-								<th><?php _e('Order', 'wp-crowdfunding'); ?></th>
-								<th><?php _e('Campaign Name / Reward Amount', 'wp-crowdfunding'); ?></th>
-								<th><?php _e('Action', 'wp-crowdfunding'); ?></th>
+								<th><?php esc_html_e('Order', 'wp-crowdfunding'); ?></th>
+								<th><?php esc_html_e('Campaign Name / Reward Amount', 'wp-crowdfunding'); ?></th>
+								<th><?php esc_html_e('Action', 'wp-crowdfunding'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -61,15 +61,15 @@ $rewards_query = new WP_Query($args);
 										<div class="reward_description" style="display: none;">
 											<?php
 											if ( ! empty($reward['wpneo_rewards_endmonth'])){
-												echo '<div><strong>'. __('Estimated Delivery', 'wp-crowdfunding')."</strong><br />";
+												echo '<div><strong>'. esc_html__('Estimated Delivery', 'wp-crowdfunding')."</strong><br />";
 												$est_delivery = ucfirst($reward['wpneo_rewards_endmonth']).'-'.$reward['wpneo_rewards_endyear'];
 												echo date_i18n( 'F, Y', strtotime( '1-'.$est_delivery ) );
 											}
 											if ( ! empty($reward['wpneo_rewards_description'])){
-												echo '<div><strong>'. __('Description', 'wp-crowdfunding')."</strong><br />";
+												echo '<div><strong>'. esc_html__('Description', 'wp-crowdfunding')."</strong><br />";
 												echo $reward['wpneo_rewards_description'].'</div>';
 											}
-											echo '<div><strong>'.__('Backer info', 'wp-crowdfunding').'</strong> <br />';
+											echo '<div><strong>'.esc_html__('Backer info', 'wp-crowdfunding').'</strong> <br />';
 
 											if ( wpcf_function()->wc_version() ){
 												echo $order->get_billing_first_name().' '.$order->get_billing_last_name().'<br />';
@@ -89,7 +89,7 @@ $rewards_query = new WP_Query($args);
 										</div>
 									</td>
 									<td>
-										<a href="javascript:;"><?php _e('View Details', 'wp-crowdfunding'); ?></a>
+										<a href="javascript:;"><?php esc_html_e('View Details', 'wp-crowdfunding'); ?></a>
 									</td>
 								</tr> <?php
 							}
@@ -98,7 +98,7 @@ $rewards_query = new WP_Query($args);
 					</table>
 				</div> <?php
 			} else {
-				echo '<div class="wpneocf-alert-info"> '.__('There is no rewards selected by backer', 'wp-crowdfunding').' </div>';
+				echo '<div class="wpneocf-alert-info"> '.esc_html__('There is no rewards selected by backer', 'wp-crowdfunding').' </div>';
 			}
 			?>
 		</div>
