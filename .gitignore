@@ -10,3 +10,4 @@ yarn.lock
 .sass-cache
 .prettierignore
 *.zip
+*/*.pot
