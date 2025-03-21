@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 class Dashboard{
 
     protected static $_instance;
-    public static function instance(){
+    public static function instance() {
         if (is_null(self::$_instance)) {
             self::$_instance = new self();
         }

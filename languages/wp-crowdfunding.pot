@@ -1,4 +1,4 @@
-# Copyright (C) 2024 WP Crowdfunding
+# Copyright (C) 2025 WP Crowdfunding
 # This file is distributed under the same license as the WP Crowdfunding package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-11 10:05+0000\n"
+"POT-Creation-Date: 2025-03-18 09:21+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Choose the stage when campaign will end"
 msgstr ""
 
-#: includes/register_api_hook.php:486, shortcode/Submit_Form.php:279, includes/woocommerce/Dashboard.php:191, settings/tabs/Tab_Fields.php:119
+#: includes/register_api_hook.php:486, shortcode/Submit_Form.php:279, includes/woocommerce/Dashboard.php:194, settings/tabs/Tab_Fields.php:119
 msgid "Start Date"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgstr ""
 msgid "Campaign start date (dd-mm-yy)"
 msgstr ""
 
-#: includes/register_api_hook.php:497, shortcode/Submit_Form.php:290, includes/woocommerce/Dashboard.php:196, settings/tabs/Tab_Fields.php:128
+#: includes/register_api_hook.php:497, shortcode/Submit_Form.php:290, includes/woocommerce/Dashboard.php:199, settings/tabs/Tab_Fields.php:128
 msgid "End Date"
 msgstr ""
 
@@ -494,7 +494,7 @@ msgstr ""
 msgid "Settings have been Saved."
 msgstr ""
 
-#: settings/Admin_Menu.php:244
+#: settings/Admin_Menu.php:251
 msgid "Reset Settings"
 msgstr ""
 
@@ -706,7 +706,7 @@ msgstr ""
 msgid "Thanks :)"
 msgstr ""
 
-#: includes/woocommerce/Common.php:39, includes/woocommerce/Dashboard.php:253
+#: includes/woocommerce/Common.php:39, includes/woocommerce/Dashboard.php:256
 msgid "Please Sign In first"
 msgstr ""
 
@@ -722,99 +722,99 @@ msgstr ""
 msgid "Campaign has been deleted"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:46
+#: includes/woocommerce/Dashboard.php:49
 msgid "CrowdFunding Overview"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:88
+#: includes/woocommerce/Dashboard.php:91
 msgid "Total Campaign"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:89
+#: includes/woocommerce/Dashboard.php:92
 msgid "Completed Orders"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:90
+#: includes/woocommerce/Dashboard.php:93
 msgid "On-Hold Orders"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:91
+#: includes/woocommerce/Dashboard.php:94
 msgid "Total Donation Raised"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:133
+#: includes/woocommerce/Dashboard.php:136
 msgid "Owner"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:169
+#: includes/woocommerce/Dashboard.php:172
 msgid "Campaign Summary"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:181
+#: includes/woocommerce/Dashboard.php:184
 msgid "By"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:201, includes/woocommerce/dashboard/dashboard-campaign.php:77
+#: includes/woocommerce/Dashboard.php:204, includes/woocommerce/dashboard/dashboard-campaign.php:77
 msgid "Goal"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:206
+#: includes/woocommerce/Dashboard.php:209
 msgid "Raised"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:220, addons/social-share/classes/Init.php:158, wpcftemplate/woocommerce/basic/include/fund_raised_percent.php:7, wpcftemplate/woocommerce/basic/include/loop/fund_raised_percent.php:7
+#: includes/woocommerce/Dashboard.php:223, addons/social-share/classes/Init.php:158, wpcftemplate/woocommerce/basic/include/fund_raised_percent.php:7, wpcftemplate/woocommerce/basic/include/loop/fund_raised_percent.php:7
 msgid "Raised Percent"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:241, includes/woocommerce/Dashboard.php:298, includes/woocommerce/Reward.php:286, includes/woocommerce/Reward.php:306, includes/woocommerce/Woocommerce.php:144
+#: includes/woocommerce/Dashboard.php:244, includes/woocommerce/Dashboard.php:301, includes/woocommerce/Reward.php:286, includes/woocommerce/Reward.php:306, includes/woocommerce/Woocommerce.php:144
 msgid "Selected Reward"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:261
+#: includes/woocommerce/Dashboard.php:264
 msgid "Order ID"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:262
+#: includes/woocommerce/Dashboard.php:265
 msgid "Order Date"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:263
+#: includes/woocommerce/Dashboard.php:266
 msgid "Order Status"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:314
+#: includes/woocommerce/Dashboard.php:317
 msgid "Subtotal:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:319
+#: includes/woocommerce/Dashboard.php:322
 msgid "Payments Method:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:324
+#: includes/woocommerce/Dashboard.php:327
 msgid "Total:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:331
+#: includes/woocommerce/Dashboard.php:334
 msgid "Customer details"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:335, woocommerce/emails/email-order-details.php:80
+#: includes/woocommerce/Dashboard.php:338, woocommerce/emails/email-order-details.php:80
 msgid "Note:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:341, includes/woocommerce/dashboard/contact.php:263, includes/woocommerce/dashboard/dashboard.php:59, includes/woocommerce/dashboard/profile.php:112
+#: includes/woocommerce/Dashboard.php:344, includes/woocommerce/dashboard/contact.php:263, includes/woocommerce/dashboard/dashboard.php:59, includes/woocommerce/dashboard/profile.php:112
 msgid "Email:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:347
+#: includes/woocommerce/Dashboard.php:350
 msgid "Phone:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:355
+#: includes/woocommerce/Dashboard.php:358
 msgid "Billing Address:"
 msgstr ""
 
-#: includes/woocommerce/Dashboard.php:357
+#: includes/woocommerce/Dashboard.php:360
 msgid "N/A"
 msgstr ""
 
@@ -1540,6 +1540,10 @@ msgstr ""
 
 #: settings/view/Addons.php:181
 msgid "Buy Now"
+msgstr ""
+
+#: settings/view/Reward_Meta.php:19
+msgid "Amount : %s, Delivery : %s"
 msgstr ""
 
 #. translators: %1$s: Order number, %2$s: Customer full name.
