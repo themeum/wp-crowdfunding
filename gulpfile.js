@@ -136,7 +136,6 @@ exports.build = gulp.series(
 	'minify-css',
 	'copy',
 	'make-zip',
-	'clean-build'
 );
 
 /**

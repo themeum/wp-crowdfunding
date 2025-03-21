@@ -11,3 +11,4 @@ yarn.lock
 .prettierignore
 *.zip
 */*.pot
+build/
