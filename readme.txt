@@ -130,6 +130,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 == Changelog ==
 =2.1.14=
 Fix    : Added authorization to download Post Content.
+Fix    : Enhanced sanitization throughout the code.
 
 == Changelog ==
 =2.1.13=
