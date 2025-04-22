@@ -20,29 +20,6 @@ class Dashboard{
         add_action( 'add_meta_boxes',                       array($this, 'register_meta_boxes'));
         add_action( 'add_meta_boxes',                       array($this, 'selected_reward_meta_box'));
         add_action( 'wp_ajax_wpcf_order_action',            array($this, 'order_campaign_action'));
-        add_action( 'init',                                 array($this, 'wpcf_personal_data_download'));
-    }
-
-    /**
-    * Download Personal Data
-    */
-    public function wpcf_personal_data_download() {
-        if ( ! current_user_can( 'manage_options' ) ) {
-            return;
-        }
-        $user_id = get_current_user_id();
-        if ( isset( $_GET['download_data'] ) && $user_id ) {
-            require_once ABSPATH . 'wp-admin/includes/export.php';
-            $args = array(
-                'content'    => 'all',
-                'author'     => $user_id,
-                'category'   => false,
-                'start_date' => false,
-                'end_date'   => false,
-                'status'     => false,
-            );
-            export_wp( $args );
-        }
     }
 
     public function init() {

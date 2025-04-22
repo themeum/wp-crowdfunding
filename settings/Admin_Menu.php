@@ -248,7 +248,10 @@ class Admin_Menu {
             wp_nonce_field( 'wpneo_settings_page_action', 'wpneo_settings_page_nonce_field' );
             submit_button( null, 'primary', 'wpneo_admin_settings_submit_btn' );
             ?>
-            <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> <i class="dashicons dashicons-image-rotate"></i> <?php esc_attr_e('Reset Settings', 'wp-crowdfunding'); ?></a>
+            <a href="javascript:;" class="button wpneo-crowdfunding-reset-btn"> 
+                <i class="dashicons dashicons-image-rotate"></i> 
+                <?php esc_html_e('Reset Settings', 'wp-crowdfunding'); ?>
+            </a>
         </form>
         <?php
     }
@@ -261,7 +264,7 @@ class Admin_Menu {
         if (wpcf_function()->post('wpneo_settings_page_nonce_field') && wp_verify_nonce( sanitize_text_field(wpcf_function()->post('wpneo_settings_page_nonce_field')), 'wpneo_settings_page_action' ) ){
 
             $current_tab = sanitize_text_field(wpcf_function()->post('wpneo_crowdfunding_admin_tab'));
-            if( ! empty($current_tab) ){
+            if( ! empty($current_tab) ) {
                 if ( $current_tab == 'tab_fields' ) {
 
                     $description = sanitize_text_field(wpcf_function()->post('wpcf_show_description'));

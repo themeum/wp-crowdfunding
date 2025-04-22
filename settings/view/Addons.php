@@ -1,6 +1,6 @@
 <div class="wrap">
     <div class="wp-crowdfunding-addons-list">
-        <h1 class="addon-list-heading"><?php esc_html_e( 'Addons List', 'wp-crowdfunding' ); ?></h1>
+        <h1 class="addon-list-heading"> <?php esc_html_e( 'Addons List', 'wp-crowdfunding' ); ?> </h1>
         <br class="clear">
 		<?php
         $addons = apply_filters('wpcf_addons_lists_config', array());

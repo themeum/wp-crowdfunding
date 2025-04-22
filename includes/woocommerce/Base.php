@@ -147,7 +147,14 @@ class Base
         wp_enqueue_script('jquery.easypiechart', WPCF_DIR_URL . 'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
         wp_enqueue_script('wp-neo-jquery.magnific-popup.min-front', WPCF_DIR_URL . 'assets/js/jquery.magnific-popup.min.js', array('jquery'), WPCF_VERSION, true);
         wp_enqueue_script('wp-neo-jquery-scripts-front', WPCF_DIR_URL . 'assets/js/dist/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
-        wp_localize_script('wp-neo-jquery-scripts-front', 'wpcf_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+        wp_localize_script( 
+            'wp-neo-jquery-scripts-front', 
+            'wpcf_ajax_object', 
+            array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce'   => wp_create_nonce('cf_ajax_nonce'),
+            )
+        );
         wp_enqueue_media();
     }
 
