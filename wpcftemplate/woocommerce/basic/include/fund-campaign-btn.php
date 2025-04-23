@@ -31,17 +31,17 @@ defined( 'ABSPATH' ) || exit;
 			<span class="wpneo-tooltip">
 				<span class="wpneo-tooltip-min">
 				<?php
-				_e( 'Minimum amount is ', 'wp-crowdfunding' );
+				esc_html_e( 'Minimum amount is ', 'wp-crowdfunding' );
 				echo $currency . $min_price;
 				?>
 				</span>
 				<span class="wpneo-tooltip-max">
 				<?php
-				_e( 'Maximum amount is ', 'wp-crowdfunding' );
+				esc_html_e( 'Maximum amount is ', 'wp-crowdfunding' );
 				echo $currency . $max_price;
 				?>
 				</span>
-				<span class="wpneo-tooltip-empty"><?php _e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
+				<span class="wpneo-tooltip-empty"><?php esc_html_e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
 			</span>
 
 			<?php
@@ -64,7 +64,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php do_action( 'after_wpneo_donate_field' ); ?>
 				<input type="hidden" value="<?php echo esc_attr( $post->ID ); ?>" name="add-to-cart">
-				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>"><?php _e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
+				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>"><?php esc_html_e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
 			</form>
 
 			<?php
@@ -89,17 +89,17 @@ defined( 'ABSPATH' ) || exit;
 			<span class="wpneo-tooltip">
 				<span class="wpneo-tooltip-min">
 				<?php
-				_e( 'Minimum amount is ', 'wp-crowdfunding' );
+				esc_html_e( 'Minimum amount is ', 'wp-crowdfunding' );
 				echo $currency . $min_price;
 				?>
 				</span>
 				<span class="wpneo-tooltip-max">
 				<?php
-				_e( 'Maximum amount is ', 'wp-crowdfunding' );
+				esc_html_e( 'Maximum amount is ', 'wp-crowdfunding' );
 				echo $currency . $max_price;
 				?>
 				</span>
-				<span class="wpneo-tooltip-empty"><?php _e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
+				<span class="wpneo-tooltip-empty"><?php esc_html_e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
 			</span>
 
 			<?php
@@ -122,7 +122,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php do_action( 'after_wpneo_donate_field' ); ?>
 				<input type="hidden" value="<?php echo esc_attr( $post->ID ); ?>" name="add-to-cart">
-				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>"><?php _e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
+				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>"><?php esc_html_e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
 			</form>
 			<?php
 		} elseif ( wpcf_function()->get_date_remaining( $post->ID ) && 'target_date' === $campaign_end_method ) {
@@ -146,17 +146,17 @@ defined( 'ABSPATH' ) || exit;
 			<span class="wpneo-tooltip">
 				<span class="wpneo-tooltip-min">
 				<?php
-				_e( 'Minimum amount is ', 'wp-crowdfunding' );
+				esc_html_e( 'Minimum amount is ', 'wp-crowdfunding' );
 				echo $currency . $min_price;
 				?>
 				</span>
 				<span class="wpneo-tooltip-max">
 				<?php
-				_e( 'Maximum amount is ', 'wp-crowdfunding' );
+				esc_html_e( 'Maximum amount is ', 'wp-crowdfunding' );
 				echo $currency . $max_price;
 				?>
 				</span>
-				<span class="wpneo-tooltip-empty"><?php _e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
+				<span class="wpneo-tooltip-empty"><?php esc_html_e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
 			</span>
 
 			<?php
@@ -179,19 +179,15 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php do_action( 'after_wpneo_donate_field' ); ?>
 				<input type="hidden" value="<?php echo esc_attr( $post->ID ); ?>" name="add-to-cart">
-				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>"><?php _e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
+				<button type="submit" class="<?php echo apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ); ?>"><?php esc_html_e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
 			</form>
 			<?php
-		} else {
-			if ( ! wpcf_function()->is_campaign_started() ) {
+		} elseif ( ! wpcf_function()->is_campaign_started() ) {
 				wpcf_function()->campaign_start_countdown();
-			} else {
-				if ( wpcf_function()->is_reach_target_goal( $post->ID ) ) {
-					_e( 'The campaign is successful.', 'wp-crowdfunding' );
-				} else {
-					_e( 'This campaign has been invalid or not started yet.', 'wp-crowdfunding' );
-				}
-			}
+		} elseif ( wpcf_function()->is_reach_target_goal( $post->ID ) ) {
+				esc_html_e( 'The campaign is successful.', 'wp-crowdfunding' );
+		} else {
+			esc_html_e( 'This campaign has been invalid or not started yet.', 'wp-crowdfunding' );
 		}
 	}
 

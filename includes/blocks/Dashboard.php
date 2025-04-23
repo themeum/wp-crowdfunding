@@ -34,7 +34,7 @@ class Dashboard{
     
         $html = $get_id = '';
 
-        if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
+        if( isset($_GET['page_type']) ) { $get_id = $_GET['page_type']; }
             if ( is_user_logged_in() ) {
                 $pagelink = get_permalink( get_the_ID() );
                 $dashboard_menus = apply_filters('wpcf_frontend_dashboard_menus', array(
@@ -95,7 +95,7 @@ class Dashboard{
                     $html .= '<div class="wpneo-links clearfix">';
 
                         $dashboard = $account = $campaign = $extra = '';
-                        foreach ($dashboard_menus as $menu_name => $menu_value){
+                        foreach ($dashboard_menus as $menu_name => $menu_value) {
 
                             if ( empty($get_id) && $menu_name == 'dashboard'){ $active = 'active';
                             } else { $active = ($get_id == $menu_name) ? 'active' : ''; }

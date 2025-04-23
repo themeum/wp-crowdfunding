@@ -16,8 +16,8 @@ if ( is_array( $campaign_rewards_a ) ) {
 		array_multisort( $amount, SORT_ASC, $campaign_rewards_a );
 
 		foreach ( $campaign_rewards_a as $key => $value ) {
-			$key++;
-			$i++;
+			++$key;
+			++$i;
 			$quantity = '';
 
 			$post_id  = get_the_ID();
@@ -40,17 +40,17 @@ if ( is_array( $campaign_rewards_a ) ) {
 					<h3>
 						<?php
 						if ( function_exists( 'wc_price' ) ) {
-							echo wc_price( $value['wpneo_rewards_pladge_amount'] );
+							echo wp_kses_post( $value['wpneo_rewards_pladge_amount'] );
 							if ( 'true' != get_option( 'wpneo_reward_fixed_price', '' ) ) {
-								echo ( ! empty( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] ) ) ? ' - ' . wc_price( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] - 1 ) : esc_html__( ' or more', 'wp-crowdfunding' );
+								echo ( ! empty( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] ) ) ? ' - ' . wp_kses_post( wc_price( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] - 1 ) ) : esc_html__( ' or more', 'wp-crowdfunding' );
 							}
 						}
 						?>
 					</h3>
-					<div><?php echo wpautop( wp_unslash( esc_html( $value['wpneo_rewards_description'] ) ) ); ?></div>
+					<div><?php echo esc_html( wpautop( wp_unslash( $value['wpneo_rewards_description'] ) ) ); ?></div>
 					<?php if ( $value['wpneo_rewards_image_field'] ) { ?>
 						<div class="wpneo-rewards-image">
-							<?php echo '<img src="' . esc_url(wp_get_attachment_url( $value['wpneo_rewards_image_field'] )) . '"/>'; ?>
+							<?php echo '<img src="' . esc_url( wp_get_attachment_url( $value['wpneo_rewards_image_field'] ) ) . '"/>'; ?>
 						</div>
 					<?php } ?>
 
@@ -60,8 +60,7 @@ if ( is_array( $campaign_rewards_a ) ) {
 						$month = date_i18n( 'F', strtotime( $value['wpneo_rewards_endmonth'] ) );
 
 						$year = $value['wpneo_rewards_endyear'];
-
-						echo "<h4>{$month}, {$year}</h4>";
+						echo '<h4>' . esc_html( $month ) . ', ' . esc_html( $year ) . '</h4>';
 						echo '<div>' . esc_html__( 'Estimated Delivery', 'wp-crowdfunding' ) . '</div>';
 					}
 					?>
