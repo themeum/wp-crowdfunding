@@ -45,7 +45,7 @@ class WPCF_Social_Share {
 	 * All settings will be save in this method
 	 */
 	public function social_share_save_settings() {
-		if ( isset( $_POST['wpneo_admin_settings_submit_btn'] ) && isset( $_POST['wpcf_varify_share'] ) && wp_verify_nonce( $_POST['wpneo_settings_page_nonce_field'], 'wpneo_settings_page_action' ) ) {
+		if ( isset( $_POST['wpneo_admin_settings_submit_btn'] ) && isset( $_POST['wpcf_varify_share'] ) && wp_verify_nonce( sanitize_text_field( $_POST['wpneo_settings_page_nonce_field'] ), 'wpneo_settings_page_action' ) ) {
 			// Checkbox
 			$embed_share = sanitize_text_field( wpcf_function()->post( 'wpcf_embed_share' ) );
 			wpcf_function()->update_checkbox( 'wpcf_embed_share', $embed_share );
@@ -136,13 +136,13 @@ class WPCF_Social_Share {
 						<body>
 							<div class="wpneo-listings">
 								<div class="wpneo-listing-img">
-									<a target="_top" href="<?php echo get_permalink(); ?>" title="<?php the_title(); ?>"><?php echo woocommerce_get_product_thumbnail(); ?></a>
+									<a target="_top" href="<?php echo esc_url( get_permalink() ); ?>" title="<?php esc_attr( the_title() ); ?>"><?php echo woocommerce_get_product_thumbnail(); ?></a>
 								</div>
 								<div class="wpneo-listing-content">
 	
-									<h4><a target="_top" href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h4>
-									<p class="wpneo-author"><?php _e( 'by', 'wp-crowdfunding' ); ?> 
-										<a target="_top" href="<?php echo wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ); ?>"><?php echo wpcf_function()->get_author_name(); ?></a>
+									<h4><a target="_top" href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html( the_title() ); ?></a></h4>
+									<p class="wpneo-author"><?php esc_html_e( 'by', 'wp-crowdfunding' ); ?> 
+										<a target="_top" href="<?php echo esc_url( wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ) ); ?>"><?php echo esc_html( wpcf_function()->get_author_name() ); ?></a>
 									</p>
 	
 									<?php
@@ -150,19 +150,19 @@ class WPCF_Social_Share {
 									if ( $location ) {
 										?>
 										<div class="wpneo-location-wrapper">
-											<span><?php echo $location; ?></span>
+											<span><?php echo esc_html( $location ); ?></span>
 										</div>
 									<?php } ?>
 	
 									<?php $desc = wpcf_function()->limit_word_text( strip_tags( get_the_content() ), 130 ); ?>
 									<?php if ( $desc ) { ?>
-										<p class="wpneo-short-description"><?php echo $desc; ?></p>
+										<p class="wpneo-short-description"><?php echo esc_html( $desc ); ?></p>
 									<?php } ?>
 	
 									<?php $raised_percent = wpcf_function()->get_fund_raised_percent_format(); ?>
 									<div class="wpneo-raised-percent">
-										<div class="wpneo-meta-name"><?php _e( 'Raised Percent', 'wp-crowdfunding' ); ?> :</div>
-										<div class="wpneo-meta-desc" ><?php echo $raised_percent; ?></div>
+										<div class="wpneo-meta-name"><?php esc_html_e( 'Raised Percent', 'wp-crowdfunding' ); ?> :</div>
+										<div class="wpneo-meta-desc" ><?php echo esc_html( $raised_percent ); ?></div>
 									</div>
 	
 									<div class="wpneo-raised-bar sjkdhfjdshf">
@@ -172,7 +172,7 @@ class WPCF_Social_Share {
 											if ( $css_width >= 100 ) {
 												$css_width = 100; }
 											?>
-											<div style="width: <?php echo $css_width; ?>%"></div>
+											<div style="width: <?php echo esc_attr( $css_width ); ?>%"></div>
 										</div>
 									</div>
 	
@@ -180,8 +180,8 @@ class WPCF_Social_Share {
 										
 										<?php $funding_goal = get_post_meta( get_the_ID(), '_nf_funding_goal', true ); ?>
 										<div class="wpneo-funding-goal">
-											<div class="wpneo-meta-desc"><?php echo wc_price( $funding_goal ); ?></div>
-											<div class="wpneo-meta-name"><?php _e( 'Funding Goal', 'wp-crowdfunding' ); ?></div>
+											<div class="wpneo-meta-desc"><?php echo wp_kses_post( wc_price( $funding_goal ) ); ?></div>
+											<div class="wpneo-meta-name"><?php esc_html_e( 'Funding Goal', 'wp-crowdfunding' ); ?></div>
 										</div>
 	
 										<?php
@@ -193,8 +193,8 @@ class WPCF_Social_Share {
 										if ( $end_method != 'never_end' ) {
 											?>
 											<div class="wpneo-time-remaining">
-												<div class="wpneo-meta-desc"><?php echo $days_remaining; ?></div>
-												<div class="wpneo-meta-name float-left"><?php _e( 'Days to go', 'wp-crowdfunding' ); ?></div>
+												<div class="wpneo-meta-desc"><?php echo esc_html( $days_remaining ); ?></div>
+												<div class="wpneo-meta-name float-left"><?php esc_html_e( 'Days to go', 'wp-crowdfunding' ); ?></div>
 											</div>
 										<?php } ?>
 										
@@ -205,8 +205,8 @@ class WPCF_Social_Share {
 											$raised = $total_raised; }
 										?>
 										<div class="wpneo-fund-raised">
-											<div class="wpneo-meta-desc"><?php echo wc_price( $raised ); ?></div>
-											<div class="wpneo-meta-name"><?php _e( 'Fund Raised', 'wp-crowdfunding' ); ?></div>
+											<div class="wpneo-meta-desc"><?php echo wp_kses_post( wc_price( $raised ) ); ?></div>
+											<div class="wpneo-meta-name"><?php esc_html_e( 'Fund Raised', 'wp-crowdfunding' ); ?></div>
 										</div>
 	
 									</div>                     
@@ -225,7 +225,7 @@ class WPCF_Social_Share {
 
 	// Odrer Data View
 	public function embed_campaign_action() {
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(

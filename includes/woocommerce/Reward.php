@@ -139,7 +139,6 @@ class Reward{
             /*
             * Print without value of Reward System for clone group
             */
-            echo "<div class='reward_group' style='display:" . $display . ";'>";
             echo "<div class='campaign_rewards_field_copy'>";
 
             foreach ($woocommerce_meta_field as $value) {

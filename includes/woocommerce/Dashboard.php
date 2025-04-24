@@ -230,7 +230,7 @@ class Dashboard {
 
 	// Odrer Data View
 	public function order_campaign_action() {
-        if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
@@ -294,7 +294,7 @@ class Dashboard {
 				?>
 				<tr>
 					<td>
-						<h4><?php _e( 'Selected Reward', 'wp-crowdfunding' ); ?> </h4>
+						<h4><?php esc_html_e( 'Selected Reward', 'wp-crowdfunding' ); ?> </h4>
 						<?php
 						if ( ! empty( $r['wpneo_rewards_description'] ) ) {
 							// echo "<div>{$r['wpneo_rewards_description']}</div>";
