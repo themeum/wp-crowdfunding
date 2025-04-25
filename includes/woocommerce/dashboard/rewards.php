@@ -9,9 +9,9 @@ defined( 'ABSPATH' ) || exit;
 $user_id = get_current_user_id();
 
 $args          = array(
-	'post_type'  => 'shop_order',
-	// 'post_status' => 'wc-completed',
-	'meta_query' => array(
+	'post_type'   => 'shop_order',
+	'post_status' => 'wc-completed',
+	'meta_query'  => array(
 		array(
 			'key'     => 'wpneo_selected_reward',
 			'value'   => array( '', null ),
@@ -63,26 +63,26 @@ $rewards_query = new WP_Query( $args );
 											if ( ! empty( $reward['wpneo_rewards_endmonth'] ) ) {
 												echo '<div><strong>' . esc_html__( 'Estimated Delivery', 'wp-crowdfunding' ) . '</strong><br />';
 												$est_delivery = ucfirst( $reward['wpneo_rewards_endmonth'] ) . '-' . $reward['wpneo_rewards_endyear'];
-												echo date_i18n( 'F, Y', strtotime( '1-' . $est_delivery ) );
+												echo esc_html( date_i18n( 'F, Y', strtotime( '1-' . $est_delivery ) ) );
 											}
 											if ( ! empty( $reward['wpneo_rewards_description'] ) ) {
 												echo '<div><strong>' . esc_html__( 'Description', 'wp-crowdfunding' ) . '</strong><br />';
-												echo $reward['wpneo_rewards_description'] . '</div>';
+												echo esc_html( $reward['wpneo_rewards_description'] ) . '</div>';
 											}
 											echo '<div><strong>' . esc_html__( 'Backer info', 'wp-crowdfunding' ) . '</strong> <br />';
 
 											if ( wpcf_function()->wc_version() ) {
-												echo $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() . '<br />';
-												echo $order->get_billing_email() . '<br />';
-												echo $order->get_billing_phone() . '<br />';
-												echo $order->get_billing_address_1() . ' ' . $order->get_billing_address_2() . ' '
-													. $order->get_billing_city() . ' '
-													. $order->get_billing_country();
+												echo esc_html( $order->get_billing_first_name() ) . ' ' . esc_html( $order->get_billing_last_name() ) . '<br />';
+												echo esc_html( $order->get_billing_email() ) . '<br />';
+												echo esc_html( $order->get_billing_phone() ) . '<br />';
+												echo esc_html( $order->get_billing_address_1() ) . ' ' . esc_html( $order->get_billing_address_2() ) . ' '
+													. esc_html( $order->get_billing_city() ) . ' '
+													. esc_html( $order->get_billing_country() );
 											} else {
-												echo $order->billing_first_name . ' ' . $order->billing_last_name . '<br />';
-												echo $order->billing_email . '<br />';
-												echo $order->billing_phone . '<br />';
-												echo $order->billing_address_1 . ' ' . $order->billing_address_2 . ' ' . $order->billing_city . ' ' . $order->billing_country;
+												echo esc_html( $order->billing_first_name ) . ' ' . esc_html( $order->billing_last_name ) . '<br />';
+												echo esc_html( $order->billing_email ) . '<br />';
+												echo esc_html( $order->billing_phone ) . '<br />';
+												echo esc_html( $order->billing_address_1 ) . ' ' . esc_html( $order->billing_address_2 ) . ' ' . esc_html( $order->billing_city ) . ' ' . esc_html( $order->billing_country );
 											}
 											echo '</div>';
 											?>

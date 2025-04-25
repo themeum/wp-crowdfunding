@@ -143,9 +143,9 @@ class Woocommerce {
 
 		echo '<h2>' . esc_html__( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
         <ul>
-            <li> ' . esc_html__( 'Amount: ', 'wp-crowdfunding' ) . wc_price( $reward_details->wpneo_rewards_pladge_amount ) . '</li>
+            <li> ' . esc_html__( 'Amount: ', 'wp-crowdfunding' ) . wp_kses_post( wc_price( $reward_details->wpneo_rewards_pladge_amount ) ) . '</li>
             <li> ' . esc_html__( 'Delivery: ', 'wp-crowdfunding' ) . esc_html( ucfirst( $reward_details->wpneo_rewards_endmonth ) ) . ', ' . esc_html( $reward_details->wpneo_rewards_endyear ) . '</li>
-            <li> ' . esc_html__( 'Reward Details: ', 'wp-crowdfunding' ) . $reward_details->wpneo_rewards_description . '</li>
+            <li> ' . esc_html__( 'Reward Details: ', 'wp-crowdfunding' ) . esc_html( $reward_details->wpneo_rewards_description ) . '</li>
         </ul>';
 	}
 

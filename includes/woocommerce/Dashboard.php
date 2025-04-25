@@ -135,9 +135,9 @@ class Dashboard {
 				$dashboard_url     = add_query_arg( $query_args, get_permalink( $dashboard_page_id ) );
 
 				if ( user_can( get_current_user_id(), 'manage_options' ) ) {
-					echo "<a href='{$dashboard_url}' target='_blank'>{$user->display_name}</a>";
+					echo '<a href="' . esc_url( $dashboard_url ) . '" target="_blank">' . esc_html( $user->display_name ) . '</a>';
 				} else {
-					echo $user->display_name;
+					echo esc_html( $user->display_name );
 				}
 				break;
 		}
@@ -298,11 +298,11 @@ class Dashboard {
 						<?php
 						if ( ! empty( $r['wpneo_rewards_description'] ) ) {
 							// echo "<div>{$r['wpneo_rewards_description']}</div>";
-							echo '<div>' . wpautop( $r['wpneo_rewards_description'] ) . '</div>';
+							echo '<div>' . wp_kses_post( wpautop( $r['wpneo_rewards_description'] ) ) . '</div>';
 						}
 						if ( ! empty( $r['wpneo_rewards_pladge_amount'] ) ) {
 							?>
-							<?php printf( 'Amount : %s, Delivery : %s', wc_price( $r['wpneo_rewards_pladge_amount'] ), $r['wpneo_rewards_endmonth'] . ', ' . $r['wpneo_rewards_endyear'] ); ?>
+							<?php printf( 'Amount : %s, Delivery : %s', wp_kses_post( wc_price( $r['wpneo_rewards_pladge_amount'] ) ), esc_html( $r['wpneo_rewards_endmonth'] ) . ', ' . esc_html( $r['wpneo_rewards_endyear'] ) ); ?>
 						<?php } ?>
 					</td>
 					<td> </td>
