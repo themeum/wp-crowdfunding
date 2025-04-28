@@ -130,6 +130,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 == Changelog ==
 =2.1.15=
 Fix    : Added nonce verification in every ajax request.
+Fix    : Campaign wishlist modal was not displaying correctly issue fixed.
 Fix    : Clean up unused post-download code since it’s no longer required.
 Fix    : Enhanced sanitization throughout the code.
 

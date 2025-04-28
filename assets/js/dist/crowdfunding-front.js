@@ -91,7 +91,6 @@ jQuery(document).ready(function ($) {
 
 	// Common Modal Function
 	function wpcf_modal(data, print = false) {
-		var data = JSON.parse(data);
 		var html =
 			'<div class="wpneo-modal-wrapper"> ' +
 			'<div class="wpneo-modal-content"> ' +
@@ -366,7 +365,7 @@ jQuery(document).ready(function ($) {
 		$.ajax({
 			type: 'POST',
 			url: wpcf_ajax_object.ajax_url,
-			data: { action: 'wpcf_bio_action', author: author, 'nonce': wpcf_ajax_object.nonce },
+			data: { action: 'wpcf_bio_action', author: author, nonce: wpcf_ajax_object.nonce },
 			success: function (data) {
 				wpcf_modal(data);
 			},
@@ -415,14 +414,18 @@ jQuery(document).ready(function ($) {
 				campaign_id: campaign_id,
 				nonce: wpcf_ajax_object.nonce,
 			},
-			success: function (data) {
-				data = JSON.parse(data);
+			success: function (response) {
+				data = JSON.parse(response);
 				if (data.success == 1) {
 					$('#campaign_loved_html').html(data.return_html);
+				} else if (data.success == 0) {
+					wpcf_modal({ success: 0, message: data.message });
+				} else {
+					wpcf_modal({ success: 0, message: 'Something went wrong!' });
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
-				wpcf_modal({ success: 0, message: 'Error' });
+				wpcf_modal({ success: 0, message: 'Error happened!' });
 			},
 		});
 	});
@@ -434,12 +437,18 @@ jQuery(document).ready(function ($) {
 			type: 'POST',
 			url: wpcf_ajax_object.ajax_url,
 			data: { action: 'remove_love_campaign_action', campaign_id: campaign_id, nonce: wpcf_ajax_object.nonce },
-			success: function (data) {
-				data = JSON.parse(data);
-				$('#campaign_loved_html').html(data.return_html);
+			success: function (response) {
+				data = JSON.parse(response);
+				if (data.success == 1) {
+					$('#campaign_loved_html').html(data.return_html);
+				} else if (data.success == 0) {
+					wpcf_modal({ success: 0, message: data.message });
+				} else {
+					wpcf_modal({ success: 0, message: 'Something went wrong!' });
+				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
-				wpcf_modal({ success: 0, message: 'Error' });
+				wpcf_modal({ success: 0, message: 'Error happened!' });
 			},
 		});
 	});
@@ -471,8 +480,8 @@ jQuery(document).ready(function ($) {
 	var image = $('input[name=wpneo-form-image-url]').val();
 	if (image != '') {
 		$('#wpneo-image-show').html('<img width="150" src="' + image + '" />');
-    }
-    
+	}
+
 	$(document).on('click', '.media-button-insert', function (e) {
 		var image = $('input[name=wpneo-form-image-url]').val();
 		if ($('.profile-form-img').length > 0) {
@@ -509,8 +518,8 @@ jQuery(document).ready(function ($) {
 				$(that).parent().find('.wpneo_rewards_image_field').val(uploaded_image);
 				$(that).parent().find('.wpneo_rewards_image_field_url').val(uploaded_url);
 			});
-    });
-    
+	});
+
 	$('body').on('click', '.wpneo-image-remove', function (e) {
 		var that = $(this);
 		$(that).parent().find('wpneo_rewards_image_field_url').val('');
@@ -542,7 +551,7 @@ jQuery(document).ready(function ($) {
 		$.ajax({
 			type: 'POST',
 			url: wpcf_ajax_object.ajax_url,
-			data: { action: 'wpcf_order_action', orderid: orderid, 'nonce': wpcf_ajax_object.nonce },
+			data: { action: 'wpcf_order_action', orderid: orderid, nonce: wpcf_ajax_object.nonce },
 			success: function (data) {
 				wpcf_modal(data, true);
 			},

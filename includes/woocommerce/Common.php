@@ -35,15 +35,22 @@ class Common {
 
 
 	public function love_this_campaign_action() {
+
 		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
 						'success' => 0,
-						'message' => __( 'Invalid Request', 'wp-crowdfunding' ),
+						'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
 					)
 				)
 			);
+			// return wp_send_json_error(
+			// 	array(
+			// 		'success' => 0,
+			// 		'message' => __( 'Invalid Request', 'wp-crowdfunding' ),
+			// 	)
+			// );
 		}
 
 		if ( ! is_user_logged_in() ) {
@@ -55,6 +62,12 @@ class Common {
 					)
 				)
 			);
+			// return wp_send_json_error(
+			// 	array(
+			// 		'success' => 0,
+			// 		'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
+			// 	)
+			// );
 		}
 
 		$loved_campaign_ids = array();
@@ -75,13 +88,18 @@ class Common {
 					)
 				)
 			);
+			// return wp_send_json_error(
+			// 	array(
+			// 		'success' => 0,
+			// 		'message' => __( 'Campaign already loved', 'wp-crowdfunding' ),
+			// 	)
+			// );
 		}
 
 		$loved_campaign_ids[] = $campaign_id;
 		$ids                  = json_encode( $loved_campaign_ids );
 
 		update_user_meta( $user_id, 'loved_campaign_ids', $ids );
-
 		die(
 			json_encode(
 				array(
@@ -91,10 +109,17 @@ class Common {
 				)
 			)
 		);
+		// return wp_send_json_success(
+		// 	array(
+		// 		'success'     => 1,
+		// 		'message'     => __( 'Loved campaign', 'wp-crowdfunding' ),
+		// 		'return_html' => '<a href="javascript:;" id="remove_from_love_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-full"></i></a>',
+		// 	)
+		// );
 	}
 
 	public function remove_love_campaign_action() {
-        if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
@@ -103,6 +128,29 @@ class Common {
 					)
 				)
 			);
+			// return wp_send_json_error(
+			// 	array(
+			// 		'success' => 0,
+			// 		'message' => __( 'Invalid Request', 'wp-crowdfunding' ),
+			// 	)
+			// );
+		}
+
+		if ( ! is_user_logged_in() ) {
+			die(
+				json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
+					)
+				)
+			);
+			// return wp_send_json_error(
+			// 	array(
+			// 		'success' => 0,
+			// 		'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
+			// 	)
+			// );
 		}
 
 		$loved_campaign_ids = array();
@@ -121,6 +169,7 @@ class Common {
 
 			$json_update_campaign_ids = json_encode( $loved_campaign_ids );
 			update_user_meta( $user_id, 'loved_campaign_ids', $json_update_campaign_ids );
+			$dh = wpcf_function()->campaign_loved( false );
 			die(
 				json_encode(
 					array(
@@ -130,6 +179,13 @@ class Common {
 					)
 				)
 			);
+			// return wp_send_json_success(
+			// 	array(
+			// 		'success'     => 1,
+			// 		'message'     => __( 'Campaign has been deleted', 'wp-crowdfunding' ),
+			// 		'return_html' => wpcf_function()->campaign_loved( false ),
+			// 	)
+			// );
 		}
 	}
 
