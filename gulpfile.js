@@ -108,7 +108,7 @@ gulp.task('copy', function () {
 			'!./package.json',
 			'!./package-lock.json',
 		])
-		.pipe(gulp.dest('build'));
+		.pipe(gulp.dest('build/wp-crowdfunding/'));
 });
 
 gulp.task('make-zip', function () {
