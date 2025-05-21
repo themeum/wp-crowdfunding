@@ -22,7 +22,7 @@ class Registration {
 			?>
 			<div class="wpneo-user-registration-wrap">
 				<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" id="wpneo-registration" method="post">
-				<?php echo wp_kses_post( wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false ) ); ?>
+				<?php echo wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false ); ?>
 					<?php
 					$regisration_data = array(
 						array(

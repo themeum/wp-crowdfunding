@@ -140,7 +140,7 @@ class Reward {
 			/*
 			* Print without value of Reward System for clone group
 			*/
-			echo "<div class='campaign_rewards_field_copy'>";
+			echo "<div class='campaign_rewards_field_copy'> style='width: calc(100% - 400px)'";
 
 			foreach ( $woocommerce_meta_field as $value ) {
 				switch ( $value['field_type'] ) {
@@ -168,7 +168,7 @@ class Reward {
 				}
 			}
 
-			echo '<input name="remove_rewards" type="button" class="button tagadd removeCampaignRewards" value="' . esc_html__( '- Remove', 'wp-crowdfunding' ) . '" />';
+			echo '<input name="remove_rewards" style="position:relative; top: 0px; right: 37px;" type="button" class="button tagadd removeCampaignRewards" value="' . esc_html__( '- Remove', 'wp-crowdfunding' ) . '" />';
 			echo '</div>';
 			echo '</div>';
 
@@ -179,7 +179,7 @@ class Reward {
 				if ( is_array( $data_array ) && ! empty( $data_array ) ) {
 					foreach ( $data_array as $k => $v ) {
 						echo "<div class='reward_group'>";
-						echo "<div class='campaign_rewards_field_copy'>";
+						echo "<div class='campaign_rewards_field_copy' style='width: calc(100% - 400px); float:right;'>";
 						foreach ( $woocommerce_meta_field as $value ) {
 							if ( isset( $v[ str_replace( '[]', '', $value['id'] ) ] ) ) {
 								$value['value'] = $v[ str_replace( '[]', '', $value['id'] ) ];
@@ -219,7 +219,7 @@ class Reward {
 									break;
 							}
 						}
-						echo '<input name="remove_rewards" type="button" class="button tagadd removeCampaignRewards" value="' . esc_html__( '- Remove', 'wp-crowdfunding' ) . '" />';
+						echo '<input name="remove_rewards" style="position:relative; top: -5px; right: 37px;" type="button" class="button tagadd removeCampaignRewards" value="' . esc_html__( '- Remove', 'wp-crowdfunding' ) . '" />';
 						echo '</div>';
 						echo '</div>';
 					}
@@ -228,7 +228,7 @@ class Reward {
 
 			if ( wpcf_function()->is_free() ) {
 				?>
-				<p class="description"><?php esc_html_e( 'pro version is required to add more than 1 reward', 'wp-crowdfunding' ); ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank"> <?php esc_html_e( 'click here to get pro version', 'wp-crowdfunding' ); ?></a></p>
+				<p class="description" style="margin-left: 245px; padding-right: 30px;"><?php esc_html_e( 'pro version is required to add more than 1 reward', 'wp-crowdfunding' ); ?>. <a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank"> <?php esc_html_e( 'click here to get pro version', 'wp-crowdfunding' ); ?></a></p>
 				<?php
 			} else {
 				?>
