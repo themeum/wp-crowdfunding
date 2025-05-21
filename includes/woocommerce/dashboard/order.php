@@ -24,7 +24,7 @@ foreach ($id_list as $value) {
 
 $order_ids = array();
 if( is_array( $id_array ) ){
-    if(!empty($id_array)){
+    if(!empty($id_array)) {
         $id_array = implode( ', ', $id_array );
         global $wpdb;
         $prefix = $wpdb->prefix;

@@ -92,7 +92,6 @@ jQuery(document).ready(function ($) {
 	// Common Modal Function
 	function wpcf_modal(data, print = false) {
 		var data = JSON.parse(data);
-		console.log('wpcf modal data', data);
 		var html =
 			'<div class="wpneo-modal-wrapper"> ' +
 			'<div class="wpneo-modal-content"> ' +
