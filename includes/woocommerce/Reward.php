@@ -140,7 +140,7 @@ class Reward {
 			/*
 			* Print without value of Reward System for clone group
 			*/
-			echo "<div class='campaign_rewards_field_copy'> style='width: calc(100% - 400px)'";
+			echo "<div class='campaign_rewards_field_copy' style='width: calc(100% - 400px)'>";
 
 			foreach ( $woocommerce_meta_field as $value ) {
 				switch ( $value['field_type'] ) {
