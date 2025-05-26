@@ -29,7 +29,6 @@ class Woocommerce {
 		add_filter( 'woocommerce_paypal_args', array( $this, 'custom_override_paypal_email' ), 100, 1 ); // Override paypal reciever email address with campaign creator email
 		add_action( 'woocommerce_add_to_cart_validation', array( $this, 'remove_crowdfunding_item_from_cart' ), 10, 5 ); // Remove crowdfunding item from cart
 		add_action( 'woocommerce_new_order', array( $this, 'crowdfunding_order_type' ) ); // Track is this product crowdfunding.
-		add_filter( 'woocommerce_checkout_fields', array( $this, 'override_checkout_fields' ) ); // Remove billing address from the checkout page
 		add_action( 'woocommerce_review_order_before_payment', array( $this, 'check_anonymous_backer' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'check_anonymous_backer_post' ) );
 		add_action( 'woocommerce_new_order_item', array( $this, 'crowdfunding_new_order_item' ), 10, 3 );
@@ -105,26 +104,6 @@ class Woocommerce {
 	}
 
 	/**
-	 * Remove billing address from the checkout page
-	 */
-	function override_checkout_fields( $fields ) {
-		// Remove all billing fields
-		unset( $fields['billing']['billing_first_name']);
-		unset( $fields['billing']['billing_last_name']);
-		unset( $fields['billing']['billing_company']);
-		unset( $fields['billing']['billing_address_1']);
-		unset( $fields['billing']['billing_address_2']);
-		unset( $fields['billing']['billing_city']);
-		unset( $fields['billing']['billing_postcode']);
-		unset( $fields['billing']['billing_country']);
-		unset( $fields['billing']['billing_state']);
-		unset( $fields['billing']['billing_phone']);
-		unset( $fields['billing']['billing_email']);
-
-		return $fields;
-	}
-
-	/**
 	 * Change checkout button text callback
 	 *
 	 * @return string $button_text
@@ -162,11 +141,11 @@ class Woocommerce {
 
 		$reward_details = json_decode( $selected_reward );
 
-		echo '<h2>' . __( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
+		echo '<h2>' . esc_html__( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
         <ul>
-            <li> ' . __( 'Amount: ', 'wp-crowdfunding' ) . wc_price( $reward_details->wpneo_rewards_pladge_amount ) . '</li>
-            <li> ' . __( 'Delivery: ', 'wp-crowdfunding' ) . ucfirst( $reward_details->wpneo_rewards_endmonth ) . ', ' . $reward_details->wpneo_rewards_endyear . '</li>
-            <li> ' . __( 'Reward Details: ', 'wp-crowdfunding' ) . $reward_details->wpneo_rewards_description . '</li>
+            <li> ' . esc_html__( 'Amount: ', 'wp-crowdfunding' ) . wp_kses_post( wc_price( $reward_details->wpneo_rewards_pladge_amount ) ) . '</li>
+            <li> ' . esc_html__( 'Delivery: ', 'wp-crowdfunding' ) . esc_html( ucfirst( $reward_details->wpneo_rewards_endmonth ) ) . ', ' . esc_html( $reward_details->wpneo_rewards_endyear ) . '</li>
+            <li> ' . esc_html__( 'Reward Details: ', 'wp-crowdfunding' ) . esc_html( $reward_details->wpneo_rewards_description ) . '</li>
         </ul>';
 	}
 
@@ -387,8 +366,9 @@ class Woocommerce {
 
 		echo "<div id='campaign_status' class='panel woocommerce_options_panel update_status'>";
 
-		echo "<div id='campaign_update_field' style='display: $display'>";
-			echo "<div class='campaign_update_field_copy'>";
+		echo '<div id="campaign_update_field" style="display: ' . esc_attr( $display ) . '">';
+
+		echo "<div class='campaign_update_field_copy'>";
 
 			woocommerce_wp_text_input(
 				array(
@@ -421,7 +401,7 @@ class Woocommerce {
 					'value'       => '',
 				)
 			);
-		echo '<input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . __( 'Remove', 'wp-crowdfunding' ) . '" />';
+		echo '<input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . esc_html__( 'Remove', 'wp-crowdfunding' ) . '" />';
 		echo '<div style="border-bottom: 1px solid #eee"></div>';
 		echo '</div>';
 		echo '</div>';
@@ -464,14 +444,14 @@ class Woocommerce {
 
 				wp_editor( stripslashes( $value['details'] ), 'wpneo_prject_update_details_field' . $key, array( 'textarea_name' => 'wpneo_prject_update_details_field[]' ) );
 
-				echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . __( 'Remove', 'wp-crowdfunding' ) . '" /></div>';
+				echo '<div class="wpcf-campaign-update-btn-wrap"><input name="remove_udpate" type="button" class="button tagadd removecampaignupdate" value="' . esc_html__( 'Remove', 'wp-crowdfunding' ) . '" /></div>';
 				echo '<div style="border-bottom: 1px solid #eee"></div>';
 				echo '</div>';
 			}
 		}
 		echo '</div>';
 
-		echo '<input name="save_update" type="button" class="button tagadd" id="addcampaignupdate" value="' . __( '+ Add Update', 'wp-crowdfunding' ) . '" />';
+		echo '<input name="save_update" type="button" class="button tagadd" id="addcampaignupdate" value="' . esc_html__( '+ Add Update', 'wp-crowdfunding' ) . '" />';
 		echo '<div style="clear: both;"></div>';
 		echo '</div>';
 	}
@@ -580,10 +560,10 @@ class Woocommerce {
 				$html            .= do_action( 'after_wpneo_donate_field' );
 				$html            .= '<input type="hidden" name="add-to-cart" value="' . esc_attr( $product->get_id() ) . '" />';
 				$btn_text         = get_option( 'wpneo_donation_btn_text' );
-				$html            .= '<button type="submit" class="' . apply_filters( 'add_to_donate_button_class', 'single_add_to_cart_button button alt' ) . '">' . __( apply_filters( 'add_to_donate_button_text', esc_html( $btn_text ) ? esc_html( $btn_text ) : 'Donate now' ), 'woocommerce' ) . '</button>';
+				$html            .= '<button type="submit" class="' . apply_filters( 'add_to_donate_button_class', 'single_add_to_cart_button button alt' ) . '">' . esc_html__( apply_filters( 'add_to_donate_button_text', esc_html( $btn_text ) ? esc_html( $btn_text ) : 'Donate now' ), 'woocommerce' ) . '</button>';
 				$html            .= '</form>';
 			} else {
-				$html .= apply_filters( 'end_campaign_message', __( 'This campaign has been end', 'wp-crowdfunding' ) );
+				$html .= apply_filters( 'end_campaign_message', esc_html__( 'This campaign has been end', 'wp-crowdfunding' ) );
 			}
 			$html .= '</div>';
 		}
@@ -819,7 +799,7 @@ class Woocommerce {
 				$product = wc_get_product( $values['product_id'] );
 				if ( $product->get_type() == 'crowdfunding' ) {
 					echo '<div id="mark_name_anonymous" class="mark_name_anonymous_wrap">';
-					echo '<label><input type="checkbox" value="true" name="mark_name_anonymous" /> ' . __( 'Make me anonymous', 'wp-crowdfunding' ) . ' </label>';
+					echo '<label><input type="checkbox" value="true" name="mark_name_anonymous" /> ' . esc_html__( 'Make me anonymous', 'wp-crowdfunding' ) . ' </label>';
 					echo '</div>';
 				}
 			}
@@ -871,10 +851,10 @@ class Woocommerce {
 		<div class="form-field term-check-crowdfunding-category-wrap">
 			<label for="tag-check-crowdfunding-category">
 				<input type="checkbox" name="tag_check_crowdfunding_category" id="tag-check-crowdfunding-category" value="1">
-				<?php _e( 'Mark as Crowdfunding Category' ); ?>
+				<?php esc_html_e( 'Mark as Crowdfunding Category' ); ?>
 			</label>
 
-			<p><?php _e( 'This check mark allow you to detect crowdfunding specific category,' ); ?></p>
+			<p><?php esc_html_e( 'This check mark allow you to detect crowdfunding specific category,' ); ?></p>
 		</div>
 
 		<?php
@@ -886,7 +866,7 @@ class Woocommerce {
 		<tr class="form-field">
 			<th scope="row" valign="top"><label>
 			<?php
-			_e( 'Is Crowdfunding Category', 'wp-crowdfunding' );
+			esc_html_e( 'Is Crowdfunding Category', 'wp-crowdfunding' );
 			?>
 			</label></th>
 			<td>
@@ -898,16 +878,15 @@ class Woocommerce {
 					?>
 					<input type="checkbox" name="tag_check_crowdfunding_category"
 							id="tag-check-crowdfunding-category" value="1" <?php checked( $is_checked_crowdfunding, '1' ); ?>>
-					<?php _e( 'Mark as Crowdfunding Category' ); ?>
+					<?php esc_html_e( 'Mark as Crowdfunding Category' ); ?>
 				</label>
 
-				<p><?php _e( 'This check mark allow you to detect crowdfunding specific category,' ); ?></p>
+				<p><?php esc_html_e( 'This check mark allow you to detect crowdfunding specific category,' ); ?></p>
 
 			</td>
 		</tr>
 
 		<?php
-
 	}
 
 	/**
@@ -929,7 +908,7 @@ class Woocommerce {
 	}
 
 	public function product_taxonomy_is_crowdfunding_columns( $columns ) {
-		$columns['crowdfunding_col'] = __( 'Crowdfunding', 'wp-crowdfunding' );
+		$columns['crowdfunding_col'] = esc_html__( 'Crowdfunding', 'wp-crowdfunding' );
 		return $columns;
 	}
 
@@ -938,7 +917,7 @@ class Woocommerce {
 			case 'crowdfunding_col':
 				$is_crowdfunding_col = get_term_meta( $term_id, '_marked_as_crowdfunding', true );
 				if ( $is_crowdfunding_col == '1' ) {
-					$content = __( 'Yes', 'wp-crowdfunding' );
+					$content = esc_html__( 'Yes', 'wp-crowdfunding' );
 				}
 				break;
 			default:
@@ -948,7 +927,7 @@ class Woocommerce {
 	}
 
 	public function after_item_title_data() {
-		global $post,$wpdb;
+		global $post, $wpdb;
 		$product = wc_get_product( $post->ID );
 
 		if ( $product->get_type() != 'crowdfunding' ) {
@@ -1018,7 +997,7 @@ class Woocommerce {
 		}
 
 		$html .= '</div>';
-		echo apply_filters( 'woocommerce_product_cf_meta_data', $html );
+		echo wp_kses_post( apply_filters( 'woocommerce_product_cf_meta_data', $html ) );
 	}
 
 	/**

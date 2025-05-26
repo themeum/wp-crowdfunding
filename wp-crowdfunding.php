@@ -3,12 +3,12 @@
 * Plugin Name:       WP Crowdfunding
 * Plugin URI:        https://www.themeum.com/product/wp-crowdfunding-plugin/
 * Description:       The Ultimate Fundraising and Backer Plugin for WordPress.
-* Version:           2.1.12
+* Version:           2.1.16
 * Author:            Themeum
 * Author URI:        https://themeum.com
 * Text Domain:       wp-crowdfunding
 * Requires at least: 5.9
-* Tested up to:      6.6.2
+* Tested up to:      6.7
 * License:           GPL-2.0+
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
 * Domain Path:       /languages
@@ -31,7 +31,7 @@ if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 * @Plugin Base Name
 */
 define( 'WPCF_FILE', __FILE__ );
-define( 'WPCF_VERSION', '2.1.11' );
+define( 'WPCF_VERSION', '2.1.16' );
 define( 'WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ) );
 define( 'WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ) );
 define( 'WPCF_BASENAME', plugin_basename( WPCF_FILE ) );
@@ -41,7 +41,6 @@ define( 'WPCF_BASENAME', plugin_basename( WPCF_FILE ) );
 add_action( 'init', 'wpcf_language_load' );
 function wpcf_language_load() {
 	load_plugin_textdomain( 'wp-crowdfunding', false, basename( dirname( WPCF_FILE ) ) . '/languages/' );
-
 }
 
 if ( ! function_exists( 'wpcf_function' ) ) {

@@ -4,114 +4,183 @@ namespace WPCF\woocommerce;
 defined( 'ABSPATH' ) || exit;
 
 class Common {
-    /**
-     * @var null
-     *
-     * Instance of this class
-     */
-    protected static $_instance = null;
+	/**
+	 * @var null
+	 *
+	 * Instance of this class
+	 */
+	protected static $_instance = null;
 
-    /**
-     * @return null
-     */
-    public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    }
+	/**
+	 * @return null
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+		return self::$_instance;
+	}
 
-    /**
-     * constructor.
-     */
-    public function __construct() {
-        add_action('wp_ajax_remove_love_campaign_action',   array($this, 'remove_love_campaign_action'));
-        add_action('wp_ajax_love_campaign_action',          array($this, 'love_this_campaign_action'));
-        add_action('wp_ajax_nopriv_love_campaign_action',   array($this, 'love_this_campaign_action'));
-        add_filter('query_vars',                            array($this, 'campaigns_add_author_query_vars'));
-        add_action('init',                                  array($this, 'add_author_campaigns_endpoint'));
-        add_filter('author_template',                       array($this, 'author_campaigns_template'));
-    }
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		add_action( 'wp_ajax_remove_love_campaign_action', array( $this, 'remove_love_campaign_action' ) );
+		add_action( 'wp_ajax_love_campaign_action', array( $this, 'love_this_campaign_action' ) );
+		add_action( 'wp_ajax_nopriv_love_campaign_action', array( $this, 'love_this_campaign_action' ) );
+		add_filter( 'query_vars', array( $this, 'campaigns_add_author_query_vars' ) );
+		add_action( 'init', array( $this, 'add_author_campaigns_endpoint' ) );
+		add_filter( 'author_template', array( $this, 'author_campaigns_template' ) );
+	}
 
 
-    public function love_this_campaign_action(){
-        if ( ! is_user_logged_in()){
-            die(json_encode(array('success'=> 0, 'message' => __('Please Sign In first', 'wp-crowdfunding') )));
-        }
+	public function love_this_campaign_action() {
 
-        $loved_campaign_ids  = array();
-        $user_id             = get_current_user_id();
-        $campaign_id         = sanitize_text_field($_POST['campaign_id']);
-        $prev_campaign_ids   = get_user_meta($user_id, 'loved_campaign_ids', true);
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+			die(
+				json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
+					)
+				)
+			);
+		}
 
-        if ($prev_campaign_ids){
-            $loved_campaign_ids = json_decode($prev_campaign_ids, true);
-        }
+		if ( ! is_user_logged_in() ) {
+			die(
+				json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
+					)
+				)
+			);
+		}
 
-        if (in_array($campaign_id, $loved_campaign_ids)){
-            die(json_encode(array('success'=> 0, 'message' => __('Campaign already loved', 'wp-crowdfunding') )));
-        }
+		$loved_campaign_ids = array();
+		$user_id            = get_current_user_id();
+		$campaign_id        = sanitize_text_field( $_POST['campaign_id'] );
+		$prev_campaign_ids  = get_user_meta( $user_id, 'loved_campaign_ids', true );
 
-        $loved_campaign_ids[]   = $campaign_id;
-        $ids                    = json_encode($loved_campaign_ids);
+		if ( $prev_campaign_ids ) {
+			$loved_campaign_ids = json_decode( $prev_campaign_ids, true );
+		}
 
-        update_user_meta($user_id, 'loved_campaign_ids', $ids);
+		if ( in_array( $campaign_id, $loved_campaign_ids ) ) {
+			die(
+				json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Campaign already loved', 'wp-crowdfunding' ),
+					)
+				)
+			);
+		}
 
-        die(json_encode(array('success'=> 1, 'message' => __('Loved campaign', 'wp-crowdfunding'), 'return_html' =>  '<a href="javascript:;" id="remove_from_love_campaign" data-campaign-id="'.$campaign_id.'"><i class="wpneo-icon wpneo-icon-love-full"></i></a>' )));
-    }
+		$loved_campaign_ids[] = $campaign_id;
+		$ids                  = json_encode( $loved_campaign_ids );
 
-    public function remove_love_campaign_action(){
+		update_user_meta( $user_id, 'loved_campaign_ids', $ids );
+		die(
+			json_encode(
+				array(
+					'success'     => 1,
+					'message'     => __( 'Loved campaign', 'wp-crowdfunding' ),
+					'return_html' => '<a href="javascript:;" id="remove_from_love_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-full"></i></a>',
+				)
+			)
+		);
+	}
 
-        $loved_campaign_ids  = array();
-        $user_id            = get_current_user_id();
-        $campaign_id         = sanitize_text_field($_POST['campaign_id']);
-        $prev_campaign_ids   = get_user_meta($user_id, 'loved_campaign_ids', true);
+	public function remove_love_campaign_action() {
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+			die(
+				json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Invalid Request', 'wp-crowdfunding' ),
+					)
+				)
+			);
+		}
 
-        if ($prev_campaign_ids){
-            $loved_campaign_ids = json_decode( $prev_campaign_ids, true );
-        }
+		if ( ! is_user_logged_in() ) {
+			die(
+				json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Please Sign In first', 'wp-crowdfunding' ),
+					)
+				)
+			);
+		}
 
-        if (in_array($campaign_id, $loved_campaign_ids)){
-            if(($key = array_search($campaign_id, $loved_campaign_ids)) !== false) {
-                unset( $loved_campaign_ids[$key] );
-            }
+		$loved_campaign_ids = array();
+		$user_id            = get_current_user_id();
+		$campaign_id        = sanitize_text_field( $_POST['campaign_id'] );
+		$prev_campaign_ids  = get_user_meta( $user_id, 'loved_campaign_ids', true );
 
-            $json_update_campaign_ids = json_encode($loved_campaign_ids);
-            update_user_meta($user_id, 'loved_campaign_ids', $json_update_campaign_ids);
-            die(json_encode(array('success'=> 1, 'message' => __('Campaign has been deleted', 'wp-crowdfunding'), 'return_html' => wpcf_function()->campaign_loved(false) )));
-        }
-    }
+		if ( $prev_campaign_ids ) {
+			$loved_campaign_ids = json_decode( $prev_campaign_ids, true );
+		}
 
-    /**
-     *   Add the 'photos' query variable so Wordpress
-     *   won't mangle it.
-     */
-    public function campaigns_add_author_query_vars($vars){
-        $vars[] = "campaigns";
-        return $vars;
-    }
+		if ( in_array( $campaign_id, $loved_campaign_ids ) ) {
+			if ( ( $key = array_search( $campaign_id, $loved_campaign_ids ) ) !== false ) {
+				unset( $loved_campaign_ids[ $key ] );
+			}
 
-    /**
-     * Set endpoint for authors campaigns
-     */
-    public function add_author_campaigns_endpoint(){
-        add_rewrite_endpoint('campaigns', EP_AUTHORS);
-    }
+			foreach ( $loved_campaign_ids as $key => $value ) {
+				if ( empty( $value ) ) {
+					unset( $loved_campaign_ids[ $key ] );
+				}
+			}
+			$json_update_campaign_ids = json_encode( $loved_campaign_ids );
+			update_user_meta( $user_id, 'loved_campaign_ids', $json_update_campaign_ids );
+			$dh = wpcf_function()->campaign_loved( false );
+			die(
+				json_encode(
+					array(
+						'success'     => 1,
+						'message'     => __( 'Campaign has been deleted', 'wp-crowdfunding' ),
+						'return_html' => wpcf_function()->campaign_loved( false ),
+					)
+				)
+			);
+		}
+	}
 
-    /**
-     *
-     * Adds a custom template to the query queue.
-     */
-    public function author_campaigns_template($templates = ""){
-        global $wp_query;
+	/**
+	 *   Add the 'photos' query variable so WordPress
+	 *   won't mangle it.
+	 */
+	public function campaigns_add_author_query_vars( $vars ) {
+		$vars[] = 'campaigns';
+		return $vars;
+	}
 
-        // If the 'campaigns' endpoint isn't appended to the URL,
-        // don't do anything and return
-        if(!isset( $wp_query->query['campaigns'] ))
-            return $templates;
+	/**
+	 * Set endpoint for authors campaigns
+	 */
+	public function add_author_campaigns_endpoint() {
+		add_rewrite_endpoint( 'campaigns', EP_AUTHORS );
+	}
 
-        $templates = wpcf_function()->template('author-campaigns');
+	/**
+	 *
+	 * Adds a custom template to the query queue.
+	 */
+	public function author_campaigns_template( $templates = '' ) {
+		global $wp_query;
 
-        return $templates;
-    }
+		// If the 'campaigns' endpoint isn't appended to the URL,
+		// don't do anything and return
+		if ( ! isset( $wp_query->query['campaigns'] ) ) {
+			return $templates;
+		}
+
+		$templates = wpcf_function()->template( 'author-campaigns' );
+
+		return $templates;
+	}
 }

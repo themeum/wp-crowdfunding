@@ -8,14 +8,18 @@ if ( ! empty($reward) && is_array($reward) ){
             <div class="note_content">
                 <?php
                 if ( ! empty($reward['wpneo_rewards_description']) ){
-                    echo "<div>{$reward['wpneo_rewards_description']}</div>";
+                    echo '<div>' . esc_html($reward['wpneo_rewards_description']) . '</div>';
                 }
                 ?>
             </div>
-            <?php if( ! empty($reward['wpneo_rewards_pladge_amount']) ){ ?>
+            <?php if( ! empty($reward['wpneo_rewards_pladge_amount']) ) { ?>
                 <div class="meta">
                     <abbr>
-                        <?php echo sprintf('Amount : %s, Delivery : %s', wc_price($reward['wpneo_rewards_pladge_amount']), $reward['wpneo_rewards_endmonth'].', '.$reward['wpneo_rewards_endyear'] ); ?>
+                        <?php echo sprintf(
+                            esc_html__('Amount : %s, Delivery : %s', 'wp-crowdfunding'),
+                            wp_kses_post(wc_price($reward['wpneo_rewards_pladge_amount'])),
+                            esc_html($reward['wpneo_rewards_endmonth']) . ', ' . esc_html($reward['wpneo_rewards_endyear'])
+                        ); ?>
                     </abbr>
                 </div>
             <?php } ?>
