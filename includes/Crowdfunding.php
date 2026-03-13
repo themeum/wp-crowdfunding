@@ -58,6 +58,14 @@ final class Crowdfunding {
 					add_action( 'admin_notices', array( $initial_setup , 'wc_low_version' ) );
 					deactivate_plugins( plugin_basename( __FILE__ ) );
 				}
+
+				$growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
+
+				if ( ! file_exists( $growfund_file ) || ! is_plugin_active('growfund/growfund.php')) {
+					require_once WPCF_DIR_PATH.'includes/MigrateIntoGrowfund.php';
+					$migrate_into_growfund = new \WPCF\MigrateIntoGrowfund();
+					add_action( 'admin_notices', array($migrate_into_growfund, 'admin_notice') );
+				}
 			} else {
 				$cf_file = WP_PLUGIN_DIR.'/woocommerce/woocommerce.php';
 				if (file_exists($cf_file) && ! is_plugin_active('woocommerce/woocommerce.php')) {
