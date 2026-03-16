@@ -16,21 +16,27 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
         {
           ?>
             <style type="text/css">
+                .wpcf-admin-migration{
+                    padding: 0 !important;
+                    border: none !important;
+                    margin-bottom: 1rem;
+                }
+
 				.wpcf-admin-migration-banner {
 					display: grid;
 					grid-template-columns: 1fr 1fr;
-					height: 7rem;
 					overflow: hidden;
-					margin-bottom: 1rem;
 					background: #fff;
 					height: 112px;
-					padding: 0 !important;
-                    border: none !important;
 				}
-
 				.wpcf-admin-migration-banner__image {
 					width: 100%;
 					height: 112px;
+					object-fit: cover;
+				}
+
+                .wpcf-admin-migration-banner__info_image {
+					width: 100%;
 					object-fit: cover;
 				}
 
@@ -105,25 +111,71 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 				.wpcf-admin-migration-banner__button--close:hover {
 					background-color: #f3f4f6;
 				}
+
+                .wpcf-admin-migration-banner__header_section {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding-top: 40px;
+                }
+
+                .wpcf-admin-migration-banner__header_description {
+                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 38px;
+                    color: #1C733099;
+                }
+
+                .wpcf-admin-migration-banner__header {
+                    color: #1C7330;
+                    font-weight: 600;
+                    font-size: 32px;
+                    line-height: 38px;
+                    font-style: italic;
+                }
+
+                .wpcf-admin-migration-banner__header_link {
+                    padding-top: 16px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: #EA701F;
+                }
 			</style>
           <?php  
         }
 
         protected function add_scripts()
         {
+            $consent_text = "Migrating to Growfund gives you a better fundraising experience. To ensure a smooth transition, back up your data before proceeding. Use a WordPress backup plugin or your hosting provider's backup tools. Store the backup securely before starting the migration.";
             ?>
             <script type="text/javascript">
 				document.addEventListener('DOMContentLoaded', () => {
-				document
-					.querySelector('.wpcf-admin-migration-banner__button--close')
-					?.addEventListener('click', () => {
-					const banner = document.getElementById('wpcf_admin_migration_banner');
-					if (banner) {
-						banner.style.transition = 'opacity 0.3s ease';
-						banner.style.opacity = '0';
-						setTimeout(() => (banner.style.display = 'none'), 300);
-					}
-					});
+                    document.querySelector('.wpcf-admin-migration-banner__button--close')
+                        ?.addEventListener('click', () => {
+                        const banner = document.getElementById('wpcf_admin_migration_banner');
+                        if (banner) {
+                            banner.style.transition = 'opacity 0.3s ease';
+                            banner.style.opacity = '0';
+                            setTimeout(() => (banner.style.display = 'none'), 300);
+                        }
+                        });
+
+
+                    const migrateBtn = document.getElementById('wpcf-migrate-now');
+
+                    migrateBtn?.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('clicked')
+
+                        const confirmed = confirm("<?php echo $consent_text ?>");
+
+                        if (confirmed) {
+                            window.location.href = this.href;
+                        }
+
+                    });
 				});
 			</script>
             <?php
@@ -133,45 +185,71 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             $this->add_styles();
             $this->add_scripts();
 
-            $action_url = add_query_arg( array( 'action' => 'migrate_into_growfund', 'referer' => 'wp-crowdfunding' ), admin_url() );
+            $action_url = wp_nonce_url(
+                add_query_arg( 
+                    array( 
+                        'action' => 'migrate_into_growfund', 
+                        'referer' => 'wp-crowdfunding' 
+                    ), 
+                    admin_url() 
+                ),
+                'wpcf_migrate_nonce'
+            );
 
 			?>
-			<div id="wpcf_admin_migration_banner" class="wpcf-admin-migration-banner notice">
-                <img
-                    src="<?php echo esc_url( WPCF_DIR_URL . 'assets/images/migration-top-banner.webp' ); ?>"
-                    alt="Migration Banner"
-                    class="wpcf-admin-migration-banner__image"
-                />
+			<div id="wpcf_admin_migration_banner" class="wpcf-admin-migration notice">
+                <div class="wpcf-admin-migration-banner">
+                    <img
+                        src="<?php echo esc_url( WPCF_DIR_URL . 'assets/images/migration-top-banner.webp' ); ?>"
+                        alt="<?php esc_attr_e('Migration Banner', 'wp-crowdfunding') ?>"
+                        class="wpcf-admin-migration-banner__image"
+                    />
 
-                <div class="wpcf-admin-migration-banner__content">
-                    <div class="wpcf-admin-migration-banner__text">
-                        <h3 class="wpcf-admin-migration-banner__title">
-                            <?php esc_html_e('WP Crowdfunding is now Growfund', 'growfund'); ?>
-                        </h3>
-                        <p class="wpcf-admin-migration-banner__subtitle">
-                            <?php esc_html_e('Update to enjoy better performance, new capabilities, and the best crowdfunding experience on WordPress.', 'growfund'); ?>
-                        </p>
-                    </div>
+                    <div class="wpcf-admin-migration-banner__content">
+                        <div class="wpcf-admin-migration-banner__text">
+                            <h3 class="wpcf-admin-migration-banner__title">
+                                <?php esc_html_e('WP Crowdfunding is now Growfund', 'wp-crowdfunding'); ?>
+                            </h3>
+                            <p class="wpcf-admin-migration-banner__subtitle">
+                                <?php esc_html_e('Update to enjoy better performance, new capabilities, and the best crowdfunding experience on WordPress.', 'wp-crowdfunding'); ?>
+                            </p>
+                        </div>
 
-                    <div class="wpcf-admin-migration-banner__actions">
-                        <a 
-                            href="<?php echo esc_url( $action_url ); ?>" 
-                            class="wpcf-admin-migration-banner__button"
-                        >
-                            <span class="dashicons dashicons-randomize"></span>
-                            <?php esc_html_e('Migrate Now', 'growfund'); ?>
-                        </a>
-                        <button class="wpcf-admin-migration-banner__button--close">
-                            <span class="dashicons dashicons-no-alt"></span>
-                        </button>
+                        <div class="wpcf-admin-migration-banner__actions">
+                            <a 
+                                href="<?php echo esc_url( $action_url ); ?>" 
+                                class="wpcf-admin-migration-banner__button"
+                                id="wpcf-migrate-now"
+                            >
+                                <span class="dashicons dashicons-randomize"></span>
+                                <?php esc_html_e('Migrate Now', 'wp-crowdfunding'); ?>
+                            </a>
+                            <button class="wpcf-admin-migration-banner__button--close">
+                                <span class="dashicons dashicons-no-alt"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
+                <div class="wpcf-admin-migration-banner__header_section">
+                    <div class="wpcf-admin-migration-banner__header_description"><?php esc_html_e('Here’s why you should', 'wp-crowdfunding') ?></div>
+                    <div class="wpcf-admin-migration-banner__header"><?php esc_html_e('Migrate to Growfund', 'wp-crowdfunding') ?></div>
+                    <a class="wpcf-admin-migration-banner__header_link" href="https://growfund.com"><?php esc_html_e('Learn more', 'wp-crowdfunding') ?></a>
+                </div>
+                <img
+                    src="<?php echo esc_url( WPCF_DIR_URL . 'assets/images/migration-info-banner.webp' ); ?>"
+                    alt="<?php esc_attr_e('Migration Banner', 'wp-crowdfunding') ?>"
+                    class="wpcf-admin-migration-banner__info_image"
+                />
             </div>
 			<?php
 		}
 
         public function migrate_to_growfund()
         {
+            if (!check_admin_referer('wpcf_migrate_nonce')) {
+                wp_send_json_error();
+            }
+
             if ($_GET['referer'] !== 'wp-crowdfunding') {
                wp_send_json_error();
             }
@@ -179,6 +257,8 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             if ( ! current_user_can( 'manage_options' ) ) {
 				wp_send_json_error();
 			}
+
+            update_option('growfund_checked_migration_consent', 1);
 
             $growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
 
@@ -197,7 +277,16 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
         {
             activate_plugin( 'growfund/growfund.php' );
 
-            $action_url = add_query_arg( array( 'action' => 'growfund_onboarding_from_wp_crowdfunding', 'referer' => 'wp-crowdfunding' ), admin_url() );
+            $action_url = wp_nonce_url(
+                add_query_arg( 
+                    array( 
+                        'action' => 'growfund_onboarding_from_wp_crowdfunding', 
+                        'referer' => 'wp-crowdfunding' 
+                    ), 
+                    admin_url() 
+                ),
+                'wpcf_migrate_nonce'
+            );
 
             wp_redirect( $action_url );
             die();
@@ -251,6 +340,10 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 
         public function growfund_onboarding() 
         {
+            if (!check_admin_referer('wpcf_migrate_nonce')) {
+                wp_send_json_error();
+            }
+
             if ($_GET['referer'] !== 'wp-crowdfunding') {
                wp_send_json_error();
             }
