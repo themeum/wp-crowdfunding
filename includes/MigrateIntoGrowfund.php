@@ -6,6 +6,12 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
     class MigrateIntoGrowfund {
+        public function __construct() 
+        {
+            add_action( 'admin_action_migrate_into_growfund', array( $this, 'migrate_to_growfund' ) );
+            add_action( 'admin_action_growfund_onboarding_from_wp_crowdfunding', array( $this, 'growfund_onboarding' ) );
+        }
+
         protected function add_styles() 
         {
           ?>
@@ -126,6 +132,9 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
         public function admin_notice() {
             $this->add_styles();
             $this->add_scripts();
+
+            $action_url = add_query_arg( array( 'action' => 'migrate_into_growfund', 'referer' => 'wp-crowdfunding' ), admin_url() );
+
 			?>
 			<div id="wpcf_admin_migration_banner" class="wpcf-admin-migration-banner notice">
                 <img
@@ -145,7 +154,10 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                     </div>
 
                     <div class="wpcf-admin-migration-banner__actions">
-                        <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'migrate_into_growfund' ), admin_url() ) ); ?>" class="wpcf-admin-migration-banner__button">
+                        <a 
+                            href="<?php echo esc_url( $action_url ); ?>" 
+                            class="wpcf-admin-migration-banner__button"
+                        >
                             <span class="dashicons dashicons-randomize"></span>
                             <?php esc_html_e('Migrate Now', 'growfund'); ?>
                         </a>
@@ -157,5 +169,111 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             </div>
 			<?php
 		}
+
+        public function migrate_to_growfund()
+        {
+            if ($_GET['referer'] !== 'wp-crowdfunding') {
+               wp_send_json_error();
+            }
+
+            if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error();
+			}
+
+            $growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
+
+            if ( ! file_exists( $growfund_file ) ) {
+                $this->install_growfund_plugin();
+            }
+
+            if ( ! is_plugin_active('growfund/growfund.php') ) {
+                $this->activate_growfund_plugin();
+            }
+
+            die();
+        }
+
+        protected function activate_growfund_plugin()
+        {
+            activate_plugin( 'growfund/growfund.php' );
+
+            $action_url = add_query_arg( array( 'action' => 'growfund_onboarding_from_wp_crowdfunding', 'referer' => 'wp-crowdfunding' ), admin_url() );
+
+            wp_redirect( $action_url );
+            die();
+        }
+
+        protected function install_growfund_plugin() {
+			
+			include ABSPATH . 'wp-admin/includes/plugin-install.php';
+			include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+			if ( ! class_exists( 'Plugin_Upgrader' ) ) {
+				include ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
+			}
+
+            if ( !class_exists('Automatic_Upgrader_Skin')) {
+                include ABSPATH . 'wp-admin/includes/class-automatic-upgrader-skin.php';
+            }
+
+			$plugin = 'growfund';
+
+			$api = plugins_api(
+				'plugin_information',
+				array(
+					'slug'   => $plugin,
+					'fields' => array(
+						'short_description' => false,
+						'sections'          => false,
+						'requires'          => false,
+						'rating'            => false,
+						'ratings'           => false,
+						'downloaded'        => false,
+						'last_updated'      => false,
+						'added'             => false,
+						'tags'              => false,
+						'compatibility'     => false,
+						'homepage'          => false,
+						'donate_link'       => false,
+					),
+				)
+			);
+
+			if ( is_wp_error( $api ) ) {
+				wp_die( esc_html( $api->get_error_message() ) );
+			}
+
+			$upgrader = new \Plugin_Upgrader( new \Automatic_Upgrader_Skin());
+			$upgrader->install( $api->download_link );
+			
+            return;
+		}
+
+        public function growfund_onboarding() 
+        {
+            if ($_GET['referer'] !== 'wp-crowdfunding') {
+               wp_send_json_error();
+            }
+
+            if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error();
+			}
+
+            $growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
+
+            if ( ! file_exists( $growfund_file ) ) {
+                wp_send_json_error();
+            }
+
+            if ( ! is_plugin_active('growfund/growfund.php') ) {
+                wp_send_json_error();
+            }
+
+            do_action( 'growfund_apply_onboarding_from_wp_crowdfunding' );
+
+            wp_redirect( admin_url( 'admin.php?page=growfund&referer=wp-crowdfunding#/migrate-from-crowdfunding' ) );
+            die();
+        }
+
     }
 }
