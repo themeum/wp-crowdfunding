@@ -89,7 +89,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 					color: #fff;
 					padding: 0.5rem 1rem;
 					transition: background 0.2s ease-in-out;
-                    min-width: 142px;
+                    min-width: 114px;
 				}
 
 				.wpcf-admin-migration-banner__button:hover {
