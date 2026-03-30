@@ -16,7 +16,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
         {
           ?>
             <style type="text/css">
-                .wpcf-admin-migration{
+                .wpcf-admin-migration {
                     padding: 0 !important;
                     border: none !important;
                     margin-bottom: 1rem;
