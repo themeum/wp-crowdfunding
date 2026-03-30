@@ -130,7 +130,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 == Changelog ==
 
 = 2.2.0 =
-New    : Prepare migration for "Growfund" plugin.
+New    : Introduced migration support from WP Crowdfunding to Growfund.
 
 =2.1.17=
 Fix    : Remove social share support for abandoned domains
