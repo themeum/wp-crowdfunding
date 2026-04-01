@@ -288,7 +288,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                 'wpcf_migrate_nonce'
             );
 
-            wp_redirect( $action_url );
+            wp_redirect( htmlspecialchars_decode( $action_url ) );
             die();
         }
 
