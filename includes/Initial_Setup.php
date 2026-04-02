@@ -15,6 +15,7 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 			add_action( 'wp_ajax_install_woocommerce_plugin', array( $this, 'install_woocommerce_plugin' ) );
 			add_action( 'admin_action_activate_woocommerce_free', array( $this, 'activate_woocommerce_free' ) );
 			add_filter( 'woocommerce_locate_template', array( $this, 'wpcf_woocommerce_locate_template' ), 10, 3 );
+			add_action( 'wp_crowdfunding_deactivate', array( $this, 'deactivate' ) );
 		}
 		function capability_add() {
 			add_role(
@@ -434,6 +435,11 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 				esc_html__( 'WooCommerce', 'wp-crowdfunding' ),
 				esc_html__( 'version is below then 3.0, please update.', 'wp-crowdfunding' )
 			);
+		}
+
+		public function deactivate() {
+			deactivate_plugins(WPCF_BASENAME);
+			return;
 		}
 	}
 }
