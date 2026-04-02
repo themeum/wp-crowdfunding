@@ -28,7 +28,6 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                     justify-content: center;
                     gap: 2rem;
 					background: #fff;
-					/* height: 68px; */
                     background-color: #FFE5E4;
                     border: #E98080 solid 1px;
                     padding: 1rem 2rem;
@@ -38,7 +37,6 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 					display: flex;
 					align-items: center;
 					gap: 0.25rem;
-                    /* width: 380px; */
 				}
 
 				.wpcf-admin-migration-banner__title {
