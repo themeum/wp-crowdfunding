@@ -109,7 +109,7 @@ Developed by [Themeum](https://www.themeum.com)
 == Frequently Asked Questions ==
 
 = Q. Where can I get the support? =
-A. You can get support by posting on the support section of this plugin on WordPress plugins directory or directly ask your question to [Themeum Forums](https://www.themeum.com/support)
+A. You can get support by posting on the support section of this plugin on WordPress plugins directory or directly ask your question to [Themeum Forums](https://growfund.com/support)
 = Q. Can I use my existing WordPress theme? =
 A. Sure, you can use your existing WordPress theme with WP Crowdfunding.
 
