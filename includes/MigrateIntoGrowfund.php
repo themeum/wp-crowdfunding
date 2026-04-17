@@ -243,15 +243,15 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 
         protected function install_growfund_plugin() {
 			
-			include ABSPATH . 'wp-admin/includes/plugin-install.php';
-			include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 			if ( ! class_exists( 'Plugin_Upgrader' ) ) {
-				include ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
+				include_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
 			}
 
             if ( !class_exists('Automatic_Upgrader_Skin')) {
-                include ABSPATH . 'wp-admin/includes/class-automatic-upgrader-skin.php';
+                include_once ABSPATH . 'wp-admin/includes/class-automatic-upgrader-skin.php';
             }
 
 			$plugin = 'growfund';
