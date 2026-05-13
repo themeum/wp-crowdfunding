@@ -52,14 +52,14 @@ gulp.task('makepot', function () {
 
 gulp.task('pack-js', function () {
 	return gulp
-		.src(['assets/js/crowdfunding-front.js', 'assets/js/crowdfunding.js', 'assets/js/mce-button.js'])
+		.src(['assets/js/migrate-to-growfund.js', 'assets/js/crowdfunding-front.js', 'assets/js/crowdfunding.js', 'assets/js/mce-button.js'])
 		.pipe(minify({ ext: '.min.js' }))
 		.pipe(gulp.dest('assets/js/dist'));
 });
 
 gulp.task('minify-css', () => {
 	return gulp
-		.src(['assets/css/crowdfunding.css', 'assets/css/crowdfunding-front.css'])
+		.src(['assets/css/crowdfunding.css', 'assets/css/crowdfunding-front.css', 'assets/css/migrate-to-growfund.css'])
 		.pipe(cleanCSS())
 		.pipe(gulp.dest('assets/css/dist'));
 });
