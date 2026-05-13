@@ -14,184 +14,13 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 
         protected function add_styles() 
         {
-          ?>
-            <style type="text/css">
-                .wpcf-admin-migration {
-                    padding: 0 !important;
-                    border: none !important;
-                    margin-bottom: 1rem;
-                }
-
-				.wpcf-admin-migration-banner {
-					display: flex;
-					align-items: center;
-                    justify-content: center;
-                    gap: 2rem;
-					background: #fff;
-                    background-color: #FFE5E4;
-                    border: #E98080 solid 1px;
-                    padding: 1rem 2rem;
-				}
-
-				.wpcf-admin-migration-banner__text {
-					display: flex;
-					align-items: center;
-					gap: 0.25rem;
-				}
-
-				.wpcf-admin-migration-banner__title {
-					font-size: 1rem;
-					font-weight: 600;
-					color: #D40000;
-                    line-height: 1.25rem;
-					margin: 0;
-				}
-
-				/* Actions container */
-				.wpcf-admin-migration-banner__actions {
-					display: inline-flex;
-					align-items: center;
-					gap: 0.75rem;
-					min-width: 12rem;
-				}
-
-				.wpcf-admin-migration-banner__button {
-					display: inline-flex;
-					align-items: center;
-					gap: 0.5rem;
-					border-radius: 0.375rem;
-					font-weight: 500;
-					cursor: pointer;
-					border: none;
-					text-decoration: none;
-					background-color: #338c58;
-					color: #fff;
-					padding: 0.5rem 1rem;
-					transition: background 0.2s ease-in-out;
-                    min-width: 7rem;
-				}
-
-				.wpcf-admin-migration-banner__button:hover {
-					background-color: #2a7449;
-					color: #fff;
-				}
-
-
-                .wpcf-admin-migration-banner__header_section {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    padding-top: 2.5rem;
-                }
-
-                .wpcf-admin-migration-banner__header_description {
-                    font-weight: 600;
-                    font-size: 1.25rem;
-                    line-height: 2.5rem;
-                    color: #1C733099;
-                }
-
-                .wpcf-admin-migration-banner__header {
-                    color: #1C7330;
-                    font-weight: 600;
-                    font-size: 2rem;
-                    line-height: 2.5rem;
-                    font-style: italic;
-                }
-
-                .wpcf-admin-migration-banner__header_link {
-                    padding-top: 1rem;
-                    font-weight: 600;
-                    font-size: 0.875rem;
-                    line-height: 1.25rem;
-                    color: #EA701F;
-                }
-			</style>
-          <?php  
+          wp_enqueue_style('wpcf-migrate-to-growfund-css', WPCF_DIR_URL . 'assets/css/dist/migrate-to-growfund.css', ['wpcf-crowdfunding-css'], WPCF_VERSION);
         }
 
         protected function add_scripts()
         {
-            $consent_text = "Migrating to Growfund gives you a better fundraising experience. To ensure a smooth transition, back up your data before proceeding. Use a WordPress backup plugin or your hosting provider's backup tools. Store the backup securely before starting the migration.";
-            ?>
-            <script type="text/javascript">
-				document.addEventListener('DOMContentLoaded', () => {
-                    const migrateBtn = document.getElementById('wpcf-migrate-now');
-
-                    migrateBtn?.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        console.log('clicked')
-
-                        const confirmed = confirm("<?php echo $consent_text ?>");
-
-                        if (confirmed) {
-                            window.location.href = this.href;
-                        }
-
-                    });
-				});
-			</script>
-            <?php
+            wp_enqueue_script('wpcf-migrate-to-growfund-scripts', WPCF_DIR_URL . 'assets/js/dist/migrate-to-growfund.min.js', array('wpcf-jquery-scripts'), WPCF_VERSION, true);
         }
-
-        public function admin_notice() {
-            $this->add_styles();
-            $this->add_scripts();
-
-            $action_url = wp_nonce_url(
-                add_query_arg( 
-                    array( 
-                        'action' => 'migrate_into_growfund', 
-                        'referer' => 'wp-crowdfunding' 
-                    ), 
-                    admin_url() 
-                ),
-                'wpcf_migrate_nonce'
-            );
-
-			?>
-			<div id="wpcf_admin_migration_banner" class="wpcf-admin-migration notice">
-                <div class="wpcf-admin-migration-banner">
-                    <div class="wpcf-admin-migration-banner__text">
-                        <svg width="31" height="28" viewBox="0 0 31 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g filter="url(#filter0_g_16057_2426)">
-                            <path d="M1.93789 26.6991C1.67104 26.6991 1.42846 26.6327 1.21013 26.4997C0.991808 26.3668 0.821999 26.1907 0.700706 25.9714C0.579414 25.7521 0.512946 25.5153 0.501302 25.2611C0.489658 25.0069 0.556126 24.7585 0.700706 24.5159L14.1642 1.22775C14.3097 0.985169 14.4979 0.803231 14.7289 0.681938C14.9598 0.560646 15.1961 0.5 15.4377 0.5C15.6793 0.5 15.9161 0.560646 16.148 0.681938C16.3799 0.803231 16.5677 0.985169 16.7113 1.22775L30.1747 24.5159C30.3203 24.7585 30.3872 25.0074 30.3756 25.2626C30.364 25.5178 30.297 25.754 30.1747 25.9714C30.0525 26.1887 29.8827 26.3649 29.6653 26.4997C29.448 26.6346 29.2054 26.7011 28.9376 26.6991H1.93789Z" fill="#FF1616"/>
-                            </g>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.4649 9.58431C16.4635 9.58663 16.4678 9.5832 16.4649 9.58431C16.479 9.57747 16.4747 9.57916 16.4733 9.57746L16.4649 9.58431C16.467 9.58204 16.4649 9.58431 16.4649 9.58431ZM14.1134 12.1966C14.1133 12.1987 14.1132 12.1942 14.1134 12.1966V12.1966ZM14.1134 12.1966C14.118 12.1225 14.1223 12.0485 14.1267 11.9746L14.1134 12.1966ZM16.4649 9.58431C16.4629 9.58642 16.4649 9.58431 16.4649 9.58431V9.58431Z" fill="white"/>
-                            <path d="M15.334 17.6284C15.0992 17.676 14.8305 17.627 14.7724 17.6006C14.7008 17.5745 14.6783 17.557 14.6621 17.5444C14.6374 17.5224 14.6273 17.5105 14.623 17.5035C14.6216 17.5012 14.625 17.5061 14.623 17.5035C14.6167 17.4946 14.6073 17.4799 14.6036 17.474C14.5877 17.4469 14.576 17.4259 14.5662 17.4056C14.5476 17.3677 14.5337 17.3328 14.5231 17.2955L14.5213 17.2869C14.5159 17.2617 14.5112 17.2395 14.5088 17.2175C14.4779 16.9293 14.4456 16.6412 14.4132 16.353C14.2583 14.9751 14.1034 13.5967 14.1136 12.2149C14.1138 12.21 14.1135 12.1997 14.1134 12.1966C14.118 12.1225 14.1223 12.0485 14.1267 11.9746C14.1703 11.234 14.2134 10.5009 14.5404 9.72036C14.5794 9.64032 14.6233 9.55842 14.693 9.46859C14.7307 9.42118 14.7701 9.3764 14.8414 9.31698C14.8608 9.305 14.8764 9.29231 14.893 9.27867C14.9568 9.22659 15.0375 9.16059 15.4177 9.06676C15.6289 9.02304 15.8758 9.01165 16.1027 9.0356C16.3296 9.0596 16.5187 9.11732 16.6286 9.19496C16.738 9.27252 16.76 9.36422 16.6888 9.44996C16.6444 9.50326 16.5681 9.54486 16.4649 9.58431L16.4565 9.59264C16.4446 9.60413 16.4284 9.61962 16.4147 9.63725C16.3743 9.68884 16.3377 9.75346 16.3063 9.81859C16.0035 10.533 15.9589 11.3192 15.9154 12.0848L15.9097 12.1851C15.9096 12.1875 15.91 12.1828 15.9097 12.1851C15.9093 12.1875 15.9081 12.1969 15.908 12.1992C15.899 13.2244 15.8319 14.2533 15.7646 15.2832C15.723 15.9213 15.6813 16.5598 15.6535 17.1979C15.6524 17.2224 15.6493 17.2469 15.6451 17.2713C15.6408 17.3028 15.6355 17.337 15.6277 17.3696C15.6239 17.3859 15.6179 17.402 15.6133 17.4114C15.6142 17.4167 15.616 17.422 15.6178 17.4275C15.6201 17.4348 15.6226 17.4423 15.6232 17.45C15.6218 17.4548 15.6224 17.4577 15.623 17.4606C15.6245 17.4683 15.626 17.4764 15.5923 17.5202C15.5822 17.5233 15.5829 17.5256 15.5838 17.5289C15.5864 17.5387 15.5914 17.5572 15.334 17.6284ZM16.4649 9.58431C16.4605 9.57961 16.4922 9.57109 16.4649 9.58431C16.4649 9.58431 16.467 9.58204 16.4649 9.58431Z" fill="white"/>
-                            <circle cx="15.113" cy="20.8201" r="1.73804" fill="white"/>
-                            <defs>
-                            <filter id="filter0_g_16057_2426" x="0" y="0" width="30.877" height="27.1992" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-                            <feTurbulence type="fractalNoise" baseFrequency="0.3125 0.3125" numOctaves="3" seed="6721" />
-                            <feDisplacementMap in="shape" scale="1" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100%" height="100%" />
-                            <feMerge result="effect1_texture_16057_2426">
-                            <feMergeNode in="displacedImage"/>
-                            </feMerge>
-                            </filter>
-                            </defs>
-                        </svg>
-                        <h3 class="wpcf-admin-migration-banner__title">
-                            <?php esc_html_e('WP Crowdfunding is now Growfund', 'wp-crowdfunding'); ?>
-                        </h3>
-                    </div>
-
-                    <div class="wpcf-admin-migration-banner__actions">
-                        <a 
-                            href="<?php echo esc_url( htmlspecialchars_decode($action_url) ); ?>" 
-                            class="wpcf-admin-migration-banner__button"
-                            id="wpcf-migrate-now"
-                        >
-                            <span class="dashicons dashicons-randomize"></span>
-                            <span><?php esc_html_e('Migrate to Growfund', 'wp-crowdfunding'); ?></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-			<?php
-		}
 
         public function migrate_to_growfund()
         {
@@ -207,7 +36,13 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 				wp_send_json_error();
 			}
 
-            update_option('growfund_checked_migration_consent', 1);
+            $growfund_agree_to_migrate_from_crowdfunding = $_POST['growfund_agree_to_migrate_from_crowdfunding'] ?? 0;
+
+            if (0 === (int) $growfund_agree_to_migrate_from_crowdfunding) {
+                wp_send_json_error();
+            }
+
+            update_option('growfund_agree_to_migrate_from_crowdfunding', $growfund_agree_to_migrate_from_crowdfunding);
 
             $growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
 
@@ -317,5 +152,112 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             die();
         }
 
+        public function render_admin_notice() {
+            $this->add_styles();
+            $this->add_scripts();
+    
+            $action_url = wp_nonce_url(
+                add_query_arg( 
+                    array( 
+                        'action' => 'migrate_into_growfund', 
+                        'referer' => 'wp-crowdfunding' 
+                    ), 
+                    admin_url() 
+                ),
+                'wpcf_migrate_nonce'
+            );
+    
+            ?>
+            <div id="wpcf-migration-notice" class="wpcf-admin-migration notice wpcf-migration-notice">
+                <div class="wpcf-migration-notice-container">
+                    <div class="wpcf-migration-notice-section">
+                        <div class="wpcf-migration-notice-header">
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g filter="url(#filter0_g_16405_3128)">
+                                <path d="M1.27368 16.7495C1.1069 16.7495 0.955287 16.7079 0.818834 16.6248C0.68238 16.5417 0.576249 16.4317 0.500441 16.2946C0.424634 16.1576 0.383091 16.0096 0.375814 15.8507C0.368536 15.6918 0.410079 15.5365 0.500441 15.3849L8.91509 0.829846C9.00606 0.678231 9.12372 0.564519 9.26805 0.488712C9.41239 0.412904 9.56007 0.375 9.71108 0.375C9.86208 0.375 10.0101 0.412904 10.155 0.488712C10.2999 0.564519 10.4173 0.678231 10.5071 0.829846L18.9217 15.3849C19.0127 15.5365 19.0545 15.6921 19.0472 15.8516C19.04 16.0111 18.9981 16.1588 18.9217 16.2946C18.8453 16.4305 18.7392 16.5405 18.6033 16.6248C18.4675 16.7091 18.3159 16.7507 18.1485 16.7495H1.27368Z" fill="#FF1616"/>
+                                </g>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.3531 6.05098C10.3522 6.05244 10.3549 6.05029 10.3531 6.05098C10.3619 6.04671 10.3592 6.04776 10.3584 6.0467L10.3531 6.05098C10.3544 6.04957 10.3531 6.05098 10.3531 6.05098ZM8.88341 7.68366C8.88335 7.68495 8.88334 7.68214 8.88341 7.68366V7.68366ZM8.88341 7.68366C8.88631 7.63733 8.88903 7.59109 8.89175 7.54489L8.88341 7.68366ZM10.3531 6.05098C10.3519 6.05231 10.3531 6.05098 10.3531 6.05098V6.05098Z" fill="white"/>
+                                <path d="M9.6463 11.0785C9.49954 11.1083 9.33164 11.0777 9.29532 11.0612C9.25057 11.0449 9.2365 11.0339 9.22635 11.0261C9.21092 11.0123 9.20461 11.0048 9.20195 11.0005C9.20109 10.999 9.20317 11.0021 9.20195 11.0005C9.19801 10.9949 9.19211 10.9857 9.18982 10.9821C9.17985 10.9651 9.17257 10.952 9.16643 10.9393C9.1548 10.9156 9.14614 10.8938 9.13953 10.8705L9.13837 10.8651C9.13502 10.8494 9.13207 10.8355 9.13058 10.8217C9.11128 10.6416 9.09104 10.4615 9.07079 10.2814C8.97399 9.42023 8.87716 8.55874 8.88358 7.69511C8.88368 7.69205 8.8835 7.68562 8.88341 7.68366C8.88631 7.63733 8.88903 7.59109 8.89175 7.54489C8.91897 7.08204 8.94592 6.62387 9.15029 6.13602C9.17471 6.08599 9.20214 6.0348 9.24567 5.97866C9.26928 5.94903 9.29386 5.92104 9.33844 5.8839C9.35058 5.87641 9.36028 5.86849 9.37071 5.85996C9.41054 5.82741 9.461 5.78616 9.69865 5.72752C9.83061 5.70019 9.98493 5.69307 10.1268 5.70804C10.2686 5.72304 10.3867 5.75911 10.4554 5.80764C10.5238 5.85612 10.5376 5.91343 10.493 5.96702C10.4653 6.00033 10.4176 6.02633 10.3531 6.05098L10.3479 6.05619C10.3404 6.06337 10.3303 6.07306 10.3218 6.08407C10.2965 6.11631 10.2736 6.1567 10.254 6.19741C10.0648 6.6439 10.0369 7.13532 10.0097 7.61377L10.0061 7.67649C10.006 7.67795 10.0063 7.67502 10.0061 7.67649C10.0059 7.67796 10.0051 7.68384 10.005 7.68531C9.99945 8.32603 9.95748 8.96911 9.91546 9.6128C9.88943 10.0116 9.86339 10.4106 9.84597 10.8095C9.84532 10.8248 9.84337 10.8401 9.84076 10.8554C9.83806 10.875 9.83478 10.8964 9.82989 10.9168C9.82748 10.927 9.82374 10.937 9.82085 10.9429C9.82147 10.9462 9.82255 10.9496 9.82366 10.953C9.82515 10.9576 9.82667 10.9623 9.82709 10.967C9.82621 10.97 9.82656 10.9718 9.82692 10.9737C9.82785 10.9785 9.82882 10.9835 9.80773 11.0109C9.80146 11.0128 9.80185 11.0143 9.80241 11.0163C9.80406 11.0225 9.80719 11.0341 9.6463 11.0785ZM10.3531 6.05098C10.3504 6.04805 10.3702 6.04272 10.3531 6.05098C10.3531 6.05098 10.3544 6.04957 10.3531 6.05098Z" fill="white"/>
+                                <circle cx="9.50815" cy="13.0726" r="1.08627" fill="white"/>
+                                <defs>
+                                <filter id="filter0_g_16405_3128" x="0" y="0" width="19.4229" height="17.125" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                                <feTurbulence type="fractalNoise" baseFrequency="0.4166666567325592 0.4166666567325592" numOctaves="3" seed="6721" />
+                                <feDisplacementMap in="shape" scale="0.75" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100%" height="100%" />
+                                <feMerge result="effect1_texture_16405_3128">
+                                <feMergeNode in="displacedImage"/>
+                                </feMerge>
+                                </filter>
+                                </defs>
+                            </svg>
+                            <span class="wpcf-migration-notice-header-text"><?php esc_html_e( 'IMPORTANT NOTICE', 'wp-crowdfunding' ) ?></span>
+                        </div>
+                        <div class="wpcf-migration-notice-title-wrapper">
+                            <div class="wpcf-migration-notice-title">
+                                <?php esc_html_e( 'WP Crowdfunding is now Growfund.', 'wp-crowdfunding' ) ?>
+                            </div>
+                            <div class="wpcf-migration-notice-description">
+                                <?php esc_html_e( 'To keep receiving updates and support, please migrate to Growfund.', 'wp-crowdfunding' ) ?>
+                            </div>
+                        </div>
+                        <div class="wpcf-migration-notice-learn-more">
+                            <a href="<?php echo esc_url( 'https://growfund.com/docs/migrating-from-wp-crowdfunding-to-growfund/' ) ?>" target="_blank">
+                                <?php esc_html_e( 'Learn more', 'wp-crowdfunding' ) ?>
+                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 7.16667V11.1667C10.5 11.5203 10.3595 11.8594 10.1095 12.1095C9.85943 12.3595 9.52029 12.5 9.16667 12.5H1.83333C1.47971 12.5 1.14057 12.3595 0.890524 12.1095C0.640476 11.8594 0.5 11.5203 0.5 11.1667V3.83333C0.5 3.47971 0.640476 3.14057 0.890524 2.89052C1.14057 2.64048 1.47971 2.5 1.83333 2.5H5.83333M12.5 4.5V0.5H8.5M12.5 0.5L5.16667 7.83333" stroke="#0055FF" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="wpcf-migration-consent-section">
+                        <div class="wpcf-migration-info">
+                            <div class="wpcf-migration-info-title">
+                                <?php esc_html_e( 'Here’s what will happen when you migrate:', 'wp-crowdfunding' ) ?>
+                            </div>
+                            <div class="wpcf-migration-info-item">
+                                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.22461 0.527344C8.3016 0.577768 8.32278 0.68085 8.27246 0.757812L3.73926 7.69141C3.71263 7.73204 3.66962 7.75942 3.62109 7.76562C3.57295 7.77178 3.52442 7.75629 3.48828 7.72363L0.554688 5.05664C0.486645 4.99478 0.481227 4.88941 0.542969 4.82129C0.604886 4.75318 0.71022 4.74865 0.77832 4.81055L3.13379 6.95117L3.56738 7.3457L3.88867 6.85449L7.99414 0.575195C8.04461 0.49844 8.1477 0.47706 8.22461 0.527344Z" fill="#4D4D4D" stroke="#4D4D4D"/>
+                                </svg>
+                                <?php esc_html_e( 'Growfund will be automatically installed.', 'wp-crowdfunding' ) ?>
+                            </div>
+                            <div class="wpcf-migration-info-item">
+                                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.22461 0.527344C8.3016 0.577768 8.32278 0.68085 8.27246 0.757812L3.73926 7.69141C3.71263 7.73204 3.66962 7.75942 3.62109 7.76562C3.57295 7.77178 3.52442 7.75629 3.48828 7.72363L0.554688 5.05664C0.486645 4.99478 0.481227 4.88941 0.542969 4.82129C0.604886 4.75318 0.71022 4.74865 0.77832 4.81055L3.13379 6.95117L3.56738 7.3457L3.88867 6.85449L7.99414 0.575195C8.04461 0.49844 8.1477 0.47706 8.22461 0.527344Z" fill="#4D4D4D" stroke="#4D4D4D"/>
+                                </svg>
+                                <?php esc_html_e( 'WP Crowdfunding will be deactivated.', 'wp-crowdfunding' ) ?>
+                            </div>
+                            <div class="wpcf-migration-info-item">
+                                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.22461 0.527344C8.3016 0.577768 8.32278 0.68085 8.27246 0.757812L3.73926 7.69141C3.71263 7.73204 3.66962 7.75942 3.62109 7.76562C3.57295 7.77178 3.52442 7.75629 3.48828 7.72363L0.554688 5.05664C0.486645 4.99478 0.481227 4.88941 0.542969 4.82129C0.604886 4.75318 0.71022 4.74865 0.77832 4.81055L3.13379 6.95117L3.56738 7.3457L3.88867 6.85449L7.99414 0.575195C8.04461 0.49844 8.1477 0.47706 8.22461 0.527344Z" fill="#4D4D4D" stroke="#4D4D4D"/>
+                                </svg>
+                                <?php esc_html_e( 'Our support team will assist you throughout your journey.', 'wp-crowdfunding' ) ?>
+                            </div>
+                        </div>
+                        <form class="wpcf-migration-consent-wrapper" method="POST" action="<?php echo esc_url( $action_url ) ?>">
+                            <label for="wpcf-migration-consent-checkbox-input" class="wpcf-migration-consent-checkbox-label">
+                                <input type="checkbox" id="wpcf-migration-consent-checkbox-input" name="growfund_agree_to_migrate_from_crowdfunding" value="0" />
+                                <span class="wpcf-migration-consent-text">
+                                    <?php esc_html_e( 'I have backed up my site & agree to the consents above.', 'wp-crowdfunding' ) ?>
+                                </span>
+                            </label>
+                            <div class="wpcf-migration-consent-btn-wrapper">
+                                <button id="wpcf-migration-confirm-btn" type="submit" class="wpcf-migration-confirm-btn" disabled>
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.5 11.1667H1.43333C2.3 11.1667 3.1 10.7667 3.63333 10.0333L7.7 4.3C8.16667 3.56667 9.03333 3.16667 9.9 3.16667H13.8333M11.1667 5.83333L13.8333 3.16667L11.1667 0.5M0.5 3.16667H1.76667C2.76667 3.16667 3.7 3.76667 4.16667 4.63333M13.8333 11.1667H9.9C9.03333 11.1667 8.16667 10.7 7.7 9.96667L7.36667 9.43333M11.1667 13.8333L13.8333 11.1667L11.1667 8.5" stroke="#F5F5F5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                    <?php esc_html_e( 'Migrate to Growfund', 'wp-crowdfunding' ) ?>
+                                </button>
+                                <button id="wpcf-migration-cancel-btn" type="button" class="wpcf-migration-cancel-btn">
+                                    <?php esc_html_e( 'Not ready yet', 'wp-crowdfunding' ) ?>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
     }
 }
