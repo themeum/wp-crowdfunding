@@ -99,18 +99,20 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
         {
             activate_plugin( 'growfund/growfund.php' );
 
-            $action_url = wp_nonce_url(
-                add_query_arg( 
-                    array( 
-                        'action' => 'growfund_onboarding_from_wp_crowdfunding', 
-                        'referer' => 'wp-crowdfunding' 
-                    ), 
-                    admin_url() 
-                ),
-                'wpcf_migrate_nonce'
+            $action_url = htmlspecialchars_decode( 
+                wp_nonce_url(
+                    add_query_arg( 
+                        array( 
+                            'action' => 'growfund_onboarding_from_wp_crowdfunding', 
+                            'referer' => 'wp-crowdfunding' 
+                        ), 
+                        admin_url() 
+                    ),
+                    'wpcf_migrate_nonce'
+                )
             );
 
-            wp_redirect( htmlspecialchars_decode( $action_url ) );
+            wp_redirect( $action_url );
             die();
         }
 
@@ -203,15 +205,17 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             $this->add_styles();
             $this->add_scripts();
     
-            $action_url = wp_nonce_url(
-                add_query_arg( 
-                    array( 
-                        'action' => 'migrate_into_growfund', 
-                        'referer' => 'wp-crowdfunding' 
-                    ), 
-                    admin_url() 
-                ),
-                'wpcf_migrate_nonce'
+            $action_url = htmlspecialchars_decode(
+                wp_nonce_url(
+                    add_query_arg( 
+                        array( 
+                            'action' => 'migrate_into_growfund', 
+                            'referer' => 'wp-crowdfunding' 
+                        ), 
+                        admin_url() 
+                    ),
+                    'wpcf_migrate_nonce'
+                )
             );
     
             ?>
