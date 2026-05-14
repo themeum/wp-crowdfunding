@@ -12,6 +12,22 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             add_action( 'admin_action_growfund_onboarding_from_wp_crowdfunding', array( $this, 'growfund_onboarding' ) );
         }
 
+        public function get_last_checked_time() 
+        {
+            $default = [
+                'last_checked' => null,
+                'iteration' => 0
+            ];
+
+            $last_check_info = get_option( 'wpcf_last_checked_info_for_growfund_migration', $default );
+
+            if ( empty( $last_check_info ) ) {
+                $last_check_info = $default;
+            }
+
+            return $last_check_info;
+        }
+
         protected function add_styles() 
         {
           wp_enqueue_style('wpcf-migrate-to-growfund-css', WPCF_DIR_URL . 'assets/css/dist/migrate-to-growfund.css', ['wpcf-crowdfunding-css'], WPCF_VERSION);
@@ -36,9 +52,17 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 				wp_send_json_error();
 			}
 
-            $growfund_agree_to_migrate_from_crowdfunding = $_POST['growfund_agree_to_migrate_from_crowdfunding'] ?? 0;
+            $cancel_migration = (int) $_POST['cancel_migration'] ?? 0;
 
-            if (0 === (int) $growfund_agree_to_migrate_from_crowdfunding) {
+            if ( !empty( $cancel_migration ) ) {
+                $this->not_ready_yet();
+
+                die();
+            }
+
+            $growfund_agree_to_migrate_from_crowdfunding = (int) $_POST['growfund_agree_to_migrate_from_crowdfunding'] ?? 0;
+
+            if (0 === $growfund_agree_to_migrate_from_crowdfunding) {
                 wp_send_json_error();
             }
 
@@ -53,6 +77,20 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
             if ( ! is_plugin_active('growfund/growfund.php') ) {
                 $this->activate_growfund_plugin();
             }
+
+            die();
+        }
+
+        protected function not_ready_yet() 
+        {
+            $last_check_info = $this->get_last_checked_time();
+
+            update_option('wpcf_last_checked_info_for_growfund_migration', [
+                'last_checked' => time(),
+                'iteration' => ++$last_check_info['iteration']
+            ]);
+
+            wp_redirect( wp_get_referer() );
 
             die();
         }
@@ -153,6 +191,15 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
         }
 
         public function render_admin_notice() {
+            $last_check_info = $this->get_last_checked_time();
+
+            $twelve_hour = 12 * 60 * 60;
+            $last_checked = (int) $last_check_info['last_checked'] ?? 0;
+
+            if ( !empty( $last_checked ) && $last_checked > ( time() - $twelve_hour ) ) {
+                return '';
+            }
+
             $this->add_styles();
             $this->add_scripts();
     
@@ -250,6 +297,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                                     <?php esc_html_e( 'Migrate to Growfund', 'wp-crowdfunding' ) ?>
                                 </button>
                                 <button id="wpcf-migration-cancel-btn" type="button" class="wpcf-migration-cancel-btn">
+                                    <input type="hidden" id="wpcf-migration-cancel-input" name="cancel_migration" value="0" />
                                     <?php esc_html_e( 'Not ready yet', 'wp-crowdfunding' ) ?>
                                 </button>
                             </div>

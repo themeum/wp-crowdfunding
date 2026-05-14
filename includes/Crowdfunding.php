@@ -60,11 +60,11 @@ final class Crowdfunding {
 				}
 
 				$growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
-
-				require_once WPCF_DIR_PATH.'includes/MigrateIntoGrowfund.php';
-				$migrate_into_growfund = new \WPCF\MigrateIntoGrowfund();
 				
 				if ( ! file_exists( $growfund_file ) || ! is_plugin_active( 'growfund/growfund.php' ) ) {
+					require_once WPCF_DIR_PATH.'includes/MigrateIntoGrowfund.php';
+					$migrate_into_growfund = new \WPCF\MigrateIntoGrowfund();
+					
 					add_action( 'admin_notices', array($migrate_into_growfund, 'render_admin_notice') );
 				}
 			} else {
