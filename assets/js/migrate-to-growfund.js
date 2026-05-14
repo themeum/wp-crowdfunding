@@ -3,6 +3,7 @@ jQuery(document).ready(function ($) {
     const $confirmBtn = $('#wpcf-migration-confirm-btn');
     const $cancelBtn = $('#wpcf-migration-cancel-btn');
     const $notice = $('#wpcf-migration-notice');
+    const $cancelInput = $('#wpcf-migration-cancel-input');
 
     $checkbox.prop('disabled', false);
 
@@ -37,7 +38,8 @@ jQuery(document).ready(function ($) {
 
     $cancelBtn.on('click', function (e) {
         e.preventDefault();
-
+        $cancelInput.val(1);
+        $(this).closest('form').trigger('submit');
         $notice.fadeOut(200);
     });
 });
