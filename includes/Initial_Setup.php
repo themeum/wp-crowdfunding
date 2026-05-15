@@ -438,7 +438,18 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 		}
 
 		public function deactivate() {
+			$crowdfunding_pro_file = WP_PLUGIN_DIR.'/wp-crowdfunding-pro/wp-crowdfunding-pro.php';
+				
+			if ( 
+				file_exists( $crowdfunding_pro_file ) 
+				&& is_plugin_active( 'wp-crowdfunding-pro/wp-crowdfunding-pro.php' ) 
+				&& defined('WPCF_PRO_BASENAME') 
+			) {
+				deactivate_plugins(WPCF_PRO_BASENAME);
+			}
+
 			deactivate_plugins(WPCF_BASENAME);
+			
 			return;
 		}
 	}
