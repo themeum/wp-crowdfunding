@@ -339,7 +339,7 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 		}
 
 		public function free_plugin_not_installed() {
-			include ABSPATH . 'wp-admin/includes/plugin-install.php';
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 			$this->activation_css();
 			?>
 			<div class="notice notice-error wpcf-install-notice">
@@ -380,14 +380,14 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 				wp_send_json_error();
 			}
 
-			include ABSPATH . 'wp-admin/includes/plugin-install.php';
-			include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 			if ( ! class_exists( 'Plugin_Upgrader' ) ) {
-				include ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
+				include_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
 			}
 			if ( ! class_exists( 'Plugin_Installer_Skin' ) ) {
-				include ABSPATH . 'wp-admin/includes/class-plugin-installer-skin.php';
+				include_once ABSPATH . 'wp-admin/includes/class-plugin-installer-skin.php';
 			}
 
 			$plugin = 'woocommerce';
