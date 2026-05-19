@@ -60,13 +60,13 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                 die();
             }
 
-            $growfund_agree_to_migrate_from_crowdfunding = (int) $_POST['growfund_agree_to_migrate_from_crowdfunding'] ?? 0;
+            $checked_migration_consent = (int) $_POST['checked_migration_consent'] ?? 0;
 
-            if (0 === $growfund_agree_to_migrate_from_crowdfunding) {
+            if (0 === $checked_migration_consent) {
                 wp_send_json_error();
             }
 
-            update_option('growfund_agree_to_migrate_from_crowdfunding', $growfund_agree_to_migrate_from_crowdfunding);
+            update_option('growfund_checked_migration_consent', $checked_migration_consent);
 
             $growfund_file = WP_PLUGIN_DIR.'/growfund/growfund.php';
 
@@ -188,7 +188,12 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 
             do_action( 'growfund_apply_onboarding_from_wp_crowdfunding' );
 
-            wp_redirect( admin_url( 'admin.php?page=growfund&referer=wp-crowdfunding#/migrate-from-crowdfunding' ) );
+            wp_redirect(
+                admin_url(
+                    'admin.php?page=growfund&referer=wp-crowdfunding&step=progress&begin=true#/migrate-from-crowdfunding'
+                )
+            );
+
             die();
         }
 
@@ -253,7 +258,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                             </div>
                         </div>
                         <div class="wpcf-migration-notice-learn-more">
-                            <a href="<?php echo esc_url( 'https://growfund.com/docs/migrating-from-wp-crowdfunding-to-growfund/' ) ?>" target="_blank">
+                            <a href="<?php echo esc_url( 'https://growfund.com/' ) ?>" target="_blank">
                                 <?php esc_html_e( 'Learn more', 'wp-crowdfunding' ) ?>
                                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.5 7.16667V11.1667C10.5 11.5203 10.3595 11.8594 10.1095 12.1095C9.85943 12.3595 9.52029 12.5 9.16667 12.5H1.83333C1.47971 12.5 1.14057 12.3595 0.890524 12.1095C0.640476 11.8594 0.5 11.5203 0.5 11.1667V3.83333C0.5 3.47971 0.640476 3.14057 0.890524 2.89052C1.14057 2.64048 1.47971 2.5 1.83333 2.5H5.83333M12.5 4.5V0.5H8.5M12.5 0.5L5.16667 7.83333" stroke="#0055FF" stroke-linecap="round" stroke-linejoin="round"/>
@@ -284,10 +289,22 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                                 </svg>
                                 <?php esc_html_e( 'Our support team will assist you throughout your journey.', 'wp-crowdfunding' ) ?>
                             </div>
+                            <div class="wpcf-migration-info-item">
+                                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.22461 0.527344C8.3016 0.577768 8.32278 0.68085 8.27246 0.757812L3.73926 7.69141C3.71263 7.73204 3.66962 7.75942 3.62109 7.76562C3.57295 7.77178 3.52442 7.75629 3.48828 7.72363L0.554688 5.05664C0.486645 4.99478 0.481227 4.88941 0.542969 4.82129C0.604886 4.75318 0.71022 4.74865 0.77832 4.81055L3.13379 6.95117L3.56738 7.3457L3.88867 6.85449L7.99414 0.575195C8.04461 0.49844 8.1477 0.47706 8.22461 0.527344Z" fill="#4D4D4D" stroke="#4D4D4D"/>
+                                </svg>
+                                <button
+                                    type="button"
+                                    id="wpcf-open-migration-modal"
+                                    class="wpcf-open-migration-modal"
+                                >
+                                    <?php esc_html_e( 'Migration Notes.', 'wp-crowdfunding' ) ?>
+                                </button>
+                            </div>
                         </div>
                         <form class="wpcf-migration-consent-wrapper" method="POST" action="<?php echo esc_url( $action_url ) ?>">
                             <label for="wpcf-migration-consent-checkbox-input" class="wpcf-migration-consent-checkbox-label">
-                                <input type="checkbox" id="wpcf-migration-consent-checkbox-input" name="growfund_agree_to_migrate_from_crowdfunding" value="0" />
+                                <input type="checkbox" id="wpcf-migration-consent-checkbox-input" name="checked_migration_consent" value="0" />
                                 <span class="wpcf-migration-consent-text">
                                     <?php esc_html_e( 'I have backed up my site & agree to the consents above.', 'wp-crowdfunding' ) ?>
                                 </span>
@@ -306,6 +323,80 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div id="wpcf-migration-modal-overlay" class="wpcf-migration-modal-overlay">
+                <div class="wpcf-migration-modal">
+                    <button
+                        type="button"
+                        id="wpcf-close-migration-modal"
+                        class="wpcf-migration-modal-close"
+                    >
+                        &times;
+                    </button>
+
+                    <h2 class="wpcf-migration-modal-title">
+                        <?php esc_html_e( 'Migrate to Growfund', 'wp-crowdfunding' ) ?>
+                    </h2>
+
+                    <p class="wpcf-migration-modal-description">
+                        <?php esc_html_e(
+                            'Migrating to Growfund gives you a better fundraising experience. To ensure a smooth transition, back up your data before proceeding.',
+                            'wp-crowdfunding'
+                        ); ?>
+                    </p>
+
+                    <h3 class="wpcf-migration-modal-subtitle">
+                        <?php esc_html_e( 'How to Back Up', 'wp-crowdfunding' ) ?>
+                    </h3>
+
+                    <p class="wpcf-migration-modal-text">
+                        <?php esc_html_e(
+                            'Use a WordPress backup plugin or your hosting provider\'s backup tools. Store the backup securely before starting the migration.',
+                            'wp-crowdfunding'
+                        ); ?>
+                    </p>
+
+                    <ul class="wpcf-migration-modal-list">
+                        <li>
+                            <?php esc_html_e(
+                                'If you’ve deleted campaigns in WP Crowdfunding, their associated data will not be migrated; only data from existing campaigns will transfer.',
+                                'wp-crowdfunding'
+                            ); ?>
+                        </li>
+
+                        <li>
+                            <?php esc_html_e(
+                                'You may need to reconnect your payment gateways (Stripe, PayPal, etc.) after migration is complete.',
+                                'wp-crowdfunding'
+                            ); ?>
+                        </li>
+                    </ul>
+
+                    <p class="wpcf-migration-modal-support">
+                        <?php esc_html_e( 'Need help? Contact our', 'wp-crowdfunding' ); ?>
+                        <a href="<?php echo esc_url( 'https://growfund.com/contact/' ); ?>" target="_blank">
+                            <?php esc_html_e( 'support', 'wp-crowdfunding' ) ?>
+                        </a>
+                        <?php esc_html_e( 'with any questions.', 'wp-crowdfunding' ); ?>
+                    </p>
+
+                    <p class="wpcf-migration-modal-warning">
+                        <?php esc_html_e(
+                            'By continuing, you confirm that you’ve backed up your data and understand how the migration works.',
+                            'wp-crowdfunding'
+                        ); ?>
+                    </p>
+
+                    <div class="wpcf-migration-modal-footer">
+                        <button
+                            type="button"
+                            id="wpcf-migration-modal-confirm"
+                            class="wpcf-migration-modal-confirm"
+                        >
+                            <?php esc_html_e( 'Acknowledge & Continue', 'wp-crowdfunding' ) ?>
+                        </button>
                     </div>
                 </div>
             </div>

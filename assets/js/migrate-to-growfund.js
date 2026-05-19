@@ -42,4 +42,32 @@ jQuery(document).ready(function ($) {
         $(this).closest('form').trigger('submit');
         $notice.fadeOut(200);
     });
+
+
+    const $modal = $('#wpcf-migration-modal-overlay');
+    const $openModalBtn = $('#wpcf-open-migration-modal');
+    const $closeModalBtn = $('#wpcf-close-migration-modal');
+    const $acknowledgeBtn = $('#wpcf-migration-modal-confirm');
+
+    $openModalBtn.on('click', function () {
+        $modal.addClass('active');
+        $('body').addClass('wpcf-modal-open');
+    });
+
+    $closeModalBtn.on('click', function () {
+        $modal.removeClass('active');
+        $('body').removeClass('wpcf-modal-open');
+    });
+
+    $acknowledgeBtn.on('click', function () {
+        $modal.removeClass('active');
+        $('body').removeClass('wpcf-modal-open');
+    });
+
+    $modal.on('click', function (e) {
+        if ($(e.target).is('#wpcf-migration-modal-overlay')) {
+            $modal.removeClass('active');
+            $('body').removeClass('wpcf-modal-open');
+        }
+    });
 });

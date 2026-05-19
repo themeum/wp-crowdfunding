@@ -222,3 +222,125 @@
     border: 0px;
     cursor: pointer;
 }
+
+.wpcf-open-migration-modal {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #1d4ed8;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.wpcf-migration-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 20px;
+}
+
+.wpcf-migration-modal-overlay.active {
+    display: flex;
+}
+
+.wpcf-migration-modal {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+.wpcf-migration-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+}
+
+.wpcf-migration-modal-title {
+    margin: 0 0 16px;
+    font-size: 1.25rem;
+    line-height: 1;
+    font-weight: 500;
+    color: #1e1e1e;
+}
+
+.wpcf-migration-modal-description,
+.wpcf-migration-modal-text,
+.wpcf-migration-modal-support {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.43;
+    color: #4b5563;
+}
+
+.wpcf-migration-modal-subtitle {
+    margin-top: 16px;
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+    line-height: 1;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.wpcf-migration-modal-list {
+    margin: 20px 0;
+    padding-left: 20px;
+    list-style: disc;
+}
+
+.wpcf-migration-modal-list li {
+    margin-bottom: 8px;
+    color: #374151;
+    line-height: 1.25;
+}
+
+.wpcf-migration-modal-support a {
+    color: #2563eb;
+}
+
+.wpcf-migration-modal-warning {
+    margin-top: 16px;
+    color: #dc2626;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.43;
+}
+
+.wpcf-migration-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.wpcf-migration-modal-confirm {
+    border: none;
+    background: #2e8b57;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    line-height: 1.3333;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.wpcf-migration-modal-confirm:hover {
+    opacity: 0.95;
+}
+
+body.wpcf-modal-open {
+    overflow: hidden;
+}
