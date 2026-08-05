@@ -30,7 +30,6 @@ class Submit_Form {
      *
      * Save
      */
-
     function frontend_data_save(){
 
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
