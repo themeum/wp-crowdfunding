@@ -199,7 +199,8 @@ class Template_Hooks {
 		global $post;
 		$url = trim(get_post_meta($post->ID, 'wpneo_funding_video', true));
 		if ( !empty($url) ) {
-			wpcf_function()->get_embeded_video( $url );
+			$video_html = wpcf_function()->get_embeded_video( $url );
+			return $video_html ? $video_html : $img_html;
 		} else {
 			return $img_html;
 		}
