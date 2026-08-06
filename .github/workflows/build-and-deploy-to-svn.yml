@@ -30,8 +30,10 @@ jobs:
 
       - name: WordPress Plugin Deploy
         id: deploy
+        continue-on-error: true
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
+          dry-run: true
           generate-zip: true
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
@@ -40,5 +42,9 @@ jobs:
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
+        # with:
+        #   files: build/wp-crowdfunding.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ steps.get_version.outputs.VERSION_NUMBER }}
+          RELEASE_NAME: ${{ steps.get_version.outputs.VERSION_NUMBER }} Release
