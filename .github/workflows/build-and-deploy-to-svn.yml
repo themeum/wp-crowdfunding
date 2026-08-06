@@ -43,8 +43,8 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/wp-crowdfunding.zip
+          files: ./wp-crowdfunding-${{ env.VERSION_NUMBER }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ steps.get_version.outputs.VERSION_NUMBER }}
-          RELEASE_NAME: ${{ steps.get_version.outputs.VERSION_NUMBER }} Release
+          TAG_NAME: ${{ env.VERSION_NUMBER }}
+          RELEASE_NAME: ${{ env.VERSION_NUMBER }} Release
