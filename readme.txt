@@ -131,6 +131,7 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 
 = 2.2.1 =
 Fix    : Resolved authorization issues in campaign updates, order details, and frontend campaign submission.
+Fix    : Resolved issue where campaign featured images and embedded videos were not displaying on the single campaign details page.
 
 = 2.2.0 =
 New    : Introduced migration support from WP Crowdfunding to Growfund.
