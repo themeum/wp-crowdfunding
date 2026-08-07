@@ -227,10 +227,39 @@ class Dashboard {
 		include WPCF_DIR_PATH . 'settings/view/Reward_Meta.php';
 	}
 
+	/**
+	 * Check if current user can view order
+	 *
+	 * @param WC_Order $order Order object.
+	 * @return bool True if current user can view order, false otherwise
+	 */
+	protected function current_user_can_view_order( $order ) {
+		if ( ! $order ) {
+			return false;
+		}
+
+		if ( current_user_can( 'edit_shop_orders' ) || current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' ) ) {
+			return true;
+		}
+
+		$current_user_id = get_current_user_id();
+		if ( ! $current_user_id ) {
+			return false;
+		}
+
+		foreach ( $order->get_items() as $item ) {
+			$product_id = $item->get_product_id();
+			if ( $product_id && has_term( 'crowdfunding', 'product_type', $product_id ) && (int) get_post_field( 'post_author', $product_id ) === $current_user_id ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	// Odrer Data View
 	public function order_campaign_action() {
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
@@ -253,9 +282,31 @@ class Dashboard {
 		}
 
 		$html     = '';
-		$order_id = sanitize_text_field( $_POST['orderid'] );
+        $order_id = isset( $_POST['orderid'] ) ? absint( $_POST['orderid'] ) : 0;
 		if ( $order_id ) {
-			$order = new \WC_Order( $order_id );
+			$order = wc_get_order( $order_id );
+			if ( ! $order ) {
+				die(
+					json_encode(
+						array(
+							'success' => 0,
+							'message' => __( 'Invalid order.', 'wp-crowdfunding' ),
+						)
+					)
+				);
+			}
+
+			if ( ! $this->current_user_can_view_order( $order ) ) {
+				die(
+					json_encode(
+						array(
+							'success' => 0,
+							'message' => __( 'You are not allowed to view this order.', 'wp-crowdfunding' ),
+						)
+					)
+				);
+			}
+
 			$html .= '<div>';
 			$html .= '<div><span>' . __( 'Order ID', 'wp-crowdfunding' ) . ':</span> ' . $order->get_ID() . '</div>';
 			$html .= '<div><span>' . __( 'Order Date', 'wp-crowdfunding' ) . ':</span> ' . wc_format_datetime( $order->get_date_created() ) . '</div>';
@@ -340,13 +391,13 @@ class Dashboard {
 			if ( $order->get_billing_email() ) :
 				$html     .= '<tr>';
 					$html .= '<th>' . __( 'Email:', 'wp-crowdfunding' ) . '</th>';
-					$html .= '<td>' . esc_html__( $order->get_billing_email() ) . '</td>';
+                                        $html .= '<td>' . esc_html( $order->get_billing_email() ) . '</td>';
 				$html     .= '</tr>';
 			endif;
 			if ( $order->get_billing_phone() ) :
 				$html     .= '<tr>';
 					$html .= '<th>' . __( 'Phone:', 'wp-crowdfunding' ) . '</th>';
-					$html .= '<td>' . esc_html__( $order->get_billing_phone() ) . '</td>';
+                                        $html .= '<td>' . esc_html( $order->get_billing_phone() ) . '</td>';
 				$html     .= '</tr>';
 			endif;
 			$html .= '</table>';

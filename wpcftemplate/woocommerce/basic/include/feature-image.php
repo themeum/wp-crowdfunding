@@ -5,11 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post, $woocommerce, $product;
 ?>
 <div class="wpneo-campaign-single-left-info">
-	<div class="wpneo-post-img">   
+	<div class="wpneo-post-img">
 		<?php
 		$wpneo_funding_video = trim( get_post_meta( $post->ID, 'wpneo_funding_video', true ) );
-		if ( ! empty( $wpneo_funding_video ) ) {
-			echo wpcf_function()->get_embeded_video( $wpneo_funding_video );
+		$video_html          = ! empty( $wpneo_funding_video ) ? wpcf_function()->get_embeded_video( $wpneo_funding_video ) : '';
+		if ( ! empty( $video_html ) ) {
+			echo $video_html;
 		} elseif ( has_post_thumbnail() ) {
 			$image_caption = get_post( get_post_thumbnail_id() )->post_excerpt;
 			$image_link    = wp_get_attachment_url( get_post_thumbnail_id() );

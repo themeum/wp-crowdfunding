@@ -16,7 +16,7 @@ class Search {
 				type="search"
 				class="search-field"
 				placeholder="<?php esc_html_e( 'Search', 'wp-crowdfunding' ); ?>"
-				value="<?php esc_attr( isset( $_GET['s'] ) ? sanitize_text_field( $_GET['s'] ) : '' ); ?>"
+				value="<?php echo esc_attr( isset( $_GET['s'] ) ? wp_unslash( $_GET['s'] ) : '' ); ?>"
 				name="s"
 			/>
 			<input type="hidden" name="post_type" value="product">
