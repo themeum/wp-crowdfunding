@@ -1944,6 +1944,16 @@ p.woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-rece
 .wpneo-post-img {
     margin-bottom: 20px;
     position: relative;
+    width: 100%;
+}
+.wpneo-post-img > .wpneo-video-wrapper,
+.wpneo-post-img > a.wpneo-single-main-image,
+.wpneo-post-img > img {
+    display: block;
+    width: 100%;
+}
+.wpneo-video-wrapper {
+    width: 100%;
 }
 .wpneo-single-main-image img {
     max-width: 100%;

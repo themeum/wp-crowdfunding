@@ -76,7 +76,7 @@ class Base
         $actionsLinks = array(
             'settings' => '<a href="' . admin_url('admin.php?page=wpcf-settings') . '">Settings</a>',
             'wpcf_docs' => '<a href="https://docs.themeum.com/wp-crowdfunding/" target="_blank">' . __('Docs', 'wp-crowdfunding') . '</a>',
-            'wpcf_support' => '<a href="https://www.themeum.com/support/" target="_blank">' . __('Support', 'wp-crowdfunding') . '</a>',
+            'wpcf_support' => '<a href="https://growfund.com/support/" target="_blank">' . __('Support', 'wp-crowdfunding') . '</a>',
         );
         if (!defined('WPCF_PRO_VERSION')) {
             $actionsLinks['wpcf_update_pro'] = '<a href="https://www.themeum.com/product/wp-crowdfunding-plugin/?utm_source=crowdfunding_plugin" target="_blank">' . __('Update Pro', 'wp-crowdfunding') . '</a>';

@@ -15,6 +15,7 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 			add_action( 'wp_ajax_install_woocommerce_plugin', array( $this, 'install_woocommerce_plugin' ) );
 			add_action( 'admin_action_activate_woocommerce_free', array( $this, 'activate_woocommerce_free' ) );
 			add_filter( 'woocommerce_locate_template', array( $this, 'wpcf_woocommerce_locate_template' ), 10, 3 );
+			add_action( 'wp_crowdfunding_deactivate', array( $this, 'deactivate' ) );
 		}
 		function capability_add() {
 			add_role(
@@ -338,7 +339,7 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 		}
 
 		public function free_plugin_not_installed() {
-			include ABSPATH . 'wp-admin/includes/plugin-install.php';
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 			$this->activation_css();
 			?>
 			<div class="notice notice-error wpcf-install-notice">
@@ -379,14 +380,14 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 				wp_send_json_error();
 			}
 
-			include ABSPATH . 'wp-admin/includes/plugin-install.php';
-			include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
 			if ( ! class_exists( 'Plugin_Upgrader' ) ) {
-				include ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
+				include_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
 			}
 			if ( ! class_exists( 'Plugin_Installer_Skin' ) ) {
-				include ABSPATH . 'wp-admin/includes/class-plugin-installer-skin.php';
+				include_once ABSPATH . 'wp-admin/includes/class-plugin-installer-skin.php';
 			}
 
 			$plugin = 'woocommerce';
@@ -434,6 +435,22 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 				esc_html__( 'WooCommerce', 'wp-crowdfunding' ),
 				esc_html__( 'version is below then 3.0, please update.', 'wp-crowdfunding' )
 			);
+		}
+
+		public function deactivate() {
+			$crowdfunding_pro_file = WP_PLUGIN_DIR.'/wp-crowdfunding-pro/wp-crowdfunding-pro.php';
+				
+			if ( 
+				file_exists( $crowdfunding_pro_file ) 
+				&& is_plugin_active( 'wp-crowdfunding-pro/wp-crowdfunding-pro.php' ) 
+				&& defined('WPCF_PRO_BASENAME') 
+			) {
+				deactivate_plugins(WPCF_PRO_BASENAME);
+			}
+
+			deactivate_plugins(WPCF_BASENAME);
+			
+			return;
 		}
 	}
 }

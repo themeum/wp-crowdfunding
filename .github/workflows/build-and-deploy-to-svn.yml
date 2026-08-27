@@ -1,7 +1,7 @@
 name: Build and Deploy to SVN
 on:
   push:
-    tag:
+    tags:
       - "*"
 jobs:
   build:
@@ -9,10 +9,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v6
         with:
           node-version: '14.17.5'
 
@@ -32,15 +32,18 @@ jobs:
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
+          dry-run: false
           generate-zip: true
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          BUILD_DIR: build
+          BUILD_DIR: build/wp-crowdfunding
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
-          files: build/${{ github.event.repository.name }}.zip
+          files: ./wp-crowdfunding-${{ env.VERSION_NUMBER }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ env.VERSION_NUMBER }}
+          RELEASE_NAME: ${{ env.VERSION_NUMBER }} Release

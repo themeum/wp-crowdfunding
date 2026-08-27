@@ -206,12 +206,16 @@ class Actions {
 
     public function update_status_save(){
         if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( $_POST['wpcf_form_action_field'], 'wpcf_form_action' ) ) {
-            die(json_encode(array('success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding'))));
+            die ( json_encode( array( 'success'=> 0, 'message' => __('Sorry, your status did not verify.', 'wp-crowdfunding') ) ) );
+            exit;
+        }
+        $post_id = isset( $_POST['postid'] ) ? absint( $_POST['postid'] ) : 0;
+        if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+            die ( json_encode( array( 'success'=> 0, 'message' => __('You are not allowed to update this campaign.', 'wp-crowdfunding') ) ) );
             exit;
         }
         if ( ! empty($_POST['wpneo_prject_update_title_field'])){
             $data           = array();
-            $post_id        = $_POST['postid'];
             $title_field    = $_POST['wpneo_prject_update_title_field'];
             $date_field     = $_POST['wpneo_prject_update_date_field'];
             $details_field  = $_POST['wpneo_prject_update_details_field'];

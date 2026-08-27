@@ -1,0 +1,224 @@
+.wpcf-migration-notice {
+    border-left-color: #D40000;
+    padding: 32px;
+}
+
+.wpcf-migration-notice-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.wpcf-migration-notice-section{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.wpcf-migration-notice-header{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wpcf-migration-notice-header-text{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #FF1616;
+}
+
+.wpcf-migration-notice-title-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wpcf-migration-notice-title{
+    font-weight: 600;
+    font-style: Semi Bold;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -2.5%;
+    vertical-align: middle;
+    color: #D40000;
+}
+
+.wpcf-migration-notice-description{
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #0000008F;
+}
+
+.wpcf-migration-notice-learn-more{
+    width: 100px;
+    height: 36px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    opacity: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.wpcf-migration-notice-learn-more a {
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #0055FF;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.wpcf-migration-consent-section{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.wpcf-migration-info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wpcf-migration-info-title{
+    color: #000000B8;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+}
+
+.wpcf-migration-info-item{
+    color: #000000B8;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wpcf-migration-consent-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.wpcf-migration-consent-checkbox-label{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wpcf-migration-consent-checkbox-label:hover, .wpcf-migration-consent-checkbox-label input:hover {
+    cursor: pointer;
+}
+
+.wpcf-migration-consent-checkbox-label input{
+    width: 16px;
+    height: 16px;
+    opacity: 1;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #E6E6E6;
+    background: #FFFFFF;
+    margin: 0;
+}
+
+.wpcf-migration-consent-text{
+    color: #333333;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0%;
+    cursor: pointer;
+}
+
+.wpcf-migration-consent-btn-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wpcf-migration-confirm-btn{
+    width: 195px;
+    height: 36px;
+    padding-top: 8px;
+    padding-right: 16px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    gap: 8px;
+    opacity: 1;
+    border-radius: 8px;
+    background-color: #338C58;
+    display: flex;
+    align-items: center;
+    border: 0px;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #FAFAFA;
+    cursor: pointer;
+}
+
+.wpcf-migration-confirm-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.wpcf-migration-confirm-btn.active {
+    opacity: 1;
+}
+
+.wpcf-migration-consent-checkbox {
+    cursor: pointer;
+}
+
+.wpcf-migration-consent-checkbox input {
+    cursor: pointer;
+}
+
+.wpcf-migration-cancel-btn{
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #333333;
+    width: 123px;
+    height: 36px;
+    padding-top: 8px;
+    padding-right: 16px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    gap: 8px;
+    opacity: 1;
+    border-radius: 8px;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    border: 0px;
+    cursor: pointer;
+}
