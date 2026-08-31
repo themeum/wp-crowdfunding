@@ -49,7 +49,7 @@ $html .= '<div class="'. $row_class .'">';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
                         $html .= '<input type="hidden" name="action" value="wpneo_dashboard_form">';
-                        $html .= '<input type="text" name="username" value="'.$current_user->user_login.'" disabled>';
+                        $html .= '<input type="text" name="username" value="'.esc_attr( $current_user->user_login ).'" disabled>';
                     $html .= '</div>';
                 $html .= '</div>';
             
@@ -59,7 +59,7 @@ $html .= '<div class="'. $row_class .'">';
                         $html .= '<p>'.__( "Email:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                        $html .= '<input type="email" name="email" value="'.$current_user->user_email.'" disabled>';
+                        $html .= '<input type="email" name="email" value="'.esc_attr( $current_user->user_email ).'" disabled>';
                     $html .= '</div>';
                 $html .= '</div>';
 
@@ -69,7 +69,7 @@ $html .= '<div class="'. $row_class .'">';
                         $html .= '<p>'.__( "First Name:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                        $html .= '<input type="text" name="firstname" value="'.$current_user->user_firstname.'" disabled>';
+                        $html .= '<input type="text" name="firstname" value="'.esc_attr( $current_user->user_firstname ).'" disabled>';
                     $html .= '</div>';
                 $html .= '</div>';
 
@@ -79,7 +79,7 @@ $html .= '<div class="'. $row_class .'">';
                         $html .= '<p>'.__( "Last Name:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                        $html .= '<input type="text" name="lastname" value="'.$current_user->user_lastname.'" disabled>';
+                        $html .= '<input type="text" name="lastname" value="'.esc_attr( $current_user->user_lastname ).'" disabled>';
                     $html .= '</div>';
                 $html .= '</div>';
 
@@ -89,7 +89,7 @@ $html .= '<div class="'. $row_class .'">';
                         $html .= '<p>'.__( "Website:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                        $html .= '<input type="text" name="website" value="'.$current_user->user_url.'" disabled>';
+                        $html .= '<input type="text" name="website" value="'.esc_url( $current_user->user_url ).'" disabled>';
                     $html .= '</div>';
                 $html .= '</div>';
 
@@ -99,7 +99,7 @@ $html .= '<div class="'. $row_class .'">';
                         $html .= '<p>'.__( "Bio:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                        $html .= '<textarea name="description" rows="3" disabled>'.$current_user->description.'</textarea>';
+                        $html .= '<textarea name="description" rows="3" disabled>'.esc_textarea( $current_user->description ).'</textarea>';
                     $html .= '</div>';
                 $html .= '</div>';
                 $settings = get_option( 'woocommerce_wpneo_stripe_connect_settings' );
