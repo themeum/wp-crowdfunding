@@ -10,33 +10,41 @@ function campaign_listing_by_author_before_loop() {
 
 function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ) {
 	global $wpdb;
-	$query  = "SELECT 
-                    COUNT(p.ID)
-                FROM 
-                    {$wpdb->prefix}posts as p,
-                    {$wpdb->prefix}woocommerce_order_items as i,
-                    {$wpdb->prefix}woocommerce_order_itemmeta as im
-                WHERE 
-                    p.post_type='shop_order' 
-                    AND p.post_status='wc-completed' 
-                    AND i.order_id=p.ID 
-                    AND i.order_item_id = im.order_item_id
-                    AND im.meta_key='_product_id' 
-                    AND im.order_item_id IN (
-                                            SELECT 
-                                                DISTINCT order_item_id 
-                                            FROM 
-                                                {$wpdb->prefix}woocommerce_order_itemmeta 
-                                            WHERE 
-                                                meta_key = '_line_total' 
-                                                AND meta_value 
-                                                    BETWEEN 
-                                                        {$min_data} 
-                                                        AND {$max_data}
-                                            )
-                    AND im.meta_value={$post_id}";
-	$orders = $wpdb->get_var( $query );
-	return $orders;
+
+	$min_data = is_numeric( $min_data ) ? (float) $min_data : 0;
+	$max_data = is_numeric( $max_data ) ? (float) $max_data : 0;
+	$post_id  = absint( $post_id );
+
+	if ( $post_id <= 0 ) {
+		return 0;
+	}
+
+	$order_items_table    = $wpdb->prefix . 'woocommerce_order_items';
+	$order_itemmeta_table = $wpdb->prefix . 'woocommerce_order_itemmeta';
+
+	$query = $wpdb->prepare(
+		"SELECT COUNT(p.ID)
+		FROM {$wpdb->posts} AS p,
+			{$order_items_table} AS i,
+			{$order_itemmeta_table} AS im
+		WHERE p.post_type = 'shop_order'
+			AND p.post_status = 'wc-completed'
+			AND i.order_id = p.ID
+			AND i.order_item_id = im.order_item_id
+			AND im.meta_key = '_product_id'
+			AND im.order_item_id IN (
+				SELECT DISTINCT order_item_id
+				FROM {$order_itemmeta_table}
+				WHERE meta_key = '_line_total'
+					AND meta_value BETWEEN %f AND %f
+			)
+			AND im.meta_value = %d",
+		$min_data,
+		$max_data,
+		$post_id
+	);
+
+	return (int) $wpdb->get_var( $query );
 }
 
 // Bio Data View.
@@ -112,7 +120,7 @@ function wpcf_bio_campaign_action() {
 		}
 		if ( ! empty( $user_info['profile_website'][0] ) ) {
 			$website_url = esc_url( wpcf_function()->url( $user_info['profile_website'][0] ) );
-			$html .= '<p>' . esc_html__( 'Website: ', 'wp-crowdfunding' ) . ' <a href="' . $website_url . '"> ' . esc_html( $website_url ) . ' </a></p>';
+			$html       .= '<p>' . esc_html__( 'Website: ', 'wp-crowdfunding' ) . ' <a href="' . $website_url . '"> ' . esc_html( $website_url ) . ' </a></p>';
 		}
 		if ( ! empty( $user_info['profile_email1'][0] ) ) {
 			$html .= '<a class="wpneo-profile-button" href="mailto:' . antispambot( sanitize_email( $user_info['profile_email1'][0] ) ) . '" target="_top">' . esc_html__( 'Contact Me', 'wp-crowdfunding' ) . '</a>';
