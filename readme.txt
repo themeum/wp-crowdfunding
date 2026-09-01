@@ -130,10 +130,9 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 == Changelog ==
 
 = 2.2.2 =
-Fix    : Sanitized reward pledge amounts and item limits so non-numeric values cannot be stored.
 Fix    : Resolved SQL injection vulnerability in campaign reward order counting.
+Fix    : Sanitized reward pledge amounts and item limits so non-numeric values cannot be stored.
 Fix    : Escaped user-generated output in the dashboard, profile, campaign listings, and creator bio to prevent XSS.
-Fix    : Campaign search field now escapes and outputs the current query correctly.
 
 = 2.2.1 =
 Fix    : Resolved authorization issues in campaign updates, order details, and frontend campaign submission.
