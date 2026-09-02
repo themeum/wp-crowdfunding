@@ -1,6 +1,90 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Whether the active theme ships a classic PHP template file.
+ *
+ * Block themes such as Twenty Twenty-Five do not include header.php / footer.php.
+ * Calling get_header() / get_footer() then loads wp-includes/theme-compat copies
+ * and triggers a "Theme without header.php is deprecated" notice.
+ *
+ * @param string $template Template filename, e.g. header.php.
+ * @return bool
+ */
+function wpcf_theme_has_php_template( $template ) {
+	$template = ltrim( (string) $template, '/' );
+
+	if ( file_exists( get_stylesheet_directory() . '/' . $template ) ) {
+		return true;
+	}
+
+	return get_template_directory() !== get_stylesheet_directory()
+		&& file_exists( get_template_directory() . '/' . $template );
+}
+
+/**
+ * Output the theme header, including block theme template parts when needed.
+ *
+ * @param string|null $name Header name passed to get_header() on classic themes.
+ */
+function wpcf_get_header( $name = null ) {
+	if ( wpcf_theme_has_php_template( 'header.php' ) ) {
+		get_header( $name );
+		return;
+	}
+
+	do_action( 'get_header', $name, array() );
+
+	$GLOBALS['wpcf_using_block_theme_canvas'] = true;
+
+	// Render template parts before wp_head() so block styles can be printed in <head>.
+	ob_start();
+	if ( function_exists( 'block_header_area' ) ) {
+		block_header_area();
+	}
+	$GLOBALS['wpcf_block_header_html'] = ob_get_clean();
+
+	ob_start();
+	if ( function_exists( 'block_footer_area' ) ) {
+		block_footer_area();
+	}
+	$GLOBALS['wpcf_block_footer_html'] = ob_get_clean();
+	?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
+<div class="wp-site-blocks">
+	<?php echo $GLOBALS['wpcf_block_header_html']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php
+}
+
+/**
+ * Output the theme footer, including block theme template parts when needed.
+ *
+ * @param string|null $name Footer name passed to get_footer() on classic themes.
+ */
+function wpcf_get_footer( $name = null ) {
+	if ( empty( $GLOBALS['wpcf_using_block_theme_canvas'] ) && wpcf_theme_has_php_template( 'footer.php' ) ) {
+		get_footer( $name );
+		return;
+	}
+
+	do_action( 'get_footer', $name, array() );
+	echo isset( $GLOBALS['wpcf_block_footer_html'] ) ? $GLOBALS['wpcf_block_footer_html'] : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	?>
+</div>
+<?php wp_footer(); ?>
+</body>
+</html>
+	<?php
+}
+
 function wpneo_crowdfunding_get_author_name(){
     return wpcf_function()->get_author_name();
 }

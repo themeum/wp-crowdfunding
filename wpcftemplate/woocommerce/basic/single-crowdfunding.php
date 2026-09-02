@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-get_header('shop');
+wpcf_get_header( 'shop' );
 
 do_action( 'wpcf_before_single_campaign' );
 
@@ -36,4 +36,4 @@ if ( post_password_required() ) {
     </div>
 </div>
 
-<?php get_footer('shop'); ?>
+<?php wpcf_get_footer( 'shop' ); ?>

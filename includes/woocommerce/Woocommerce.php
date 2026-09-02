@@ -631,7 +631,6 @@ class Woocommerce {
 	/**
 	 * Get donation amount from cookie. Add user input base donation amount to cart
 	 */
-
 	function add_user_donation() {
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( $cart_item['data']->get_type() == 'crowdfunding' ) {
