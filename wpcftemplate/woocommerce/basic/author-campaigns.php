@@ -1,7 +1,6 @@
 <?php get_header();
 global $wp_query;
 ?>
-
 	<section id="main">
 		<?php
 			do_action( 'before_campaigns_by_user_container' );
@@ -12,7 +11,7 @@ global $wp_query;
 			<div class="row woo-products">
 				<div class="col-sm-12">
 					<div class="cf-campaign-author sub-title-inner">
-						<h2><?php esc_attr_e( 'Campaigns by Author', 'wp-crowdfunding' ); ?></h2> 
+						<h2><?php esc_attr_e( 'Campaigns by Author', 'wp-crowdfunding' ); ?></h2>
 					</div>
 				</div>
 

@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 class Reward {
 
 	public function __construct() {
+		add_action( 'init', array( $this, 'register_reward_meta' ) );
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'reward_tabs' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'reward_content' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'reward_action' ) );
@@ -14,6 +15,68 @@ class Reward {
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'selected_reward_in_order_view' ) );
 		add_action( 'woocommerce_review_order_after_cart_contents', array( $this, 'selected_reward_in_order_review' ) );
 		// add_filter('the_content', array($this, 'show_reward_in_general_tab'));
+	}
+
+	/**
+	 * Register wpneo_reward meta so REST/product updates cannot store non-numeric pledge amounts.
+	 */
+	public function register_reward_meta() {
+		register_post_meta(
+			'product',
+			'wpneo_reward',
+			array(
+				'single'            => true,
+				'type'              => 'string',
+				'sanitize_callback' => array( $this, 'sanitize_reward_meta' ),
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_products' );
+				},
+				'show_in_rest'      => false,
+			)
+		);
+	}
+
+	/**
+	 * Force pledge amounts to integers so historically poisoned or REST-written meta cannot reach SQL.
+	 *
+	 * @param mixed $meta_value Raw meta from forms or the REST API.
+	 * @return mixed
+	 */
+	public function sanitize_reward_meta( $meta_value ) {
+		$rewards = array();
+
+		if ( is_array( $meta_value ) ) {
+			$rewards = $meta_value;
+		} elseif ( is_string( $meta_value ) && '' !== $meta_value ) {
+			$decoded = json_decode( $meta_value, true );
+			if ( ! is_array( $decoded ) ) {
+				$decoded = json_decode( wp_unslash( $meta_value ), true );
+			}
+			if ( ! is_array( $decoded ) ) {
+				$decoded = json_decode( stripslashes( $meta_value ), true );
+			}
+			if ( ! is_array( $decoded ) ) {
+				return $meta_value;
+			}
+			$rewards = $decoded;
+		} else {
+			return $meta_value;
+		}
+
+		foreach ( $rewards as $index => $reward ) {
+			if ( ! is_array( $reward ) ) {
+				unset( $rewards[ $index ] );
+				continue;
+			}
+			if ( isset( $reward['wpneo_rewards_pladge_amount'] ) ) {
+				$rewards[ $index ]['wpneo_rewards_pladge_amount'] = intval( $reward['wpneo_rewards_pladge_amount'] );
+			}
+			if ( isset( $reward['wpneo_rewards_item_limit'] ) && '' !== $reward['wpneo_rewards_item_limit'] ) {
+				$rewards[ $index ]['wpneo_rewards_item_limit'] = intval( $reward['wpneo_rewards_item_limit'] );
+			}
+		}
+
+		return wp_json_encode( array_values( $rewards ), JSON_UNESCAPED_UNICODE );
 	}
 
 	/*
@@ -111,6 +174,11 @@ class Reward {
 					'2023' => __( '2023', 'wp-crowdfunding' ),
 					'2024' => __( '2024', 'wp-crowdfunding' ),
 					'2025' => __( '2025', 'wp-crowdfunding' ),
+					'2026' => __( '2026', 'wp-crowdfunding' ),
+					'2027' => __( '2027', 'wp-crowdfunding' ),
+					'2028' => __( '2028', 'wp-crowdfunding' ),
+					'2029' => __( '2029', 'wp-crowdfunding' ),
+					'2030' => __( '2030', 'wp-crowdfunding' ),
 				),
 				'field_type' => 'selectfield',
 			),

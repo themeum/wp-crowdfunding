@@ -712,7 +712,7 @@ function wpcf_get_submit_form_campaign() {
                     $html .= '<div class="wpneo-fields">';
                     $html .= '<select style="" class="select short" name="wpneo_rewards_endyear[]" id="wpneo_rewards_endyear[]">';
                     $html .= '<option value=""> '.__('- Select -', 'wp-crowdfunding').' </option>';
-                    for ($i=2019; $i<=2025; $i++){
+                    for ($i=2019; $i<=2030; $i++){
                         $selected = ($v['wpneo_rewards_endyear'] == $i)? 'selected':'';
                         $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                     }
@@ -810,6 +810,11 @@ function wpcf_get_submit_form_campaign() {
             $html .= '<option value="2023">2023</option>';
             $html .= '<option value="2024">2024</option>';
             $html .= '<option value="2025">2025</option>';
+            $html .= '<option value="2026">2026</option>';
+            $html .= '<option value="2027">2027</option>';
+            $html .= '<option value="2028">2028</option>';
+            $html .= '<option value="2029">2029</option>';
+            $html .= '<option value="2030">2030</option>';
             $html .= '</select>';
             $html .= '<small>'.__("Estimated Delivery Year of the Reward","wp-crowdfunding").'</small>';
             $html .= '</div>';
