@@ -1,5 +1,5 @@
 <?php
-get_header(); ?>
+wpcf_get_header(); ?>
 <div id="wpneo-primary">
 	<?php
 	// Start the loop.
@@ -15,4 +15,4 @@ get_header(); ?>
 	endwhile;
 	?>
 </div><!-- .content-area -->
-<?php get_footer(); ?>
+<?php wpcf_get_footer(); ?>

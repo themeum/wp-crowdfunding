@@ -68,7 +68,7 @@ if ( $the_query->have_posts() ) :
 							<!-- author -->
 							<span class="wpneo-meta-wrap">
 								<span class="wpneo-meta-name"><?php esc_html_e( 'by', 'wp-crowdfunding' ); ?> </span>
-								<a href="<?php echo esc_attr( wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ) ); ?>"><?php echo esc_html( wpcf_function()->get_author_name() ); ?></a>
+								<a href="<?php echo esc_url( wpcf_function()->get_author_url( get_the_author_meta( 'user_login' ) ) ); ?>"><?php echo esc_html( wpcf_function()->get_author_name() ); ?></a>
 							</span>
 
 							<!-- fund-raised -->

@@ -1,4 +1,4 @@
-<?php get_header();
+<?php wpcf_get_header();
 global $wp_query;
 ?>
 
@@ -99,4 +99,4 @@ global $wp_query;
 		</div> <!-- .container -->
 	</section>
 <?php
-get_footer();
+wpcf_get_footer();

@@ -51,7 +51,7 @@ $html .= '<div class="wpneo-content">';
 					$html .= '<p>'.__( "Name:" , "wp-crowdfunding" ).'</p>';
 					$html .= '</div>';
 					$html .= '<div class="wpneo-fields float-right">';
-					$html .= "<p>".$user->user_login."</p>";
+					$html .= "<p>".esc_html( $user->user_login )."</p>";
                     $html .= '</div>';
 
 					$html .= '<div class="wpneo-single">';
@@ -59,14 +59,14 @@ $html .= '<div class="wpneo-content">';
                     $html .= '<p>'.__( "First Name:" , "wp-crowdfunding" ).'</p>';
                     $html .= '</div>';
                     $html .= '<div class="wpneo-fields float-right">';
-                    $html .= '<input type="text" name="first_name" value="'.$user->first_name.'" disabled>';
+                    $html .= '<input type="text" name="first_name" value="'.esc_attr( $user->first_name ).'" disabled>';
 					$html .= '</div>';
                     
 					$html .= '<div class="wpneo-name">';
 					$html .= '<p>'.__( "Last Name:" , "wp-crowdfunding" ).'</p>';
 					$html .= '</div>';
 					$html .= '<div class="wpneo-fields float-right">';
-					$html .= '<input type="text" name="last_name" value="'.$user->last_name.'" disabled>';
+					$html .= '<input type="text" name="last_name" value="'.esc_attr( $user->last_name ).'" disabled>';
 					$html .= '</div>';
 				$html .= '</div>';
 
@@ -143,7 +143,7 @@ $html .= '<div class="wpneo-content">';
                             $html .= '<p>'.__( "Address:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields float-right">';
-                            $value = ''; if(isset($data['profile_address'][0])){ $value = esc_textarea($data['profile_address'][0]); }
+                            $value = ''; if(isset($data['profile_address'][0])){ $value = esc_attr($data['profile_address'][0]); }
                             $html .= '<input type="text" name="profile_address" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';
@@ -159,7 +159,7 @@ $html .= '<div class="wpneo-content">';
                             $html .= '<p>'.__( "Facebook:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields">';
-                            $value = ''; if(isset($data['profile_facebook'][0])){ $value = esc_textarea($data['profile_facebook'][0]); }
+                            $value = ''; if(isset($data['profile_facebook'][0])){ $value = esc_attr($data['profile_facebook'][0]); }
                             $html .= '<input type="text" name="profile_facebook" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';
@@ -170,7 +170,7 @@ $html .= '<div class="wpneo-content">';
                             $html .= '<p>'.__( "Twitter:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields">';
-                            $value = ''; if(isset($data['profile_twitter'][0])){ $value = esc_textarea($data['profile_twitter'][0]); }
+                            $value = ''; if(isset($data['profile_twitter'][0])){ $value = esc_attr($data['profile_twitter'][0]); }
                             $html .= '<input type="text" name="profile_twitter" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';
@@ -181,7 +181,7 @@ $html .= '<div class="wpneo-content">';
                             $html .= '<p>'.__( "VK:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields float-right">';
-                            $value = ''; if(isset($data['profile_vk'][0])){ $value = esc_textarea($data['profile_vk'][0]); }
+                            $value = ''; if(isset($data['profile_vk'][0])){ $value = esc_attr($data['profile_vk'][0]); }
                             $html .= '<input type="text" name="profile_vk" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';
@@ -192,7 +192,7 @@ $html .= '<div class="wpneo-content">';
                             $html .= '<p>'.__( "Linkedin:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields float-right">';
-                            $value = ''; if(isset($data['profile_linkedin'][0])){ $value = esc_textarea($data['profile_linkedin'][0]); }
+                            $value = ''; if(isset($data['profile_linkedin'][0])){ $value = esc_attr($data['profile_linkedin'][0]); }
                             $html .= '<input type="text" name="profile_linkedin" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';
@@ -203,7 +203,7 @@ $html .= '<div class="wpneo-content">';
                             $html .= '<p>'.__( "Pinterest:" , "wp-crowdfunding" ).'</p>';
                         $html .= '</div>';
                         $html .= '<div class="wpneo-fields float-right">';
-                            $value = ''; if(isset($data['profile_pinterest'][0])){ $value = esc_textarea($data['profile_pinterest'][0]); }
+                            $value = ''; if(isset($data['profile_pinterest'][0])){ $value = esc_attr($data['profile_pinterest'][0]); }
                             $html .= '<input type="text" name="profile_pinterest" value="'.$value.'" disabled>';
                         $html .= '</div>';
                     $html .= '</div>';

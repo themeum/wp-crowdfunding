@@ -494,47 +494,38 @@ class Woocommerce {
 			wpcf_function()->update_meta( $post_id, '_neo_crowdfunding_product_type', 'no' );
 		}
 
-		$location = sanitize_text_field( $_POST['_nf_location'] );
-		wpcf_function()->update_meta( $post_id, '_nf_location', $location );
+		$text_fields = array(
+			'_nf_location',
+			'wpneo_funding_video',
+			'_nf_duration_start',
+			'_nf_duration_end',
+			'_nf_funding_goal',
+			'wpneo_funding_minimum_price',
+			'wpneo_funding_maximum_price',
+			'wpneo_funding_recommended_price',
+			'wpcf_predefined_pledge_amount',
+			'wpneo_campaign_end_method',
+			'wpneo_campaigner_paypal_id',
+			'wpneo_country',
+		);
 
-		$funding_video = sanitize_text_field( $_POST['wpneo_funding_video'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_funding_video', $funding_video );
+		foreach ( $text_fields as $field ) {
+			if ( isset( $_POST[ $field ] ) ) {
+				wpcf_function()->update_meta( $post_id, $field, sanitize_text_field( $_POST[ $field ] ) );
+			}
+		}
 
-		$duration_start = sanitize_text_field( $_POST['_nf_duration_start'] );
-		wpcf_function()->update_meta( $post_id, '_nf_duration_start', $duration_start );
-
-		$duration_end = sanitize_text_field( $_POST['_nf_duration_end'] );
-		wpcf_function()->update_meta( $post_id, '_nf_duration_end', $duration_end );
-
-		$funding_goal = sanitize_text_field( $_POST['_nf_funding_goal'] );
-		wpcf_function()->update_meta( $post_id, '_nf_funding_goal', $funding_goal );
-
-		$minimum_price = sanitize_text_field( $_POST['wpneo_funding_minimum_price'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_funding_minimum_price', $minimum_price );
-
-		$maximum_price = sanitize_text_field( $_POST['wpneo_funding_maximum_price'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_funding_maximum_price', $maximum_price );
-
-		$recommended_price = sanitize_text_field( $_POST['wpneo_funding_recommended_price'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_funding_recommended_price', $recommended_price );
-
-		$pledge_amount = sanitize_text_field( $_POST['wpcf_predefined_pledge_amount'] );
-		wpcf_function()->update_meta( $post_id, 'wpcf_predefined_pledge_amount', $pledge_amount );
-
-		$end_method = sanitize_text_field( $_POST['wpneo_campaign_end_method'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_campaign_end_method', $end_method );
-
-		$contributor_table = sanitize_text_field( $_POST['wpneo_show_contributor_table'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_show_contributor_table', $contributor_table );
-
-		$contributors_as_anonymous = sanitize_text_field( $_POST['wpneo_mark_contributors_as_anonymous'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_mark_contributors_as_anonymous', $contributors_as_anonymous );
-
-		$campaigner_paypal_id = sanitize_text_field( $_POST['wpneo_campaigner_paypal_id'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_campaigner_paypal_id', $campaigner_paypal_id );
-
-		$country = sanitize_text_field( $_POST['wpneo_country'] );
-		wpcf_function()->update_meta( $post_id, 'wpneo_country', $country );
+		// Checkboxes are omitted from POST when unchecked.
+		wpcf_function()->update_meta(
+			$post_id,
+			'wpneo_show_contributor_table',
+			isset( $_POST['wpneo_show_contributor_table'] ) ? sanitize_text_field( $_POST['wpneo_show_contributor_table'] ) : ''
+		);
+		wpcf_function()->update_meta(
+			$post_id,
+			'wpneo_mark_contributors_as_anonymous',
+			isset( $_POST['wpneo_mark_contributors_as_anonymous'] ) ? sanitize_text_field( $_POST['wpneo_mark_contributors_as_anonymous'] ) : ''
+		);
 	}
 
 	/**
@@ -640,7 +631,6 @@ class Woocommerce {
 	/**
 	 * Get donation amount from cookie. Add user input base donation amount to cart
 	 */
-
 	function add_user_donation() {
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( $cart_item['data']->get_type() == 'crowdfunding' ) {

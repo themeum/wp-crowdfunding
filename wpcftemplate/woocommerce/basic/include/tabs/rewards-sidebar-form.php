@@ -11,7 +11,8 @@ if ( is_array( $campaign_rewards_a ) ) {
 
 		echo '<h2>' . esc_html__( 'Rewards', 'wp-crowdfunding' ) . '</h2>';
 		foreach ( $campaign_rewards_a as $key => $row ) {
-			$amount[ $key ] = $row['wpneo_rewards_pladge_amount'];
+			$campaign_rewards_a[ $key ]['wpneo_rewards_pladge_amount'] = isset( $row['wpneo_rewards_pladge_amount'] ) ? intval( $row['wpneo_rewards_pladge_amount'] ) : 0;
+			$amount[ $key ] = $campaign_rewards_a[ $key ]['wpneo_rewards_pladge_amount'];
 		}
 		array_multisort( $amount, SORT_ASC, $campaign_rewards_a );
 
@@ -21,10 +22,12 @@ if ( is_array( $campaign_rewards_a ) ) {
 			$quantity = '';
 
 			$post_id  = get_the_ID();
-			$min_data = $value['wpneo_rewards_pladge_amount'];
-			$max_data = '';
+			$min_data = intval( $value['wpneo_rewards_pladge_amount'] );
+			$max_data = 9000000000;
 			$orders   = 0;
-			( ! empty( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] ) ) ? ( $max_data = $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] - 1 ) : ( $max_data = 9000000000 );
+			if ( ! empty( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] ) ) {
+				$max_data = intval( $campaign_rewards_a[ $i ]['wpneo_rewards_pladge_amount'] ) - 1;
+			}
 			if ( $min_data != '' ) {
 				$orders = wpcf_campaign_order_number_data( $min_data, $max_data, $post_id );
 			}
