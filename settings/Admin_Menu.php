@@ -6,9 +6,22 @@ defined( 'ABSPATH' ) || exit;
 class Admin_Menu {
 
     public function __construct() {
-        add_action('wp_head',      array($this, 'style_custom_css' ));
+        add_action('wp_enqueue_scripts', array($this, 'style_custom_css' ), 20 );
         add_action('admin_menu',   array($this, 'register_menu_page' ));
         add_action('admin_init',   array($this, 'save_menu_settings' ));
+        add_action('admin_init',   array($this, 'add_default_options' ), 5 );
+    }
+
+    /**
+     * Create options introduced in later versions with their default value,
+     * so existing installs keep their behaviour and the settings UI shows it.
+     *
+     * @since 2.2.3
+     */
+    public function add_default_options() {
+        if ( false === get_option( 'wpcf_allow_registration' ) ) {
+            add_option( 'wpcf_allow_registration', 'true' );
+        }
     }
 
     /**
@@ -129,8 +142,7 @@ class Admin_Menu {
     
             if ( $custom_css ) { $style .= $custom_css; }
     
-            $output = '<style type="text/css">' . wp_strip_all_tags($style) . '</style>';
-            echo $output;
+            wp_add_inline_style( 'neo-crowdfunding-css-front', wp_strip_all_tags( $style ) );
         }
     }
     
@@ -205,8 +217,8 @@ class Admin_Menu {
         }
 
         $current_page = 'general';
-        if( ! empty($_GET['tab']) ){
-            $current_page = sanitize_text_field($_GET['tab']);
+        if( ! empty($_GET['tab']) ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+            $current_page = sanitize_text_field( wp_unslash( $_GET['tab'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
         }
 
         if (wpcf_function()->post('wpneo_settings_page_nonce_field')){
@@ -362,6 +374,9 @@ class Admin_Menu {
 
                     $siteurlred = sanitize_text_field( wpcf_function()->post( 'wpcf_redurl' ) );
                     wpcf_function()->update_text( 'wpcf_redurl', esc_url($siteurlred) );
+
+                    $allow_registration = sanitize_text_field( wpcf_function()->post( 'wpcf_allow_registration' ) );
+                    wpcf_function()->update_checkbox( 'wpcf_allow_registration', $allow_registration );
 
                     $vendor_type = sanitize_text_field(wpcf_function()->post('vendor_type'));
                     wpcf_function()->update_text('vendor_type', $vendor_type);

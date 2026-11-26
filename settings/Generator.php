@@ -9,7 +9,7 @@ class Settings_Generator {
     public function generator( $arr ) {
         // Let's show a notice if Stripe Connect and Wallet addons are disabled.
         if ( is_plugin_active( 'wp-crowdfunding-pro/wp-crowdfunding-pro.php' ) ) {
-            if ( isset( $_GET['page'] ) && 'wpcf-settings' === $_GET['page'] ) {
+            if ( isset( $_GET['page'] ) && 'wpcf-settings' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
                 $wpcf_wallet               = wpcf_function()->get_addon_config( WPCF_WALLET_BASE_NAME );
                 $wpcf_stripe_connect       = wpcf_function()->get_addon_config( WPCF_STRIPE_CONNECT_BASE_NAME );
                 $is_wallet_enabled         = (bool) wpcf_function()->avalue_dot( 'is_enable', $wpcf_wallet );
@@ -202,7 +202,7 @@ class Settings_Generator {
         $html .= '</tbody>';
         $html .= '</table>';
 
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
     
 }

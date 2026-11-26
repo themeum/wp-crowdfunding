@@ -100,15 +100,18 @@ class Registration {
 		$cancelfontWeight        = isset( $att['cancelfontWeight'] ) ? $att['cancelfontWeight'] : '400';
 
 		ob_start();
-		if ( is_user_logged_in() ) { ?>
+		if ( ! is_user_logged_in() && ! wpcf_function()->is_registration_allowed() ) { ?>
+			<h3 class="wpneo-center"><?php esc_html_e( 'Registration is currently disabled.', 'wp-crowdfunding' ); ?></h3>
+			<?php
+		} elseif ( is_user_logged_in() ) { ?>
 			<h3 class="wpneo-center"><?php esc_html_e( 'You are already logged in.', 'wp-crowdfunding' ); ?></h3>
 			<?php
 		} else {
 			global $reg_errors, $reg_success;
 			?>
 			<div class="wpneo-user-registration-wrap">
-				<form action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" id="wpneo-registration" method="post">
-				<?php echo wp_kses_post( wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field', true, false ) ); ?>
+				<form action="" id="wpneo-registration" method="post">
+				<?php wp_nonce_field( 'wpcf_form_action', 'wpcf_form_action_field' ); ?>
 					<?php
 					$regisration_data = array(
 						array(
@@ -250,7 +253,7 @@ class Registration {
 
 	// register a new user
 	public function registration_save_action() {
-		if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['wpcf_form_action_field'] ), 'wpcf_form_action' ) ) {
+		if ( ! isset( $_POST['wpcf_form_action_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpcf_form_action_field'] ) ), 'wpcf_form_action' ) ) {
 			die(
 				json_encode(
 					array(
@@ -262,19 +265,28 @@ class Registration {
 			exit;
 		}
 
+		if ( ! wpcf_function()->is_registration_allowed() ) {
+			wp_send_json(
+				array(
+					'success' => 0,
+					'message' => __( 'Registration is currently disabled.', 'wp-crowdfunding' ),
+				)
+			);
+		}
+
 		// Add some option
 		do_action( 'wpcf_before_user_registration_action' );
 
 		$username = $password = $email = $website = $first_name = $last_name = $nickname = $bio = '';
 		// sanitize user form input
-		$username   = sanitize_user( $_POST['username'] );
-		$password   = sanitize_text_field( $_POST['password'] );
-		$email      = sanitize_email( $_POST['email'] );
-		$website    = esc_url_raw( $_POST['website'] );
-		$first_name = sanitize_text_field( $_POST['fname'] );
-		$last_name  = sanitize_text_field( $_POST['lname'] );
-		$nickname   = sanitize_text_field( $_POST['nickname'] );
-		$bio        = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['bio'] ) ) );
+		$username   = isset( $_POST['username'] ) ? sanitize_user( wp_unslash( $_POST['username'] ) ) : '';
+		$password   = isset( $_POST['password'] ) ? sanitize_text_field( wp_unslash( $_POST['password'] ) ) : '';
+		$email      = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$website    = isset( $_POST['website'] ) ? esc_url_raw( wp_unslash( $_POST['website'] ) ) : '';
+		$first_name = isset( $_POST['fname'] ) ? sanitize_text_field( wp_unslash( $_POST['fname'] ) ) : '';
+		$last_name  = isset( $_POST['lname'] ) ? sanitize_text_field( wp_unslash( $_POST['lname'] ) ) : '';
+		$nickname   = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : '';
+		$bio        = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", isset( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '' ) ) );
 		$this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
 		$this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio );
 	}
@@ -291,6 +303,7 @@ class Registration {
 				'last_name'   => $last_name,
 				'nickname'    => $nickname,
 				'description' => $bio,
+				'role'        => get_option( 'default_role', 'subscriber' ),
 			);
 			$user_id  = wp_insert_user( $userdata );
 

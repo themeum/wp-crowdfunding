@@ -9,6 +9,6 @@ if ( ! $post->post_excerpt ) {
 <div class="wpneo-single-short-description">
 	<h2><?php esc_html_e( 'Short Story', 'wp-crowdfunding' ); ?></h2>
 	<div itemprop="description">
-		<?php echo apply_filters( 'woocommerce_short_description', $post->post_excerpt ); ?>
+		<?php echo wp_kses_post( apply_filters( 'woocommerce_short_description', $post->post_excerpt ) ); ?>
 	</div>
 </div>

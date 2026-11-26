@@ -21,7 +21,9 @@ class Woocommerce {
 		add_action( 'add_meta_boxes', array( $this, 'add_campaign_update' ), 30 );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'update_status_save' ) ); // Save update status for this campaign with product
 		add_action( 'woocommerce_process_product_meta', array( $this, 'custom_field_save' ) ); // Additional meta action, save right this way
-		add_filter( 'woocommerce_add_cart_item', array( $this, 'save_user_donation_to_cookie' ), 10, 3 ); // Filter cart item and save donation amount into cookir if product type crowdfunding
+		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_pledge_on_add_to_cart' ), 5, 2 ); // Server-side pledge amount validation, before any cart items are removed
+		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_pledge_cart_item_data' ), 10, 2 ); // Attach the validated pledge to the cart item
+		add_filter( 'woocommerce_add_cart_item', array( $this, 'save_user_donation_to_cookie' ), 10, 2 ); // Keep session data in sync with the validated pledge
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'add_user_donation' ) ); // Save user input as there preferable amount with cart
 		add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'redirect_to_checkout' ) ); // Skip cart page after click Donate button, going directly on checkout page
 		add_filter( 'woocommerce_get_price_html', array( $this, 'wc_price_remove' ), 10, 2 ); // Hide default price details
@@ -377,7 +379,7 @@ class Woocommerce {
 					'desc_tip'    => 'true',
 					'type'        => 'text',
 					'class'       => 'datepicker',
-					'placeholder' => __( date( 'd-m-Y' ), 'wp-crowdfunding' ),
+					'placeholder' => gmdate( 'd-m-Y' ),
 					'value'       => '',
 				)
 			);
@@ -417,7 +419,7 @@ class Woocommerce {
 						'desc_tip'    => 'true',
 						'type'        => 'text',
 						'class'       => 'datepicker',
-						'placeholder' => __( date( 'd-m-Y' ), 'wp-crowdfunding' ),
+						'placeholder' => gmdate( 'd-m-Y' ),
 						'value'       => stripslashes( $value['date'] ),
 					)
 				);
@@ -462,24 +464,26 @@ class Woocommerce {
 	 * Save Update at Meta Data
 	 */
 	public function update_status_save( $post_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the product edit nonce before woocommerce_process_product_meta.
 		if ( ! empty( $_POST['wpneo_prject_update_title_field'] ) ) {
 			$data               = array();
-			$title_field        = $_POST['wpneo_prject_update_title_field'];
-			$date_field         = $_POST['wpneo_prject_update_date_field'];
-			$details_field      = $_POST['wpneo_prject_update_details_field'];
+			$title_field        = array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_prject_update_title_field'] ) );
+			$date_field         = isset( $_POST['wpneo_prject_update_date_field'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_prject_update_date_field'] ) ) : array();
+			$details_field      = isset( $_POST['wpneo_prject_update_details_field'] ) ? array_map( 'wp_kses_post', wp_unslash( (array) $_POST['wpneo_prject_update_details_field'] ) ) : array();
 			$total_update_field = count( $title_field );
 			for ( $i = 0; $i < $total_update_field; $i++ ) {
 				if ( ! empty( $title_field[ $i ] ) ) {
 					$data[] = array(
-						'date'    => sanitize_text_field( $date_field[ $i ] ),
-						'title'   => sanitize_text_field( $title_field[ $i ] ),
-						'details' => $details_field[ $i ],
+						'date'    => isset( $date_field[ $i ] ) ? $date_field[ $i ] : '',
+						'title'   => $title_field[ $i ],
+						'details' => isset( $details_field[ $i ] ) ? $details_field[ $i ] : '',
 					);
 				}
 			}
 			$data_json = json_encode( $data, JSON_UNESCAPED_UNICODE );
 			wpcf_function()->update_meta( $post_id, 'wpneo_campaign_updates', wp_slash( $data_json ) );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -487,6 +491,7 @@ class Woocommerce {
 	 * Saving meta information over this method
 	 */
 	function custom_field_save( $post_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the product edit nonce before woocommerce_process_product_meta.
 		$product_type = sanitize_text_field( wpcf_function()->post( '_neo_crowdfunding_product_type' ) );
 		if ( ! empty( $product_type ) ) {
 			wpcf_function()->update_meta( $post_id, '_neo_crowdfunding_product_type', 'yes' );
@@ -511,7 +516,7 @@ class Woocommerce {
 
 		foreach ( $text_fields as $field ) {
 			if ( isset( $_POST[ $field ] ) ) {
-				wpcf_function()->update_meta( $post_id, $field, sanitize_text_field( $_POST[ $field ] ) );
+				wpcf_function()->update_meta( $post_id, $field, sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) );
 			}
 		}
 
@@ -519,13 +524,14 @@ class Woocommerce {
 		wpcf_function()->update_meta(
 			$post_id,
 			'wpneo_show_contributor_table',
-			isset( $_POST['wpneo_show_contributor_table'] ) ? sanitize_text_field( $_POST['wpneo_show_contributor_table'] ) : ''
+			isset( $_POST['wpneo_show_contributor_table'] ) ? sanitize_text_field( wp_unslash( $_POST['wpneo_show_contributor_table'] ) ) : ''
 		);
 		wpcf_function()->update_meta(
 			$post_id,
 			'wpneo_mark_contributors_as_anonymous',
-			isset( $_POST['wpneo_mark_contributors_as_anonymous'] ) ? sanitize_text_field( $_POST['wpneo_mark_contributors_as_anonymous'] ) : ''
+			isset( $_POST['wpneo_mark_contributors_as_anonymous'] ) ? sanitize_text_field( wp_unslash( $_POST['wpneo_mark_contributors_as_anonymous'] ) ) : ''
 		);
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -544,27 +550,32 @@ class Woocommerce {
 			if ( wpcf_function()->is_campaign_valid() ) {
 
 				$html            .= '<form class="cart" method="post" enctype="multipart/form-data">';
-				$html            .= do_action( 'before_wpneo_donate_field' );
+				do_action( 'before_wpneo_donate_field' );
 				$recomanded_price = get_post_meta( $post->ID, 'wpneo_funding_recommended_price', true );
-				$html            .= get_woocommerce_currency_symbol();
+				$html            .= esc_html( get_woocommerce_currency_symbol() );
 				$html            .= apply_filters( 'neo_donate_field', '<input type ="number" step="any" class="input-text amount wpneo_donation_input text" name="wpneo_donate_amount_field" min="0" value="' . esc_attr( $recomanded_price ) . '" />' );
-				$html            .= do_action( 'after_wpneo_donate_field' );
+				do_action( 'after_wpneo_donate_field' );
 				$html            .= '<input type="hidden" name="add-to-cart" value="' . esc_attr( $product->get_id() ) . '" />';
 				$btn_text         = get_option( 'wpneo_donation_btn_text' );
-				$html            .= '<button type="submit" class="' . apply_filters( 'add_to_donate_button_class', 'single_add_to_cart_button button alt' ) . '">' . esc_html__( apply_filters( 'add_to_donate_button_text', esc_html( $btn_text ) ? esc_html( $btn_text ) : 'Donate now' ), 'woocommerce' ) . '</button>';
+				$html            .= '<button type="submit" class="' . apply_filters( 'add_to_donate_button_class', 'single_add_to_cart_button button alt' ) . '">' . esc_html( apply_filters( 'add_to_donate_button_text', $btn_text ? $btn_text : __( 'Donate now', 'wp-crowdfunding' ) ) ) . '</button>';
 				$html            .= '</form>';
 			} else {
 				$html .= apply_filters( 'end_campaign_message', esc_html__( 'This campaign has been end', 'wp-crowdfunding' ) );
 			}
 			$html .= '</div>';
 		}
-		echo $html;
+		echo wp_kses( $html, wpcf_function()->allowed_html() );
 	}
 
 	/**
 	 * Remove Crowdfunding item form cart
 	 */
 	public function remove_crowdfunding_item_from_cart( $passed, $product_id, $quantity, $variation_id = '', $variations = '' ) {
+		// Do not empty the cart for an add-to-cart request that already failed validation.
+		if ( ! $passed ) {
+			return $passed;
+		}
+
 		$product = wc_get_product( $product_id );
 
 		if ( $product->get_type() == 'crowdfunding' ) {
@@ -581,65 +592,199 @@ class Woocommerce {
 	}
 
 	/**
-	 * @param $array
-	 * @param $int
-	 * @return mixed
+	 * Whether a product is the wallet deposit product of WP Crowdfunding Pro.
 	 *
-	 * Save user input donation into cookie
+	 * Pro sets that product's price itself, so pledge validation must not touch it.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int $product_id Product ID.
+	 * @return bool
 	 */
-	function save_user_donation_to_cookie( $array, $int ) {
-		if ( $array['data']->get_type() == 'crowdfunding' ) {
-			if ( ! empty( $_POST['wpneo_donate_amount_field'] ) ) {
-				if ( is_user_logged_in() ) {
-					$user_id = get_current_user_id();
-					delete_user_meta( $user_id, 'wpneo_wallet_info' );
-				}
-
-				// setcookie("wpneo_user_donation", esc_attr($_POST['wpneo_donate_amount_field']), 0, "/");
-				$donate_amount = wpcf_function()->post( 'wpneo_donate_amount_field' );
-				WC()->session->set( 'wpneo_donate_amount', $donate_amount );
-
-				if ( isset( $_POST['wpneo_rewards_index'] ) ) {
-					if ( ! $_POST['wpneo_rewards_index'] ) {
-						return;
-					}
-
-					$selected_reward   = stripslashes_deep( wpcf_function()->post( 'wpneo_selected_rewards_checkout' ) );
-					$selected_reward   = json_decode( $selected_reward, true );
-					$reward_index      = (int) wpcf_function()->post( 'wpneo_rewards_index' );
-					$rewards_index     = (int) wpcf_function()->post( 'wpneo_rewards_index' ) - 1;
-					$product_author_id = (int) wpcf_function()->post( '_cf_product_author_id' );
-					$product_id        = (int) wpcf_function()->post( 'add-to-cart' );
-
-					WC()->session->set(
-						'wpneo_rewards_data',
-						array(
-							'wpneo_selected_rewards_checkout' => $selected_reward,
-							'rewards_index'         => $rewards_index,
-							'product_id'            => $product_id,
-							'_cf_product_author_id' => $product_author_id,
-						)
-					);
-				} else {
-					WC()->session->__unset( 'wpneo_rewards_data' );
-				}
-			}
-		}
-		return $array;
+	private function is_wallet_deposit_product( $product_id ) {
+		$deposit_product_id = (int) get_option( 'wpneo_deposit_product_id' );
+		return $deposit_product_id > 0 && (int) $product_id === $deposit_product_id;
 	}
 
 	/**
-	 * Get donation amount from cookie. Add user input base donation amount to cart
+	 * Read the pledge amount and reward index from an add-to-cart request.
+	 *
+	 * WooCommerce add-to-cart requests carry no nonce, so nothing read here is
+	 * trusted: the result is always passed through validate_pledge_amount().
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param \WC_Product $product Campaign product.
+	 * @return array{0: mixed, 1: int} Raw amount and 1-based reward index.
 	 */
+	private function get_requested_pledge( $product ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce add-to-cart has no nonce; values are validated server-side.
+		$raw_amount   = isset( $_POST['wpneo_donate_amount_field'] ) ? sanitize_text_field( wp_unslash( $_POST['wpneo_donate_amount_field'] ) ) : '';
+		$reward_index = isset( $_POST['wpneo_rewards_index'] ) ? absint( wp_unslash( $_POST['wpneo_rewards_index'] ) ) : 0;
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
-	function add_user_donation() {
-		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			if ( $cart_item['data']->get_type() == 'crowdfunding' ) {
-				$donate_cart_amount = WC()->session->get( 'wpneo_donate_amount' );
-				if ( ! empty( $donate_cart_amount ) ) {
-					$cart_item['data']->set_price( $donate_cart_amount );
+		// Requests without an amount (e.g. the Store API) pledge the product's own price, which must pass the same checks.
+		if ( '' === $raw_amount ) {
+			$raw_amount = $product->get_price( 'edit' );
+		}
+
+		return array( $raw_amount, $reward_index );
+	}
+
+	/**
+	 * Reject crowdfunding add-to-cart requests with an invalid pledge.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param bool $passed     Whether validation has passed so far.
+	 * @param int  $product_id Product being added.
+	 * @return bool
+	 */
+	public function validate_pledge_on_add_to_cart( $passed, $product_id ) {
+		if ( ! $passed ) {
+			return $passed;
+		}
+
+		$product = wc_get_product( $product_id );
+		if ( ! $product || ! $product->is_type( 'crowdfunding' ) || $this->is_wallet_deposit_product( $product_id ) ) {
+			return $passed;
+		}
+
+		list( $raw_amount, $reward_index ) = $this->get_requested_pledge( $product );
+		$result                            = wpcf_function()->validate_pledge_amount( $product->get_id(), $raw_amount, $reward_index );
+		if ( is_wp_error( $result ) ) {
+			wc_add_notice( $result->get_error_message(), 'error' );
+			return false;
+		}
+
+		return $passed;
+	}
+
+	/**
+	 * Store the validated pledge on the cart item itself.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param array $cart_item_data Extra cart item data.
+	 * @param int   $product_id     Product being added.
+	 * @return array
+	 * @throws \Exception When the pledge is invalid, so WooCommerce aborts the add-to-cart.
+	 */
+	public function add_pledge_cart_item_data( $cart_item_data, $product_id ) {
+		$product = wc_get_product( $product_id );
+		if ( ! $product || ! $product->is_type( 'crowdfunding' ) || $this->is_wallet_deposit_product( $product_id ) ) {
+			return $cart_item_data;
+		}
+
+		list( $raw_amount, $reward_index ) = $this->get_requested_pledge( $product );
+		$amount                            = wpcf_function()->validate_pledge_amount( $product->get_id(), $raw_amount, $reward_index );
+		if ( is_wp_error( $amount ) ) {
+			// Covers callers that skip woocommerce_add_to_cart_validation, e.g. the Store API.
+			// RouteException extends \Exception, so the classic cart's catch still handles it.
+			if ( class_exists( '\Automattic\WooCommerce\StoreApi\Exceptions\RouteException' ) ) {
+				throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException( esc_html( $amount->get_error_code() ), esc_html( $amount->get_error_message() ), 400 );
+			}
+			throw new \Exception( esc_html( $amount->get_error_message() ) );
+		}
+
+		$cart_item_data['wpcf_pledge_amount'] = $amount;
+		$cart_item_data['wpcf_reward_index']  = $reward_index;
+
+		return $cart_item_data;
+	}
+
+	/**
+	 * Keep the session data used at checkout in sync with the validated pledge.
+	 *
+	 * The reward and campaign author are read from the server, never from the
+	 * request, so a forged reward cannot reach the order.
+	 *
+	 * @param array  $cart_item     Cart item being added.
+	 * @param string $cart_item_key Cart item key.
+	 * @return array
+	 */
+	public function save_user_donation_to_cookie( $cart_item, $cart_item_key = '' ) {
+		if ( empty( $cart_item['data'] ) || ! $cart_item['data']->is_type( 'crowdfunding' ) || ! isset( $cart_item['wpcf_pledge_amount'] ) ) {
+			return $cart_item;
+		}
+
+		if ( is_user_logged_in() ) {
+			delete_user_meta( get_current_user_id(), 'wpneo_wallet_info' );
+		}
+
+		$product_id   = absint( $cart_item['product_id'] );
+		$reward_index = isset( $cart_item['wpcf_reward_index'] ) ? absint( $cart_item['wpcf_reward_index'] ) : 0;
+
+		WC()->session->set( 'wpneo_donate_amount', $cart_item['wpcf_pledge_amount'] );
+		WC()->session->set( 'wpneo_donate_product_id', $product_id );
+
+		$reward = $reward_index ? wpcf_function()->get_campaign_reward( $product_id, $reward_index ) : null;
+		if ( $reward ) {
+			WC()->session->set(
+				'wpneo_rewards_data',
+				array(
+					'wpneo_selected_rewards_checkout' => $reward,
+					'rewards_index'         => $reward_index - 1,
+					'product_id'            => $product_id,
+					'_cf_product_author_id' => (int) get_post_field( 'post_author', $product_id ),
+				)
+			);
+		} else {
+			WC()->session->__unset( 'wpneo_rewards_data' );
+		}
+
+		return $cart_item;
+	}
+
+	/**
+	 * Apply the pledge amount as the cart price, re-validating it every time.
+	 *
+	 * @param \WC_Cart|null $cart Cart object.
+	 */
+	public function add_user_donation( $cart = null ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			return;
+		}
+
+		$cart = $cart instanceof \WC_Cart ? $cart : WC()->cart;
+		if ( ! $cart ) {
+			return;
+		}
+
+		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+			if ( empty( $cart_item['data'] ) || ! $cart_item['data']->is_type( 'crowdfunding' ) ) {
+				continue;
+			}
+
+			$product_id = absint( $cart_item['product_id'] );
+			if ( $this->is_wallet_deposit_product( $product_id ) ) {
+				continue;
+			}
+
+			if ( isset( $cart_item['wpcf_pledge_amount'] ) ) {
+				$raw_amount   = $cart_item['wpcf_pledge_amount'];
+				$reward_index = isset( $cart_item['wpcf_reward_index'] ) ? absint( $cart_item['wpcf_reward_index'] ) : 0;
+			} else {
+				// Carts created before 2.2.3 only have the amount in the session.
+				$session      = WC()->session;
+				$raw_amount   = $session ? $session->get( 'wpneo_donate_amount' ) : '';
+				$rewards_data = $session ? $session->get( 'wpneo_rewards_data' ) : array();
+				$reward_index = ( is_array( $rewards_data ) && isset( $rewards_data['product_id'], $rewards_data['rewards_index'] ) && absint( $rewards_data['product_id'] ) === $product_id )
+					? absint( $rewards_data['rewards_index'] ) + 1
+					: 0;
+				if ( empty( $raw_amount ) ) {
+					$raw_amount = $cart_item['data']->get_price( 'edit' );
 				}
 			}
+
+			$amount = wpcf_function()->validate_pledge_amount( $product_id, $raw_amount, $reward_index );
+			if ( is_wp_error( $amount ) ) {
+				$cart->remove_cart_item( $cart_item_key );
+				wc_add_notice( $amount->get_error_message(), 'error' );
+				continue;
+			}
+
+			$cart_item['data']->set_price( $amount );
 		}
 	}
 
@@ -647,6 +792,7 @@ class Woocommerce {
 	 * Redirect to checkout after cart
 	 */
 	function redirect_to_checkout( $url ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- WooCommerce add-to-cart requests carry no nonce; only an absint product ID is read.
 		global $product;
 
 		if ( ! empty( $_REQUEST['add-to-cart'] ) ) {
@@ -671,6 +817,7 @@ class Woocommerce {
 			}
 		}
 		return $url;
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -801,11 +948,13 @@ class Woocommerce {
 	 * @param $order_id
 	 */
 	public function check_anonymous_backer_post( $order_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the checkout nonce before woocommerce_checkout_order_processed.
 		if ( ! empty( $_POST['mark_name_anonymous'] ) ) {
-			if ( $_POST['mark_name_anonymous'] === 'true' ) {
+			if ( 'true' === sanitize_text_field( wp_unslash( $_POST['mark_name_anonymous'] ) ) ) {
 				wpcf_function()->update_meta( $order_id, 'mark_name_anonymous', 'true' );
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	public function is_tax_enable_for_crowdfunding_product( $bool ) {
@@ -842,10 +991,10 @@ class Woocommerce {
 		<div class="form-field term-check-crowdfunding-category-wrap">
 			<label for="tag-check-crowdfunding-category">
 				<input type="checkbox" name="tag_check_crowdfunding_category" id="tag-check-crowdfunding-category" value="1">
-				<?php esc_html_e( 'Mark as Crowdfunding Category' ); ?>
+				<?php esc_html_e( 'Mark as Crowdfunding Category', 'wp-crowdfunding' ); ?>
 			</label>
 
-			<p><?php esc_html_e( 'This check mark allow you to detect crowdfunding specific category,' ); ?></p>
+			<p><?php esc_html_e( 'This check mark allow you to detect crowdfunding specific category,', 'wp-crowdfunding' ); ?></p>
 		</div>
 
 		<?php
@@ -869,10 +1018,10 @@ class Woocommerce {
 					?>
 					<input type="checkbox" name="tag_check_crowdfunding_category"
 							id="tag-check-crowdfunding-category" value="1" <?php checked( $is_checked_crowdfunding, '1' ); ?>>
-					<?php esc_html_e( 'Mark as Crowdfunding Category' ); ?>
+					<?php esc_html_e( 'Mark as Crowdfunding Category', 'wp-crowdfunding' ); ?>
 				</label>
 
-				<p><?php esc_html_e( 'This check mark allow you to detect crowdfunding specific category,' ); ?></p>
+				<p><?php esc_html_e( 'This check mark allow you to detect crowdfunding specific category,', 'wp-crowdfunding' ); ?></p>
 
 			</td>
 		</tr>
@@ -885,17 +1034,21 @@ class Woocommerce {
 	 * @param $tt_id (int) Term taxonomy ID.
 	 */
 	public function mark_category_as_crowdfunding( $term_id, $tt_id ) {
-		if ( isset( $_POST['tag_check_crowdfunding_category'] ) && $_POST['tag_check_crowdfunding_category'] == '1' ) {
-			$term_meta = update_term_meta( $term_id, '_marked_as_crowdfunding', $_POST['tag_check_crowdfunding_category'] );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WordPress core verifies the add-tag nonce before create_product_cat.
+		if ( isset( $_POST['tag_check_crowdfunding_category'] ) && '1' === sanitize_text_field( wp_unslash( $_POST['tag_check_crowdfunding_category'] ) ) ) {
+			$term_meta = update_term_meta( $term_id, '_marked_as_crowdfunding', '1' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	public function edit_mark_category_as_crowdfunding( $term_id, $tt_id ) {
-		if ( isset( $_POST['tag_check_crowdfunding_category'] ) && $_POST['tag_check_crowdfunding_category'] == '1' ) {
-			$term_meta = update_term_meta( $term_id, '_marked_as_crowdfunding', $_POST['tag_check_crowdfunding_category'] );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WordPress core verifies the update-tag nonce before edit_product_cat.
+		if ( isset( $_POST['tag_check_crowdfunding_category'] ) && '1' === sanitize_text_field( wp_unslash( $_POST['tag_check_crowdfunding_category'] ) ) ) {
+			$term_meta = update_term_meta( $term_id, '_marked_as_crowdfunding', '1' );
 		} else {
 			delete_term_meta( $term_id, '_marked_as_crowdfunding' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	public function product_taxonomy_is_crowdfunding_columns( $columns ) {
@@ -950,7 +1103,7 @@ class Woocommerce {
 
 		$days_remaining = apply_filters( 'date_expired_msg', __( 'Date expired', 'wp-crowdfunding' ) );
 		if ( wpcf_function()->get_date_remaining() ) {
-			$days_remaining = apply_filters( 'date_remaining_msg', __( wpcf_function()->get_date_remaining() . ' days remaining', 'wp-crowdfunding' ) );
+			$days_remaining = apply_filters( 'date_remaining_msg', sprintf( /* translators: %s: number of days */ __( '%s days remaining', 'wp-crowdfunding' ), wpcf_function()->get_date_remaining() ) );
 		}
 
 		$html  = '';
@@ -1050,7 +1203,7 @@ class Woocommerce {
 				$html   .= '<td>' . get_post_meta( get_the_ID(), '_billing_first_name', true ) . ' ' . get_post_meta( get_the_ID(), '_billing_last_name', true ) . '</td>';
 				$html   .= '<td>' . get_post_meta( get_the_ID(), '_billing_email', true ) . '</td>';
 				$post_id = get_the_ID();
-				$price   = $wpdb->get_results( "SELECT order_meta.meta_value FROM `{$prefix}woocommerce_order_itemmeta` AS order_meta, `{$prefix}woocommerce_order_items` AS order_item WHERE order_meta.order_item_id IN (SELECT order_item.order_item_id FROM `{$prefix}woocommerce_order_items` as order_item WHERE order_item.order_id = {$post_id}) AND order_meta.order_item_id IN (SELECT meta.order_item_id FROM `{$prefix}woocommerce_order_itemmeta` AS meta WHERE meta.meta_key='_product_id' AND meta.meta_value={$product_id} ) AND order_meta.meta_key='_line_total' GROUP BY order_meta.meta_id" );
+				$price   = $wpdb->get_results( $wpdb->prepare( "SELECT order_meta.meta_value FROM `{$wpdb->prefix}woocommerce_order_itemmeta` AS order_meta, `{$wpdb->prefix}woocommerce_order_items` AS order_item WHERE order_meta.order_item_id IN (SELECT order_item.order_item_id FROM `{$wpdb->prefix}woocommerce_order_items` as order_item WHERE order_item.order_id = %d) AND order_meta.order_item_id IN (SELECT meta.order_item_id FROM `{$wpdb->prefix}woocommerce_order_itemmeta` AS meta WHERE meta.meta_key='_product_id' AND meta.meta_value = %d ) AND order_meta.meta_key='_line_total' GROUP BY order_meta.meta_id", absint( $post_id ), absint( $product_id ) ) );
 				$price   = json_decode( json_encode( $price ), true );
 				if ( isset( $price[0]['meta_value'] ) ) {
 					$html .= '<td>' . wc_price( $price[0]['meta_value'] ) . '</td>';
@@ -1067,7 +1220,7 @@ class Woocommerce {
 			$html .= __( 'Sorry, no posts matched your criteria.', 'wp-crowdfunding' );
 		endif;
 
-		echo $html;
+		echo wp_kses( $html, wpcf_function()->allowed_html() );
 	}
 
 	public function remove_crowdfunding_quantity_fields( $return, $product ) {

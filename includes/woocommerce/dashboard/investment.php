@@ -24,14 +24,16 @@ foreach ($id_list as $value) {
 $order_ids = array( '0' );
 if( is_array( $id_array ) ){
     if(!empty($id_array)){
-        $id_array = implode( ', ', $id_array );
+        $id_array = array_map( 'absint', $id_array );
         global $wpdb;
-        $prefix = $wpdb->prefix;
-        $query = "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi 
-                    LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim 
-                    ON woim.order_item_id = oi.order_item_id 
-                    WHERE woim.meta_key='_product_id' AND woim.meta_value IN ( {$id_array} )";
-        $order_ids = $wpdb->get_col( $query );
+        $order_ids = $wpdb->get_col(
+        	$wpdb->prepare(
+        		"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi
+        		LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
+        		WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $id_array ), '%d' ) ) . ' )',
+        		$id_array
+        	)
+        );
     }
 }
 
@@ -88,13 +90,13 @@ if ( $customer_orders ) :
                                             </a>';
 
                 elseif ( 'order-date' === $column_id ) :
-                    $html .='<time datetime="'.date( 'Y-m-d', strtotime( $order_date['date'] ) ).'" title="'.esc_attr( strtotime( $order_date['date'] ) ).'">'.date_i18n( get_option( "date_format" ), strtotime( $order_date['date'] ) ).'</time>';
+                    $html .='<time datetime="'.gmdate( 'Y-m-d', strtotime( $order_date['date'] ) ).'" title="'.esc_attr( strtotime( $order_date['date'] ) ).'">'.date_i18n( get_option( "date_format" ), strtotime( $order_date['date'] ) ).'</time>';
 
                 elseif ( 'order-status' === $column_id ) :
                     $html .= wc_get_order_status_name( $order->get_status() );
 
                 elseif ( 'order-total' === $column_id ) :
-                    $html .= sprintf( _n( '%s for %s item', '%s for %s items', $item_count, 'wp-crowdfunding' ), $order->get_formatted_order_total(), $item_count );
+                    $html .= sprintf( /* translators: 1: order total, 2: item count */ _n( '%1$s for %2$s item', '%1$s for %2$s items', $item_count, 'wp-crowdfunding' ), $order->get_formatted_order_total(), $item_count );
                 
                 elseif ( 'order-rewards' === $column_id ) :
                     /**

@@ -23,8 +23,8 @@ defined( 'ABSPATH' ) || exit;
 				$currency = get_woocommerce_currency_symbol();
 			}
 
-			if ( ! empty( $_GET['reward_min_amount'] ) ) {
-				$recomanded_price = (int) esc_html( $_GET['reward_min_amount'] );
+			if ( ! empty( $_GET['reward_min_amount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+				$recomanded_price = absint( $_GET['reward_min_amount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 			}
 			?>
 
@@ -58,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<form enctype="multipart/form-data" method="post" class="cart AA">
 				<?php do_action( 'before_wpneo_donate_field' ); ?>
-				<?php echo get_woocommerce_currency_symbol(); ?>
+				<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
 				
 				<input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="1" placeholder="<?php echo esc_attr( $recomanded_price ); ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo esc_attr( ( $recomanded_price ? $recomanded_price : $min_price ) ); ?>" data-min-price="<?php echo esc_attr( $min_price ); ?>" data-max-price="<?php echo esc_attr( $max_price ); ?>" >
 
@@ -81,8 +81,8 @@ defined( 'ABSPATH' ) || exit;
 				$currency = get_woocommerce_currency_symbol();
 			}
 
-			if ( ! empty( $_GET['reward_min_amount'] ) ) {
-				$recomanded_price = (int) esc_html( $_GET['reward_min_amount'] );
+			if ( ! empty( $_GET['reward_min_amount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+				$recomanded_price = absint( $_GET['reward_min_amount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 			}
 			?>
 
@@ -116,7 +116,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<form enctype="multipart/form-data" method="post" class="cart AA">
 				<?php do_action( 'before_wpneo_donate_field' ); ?>
-				<?php echo get_woocommerce_currency_symbol(); ?>
+				<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
 				
 				<input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo esc_attr( $recomanded_price ); ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo esc_attr( ( $recomanded_price ? $recomanded_price : $min_price ) ); ?>" data-min-price="<?php echo esc_attr( $min_price ); ?>" data-max-price="<?php echo esc_attr( $max_price ); ?>" >
 
@@ -138,8 +138,8 @@ defined( 'ABSPATH' ) || exit;
 				$currency = get_woocommerce_currency_symbol();
 			}
 
-			if ( ! empty( $_GET['reward_min_amount'] ) ) {
-				$recomanded_price = (int) esc_html( $_GET['reward_min_amount'] );
+			if ( ! empty( $_GET['reward_min_amount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+				$recomanded_price = absint( $_GET['reward_min_amount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 			}
 			?>
 
@@ -173,7 +173,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<form enctype="multipart/form-data" method="post" class="cart AA">
 				<?php do_action( 'before_wpneo_donate_field' ); ?>
-				<?php echo get_woocommerce_currency_symbol(); ?>
+				<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
 				
 				<input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo esc_attr( $recomanded_price ); ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo esc_attr( ( $recomanded_price ? $recomanded_price : $min_price ) ); ?>" data-min-price="<?php echo esc_attr( $min_price ); ?>" data-max-price="<?php echo esc_attr( $max_price ); ?>" >
 

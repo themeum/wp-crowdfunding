@@ -3,12 +3,11 @@
 * Plugin Name:       WP Crowdfunding
 * Plugin URI:        https://www.themeum.com/product/wp-crowdfunding-plugin/
 * Description:       The Ultimate Fundraising and Backer Plugin for WordPress.
-* Version:           2.2.2
+* Version:           2.2.3
 * Author:            Themeum
 * Author URI:        https://themeum.com
 * Text Domain:       wp-crowdfunding
 * Requires at least: 5.9
-* Tested up to:      7.1
 * License:           GPL-2.0+
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
 * Domain Path:       /languages
@@ -31,7 +30,7 @@ if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 * @Plugin Base Name
 */
 define( 'WPCF_FILE', __FILE__ );
-define( 'WPCF_VERSION', '2.2.2' );
+define( 'WPCF_VERSION', '2.2.3' );
 define( 'WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ) );
 define( 'WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ) );
 define( 'WPCF_BASENAME', plugin_basename( WPCF_FILE ) );
@@ -59,9 +58,9 @@ if ( ! class_exists( 'Crowdfunding' ) ) {
 // wp_login_form() to display login form in a jQuery dialog window.
 add_action( 'wp_login_failed', 'wpcf_front_end_login_fail' );  // hook failed login
 function wpcf_front_end_login_fail( $username ) {
-	$referrer = $_SERVER['HTTP_REFERER'];
+	$referrer = wp_get_referer();
 	if ( ! empty( $referrer ) && ! strstr( $referrer, 'wp-login' ) && ! strstr( $referrer, 'wp-admin' ) ) {
-		wp_redirect( $referrer . '?login=failed' );
+		wp_safe_redirect( add_query_arg( 'login', 'failed', $referrer ) );
 		exit;
 	}
 }

@@ -36,7 +36,7 @@ class Common {
 
 	public function love_this_campaign_action() {
 
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+		if ( ! wp_verify_nonce( isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '', 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
@@ -60,7 +60,17 @@ class Common {
 
 		$loved_campaign_ids = array();
 		$user_id            = get_current_user_id();
-		$campaign_id        = sanitize_text_field( $_POST['campaign_id'] );
+		$campaign_id        = isset( $_POST['campaign_id'] ) ? (string) absint( wp_unslash( $_POST['campaign_id'] ) ) : '0';
+		if ( '0' === $campaign_id || 'product' !== get_post_type( (int) $campaign_id ) ) {
+			die(
+				wp_json_encode(
+					array(
+						'success' => 0,
+						'message' => __( 'Invalid request!', 'wp-crowdfunding' ),
+					)
+				)
+			);
+		}
 		$prev_campaign_ids  = get_user_meta( $user_id, 'loved_campaign_ids', true );
 
 		if ( $prev_campaign_ids ) {
@@ -87,14 +97,14 @@ class Common {
 				array(
 					'success'     => 1,
 					'message'     => __( 'Loved campaign', 'wp-crowdfunding' ),
-					'return_html' => '<a href="javascript:;" id="remove_from_love_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-full"></i></a>',
+					'return_html' => '<a href="#" id="remove_from_love_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-full"></i></a>',
 				)
 			)
 		);
 	}
 
 	public function remove_love_campaign_action() {
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+		if ( ! wp_verify_nonce( isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '', 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
@@ -118,7 +128,7 @@ class Common {
 
 		$loved_campaign_ids = array();
 		$user_id            = get_current_user_id();
-		$campaign_id        = sanitize_text_field( $_POST['campaign_id'] );
+		$campaign_id        = isset( $_POST['campaign_id'] ) ? (string) absint( wp_unslash( $_POST['campaign_id'] ) ) : '0';
 		$prev_campaign_ids  = get_user_meta( $user_id, 'loved_campaign_ids', true );
 
 		if ( $prev_campaign_ids ) {

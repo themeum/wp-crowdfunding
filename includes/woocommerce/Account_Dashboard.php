@@ -56,41 +56,41 @@ class Account_Dashboard {
     public function dashboard_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/dashboard.php';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     // Profile
     public function profile_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/profile.php';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     // My Profile
     public function campaigns_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/campaign.php';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     // Backed Campaigns
     public function backed_campaigns_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/investment.php';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     // Pledges Received
     public function pledges_received_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/order.php';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     // Bookmarks
     public function bookmarks_callback() {
         $html = '';
         require_once WPCF_DIR_PATH.'includes/woocommerce/dashboard/bookmark.php';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 }

@@ -91,7 +91,7 @@ jQuery(document).ready(function ($) {
 
 	// Common Modal Function
 	function wpcf_modal(data, print = false) {
-		var data = JSON.parse(data);
+		data = typeof data === 'string' ? JSON.parse(data) : data;
 		var html =
 			'<div class="wpneo-modal-wrapper"> ' +
 			'<div class="wpneo-modal-content"> ' +
@@ -363,10 +363,11 @@ jQuery(document).ready(function ($) {
 	$('.wpneo-fund-modal-btn').on('click', function (e) {
 		e.preventDefault();
 		var author = $(this).data('author');
+		var campaign_id = $(this).data('campaign') || 0;
 		$.ajax({
 			type: 'POST',
 			url: wpcf_ajax_object.ajax_url,
-			data: { action: 'wpcf_bio_action', author: author, nonce: wpcf_ajax_object.nonce },
+			data: { action: 'wpcf_bio_action', author: author, campaign_id: campaign_id, nonce: wpcf_ajax_object.nonce },
 			success: function (data) {
 				wpcf_modal(data);
 			},
@@ -405,7 +406,8 @@ jQuery(document).ready(function ($) {
 	});
 
 	// Add Love Campaign
-	$(document).on('click', '#love_this_campaign', function () {
+	$(document).on('click', '#love_this_campaign', function (e) {
+		e.preventDefault();
 		var campaign_id = $(this).data('campaign-id');
 		$.ajax({
 			type: 'POST',
@@ -428,7 +430,8 @@ jQuery(document).ready(function ($) {
 	});
 
 	// Remove Love Campaign
-	$(document).on('click', '#remove_from_love_campaign', function () {
+	$(document).on('click', '#remove_from_love_campaign', function (e) {
+		e.preventDefault();
 		var campaign_id = $(this).data('campaign-id');
 		$.ajax({
 			type: 'POST',
@@ -453,7 +456,7 @@ jQuery(document).ready(function ($) {
 			data: registration_form_data,
 			success: function (data) {
 				wpcf_modal(data);
-				data = JSON.parse(data);
+				data = typeof data === 'string' ? JSON.parse(data) : data;
 				if (data.success) {
 					location.href = data.redirect;
 				} else {

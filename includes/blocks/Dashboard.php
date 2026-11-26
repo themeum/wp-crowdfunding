@@ -34,8 +34,8 @@ class Dashboard {
 
 		$html = $get_id = '';
 
-		if ( isset( $_GET['page_type'] ) ) {
-			$get_id = $_GET['page_type']; }
+		if ( isset( $_GET['page_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+			$get_id = sanitize_key( wp_unslash( $_GET['page_type'] ) ); } // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 		if ( is_user_logged_in() ) {
 			$pagelink        = get_permalink( get_the_ID() );
 			$dashboard_menus = apply_filters(
@@ -138,8 +138,8 @@ class Dashboard {
 			$html     .= '</div>';
 
 			$var = '';
-			if ( isset( $_GET['page_type'] ) ) {
-				$var = $_GET['page_type'];
+			if ( isset( $_GET['page_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+				$var = sanitize_key( wp_unslash( $_GET['page_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 			}
 
 			ob_start();

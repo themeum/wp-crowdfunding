@@ -313,30 +313,32 @@ class Reward {
 	* Update Post Meta for Reward Tab
 	*/
 	function reward_action( $post_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the product edit nonce before woocommerce_process_product_meta.
 		if ( ! empty( $_POST['wpneo_rewards_pladge_amount'] ) ) {
 			$data          = array();
-			$pladge_amount = $_POST['wpneo_rewards_pladge_amount'];
-			$image_field   = $_POST['wpneo_rewards_image_field'];
-			$description   = array_map( 'sanitize_text_field', wp_unslash( $_POST['wpneo_rewards_description'] ) );
-			$end_month     = $_POST['wpneo_rewards_endmonth'];
-			$end_year      = $_POST['wpneo_rewards_endyear'];
-			$item_limit    = $_POST['wpneo_rewards_item_limit'];
+			$pladge_amount = array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_rewards_pladge_amount'] ) );
+			$image_field   = isset( $_POST['wpneo_rewards_image_field'] ) ? array_map( 'absint', (array) $_POST['wpneo_rewards_image_field'] ) : array();
+			$description   = isset( $_POST['wpneo_rewards_description'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_rewards_description'] ) ) : array();
+			$end_month     = isset( $_POST['wpneo_rewards_endmonth'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_rewards_endmonth'] ) ) : array();
+			$end_year      = isset( $_POST['wpneo_rewards_endyear'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_rewards_endyear'] ) ) : array();
+			$item_limit    = isset( $_POST['wpneo_rewards_item_limit'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpneo_rewards_item_limit'] ) ) : array();
 			$field_count   = count( $pladge_amount );
 			for ( $i = 0; $i < $field_count; $i++ ) {
 				if ( ! empty( $pladge_amount[ $i ] ) ) {
 					$data[] = array(
 						'wpneo_rewards_pladge_amount' => intval( $pladge_amount[ $i ] ),
-						'wpneo_rewards_image_field'   => intval( $image_field[ $i ] ),
-						'wpneo_rewards_description'   => $description[ $i ],
-						'wpneo_rewards_endmonth'      => esc_html( $end_month[ $i ] ),
-						'wpneo_rewards_endyear'       => esc_html( $end_year[ $i ] ),
-						'wpneo_rewards_item_limit'    => esc_html( $item_limit[ $i ] ),
+						'wpneo_rewards_image_field'   => isset( $image_field[ $i ] ) ? $image_field[ $i ] : 0,
+						'wpneo_rewards_description'   => isset( $description[ $i ] ) ? $description[ $i ] : '',
+						'wpneo_rewards_endmonth'      => isset( $end_month[ $i ] ) ? $end_month[ $i ] : '',
+						'wpneo_rewards_endyear'       => isset( $end_year[ $i ] ) ? $end_year[ $i ] : '',
+						'wpneo_rewards_item_limit'    => isset( $item_limit[ $i ] ) ? $item_limit[ $i ] : '',
 					);
 				}
 			}
 			$data_json = json_encode( $data, JSON_UNESCAPED_UNICODE );
 			wpcf_function()->update_meta( $post_id, 'wpneo_reward', wp_slash( $data_json ) );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -359,7 +361,7 @@ class Reward {
 				$html .= '<div><abbr>' . __( 'Amount', 'wp-crowdfunding' ) . ' : ' . wc_price( $r['wpneo_rewards_pladge_amount'] ) . ', ' . __( ', Delivery', 'wp-crowdfunding' ) . ' : ' . $r['wpneo_rewards_endmonth'] . ', ' . $r['wpneo_rewards_endyear'];
 			}
 		}
-		echo $html;
+		echo wp_kses( $html, wpcf_function()->allowed_html() );
 	}
 
 	public function selected_reward_in_order_review() {

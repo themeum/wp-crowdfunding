@@ -115,5 +115,14 @@ $arr =  array(
         'value' => ! empty( get_option( 'wpcf_redurl' ) ) ? sanitize_text_field( get_option( 'wpcf_redurl' ) ) : esc_url( home_url( '/' ) ),
 		'label' => __( 'Redirect URL for User Registration Success', 'wp-crowdfunding' ),
 	),
+
+	// #Allow visitor registration through the plugin's registration form.
+	array(
+		'id'    => 'wpcf_allow_registration',
+		'type'  => 'checkbox',
+		'value' => 'true',
+		'label' => __( 'User Registration', 'wp-crowdfunding' ),
+		'desc'  => __( 'Allow visitors to register through the WP Crowdfunding registration form', 'wp-crowdfunding' ),
+	),
 );
 wpcf_function()->generator( $arr );

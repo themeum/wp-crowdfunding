@@ -44,8 +44,8 @@ class Template_Hooks {
     }
 
 	public function search_shortcode_filter($query){
-		if (!empty($_GET['product_type'])) {
-			$product_type = $_GET['product_type'];
+		if (!empty($_GET['product_type'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+			$product_type = sanitize_key( wp_unslash( $_GET['product_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 			if ($product_type == 'croudfunding') {
 				if ($query->is_search) {
 					$query->set('post_type', 'product');
@@ -166,7 +166,7 @@ class Template_Hooks {
 		// Reviews tab - shows comments
 		if ( comments_open() ) {
 			$tabs['reviews'] = array(
-				'title'    => sprintf( __( 'Reviews (%d)', 'wp-crowdfunding' ), $product->get_review_count() ),
+				'title'    => sprintf( /* translators: %d: number of reviews */ __( 'Reviews (%d)', 'wp-crowdfunding' ), $product->get_review_count() ),
 				'priority' => 30,
 				'callback' => 'comments_template'
 			);

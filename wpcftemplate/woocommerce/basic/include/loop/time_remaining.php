@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 $days_remaining = apply_filters( 'date_expired_msg', __( '0', 'wp-crowdfunding' ) );
 if ( wpcf_function()->get_date_remaining() ) {
-	$days_remaining = apply_filters( 'date_remaining_msg', __( wpcf_function()->get_date_remaining(), 'wp-crowdfunding' ) );
+	$days_remaining = apply_filters( 'date_remaining_msg', wpcf_function()->get_date_remaining() );
 }
 $end_method = get_post_meta( get_the_ID(), 'wpneo_campaign_end_method', true );
 

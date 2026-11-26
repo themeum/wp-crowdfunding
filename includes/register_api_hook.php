@@ -14,7 +14,7 @@ function register_api_hook(){
             'get_callback'      => 'wpcf_campaign_get_column',
             'update_callback'   => null,
             'schema'            => array(
-                'description'   => __('Product column'),
+                'description'   => __('Product column', 'wp-crowdfunding'),
                 'type'          => 'string',
             ),
         )
@@ -87,10 +87,10 @@ function wpcf_get_prodcut_info( $object ) {
 
     # Product Description.
     $text_limit = get_option('number_of_words_show_in_listing_description');
-    $author['desc']         = wpcf_function()->limit_word_text(strip_tags(get_the_content()), $text_limit);
+    $author['desc']         = wpcf_function()->limit_word_text(wp_strip_all_tags(get_the_content()), $text_limit);
 
     # Days remaining
-    $author['days_remaining'] = apply_filters('date_remaining_msg', __(wpcf_function()->get_date_remaining(), 'wp-crowdfunding'));
+    $author['days_remaining'] = apply_filters('date_remaining_msg', wpcf_function()->get_date_remaining());
 
     $author['product_thumb'] = woocommerce_get_product_thumbnail();
 
@@ -107,7 +107,7 @@ function wpcf_campaign_get_column($object) {
 function wpcf_get_dashboard_info( $object ) {
     $html = '';
     $get_id = '';
-    if( isset($_GET['page_type']) ){ $get_id = $_GET['page_type']; }
+    if( isset($_GET['page_type']) ){ $get_id = sanitize_key( wp_unslash( $_GET['page_type'] ) ); } // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
         if ( is_user_logged_in() ) {
             $pagelink = get_permalink( get_the_ID() );
             $dashboard_menus = apply_filters('wpcf_frontend_dashboard_menus', array(
@@ -203,8 +203,8 @@ function wpcf_get_dashboard_info( $object ) {
             $html .= '</div>';
 
             $var = '';
-            if( isset($_GET['page_type']) ){
-                $var = $_GET['page_type'];
+            if( isset($_GET['page_type']) ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+                $var = sanitize_key( wp_unslash( $_GET['page_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
             }
     
             ob_start();
@@ -258,9 +258,9 @@ function wpcf_get_submit_form_campaign() {
     $location = $edit_form = $edit_id = $checked = $checked2 = '';
 
     $reward = '';
-    if( isset($_GET['action']) && isset($_GET['postid']) ){
-        if( $_GET['action'] == 'edit' ){
-            $post_id = (int) sanitize_text_field($_GET['postid']);
+    if( isset($_GET['action']) && isset($_GET['postid']) ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+        if( $_GET['action'] == 'edit' ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+            $post_id = (int) sanitize_text_field( wp_unslash( $_GET['postid'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 
             //Prevent if unauthorised access
             $campaign_users = new \WPCF\woocommerce\Submit_Form();
@@ -291,8 +291,8 @@ function wpcf_get_submit_form_campaign() {
                         $title              = get_the_title();
                         $short_description  = get_the_excerpt();
                         $description        = get_the_content();
-                        $category           = strip_tags(get_the_term_list( get_the_ID(), 'product_cat', '', ','));
-                        $tag                = strip_tags( get_the_term_list( get_the_ID(), "product_tag","",", ") );
+                        $category           = wp_strip_all_tags(get_the_term_list( get_the_ID(), 'product_cat', '', ','));
+                        $tag                = wp_strip_all_tags( get_the_term_list( get_the_ID(), "product_tag","",", ") );
                         if ( has_post_thumbnail() ) {
                             $image_url          = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
                             $image_url          = $image_url[0];
@@ -314,7 +314,7 @@ function wpcf_get_submit_form_campaign() {
                         $location           = get_post_meta( get_the_ID(), '_nf_location', true );
                         $reward             = get_post_meta( get_the_ID(), 'wpneo_reward', true );
                         $edit_form          = '<input type="hidden" name="edit_form" value="editform"/>';
-                        $edit_id            = '<input type="hidden" name="edit_post_id" value="'.$_GET["postid"].'"/>';
+                        $edit_id            = '<input type="hidden" name="edit_post_id" value="' . absint( $_GET['postid'] ) . '"/>'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 
                     }
                 }

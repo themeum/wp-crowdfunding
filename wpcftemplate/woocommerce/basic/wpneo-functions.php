@@ -3,8 +3,8 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'wpcf_campaign_listing_before_loop', 'campaign_listing_by_author_before_loop' );
 function campaign_listing_by_author_before_loop() {
-	if ( ! empty( $_GET['author'] ) ) {
-		echo '<h3>' . esc_html__( 'Campaigns by: ', 'wp-crowdfunding' ) . ' ' . esc_html( wpcf_function()->author_name_by_login( sanitize_text_field( trim( $_GET['author'] ) ) ) ) . '</h3>';
+	if ( ! empty( $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+		echo '<h3>' . esc_html__( 'Campaigns by: ', 'wp-crowdfunding' ) . ' ' . esc_html( wpcf_function()->author_name_by_login( sanitize_text_field( wp_unslash( $_GET['author'] ) ) ) ) . '</h3>'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 	}
 }
 
@@ -19,14 +19,12 @@ function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ) {
 		return 0;
 	}
 
-	$order_items_table    = $wpdb->prefix . 'woocommerce_order_items';
-	$order_itemmeta_table = $wpdb->prefix . 'woocommerce_order_itemmeta';
-
-	$query = $wpdb->prepare(
+	return (int) $wpdb->get_var(
+		$wpdb->prepare(
 		"SELECT COUNT(p.ID)
 		FROM {$wpdb->posts} AS p,
-			{$order_items_table} AS i,
-			{$order_itemmeta_table} AS im
+			{$wpdb->prefix}woocommerce_order_items AS i,
+			{$wpdb->prefix}woocommerce_order_itemmeta AS im
 		WHERE p.post_type = 'shop_order'
 			AND p.post_status = 'wc-completed'
 			AND i.order_id = p.ID
@@ -34,7 +32,7 @@ function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ) {
 			AND im.meta_key = '_product_id'
 			AND im.order_item_id IN (
 				SELECT DISTINCT order_item_id
-				FROM {$order_itemmeta_table}
+				FROM {$wpdb->prefix}woocommerce_order_itemmeta
 				WHERE meta_key = '_line_total'
 					AND meta_value BETWEEN %f AND %f
 			)
@@ -42,120 +40,159 @@ function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ) {
 		$min_data,
 		$max_data,
 		$post_id
+	)
 	);
-
-	return (int) $wpdb->get_var( $query );
 }
 
 // Bio Data View.
 add_action( 'wp_ajax_nopriv_wpcf_bio_action', 'wpcf_bio_campaign_action' );
 add_action( 'wp_ajax_wpcf_bio_action', 'wpcf_bio_campaign_action' );
-function wpcf_bio_campaign_action() {
 
-	if ( ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
-		die(
-			json_encode(
-				array(
-					'success' => 0,
-					'message' => __( 'Invalid request!', 'wp-crowdfunding' ),
-				)
+/**
+ * Whether a user has chosen to show their contact details on their public creator profile.
+ *
+ * @since 2.2.3
+ *
+ * @param int $user_id User ID.
+ * @return bool
+ */
+function wpcf_user_shows_public_contact( $user_id ) {
+	return '1' === get_user_meta( absint( $user_id ), 'profile_show_contact', true );
+}
+
+/**
+ * Return the public profile of a campaign creator for the bio popup.
+ *
+ * Only users with at least one published crowdfunding campaign have a public
+ * profile, and contact details are only included when the creator opted in.
+ */
+function wpcf_bio_campaign_action() {
+	$invalid = array(
+		'success' => 0,
+		'message' => __( 'Invalid request!', 'wp-crowdfunding' ),
+	);
+
+	if ( ! check_ajax_referer( 'cf_ajax_nonce', 'nonce', false ) ) {
+		wp_send_json( $invalid );
+	}
+
+	$author      = isset( $_POST['author'] ) ? absint( wp_unslash( $_POST['author'] ) ) : 0;
+	$campaign_id = isset( $_POST['campaign_id'] ) ? absint( wp_unslash( $_POST['campaign_id'] ) ) : 0;
+	$creator     = $author ? get_userdata( $author ) : false;
+
+	// Only campaign creators have a public profile. Do not reveal whether other user IDs exist.
+	if ( ! $creator || 0 === (int) wpcf_function()->author_campaigns( $author )->post_count ) {
+		wp_send_json(
+			array(
+				'success' => 0,
+				'message' => __( 'Profile not found.', 'wp-crowdfunding' ),
 			)
 		);
 	}
 
-	$html   = '';
-	$author = sanitize_text_field( $_POST['author'] );
-	if ( $author ) {
+	// The campaign is only used for its location, and must be a published campaign by this creator.
+	if ( $campaign_id ) {
+		$campaign = get_post( $campaign_id );
+		$product  = $campaign ? wc_get_product( $campaign_id ) : false;
+		if ( ! $campaign || 'publish' !== $campaign->post_status || (int) $campaign->post_author !== $author || ! $product || ! $product->is_type( 'crowdfunding' ) ) {
+			$campaign_id = 0;
+		}
+	}
 
-		$user_info = get_user_meta( $author );
-		$creator   = get_user_by( 'id', $author );
-		$html     .= '<div  class="wpneo-profile">';
-		if ( $creator->ID ) {
-			$img_src  = '';
-			$image_id = get_user_meta( $creator->ID, 'profile_image_id', true );
-			if ( $image_id != '' ) {
-				$img_src = wp_get_attachment_image_src( $image_id, 'full' );
-				$img_src = $img_src[0];
-			}
-			if ( ! empty( $img_src ) ) {
-				$html .= '<img width="105" height="105" class="profile-avatar" srcset="' . esc_url( $img_src ) . '" alt="">';
-			}
+	$user_info    = get_user_meta( $author );
+	$show_contact = wpcf_user_shows_public_contact( $author );
+	$meta         = function ( $key ) use ( $user_info ) {
+		return ! empty( $user_info[ $key ][0] ) ? $user_info[ $key ][0] : '';
+	};
+
+	$html     = '<div class="wpneo-profile">';
+	$image_id = absint( $meta( 'profile_image_id' ) );
+	if ( $image_id ) {
+		$img_src = wp_get_attachment_image_url( $image_id, 'full' );
+		if ( $img_src ) {
+			$html .= '<img width="105" height="105" class="profile-avatar" src="' . esc_url( $img_src ) . '" alt="">';
 		}
-		$html    .= '</div>';
-		$html    .= '<div class="wpneo-profile">';
-		$html    .= '<div class="wpneo-profile-name"><a href="' . esc_url( wpcf_function()->campaign_url( $creator->ID ) ) . '">' . esc_html( wpcf_function()->get_author_name( $creator->ID ) ) . '</a></div>';
-		$location = wpcf_function()->campaign_location();
-		if ( $location ) {
-			$html .= '<div class="wpneo-profile-location">';
-			$html .= '<i class="wpneo-icon wpneo-icon-location"></i> <span>' . esc_html( $location ) . '</span>';
-			$html .= '</div>';
-		}
-		$html .= '<div class="wpneo-profile-campaigns">' . wpcf_function()->author_campaigns( $author )->post_count . __( ' Campaigns', 'wp-crowdfunding' ) . ' | ' . wpcf_function()->loved_count() . __( ' Loved campaigns', 'wp-crowdfunding' ) . '</div>';
+	}
+	$html .= '</div>';
+
+	$html .= '<div class="wpneo-profile">';
+	$html .= '<div class="wpneo-profile-name"><a href="' . esc_url( wpcf_function()->campaign_url( $author ) ) . '">' . esc_html( wpcf_function()->get_author_name( $author ) ) . '</a></div>';
+
+	$location = $campaign_id ? wpcf_function()->campaign_location( $campaign_id ) : '';
+	if ( $location ) {
+		$html .= '<div class="wpneo-profile-location">';
+		$html .= '<i class="wpneo-icon wpneo-icon-location"></i> <span>' . esc_html( $location ) . '</span>';
 		$html .= '</div>';
+	}
+	$html .= '<div class="wpneo-profile-campaigns">' . esc_html( wpcf_function()->author_campaigns( $author )->post_count ) . esc_html__( ' Campaigns', 'wp-crowdfunding' ) . ' | ' . esc_html( wpcf_function()->loved_count() ) . esc_html__( ' Loved campaigns', 'wp-crowdfunding' ) . '</div>';
+	$html .= '</div>';
 
-		if ( ! empty( $user_info['profile_about'][0] ) ) {
-			$html .= '<div class="wpneo-profile-about">';
-			$html .= '<h3>' . esc_html__( 'Profile Information', 'wp-crowdfunding' ) . '</h3>';
-			$html .= '<p>' . esc_html( $user_info['profile_about'][0] ) . '</p>';
-			$html .= '</div>';
-		}
-
-		if ( ! empty( $user_info['profile_portfolio'][0] ) ) {
-			$html .= '<div class="wpneo-profile-about">';
-			$html .= '<h3>' . esc_html__( 'Portfolio', 'wp-crowdfunding' ) . '</h3>';
-			$html .= '<p>' . esc_html( $user_info['profile_portfolio'][0] ) . '</p>';
-			$html .= '</div>';
-		}
-
+	if ( $meta( 'profile_about' ) ) {
 		$html .= '<div class="wpneo-profile-about">';
-		$html .= '<h3>' . esc_html__( 'Contact Info', 'wp-crowdfunding' ) . '</h3>';
-		if ( ! empty( $user_info['profile_email1'][0] ) ) {
-			$html .= '<p>' . esc_html__( 'Email: ', 'wp-crowdfunding' ) . esc_html( $user_info['profile_email1'][0] ) . '</p>';
-		}
-		if ( ! empty( $user_info['profile_mobile1'][0] ) ) {
-			$html .= '<p>' . esc_html__( 'Phone: ', 'wp-crowdfunding' ) . esc_html( $user_info['profile_mobile1'][0] ) . '</p>';
-		}
-		if ( ! empty( $user_info['profile_fax'][0] ) ) {
-			$html .= '<p>' . esc_html__( 'Fax: ', 'wp-crowdfunding' ) . esc_html( $user_info['profile_fax'][0] ) . '</p>';
-		}
-		if ( ! empty( $user_info['profile_website'][0] ) ) {
-			$website_url = esc_url( wpcf_function()->url( $user_info['profile_website'][0] ) );
-			$html       .= '<p>' . esc_html__( 'Website: ', 'wp-crowdfunding' ) . ' <a href="' . $website_url . '"> ' . esc_html( $website_url ) . ' </a></p>';
-		}
-		if ( ! empty( $user_info['profile_email1'][0] ) ) {
-			$html .= '<a class="wpneo-profile-button" href="mailto:' . antispambot( sanitize_email( $user_info['profile_email1'][0] ) ) . '" target="_top">' . esc_html__( 'Contact Me', 'wp-crowdfunding' ) . '</a>';
-		}
+		$html .= '<h3>' . esc_html__( 'Profile Information', 'wp-crowdfunding' ) . '</h3>';
+		$html .= '<p>' . esc_html( $meta( 'profile_about' ) ) . '</p>';
 		$html .= '</div>';
+	}
 
+	if ( $meta( 'profile_portfolio' ) ) {
+		$html .= '<div class="wpneo-profile-about">';
+		$html .= '<h3>' . esc_html__( 'Portfolio', 'wp-crowdfunding' ) . '</h3>';
+		$html .= '<p>' . esc_html( $meta( 'profile_portfolio' ) ) . '</p>';
+		$html .= '</div>';
+	}
+
+	if ( $show_contact ) {
+		$email   = sanitize_email( $meta( 'profile_email1' ) );
+		$contact = '';
+		if ( $email ) {
+			$contact .= '<p>' . esc_html__( 'Email: ', 'wp-crowdfunding' ) . esc_html( antispambot( $email ) ) . '</p>';
+		}
+		if ( $meta( 'profile_mobile1' ) ) {
+			$contact .= '<p>' . esc_html__( 'Phone: ', 'wp-crowdfunding' ) . esc_html( $meta( 'profile_mobile1' ) ) . '</p>';
+		}
+		if ( $meta( 'profile_fax' ) ) {
+			$contact .= '<p>' . esc_html__( 'Fax: ', 'wp-crowdfunding' ) . esc_html( $meta( 'profile_fax' ) ) . '</p>';
+		}
+		if ( $meta( 'profile_website' ) ) {
+			$website_url = esc_url( wpcf_function()->url( $meta( 'profile_website' ) ) );
+			$contact    .= '<p>' . esc_html__( 'Website: ', 'wp-crowdfunding' ) . ' <a href="' . $website_url . '" rel="nofollow noopener"> ' . esc_html( $website_url ) . ' </a></p>';
+		}
+		if ( $email ) {
+			$contact .= '<a class="wpneo-profile-button" href="' . esc_url( 'mailto:' . antispambot( $email ) ) . '" target="_top">' . esc_html__( 'Contact Me', 'wp-crowdfunding' ) . '</a>';
+		}
+		if ( $contact ) {
+			$html .= '<div class="wpneo-profile-about">';
+			$html .= '<h3>' . esc_html__( 'Contact Info', 'wp-crowdfunding' ) . '</h3>';
+			$html .= $contact;
+			$html .= '</div>';
+		}
+	}
+
+	$social = array(
+		'profile_facebook'  => 'wpneo-icon-facebook',
+		'profile_twitter'   => 'wpneo-icon-twitter',
+		'profile_vk'        => 'wpneo-icon-gplus',
+		'profile_linkedin'  => 'wpneo-icon-linkedin',
+		'profile_pinterest' => 'wpneo-icon-pinterest',
+	);
+	$links  = '';
+	foreach ( $social as $key => $icon ) {
+		if ( $meta( $key ) ) {
+			$links .= '<a class="wpcf-social-link" href="' . esc_url( $meta( $key ) ) . '" rel="nofollow noopener"><i class="wpneo-icon ' . esc_attr( $icon ) . '"></i></a>';
+		}
+	}
+	if ( $links ) {
 		$html .= '<div class="wpneo-profile-about">';
 		$html .= '<h3>' . esc_html__( 'Social Link', 'wp-crowdfunding' ) . '</h3>';
-		if ( ! empty( $user_info['profile_facebook'][0] ) ) {
-			$html .= '<a class="wpcf-social-link" href="' . esc_url( $user_info['profile_facebook'][0] ) . '"><i class="wpneo-icon wpneo-icon-facebook"></i></a>';
-		}
-		if ( ! empty( $user_info['profile_twitter'][0] ) ) {
-			$html .= '<a class="wpcf-social-link" href="' . esc_url( $user_info['profile_twitter'][0] ) . '"><i class="wpneo-icon wpneo-icon-twitter"></i></a>';
-		}
-		if ( ! empty( $user_info['profile_vk'][0] ) ) {
-			$html .= '<a class="wpcf-social-link" href="' . esc_url( $user_info['profile_vk'][0] ) . '"><i class="wpneo-icon wpneo-icon-gplus"></i></a>';
-		}
-		if ( ! empty( $user_info['profile_linkedin'][0] ) ) {
-			$html .= '<a class="wpcf-social-link" href="' . esc_url( $user_info['profile_linkedin'][0] ) . '"><i class="wpneo-icon wpneo-icon-linkedin"></i></a>';
-		}
-		if ( ! empty( $user_info['profile_pinterest'][0] ) ) {
-			$html .= '<a class="wpcf-social-link" href="' . esc_url( $user_info['profile_pinterest'][0] ) . '"><i class="wpneo-icon wpneo-icon-pinterest"></i></a>';
-		}
+		$html .= $links;
 		$html .= '</div>';
-
-		$title = __( 'About the campaign creator', 'wp-crowdfunding' );
-
-		die(
-			json_encode(
-				array(
-					'success' => 1,
-					'message' => $html,
-					'title'   => $title,
-				)
-			)
-		);
 	}
+
+	wp_send_json(
+		array(
+			'success' => 1,
+			'message' => $html,
+			'title'   => __( 'About the campaign creator', 'wp-crowdfunding' ),
+		)
+	);
 }

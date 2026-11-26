@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 get_header(); ?>
 <div id="wpneo-primary">
 	<?php

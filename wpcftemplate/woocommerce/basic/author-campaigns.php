@@ -1,4 +1,6 @@
-<?php get_header();
+<?php
+defined( 'ABSPATH' ) || exit;
+get_header();
 global $wp_query;
 ?>
 	<section id="main">
@@ -89,7 +91,7 @@ global $wp_query;
 								wp_reset_postdata();
 								wc_reset_loop();
 							}
-							echo '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . ob_get_clean() . '</div>';
+							echo '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses( ob_get_clean(), wpcf_function()->allowed_html() ) . '</div>';
 							?>
 
 					</div>

@@ -371,7 +371,7 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 
 		public function activate_woocommerce_free() {
 			activate_plugin( 'woocommerce/woocommerce.php' );
-			wp_redirect( admin_url( 'admin.php?page=wpcf-crowdfunding' ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=wpcf-crowdfunding' ) );
 			exit();
 		}
 
@@ -417,7 +417,7 @@ if ( ! class_exists( 'Initial_Setup' ) ) {
 				wp_die( esc_html( $api->get_error_message() ) );
 			}
 
-			$title = sprintf( esc_html__( 'Installing Plugin: %s' ), $api->name . ' ' . $api->version );
+			$title = sprintf( /* translators: %s: plugin name and version */ esc_html__( 'Installing Plugin: %s', 'wp-crowdfunding' ), $api->name . ' ' . $api->version );
 			$nonce = 'install-plugin_' . $plugin;
 			$url   = 'update.php?action=install-plugin&plugin=' . urlencode( $plugin );
 

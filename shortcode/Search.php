@@ -16,7 +16,7 @@ class Search {
 				type="search"
 				class="search-field"
 				placeholder="<?php esc_html_e( 'Search', 'wp-crowdfunding' ); ?>"
-				value="<?php echo esc_attr( isset( $_GET['s'] ) ? wp_unslash( $_GET['s'] ) : '' ); ?>"
+				value="<?php echo esc_attr( isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Search term echoed back into the search box. ?>"
 				name="s"
 			/>
 			<input type="hidden" name="post_type" value="product">

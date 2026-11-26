@@ -71,7 +71,7 @@ class Dashboard {
 			$html .= '<li><span><strong>' . $on_hole_total_orders . ' </strong> ' . __( 'On-Hold Orders', 'wp-crowdfunding' ) . '</span></li>';
 			$html .= '<li><span><strong>' . get_woocommerce_currency_symbol() . $total_campaign_orders . ' </strong> ' . __( 'Total Donation Raised', 'wp-crowdfunding' ) . '</span></li>';
 		$html     .= '</ul>';
-		echo $html;
+		echo wp_kses( $html, wpcf_function()->allowed_html() );
 	}
 
 	/**
@@ -84,20 +84,23 @@ class Dashboard {
 	public function totalOrdersSalesAmount( $in_campaign_ids_string, $order_status = 'wc-completed' ) {
 
 		global $wpdb;
-		$query = "SELECT 
-                    SUM(ltoim.meta_value) as total_sales_amount, COUNT(ltoim.meta_value) as total_orders 
-                FROM 
-                    {$wpdb->prefix}woocommerce_order_itemmeta woim 
-                LEFT JOIN 
-                    {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
-                LEFT JOIN 
-                    {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID
-                LEFT JOIN 
-                    {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
-                WHERE 
-                    woim.meta_key = '_product_id' AND woim.meta_value IN ({$in_campaign_ids_string}) AND wpposts.post_status = '{$order_status}';";
-
-		$wp_sql = $wpdb->get_row( $query );
+		$campaign_ids = array_filter( array_map( 'absint', explode( ',', (string) $in_campaign_ids_string ) ) );
+		if ( empty( $campaign_ids ) ) {
+			return null;
+		}
+		$wp_sql = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT SUM(ltoim.meta_value) as total_sales_amount, COUNT(ltoim.meta_value) as total_orders
+				FROM {$wpdb->prefix}woocommerce_order_itemmeta woim
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
+				LEFT JOIN {$wpdb->prefix}posts wpposts ON order_id = wpposts.ID
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta ltoim ON ltoim.order_item_id = oi.order_item_id AND ltoim.meta_key = '_line_total'
+				WHERE woim.meta_key = '_product_id'
+				AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $campaign_ids ), '%d' ) ) . ' )
+				AND wpposts.post_status = %s',
+				array_merge( array_values( $campaign_ids ), array( sanitize_key( $order_status ) ) )
+			)
+		);
 		return $wp_sql;
 	}
 
@@ -207,7 +210,7 @@ class Dashboard {
 			$html .= '</tr>';
 
 		$html .= '</table>';
-		echo $html;
+		echo wp_kses( $html, wpcf_function()->allowed_html() );
 	}
 
 	/**
@@ -216,6 +219,10 @@ class Dashboard {
 
 	function selected_reward_meta_box() {
 		global $post;
+		// No global post on the HPOS order screen.
+		if ( ! $post instanceof \WP_Post ) {
+			return;
+		}
 		// Check is reward selected
 		$r = get_post_meta( $post->ID, 'wpneo_selected_reward', true );
 		if ( ! empty( $r ) && is_array( $r ) ) {
@@ -259,7 +266,7 @@ class Dashboard {
 
 	// Odrer Data View
 	public function order_campaign_action() {
-        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'cf_ajax_nonce' ) ) {
+        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'cf_ajax_nonce' ) ) {
 			die(
 				json_encode(
 					array(
@@ -314,8 +321,8 @@ class Dashboard {
 
 			$html .= '<table>';
 			$html .= '<tr>';
-			$html .= '<th>' . __( 'Product', 'woocommerce' ) . '</th>';
-			$html .= '<th>' . __( 'Total', 'woocommerce' ) . '</th>';
+			$html .= '<th>' . __( 'Product', 'wp-crowdfunding' ) . '</th>';
+			$html .= '<th>' . __( 'Total', 'wp-crowdfunding' ) . '</th>';
 			$html .= '</tr>';
 			$html .= '<tbody>';
 

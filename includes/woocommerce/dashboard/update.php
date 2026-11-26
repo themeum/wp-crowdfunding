@@ -1,14 +1,14 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$post_id = (int) $_GET['postid'];
+$post_id = isset( $_GET['postid'] ) ? absint( $_GET['postid'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 $saved_campaign_update = get_post_meta($post_id, 'wpneo_campaign_updates', true);
 $saved_campaign_update_a = (array) json_decode($saved_campaign_update, true);
 
-if(isset($_GET["postid"])){
-    $post_author = get_post_field( 'post_author', $_GET["postid"] );
+if( $post_id ){
+    $post_author = get_post_field( 'post_author', $post_id );
     if( $post_author == get_current_user_id() ){
-        $var = get_post_meta( $_GET["postid"],"wpneo_campaign_updates",true );
+        $var = get_post_meta( $post_id, "wpneo_campaign_updates", true );
     }
 }
 
@@ -29,7 +29,7 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
             $html .= '<div class="campaign_update_field_copy">';
                 $html .= '<p class="form-field wpneo_prject_update_date_field[]_field wpneo-single wpneo-first-half">';
                     $html .= '<label for="wpneo_prject_update_date_field[]">'.__("Date", "wp-crowdfunding").':</label>';
-                    $html .= '<input type="text" autocomplete="off" placeholder="'.date('d-m-Y').'" value="" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="update-datepicker">';
+                    $html .= '<input type="text" autocomplete="off" placeholder="'.gmdate('d-m-Y').'" value="" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="update-datepicker">';
                 $html .= '</p>';
                 $html .= '<p class="form-field wpneo_prject_update_title_field[]_field wpneo-single wpneo-second-half">';
                     $html .= '<label for="wpneo_prject_update_title_field[]">'.__("Update Title", "wp-crowdfunding").':</label>';
@@ -49,7 +49,7 @@ $html .= '<div id="wpneo_update_form_wrapper" style="display: none;">';
                     $html .= '<div class="campaign_update_field_copy">';
                         $html .= '<p class="form-field wpneo_prject_update_date_field[]_field wpneo-single wpneo-first-half">';
                             $html .= '<label for="wpneo_prject_update_date_field[]">'.__("Date", "wp-crowdfunding").':</label>';
-                            $html .= '<input type="text" autocomplete="off" placeholder="'.date('d-m-Y').'" value="'.esc_attr($value['date']).'" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="update-datepicker">';
+                            $html .= '<input type="text" autocomplete="off" placeholder="'.gmdate('d-m-Y').'" value="'.esc_attr($value['date']).'" id="wpneo_prject_update_date_field[]" name="wpneo_prject_update_date_field[]" style="" class="update-datepicker">';
                         $html .= '</p>';
                         $html .= '<p class="form-field wpneo_prject_update_title_field[]_field wpneo-single wpneo-second-half">';
                             $html .= '<label for="wpneo_prject_update_title_field[]">'.__("Update Title", "wp-crowdfunding").':</label>';

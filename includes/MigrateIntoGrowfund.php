@@ -44,7 +44,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                 wp_send_json_error();
             }
 
-            if ($_GET['referer'] !== 'wp-crowdfunding') {
+            if ( ! isset( $_GET['referer'] ) || 'wp-crowdfunding' !== sanitize_key( wp_unslash( $_GET['referer'] ) ) ) {
                wp_send_json_error();
             }
 
@@ -90,7 +90,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                 'iteration' => ++$last_check_info['iteration']
             ]);
 
-            wp_redirect( wp_get_referer() );
+            wp_safe_redirect( wp_get_referer() );
 
             die();
         }
@@ -112,7 +112,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                 )
             );
 
-            wp_redirect( $action_url );
+            wp_safe_redirect( $action_url );
             die();
         }
 
@@ -168,7 +168,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
                 wp_send_json_error();
             }
 
-            if ($_GET['referer'] !== 'wp-crowdfunding') {
+            if ( ! isset( $_GET['referer'] ) || 'wp-crowdfunding' !== sanitize_key( wp_unslash( $_GET['referer'] ) ) ) {
                wp_send_json_error();
             }
 
@@ -188,7 +188,7 @@ if ( ! class_exists( 'MigrateIntoGrowfund' ) ) {
 
             do_action( 'growfund_apply_onboarding_from_wp_crowdfunding' );
 
-            wp_redirect( admin_url( 'admin.php?page=growfund&referer=wp-crowdfunding#/migrate-from-crowdfunding' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=growfund&referer=wp-crowdfunding#/migrate-from-crowdfunding' ) );
             die();
         }
 

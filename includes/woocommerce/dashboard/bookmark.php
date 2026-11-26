@@ -53,7 +53,7 @@ ob_start(); ?>
 				<p><?php esc_html_e( 'Sorry, No bookmark found.', 'wp-crowdfunding' ); ?></p>
 			<?php endif; ?>
 		</div>
-		<?php echo wpcf_function()->get_pagination( $page_numb, $the_query->max_num_pages ); ?>
+		<?php echo wp_kses_post( wpcf_function()->get_pagination( $page_numb, $the_query->max_num_pages ) ); ?>
 	</div>
 </div>
 

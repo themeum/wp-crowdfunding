@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * Generate Reports
  */
@@ -7,62 +8,62 @@ $user_id      = $current_user->ID;
 
 global $wpdb, $wp;
 $date_range         = '';
-$given_to_date      = date( 'Y-m-d 23:59:59' );
-$from_date          = date( 'Y-m-d 00:00:00', strtotime( '-6 days' ) );
+$given_to_date      = gmdate( 'Y-m-d 23:59:59' );
+$from_date          = gmdate( 'Y-m-d 00:00:00', strtotime( '-6 days' ) );
 $chart_bottom_title = '1W';
 $query_range        = 'day_wise';
 
-if ( ! empty( $_GET['date_range'] ) ) {
-	$date_range = sanitize_text_field( $_GET['date_range'] );
+if ( ! empty( $_GET['date_range'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+	$date_range = sanitize_text_field( wp_unslash( $_GET['date_range'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 	switch ( $date_range ) {
 		case 'last_7_days':
 			$chart_bottom_title = __( '1W', 'wp-crowdfunding' );
 			$query_range        = 'day_wise';
 			break;
 		case 'last_14_days':
-			$to_date            = date( 'Y-m-d 23:59:59' );
-			$from_date          = date( 'Y-m-01 00:00:00' );
+			$to_date            = gmdate( 'Y-m-d 23:59:59' );
+			$from_date          = gmdate( 'Y-m-01 00:00:00' );
 			$chart_bottom_title = __( '2W', 'wp-crowdfunding' );
 			$query_range        = 'day_wise';
 			break;
 
 		case 'this_month':
-			$to_date            = date( 'Y-m-d 23:59:59' );
-			$from_date          = date( 'Y-m-01 00:00:00' );
+			$to_date            = gmdate( 'Y-m-d 23:59:59' );
+			$from_date          = gmdate( 'Y-m-01 00:00:00' );
 			$chart_bottom_title = __( '1M', 'wp-crowdfunding' );
 			$query_range        = 'day_wise';
 			break;
 
 		case 'last_3_months':
-			$to_date            = date( 'Y-m-t 23:59:59', strtotime( '-1 month' ) );
-			$from_date          = date( 'Y-m-01 00:00:00', strtotime( '-3 month' ) );
+			$to_date            = gmdate( 'Y-m-t 23:59:59', strtotime( '-1 month' ) );
+			$from_date          = gmdate( 'Y-m-01 00:00:00', strtotime( '-3 month' ) );
 			$chart_bottom_title = __( '3M', 'wp-crowdfunding' );
 			$query_range        = 'month_wise';
 			break;
 
 		case 'last_6_months':
-			$to_date            = date( 'Y-m-t 23:59:59', strtotime( '-1 month' ) );
-			$from_date          = date( 'Y-m-01 00:00:00', strtotime( '-6 month' ) );
+			$to_date            = gmdate( 'Y-m-t 23:59:59', strtotime( '-1 month' ) );
+			$from_date          = gmdate( 'Y-m-01 00:00:00', strtotime( '-6 month' ) );
 			$chart_bottom_title = __( '6M', 'wp-crowdfunding' );
 			$query_range        = 'month_wise';
 			break;
 
 		case 'this_year':
-			$to_date            = date( 'Y-m-d 23:59:59' );
-			$from_date          = date( 'Y-01-01 00:00:00' );
-			$chart_bottom_title = 'This Year (' . date( 'Y' ) . ')';
+			$to_date            = gmdate( 'Y-m-d 23:59:59' );
+			$from_date          = gmdate( 'Y-01-01 00:00:00' );
+			$chart_bottom_title = 'This Year (' . gmdate( 'Y' ) . ')';
 			$query_range        = __( '1Y', 'wp-crowdfunding' );
 			break;
 	}
 }
 
-if ( ! empty( $_GET['date_range_from'] ) ) {
-	$from_date = sanitize_text_field( $_GET['date_range_from'] );
+if ( ! empty( $_GET['date_range_from'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+	$from_date = sanitize_text_field( wp_unslash( $_GET['date_range_from'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 }
-if ( ! empty( $_GET['date_range_to'] ) ) {
-	$given_to_date = sanitize_text_field( $_GET['date_range_to'] );
+if ( ! empty( $_GET['date_range_to'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+	$given_to_date = sanitize_text_field( wp_unslash( $_GET['date_range_to'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 }
-$to_date                   = date( 'Y-m-d', strtotime( $given_to_date . ' +1 days' ) );
+$to_date                   = gmdate( 'Y-m-d', strtotime( $given_to_date . ' +1 days' ) );
 $total_backers_amount_ever = array();
 $from_time                 = strtotime( '-1 day', strtotime( $from_date ) );
 $to_time                   = strtotime( '-1 day', strtotime( $to_date ) );
@@ -74,6 +75,10 @@ $label                     = array();
 
 $product_ids                   = wpcf_function()->get_products_id_by_user();
 $getting_order_ids_by_products = wpcf_function()->get_order_ids_by_product_ids( $product_ids );
+$order_ids_in                  = array_values( array_filter( array_map( 'absint', (array) $getting_order_ids_by_products ) ) );
+if ( empty( $order_ids_in ) ) {
+	$order_ids_in = array( 0 );
+}
 
 if ( $from_time < $to_time ) {
 	// $format .= "['Date', 'Pledge Amount (".get_woocommerce_currency().")', 'Sales'],";
@@ -82,22 +87,34 @@ if ( $from_time < $to_time ) {
 
 		while ( $from_time < $to_time ) {
 			$from_time    = strtotime( '+1 day', $from_time );
-			$printed_date = date( 'd M', $from_time );
+			$printed_date = gmdate( 'd M', $from_time );
 
-			$sql = "SELECT ID, DATE_FORMAT(post_date, '%d %b') AS order_time  ,$wpdb->postmeta.*, GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids FROM $wpdb->posts 
-LEFT JOIN $wpdb->postmeta 
-ON $wpdb->posts.ID = $wpdb->postmeta.post_id
-WHERE $wpdb->posts.post_type = 'shop_order' AND $wpdb->posts.ID IN ( '" . implode( "','", $getting_order_ids_by_products ) . "' )
-AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'wc-completed'  AND post_date LIKE 
-'" . date( 'Y-m-d%', $from_time ) . "' group by order_time";
-
+			$sql_args = array_merge( $order_ids_in, array( $wpdb->esc_like( gmdate( 'Y-m-d', $from_time ) ) . '%' ) );
+			$results  = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT ID, DATE_FORMAT(post_date, '%%d %%b') AS order_time, {$wpdb->postmeta}.*, GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids
+					FROM {$wpdb->posts}
+					LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
+					WHERE {$wpdb->posts}.post_type = 'shop_order'
+					AND {$wpdb->posts}.ID IN ( " . implode( ',', array_fill( 0, count( $order_ids_in ), '%d' ) ) . " )
+					AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'wc-completed'
+					AND post_date LIKE %s
+					GROUP BY order_time",
+					$sql_args
+				)
+			);
 			$sales_count          = 0;
-			$results              = $wpdb->get_results( $sql );
 			$total_backers_amount = array();
 
 			if ( $results ) {
 				foreach ( $results as $result ) {
-					$total_backers_amount[] = $wpdb->get_var( "(SELECT SUM(meta_value) from $wpdb->postmeta where post_id IN({$result->order_ids}) and meta_key = '_order_total' )" );
+					$row_order_ids          = array_values( array_filter( array_map( 'absint', explode( ',', (string) $result->order_ids ) ) ) );
+					$total_backers_amount[] = $row_order_ids ? $wpdb->get_var(
+						$wpdb->prepare(
+							"SELECT SUM(meta_value) FROM {$wpdb->postmeta} WHERE meta_key = '_order_total' AND post_id IN ( " . implode( ',', array_fill( 0, count( $row_order_ids ), '%d' ) ) . ' )',
+							$row_order_ids
+						)
+					) : 0;
 					$sales_count            = count( explode( ',', $result->order_ids ) );
 				}
 			} else {
@@ -106,7 +123,7 @@ AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'w
 
 			$csv[]                       = array( $printed_date, $total_backers_amount, $sales_count );
 			$format[]                    = array_sum( $total_backers_amount );
-			$label[]                     = "'{$printed_date}'";
+			$label[]                     = $printed_date;
 			$sales_count_ever[]          = $sales_count; // Get Total backers amount and sales count all time
 			$total_backers_amount_ever[] = array_sum( $total_backers_amount );
 		}
@@ -116,26 +133,34 @@ AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'w
 
 		while ( $from_time < $to_time ) {
 			$from_time    = strtotime( '+1 month', $from_time );
-			$printed_date = date( 'F', $from_time );
+			$printed_date = gmdate( 'F', $from_time );
 
-			$sql = "SELECT 
-                        ID, MONTHNAME(post_date) AS order_time  ,$wpdb->postmeta.*, GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids 
-                    FROM 
-                        $wpdb->posts 
-                    LEFT JOIN 
-                        $wpdb->postmeta ON $wpdb->posts.ID = $wpdb->postmeta.post_id 
-                    WHERE 
-                        $wpdb->posts.post_type = 'shop_order'  AND $wpdb->posts.ID IN ( '" . implode( "','", $getting_order_ids_by_products ) . "' ) AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'wc-completed' AND post_date 
-                    LIKE 
-                        '" . date( 'Y-m%', $from_time ) . "' group by order_time";
-
+			$sql_args = array_merge( $order_ids_in, array( $wpdb->esc_like( gmdate( 'Y-m', $from_time ) ) . '%' ) );
+			$results  = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT ID, MONTHNAME(post_date) AS order_time, {$wpdb->postmeta}.*, GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids
+					FROM {$wpdb->posts}
+					LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
+					WHERE {$wpdb->posts}.post_type = 'shop_order'
+					AND {$wpdb->posts}.ID IN ( " . implode( ',', array_fill( 0, count( $order_ids_in ), '%d' ) ) . " )
+					AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'wc-completed'
+					AND post_date LIKE %s
+					GROUP BY order_time",
+					$sql_args
+				)
+			);
 			$sales_count          = 0;
-			$results              = $wpdb->get_results( $sql );
 			$total_backers_amount = array();
 
 			if ( $results ) {
 				foreach ( $results as $result ) {
-					$total_backers_amount[] = $wpdb->get_var( "(SELECT SUM(meta_value) from $wpdb->postmeta where post_id IN({$result->order_ids}) and meta_key = '_order_total' )" );
+					$row_order_ids          = array_values( array_filter( array_map( 'absint', explode( ',', (string) $result->order_ids ) ) ) );
+					$total_backers_amount[] = $row_order_ids ? $wpdb->get_var(
+						$wpdb->prepare(
+							"SELECT SUM(meta_value) FROM {$wpdb->postmeta} WHERE meta_key = '_order_total' AND post_id IN ( " . implode( ',', array_fill( 0, count( $row_order_ids ), '%d' ) ) . ' )',
+							$row_order_ids
+						)
+					) : 0;
 					$sales_count            = count( explode( ',', $result->order_ids ) );
 				}
 			} else {
@@ -144,7 +169,7 @@ AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'w
 
 			$csv[]    = array( $printed_date, $total_backers_amount, $sales_count );
 			$format[] = array_sum( $total_backers_amount );
-			$label[]  = "'{$printed_date}'";
+			$label[]  = $printed_date;
 
 			$sales_count_ever[]          = $sales_count; // Get Total backers amount and sales count all time
 			$total_backers_amount_ever[] = array_sum( $total_backers_amount );
@@ -171,11 +196,11 @@ $query_args = array(
 
 	'date_query'  => array(
 		array(
-			'after'     => date( 'F jS, Y', strtotime( $from_date ) ),
+			'after'     => gmdate( 'F jS, Y', strtotime( $from_date ) ),
 			'before'    => array(
-				'year'  => date( 'Y', strtotime( $to_date ) ),
-				'month' => date( 'm', strtotime( $to_date ) ),
-				'day'   => date( 'd', strtotime( $to_date ) ),
+				'year'  => gmdate( 'Y', strtotime( $to_date ) ),
+				'month' => gmdate( 'm', strtotime( $to_date ) ),
+				'day'   => gmdate( 'd', strtotime( $to_date ) ),
 			),
 			'inclusive' => true,
 		),
@@ -202,9 +227,9 @@ $pladges_received = wpcf_function()->get_pladge_received( $from_date, $to_date )
 		<div class="dashboard-head-right">
 			<form method="get" action="" class="dashboard-head-date">
 				<input type="hidden" name="page" value="wpcrowd-crowdfunding-reports" />
-				<input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo esc_html( date( 'Y-m-d', strtotime( $from_date ) ) ); ?>" placeholder="From" />
+				<input type="text" id="datepicker" name="date_range_from" class="datepickers_1" value="<?php echo esc_html( gmdate( 'Y-m-d', strtotime( $from_date ) ) ); ?>" placeholder="From" />
 				<span><?php esc_html_e( 'to', 'wp-crowdfunding' ); ?></span>
-				<input type="text" name="date_range_to" class="datepickers_1" value="<?php echo esc_html( date( 'Y-m-d', strtotime( $given_to_date ) ) ); ?>" placeholder="To" />
+				<input type="text" name="date_range_to" class="datepickers_1" value="<?php echo esc_html( gmdate( 'Y-m-d', strtotime( $given_to_date ) ) ); ?>" placeholder="To" />
 				<button type="submit" class="wp-crowd-btn wp-crowd-btn-primary" id="search-submit"><?php esc_html_e( 'Search', 'wp-crowdfunding' ); ?></button>
 			</form>
 		</div><!--dashboard-head-right-->
@@ -220,18 +245,18 @@ $pladges_received = wpcf_function()->get_pladge_received( $from_date, $to_date )
 	<canvas id="WPcrowdFundChart" width="400" height="60"></canvas>
 </div><!--"wpneo-dashboard-chart-->
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
-<script type="text/javascript">
+<?php wp_enqueue_script( 'wpcf-chartjs', WPCF_DIR_URL . 'assets/js/Chart.bundle.min.js', array(), '2.7.0', true ); ?>
+<?php ob_start(); ?>
 	jQuery(document).ready(function($){
 		var ctx = $("#WPcrowdFundChart");
 		var lineChart = new Chart(ctx, {
 			type: 'line',
 			data: {
-				labels: [<?php echo implode( ',', $label ); ?>],
+				labels: ["<?php echo implode( '","', array_map( 'esc_js', $label ) ); ?>"],
 				datasets: [{
-					label: "<?php echo date( 'Y', strtotime( $from_date ) ); ?>",
+					label: "<?php echo esc_js( gmdate( 'Y', strtotime( $from_date ) ) ); ?>",
 					fill: false,
-					data: [<?php echo implode( ',', $format ); ?>],
+					data: [<?php echo implode( ',', array_map( 'esc_js', array_map( 'floatval', $format ) ) ); ?>],
 					pointRadius: 5,
 					pointHoverRadius: 8,
 					pointHoverBackgroundColor:'var(--wpcf-primary-color)',
@@ -259,4 +284,4 @@ $pladges_received = wpcf_function()->get_pladge_received( $from_date, $to_date )
 			}
 		})
 	});
-</script>
+<?php wp_add_inline_script( 'wpcf-chartjs', ob_get_clean() ); ?>

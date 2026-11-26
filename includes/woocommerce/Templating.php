@@ -228,7 +228,7 @@ class Templating {
                 }
             }
         }
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     /**
@@ -283,7 +283,7 @@ class Templating {
             $html .='</tr>';
             $html .='</tbody>';
         $html .='</table>';
-        echo $html;
+        echo wp_kses( $html, wpcf_function()->allowed_html() );
     }
 
     /**

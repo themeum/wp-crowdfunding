@@ -47,4 +47,4 @@ if ( is_array( $campaign_rewards_a ) ) {
 }
 $html .= '</div>';
 
-echo $html;
+echo wp_kses_post( $html );

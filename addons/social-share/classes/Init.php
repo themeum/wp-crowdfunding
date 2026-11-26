@@ -1,5 +1,5 @@
 <?php
-
+defined( 'ABSPATH' ) || exit;
 class WPCF_Social_Share {
 	/**
 	 * @var null
@@ -45,7 +45,7 @@ class WPCF_Social_Share {
 	 * All settings will be save in this method
 	 */
 	public function social_share_save_settings() {
-		if ( isset( $_POST['wpneo_admin_settings_submit_btn'] ) && isset( $_POST['wpcf_varify_share'] ) && wp_verify_nonce( sanitize_text_field( $_POST['wpneo_settings_page_nonce_field'] ), 'wpneo_settings_page_action' ) ) {
+		if ( isset( $_POST['wpneo_admin_settings_submit_btn'], $_POST['wpcf_varify_share'], $_POST['wpneo_settings_page_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpneo_settings_page_nonce_field'] ) ), 'wpneo_settings_page_action' ) ) {
 			// Checkbox
 			$embed_share = sanitize_text_field( wpcf_function()->post( 'wpcf_embed_share' ) );
 			wpcf_function()->update_checkbox( 'wpcf_embed_share', $embed_share );
@@ -61,13 +61,13 @@ class WPCF_Social_Share {
 
 	// Data Post Embed Code
 	public function embed_data() {
-		$url   = $_SERVER['REQUEST_URI'];
+		$url   = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$embed = strpos( $url, 'themeumembed' );
 		if ( $embed !== false ) {
 			$end_part = explode( '/', rtrim( $url, '/' ) );
 			if ( $end_part ) {
 				global $post;
-				$post_id = end( $end_part );
+				$post_id = absint( end( $end_part ) );
 				$args    = array(
 					'p'           => $post_id,
 					'post_type'   => 'product',
@@ -136,7 +136,7 @@ class WPCF_Social_Share {
 						<body>
 							<div class="wpneo-listings">
 								<div class="wpneo-listing-img">
-									<a target="_top" href="<?php echo esc_url( get_permalink() ); ?>" title="<?php esc_attr( the_title() ); ?>"><?php echo woocommerce_get_product_thumbnail(); ?></a>
+									<a target="_top" href="<?php echo esc_url( get_permalink() ); ?>" title="<?php the_title_attribute(); ?>"><?php echo wp_kses( woocommerce_get_product_thumbnail(), wpcf_function()->allowed_html() ); ?></a>
 								</div>
 								<div class="wpneo-listing-content">
 	
@@ -154,7 +154,7 @@ class WPCF_Social_Share {
 										</div>
 									<?php } ?>
 	
-									<?php $desc = wpcf_function()->limit_word_text( strip_tags( get_the_content() ), 130 ); ?>
+									<?php $desc = wpcf_function()->limit_word_text( wp_strip_all_tags( get_the_content() ), 130 ); ?>
 									<?php if ( $desc ) { ?>
 										<p class="wpneo-short-description"><?php echo esc_html( $desc ); ?></p>
 									<?php } ?>
@@ -188,7 +188,7 @@ class WPCF_Social_Share {
 										$end_method     = get_post_meta( get_the_ID(), 'wpneo_campaign_end_method', true );
 										$days_remaining = apply_filters( 'date_expired_msg', __( '0', 'wp-crowdfunding' ) );
 										if ( wpcf_function()->get_date_remaining() ) {
-											$days_remaining = apply_filters( 'date_remaining_msg', __( wpcf_function()->get_date_remaining(), 'wp-crowdfunding' ) );
+											$days_remaining = apply_filters( 'date_remaining_msg', wpcf_function()->get_date_remaining() );
 										}
 										if ( $end_method != 'never_end' ) {
 											?>
@@ -225,33 +225,30 @@ class WPCF_Social_Share {
 
 	// Odrer Data View
 	public function embed_campaign_action() {
-		if ( ! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'cf_ajax_nonce' ) ) {
-			die(
-				json_encode(
-					array(
-						'success' => 0,
-						'message' => 'Invalid request!',
-						'error'   => 'Something went wrong!',
-					)
+		if ( ! check_ajax_referer( 'cf_ajax_nonce', 'nonce', false ) ) {
+			wp_send_json(
+				array(
+					'success' => 0,
+					'message' => __( 'Invalid request!', 'wp-crowdfunding' ),
+					'error'   => __( 'Something went wrong!', 'wp-crowdfunding' ),
 				)
 			);
 		}
 		$html   = '';
 		$title  = __( 'Embed Code', 'wp-crowdfunding' );
-		$postid = sanitize_text_field( $_POST['postid'] );
-		if ( $postid ) {
-			$html .= '<div>';
-			$html .= '<textarea><iframe width="310" height="656" src="' . esc_url( home_url( '/' ) ) . 'themeumembed/' . $postid . '" frameborder="0" scrolling="no"></iframe></textarea>';
-			$html .= '<i>' . __( 'Copy this code and paste inside your content.', 'wp-crowdfunding' ) . '</i>';
-			$html .= '</div>';
+		$postid = isset( $_POST['postid'] ) ? absint( wp_unslash( $_POST['postid'] ) ) : 0;
+		if ( $postid && 'publish' === get_post_status( $postid ) && 'product' === get_post_type( $postid ) ) {
+			$iframe = '<iframe width="310" height="656" src="' . esc_url( home_url( '/themeumembed/' . $postid ) ) . '" frameborder="0" scrolling="no"></iframe>';
+			$html  .= '<div>';
+			$html  .= '<textarea>' . esc_textarea( $iframe ) . '</textarea>';
+			$html  .= '<i>' . esc_html__( 'Copy this code and paste inside your content.', 'wp-crowdfunding' ) . '</i>';
+			$html  .= '</div>';
 		}
-		die(
-			json_encode(
-				array(
-					'success' => 1,
-					'message' => $html,
-					'title'   => $title,
-				)
+		wp_send_json(
+			array(
+				'success' => 1,
+				'message' => $html,
+				'title'   => $title,
 			)
 		);
 	}

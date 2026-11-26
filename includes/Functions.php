@@ -15,10 +15,12 @@ class Functions {
 	}
 
 	public function post( $post_item ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Raw shared reader: nonce verification and sanitizing are the caller's responsibility.
 		if ( ! empty( $_POST[ $post_item ] ) ) {
-			return $_POST[ $post_item ];
+			return wp_unslash( $_POST[ $post_item ] );
 		}
 		return null;
+		// phpcs:enable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	}
 
 	public function is_published( $post_id = 0 ) {
@@ -145,17 +147,17 @@ class Functions {
 			$user_id = get_current_user_id();
 		}
 		global $wpdb;
-		$results = $wpdb->get_col( "SELECT ID from {$wpdb->posts} WHERE post_author = {$user_id} AND post_type = 'product' " );
+		$results = $wpdb->get_col( $wpdb->prepare( "SELECT ID from {$wpdb->posts} WHERE post_author = %d AND post_type = 'product'", absint( $user_id ) ) );
 
 		return $results;
 	}
 
 	public function get_pladge_received( $from_date = null, $to_date = null ) {
 		if ( ! $from_date ) {
-			$from_date = date( 'Y-m-d 00:00:00', strtotime( '-6 days' ) );
+			$from_date = gmdate( 'Y-m-d 00:00:00', strtotime( '-6 days' ) );
 		}
 		if ( ! $to_date ) {
-			$to_date = date( 'Y-m-d 23:59:59' );
+			$to_date = gmdate( 'Y-m-d 23:59:59' );
 		}
 		$args     = array(
 			'post_type'      => 'product',
@@ -178,16 +180,16 @@ class Functions {
 		$order_ids = array();
 		if ( is_array( $id_array ) ) {
 			if ( ! empty( $id_array ) ) {
-				$id_array = implode( ', ', $id_array );
+				$id_array = array_map( 'absint', $id_array );
 				global $wpdb;
-				$prefix = $wpdb->prefix;
-
-				$query     = "SELECT order_id 
-						FROM {$wpdb->prefix}woocommerce_order_items oi 
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim 
-						ON woim.order_item_id = oi.order_item_id 
-						WHERE woim.meta_key='_product_id' AND woim.meta_value IN ( {$id_array} )";
-				$order_ids = $wpdb->get_col( $query );
+				$order_ids = $wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi
+						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
+						WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $id_array ), '%d' ) ) . ' )',
+						$id_array
+					)
+				);
 				if ( is_array( $order_ids ) ) {
 					if ( empty( $order_ids ) ) {
 						$order_ids = array( '9999999' );
@@ -210,11 +212,11 @@ class Functions {
 
 					'date_query'  => array(
 						array(
-							'after'     => date( 'F jS, Y', strtotime( $from_date ) ),
+							'after'     => gmdate( 'F jS, Y', strtotime( $from_date ) ),
 							'before'    => array(
-								'year'  => date( 'Y', strtotime( $to_date ) ),
-								'month' => date( 'm', strtotime( $to_date ) ),
-								'day'   => date( 'd', strtotime( $to_date ) ),
+								'year'  => gmdate( 'Y', strtotime( $to_date ) ),
+								'month' => gmdate( 'm', strtotime( $to_date ) ),
+								'day'   => gmdate( 'd', strtotime( $to_date ) ),
 							),
 							'inclusive' => true,
 						),
@@ -228,18 +230,24 @@ class Functions {
 
 	public function get_order_ids_by_product_ids( $product_ids, $order_status = array( 'wc-completed' ) ) {
 		global $wpdb;
+		$product_ids  = array_filter( array_map( 'absint', (array) $product_ids ) );
+		$order_status = array_filter( array_map( 'sanitize_key', (array) $order_status ) );
+		if ( empty( $product_ids ) || empty( $order_status ) ) {
+			return array();
+		}
 		$results = $wpdb->get_col(
-			"
-            SELECT order_items.order_id
-            FROM {$wpdb->prefix}woocommerce_order_items as order_items
-            LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-            LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
-            WHERE posts.post_type = 'shop_order'
-            AND posts.post_status IN ( '" . implode( "','", $order_status ) . "' )
-            AND order_items.order_item_type = 'line_item'
-            AND order_item_meta.meta_key = '_product_id'
-            AND order_item_meta.meta_value IN ( '" . implode( "','", $product_ids ) . "' )
-        "
+			$wpdb->prepare(
+				"SELECT order_items.order_id
+				FROM {$wpdb->prefix}woocommerce_order_items as order_items
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
+				LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
+				WHERE posts.post_type = 'shop_order'
+				AND posts.post_status IN ( " . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . " )
+				AND order_items.order_item_type = 'line_item'
+				AND order_item_meta.meta_key = '_product_id'
+				AND order_item_meta.meta_value IN ( " . implode( ',', array_fill( 0, count( $product_ids ), '%d' ) ) . ' )',
+				array_merge( array_values( $order_status ), array_values( $product_ids ) )
+			)
 		);
 		return $results;
 	}
@@ -273,10 +281,16 @@ class Functions {
 		return $author_name;
 	}
 
-	public function campaign_location() {
-		global $post;
-		$country      = get_post_meta( $post->ID, 'wpneo_country', true );
-		$location     = get_post_meta( $post->ID, '_nf_location', true );
+	public function campaign_location( $campaign_id = 0 ) {
+		if ( ! $campaign_id ) {
+			global $post;
+			$campaign_id = isset( $post->ID ) ? $post->ID : 0;
+		}
+		if ( ! $campaign_id ) {
+			return '';
+		}
+		$country      = get_post_meta( $campaign_id, 'wpneo_country', true );
+		$location     = get_post_meta( $campaign_id, '_nf_location', true );
 		$country_name = '';
 		if ( class_exists( 'WC_Countries' ) ) {
 			$countries_obj = new \WC_Countries();
@@ -350,6 +364,7 @@ class Functions {
                     AND wco.status = 'wc-completed';
                 ";
 		}
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $query is built above from $wpdb table names and a %d placeholder list only.
 		$wp_sql = $wpdb->get_row( $wpdb->prepare( $query, $campaign_ids ) );
 
 		return $wp_sql->total_sales_amount;
@@ -373,16 +388,16 @@ class Functions {
 
 			// If found previous liked
 			if ( in_array( $campaign_id, $loved_campaign_ids ) ) {
-				$html .= '<a href="javascript:;" id="remove_from_love_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-full"></i></a>';
+				$html .= '<a href="#" id="remove_from_love_campaign" data-campaign-id="' . esc_attr( $campaign_id ) . '"><i class="wpneo-icon wpneo-icon-love-full"></i></a>';
 			} else {
-				$html .= '<a href="javascript:;" id="love_this_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-empty"></i></a>';
+				$html .= '<a href="#" id="love_this_campaign" data-campaign-id="' . esc_attr( $campaign_id ) . '"><i class="wpneo-icon wpneo-icon-love-empty"></i></a>';
 			}
 		} else {
-			$html .= '<a href="javascript:;" id="love_this_campaign" data-campaign-id="' . $campaign_id . '"><i class="wpneo-icon wpneo-icon-love-empty"></i></a>';
+			$html .= '<a href="#" id="love_this_campaign" data-campaign-id="' . esc_attr( $campaign_id ) . '"><i class="wpneo-icon wpneo-icon-love-empty"></i></a>';
 		}
 
 		if ( $echo ) {
-			echo $html;
+			echo wp_kses_post( $html );
 		} else {
 			return $html;
 		}
@@ -391,7 +406,7 @@ class Functions {
 	public function login_form() {
 		$html  = '';
 		$error = false;
-		$login = ( isset( $_GET['login'] ) ) ? $_GET['login'] : '';
+		$login = ( isset( $_GET['login'] ) ) ? sanitize_key( wp_unslash( $_GET['login'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 		if ( strpos( $login, 'failed' ) !== false ) {
 			$error = true;
 			$html .= '<p class="error"><strong>ERROR:</strong> Invalid username and/or password.</p><br><br>';
@@ -426,8 +441,6 @@ class Functions {
 	}
 
 	public function loved_count( $user_id = 0 ) {
-		global $post;
-		$campaign_id = $post->ID;
 		if ( $user_id == 0 ) {
 			if ( is_user_logged_in() ) {
 				$user_id            = get_current_user_id();
@@ -536,10 +549,6 @@ class Functions {
 		return $this->get_prop( 'total', $context );
 	}
 
-	public function user_meta( $url ) {
-		$shipping_first_name = ( $_POST['shipping_first_name'] ) ? sanitize_text_field( $_POST['shipping_first_name'] ) : '';
-		update_user_meta( $user_id, 'shipping_first_name', $shipping_first_name );
-	}
 
 	public function get_date_remaining( $post_id = 0 ) {
 		global $post;
@@ -679,6 +688,7 @@ class Functions {
                 AND wco.status = 'wc-completed';
             ";
 		}
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $query is built above from $wpdb table names and a %d placeholder list only.
 		$wp_sql = $wpdb->get_row( $wpdb->prepare( $query, $campaign_ids ) );
 
 		return $wp_sql->total_sales_amount;
@@ -724,17 +734,16 @@ class Functions {
 		$prefix  = $wpdb->prefix;
 		$post_id = ( $post_id ) ? $post_id : $post->ID;
 
-		$query     = "SELECT 
-                    order_id 
-                FROM 
-                    {$wpdb->prefix}woocommerce_order_itemmeta woim 
-                LEFT JOIN 
-                    {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id 
-                WHERE 
-                    meta_key = '_product_id' AND meta_value = %d
-                GROUP BY 
-                    order_id ORDER BY order_id DESC ;";
-		$order_ids = $wpdb->get_col( $wpdb->prepare( $query, $post_id ) );
+		$order_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT order_id
+				FROM {$wpdb->prefix}woocommerce_order_itemmeta woim
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_items oi ON woim.order_item_id = oi.order_item_id
+				WHERE meta_key = '_product_id' AND meta_value = %d
+				GROUP BY order_id ORDER BY order_id DESC",
+				$post_id
+			)
+		);
 
 		return $order_ids;
 	}
@@ -785,7 +794,7 @@ class Functions {
 		$html .= "<div class='campaign_update_wrapper'>";
 
 		$html .= '<h3>';
-		$html .= apply_filters( 'wpcf_campaign_update_title', __( $post->post_title . '\'s Update', 'wp-crowdfunding' ) );
+		$html .= apply_filters( 'wpcf_campaign_update_title', sprintf( /* translators: %s: campaign title */ __( '%s\'s Update', 'wp-crowdfunding' ), $post->post_title ) );
 		$html .= '</h3>';
 
 		if ( is_array( $saved_campaign_update_a ) ) {
@@ -813,7 +822,7 @@ class Functions {
 		}
 		$html .= '</div>';
 
-		echo $html;
+		echo wp_kses_post( $html );
 	}
 
 	function limit_word_text( $text, $limit ) {
@@ -875,7 +884,7 @@ class Functions {
 
 		<script type="text/javascript">
 			// Set the date we're counting down to
-			let wpcfCountDownDate = "<?php echo $_nf_duration_start; ?>".split("-");
+			let wpcfCountDownDate = "<?php echo esc_js( $_nf_duration_start ); ?>".split("-");
 			wpcfCountDownDate = new Date(wpcfCountDownDate[1] + "/" + wpcfCountDownDate[0] + "/" + wpcfCountDownDate[2]).getTime();
 
 			// Update the count down every 1 second
@@ -940,5 +949,302 @@ class Functions {
 	}
 	function getFundRaisedPercentFormat() {
 		return $this->get_fund_raised_percent_format();
+	}
+
+	/**
+	 * Allowed HTML for markup the plugin builds itself and that contains form
+	 * fields or embeds (dashboard forms, settings fields, donate form, video).
+	 *
+	 * @since 2.2.3
+	 *
+	 * @return array
+	 */
+	public function allowed_html() {
+		static $allowed = null;
+		if ( null !== $allowed ) {
+			return $allowed;
+		}
+		$common  = array(
+			'id'          => true,
+			'class'       => true,
+			'style'       => true,
+			'name'        => true,
+			'title'       => true,
+			'disabled'    => true,
+			'readonly'    => true,
+			'required'    => true,
+			'placeholder' => true,
+			'aria-label'  => true,
+			'data-*'      => true,
+		);
+		$allowed = array_merge(
+			wp_kses_allowed_html( 'post' ),
+			array(
+				'form'     => $common + array( 'action' => true, 'method' => true, 'enctype' => true, 'autocomplete' => true, 'novalidate' => true ),
+				'input'    => $common + array( 'type' => true, 'value' => true, 'checked' => true, 'min' => true, 'max' => true, 'step' => true, 'size' => true, 'maxlength' => true, 'autocomplete' => true, 'multiple' => true, 'accept' => true, 'pattern' => true ),
+				'select'   => $common + array( 'multiple' => true, 'size' => true ),
+				'option'   => array( 'value' => true, 'selected' => true, 'disabled' => true, 'class' => true, 'data-*' => true ),
+				'optgroup' => array( 'label' => true, 'disabled' => true ),
+				'textarea' => $common + array( 'rows' => true, 'cols' => true, 'maxlength' => true ),
+				'button'   => $common + array( 'type' => true, 'value' => true ),
+				'label'    => array( 'for' => true, 'class' => true, 'id' => true, 'style' => true ),
+				'fieldset' => array( 'class' => true, 'id' => true ),
+				'legend'   => array( 'class' => true ),
+				'canvas'   => array( 'id' => true, 'class' => true, 'width' => true, 'height' => true ),
+				'iframe'   => array( 'src' => true, 'width' => true, 'height' => true, 'frameborder' => true, 'allow' => true, 'allowfullscreen' => true, 'title' => true, 'loading' => true, 'referrerpolicy' => true, 'class' => true, 'id' => true, 'style' => true ),
+				'video'    => array( 'src' => true, 'width' => true, 'height' => true, 'controls' => true, 'poster' => true, 'preload' => true, 'class' => true, 'id' => true, 'style' => true, 'autoplay' => true, 'loop' => true, 'muted' => true, 'playsinline' => true ),
+				'source'   => array( 'src' => true, 'type' => true ),
+				'bdi'      => array(),
+			)
+		);
+		// WooCommerce images are responsive; keep their srcset and loading hints.
+		$allowed['img'] = array_merge(
+			isset( $allowed['img'] ) ? $allowed['img'] : array(),
+			array( 'srcset' => true, 'sizes' => true, 'loading' => true, 'decoding' => true, 'fetchpriority' => true )
+		);
+		// Marker so the kses filters below only relax CSS for this allow-list.
+		$allowed[ self::KSES_MARKER ] = array();
+
+		add_filter( 'pre_kses', array( $this, 'track_kses_context' ), 10, 2 );
+		add_filter( 'safe_style_css', array( $this, 'allow_display_style' ) );
+
+		return $allowed;
+	}
+
+	/**
+	 * Marker key identifying the plugin's own allow-list inside kses filters.
+	 */
+	const KSES_MARKER = 'wpcf-allowed-html';
+
+	/**
+	 * Whether the wp_kses() call currently running uses allowed_html().
+	 *
+	 * @var bool
+	 */
+	private $kses_is_plugin_markup = false;
+
+	/**
+	 * Record, at the start of every wp_kses() call, whether it uses the plugin allow-list.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param string       $content      Content being filtered.
+	 * @param array|string $allowed_html Allowed HTML for this call.
+	 * @return string Unchanged content.
+	 */
+	public function track_kses_context( $content, $allowed_html ) {
+		$this->kses_is_plugin_markup = is_array( $allowed_html ) && isset( $allowed_html[ self::KSES_MARKER ] );
+		return $content;
+	}
+
+	/**
+	 * Allow the CSS display property, used by the plugin's show/hide toggles,
+	 * only while filtering the plugin's own markup.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param string[] $properties Allowed CSS properties.
+	 * @return string[]
+	 */
+	public function allow_display_style( $properties ) {
+		if ( $this->kses_is_plugin_markup ) {
+			$properties[] = 'display';
+		}
+		return $properties;
+	}
+
+	/**
+	 * Whether visitors may register through the plugin's registration form.
+	 *
+	 * Defaults to allowed so existing installs keep working until an admin turns it off.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @return bool
+	 */
+	public function is_registration_allowed() {
+		return 'false' !== get_option( 'wpcf_allow_registration', 'true' );
+	}
+
+	/**
+	 * Rewards of a campaign, sorted by pledge amount ascending.
+	 *
+	 * This is the same order the reward forms render in, so the 1-based
+	 * `wpneo_rewards_index` they post maps to `$rewards[ $index - 1 ]`.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int $campaign_id Campaign (product) ID.
+	 * @return array
+	 */
+	public function get_sorted_campaign_rewards( $campaign_id ) {
+		$raw = get_post_meta( absint( $campaign_id ), 'wpneo_reward', true );
+		if ( empty( $raw ) || ! is_string( $raw ) ) {
+			return array();
+		}
+
+		$rewards = json_decode( $raw, true );
+		if ( ! is_array( $rewards ) ) {
+			$rewards = json_decode( stripslashes( $raw ), true );
+		}
+		if ( ! is_array( $rewards ) ) {
+			return array();
+		}
+
+		$amount = array();
+		foreach ( $rewards as $key => $row ) {
+			if ( ! is_array( $row ) ) {
+				unset( $rewards[ $key ] );
+				continue;
+			}
+			$rewards[ $key ]['wpneo_rewards_pladge_amount'] = isset( $row['wpneo_rewards_pladge_amount'] ) ? intval( $row['wpneo_rewards_pladge_amount'] ) : 0;
+			$amount[ $key ] = $rewards[ $key ]['wpneo_rewards_pladge_amount'];
+		}
+		array_multisort( $amount, SORT_ASC, $rewards );
+
+		return array_values( $rewards );
+	}
+
+	/**
+	 * Get one reward of a campaign from the server-side data.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int $campaign_id  Campaign (product) ID.
+	 * @param int $reward_index 1-based index as posted by the reward forms.
+	 * @return array|null Reward data, or null when it does not exist.
+	 */
+	public function get_campaign_reward( $campaign_id, $reward_index ) {
+		$reward_index = absint( $reward_index );
+		if ( $reward_index < 1 ) {
+			return null;
+		}
+		$rewards = $this->get_sorted_campaign_rewards( $campaign_id );
+		return isset( $rewards[ $reward_index - 1 ] ) ? $rewards[ $reward_index - 1 ] : null;
+	}
+
+	/**
+	 * Whether a reward still has backer slots left.
+	 *
+	 * Mirrors the "Reward no longer available" check in the reward templates.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int $campaign_id  Campaign (product) ID.
+	 * @param int $reward_index 1-based reward index.
+	 * @return bool
+	 */
+	public function is_reward_available( $campaign_id, $reward_index ) {
+		$rewards = $this->get_sorted_campaign_rewards( $campaign_id );
+		$pos     = absint( $reward_index ) - 1;
+		if ( $pos < 0 || ! isset( $rewards[ $pos ] ) ) {
+			return false;
+		}
+
+		$reward = $rewards[ $pos ];
+		$limit  = isset( $reward['wpneo_rewards_item_limit'] ) ? intval( $reward['wpneo_rewards_item_limit'] ) : 0;
+		if ( $limit <= 0 || ! function_exists( 'wpcf_campaign_order_number_data' ) ) {
+			return true;
+		}
+
+		$min_data = intval( $reward['wpneo_rewards_pladge_amount'] );
+		$max_data = isset( $rewards[ $pos + 1 ] ) && ! empty( $rewards[ $pos + 1 ]['wpneo_rewards_pladge_amount'] )
+			? intval( $rewards[ $pos + 1 ]['wpneo_rewards_pladge_amount'] ) - 1
+			: 9000000000;
+		$orders   = (int) wpcf_campaign_order_number_data( $min_data, $max_data, $campaign_id );
+
+		return $orders < $limit;
+	}
+
+	/**
+	 * A price formatted as plain text, for messages shown outside HTML.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param float|string $amount Amount.
+	 * @return string
+	 */
+	private function plain_price( $amount ) {
+		return trim( html_entity_decode( wp_strip_all_tags( wc_price( $amount ) ), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+	}
+
+	/**
+	 * Validate a pledge amount on the server.
+	 *
+	 * The minimum, maximum and reward tier amounts are also enforced in the
+	 * browser, but that can be bypassed, so every add-to-cart path must
+	 * validate here before the amount is stored or used as a cart price.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int   $campaign_id  Campaign (product) ID.
+	 * @param mixed $raw_amount   Amount as submitted (unslashed or not).
+	 * @param int   $reward_index Optional 1-based reward index (0 = no reward).
+	 * @return float|\WP_Error Validated amount, or an error.
+	 */
+	public function validate_pledge_amount( $campaign_id, $raw_amount, $reward_index = 0 ) {
+		$campaign_id = absint( $campaign_id );
+		$product     = $campaign_id ? wc_get_product( $campaign_id ) : false;
+
+		if ( ! $product || ! $product->is_type( 'crowdfunding' ) || 'publish' !== get_post_status( $campaign_id ) ) {
+			return new \WP_Error( 'wpcf_invalid_campaign', __( 'This campaign is not available.', 'wp-crowdfunding' ) );
+		}
+
+		if ( ! $this->is_campaign_valid( $campaign_id ) ) {
+			return new \WP_Error( 'wpcf_campaign_closed', __( 'This campaign is no longer accepting pledges.', 'wp-crowdfunding' ) );
+		}
+
+		if ( is_array( $raw_amount ) || is_object( $raw_amount ) ) {
+			return new \WP_Error( 'wpcf_invalid_amount', __( 'Please enter a valid pledge amount.', 'wp-crowdfunding' ) );
+		}
+
+		$amount = wc_format_decimal( trim( wp_unslash( (string) $raw_amount ) ) );
+		if ( '' === $amount || ! is_numeric( $amount ) ) {
+			return new \WP_Error( 'wpcf_invalid_amount', __( 'Please enter a valid pledge amount.', 'wp-crowdfunding' ) );
+		}
+
+		$amount = (float) $amount;
+		if ( ! is_finite( $amount ) || $amount <= 0 ) {
+			return new \WP_Error( 'wpcf_invalid_amount', __( 'Please enter a valid pledge amount.', 'wp-crowdfunding' ) );
+		}
+
+		$min_price = get_post_meta( $campaign_id, 'wpneo_funding_minimum_price', true );
+		if ( is_numeric( $min_price ) && (float) $min_price > 0 && $amount < (float) $min_price ) {
+			return new \WP_Error(
+				'wpcf_amount_below_min',
+				/* translators: %s: minimum pledge amount */
+				sprintf( __( 'The minimum pledge amount is %s.', 'wp-crowdfunding' ), $this->plain_price( $min_price ) )
+			);
+		}
+
+		$max_price = get_post_meta( $campaign_id, 'wpneo_funding_maximum_price', true );
+		if ( is_numeric( $max_price ) && (float) $max_price > 0 && $amount > (float) $max_price ) {
+			return new \WP_Error(
+				'wpcf_amount_above_max',
+				/* translators: %s: maximum pledge amount */
+				sprintf( __( 'The maximum pledge amount is %s.', 'wp-crowdfunding' ), $this->plain_price( $max_price ) )
+			);
+		}
+
+		$reward_index = absint( $reward_index );
+		if ( $reward_index > 0 ) {
+			$reward = $this->get_campaign_reward( $campaign_id, $reward_index );
+			if ( null === $reward ) {
+				return new \WP_Error( 'wpcf_invalid_reward', __( 'The selected reward is not available.', 'wp-crowdfunding' ) );
+			}
+			if ( ! $this->is_reward_available( $campaign_id, $reward_index ) ) {
+				return new \WP_Error( 'wpcf_reward_sold_out', __( 'The selected reward is no longer available.', 'wp-crowdfunding' ) );
+			}
+			$reward_amount = (float) $reward['wpneo_rewards_pladge_amount'];
+			if ( $amount < $reward_amount ) {
+				return new \WP_Error(
+					'wpcf_amount_below_reward',
+					/* translators: %s: reward pledge amount */
+					sprintf( __( 'The selected reward requires a pledge of at least %s.', 'wp-crowdfunding' ), $this->plain_price( $reward_amount ) )
+				);
+			}
+		}
+
+		return $amount;
 	}
 }

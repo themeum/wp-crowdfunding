@@ -5,7 +5,7 @@ get_header('shop');
 do_action( 'wpcf_before_single_campaign' );
 
 if ( post_password_required() ) {
-    echo get_the_password_form();
+    echo wp_kses( get_the_password_form(), wpcf_function()->allowed_html() );
     return;
 }
 ?>

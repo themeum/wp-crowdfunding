@@ -99,7 +99,7 @@ class Base
         $html .= '<div class="notice notice-error is-dismissible">';
         $html .= '<p>' . __('WP Crowdfunding will not work properly if you activate it from network, please deactivate from network and activate again from individual site admin.', 'wp-crowdfunding') . '</p>';
         $html .= '</div>';
-        echo $html;
+        echo wp_kses_post( $html );
     }
 
     // Hooks your functions into the correct filters
@@ -140,10 +140,12 @@ class Base
     {
         wp_enqueue_style('magnific-popup-css-front', WPCF_DIR_URL . 'assets/css/magnific-popup.css', false, WPCF_VERSION);
         wp_enqueue_style('neo-crowdfunding-css-front', WPCF_DIR_URL . 'assets/css/dist/crowdfunding-front.css', false, WPCF_VERSION);
-        wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+        if ( defined( 'WC_PLUGIN_FILE' ) ) {
+            wp_enqueue_style( 'jquery-ui', plugins_url( 'assets/css/jquery-ui/jquery-ui.min.css', WC_PLUGIN_FILE ), array(), defined( 'WC_VERSION' ) ? WC_VERSION : WPCF_VERSION );
+        }
 
         wp_enqueue_script('jquery');
-        wp_enqueue_script('jquery-ui-datepicker', array('jquery'));
+        wp_enqueue_script( 'jquery-ui-datepicker' );
         wp_enqueue_script('jquery.easypiechart', WPCF_DIR_URL . 'assets/js/jquery.easypiechart.min.js', array('jquery'), WPCF_VERSION, true);
         wp_enqueue_script('wp-neo-jquery.magnific-popup.min-front', WPCF_DIR_URL . 'assets/js/jquery.magnific-popup.min.js', array('jquery'), WPCF_VERSION, true);
         wp_enqueue_script('wp-neo-jquery-scripts-front', WPCF_DIR_URL . 'assets/js/dist/crowdfunding-front.js', array('jquery'), WPCF_VERSION, true);
@@ -185,7 +187,7 @@ class Base
         }
 
         if (! get_option('wpcf_admin_footer_text_rated')) {
-            $footer_text = sprintf(__('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'wp-crowdfunding') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
+            $footer_text = sprintf(/* translators: %s: 5-star rating link */ __('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'wp-crowdfunding') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
             wc_enqueue_js("
                 jQuery( 'a.wpcf-rating-link' ).click( function() {
                     jQuery.post( '" . admin_url('admin-ajax.php') . "', { action: 'wpcf_rated' } );
@@ -193,7 +195,7 @@ class Base
                 });
             ");
         } else {
-            $footer_text = sprintf(__('Thank you for raise funds with <strong>WP Crowdfunding</strong> by %s.', 'wp-crowdfunding'), '<a href="https://www.themeum.com/?utm_source=wp_crowdfunding_plugin_admin" target="_blank">Themeum</a>');
+            $footer_text = sprintf(/* translators: %s: Themeum link */ __('Thank you for raise funds with <strong>WP Crowdfunding</strong> by %s.', 'wp-crowdfunding'), '<a href="https://www.themeum.com/?utm_source=wp_crowdfunding_plugin_admin" target="_blank">Themeum</a>');
         }
 
         return $footer_text;
@@ -217,7 +219,7 @@ class Base
             wp_send_json_error();
             die();
         }
-        if (! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'cf_reset_ajax_nonce')) {
+        if (! isset($_POST['nonce']) || ! wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'cf_reset_ajax_nonce')) {
             wp_send_json_error();
             die();
         }
@@ -235,7 +237,7 @@ class Base
 
         $current_user_id = get_current_user_id();
 
-        if (!wp_verify_nonce($_POST['nonce'], 'cf_reset_ajax_nonce')) {
+        if (! wp_verify_nonce( isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '', 'cf_reset_ajax_nonce')) {
             wp_send_json_error();
         }
 

@@ -63,7 +63,7 @@ class Search {
 		$html .= '<div class="wpcf-form-field ' . esc_attr( $formSize ) . ' ' . esc_attr( $formAlign ) . '">';
 		$html .= '<form role="search" method="get" action="' . esc_url( home_url( '/' ) ) . '">';
 
-		$search_val = isset( $_GET['s'] ) ? sanitize_text_field( $_GET['s'] ) : '';
+		$search_val = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 
 		$html .= '<input type="search" class="search-field" placeholder="' . __( 'Search', 'wp-crowdfunding' ) . '" 
                 value="' . esc_attr( $search_val ) . '" name="s" style="font-size: ' . esc_attr( $SearchfontSize ) . 'px;">';

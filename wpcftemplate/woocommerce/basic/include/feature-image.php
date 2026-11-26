@@ -10,7 +10,7 @@ global $post, $woocommerce, $product;
 		$wpneo_funding_video = trim( get_post_meta( $post->ID, 'wpneo_funding_video', true ) );
 		$video_html          = ! empty( $wpneo_funding_video ) ? wpcf_function()->get_embeded_video( $wpneo_funding_video ) : '';
 		if ( ! empty( $video_html ) ) {
-			echo $video_html;
+			echo wp_kses( $video_html, wpcf_function()->allowed_html() );
 		} elseif ( has_post_thumbnail() ) {
 			$image_caption = get_post( get_post_thumbnail_id() )->post_excerpt;
 			$image_link    = wp_get_attachment_url( get_post_thumbnail_id() );
@@ -36,9 +36,9 @@ global $post, $woocommerce, $product;
 			} else {
 				$gallery = '';
 			}
-				echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="wpneo-single-main-image zoom" title="%s" data-rel="prettyPhoto' . esc_attr( $gallery ) . '">%s</a>', esc_url( $image_link ), esc_attr( $image_caption ), $image ), $post->ID );
+				echo wp_kses( apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="wpneo-single-main-image zoom" title="%s" data-rel="prettyPhoto' . esc_attr( $gallery ) . '">%s</a>', esc_url( $image_link ), esc_attr( $image_caption ), $image ), $post->ID ), wpcf_function()->allowed_html() );
 		} else {
-			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<img src="%s" alt="%s" />', wc_placeholder_img_src(), esc_html__( 'Placeholder', 'backer' ) ), $post->ID );
+			echo wp_kses( apply_filters( 'woocommerce_single_product_image_html', sprintf( '<img src="%s" alt="%s" />', wc_placeholder_img_src(), esc_html__( 'Placeholder', 'wp-crowdfunding' ) ), $post->ID ), wpcf_function()->allowed_html() );
 		}
 		?>
 		<?php do_action( 'woocommerce_product_thumbnails' ); ?>

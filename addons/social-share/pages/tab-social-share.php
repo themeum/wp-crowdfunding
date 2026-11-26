@@ -7,7 +7,7 @@ $arr =  array(
             array(
                 'type'      => 'seperator',
                 'label'     => __('Enable Social Share','wp-crowdfunding'),
-                'desc'      => __(''),
+                'desc'      => '',
                 'top_line'  => 'true',
                 ),
                 

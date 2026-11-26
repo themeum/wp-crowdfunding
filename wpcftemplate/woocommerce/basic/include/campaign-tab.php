@@ -37,7 +37,7 @@ if ( ! empty( $tabs ) ) : ?>
 				$current = $i === 1 ? 'wpneo-current' : '';
 				?>
 				<li class="<?php echo esc_attr( $current ) . ' ' . esc_attr( $key ); ?>_tab">
-					<a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'wpcf_campaign_' . esc_html( $key ) . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
+					<a href="#wpneo-tab-<?php echo esc_attr( $key ); ?>"><?php echo wp_kses_post( apply_filters( 'wpcf_campaign_' . esc_html( $key ) . '_tab_title', esc_html( $tab['title'] ), $key ) ); ?></a>
 				</li>
 			<?php endforeach; ?>
 		</ul>

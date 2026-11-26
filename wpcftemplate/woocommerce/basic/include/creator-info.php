@@ -24,11 +24,11 @@ $creator   = get_user_by( 'id', $post->post_author );
 		<?php } ?>
 	</div>
 	<div class="wpneo-campaign-creator-details">
-		<p><a href="javascript:;" data-author="<?php echo esc_attr( $post->post_author ); ?>" class="wpneo-fund-modal-btn" ><?php echo esc_html( wpcf_function()->get_author_name() ); ?></a> </p>
+		<p><a href="javascript:;" data-author="<?php echo esc_attr( $post->post_author ); ?>" data-campaign="<?php echo esc_attr( $post->ID ); ?>" class="wpneo-fund-modal-btn" ><?php echo esc_html( wpcf_function()->get_author_name() ); ?></a> </p>
 		<p><?php echo esc_html( wpcf_function()->author_campaigns( $post->post_author )->post_count ); ?> <?php esc_html_e( 'Campaigns', 'wp-crowdfunding' ); ?> | <?php echo esc_html( wpcf_function()->loved_count() ); ?> <?php esc_html_e( 'Loved campaigns', 'wp-crowdfunding' ); ?> </p>
-		<?php if ( ! empty( $user_info['profile_website'][0] ) ) { ?>
-			<p><a href="<?php echo esc_attr( wpcf_function()->url( $user_info['profile_website'][0] ) ); ?>"><strong> <?php echo esc_html( wpcf_function()->url( $user_info['profile_website'][0] ) ); ?></strong></a></p>
+		<?php if ( ! empty( $user_info['profile_website'][0] ) && function_exists( 'wpcf_user_shows_public_contact' ) && wpcf_user_shows_public_contact( $post->post_author ) ) { ?>
+			<p><a href="<?php echo esc_url( wpcf_function()->url( $user_info['profile_website'][0] ) ); ?>" rel="nofollow noopener"><strong> <?php echo esc_html( wpcf_function()->url( $user_info['profile_website'][0] ) ); ?></strong></a></p>
 		<?php } ?>
-		<p><a href="javascript:;" data-author="<?php echo esc_attr( $post->post_author ); ?>" class="wpneo-fund-modal-btn wpneo-link-style1"><strong><?php esc_html_e( 'See full bio', 'wp-crowdfunding' ); ?></strong></a></p>
+		<p><a href="javascript:;" data-author="<?php echo esc_attr( $post->post_author ); ?>" data-campaign="<?php echo esc_attr( $post->ID ); ?>" class="wpneo-fund-modal-btn wpneo-link-style1"><strong><?php esc_html_e( 'See full bio', 'wp-crowdfunding' ); ?></strong></a></p>
 	</div>
 </div>

@@ -48,8 +48,8 @@ class Project_Listing {
 				'order'          => $a['order'],
 			);
 
-			if ( ! empty( $_GET['author'] ) ) {
-				$user_login = sanitize_text_field( trim( $_GET['author'] ) );
+			if ( ! empty( $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+				$user_login = sanitize_text_field( wp_unslash( $_GET['author'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 				$user       = get_user_by( 'login', $user_login );
 				if ( $user ) {
 					$user_id    = $user->ID;

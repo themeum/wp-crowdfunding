@@ -19,7 +19,7 @@ $number = array( "2"=>"two","3"=>"three","4"=>"four" );
                     }
                     if($i == 1){ $class = 'first'; }
                 ?>
-                    <div class="wpneo-listings <?php echo $number[$col_num]; ?> <?php echo $class; ?>">
+                    <div class="wpneo-listings <?php echo esc_attr( $number[ $col_num ] ); ?> <?php echo esc_attr( $class ); ?>">
                         <?php do_action('wpcf_campaign_loop_item_before_content'); ?>
                         <div class="wpneo-listing-content">
                             <?php do_action('wpcf_campaign_loop_item_content'); ?>

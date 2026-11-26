@@ -4,7 +4,7 @@ Tags: crowdfunding, kickstarter, backer, donation, fund rising, funding, online 
 Donate Link: https://www.themeum.com/
 Requires at least: 5.9
 Tested up to: 7.1
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,21 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 6. Crowdfunding Frontend Dashboard
 
 == Changelog ==
+
+= 2.2.3 =
+Security : Pledge amounts are now validated on the server against the campaign minimum, maximum and selected reward.
+Security : Selected reward details are now read from the campaign, not from the submitted form.
+Security : Creator profile popup is limited to users with a published campaign.
+New      : Creators choose whether their email, phone, fax and website appear on their public profile (Dashboard > Profile). This is off by default, so creators who want to show contact details must turn it on.
+New      : Setting to turn off visitor registration through the plugin's registration form (WP Crowdfunding > Settings > General). It stays on for existing sites.
+Fix      : Hardened the campaign embed code popup.
+Security : Hardened input handling, output escaping and database queries throughout the plugin.
+Fix      : Dashboard contact/address form failed to save ("nonce did not verify").
+Fix      : Registration block form failed to submit ("status did not verify").
+Fix      : Postcodes were saved as numbers, losing letters and leading zeros.
+Fix      : Apostrophes and quotes were saved with extra backslashes in dashboard forms.
+Fix      : After a failed login the page now returns to the same-site page it came from.
+Update   : Chart.js and jQuery UI styles are now loaded locally instead of from external CDNs.
 
 = 2.2.2 =
 Fix    : Resolved SQL injection vulnerability in campaign reward order counting.

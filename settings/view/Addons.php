@@ -1,3 +1,4 @@
+<?php defined( 'ABSPATH' ) || exit; ?>
 <div class="wrap">
     <div class="wp-crowdfunding-addons-list">
         <h1 class="addon-list-heading"> <?php esc_html_e( 'Addons List', 'wp-crowdfunding' ); ?> </h1>

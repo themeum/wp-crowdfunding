@@ -8,8 +8,8 @@ $current_user_id = get_current_user_id();
  */
 $logged_user_info = true;
 if (user_can($current_user_id, 'manage_options')){
-	if (isset($_GET['show_user_id'])){
-		$current_user_id = (int) sanitize_text_field($_GET['show_user_id']);
+	if (isset($_GET['show_user_id'])){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+		$current_user_id = (int) sanitize_text_field( wp_unslash( $_GET['show_user_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 		$logged_user_info = false;
 	}
 }
@@ -135,6 +135,13 @@ $html .= '<div class="wpneo-content">';
                             $value = ''; if(isset($data['profile_website'][0])){ $value = esc_url($data['profile_website'][0]); }
                             $html .= '<input type="text" name="profile_website" value="'.$value.'" disabled>';
                         $html .= '</div>';
+                    $html .= '</div>';
+                    // Public contact visibility (opt-in).
+                    $html .= '<div class="wpneo-single">';
+                        $html .= '<label>';
+                            $html .= '<input type="checkbox" name="profile_show_contact" value="1" ' . checked( get_user_meta( $current_user_id, 'profile_show_contact', true ), '1', false ) . ' disabled> ';
+                            $html .= esc_html__( 'Show my email, phone, fax and website on my public creator profile', 'wp-crowdfunding' );
+                        $html .= '</label>';
                     $html .= '</div>';
 
                     // Address

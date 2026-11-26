@@ -36,7 +36,7 @@ if ( $the_query->have_posts() ) :
 		<div class="wpneo-listings-dashboard wpneo-shadow wpneo-padding15 wpneo-clearfix">
 			
 			<div class="wpneo-listing-img">
-				<a href="<?php echo esc_url( get_permalink() ); ?>" title="<?php echo esc_html( get_the_title() ); ?>"> <?php echo woocommerce_get_product_thumbnail(); ?></a>
+				<a href="<?php echo esc_url( get_permalink() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>"> <?php echo wp_kses( woocommerce_get_product_thumbnail(), wpcf_function()->allowed_html() ); ?></a>
 				<div class="overlay">
 					<div>
 						<div>
@@ -62,7 +62,7 @@ if ( $the_query->have_posts() ) :
 					<?php if ( $location ) { ?>
 						<div class="wpneo-location">
 							<i class="wpneo-icon wpneo-icon-location"></i>
-							<div class="wpneo-meta-desc"><?php echo esc_html_e( $location ); ?></div>
+							<div class="wpneo-meta-desc"><?php echo esc_html( $location ); ?></div>
 						</div>
 					<?php } ?>
 				</div>
@@ -131,7 +131,7 @@ if ( $the_query->have_posts() ) :
 					<?php
 					$days_remaining = apply_filters( 'date_expired_msg', __( '0', 'wp-crowdfunding' ) );
 					if ( wpcf_function()->get_date_remaining() ) {
-						$days_remaining = apply_filters( 'date_remaining_msg', __( wpcf_function()->get_date_remaining(), 'wp-crowdfunding' ) );
+						$days_remaining = apply_filters( 'date_remaining_msg', wpcf_function()->get_date_remaining() );
 					}
 
 					$end_method = get_post_meta( get_the_ID(), 'wpneo_campaign_end_method', true );

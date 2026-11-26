@@ -24,9 +24,9 @@ class Campaign_Submit_Form {
 		$gallery_image_array = array();
 
 		$reward = '';
-		if ( isset( $_GET['action'] ) && isset( $_GET['postid'] ) ) {
-			if ( $_GET['action'] == 'edit' ) {
-				$post_id = (int) sanitize_text_field( $_GET['postid'] );
+		if ( isset( $_GET['action'] ) && isset( $_GET['postid'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+			if ( $_GET['action'] == 'edit' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+				$post_id = (int) sanitize_text_field( wp_unslash( $_GET['postid'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 
 				// Prevent if unauthorised access
 				$campaign_users            = new \WPCF\woocommerce\Submit_Form();
@@ -57,8 +57,8 @@ class Campaign_Submit_Form {
 							$title             = get_the_title();
 							$short_description = get_the_excerpt();
 							$description       = get_the_content();
-							$category          = strip_tags( get_the_term_list( get_the_ID(), 'product_cat', '', ',' ) );
-							$tag               = strip_tags( get_the_term_list( get_the_ID(), 'product_tag', '', ', ' ) );
+							$category          = wp_strip_all_tags( get_the_term_list( get_the_ID(), 'product_cat', '', ',' ) );
+							$tag               = wp_strip_all_tags( get_the_term_list( get_the_ID(), 'product_tag', '', ', ' ) );
 							if ( has_post_thumbnail() ) {
 								$image_url = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
 								$image_url = $image_url[0];
@@ -83,7 +83,7 @@ class Campaign_Submit_Form {
 							$location            = get_post_meta( get_the_ID(), '_nf_location', true );
 							$reward              = get_post_meta( get_the_ID(), 'wpneo_reward', true );
 							$edit_form           = '<input type="hidden" name="edit_form" value="editform"/>';
-							$edit_id             = '<input type="hidden" name="edit_post_id" value="' . esc_attr( $_GET['postid'] ) . '"/>';
+							$edit_id             = '<input type="hidden" name="edit_post_id" value="' . absint( $_GET['postid'] ) . '"/>'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 
 						}
 					}

@@ -279,7 +279,7 @@ ob_start();
 
 		</div>
 
-		<?php echo wp_kses_post( wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field', true, false ) ); ?>
+		<?php wp_nonce_field( 'wpneo_crowdfunding_dashboard_form_action', 'wpneo_crowdfunding_dashboard_nonce_field' ); ?>
 
 		<!-- //Save Button -->
 		<div class="wpneo-buttons-group float-right">

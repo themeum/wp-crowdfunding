@@ -35,13 +35,13 @@ foreach ( $items as $item ) {
 	if ( $product_type == 'crowdfunding' ) {
 		?>
 		<p>
-			<?php printf( esc_html__( 'You’ve received the following donation from %s:', 'wp-crowdfunding' ), $order->get_formatted_billing_full_name() ); ?> 
+			<?php printf( /* translators: %s: customer name */ esc_html__( 'You’ve received the following donation from %s:', 'wp-crowdfunding' ), esc_html( $order->get_formatted_billing_full_name() ) ); ?> 
 		</p>
 	
 		<?php
 		}
 		else{ ?>
-			<p><?php printf( esc_html__( 'You’ve received the following order from %s:', 'wp-crowdfunding' ), $order->get_formatted_billing_full_name() ); ?></p>
+			<p><?php printf( /* translators: %s: customer name */ esc_html__( 'You’ve received the following order from %s:', 'wp-crowdfunding' ), esc_html( $order->get_formatted_billing_full_name() ) ); ?></p>
 			
 			<?php 
 		}

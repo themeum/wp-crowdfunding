@@ -46,7 +46,7 @@ class Gutenberg{
             'wpcf-block-script-js',
             WPCF_DIR_URL . 'assets/js/blocks.min.js', 
             array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
-            false,
+            WPCF_VERSION,
             true
         );
 

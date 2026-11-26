@@ -49,7 +49,7 @@ $baker_list = wpcf_function()->get_customers_product();
 						echo wp_kses_post( wpcf_function()->price( $order->get_total() ) );
 					?>
 				</td>
-				<td><?php echo esc_html( date( 'F d, Y', strtotime( $order->get_date_created() ) ) ); ?></td>
+				<td><?php echo esc_html( gmdate( 'F d, Y', strtotime( $order->get_date_created() ) ) ); ?></td>
 			</tr>
 			<?php
 		} //if order completed

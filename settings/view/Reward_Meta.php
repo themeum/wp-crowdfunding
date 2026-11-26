@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 global $post;
 $reward = get_post_meta($post->ID, 'wpneo_selected_reward', true);
 if ( ! empty($reward) && is_array($reward) ){
@@ -16,7 +17,8 @@ if ( ! empty($reward) && is_array($reward) ){
                 <div class="meta">
                     <abbr>
                         <?php echo sprintf(
-                            esc_html__('Amount : %s, Delivery : %s', 'wp-crowdfunding'),
+                            /* translators: 1: pledge amount, 2: delivery month and year */
+                            esc_html__('Amount : %1$s, Delivery : %2$s', 'wp-crowdfunding'),
                             wp_kses_post(wc_price($reward['wpneo_rewards_pladge_amount'])),
                             esc_html($reward['wpneo_rewards_endmonth']) . ', ' . esc_html($reward['wpneo_rewards_endyear'])
                         ); ?>
