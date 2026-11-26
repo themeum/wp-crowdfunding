@@ -22,6 +22,11 @@ class Admin_Menu {
         if ( false === get_option( 'wpcf_allow_registration' ) ) {
             add_option( 'wpcf_allow_registration', 'true' );
         }
+        foreach ( array( 'wpcf_show_backed_user_tab', 'wpcf_backed_user_show_email', 'wpcf_backed_user_show_amount' ) as $option ) {
+            if ( false === get_option( $option ) ) {
+                add_option( $option, 'true' );
+            }
+        }
     }
 
     /**
@@ -377,6 +382,15 @@ class Admin_Menu {
 
                     $allow_registration = sanitize_text_field( wpcf_function()->post( 'wpcf_allow_registration' ) );
                     wpcf_function()->update_checkbox( 'wpcf_allow_registration', $allow_registration );
+
+                    $show_backed_user_tab = sanitize_text_field( wpcf_function()->post( 'wpcf_show_backed_user_tab' ) );
+                    wpcf_function()->update_checkbox( 'wpcf_show_backed_user_tab', $show_backed_user_tab );
+
+                    $backed_user_show_email = sanitize_text_field( wpcf_function()->post( 'wpcf_backed_user_show_email' ) );
+                    wpcf_function()->update_checkbox( 'wpcf_backed_user_show_email', $backed_user_show_email );
+
+                    $backed_user_show_amount = sanitize_text_field( wpcf_function()->post( 'wpcf_backed_user_show_amount' ) );
+                    wpcf_function()->update_checkbox( 'wpcf_backed_user_show_amount', $backed_user_show_amount );
 
                     $vendor_type = sanitize_text_field(wpcf_function()->post('vendor_type'));
                     wpcf_function()->update_text('vendor_type', $vendor_type);

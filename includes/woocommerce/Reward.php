@@ -347,11 +347,10 @@ class Reward {
 	 * Show selected reward
 	 */
 	public function selected_reward_in_order_view( $order ) {
-		$order_id = $order->get_id();
-		$html     = '';
+		$html = '';
 
-		$r = get_post_meta( $order_id, 'wpneo_selected_reward', true );
-		if ( ! empty( $r ) && is_array( $r ) ) {
+		$r = wpcf_function()->get_order_reward( $order );
+		if ( ! empty( $r ) ) {
 			$html .= '<h2>' . __( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>';
 			if ( ! empty( $r['wpneo_rewards_description'] ) ) {
 				// $html .= "<div>{$r['wpneo_rewards_description']}</div>";

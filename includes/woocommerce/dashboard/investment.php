@@ -21,21 +21,7 @@ $id_array = array();
 foreach ($id_list as $value) {
     $id_array[] = $value->ID;
 }
-$order_ids = array( '0' );
-if( is_array( $id_array ) ){
-    if(!empty($id_array)){
-        $id_array = array_map( 'absint', $id_array );
-        global $wpdb;
-        $order_ids = $wpdb->get_col(
-        	$wpdb->prepare(
-        		"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi
-        		LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
-        		WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $id_array ), '%d' ) ) . ' )',
-        		$id_array
-        	)
-        );
-    }
-}
+$order_ids = wpcf_function()->get_order_ids_for_products( $id_array );
 
 $page_numb = max( 1, get_query_var('paged') );
 
@@ -48,15 +34,16 @@ $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', 
     'order-actions' => __( 'Actions', 'wp-crowdfunding' ),
 ) );
 
-$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-    'numberposts' => wpcf_function()->number_of_items_per_page(), // Chnage Number
-    'paged'		  => $page_numb,
-    'post__in'	  => $order_ids,
-    'meta_key'    => '_customer_user',
-    'meta_value'  => get_current_user_id(),
-    'post_type'   => wc_get_order_types( 'view-orders' ),
-    'post_status' => array_keys( wc_get_order_statuses() )
-) ) );
+// The current user's own crowdfunding orders, from HPOS or posts storage.
+$orders_result   = wpcf_function()->get_orders_by_ids( $order_ids, array(
+    'customer_id' => get_current_user_id(),
+    'limit'       => wpcf_function()->number_of_items_per_page(),
+    'page'        => $page_numb,
+    'paginate'    => true,
+    'type'        => wc_get_order_types( 'view-orders' ),
+    'status'      => array_keys( wc_get_order_statuses() ),
+) );
+$customer_orders = $orders_result->orders;
 
 $html .='<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
 
@@ -72,8 +59,7 @@ if ( $customer_orders ) :
         $html .='</thead>';
 
         $html .='<tbody>';
-        foreach ( $customer_orders as $customer_order ) :
-            $order      = wc_get_order( $customer_order );
+        foreach ( $customer_orders as $order ) :
             $order_date = (array) $order->get_date_created();
 
             $item_count = $order->get_item_count();
@@ -147,19 +133,7 @@ else:
 endif;
 $html .= "</div>";//wpneo-padding25
 
-$customer_order_all = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-    'numberposts' => -1,
-    'post__in'	  => $order_ids,
-    'meta_key'    => '_customer_user',
-    'meta_value'  => get_current_user_id(),
-    'post_type'   => wc_get_order_types( 'view-orders' ),
-    'post_status' => array_keys( wc_get_order_statuses() )
-) ) );
-
-$max_page = 1;
-if(!empty($customer_order_all)){
-    $max_page = ceil( count($customer_order_all) / wpcf_function()->number_of_items_per_page() );
-}
+$max_page = max( 1, (int) $orders_result->max_num_pages );
 // Pagination
 $html .= wpcf_function()->get_pagination( $page_numb , $max_page );
 

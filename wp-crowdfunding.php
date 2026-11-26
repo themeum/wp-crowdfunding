@@ -42,6 +42,17 @@ function wpcf_language_load() {
 	load_plugin_textdomain( 'wp-crowdfunding', false, basename( dirname( WPCF_FILE ) ) . '/languages/' );
 }
 
+/**
+ * Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+ * All order data is read and written through the WooCommerce order API.
+ */
+add_action( 'before_woocommerce_init', 'wpcf_declare_hpos_compatibility' );
+function wpcf_declare_hpos_compatibility() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WPCF_FILE, true );
+	}
+}
+
 if ( ! function_exists( 'wpcf_function' ) ) {
 	function wpcf_function() {
 		require_once WPCF_DIR_PATH . 'includes/Functions.php';

@@ -18,7 +18,7 @@ class Dashboard {
 		add_filter( 'manage_edit-product_columns', array( $this, 'order_custom_column' ) );
 		add_action( 'manage_product_posts_custom_column', array( $this, 'show_campaign_data_in_product_column' ), 10, 2 );
 		add_action( 'add_meta_boxes', array( $this, 'register_meta_boxes' ) );
-		add_action( 'add_meta_boxes', array( $this, 'selected_reward_meta_box' ) );
+		add_action( 'add_meta_boxes', array( $this, 'selected_reward_meta_box' ), 10, 2 );
 		add_action( 'wp_ajax_wpcf_order_action', array( $this, 'order_campaign_action' ) );
 	}
 
@@ -217,21 +217,44 @@ class Dashboard {
 	 * Reward meta box in shop order page right side
 	 */
 
-	function selected_reward_meta_box() {
-		global $post;
-		// No global post on the HPOS order screen.
-		if ( ! $post instanceof \WP_Post ) {
+	/**
+	 * @param string                  $screen_id     Current screen ID.
+	 * @param \WP_Post|\WC_Order|null $post_or_order Post on the legacy order screen, order on the HPOS one.
+	 */
+	function selected_reward_meta_box( $screen_id = '', $post_or_order = null ) {
+		$order = $this->get_meta_box_order( $post_or_order );
+		if ( ! $order ) {
 			return;
 		}
 		// Check is reward selected
-		$r = get_post_meta( $post->ID, 'wpneo_selected_reward', true );
-		if ( ! empty( $r ) && is_array( $r ) ) {
-			add_meta_box( 'meta-box-selected-reward', __( 'Selected Reward', 'wp-crowdfunding' ), array( $this, 'selected_reward_meta_box_display_callback' ), 'shop_order', 'side', 'high' );
+		if ( ! empty( wpcf_function()->get_order_reward( $order ) ) ) {
+			$screen = function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order';
+			add_meta_box( 'meta-box-selected-reward', __( 'Selected Reward', 'wp-crowdfunding' ), array( $this, 'selected_reward_meta_box_display_callback' ), $screen, 'side', 'high' );
 		}
 	}
 
-	function selected_reward_meta_box_display_callback() {
+	/**
+	 * @param \WP_Post|\WC_Order $post_or_order Post on the legacy order screen, order on the HPOS one.
+	 */
+	function selected_reward_meta_box_display_callback( $post_or_order = null ) {
+		$reward = wpcf_function()->get_order_reward( $this->get_meta_box_order( $post_or_order ) );
 		include WPCF_DIR_PATH . 'settings/view/Reward_Meta.php';
+	}
+
+	/**
+	 * The order being edited, from either order screen.
+	 *
+	 * @param mixed $post_or_order WP_Post (legacy) or WC_Order (HPOS).
+	 * @return \WC_Order|false
+	 */
+	private function get_meta_box_order( $post_or_order ) {
+		if ( $post_or_order instanceof \WC_Order ) {
+			return $post_or_order;
+		}
+		if ( $post_or_order instanceof \WP_Post && 'shop_order' === $post_or_order->post_type ) {
+			return wc_get_order( $post_or_order->ID );
+		}
+		return false;
 	}
 
 	/**
@@ -346,9 +369,8 @@ class Dashboard {
 			}
 
 			ob_start();
-			$r = get_post_meta( $order_id, 'wpneo_selected_reward', true );
-			$r = json_decode( $r, true );
-			if ( ! empty( $r ) && is_array( $r ) ) {
+			$r = wpcf_function()->get_order_reward( $order );
+			if ( ! empty( $r ) ) {
 				?>
 				<tr>
 					<td>

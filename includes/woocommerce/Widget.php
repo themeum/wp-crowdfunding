@@ -22,7 +22,6 @@ class Latest_Backers extends \WP_Widget {
 			echo wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] );
 		}
 
-		global $wpdb;
 		$id_array = array();
 		$query    = array(
 			'post_type'      => 'product',
@@ -40,48 +39,19 @@ class Latest_Backers extends \WP_Widget {
 		foreach ( $id_list as $value ) {
 			$id_array[] = $value->ID;
 		}
-		$order_ids = array();
-		if ( is_array( $id_array ) ) {
-			if ( ! empty( $id_array ) ) {
-				$id_array = array_map( 'absint', $id_array );
-				global $wpdb;
-				$order_ids = $wpdb->get_col(
-					$wpdb->prepare(
-						"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
-						WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $id_array ), '%d' ) ) . ' )',
-						$id_array
-					)
-				);
-				if ( is_array( $order_ids ) ) {
-					if ( empty( $order_ids ) ) {
-						$order_ids = array( '9999999' );
-					}
-				}
-			} else {
-				$order_ids = array( '9999999' );
-			}
-		}
-
-		$customer_orders = get_posts(
-			apply_filters(
-				'woocommerce_my_account_my_orders_query',
-				array(
-					'numberposts' => $instance['number'],
-					'orderby'     => 'date',
-					'order'       => 'DESC',
-					'post__in'    => $order_ids,
-					'meta_key'    => '_customer_user',
-					'post_type'   => wc_get_order_types( 'view-orders' ),
-					'post_status' => array_keys( wc_get_order_statuses() ),
-				)
+		$customer_orders = wpcf_function()->get_orders_by_ids(
+			wpcf_function()->get_order_ids_for_products( $id_array ),
+			array(
+				'limit'   => max( 1, absint( isset( $instance['number'] ) ? $instance['number'] : 6 ) ),
+				'orderby' => 'date',
+				'order'   => 'DESC',
+				'type'    => wc_get_order_types( 'view-orders' ),
+				'status'  => array_keys( wc_get_order_statuses() ),
 			)
 		);
 
-		foreach ( $customer_orders as $customer_order ) {
-			$order      = wc_get_order( $customer_order );
-			$order_date = (array) $order->get_date_created();
-			$items      = $order->get_items();
+		foreach ( $customer_orders as $order ) {
+			$items = $order->get_items();
 			echo '<ul class="wpcf-latest-backer-widget">';
 				echo '<li>';
 			foreach ( $items as $val ) {

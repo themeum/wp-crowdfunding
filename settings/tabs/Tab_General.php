@@ -124,5 +124,32 @@ $arr =  array(
 		'label' => __( 'User Registration', 'wp-crowdfunding' ),
 		'desc'  => __( 'Allow visitors to register through the WP Crowdfunding registration form', 'wp-crowdfunding' ),
 	),
+
+	// #Show the "Backed User" tab (backer names, emails and amounts) on campaign product pages.
+	array(
+		'id'    => 'wpcf_show_backed_user_tab',
+		'type'  => 'checkbox',
+		'value' => 'true',
+		'label' => __( 'Backed User Tab', 'wp-crowdfunding' ),
+		'desc'  => __( 'Show the "Backed User" tab with backer names, emails and pledge amounts on campaign product pages. Everyone who can view the campaign can see it.', 'wp-crowdfunding' ),
+	),
+
+	// #Show the backer's email in the "Backed User" tab.
+	array(
+		'id'    => 'wpcf_backed_user_show_email',
+		'type'  => 'checkbox',
+		'value' => 'true',
+		'label' => __( 'Backed User Email', 'wp-crowdfunding' ),
+		'desc'  => __( 'Show each backer\'s email address in the "Backed User" tab on campaign product pages', 'wp-crowdfunding' ),
+	),
+
+	// #Show the pledge amount in the "Backed User" tab.
+	array(
+		'id'    => 'wpcf_backed_user_show_amount',
+		'type'  => 'checkbox',
+		'value' => 'true',
+		'label' => __( 'Backed User Pledge Amount', 'wp-crowdfunding' ),
+		'desc'  => __( 'Show each backer\'s pledge amount in the "Backed User" tab on campaign product pages', 'wp-crowdfunding' ),
+	),
 );
 wpcf_function()->generator( $arr );

@@ -126,28 +126,31 @@ class Woocommerce {
 	 * @return void
 	 */
 	public function custom_campaign_order_meta( $order_obj, $sent_to_admin, $plain_text ) {
-		$is_crowdfunding = get_post_meta( $order_obj->get_order_number(), 'is_crowdfunding_order', true );
+		if ( ! $order_obj instanceof \WC_Abstract_Order ) {
+			return;
+		}
 
 		// we won't display anything if it is not a crowdfunding order.
-		if ( ! $is_crowdfunding ) {
+		if ( ! $order_obj->get_meta( 'is_crowdfunding_order', true ) ) {
 			return;
 		}
 
-		// ok, it's a cf order, get all the other fields
-		$selected_reward = get_post_meta( $order_obj->get_order_number(), 'wpneo_selected_reward', true );
-
-		// Let's check if it's empty or not.
-		if ( empty( $selected_reward ) ) {
+		// ok, it's a cf order, get the selected reward.
+		$reward = wpcf_function()->get_order_reward( $order_obj );
+		if ( empty( $reward ) ) {
 			return;
 		}
 
-		$reward_details = json_decode( $selected_reward );
+		$amount      = isset( $reward['wpneo_rewards_pladge_amount'] ) ? $reward['wpneo_rewards_pladge_amount'] : 0;
+		$end_month   = isset( $reward['wpneo_rewards_endmonth'] ) ? $reward['wpneo_rewards_endmonth'] : '';
+		$end_year    = isset( $reward['wpneo_rewards_endyear'] ) ? $reward['wpneo_rewards_endyear'] : '';
+		$description = isset( $reward['wpneo_rewards_description'] ) ? $reward['wpneo_rewards_description'] : '';
 
 		echo '<h2>' . esc_html__( 'Selected Reward', 'wp-crowdfunding' ) . '</h2>
         <ul>
-            <li> ' . esc_html__( 'Amount: ', 'wp-crowdfunding' ) . wp_kses_post( wc_price( $reward_details->wpneo_rewards_pladge_amount ) ) . '</li>
-            <li> ' . esc_html__( 'Delivery: ', 'wp-crowdfunding' ) . esc_html( ucfirst( $reward_details->wpneo_rewards_endmonth ) ) . ', ' . esc_html( $reward_details->wpneo_rewards_endyear ) . '</li>
-            <li> ' . esc_html__( 'Reward Details: ', 'wp-crowdfunding' ) . esc_html( $reward_details->wpneo_rewards_description ) . '</li>
+            <li> ' . esc_html__( 'Amount: ', 'wp-crowdfunding' ) . wp_kses_post( wc_price( $amount ) ) . '</li>
+            <li> ' . esc_html__( 'Delivery: ', 'wp-crowdfunding' ) . esc_html( ucfirst( $end_month ) ) . ', ' . esc_html( $end_year ) . '</li>
+            <li> ' . esc_html__( 'Reward Details: ', 'wp-crowdfunding' ) . esc_html( $description ) . '</li>
         </ul>';
 	}
 
@@ -908,11 +911,14 @@ class Woocommerce {
 		if ( WC()->session != null ) {
 			$rewards_data = WC()->session->get( 'wpneo_rewards_data' );
 			if ( ! empty( $rewards_data ) ) {
-				$reward      = $rewards_data['wpneo_selected_rewards_checkout'];
-				$reward_json = json_encode( $reward, JSON_UNESCAPED_UNICODE );
-				// wpcf_function()->update_meta( $order_id, 'wpneo_selected_reward', $reward );
-				wpcf_function()->update_meta( $order_id, 'wpneo_selected_reward', wp_slash( $reward_json ) );
-				wpcf_function()->update_meta( $order_id, '_cf_product_author_id', $rewards_data['_cf_product_author_id'] );
+				$order = wc_get_order( $order_id );
+				if ( $order ) {
+					$reward = isset( $rewards_data['wpneo_selected_rewards_checkout'] ) ? $rewards_data['wpneo_selected_rewards_checkout'] : array();
+					// Order meta API, so the data is stored correctly with and without HPOS.
+					$order->update_meta_data( 'wpneo_selected_reward', wp_json_encode( $reward, JSON_UNESCAPED_UNICODE ) );
+					$order->update_meta_data( '_cf_product_author_id', isset( $rewards_data['_cf_product_author_id'] ) ? absint( $rewards_data['_cf_product_author_id'] ) : '' );
+					$order->save_meta_data();
+				}
 				WC()->session->__unset( 'wpneo_rewards_data' );
 			}
 		}
@@ -923,10 +929,13 @@ class Woocommerce {
 		if ( ! $product_id ) {
 			return;
 		}
-		$get_product  = wc_get_product( $product_id );
-		$product_type = $get_product->get_type();
-		if ( $product_type === 'crowdfunding' ) {
-			wpcf_function()->update_meta( $order_id, 'is_crowdfunding_order', '1' );
+		$get_product = wc_get_product( $product_id );
+		if ( $get_product && $get_product->get_type() === 'crowdfunding' ) {
+			$order = wc_get_order( $order_id );
+			if ( $order ) {
+				$order->update_meta_data( 'is_crowdfunding_order', '1' );
+				$order->save_meta_data();
+			}
 		}
 	}
 
@@ -950,8 +959,11 @@ class Woocommerce {
 	public function check_anonymous_backer_post( $order_id ) {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verifies the checkout nonce before woocommerce_checkout_order_processed.
 		if ( ! empty( $_POST['mark_name_anonymous'] ) ) {
-			if ( 'true' === sanitize_text_field( wp_unslash( $_POST['mark_name_anonymous'] ) ) ) {
-				wpcf_function()->update_meta( $order_id, 'mark_name_anonymous', 'true' );
+			$order = wc_get_order( $order_id );
+			if ( $order && 'true' === sanitize_text_field( wp_unslash( $_POST['mark_name_anonymous'] ) ) ) {
+				// Use the order meta API so the flag is stored correctly with HPOS.
+				$order->update_meta_data( 'mark_name_anonymous', 'true' );
+				$order->save_meta_data();
 			}
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
@@ -1152,8 +1164,9 @@ class Woocommerce {
 	 */
 	public function product_backed_user_tab( $tabs ) {
 		global $post;
-		$product = wc_get_product( $post->ID );
-		if ( $product->get_type() == 'crowdfunding' ) {
+		$product = $post ? wc_get_product( $post->ID ) : false;
+		// Shown only when enabled in WP Crowdfunding > Settings > General.
+		if ( $product && $product->get_type() == 'crowdfunding' && wpcf_function()->is_backed_user_tab_enabled() ) {
 			// Adds the new tab
 			$tabs['backed_user'] = array(
 				'title'    => __( 'Backed User', 'wp-crowdfunding' ),
@@ -1166,56 +1179,61 @@ class Woocommerce {
 
 	public function product_backed_user_tab_content( $post_id ) {
 
-		global $post, $wpdb;
-		$html       = '';
-		$prefix     = $wpdb->prefix;
+		global $post;
+		$html = '';
+		if ( ! $post || ! wpcf_function()->is_backed_user_tab_enabled() ) {
+			return;
+		}
 		$product_id = $post->ID;
-		$data_array = wpcf_function()->get_campaign_orders_id_list();
-
-		$args      = array(
-			'post_type'   => 'shop_order',
-			'post_status' => array( 'wc-completed', 'wc-on-hold' ),
-			'post__in'    => $data_array,
+		// An empty ID list returns no orders, never every order in the store.
+		$orders = wpcf_function()->get_orders_by_ids(
+			wpcf_function()->get_campaign_orders_id_list(),
+			array(
+				'type'    => 'shop_order',
+				'status'  => array( 'wc-completed', 'wc-on-hold' ),
+				'orderby' => 'date',
+				'order'   => 'DESC',
+			)
 		);
-		$the_query = new \WP_Query( $args );
 
-		if ( $the_query->have_posts() ) :
+		// Columns the admin chose to show (WP Crowdfunding > Settings > General).
+		$show_email  = wpcf_function()->is_backed_user_column_enabled( 'email' );
+		$show_amount = wpcf_function()->is_backed_user_column_enabled( 'amount' );
+
+		if ( ! empty( $orders ) ) :
 
 			$html .= '  <table class="shop_table backed_user_table">
 
                 <thead>
                     <tr>
                         <th>' . __( 'ID', 'wp-crowdfunding' ) . '</th>
-                        <th>' . __( 'Name', 'wp-crowdfunding' ) . '</th>
-                        <th>' . __( 'Email', 'wp-crowdfunding' ) . '</th>
-                        <th>' . __( 'Amount', 'wp-crowdfunding' ) . '</th>
+                        <th>' . __( 'Name', 'wp-crowdfunding' ) . '</th>'
+						. ( $show_email ? '<th>' . __( 'Email', 'wp-crowdfunding' ) . '</th>' : '' )
+						. ( $show_amount ? '<th>' . __( 'Amount', 'wp-crowdfunding' ) . '</th>' : '' ) . '
                     </tr>
                 </thead>';
-			?>
 
-
-			<?php
-			while ( $the_query->have_posts() ) :
-				$the_query->the_post();
-
-				$html   .= '<tr>';
-				$html   .= '<td>' . get_the_ID() . '</td>';
-				$html   .= '<td>' . get_post_meta( get_the_ID(), '_billing_first_name', true ) . ' ' . get_post_meta( get_the_ID(), '_billing_last_name', true ) . '</td>';
-				$html   .= '<td>' . get_post_meta( get_the_ID(), '_billing_email', true ) . '</td>';
-				$post_id = get_the_ID();
-				$price   = $wpdb->get_results( $wpdb->prepare( "SELECT order_meta.meta_value FROM `{$wpdb->prefix}woocommerce_order_itemmeta` AS order_meta, `{$wpdb->prefix}woocommerce_order_items` AS order_item WHERE order_meta.order_item_id IN (SELECT order_item.order_item_id FROM `{$wpdb->prefix}woocommerce_order_items` as order_item WHERE order_item.order_id = %d) AND order_meta.order_item_id IN (SELECT meta.order_item_id FROM `{$wpdb->prefix}woocommerce_order_itemmeta` AS meta WHERE meta.meta_key='_product_id' AND meta.meta_value = %d ) AND order_meta.meta_key='_line_total' GROUP BY order_meta.meta_id", absint( $post_id ), absint( $product_id ) ) );
-				$price   = json_decode( json_encode( $price ), true );
-				if ( isset( $price[0]['meta_value'] ) ) {
-					$html .= '<td>' . wc_price( $price[0]['meta_value'] ) . '</td>';
+			foreach ( $orders as $order ) :
+				$html .= '<tr>';
+				$html .= '<td>' . esc_html( $order->get_id() ) . '</td>';
+				$html .= '<td>' . esc_html( $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() ) . '</td>';
+				if ( $show_email ) {
+					$html .= '<td>' . esc_html( $order->get_billing_email() ) . '</td>';
+				}
+				if ( $show_amount ) {
+					$amount = '';
+					foreach ( $order->get_items() as $item ) {
+						if ( (int) $item->get_product_id() === (int) $product_id ) {
+							$amount = wc_price( $item->get_total() );
+							break;
+						}
+					}
+					$html .= '<td>' . $amount . '</td>';
 				}
 				$html .= '</tr>';
-
-			endwhile;
-			wp_reset_postdata();
+			endforeach;
 
 			$html .= '</table>';
-			?>
-			<?php
 		else :
 			$html .= __( 'Sorry, no posts matched your criteria.', 'wp-crowdfunding' );
 		endif;

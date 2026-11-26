@@ -190,7 +190,7 @@ class Base
             $footer_text = sprintf(/* translators: %s: 5-star rating link */ __('If you like <strong>WP Crowdfunding</strong> please leave us a 5-stars %s rating. A huge thanks in advance!', 'wp-crowdfunding'), '<a href="https://wordpress.org/support/plugin/wp-crowdfunding/reviews?rate=5#new-post" target="_blank" class="wpcf-rating-link" data-rated="' . esc_attr__('Thanks :)', 'wp-crowdfunding') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>');
             wc_enqueue_js("
                 jQuery( 'a.wpcf-rating-link' ).click( function() {
-                    jQuery.post( '" . admin_url('admin-ajax.php') . "', { action: 'wpcf_rated' } );
+                    jQuery.post( " . wp_json_encode( admin_url( 'admin-ajax.php' ) ) . ", { action: 'wpcf_rated', nonce: " . wp_json_encode( wp_create_nonce( 'wpcf_rated' ) ) . " } );
                     jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
                 });
             ");
@@ -206,7 +206,15 @@ class Base
      */
     function admin_footer_text_rated()
     {
-        update_option('wpcf_admin_footer_text_rated', 'true');
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( null, 403 );
+        }
+        if ( ! check_ajax_referer( 'wpcf_rated', 'nonce', false ) ) {
+            wp_send_json_error( null, 403 );
+        }
+
+        update_option( 'wpcf_admin_footer_text_rated', 'true' );
+        wp_send_json_success();
     }
 
     /**

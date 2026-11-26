@@ -1,8 +1,8 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-global $post;
-$reward = get_post_meta($post->ID, 'wpneo_selected_reward', true);
-if ( ! empty($reward) && is_array($reward) ){
+// $reward is set by Dashboard::selected_reward_meta_box_display_callback() from the order (HPOS or posts).
+$reward = isset( $reward ) && is_array( $reward ) ? $reward : array();
+if ( ! empty($reward) ){
     ?>
     <ul class="order_notes">
         <li class="note system-note">

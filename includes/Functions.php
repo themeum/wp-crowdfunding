@@ -177,55 +177,158 @@ class Functions {
 			$id_array[] = $value->ID;
 		}
 
-		$order_ids = array();
-		if ( is_array( $id_array ) ) {
-			if ( ! empty( $id_array ) ) {
-				$id_array = array_map( 'absint', $id_array );
-				global $wpdb;
-				$order_ids = $wpdb->get_col(
-					$wpdb->prepare(
-						"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
-						WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $id_array ), '%d' ) ) . ' )',
-						$id_array
-					)
-				);
-				if ( is_array( $order_ids ) ) {
-					if ( empty( $order_ids ) ) {
-						$order_ids = array( '9999999' );
-					}
-				}
-			} else {
-				$order_ids = array( '9999999' );
-			}
-		}
-
-		$customer_orders = get_posts(
-			apply_filters(
-				'woocommerce_my_account_my_orders_query',
-				array(
-					'numberposts' => -1, // Chnage Number
-					'post__in'    => $order_ids,
-					'meta_key'    => '_customer_user',
-					'post_type'   => \wc_get_order_types( 'view-orders' ),
-					'post_status' => array_keys( wc_get_order_statuses() ),
-
-					'date_query'  => array(
-						array(
-							'after'     => gmdate( 'F jS, Y', strtotime( $from_date ) ),
-							'before'    => array(
-								'year'  => gmdate( 'Y', strtotime( $to_date ) ),
-								'month' => gmdate( 'm', strtotime( $to_date ) ),
-								'day'   => gmdate( 'd', strtotime( $to_date ) ),
-							),
-							'inclusive' => true,
-						),
-					),
-				)
+		$orders = $this->get_orders_by_ids(
+			$this->get_order_ids_for_products( $id_array ),
+			array(
+				'type'   => wc_get_order_types( 'view-orders' ),
+				'status' => array_keys( wc_get_order_statuses() ),
 			)
 		);
 
-		return $customer_orders;
+		// Orders created between the two dates (inclusive, by day).
+		$from_day = gmdate( 'Y-m-d', strtotime( $from_date ) );
+		$to_day   = gmdate( 'Y-m-d', strtotime( $to_date ) );
+
+		return array_values(
+			array_filter(
+				$orders,
+				function ( $order ) use ( $from_day, $to_day ) {
+					$created = $order->get_date_created();
+					if ( ! $created ) {
+						return false;
+					}
+					$day = $created->date( 'Y-m-d' );
+					return $day >= $from_day && $day <= $to_day;
+				}
+			)
+		);
+	}
+
+	/**
+	 * Whether WooCommerce stores orders in its own tables (HPOS).
+	 *
+	 * @since 2.2.3
+	 *
+	 * @return bool
+	 */
+	public function is_hpos_enabled() {
+		return class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' )
+			&& \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+	}
+
+	/**
+	 * Orders table and column names for the active order storage.
+	 *
+	 * The values are fixed strings, safe to interpolate into SQL.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @return array{table: string, id: string, type: string, status: string}
+	 */
+	public function get_orders_table_info() {
+		global $wpdb;
+		if ( $this->is_hpos_enabled() ) {
+			return array(
+				'table'  => $wpdb->prefix . 'wc_orders',
+				'id'     => 'id',
+				'type'   => 'type',
+				'status' => 'status',
+			);
+		}
+		return array(
+			'table'  => $wpdb->posts,
+			'id'     => 'ID',
+			'type'   => 'post_type',
+			'status' => 'post_status',
+		);
+	}
+
+	/**
+	 * IDs of orders (any status) that contain any of the given products.
+	 *
+	 * Order items live in the same tables with and without HPOS.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int[] $product_ids Product IDs.
+	 * @return int[]
+	 */
+	public function get_order_ids_for_products( $product_ids ) {
+		global $wpdb;
+		$product_ids = array_values( array_filter( array_map( 'absint', (array) $product_ids ) ) );
+		if ( empty( $product_ids ) ) {
+			return array();
+		}
+		$order_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT DISTINCT oi.order_id FROM {$wpdb->prefix}woocommerce_order_items oi
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
+				WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $product_ids ), '%d' ) ) . ' )',
+				$product_ids
+			)
+		);
+		return array_map( 'absint', (array) $order_ids );
+	}
+
+	/**
+	 * Load orders by ID from the active order storage (HPOS or posts).
+	 *
+	 * An empty ID list returns no orders (never "all orders").
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param int[] $order_ids Order IDs.
+	 * @param array $args      Extra wc_get_orders() arguments, e.g. status, type, customer_id, limit, page, paginate.
+	 * @return \WC_Order[]|object Orders, or wc_get_orders()'s paginated result when 'paginate' is set.
+	 */
+	public function get_orders_by_ids( $order_ids, $args = array() ) {
+		$order_ids = array_values( array_unique( array_filter( array_map( 'absint', (array) $order_ids ) ) ) );
+		if ( empty( $order_ids ) ) {
+			return empty( $args['paginate'] ) ? array() : (object) array(
+				'orders'        => array(),
+				'total'         => 0,
+				'max_num_pages' => 0,
+			);
+		}
+
+		$query = array_merge(
+			array(
+				'limit'   => -1,
+				'orderby' => 'date',
+				'order'   => 'DESC',
+			),
+			(array) $args
+		);
+		// HPOS maps post__in to order IDs; legacy storage passes it to WP_Query.
+		$query['post__in'] = $order_ids;
+
+		return wc_get_orders( $query );
+	}
+
+	/**
+	 * The reward a backer selected, as saved on the order.
+	 *
+	 * Saved as JSON by the plugin; very old orders may hold an array.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param \WC_Abstract_Order|int $order Order or order ID.
+	 * @return array Reward data, or an empty array.
+	 */
+	public function get_order_reward( $order ) {
+		$order = $order instanceof \WC_Abstract_Order ? $order : wc_get_order( $order );
+		if ( ! $order ) {
+			return array();
+		}
+		$reward = $order->get_meta( 'wpneo_selected_reward', true );
+		if ( is_string( $reward ) && '' !== $reward ) {
+			$decoded = json_decode( $reward, true );
+			if ( ! is_array( $decoded ) ) {
+				$decoded = json_decode( wp_unslash( $reward ), true );
+			}
+			$reward = $decoded;
+		}
+		return is_array( $reward ) ? $reward : array();
 	}
 
 	public function get_order_ids_by_product_ids( $product_ids, $order_status = array( 'wc-completed' ) ) {
@@ -235,20 +338,23 @@ class Functions {
 		if ( empty( $product_ids ) || empty( $order_status ) ) {
 			return array();
 		}
+		$orders = $this->get_orders_table_info();
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Only fixed table/column names from get_orders_table_info() are interpolated.
 		$results = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT order_items.order_id
 				FROM {$wpdb->prefix}woocommerce_order_items as order_items
 				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-				LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
-				WHERE posts.post_type = 'shop_order'
-				AND posts.post_status IN ( " . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . " )
+				LEFT JOIN {$orders['table']} AS posts ON order_items.order_id = posts.{$orders['id']}
+				WHERE posts.{$orders['type']} = 'shop_order'
+				AND posts.{$orders['status']} IN ( " . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . " )
 				AND order_items.order_item_type = 'line_item'
 				AND order_item_meta.meta_key = '_product_id'
 				AND order_item_meta.meta_value IN ( " . implode( ',', array_fill( 0, count( $product_ids ), '%d' ) ) . ' )',
 				array_merge( array_values( $order_status ), array_values( $product_ids ) )
 			)
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		return $results;
 	}
 
@@ -752,14 +858,25 @@ class Functions {
 		return $this->get_total_backers();
 	}
 	public function get_total_backers() {
-		$orders = $this->get_customers_by_product_query();
-		if ( $orders ) {
-			return $orders->post_count;
-		} else {
-			return 0;
-		}
+		$order_ids = $this->get_orders_by_ids(
+			$this->get_campaign_orders_id_list(),
+			array(
+				'type'   => 'shop_order',
+				'status' => 'wc-completed',
+				'return' => 'ids',
+			)
+		);
+		return count( $order_ids );
 	}
 
+	/**
+	 * Completed orders of the current campaign as a WP_Query.
+	 *
+	 * Only works with legacy (posts) order storage. Kept for backward
+	 * compatibility; use get_orders_by_ids() instead.
+	 *
+	 * @return \WP_Query|false
+	 */
 	public function get_customers_by_product_query() {
 		$order_ids = $this->get_campaign_orders_id_list();
 		if ( $order_ids ) {
@@ -1064,6 +1181,42 @@ class Functions {
 	 */
 	public function is_registration_allowed() {
 		return 'false' !== get_option( 'wpcf_allow_registration', 'true' );
+	}
+
+	/**
+	 * Whether the "Backed User" tab is shown on campaign product pages.
+	 *
+	 * Set in WP Crowdfunding > Settings > General. Defaults to shown so
+	 * existing installs keep working until an admin turns it off.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @return bool
+	 */
+	public function is_backed_user_tab_enabled() {
+		return 'false' !== get_option( 'wpcf_show_backed_user_tab', 'true' );
+	}
+
+	/**
+	 * Whether a column of the "Backed User" tab is shown.
+	 *
+	 * Set in WP Crowdfunding > Settings > General. Defaults to shown so
+	 * existing installs keep working until an admin turns it off.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param string $column 'email' or 'amount'.
+	 * @return bool
+	 */
+	public function is_backed_user_column_enabled( $column ) {
+		$options = array(
+			'email'  => 'wpcf_backed_user_show_email',
+			'amount' => 'wpcf_backed_user_show_amount',
+		);
+		if ( ! isset( $options[ $column ] ) ) {
+			return false;
+		}
+		return 'false' !== get_option( $options[ $column ], 'true' );
 	}
 
 	/**

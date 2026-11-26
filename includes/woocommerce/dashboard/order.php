@@ -22,28 +22,7 @@ foreach ($id_list as $value) {
     $id_array[] = $value->ID;
 }
 
-$order_ids = array();
-if( is_array( $id_array ) ){
-    if(!empty($id_array)) {
-        $id_array = array_map( 'absint', $id_array );
-        global $wpdb;
-        $order_ids = $wpdb->get_col(
-        	$wpdb->prepare(
-        		"SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items oi
-        		LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta woim ON woim.order_item_id = oi.order_item_id
-        		WHERE woim.meta_key = '_product_id' AND woim.meta_value IN ( " . implode( ',', array_fill( 0, count( $id_array ), '%d' ) ) . ' )',
-        		$id_array
-        	)
-        );
-        if(is_array($order_ids)){
-            if(empty($order_ids)){
-                $order_ids = array( '9999999' );
-            }
-        }
-    }else{
-        $order_ids = array( '9999999' );
-    }
-}
+$order_ids = wpcf_function()->get_order_ids_for_products( $id_array );
 
 $page_numb = max( 1, get_query_var('paged') );
 
@@ -57,14 +36,15 @@ $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', 
     //'order-actions' => '&nbsp;',
 ) );
 
-$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-    'numberposts' => wpcf_function()->number_of_items_per_page(), // Chnage Number
-    'paged'		  => $page_numb,
-    'post__in'	  => $order_ids,
-    'meta_key'    => '_customer_user',
-    'post_type'   => wc_get_order_types( 'view-orders' ),
-    'post_status' => array_keys( wc_get_order_statuses() )
-) ) );
+// Pledges received on the current user's campaigns, from HPOS or posts storage.
+$orders_result   = wpcf_function()->get_orders_by_ids( $order_ids, array(
+    'limit'    => wpcf_function()->number_of_items_per_page(),
+    'page'     => $page_numb,
+    'paginate' => true,
+    'type'     => wc_get_order_types( 'view-orders' ),
+    'status'   => array_keys( wc_get_order_statuses() ),
+) );
+$customer_orders = $orders_result->orders;
 $html .='<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">';
 
 if ( $customer_orders ) :
@@ -79,8 +59,7 @@ if ( $customer_orders ) :
         $html .='</tr>';
         $html .='</thead>';
         $html .='<tbody>';
-        foreach ( $customer_orders as $customer_order ) :
-            $order      = wc_get_order( $customer_order );
+        foreach ( $customer_orders as $order ) :
             $order_date = (array) $order->get_date_created();
             $item_count = $order->get_item_count();
 
@@ -110,18 +89,15 @@ if ( $customer_orders ) :
                     /**
                     * Get specific rewards from amount
                     */
-                    $ordered_items = $order->get_items();
-                    
-                    foreach ( $ordered_items as $item ) {
-                        $order_id   = $item['order_id'];
-                        $product_id = $item['product_id'];
+                    $ordered_items    = $order->get_items();
+                    $campaign_rewards = wpcf_function()->get_order_reward( $order );
 
-                        $campaign_rewards        = get_post_meta( $order_id, 'wpneo_selected_reward', true );
-                        $campaign_rewards_amount = json_decode( $campaign_rewards );
+                    foreach ( $ordered_items as $item ) {
+                        $product_id = $item->get_product_id();
 
                         $rewards_amount = '';
-                        if ( ! empty( $campaign_rewards_amount ) ) {
-                            $rewards_amount = '<a class="label-default" href="' . get_permalink( $product_id ) . '" target="_blank">' . __( 'Rewards ', 'wp-crowdfunding' ) . wpcf_function()->price( $campaign_rewards_amount->wpneo_rewards_pladge_amount ) . '</a>';
+                        if ( ! empty( $campaign_rewards['wpneo_rewards_pladge_amount'] ) ) {
+                            $rewards_amount = '<a class="label-default" href="' . esc_url( get_permalink( $product_id ) ) . '" target="_blank">' . __( 'Rewards ', 'wp-crowdfunding' ) . wpcf_function()->price( $campaign_rewards['wpneo_rewards_pladge_amount'] ) . '</a>';
                         }
 
                         $html .= $rewards_amount;
@@ -143,19 +119,7 @@ else:
 endif;
 $html .= "</div>";//wpneo-padding25
 
-$customer_order_all = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-    'numberposts' => -1,
-    'post__in'	  => $order_ids,
-    'meta_key'    => '_customer_user',
-    'meta_value'  => get_current_user_id(),
-    'post_type'   => wc_get_order_types( 'view-orders' ),
-    'post_status' => array_keys( wc_get_order_statuses() )
-) ) );
-
-$max_page = 1;
-if(!empty($customer_order_all)){
-    $max_page = ceil( count($customer_order_all) / wpcf_function()->number_of_items_per_page() );
-}
+$max_page = max( 1, (int) $orders_result->max_num_pages );
 // Pagination
 $html .= wpcf_function()->get_pagination( $page_numb , $max_page );
 

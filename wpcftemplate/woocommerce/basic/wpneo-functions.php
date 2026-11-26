@@ -19,15 +19,24 @@ function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ) {
 		return 0;
 	}
 
+	// Count from the active order storage: HPOS (wc_orders) or legacy (wp_posts).
+	// Table and column names are fixed strings, never user input.
+	$orders       = wpcf_function()->get_orders_table_info();
+	$orders_table = $orders['table'];
+	$id_col       = $orders['id'];
+	$type_col     = $orders['type'];
+	$status_col   = $orders['status'];
+
+	// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Only fixed table/column names are interpolated; values use placeholders.
 	return (int) $wpdb->get_var(
 		$wpdb->prepare(
-		"SELECT COUNT(p.ID)
-		FROM {$wpdb->posts} AS p,
+		"SELECT COUNT(p.{$id_col})
+		FROM {$orders_table} AS p,
 			{$wpdb->prefix}woocommerce_order_items AS i,
 			{$wpdb->prefix}woocommerce_order_itemmeta AS im
-		WHERE p.post_type = 'shop_order'
-			AND p.post_status = 'wc-completed'
-			AND i.order_id = p.ID
+		WHERE p.{$type_col} = 'shop_order'
+			AND p.{$status_col} = 'wc-completed'
+			AND i.order_id = p.{$id_col}
 			AND i.order_item_id = im.order_item_id
 			AND im.meta_key = '_product_id'
 			AND im.order_item_id IN (
@@ -42,6 +51,7 @@ function wpcf_campaign_order_number_data( $min_data, $max_data, $post_id ) {
 		$post_id
 	)
 	);
+	// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 }
 
 // Bio Data View.

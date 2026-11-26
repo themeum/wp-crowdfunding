@@ -8,29 +8,27 @@ defined( 'ABSPATH' ) || exit;
 
 $user_id = get_current_user_id();
 
-$args          = array(
-	'post_type'   => 'shop_order',
-	'post_status' => 'wc-completed',
-	'meta_query'  => array(
-		array(
-			'key'     => 'wpneo_selected_reward',
-			'value'   => array( '', null ),
-			'compare' => 'NOT IN',
-		),
-		array(
-			'key'     => '_cf_product_author_id',
-			'value'   => $user_id,
-			'compare' => '=',
-		),
-	),
+// Completed orders on this user's campaigns that have a selected reward (HPOS or posts storage).
+$reward_orders = array();
+$orders        = wpcf_function()->get_orders_by_ids(
+	wpcf_function()->get_order_ids_for_products( wpcf_function()->get_products_id_by_user( $user_id ) ),
+	array(
+		'type'   => 'shop_order',
+		'status' => 'wc-completed',
+	)
 );
-$rewards_query = new WP_Query( $args );
+foreach ( $orders as $order ) {
+	$reward = wpcf_function()->get_order_reward( $order );
+	if ( ! empty( $reward ) && (int) $order->get_meta( '_cf_product_author_id', true ) === (int) $user_id ) {
+		$reward_orders[] = array( $order, $reward );
+	}
+}
 ?>
 
 <div class="wpneo-content">
 	<div class="wpneo-form">
 		<div class="wpneo-shadow wpneo-padding25 wpneo-clearfix">
-			<?php if ( $rewards_query->have_posts() ) { ?>
+			<?php if ( ! empty( $reward_orders ) ) { ?>
 				<div class="wpneo-responsive-table">
 					<table class="stripe-table reward_table_dashboard">
 						<thead>
@@ -42,13 +40,11 @@ $rewards_query = new WP_Query( $args );
 						</thead>
 						<tbody>
 							<?php
-							while ( $rewards_query->have_posts() ) {
-								$rewards_query->the_post();
-								$reward = get_post_meta( get_the_ID(), 'wpneo_selected_reward', true );
-								$order  = new WC_Order( get_the_ID() );
+							foreach ( $reward_orders as $reward_order ) {
+								list( $order, $reward ) = $reward_order;
 								?>
 								<tr>
-									<td>#<?php the_ID(); ?></td>
+									<td>#<?php echo esc_html( $order->get_id() ); ?></td>
 									<td>
 										<?php
 										foreach ( $order->get_items() as $key => $item ) {
@@ -94,7 +90,6 @@ $rewards_query = new WP_Query( $args );
 								</tr> 
 								<?php
 							}
-							wp_reset_postdata();
 							?>
 						</tbody>
 					</table>

@@ -75,9 +75,27 @@ $label                     = array();
 
 $product_ids                   = wpcf_function()->get_products_id_by_user();
 $getting_order_ids_by_products = wpcf_function()->get_order_ids_by_product_ids( $product_ids );
-$order_ids_in                  = array_values( array_filter( array_map( 'absint', (array) $getting_order_ids_by_products ) ) );
-if ( empty( $order_ids_in ) ) {
-	$order_ids_in = array( 0 );
+
+// Completed crowdfunding orders, grouped by local creation day and month.
+// Loaded through WooCommerce so this works with HPOS and with posts storage.
+$orders_by_day   = array();
+$orders_by_month = array();
+$report_orders   = wpcf_function()->get_orders_by_ids(
+	$getting_order_ids_by_products,
+	array(
+		'type'   => 'shop_order',
+		'status' => 'wc-completed',
+	)
+);
+foreach ( $report_orders as $report_order ) {
+	$created = $report_order->get_date_created();
+	if ( ! $created || '1' !== (string) $report_order->get_meta( 'is_crowdfunding_order', true ) ) {
+		continue;
+	}
+	$total = (float) $report_order->get_total( 'edit' );
+
+	$orders_by_day[ $created->date( 'Y-m-d' ) ][] = $total;
+	$orders_by_month[ $created->date( 'Y-m' ) ][] = $total;
 }
 
 if ( $from_time < $to_time ) {
@@ -89,37 +107,9 @@ if ( $from_time < $to_time ) {
 			$from_time    = strtotime( '+1 day', $from_time );
 			$printed_date = gmdate( 'd M', $from_time );
 
-			$sql_args = array_merge( $order_ids_in, array( $wpdb->esc_like( gmdate( 'Y-m-d', $from_time ) ) . '%' ) );
-			$results  = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT ID, DATE_FORMAT(post_date, '%%d %%b') AS order_time, {$wpdb->postmeta}.*, GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids
-					FROM {$wpdb->posts}
-					LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-					WHERE {$wpdb->posts}.post_type = 'shop_order'
-					AND {$wpdb->posts}.ID IN ( " . implode( ',', array_fill( 0, count( $order_ids_in ), '%d' ) ) . " )
-					AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'wc-completed'
-					AND post_date LIKE %s
-					GROUP BY order_time",
-					$sql_args
-				)
-			);
-			$sales_count          = 0;
-			$total_backers_amount = array();
-
-			if ( $results ) {
-				foreach ( $results as $result ) {
-					$row_order_ids          = array_values( array_filter( array_map( 'absint', explode( ',', (string) $result->order_ids ) ) ) );
-					$total_backers_amount[] = $row_order_ids ? $wpdb->get_var(
-						$wpdb->prepare(
-							"SELECT SUM(meta_value) FROM {$wpdb->postmeta} WHERE meta_key = '_order_total' AND post_id IN ( " . implode( ',', array_fill( 0, count( $row_order_ids ), '%d' ) ) . ' )',
-							$row_order_ids
-						)
-					) : 0;
-					$sales_count            = count( explode( ',', $result->order_ids ) );
-				}
-			} else {
-				$total_backers_amount[] = 0;
-			}
+			$day_totals           = isset( $orders_by_day[ gmdate( 'Y-m-d', $from_time ) ] ) ? $orders_by_day[ gmdate( 'Y-m-d', $from_time ) ] : array();
+			$sales_count          = count( $day_totals );
+			$total_backers_amount = array( array_sum( $day_totals ) );
 
 			$csv[]                       = array( $printed_date, $total_backers_amount, $sales_count );
 			$format[]                    = array_sum( $total_backers_amount );
@@ -135,37 +125,9 @@ if ( $from_time < $to_time ) {
 			$from_time    = strtotime( '+1 month', $from_time );
 			$printed_date = gmdate( 'F', $from_time );
 
-			$sql_args = array_merge( $order_ids_in, array( $wpdb->esc_like( gmdate( 'Y-m', $from_time ) ) . '%' ) );
-			$results  = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT ID, MONTHNAME(post_date) AS order_time, {$wpdb->postmeta}.*, GROUP_CONCAT(DISTINCT ID SEPARATOR ',') AS order_ids
-					FROM {$wpdb->posts}
-					LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-					WHERE {$wpdb->posts}.post_type = 'shop_order'
-					AND {$wpdb->posts}.ID IN ( " . implode( ',', array_fill( 0, count( $order_ids_in ), '%d' ) ) . " )
-					AND meta_key = 'is_crowdfunding_order' AND meta_value = '1' AND post_status = 'wc-completed'
-					AND post_date LIKE %s
-					GROUP BY order_time",
-					$sql_args
-				)
-			);
-			$sales_count          = 0;
-			$total_backers_amount = array();
-
-			if ( $results ) {
-				foreach ( $results as $result ) {
-					$row_order_ids          = array_values( array_filter( array_map( 'absint', explode( ',', (string) $result->order_ids ) ) ) );
-					$total_backers_amount[] = $row_order_ids ? $wpdb->get_var(
-						$wpdb->prepare(
-							"SELECT SUM(meta_value) FROM {$wpdb->postmeta} WHERE meta_key = '_order_total' AND post_id IN ( " . implode( ',', array_fill( 0, count( $row_order_ids ), '%d' ) ) . ' )',
-							$row_order_ids
-						)
-					) : 0;
-					$sales_count            = count( explode( ',', $result->order_ids ) );
-				}
-			} else {
-				$total_backers_amount[] = 0;
-			}
+			$month_totals         = isset( $orders_by_month[ gmdate( 'Y-m', $from_time ) ] ) ? $orders_by_month[ gmdate( 'Y-m', $from_time ) ] : array();
+			$sales_count          = count( $month_totals );
+			$total_backers_amount = array( array_sum( $month_totals ) );
 
 			$csv[]    = array( $printed_date, $total_backers_amount, $sales_count );
 			$format[] = array_sum( $total_backers_amount );
@@ -176,37 +138,6 @@ if ( $from_time < $to_time ) {
 		}
 	}
 }
-
-/**
- * Get Total Campaigns
- */
-
-$query_args = array(
-	'post_type'   => 'shop_order',
-	'post_status' => 'wc-completed',
-	'numberposts' => -1,
-	'author'      => $user_id,
-	'meta_query'  => array(
-		array(
-			'meta_key'   => 'is_crowdfunding_order',
-			'meta_value' => 1,
-			'compare'    => '=',
-		),
-	),
-
-	'date_query'  => array(
-		array(
-			'after'     => gmdate( 'F jS, Y', strtotime( $from_date ) ),
-			'before'    => array(
-				'year'  => gmdate( 'Y', strtotime( $to_date ) ),
-				'month' => gmdate( 'm', strtotime( $to_date ) ),
-				'day'   => gmdate( 'd', strtotime( $to_date ) ),
-			),
-			'inclusive' => true,
-		),
-	),
-);
-$get_crowdfunding_campaigns = new WP_Query( $query_args );
 
 $pladges_received = wpcf_function()->get_pladge_received( $from_date, $to_date );
 ?>
