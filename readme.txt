@@ -133,24 +133,24 @@ A. There are two versions of WP CrowdFunding. One is free and another is paid. T
 Security : Pledge amounts are now validated on the server against the campaign minimum, maximum and selected reward.
 Security : Selected reward details are now read from the campaign, not from the submitted form.
 Security : Creator profile popup is limited to users with a published campaign.
+Security : Hardened input handling, output escaping and database queries throughout the plugin.
+Security : The admin footer "rated" action now requires an administrator and a valid nonce.
 New      : Creators choose whether their email, phone, fax and website appear on their public profile (Dashboard > Profile). This is off by default, so creators who want to show contact details must turn it on.
 New      : Setting to turn off visitor registration through the plugin's registration form (WP Crowdfunding > Settings > General). It stays on for existing sites.
+New      : Settings to show or hide the "Backed User" tab on campaign pages, and separately its backer email and pledge amount columns (WP Crowdfunding > Settings > General). All stay on for existing sites.
+Update   : Chart.js and jQuery UI styles are now loaded locally instead of from external CDNs.
+Update   : Declared compatibility with WooCommerce High-Performance Order Storage (HPOS). All order data now goes through the WooCommerce order API, so it works with both HPOS and the legacy posts storage.
 Fix      : Hardened the campaign embed code popup.
-Security : The admin footer "rated" action now requires an administrator and a valid nonce.
 Fix      : The "Make me anonymous" backer choice is now stored with the order meta API, so it is kept on stores using HPOS.
 Fix      : Reward quantity limits now count orders on stores using HPOS.
-New      : Declared compatibility with WooCommerce High-Performance Order Storage (HPOS). All order data now goes through the WooCommerce order API, so it works with both HPOS and the legacy posts storage.
 Fix      : Reports chart, Dashboard rewards, pledges received, my investments, the Latest Backers widget, the Backed User tab, backer counts and selected-reward details now work on stores using HPOS.
 Fix      : The Backed User tab no longer lists unrelated orders when a campaign has no backers.
-New      : Settings to show or hide the "Backed User" tab on campaign pages, and separately its backer email and pledge amount columns (WP Crowdfunding > Settings > General). All stay on for existing sites.
 Fix      : The selected reward now shows in the admin order screen and the customer order view.
-Security : Hardened input handling, output escaping and database queries throughout the plugin.
 Fix      : Dashboard contact/address form failed to save ("nonce did not verify").
 Fix      : Registration block form failed to submit ("status did not verify").
 Fix      : Postcodes were saved as numbers, losing letters and leading zeros.
 Fix      : Apostrophes and quotes were saved with extra backslashes in dashboard forms.
 Fix      : After a failed login the page now returns to the same-site page it came from.
-Update   : Chart.js and jQuery UI styles are now loaded locally instead of from external CDNs.
 
 = 2.2.2 =
 Fix    : Resolved SQL injection vulnerability in campaign reward order counting.
