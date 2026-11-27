@@ -146,6 +146,8 @@ Fix      : Reward quantity limits now count orders on stores using HPOS.
 Fix      : Reports chart, Dashboard rewards, pledges received, my investments, the Latest Backers widget, the Backed User tab, backer counts and selected-reward details now work on stores using HPOS.
 Fix      : The Backed User tab no longer lists unrelated orders when a campaign has no backers.
 Fix      : The selected reward now shows in the admin order screen and the customer order view.
+Fix      : Pledge errors, such as an amount below the campaign minimum, now show on the campaign page instead of being silently cleared.
+Fix      : Backers who chose "Make me anonymous" are now listed as Anonymous in the Backed User tab, with their email hidden.
 Fix      : Dashboard contact/address form failed to save ("nonce did not verify").
 Fix      : Registration block form failed to submit ("status did not verify").
 Fix      : Postcodes were saved as numbers, losing letters and leading zeros.
@@ -164,31 +166,29 @@ Fix    : Resolved issue where campaign featured images and embedded videos were 
 = 2.2.0 =
 New    : Introduced migration support from WP Crowdfunding to Growfund.
 
-=2.1.17=
+= 2.1.17 =
 Fix    : Remove social share support for abandoned domains
 
-=2.1.16=
+= 2.1.16 =
 Fix    : Stored cross-site scripting issue resolved.
 Fix    : Cf User registration issue fixed.
 Fix    : Made backend reward area responsive
 
-=2.1.15=
+= 2.1.15 =
 Fix    : Added nonce verification in every ajax request.
 Fix    : Campaign wishlist modal was not displaying correctly issue fixed.
 Fix    : Clean up unused post-download code since it’s no longer required.
 Fix    : Enhanced sanitization throughout the code.
 
-== Changelog ==
-=2.1.14=
+= 2.1.14 =
 Fix    : Added authorization to download Post Content.
 Fix    : Enhanced sanitization throughout the code.
 
-== Changelog ==
-=2.1.13=
+= 2.1.13 =
 Update : Fund calculation now compatible with the latest WooCommerce version.
 Fix    : Resolve security vulnerability.
 
-=2.1.12=
+= 2.1.12 =
 Update: Added compatibility with the latest version of WooCommerce.
 Fix: Addressed customizer issues with third-party themes.
 Fix: Resolve security vulnerability.
@@ -196,22 +196,21 @@ Fix: Resolve security vulnerability.
 =2.1.11=
 Fix: User privilege vulnerability.
 
-== Changelog ==
-=2.1.9=
+= 2.1.9 =
 Update: Made security enhancements.
 
-=2.1.8=
+= 2.1.8 =
 Update: Made security enhancements.
 
-=2.1.7=
+= 2.1.7 =
 Update: Made security enhancements.
 
-=2.1.6=
+= 2.1.6 =
 New: Added a new role for the Campaign Creators.
 Update: Made various security enhancements.
 Fix: Wrong email was being sent upon purchasing WooCommerce products
 
-=2.1.5=
+= 2.1.5 =
 Fix: Resolved security vulnerability
 New: Introducing compatibility with WordPress 6.3
 
@@ -232,7 +231,7 @@ Fix: Withdrawal Message Shortcode was not working on the Email Body
 Fix: In Pledges Received Modal, the Invoice Preview design was broken
 Fix: On the Reward section under the My Account page the "View Details" button design was appearing wrong
 
-2.1.2
+= 2.1.2 =
 Fix: Campaign update email was not being sent.
 Fix: The Redirect URL was not getting updated.
 Fix: Campaign Form input field design issue is fixed.
@@ -247,14 +246,14 @@ Fix: The Pledges Details Modal’s design was broken in the front-site.
 Fix: Campaign Update Message for Campaign Creator is Fixed.
 Fix: Date Picker is fixed in the Campaign Update page.
 
-2.1.1
+= 2.1.1 =
 Fix: Raw donations without Rewards are filtered out from Rewards Column of CF Dashboard
 Fix: The Order Confirmation Email Does Not Show the Selected Reward
 Fix: Payment Info Section Removed from CF Dashboard
 Fix: Checkout Button Text Changed from “Pay Now” to Back Campaign Now
 Fix: All Automated Order Emails for WP Crowdfunding has been Modified Textually
 
-2.1.0
+= 2.1.0 =
 New: Added Gallery Image Uploader in the Campaign Form
 New: Added Number of Campaigns Per Page Option in CF Settings
 Fix: Translation Issue on Campaign Countdown Text

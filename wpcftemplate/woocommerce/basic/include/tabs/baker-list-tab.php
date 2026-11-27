@@ -32,15 +32,10 @@ $baker_list = wpcf_function()->get_customers_product();
 			<tr>
 				<td>
 					<?php
-					if ( get_post_meta( get_the_ID(), 'wpneo_mark_contributors_as_anonymous', true ) == '1' ) {
-						echo esc_html__( 'Anonymous', 'wp-crowdfunding' );
+					if ( wpcf_function()->is_backer_anonymous( $order, $campaign_id ) ) {
+						esc_html_e( 'Anonymous', 'wp-crowdfunding' );
 					} else {
-						$mark_anonymous = $order->get_meta( 'mark_name_anonymous', true );
-						if ( $mark_anonymous === 'true' ) {
-							esc_html_e( 'Anonymous', 'wp-crowdfunding' );
-						} else {
-							echo esc_html( $order->get_billing_first_name() ) . ' ' . esc_html( $order->get_billing_last_name() );
-						}
+						echo esc_html( $order->get_billing_first_name() ) . ' ' . esc_html( $order->get_billing_last_name() );
 					}
 					?>
 				</td>

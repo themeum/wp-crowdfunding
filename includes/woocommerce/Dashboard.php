@@ -228,7 +228,8 @@ class Dashboard {
 		}
 		// Check is reward selected
 		if ( ! empty( wpcf_function()->get_order_reward( $order ) ) ) {
-			$screen = function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order';
+			// Some WooCommerce 6.x/7.x releases return the HPOS screen ID here even when orders are stored as posts.
+			$screen = wpcf_function()->is_hpos_enabled() && function_exists( 'wc_get_page_screen_id' ) ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order';
 			add_meta_box( 'meta-box-selected-reward', __( 'Selected Reward', 'wp-crowdfunding' ), array( $this, 'selected_reward_meta_box_display_callback' ), $screen, 'side', 'high' );
 		}
 	}

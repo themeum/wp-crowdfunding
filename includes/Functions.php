@@ -1198,6 +1198,25 @@ class Functions {
 	}
 
 	/**
+	 * Whether a backer's name and email must be hidden on public backer lists.
+	 *
+	 * True when the backer ticked "Make me anonymous" at checkout, or when the
+	 * campaign is set to mark all contributors as anonymous.
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param \WC_Abstract_Order $order       Backer's order.
+	 * @param int                $campaign_id Campaign product ID.
+	 * @return bool
+	 */
+	public function is_backer_anonymous( $order, $campaign_id ) {
+		if ( '1' === (string) get_post_meta( absint( $campaign_id ), 'wpneo_mark_contributors_as_anonymous', true ) ) {
+			return true;
+		}
+		return $order instanceof \WC_Abstract_Order && 'true' === (string) $order->get_meta( 'mark_name_anonymous', true );
+	}
+
+	/**
 	 * Whether a column of the "Backed User" tab is shown.
 	 *
 	 * Set in WP Crowdfunding > Settings > General. Defaults to shown so

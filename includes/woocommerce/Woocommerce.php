@@ -26,6 +26,7 @@ class Woocommerce {
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'save_user_donation_to_cookie' ), 10, 2 ); // Keep session data in sync with the validated pledge
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'add_user_donation' ) ); // Save user input as there preferable amount with cart
 		add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'redirect_to_checkout' ) ); // Skip cart page after click Donate button, going directly on checkout page
+		add_action( 'wpcf_before_main_content', array( $this, 'print_campaign_notices' ), 5 ); // Show pledge errors on the campaign page.
 		add_filter( 'woocommerce_get_price_html', array( $this, 'wc_price_remove' ), 10, 2 ); // Hide default price details
 		add_filter( 'woocommerce_is_purchasable', array( $this, 'return_true_woocommerce_is_purchasable' ), 10, 2 ); // Return true is purchasable
 		add_filter( 'woocommerce_paypal_args', array( $this, 'custom_override_paypal_email' ), 100, 1 ); // Override paypal reciever email address with campaign creator email
@@ -684,8 +685,19 @@ class Woocommerce {
 		if ( is_wp_error( $amount ) ) {
 			// Covers callers that skip woocommerce_add_to_cart_validation, e.g. the Store API.
 			// RouteException extends \Exception, so the classic cart's catch still handles it.
-			if ( class_exists( '\Automattic\WooCommerce\StoreApi\Exceptions\RouteException' ) ) {
-				throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException( esc_html( $amount->get_error_code() ), esc_html( $amount->get_error_message() ), 400 );
+			// The class moved namespace in WooCommerce 6.x; try the current one first, then the one bundled with older Blocks.
+			$route_exception = '';
+			foreach ( array(
+				'\Automattic\WooCommerce\StoreApi\Exceptions\RouteException',
+				'\Automattic\WooCommerce\Blocks\StoreApi\Routes\RouteException',
+			) as $class ) {
+				if ( class_exists( $class ) ) {
+					$route_exception = $class;
+					break;
+				}
+			}
+			if ( $route_exception ) {
+				throw new $route_exception( esc_html( $amount->get_error_code() ), esc_html( $amount->get_error_message() ), 400 );
 			}
 			throw new \Exception( esc_html( $amount->get_error_message() ) );
 		}
@@ -792,6 +804,18 @@ class Woocommerce {
 	}
 
 	/**
+	 * Print WooCommerce notices (e.g. a rejected pledge) on the plugin's campaign template,
+	 * which does not run woocommerce_before_single_product where WooCommerce prints them.
+	 *
+	 * @since 2.2.3
+	 */
+	public function print_campaign_notices() {
+		if ( function_exists( 'woocommerce_output_all_notices' ) && function_exists( 'wc_notice_count' ) && wc_notice_count() > 0 ) {
+			woocommerce_output_all_notices();
+		}
+	}
+
+	/**
 	 * Redirect to checkout after cart
 	 */
 	function redirect_to_checkout( $url ) {
@@ -815,7 +839,13 @@ class Woocommerce {
 					$checkout_url = get_permalink();
 				}
 
-				wc_clear_notices();
+				// Drop only the "added to your cart" message. WooCommerce also runs this filter on every
+				// page load (frontend script data), so clearing all notices would hide pledge errors.
+				$notices = wc_get_notices();
+				if ( isset( $notices['success'] ) ) {
+					unset( $notices['success'] );
+					wc_set_notices( $notices );
+				}
 				return $checkout_url;
 			}
 		}
@@ -1214,11 +1244,13 @@ class Woocommerce {
                 </thead>';
 
 			foreach ( $orders as $order ) :
-				$html .= '<tr>';
-				$html .= '<td>' . esc_html( $order->get_id() ) . '</td>';
-				$html .= '<td>' . esc_html( $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() ) . '</td>';
+				// Backers who chose "Make me anonymous", or every backer when the campaign hides contributors.
+				$anonymous = wpcf_function()->is_backer_anonymous( $order, $product_id );
+				$html     .= '<tr>';
+				$html     .= '<td>' . esc_html( $order->get_id() ) . '</td>';
+				$html     .= '<td>' . esc_html( $anonymous ? __( 'Anonymous', 'wp-crowdfunding' ) : $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() ) . '</td>';
 				if ( $show_email ) {
-					$html .= '<td>' . esc_html( $order->get_billing_email() ) . '</td>';
+					$html .= '<td>' . ( $anonymous ? '&mdash;' : esc_html( $order->get_billing_email() ) ) . '</td>';
 				}
 				if ( $show_amount ) {
 					$amount = '';
