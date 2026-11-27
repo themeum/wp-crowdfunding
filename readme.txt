@@ -153,6 +153,9 @@ Fix      : Registration block form failed to submit ("status did not verify").
 Fix      : Postcodes were saved as numbers, losing letters and leading zeros.
 Fix      : Apostrophes and quotes were saved with extra backslashes in dashboard forms.
 Fix      : After a failed login the page now returns to the same-site page it came from.
+Fix      : Raised amounts showed 0 on WooCommerce 7.1 to 8.1 stores using HPOS.
+Fix      : "Target Goal & Date" campaigns now close when the end date passes, not only when the goal is reached.
+Fix      : Campaigns that reached their goal before the end date no longer show a pledge form that cannot be used; they now say "The campaign is successful."
 
 = 2.2.2 =
 Fix    : Resolved SQL injection vulnerability in campaign reward order counting.

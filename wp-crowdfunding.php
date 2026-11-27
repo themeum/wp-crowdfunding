@@ -35,6 +35,11 @@ define( 'WPCF_DIR_URL', plugin_dir_url( WPCF_FILE ) );
 define( 'WPCF_DIR_PATH', plugin_dir_path( WPCF_FILE ) );
 define( 'WPCF_BASENAME', plugin_basename( WPCF_FILE ) );
 /**
+ * Plugin environment: 'development' or 'production'.
+ * The build (npm run build) sets this to 'production' in the released copy.
+ */
+define( 'WPCF_ENV', 'development' );
+/**
 * Load Text Domain Language
 */
 add_action( 'init', 'wpcf_language_load' );
@@ -64,6 +69,11 @@ if ( ! class_exists( 'Crowdfunding' ) ) {
 	require_once WPCF_DIR_PATH . 'includes/Crowdfunding.php';
 	require_once WPCF_DIR_PATH . 'includes/register_api_hook.php';
 	new \WPCF\Crowdfunding();
+}
+
+// Development-only test-data seeder. The dev/ folder is excluded from the release build.
+if ( 'development' === WPCF_ENV && file_exists( WPCF_DIR_PATH . 'dev/seeder/seeder.php' ) ) {
+	require_once WPCF_DIR_PATH . 'dev/seeder/seeder.php';
 }
 
 // wp_login_form() to display login form in a jQuery dialog window.

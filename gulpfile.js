@@ -13,6 +13,7 @@ var gulp = require('gulp'),
 	cleanCSS = require('gulp-clean-css'),
 	fs = require('fs'),
 	path = require('path'),
+	setEnv = require('./dev/scripts/set-env'),
 	versionNumber = '';
 
 try {
@@ -100,6 +101,7 @@ gulp.task('copy', function () {
 			'!./webpack.config.js',
 			'!./webpack.production.config.js',
 			'!./reactjs/**',
+			'!./dev/**',
 			'!./readme.md',
 			'!./README.md',
 			'!.DS_Store',
@@ -109,6 +111,16 @@ gulp.task('copy', function () {
 			'!./package-lock.json',
 		])
 		.pipe(gulp.dest('build/wp-crowdfunding/'));
+});
+
+// Switch the copied plugin to production. The source tree stays 'development'.
+gulp.task('set-production-env', function (done) {
+	try {
+		setEnv('production', 'build/wp-crowdfunding/wp-crowdfunding.php');
+		done();
+	} catch (err) {
+		done(err);
+	}
 });
 
 gulp.task('make-zip', function () {
@@ -135,6 +147,7 @@ exports.build = gulp.series(
 	'pack-js',
 	'minify-css',
 	'copy',
+	'set-production-env',
 	'make-zip',
 );
 

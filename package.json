@@ -4,8 +4,8 @@
 	"description": "The Ultimate Fundraising and Backer Plugin for WordPress.",
 	"main": "index.js",
 	"scripts": {
-		"start": "webpack --watch",
-		"watch": "gulp watch",
+		"start": "node dev/scripts/set-env.js development && webpack --watch",
+		"watch": "node dev/scripts/set-env.js development && gulp watch",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "NODE_ENV=production webpack --config ./webpack.production.config.js && gulp build"
 	},

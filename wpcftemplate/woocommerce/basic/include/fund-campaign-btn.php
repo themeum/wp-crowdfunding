@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
 	// var_dump( $post );
 	// die();
 	$currency            = '$';
-	$campaign_end_method = get_post_meta( $post->ID, 'wpneo_campaign_end_method', true );
 	if ( $product->get_type() == 'crowdfunding' ) {
 		if ( wpcf_function()->is_campaign_valid( $post->ID ) ) {
 			$recomanded_price = get_post_meta( $post->ID, 'wpneo_funding_recommended_price', true );
@@ -67,120 +66,6 @@ defined( 'ABSPATH' ) || exit;
 				<button type="submit" class="<?php echo esc_attr( apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ) ); ?>"><?php esc_html_e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
 			</form>
 
-			<?php
-		} elseif ( wpcf_function()->get_date_remaining( $post->ID ) && 'target_goal_and_date' === $campaign_end_method ) {
-			$recomanded_price = get_post_meta( $post->ID, 'wpneo_funding_recommended_price', true );
-			$min_price        = get_post_meta( $post->ID, 'wpneo_funding_minimum_price', true );
-			$max_price        = get_post_meta( $post->ID, 'wpneo_funding_maximum_price', true );
-			$predefined_price = get_post_meta( $post->ID, 'wpcf_predefined_pledge_amount', true );
-			if ( ! empty( $predefined_price ) ) {
-				$predefined_price = apply_filters( 'wpcf_predefined_pledge_amount_array_a', explode( ',', $predefined_price ) );
-			}
-
-			if ( function_exists( 'get_woocommerce_currency_symbol' ) ) {
-				$currency = get_woocommerce_currency_symbol();
-			}
-
-			if ( ! empty( $_GET['reward_min_amount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-				$recomanded_price = absint( $_GET['reward_min_amount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-			}
-			?>
-
-			<span class="wpneo-tooltip">
-				<span class="wpneo-tooltip-min">
-				<?php
-				esc_html_e( 'Minimum amount is ', 'wp-crowdfunding' );
-				echo esc_html( $currency ) . esc_html( $min_price );
-				?>
-				</span>
-				<span class="wpneo-tooltip-max">
-				<?php
-				esc_html_e( 'Maximum amount is ', 'wp-crowdfunding' );
-				echo esc_html( $currency ) . esc_html( $max_price );
-				?>
-				</span>
-				<span class="wpneo-tooltip-empty"><?php esc_html_e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
-			</span>
-
-			<?php
-			if ( is_array( $predefined_price ) && count( $predefined_price ) ) {
-				echo '<ul class="wpcf_predefined_pledge_amount">';
-				foreach ( $predefined_price as $price ) {
-					$price     = trim( $price );
-					$woo_price = wc_price( $price );
-					echo ' <li><a href="javascript:;" data-predefined-price="' . esc_attr( $price ) . '"> ' . wp_kses_post( $woo_price ) . ' </a></li> ';
-				}
-				echo '</ul>';
-			}
-			?>
-
-			<form enctype="multipart/form-data" method="post" class="cart AA">
-				<?php do_action( 'before_wpneo_donate_field' ); ?>
-				<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
-				
-				<input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo esc_attr( $recomanded_price ); ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo esc_attr( ( $recomanded_price ? $recomanded_price : $min_price ) ); ?>" data-min-price="<?php echo esc_attr( $min_price ); ?>" data-max-price="<?php echo esc_attr( $max_price ); ?>" >
-
-				<?php do_action( 'after_wpneo_donate_field' ); ?>
-				<input type="hidden" value="<?php echo esc_attr( $post->ID ); ?>" name="add-to-cart">
-				<button type="submit" class="<?php echo esc_attr( apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ) ); ?>"><?php esc_html_e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
-			</form>
-			<?php
-		} elseif ( wpcf_function()->get_date_remaining( $post->ID ) && 'target_date' === $campaign_end_method ) {
-			$recomanded_price = get_post_meta( $post->ID, 'wpneo_funding_recommended_price', true );
-			$min_price        = get_post_meta( $post->ID, 'wpneo_funding_minimum_price', true );
-			$max_price        = get_post_meta( $post->ID, 'wpneo_funding_maximum_price', true );
-			$predefined_price = get_post_meta( $post->ID, 'wpcf_predefined_pledge_amount', true );
-			if ( ! empty( $predefined_price ) ) {
-				$predefined_price = apply_filters( 'wpcf_predefined_pledge_amount_array_a', explode( ',', $predefined_price ) );
-			}
-
-			if ( function_exists( 'get_woocommerce_currency_symbol' ) ) {
-				$currency = get_woocommerce_currency_symbol();
-			}
-
-			if ( ! empty( $_GET['reward_min_amount'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-				$recomanded_price = absint( $_GET['reward_min_amount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-			}
-			?>
-
-			<span class="wpneo-tooltip">
-				<span class="wpneo-tooltip-min">
-				<?php
-				esc_html_e( 'Minimum amount is ', 'wp-crowdfunding' );
-				echo esc_html( $currency ) . esc_html( $min_price );
-				?>
-				</span>
-				<span class="wpneo-tooltip-max">
-				<?php
-				esc_html_e( 'Maximum amount is ', 'wp-crowdfunding' );
-				echo esc_html( $currency ) . esc_html( $max_price );
-				?>
-				</span>
-				<span class="wpneo-tooltip-empty"><?php esc_html_e( 'Put a valid number', 'wp-crowdfunding' ); ?></span>
-			</span>
-
-			<?php
-			if ( is_array( $predefined_price ) && count( $predefined_price ) ) {
-				echo '<ul class="wpcf_predefined_pledge_amount">';
-				foreach ( $predefined_price as $price ) {
-					$price     = trim( $price );
-					$woo_price = wc_price( $price );
-					echo ' <li><a href="javascript:;" data-predefined-price="' . esc_attr( $price ) . '"> ' . wp_kses_post( $woo_price ) . ' </a></li> ';
-				}
-				echo '</ul>';
-			}
-			?>
-
-			<form enctype="multipart/form-data" method="post" class="cart AA">
-				<?php do_action( 'before_wpneo_donate_field' ); ?>
-				<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
-				
-				<input oninput="this.value = this.value.replace(/[^0-9\.]/g, '').split(/\./).slice(0, 2).join('.')" type="number" step="any" min="0" placeholder="<?php echo esc_attr( $recomanded_price ); ?>" name="wpneo_donate_amount_field" class="input-text amount wpneo_donate_amount_field text" value="<?php echo esc_attr( ( $recomanded_price ? $recomanded_price : $min_price ) ); ?>" data-min-price="<?php echo esc_attr( $min_price ); ?>" data-max-price="<?php echo esc_attr( $max_price ); ?>" >
-
-				<?php do_action( 'after_wpneo_donate_field' ); ?>
-				<input type="hidden" value="<?php echo esc_attr( $post->ID ); ?>" name="add-to-cart">
-				<button type="submit" class="<?php echo esc_attr( apply_filters( 'add_to_donate_button_class', 'wpneo_donate_button' ) ); ?>"><?php esc_html_e( 'Back Campaign', 'wp-crowdfunding' ); ?></button>
-			</form>
 			<?php
 		} elseif ( ! wpcf_function()->is_campaign_started() ) {
 			wpcf_function()->campaign_start_countdown();

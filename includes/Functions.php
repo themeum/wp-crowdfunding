@@ -212,8 +212,7 @@ class Functions {
 	 * @return bool
 	 */
 	public function is_hpos_enabled() {
-		return class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' )
-			&& \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		return self::hpos_enabled();
 	}
 
 	/**
@@ -419,14 +418,17 @@ class Functions {
 		}
 	}
 
+	/**
+	 * Whether WooCommerce reads orders from its own tables (HPOS).
+	 *
+	 * Asks WooCommerce itself, so it is right on every version: HPOS can be
+	 * switched on from WC 7.1, and before that OrderUtil does not exist.
+	 *
+	 * @return bool
+	 */
 	public static function hpos_enabled() {
-		$hpos = false;
-
-		if ( version_compare( WC()->version, '8.2.0', '>=' ) ) {
-			$hpos = 'yes' === get_option( 'woocommerce_custom_orders_table_enabled' );
-		}
-
-		return $hpos;
+		return class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' )
+			&& \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 	}
 
 	public function fund_raised( $campaign_id = 0 ) {
@@ -703,39 +705,33 @@ class Functions {
 			case 'target_goal':
 				if ( $this->is_reach_target_goal( $campaign_id, $donate_total ) ) {
 					return false;
-				} else {
-					return true;
 				}
-				break;
 
+				return true;
 			case 'target_date':
 				if ( $this->is_reach_target_goal( $campaign_id, $donate_total ) ) {
 					return false;
-				} elseif ( ! $this->is_reach_target_goal( $campaign_id, $donate_total ) && $this->get_date_remaining( $campaign_id ) ) {
-					return true;
-				} elseif ( $this->get_date_remaining( $campaign_id ) ) {
-					return true;
-				} else {
-					return false;
 				}
-				break;
+				
+				if ( ! $this->is_reach_target_goal( $campaign_id, $donate_total ) && $this->get_date_remaining( $campaign_id ) ) {
+					return true;
+				}
+				
+				if ( $this->get_date_remaining( $campaign_id ) ) {
+					return true;
+				}
 
+				return false;
 			case 'target_goal_and_date':
+				// Ends at whichever comes first: the goal is reached or the end date passes.
 				if ( $this->is_reach_target_goal( $campaign_id, $donate_total ) ) {
 					return false;
-				} elseif ( $this->get_date_remaining( $campaign_id ) ) {
-					return true;
-				} elseif ( ! $this->is_reach_target_goal( $campaign_id, $donate_total ) ) {
-					return true;
-				} else {
-					return false;
 				}
-				break;
+				
+				return (bool) $this->get_date_remaining( $campaign_id );
 
 			case 'never_end':
 				return true;
-				break;
-
 			default:
 				return false;
 		}
@@ -752,7 +748,6 @@ class Functions {
 		if ( $campaign_id == 0 ) {
 			$campaign_id = $post->ID;
 		}
-		$od = get_option( 'woocommerce_custom_orders_table_enabled' );
 		// WPML compatibility.
 		if ( apply_filters( 'wpml_setting', false, 'setup_complete' ) ) {
 			$type         = apply_filters( 'wpml_element_type', get_post_type( $campaign_id ) );
